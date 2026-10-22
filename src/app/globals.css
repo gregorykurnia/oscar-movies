@@ -70,6 +70,17 @@
   --radius-pill: var(--radius-pill);
   --shadow-pop: var(--shadow-pop);
   --shadow-toast: var(--shadow-toast);
+  --shadow-focus: var(--focus-ring);
+  --shadow-flag-edge: var(--flag-edge);
+  /* The segmented control's selected item: a hairline lift, drawn from --ink (guide §7). */
+  --shadow-hairline: 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--ink) 4%, transparent);
+  --text-num-l: var(--num-l);
+  --text-num-l-phone: var(--num-l-phone);
+  --ease-app: var(--ease);
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  /* Skeletons appear only when loading takes more than 300ms (guide §7). */
+  --animate-appear: appear 0s linear 300ms forwards;
   --breakpoint-md: 761px;
   --breakpoint-xl: 1101px;
 
@@ -124,5 +135,23 @@
 @layer base {
   body {
     font-feature-settings: "tnum" 1;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@keyframes appear {
+  to { opacity: 1; }
+}
+
+/* Reduced motion: every transition and animation is instant, and nothing shimmers (guide §12). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

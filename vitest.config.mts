@@ -1,4 +1,7 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+
+const src = fileURLToPath(new URL("./src", import.meta.url));
 
 // `npm test` runs the unit project, which never touches a database.
 // `npm run test:db` runs the database project on the `test` branch; its setup file stops
@@ -8,9 +11,11 @@ export default defineConfig({
     passWithNoTests: true,
     projects: [
       {
+        resolve: { alias: { "@": src } },
         test: {
           name: "unit",
           include: ["src/**/*.test.{ts,tsx}", "scripts/**/*.test.ts"],
+          setupFiles: ["tests/unit-setup.ts"],
         },
       },
       {
