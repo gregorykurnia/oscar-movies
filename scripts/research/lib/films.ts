@@ -4,7 +4,7 @@
 import type { ResultEntry } from "../../../src/lib/data-files";
 import { fetchFacts, type Facts, type TmdbOptions } from "./facts";
 import type { Fetcher } from "./fetcher";
-import { resolveArticles } from "./resolve";
+import { resolveArticles, resolveItems } from "./resolve";
 import type { FilmLink } from "./tables";
 import type { NewFilm } from "./writer";
 
@@ -12,7 +12,7 @@ export type ResearchedFilm =
   | { ok: true; link: FilmLink; imdb?: string; wd: string; facts: Facts }
   | { ok: false; link: FilmLink; reason: string };
 
-const linkId = (link: FilmLink) => link.article ?? `text:${link.text}`;
+const linkId = (link: FilmLink) => (link.wd ? `wd:${link.wd}` : (link.article ?? `text:${link.text}`));
 
 /**
  * Researches each distinct film link once. The map is keyed by the link's article (or its
@@ -23,13 +23,14 @@ export async function researchFilms(
   links: FilmLink[],
   tmdb?: TmdbOptions,
 ): Promise<Map<string, ResearchedFilm>> {
-  const articles = [...new Set(links.flatMap((l) => (l.article ? [l.article] : [])))];
+  const articles = [...new Set(links.flatMap((l) => (l.article && !l.wd ? [l.article] : [])))];
   const resolutions = await resolveArticles(fetcher, articles);
+  const items = await resolveItems(fetcher, links.flatMap((l) => (l.wd ? [l.wd] : [])));
   const out = new Map<string, ResearchedFilm>();
   for (const link of links) {
     const id = linkId(link);
     if (out.has(id)) continue;
-    const resolution = link.article ? resolutions.get(link.article) : undefined;
+    const resolution = link.wd ? items.get(link.wd) : link.article ? resolutions.get(link.article) : undefined;
     if (!resolution) {
       out.set(id, { ok: false, link, reason: "no Wikipedia article (red link or plain text)" });
     } else if (!resolution.ok) {

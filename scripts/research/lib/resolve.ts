@@ -73,20 +73,39 @@ export async function resolveArticles(fetcher: Fetcher, articles: string[]): Pro
       out.set(article, { ok: false, article, reason: `"${item.page}" has no Wikidata item` });
       continue;
     }
-    const imdb = firstString(entity, P.imdb);
-    const tmdb = Number(firstString(entity, P.tmdbMovie));
-    out.set(article, {
-      ok: true,
-      film: {
-        article,
-        page: item.page,
-        wd: item.wd,
-        // P345 also holds people (nm…) and series episodes; only a title ID names a film.
-        imdb: imdb && /^tt\d+$/.test(imdb) ? imdb : undefined,
-        tmdb: Number.isInteger(tmdb) && tmdb > 0 ? tmdb : undefined,
-        entity,
-      },
-    });
+    out.set(article, { ok: true, film: filmOf(article, item.page, entity) });
+  }
+  return out;
+}
+
+function filmOf(article: string, page: string, entity: Entity): ResolvedFilm {
+  const imdb = firstString(entity, P.imdb);
+  const tmdb = Number(firstString(entity, P.tmdbMovie));
+  return {
+    article,
+    page,
+    wd: entity.id,
+    // P345 also holds people (nm…) and series episodes; only a title ID names a film.
+    imdb: imdb && /^tt\d+$/.test(imdb) ? imdb : undefined,
+    tmdb: Number.isInteger(tmdb) && tmdb > 0 ? tmdb : undefined,
+    entity,
+  };
+}
+
+/**
+ * Resolves Wikidata items given by hand (a film the page names without a link, found by a
+ * Wikidata search by title, year and director). `article` is the item's enwiki title, if any.
+ */
+export async function resolveItems(fetcher: Fetcher, qids: string[]): Promise<Map<string, Resolution>> {
+  const entities = await getEntities(fetcher, qids);
+  const out = new Map<string, Resolution>();
+  for (const qid of new Set(qids)) {
+    const entity = entities.get(qid);
+    if (!entity) out.set(qid, { ok: false, article: qid, reason: `${qid} is not a Wikidata item` });
+    else {
+      const page = entity.sitelinks?.enwiki?.title ?? qid;
+      out.set(qid, { ok: true, film: filmOf(page, page, entity) });
+    }
   }
   return out;
 }

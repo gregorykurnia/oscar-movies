@@ -1,0 +1,1133 @@
+{
+  "years": {
+    "2012": {
+      "shortlistOn": "2012-12-21",
+      "documentaryShortlistOn": "2012-12-03",
+      "nominationsOn": "2013-01-10",
+      "winnersOn": "2013-02-24",
+      "sourceUrls": [
+        "https://screendaily.com/news/documentary-oscar-shortlist-unveiled/5049616.article"
+      ],
+      "researchNote": "oscars.org release for the 85th doc shortlist not found (404 on guessed slugs); list and date from Screen Daily (2012-12-03), matching the Academy text reposted elsewhere. Intl (Foreign Language) shortlist date from trade/press reposts of the Academy release (Fri 2012-12-21), not oscars.org directly.",
+      "documentaryShortlist": [
+        {
+          "title": "Ai Weiwei: Never Sorry",
+          "article": "Ai Weiwei: Never Sorry"
+        },
+        {
+          "title": "Bully",
+          "article": "Bully (2011 film)"
+        },
+        {
+          "title": "Chasing Ice",
+          "article": "Chasing Ice"
+        },
+        {
+          "title": "Detropia",
+          "article": "Detropia"
+        },
+        {
+          "title": "Ethel",
+          "article": "Ethel (film)"
+        },
+        {
+          "title": "5 Broken Cameras",
+          "article": "5 Broken Cameras"
+        },
+        {
+          "title": "The Gatekeepers",
+          "article": "The Gatekeepers (film)"
+        },
+        {
+          "title": "The House I Live In",
+          "article": "The House I Live In (2012 film)"
+        },
+        {
+          "title": "How to Survive a Plague",
+          "article": "How to Survive a Plague"
+        },
+        {
+          "title": "The Imposter",
+          "article": "The Imposter (2012 film)"
+        },
+        {
+          "title": "The Invisible War",
+          "article": "The Invisible War"
+        },
+        {
+          "title": "Mea Maxima Culpa: Silence in the House of God",
+          "article": "Mea Maxima Culpa: Silence in the House of God"
+        },
+        {
+          "title": "Searching for Sugar Man",
+          "article": "Searching for Sugar Man"
+        },
+        {
+          "title": "This Is Not a Film",
+          "article": "This Is Not a Film"
+        },
+        {
+          "title": "The Waiting Room",
+          "article": "The Waiting Room (2012 film)"
+        }
+      ]
+    },
+    "2013": {
+      "shortlistOn": "2013-12-20",
+      "documentaryShortlistOn": "2013-12-03",
+      "nominationsOn": "2014-01-16",
+      "winnersOn": "2014-03-02",
+      "sourceUrls": [
+        "https://www.oscars.org/news/15-documentary-features-advance-2013-oscarr-race"
+      ],
+      "researchNote": "'Which Way Is the Front Line from Here? The Life and Time of Tim Hetherington': no English Wikipedia article and no Wikidata item found. Intl date = oscars.org post 'Friday, December 20, 2013 - 02:30'. Left out (no Wikipedia article and no Wikidata item): Which Way Is the Front Line from Here? The Life and Time of Tim Hetherington.",
+      "documentaryShortlist": [
+        {
+          "title": "The Act of Killing",
+          "article": "The Act of Killing"
+        },
+        {
+          "title": "The Armstrong Lie",
+          "article": "The Armstrong Lie"
+        },
+        {
+          "title": "Blackfish",
+          "article": "Blackfish (film)"
+        },
+        {
+          "title": "The Crash Reel",
+          "article": "The Crash Reel"
+        },
+        {
+          "title": "Cutie and the Boxer",
+          "article": "Cutie and the Boxer"
+        },
+        {
+          "title": "Dirty Wars",
+          "article": "Dirty Wars"
+        },
+        {
+          "title": "First Cousin Once Removed",
+          "article": "First Cousin Once Removed"
+        },
+        {
+          "title": "God Loves Uganda",
+          "article": "God Loves Uganda"
+        },
+        {
+          "title": "Life According to Sam",
+          "article": "Life According to Sam"
+        },
+        {
+          "title": "Pussy Riot: A Punk Prayer",
+          "article": "Pussy Riot: A Punk Prayer"
+        },
+        {
+          "title": "The Square",
+          "article": "The Square (2013 film)"
+        },
+        {
+          "title": "Stories We Tell",
+          "article": "Stories We Tell"
+        },
+        {
+          "title": "Tim's Vermeer",
+          "article": "Tim's Vermeer"
+        },
+        {
+          "title": "20 Feet from Stardom",
+          "article": "20 Feet from Stardom"
+        }
+      ]
+    },
+    "2014": {
+      "shortlistOn": "2014-12-19",
+      "documentaryShortlistOn": "2014-12-01",
+      "nominationsOn": "2015-01-15",
+      "winnersOn": "2015-02-22",
+      "sourceUrls": [
+        "https://www.oscars.org/news/15-documentary-features-advance-2014-oscar-race"
+      ],
+      "researchNote": "oscars.org post is stamped 'Monday, December 1, 2014 - 18:30' (evening PT); most press (Playlist, Eye for Film, Deadline) dated it 2014-12-02. Used the Academy's date. 'Art and Craft' redirects to Mark Landis (person), so article null; 'Keep On Keepin' On' has no article. Intl date (2014-12-19) from press reposts (oscars.org page not fetched).",
+      "documentaryShortlist": [
+        {
+          "title": "Art and Craft",
+          "wd": "Q20001315"
+        },
+        {
+          "title": "The Case against 8",
+          "article": "The Case Against 8"
+        },
+        {
+          "title": "Citizen Koch",
+          "article": "Citizen Koch"
+        },
+        {
+          "title": "CitizenFour",
+          "article": "Citizenfour"
+        },
+        {
+          "title": "Finding Vivian Maier",
+          "article": "Finding Vivian Maier"
+        },
+        {
+          "title": "The Internet's Own Boy",
+          "article": "The Internet's Own Boy"
+        },
+        {
+          "title": "Jodorowsky's Dune",
+          "article": "Jodorowsky's Dune"
+        },
+        {
+          "title": "Keep On Keepin' On",
+          "wd": "Q50414434"
+        },
+        {
+          "title": "The Kill Team",
+          "article": "The Kill Team (2013 film)"
+        },
+        {
+          "title": "Last Days in Vietnam",
+          "article": "Last Days in Vietnam"
+        },
+        {
+          "title": "Life Itself",
+          "article": "Life Itself (2014 film)"
+        },
+        {
+          "title": "The Overnighters",
+          "article": "The Overnighters"
+        },
+        {
+          "title": "The Salt of the Earth",
+          "article": "The Salt of the Earth (2014 film)"
+        },
+        {
+          "title": "Tales of the Grim Sleeper",
+          "article": "Tales of the Grim Sleeper"
+        },
+        {
+          "title": "Virunga",
+          "article": "Virunga (film)"
+        }
+      ]
+    },
+    "2015": {
+      "shortlistOn": "2015-12-17",
+      "documentaryShortlistOn": "2015-12-01",
+      "nominationsOn": "2016-01-14",
+      "winnersOn": "2016-02-28",
+      "sourceUrls": [
+        "https://www.oscars.org/news/15-documentary-features-advance-2015-oscarr-race"
+      ],
+      "documentaryShortlist": [
+        {
+          "title": "Amy",
+          "article": "Amy (2015 film)"
+        },
+        {
+          "title": "Best of Enemies",
+          "article": "Best of Enemies (2015 film)"
+        },
+        {
+          "title": "Cartel Land",
+          "article": "Cartel Land"
+        },
+        {
+          "title": "Going Clear: Scientology and the Prison of Belief",
+          "article": "Going Clear (film)"
+        },
+        {
+          "title": "He Named Me Malala",
+          "article": "He Named Me Malala"
+        },
+        {
+          "title": "Heart of a Dog",
+          "article": "Heart of a Dog (2015 film)"
+        },
+        {
+          "title": "The Hunting Ground",
+          "article": "The Hunting Ground"
+        },
+        {
+          "title": "Listen to Me Marlon",
+          "article": "Listen to Me Marlon"
+        },
+        {
+          "title": "The Look of Silence",
+          "article": "The Look of Silence"
+        },
+        {
+          "title": "Meru",
+          "article": "Meru (film)"
+        },
+        {
+          "title": "3 1/2 Minutes, 10 Bullets",
+          "article": "3 1/2 Minutes, 10 Bullets"
+        },
+        {
+          "title": "We Come as Friends",
+          "article": "We Come as Friends"
+        },
+        {
+          "title": "What Happened, Miss Simone?",
+          "article": "What Happened, Miss Simone?"
+        },
+        {
+          "title": "Where to Invade Next",
+          "article": "Where to Invade Next"
+        },
+        {
+          "title": "Winter on Fire: Ukraine's Fight for Freedom",
+          "article": "Winter on Fire: Ukraine's Fight for Freedom"
+        }
+      ]
+    },
+    "2016": {
+      "shortlistOn": "2016-12-15",
+      "documentaryShortlistOn": "2016-12-06",
+      "nominationsOn": "2017-01-24",
+      "winnersOn": "2017-02-26",
+      "sourceUrls": [
+        "https://www.oscars.org/news/15-documentary-features-advance-2016-oscar-race"
+      ],
+      "documentaryShortlist": [
+        {
+          "title": "Cameraperson",
+          "article": "Cameraperson"
+        },
+        {
+          "title": "Command and Control",
+          "article": "Command and Control (film)"
+        },
+        {
+          "title": "The Eagle Huntress",
+          "article": "The Eagle Huntress"
+        },
+        {
+          "title": "Fire at Sea",
+          "article": "Fire at Sea"
+        },
+        {
+          "title": "Gleason",
+          "article": "Gleason (2016 film)"
+        },
+        {
+          "title": "Hooligan Sparrow",
+          "article": "Hooligan Sparrow"
+        },
+        {
+          "title": "I Am Not Your Negro",
+          "article": "I Am Not Your Negro"
+        },
+        {
+          "title": "The Ivory Game",
+          "article": "The Ivory Game"
+        },
+        {
+          "title": "Life, Animated",
+          "article": "Life, Animated"
+        },
+        {
+          "title": "O.J.: Made in America",
+          "article": "O.J.: Made in America"
+        },
+        {
+          "title": "13th",
+          "article": "13th (film)"
+        },
+        {
+          "title": "Tower",
+          "article": "Tower (2016 film)"
+        },
+        {
+          "title": "Weiner",
+          "article": "Weiner (film)"
+        },
+        {
+          "title": "The Witness",
+          "article": "The Witness (2015 American film)"
+        },
+        {
+          "title": "Zero Days",
+          "article": "Zero Days"
+        }
+      ]
+    },
+    "2017": {
+      "shortlistOn": "2017-12-14",
+      "documentaryShortlistOn": "2017-12-07",
+      "nominationsOn": "2018-01-23",
+      "winnersOn": "2018-03-04",
+      "sourceUrls": [
+        "https://www.oscars.org/news/15-documentary-features-advance-2017-oscarr-race"
+      ],
+      "researchNote": "Intl date from oscars.org post 'Thursday, December 14, 2017'.",
+      "documentaryShortlist": [
+        {
+          "title": "Abacus: Small Enough to Jail",
+          "article": "Abacus: Small Enough to Jail"
+        },
+        {
+          "title": "Chasing Coral",
+          "article": "Chasing Coral"
+        },
+        {
+          "title": "City of Ghosts",
+          "article": "City of Ghosts (2017 film)"
+        },
+        {
+          "title": "Ex Libris – The New York Public Library",
+          "article": "Ex Libris: The New York Public Library"
+        },
+        {
+          "title": "Faces Places",
+          "article": "Faces Places (film)"
+        },
+        {
+          "title": "Human Flow",
+          "article": "Human Flow"
+        },
+        {
+          "title": "Icarus",
+          "article": "Icarus (2017 film)"
+        },
+        {
+          "title": "An Inconvenient Sequel: Truth to Power",
+          "article": "An Inconvenient Sequel: Truth to Power"
+        },
+        {
+          "title": "Jane",
+          "article": "Jane (2017 film)"
+        },
+        {
+          "title": "LA 92",
+          "article": "LA 92 (film)"
+        },
+        {
+          "title": "Last Men in Aleppo",
+          "article": "Last Men in Aleppo"
+        },
+        {
+          "title": "Long Strange Trip",
+          "article": "Long Strange Trip"
+        },
+        {
+          "title": "One of Us",
+          "article": "One of Us (2017 film)"
+        },
+        {
+          "title": "Strong Island",
+          "article": "Strong Island (film)"
+        },
+        {
+          "title": "Unrest",
+          "article": "Unrest (2017 film)"
+        }
+      ]
+    },
+    "2018": {
+      "shortlistOn": "2018-12-17",
+      "documentaryShortlistOn": "2018-12-17",
+      "nominationsOn": "2019-01-22",
+      "winnersOn": "2019-02-24",
+      "sourceUrls": [
+        "https://www.oscars.org/news/91st-oscarsr-shortlists-nine-award-categories-announced"
+      ],
+      "researchNote": "'Crime + Punishment' redirects to Stephen Maing (person), so article null.",
+      "documentaryShortlist": [
+        {
+          "title": "Charm City",
+          "article": "Charm City (film)"
+        },
+        {
+          "title": "Communion",
+          "article": "Communion (2016 film)"
+        },
+        {
+          "title": "Crime + Punishment",
+          "wd": "Q121272058"
+        },
+        {
+          "title": "Dark Money",
+          "article": "Dark Money (film)"
+        },
+        {
+          "title": "The Distant Barking of Dogs",
+          "article": "The Distant Barking of Dogs"
+        },
+        {
+          "title": "Free Solo",
+          "article": "Free Solo"
+        },
+        {
+          "title": "Hale County This Morning, This Evening",
+          "article": "Hale County This Morning, This Evening"
+        },
+        {
+          "title": "Minding the Gap",
+          "article": "Minding the Gap"
+        },
+        {
+          "title": "Of Fathers and Sons",
+          "article": "Of Fathers and Sons"
+        },
+        {
+          "title": "On Her Shoulders",
+          "article": "On Her Shoulders"
+        },
+        {
+          "title": "RBG",
+          "article": "RBG (film)"
+        },
+        {
+          "title": "Shirkers",
+          "article": "Shirkers"
+        },
+        {
+          "title": "The Silence of Others",
+          "article": "The Silence of Others"
+        },
+        {
+          "title": "Three Identical Strangers",
+          "article": "Three Identical Strangers"
+        },
+        {
+          "title": "Won't You Be My Neighbor?",
+          "article": "Won't You Be My Neighbor? (film)"
+        }
+      ]
+    },
+    "2019": {
+      "shortlistOn": "2019-12-16",
+      "documentaryShortlistOn": "2019-12-16",
+      "nominationsOn": "2020-01-13",
+      "winnersOn": "2020-02-09",
+      "sourceUrls": [
+        "https://www.oscars.org/oscars/92nd-oscars-shortlists"
+      ],
+      "researchNote": "Shortlist page has no date; 2019-12-16 is the date on the Academy's media release PDF (some reposts say Dec 17).",
+      "documentaryShortlist": [
+        {
+          "title": "Advocate",
+          "article": "Advocate (2019 film)"
+        },
+        {
+          "title": "American Factory",
+          "article": "American Factory"
+        },
+        {
+          "title": "The Apollo",
+          "article": "The Apollo (2019 film)"
+        },
+        {
+          "title": "Apollo 11",
+          "article": "Apollo 11 (2019 film)"
+        },
+        {
+          "title": "Aquarela",
+          "article": "Aquarela"
+        },
+        {
+          "title": "The Biggest Little Farm",
+          "article": "The Biggest Little Farm"
+        },
+        {
+          "title": "The Cave",
+          "article": "The Cave (2019 Syrian film)"
+        },
+        {
+          "title": "The Edge of Democracy",
+          "article": "The Edge of Democracy"
+        },
+        {
+          "title": "For Sama",
+          "article": "For Sama"
+        },
+        {
+          "title": "The Great Hack",
+          "article": "The Great Hack"
+        },
+        {
+          "title": "Honeyland",
+          "article": "Honeyland"
+        },
+        {
+          "title": "Knock Down the House",
+          "article": "Knock Down the House"
+        },
+        {
+          "title": "Maiden",
+          "article": "Maiden (film)"
+        },
+        {
+          "title": "Midnight Family",
+          "article": "Midnight Family"
+        },
+        {
+          "title": "One Child Nation",
+          "article": "One Child Nation"
+        }
+      ]
+    },
+    "2020": {
+      "shortlistOn": "2021-02-09",
+      "documentaryShortlistOn": "2021-02-09",
+      "nominationsOn": "2021-03-15",
+      "winnersOn": "2021-04-25",
+      "sourceUrls": [
+        "https://www.oscars.org/news/93rd-oscarsr-shortlists-nine-award-categories-announced"
+      ],
+      "researchNote": "Pandemic year: shortlists announced 2021-02-09.",
+      "documentaryShortlist": [
+        {
+          "title": "All In: The Fight for Democracy",
+          "article": "All In: The Fight for Democracy"
+        },
+        {
+          "title": "Boys State",
+          "article": "Boys State (film)"
+        },
+        {
+          "title": "Collective",
+          "article": "Collective (2019 film)"
+        },
+        {
+          "title": "Crip Camp",
+          "article": "Crip Camp"
+        },
+        {
+          "title": "Dick Johnson Is Dead",
+          "article": "Dick Johnson Is Dead"
+        },
+        {
+          "title": "Gunda",
+          "article": "Gunda (2020 film)"
+        },
+        {
+          "title": "MLK/FBI",
+          "article": "MLK/FBI"
+        },
+        {
+          "title": "The Mole Agent",
+          "article": "The Mole Agent"
+        },
+        {
+          "title": "My Octopus Teacher",
+          "article": "My Octopus Teacher"
+        },
+        {
+          "title": "Notturno",
+          "article": "Notturno (film)"
+        },
+        {
+          "title": "The Painter and the Thief",
+          "article": "The Painter and the Thief"
+        },
+        {
+          "title": "76 Days",
+          "article": "76 Days"
+        },
+        {
+          "title": "Time",
+          "article": "Time (2020 film)"
+        },
+        {
+          "title": "The Truffle Hunters",
+          "article": "The Truffle Hunters"
+        },
+        {
+          "title": "Welcome to Chechnya",
+          "article": "Welcome to Chechnya"
+        }
+      ]
+    },
+    "2021": {
+      "shortlistOn": "2021-12-21",
+      "documentaryShortlistOn": "2021-12-21",
+      "nominationsOn": "2022-02-08",
+      "winnersOn": "2022-03-27",
+      "sourceUrls": [
+        "https://www.oscars.org/sites/oscars/files/94th_oscars_shortlists.pdf"
+      ],
+      "researchNote": "Release PDF dated December 21, 2021; ceremony date (2022-03-27) from general knowledge, not fetched from oscars.org this session. 'President' (Camilla Nielsson) has no English Wikipedia article.",
+      "documentaryShortlist": [
+        {
+          "title": "Ascension",
+          "article": "Ascension (film)"
+        },
+        {
+          "title": "Attica",
+          "article": "Attica (2021 film)"
+        },
+        {
+          "title": "Billie Eilish: The World's a Little Blurry",
+          "article": "Billie Eilish: The World's a Little Blurry"
+        },
+        {
+          "title": "Faya Dayi",
+          "article": "Faya Dayi"
+        },
+        {
+          "title": "The First Wave",
+          "article": "The First Wave (film)"
+        },
+        {
+          "title": "Flee",
+          "article": "Flee (film)"
+        },
+        {
+          "title": "In the Same Breath",
+          "article": "In the Same Breath"
+        },
+        {
+          "title": "Julia",
+          "article": "Julia (2021 film)"
+        },
+        {
+          "title": "President",
+          "wd": "Q117311099"
+        },
+        {
+          "title": "Procession",
+          "article": "Procession (film)"
+        },
+        {
+          "title": "The Rescue",
+          "article": "The Rescue (2021 film)"
+        },
+        {
+          "title": "Simple as Water",
+          "article": "Simple as Water"
+        },
+        {
+          "title": "Summer of Soul (…Or, When the Revolution Could Not Be Televised)",
+          "article": "Summer of Soul"
+        },
+        {
+          "title": "The Velvet Underground",
+          "article": "The Velvet Underground (film)"
+        },
+        {
+          "title": "Writing with Fire",
+          "article": "Writing with Fire"
+        }
+      ]
+    },
+    "2022": {
+      "shortlistOn": "2022-12-21",
+      "documentaryShortlistOn": "2022-12-21",
+      "nominationsOn": "2023-01-24",
+      "winnersOn": "2023-03-12",
+      "sourceUrls": [
+        "https://press.oscars.org/news/95th-oscarsr-shortlists-10-award-categories-announced"
+      ],
+      "researchNote": "'Hallelujah: Leonard Cohen, a Journey, a Song' and 'Last Flight Home' have no English Wikipedia article (Last Flight Home QID matched on 'documentary' + Letterboxd/RT slug, no director on Wikidata).",
+      "documentaryShortlist": [
+        {
+          "title": "All That Breathes",
+          "article": "All That Breathes"
+        },
+        {
+          "title": "All the Beauty and the Bloodshed",
+          "article": "All the Beauty and the Bloodshed"
+        },
+        {
+          "title": "Bad Axe",
+          "article": "Bad Axe (film)"
+        },
+        {
+          "title": "Children of the Mist",
+          "article": "Children of the Mist (film)"
+        },
+        {
+          "title": "Descendant",
+          "article": "Descendant (2022 film)"
+        },
+        {
+          "title": "Fire of Love",
+          "article": "Fire of Love (2022 film)"
+        },
+        {
+          "title": "Hallelujah: Leonard Cohen, a Journey, a Song",
+          "wd": "Q113213894"
+        },
+        {
+          "title": "Hidden Letters",
+          "article": "Hidden Letters"
+        },
+        {
+          "title": "A House Made of Splinters",
+          "article": "A House Made of Splinters"
+        },
+        {
+          "title": "The Janes",
+          "article": "The Janes"
+        },
+        {
+          "title": "Last Flight Home",
+          "wd": "Q128105477"
+        },
+        {
+          "title": "Moonage Daydream",
+          "article": "Moonage Daydream (film)"
+        },
+        {
+          "title": "Navalny",
+          "article": "Navalny (film)"
+        },
+        {
+          "title": "Retrograde",
+          "article": "Retrograde (2022 American film)"
+        },
+        {
+          "title": "The Territory",
+          "article": "The Territory (2022 film)"
+        }
+      ]
+    },
+    "2023": {
+      "shortlistOn": "2023-12-21",
+      "documentaryShortlistOn": "2023-12-21",
+      "nominationsOn": "2024-01-23",
+      "winnersOn": "2024-03-10",
+      "sourceUrls": [
+        "https://www.oscars.org/sites/oscars/files/96th_oscarsr_shortlists_in_10_award_categories_announced.pdf"
+      ],
+      "researchNote": "'32 Sounds' has no English Wikipedia article; QID matched as 2022 US film, 95 min, Letterboxd '32-sounds' (no director on Wikidata).",
+      "documentaryShortlist": [
+        {
+          "title": "American Symphony",
+          "article": "American Symphony (film)"
+        },
+        {
+          "title": "Apolonia, Apolonia",
+          "article": "Apolonia, Apolonia"
+        },
+        {
+          "title": "Beyond Utopia",
+          "article": "Beyond Utopia"
+        },
+        {
+          "title": "Bobi Wine: The People's President",
+          "article": "Bobi Wine: The People's President"
+        },
+        {
+          "title": "Desperate Souls, Dark City and the Legend of Midnight Cowboy",
+          "article": "Desperate Souls, Dark City and the Legend of Midnight Cowboy"
+        },
+        {
+          "title": "The Eternal Memory",
+          "article": "The Eternal Memory"
+        },
+        {
+          "title": "Four Daughters",
+          "article": "Four Daughters (2023 film)"
+        },
+        {
+          "title": "Going to Mars: The Nikki Giovanni Project",
+          "article": "Going to Mars: The Nikki Giovanni Project"
+        },
+        {
+          "title": "In the Rearview",
+          "article": "In the Rearview"
+        },
+        {
+          "title": "Stamped from the Beginning",
+          "article": "Stamped from the Beginning (film)"
+        },
+        {
+          "title": "Still: A Michael J. Fox Movie",
+          "article": "Still: A Michael J. Fox Movie"
+        },
+        {
+          "title": "A Still Small Voice",
+          "article": "A Still Small Voice (film)"
+        },
+        {
+          "title": "32 Sounds",
+          "wd": "Q125975888"
+        },
+        {
+          "title": "To Kill a Tiger",
+          "article": "To Kill a Tiger"
+        },
+        {
+          "title": "20 Days in Mariupol",
+          "article": "20 Days in Mariupol"
+        }
+      ]
+    },
+    "2024": {
+      "shortlistOn": "2024-12-17",
+      "documentaryShortlistOn": "2024-12-17",
+      "nominationsOn": "2025-01-23",
+      "winnersOn": "2025-03-02",
+      "sourceUrls": [
+        "https://press.oscars.org/news/97th-oscarsr-shortlists-10-award-categories-announced"
+      ],
+      "researchNote": "Nominations were moved from 2025-01-17 to 2025-01-23 because of the LA wildfires.",
+      "documentaryShortlist": [
+        {
+          "title": "The Bibi Files",
+          "article": "The Bibi Files"
+        },
+        {
+          "title": "Black Box Diaries",
+          "article": "Black Box Diaries"
+        },
+        {
+          "title": "Dahomey",
+          "article": "Dahomey (film)"
+        },
+        {
+          "title": "Daughters",
+          "article": "Daughters (2024 film)"
+        },
+        {
+          "title": "Eno",
+          "article": "Eno (2024 film)"
+        },
+        {
+          "title": "Frida",
+          "article": "Frida (2024 film)"
+        },
+        {
+          "title": "Hollywoodgate",
+          "article": "Hollywoodgate"
+        },
+        {
+          "title": "No Other Land",
+          "article": "No Other Land"
+        },
+        {
+          "title": "Porcelain War",
+          "article": "Porcelain War"
+        },
+        {
+          "title": "Queendom",
+          "article": "Queendom (film)"
+        },
+        {
+          "title": "The Remarkable Life of Ibelin",
+          "article": "The Remarkable Life of Ibelin"
+        },
+        {
+          "title": "Soundtrack to a Coup d'Etat",
+          "article": "Soundtrack to a Coup d'Etat"
+        },
+        {
+          "title": "Sugarcane",
+          "article": "Sugarcane (film)"
+        },
+        {
+          "title": "Union",
+          "article": "Union (film)"
+        },
+        {
+          "title": "Will & Harper",
+          "article": "Will & Harper"
+        }
+      ]
+    },
+    "2025": {
+      "shortlistOn": "2025-12-16",
+      "documentaryShortlistOn": "2025-12-16",
+      "nominationsOn": "2026-01-22",
+      "winnersOn": "2026-03-15",
+      "sourceUrls": [
+        "https://press.oscars.org/news/98th-oscarsr-shortlists-12-award-categories-announced"
+      ],
+      "documentaryShortlist": [
+        {
+          "title": "The Alabama Solution",
+          "article": "The Alabama Solution"
+        },
+        {
+          "title": "Apocalypse in the Tropics",
+          "article": "Apocalypse in the Tropics"
+        },
+        {
+          "title": "Coexistence, My Ass!",
+          "article": "Coexistence, My Ass!"
+        },
+        {
+          "title": "Come See Me in the Good Light",
+          "article": "Come See Me in the Good Light"
+        },
+        {
+          "title": "Cover-Up",
+          "article": "Cover-Up (2025 film)"
+        },
+        {
+          "title": "Cutting through Rocks",
+          "article": "Cutting Through Rocks"
+        },
+        {
+          "title": "Folktales",
+          "article": "Folktales (film)"
+        },
+        {
+          "title": "Holding Liat",
+          "article": "Holding Liat"
+        },
+        {
+          "title": "Mr. Nobody against Putin",
+          "article": "Mr Nobody Against Putin"
+        },
+        {
+          "title": "Mistress Dispeller",
+          "article": "Mistress Dispeller"
+        },
+        {
+          "title": "My Undesirable Friends: Part 1 – Last Air in Moscow",
+          "article": "My Undesirable Friends: Part I — Last Air in Moscow"
+        },
+        {
+          "title": "The Perfect Neighbor",
+          "article": "The Perfect Neighbor"
+        },
+        {
+          "title": "Seeds",
+          "article": "Seeds (2025 film)"
+        },
+        {
+          "title": "2000 Meters to Andriivka",
+          "article": "2000 Meters to Andriivka"
+        },
+        {
+          "title": "Yanuni",
+          "article": "Yanuni"
+        }
+      ]
+    },
+    "2026": {
+      "shortlistOn": "2026-12-15",
+      "nominationsOn": "2027-01-21",
+      "winnersOn": "2027-03-14",
+      "sourceUrls": [
+        "https://www.oscars.org/99th-oscars-and-academy-key-dates"
+      ],
+      "note": "The 2026 season has not reached its shortlists yet: no results so far. The Academy's dates may still move.",
+      "researchNote": "Dates from the Academy's key-dates page (all subject to change). Shortlists on 2026-12-15."
+    }
+  },
+  "linkFixes": {
+    "Miss Hokusai": {
+      "wd": "Q11580762",
+      "why": "links the manga; the 2015 film is Q11580762"
+    },
+    "Okko's Inn": {
+      "wd": "Q60846262",
+      "why": "resolves to the novel series; the 2018 film is Q60846262"
+    },
+    "Blue Giant (manga)": {
+      "wd": "Q112664641",
+      "why": "links the manga; the 2023 film is Q112664641"
+    },
+    "Lonely Castle in the Mirror": {
+      "wd": "Q111007970",
+      "why": "links the novel; the 2022 film is Q111007970"
+    },
+    "100 Meters (manga)": {
+      "wd": "Q134007355",
+      "why": "links the manga; the 2025 film is Q134007355"
+    },
+    "The Mystical Laws": {
+      "wd": "Q116213499",
+      "why": "unlinked; 2012 film by Isamu Imakake"
+    },
+    "Moomins and the Winter Wonderland": {
+      "wd": "Q28720714",
+      "why": "unlinked; 2017 film"
+    },
+    "Tall Tales": {
+      "wd": "Q30742690",
+      "why": "unlinked; Tall Tales from the Magical Garden of Antoon Krings (2017, Arnaud Bouron)"
+    },
+    "Rezo": {
+      "wd": "Q60832388",
+      "why": "unlinked; 2018 film by Levan Gabriadze"
+    },
+    "The Ape Star": {
+      "wd": "Q107224625",
+      "why": "unlinked; 2021 film by Linda Hambäck"
+    },
+    "Bob Spit – We Do Not Like People": {
+      "wd": "Q109017550",
+      "why": "unlinked; 2021 film by César Cabral"
+    },
+    "The Laws of the Universe – The Age of Elohim": {
+      "wd": "Q109367250",
+      "why": "unlinked; 2021 film by Isamu Imakake"
+    },
+    "New Gods: Yang Jian": {
+      "wd": "Q113577530",
+      "why": "unlinked; 2022 Chinese film (Xin shen bang: Yang Jian)"
+    },
+    "Black Butterflies": {
+      "wd": "Q126680631",
+      "why": "unlinked; the animated film by David Baute"
+    },
+    "Out of the Nest": {
+      "wd": "Q137168971",
+      "why": "unlinked; animated film (Base FX)"
+    },
+    "Slide": {
+      "wd": "Q136482125",
+      "why": "unlinked; film by Bill Plympton"
+    }
+  },
+  "leaveOut": {
+    "Run, Tiger Run!": {
+      "year": 2022,
+      "why": "no Wikidata item or IMDb ID found (Wikidata search by title, year and director, 2026-10-22)"
+    },
+    "Warrior King": {
+      "year": 2023,
+      "why": "no Wikidata item or IMDb ID found (Wikidata search by title, year and director, 2026-10-22)"
+    },
+    "Rocket Club: Across the Cosmos": {
+      "year": 2024,
+      "why": "no Wikidata item or IMDb ID found (Wikidata search by title, year and director, 2026-10-22)"
+    },
+    "All Operators are Currently Unavailable": {
+      "year": 2025,
+      "why": "no Wikidata item or IMDb ID found (Wikidata search by title, year and director, 2026-10-22)"
+    },
+    "The Laws of the Universe: Part 1": {
+      "year": 2018,
+      "why": "the page links the article of Part 0 (2015); Part I (2018) has no Wikidata item"
+    }
+  },
+  "titles": {
+    "tt1430626": "The Pirates! Band of Misfits",
+    "tt2532528": "Dirty Wars",
+    "tt0884726": "Legends of Oz: Dorothy's Return",
+    "tt3183630": "Boy and the World",
+    "tt4257858": "Going Clear: Scientology and the Prison of Belief",
+    "tt5895028": "13th",
+    "tt3422078": "April and the Extraordinary World",
+    "tt3576728": "Bilal: A New Breed of Hero",
+    "tt0380724": "Mustafa and the Magician",
+    "tt2091256": "Captain Underpants: The First Epic Movie",
+    "tt4633694": "Spider-Man: Into the Spider-Verse",
+    "tt6900448": "Mirai",
+    "tt5220122": "Hotel Transylvania 3: Summer Vacation",
+    "tt6335734": "The Night Is Short, Walk on Girl",
+    "tt2296777": "Sherlock Gnomes",
+    "tt6314766": "Tall Tales from the Magical Garden of Antoon Krings",
+    "tt10332508": "Primal: Tales of Savagery",
+    "tt9894394": "Upin & Ipin: The Lone Gibbon Kris",
+    "tt1488589": "Guillermo del Toro's Pinocchio",
+    "tt7600742": "Hallelujah: Leonard Cohen, a Journey, a Song",
+    "tt7978758": "Apollo 10½: A Space Age Childhood",
+    "tt19757204": "New Gods: Yang Jian",
+    "tt9362722": "Spider-Man: Across the Spider-Verse",
+    "tt8589698": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
+    "tt22060498": "Mistress Dispeller",
+    "tt37284198": "The Legend of Hei II",
+    "tt12015692": "Sirocco and the Kingdom of the Winds",
+    "tt15489976": "The Laws of the Universe – The Age of Elohim"
+  }
+}

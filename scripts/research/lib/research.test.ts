@@ -66,8 +66,8 @@ describe("research toolkit on the saved 97th Academy Awards page", () => {
 
   beforeEach(() => {
     dataDir = mkdtempSync(join(tmpdir(), "oscar-research-"));
-    // Start from the repo's data: the awards registry and the Phase 0 sample of five films.
-    cpSync("data", dataDir, { recursive: true });
+    // Start from the Phase 0 data: the awards registry and the sample of five films.
+    cpSync("tests/fixtures/research/phase-0-data", dataDir, { recursive: true });
   });
   afterEach(() => rmSync(dataDir, { recursive: true, force: true }));
 

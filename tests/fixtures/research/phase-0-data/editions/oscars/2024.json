@@ -1,0 +1,19 @@
+{
+  "award": "oscars",
+  "year": 2024,
+  "ordinal": "97th",
+  "status": "partial",
+  "shortlistOn": "2024-12-17",
+  "nominationsOn": "2025-01-23",
+  "winnersOn": "2025-03-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/97th_Academy_Awards"],
+  "note": "Phase 0 sample: five of the ten Best Picture nominees. Phase 1 replaces it with the full edition.",
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

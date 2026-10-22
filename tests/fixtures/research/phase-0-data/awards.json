@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "oscars",
+    "name": "Academy Awards",
+    "shortName": "Oscars",
+    "kind": "oscars",
+    "calendarOrder": 100,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.oscars.org",
+    "categories": [
+      { "slug": "picture", "name": "Best Picture", "oscarCategory": "picture", "sortOrder": 1 },
+      { "slug": "international", "name": "Best International Feature Film", "oscarCategory": "international", "sortOrder": 2 },
+      { "slug": "documentary", "name": "Best Documentary Feature Film", "oscarCategory": "documentary", "sortOrder": 3 },
+      { "slug": "animated", "name": "Best Animated Feature Film", "oscarCategory": "animated", "sortOrder": 4 }
+    ]
+  }
+]

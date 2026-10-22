@@ -1,0 +1,7 @@
+{
+  "tt28607951": { "slug": "anora", "title": "Anora", "countries": ["US"], "language": "en", "wd": "Q123185887", "tmdb": 1064213 },
+  "tt8999762": { "slug": "the-brutalist", "title": "The Brutalist", "countries": ["US", "GB"], "language": "en", "wd": "Q101112656", "tmdb": 549509 },
+  "tt20215234": { "slug": "conclave", "title": "Conclave", "countries": ["GB", "US"], "language": "en", "wd": "Q116701124", "tmdb": 974576 },
+  "tt20221436": { "slug": "emilia-perez", "title": "Emilia Pérez", "countries": ["FR"], "language": "es", "wd": "Q123928072", "tmdb": 974950 },
+  "tt15239678": { "slug": "dune-part-two", "title": "Dune: Part Two", "countries": ["US", "CA"], "language": "en", "wd": "Q109228991", "tmdb": 693134 }
+}

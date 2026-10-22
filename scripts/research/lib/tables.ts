@@ -15,6 +15,8 @@ export type FilmLink = {
   article: string | null;
   /** The text shown on the page. */
   text: string;
+  /** A QID set by hand for a film the page doesn't link (or links wrongly); wins over `article`. */
+  wd?: string;
 };
 
 export type Nominee = {
