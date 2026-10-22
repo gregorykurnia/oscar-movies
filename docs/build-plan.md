@@ -415,7 +415,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 - [x] Step 3 (2026-10-22): feasibility checked; product plan approved v1.0
 - [x] Step 4 (2026-10-22): design brief answered, `design/brief.md` written
 - [x] Step 5 (2026-10-22): direction chosen (`design/decisions.md`): A, Spotlight, after one round of A variants
-- [ ] Step 6: design guide and preview approved and frozen
+- [x] Step 6 (2026-10-22): design guide and preview approved and frozen as v1.0
 - [ ] Step 7: implementation plan reviewed and approved; `autorun check` finds its first task and pick
 - [ ] Step 8: GitHub linked and both branches pushed; Neon `production` and `test` connected; Vercel linked with env vars and `staging` deployments off; first release live
 - [ ] Step 9: Phase 0 done; `/styleguide` signed off against the preview
@@ -426,8 +426,6 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Approve `DESIGN_GUIDE.md` and `design-preview.html` (open the preview in a browser; then the guide is frozen as v1.0) | 2026-10-22 | Step 7 |
-| Confirm the voice (plain, brief, warm, no jokes) and the reason for choosing direction A (`design/decisions.md`) | 2026-10-22 | Step 6 sign-off |
 
 ## Upkeep log
 

@@ -23,4 +23,4 @@
 - **Placeholders from Step 5, now designed:** the logo mark (an abstract statuette in gold on an ink square, guide §10); the flags (`country-flag-icons` 3:2 SVGs, MIT, with a hairline edge, guide §7); the phone menu (full-screen sheet, guide §6.1).
 - **Changed from the direction:** the inactive tab names and the leader lines under the tabs are darker (`--ink-subtle`, `--ink-muted`), because the direction's faint grey (2.4:1) is too light to read; the marks are 36px (40 on phone) with a 44px hit area instead of 34px.
 - **Added:** `--ink-subtle`, `--gold-soft`, `--error`, `--error-wash` and a few line, shadow and motion tokens. Error red is the only hue besides gold and the flags.
-- **Still to confirm at review:** the voice (plain, brief, warm, no jokes, inferred), and the reason for choosing A (Claude's reading, above).
+- **Approved 2026-10-22:** the owner approved the guide and preview as they stand; the guide is frozen as v1.0. The voice (plain, brief, warm, no jokes) and the reading of why A was chosen stand as written, since the owner approved them without changes.

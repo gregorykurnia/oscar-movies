@@ -1,6 +1,6 @@
 # Oscar Movies: Design Guide
 
-**Status:** Draft v0.1 (2026-10-22), waiting for the owner's approval. Becomes v1.0 when approved. **Visual reference:** `design-preview.html` (open it in a browser). **Companions:** `PRODUCT_PLAN.md` (what), `IMPLEMENTATION_PLAN.md` (how). **Built from:** direction A, Spotlight (`design/directions/a-spotlight/`, `design/decisions.md`).
+**Status:** v1.0 (2026-10-22), approved by the owner. Changes go through an Opus 5.5 High session that updates this guide and `design-preview.html` together and bumps the version. **Visual reference:** `design-preview.html` (open it in a browser). **Companions:** `PRODUCT_PLAN.md` (what), `IMPLEMENTATION_PLAN.md` (how). **Built from:** direction A, Spotlight (`design/directions/a-spotlight/`, `design/decisions.md`).
 
 > For whoever implements this (human or model): this guide is binding for every page. When a page needs something not covered here, build it from the existing pieces and the tokens. Don't introduce a new look. Run §15 before a phase is marked done.
 
@@ -49,7 +49,7 @@ Rules: gold appears only for a win, the leader, the current stage, a chance or m
 Copied exactly into `src/styles/tokens.css`. The same block sits at the top of `design-preview.html`.
 
 ```css
-/* Oscar Movies design tokens, draft v0.1 (2026-10-22). Light only.
+/* Oscar Movies design tokens, v1.0 (2026-10-22). Light only.
    Source of truth: DESIGN_GUIDE.md §3. Copied unchanged into src/styles/tokens.css. */
 :root {
   /* Surfaces */
@@ -276,7 +276,7 @@ There are no form or settings templates: the app has no editing forms and no set
 
 ## 11. Copy and tone
 
-**Voice: plain, brief, warm, no jokes.** (Inferred from "not playful"; confirm at review.) Write like a knowledgeable friend reading out results: short sentences, concrete numbers, no hype, no exclamation marks, no emoji.
+**Voice: plain, brief, warm, no jokes.** (Confirmed with the guide's approval, 2026-10-22.) Write like a knowledgeable friend reading out results: short sentences, concrete numbers, no hype, no exclamation marks, no emoji.
 
 - **Case:** sentence case everywhere ("Year grid", "Watch list", "Show all 38 contenders"). Award and film names as they're officially written.
 - **Numbers:** whole-number % with no space ("41%"). Counts with "of" ("8 of 14", "4 of 4", "23 of 61 watched"). Thousands with commas. Missing values "–" (en dash), never 0 or "N/A".
