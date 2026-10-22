@@ -21,7 +21,7 @@ test("the home page renders the race frame and the film count from the database"
   const db = createScriptDb();
   const [{ n }] = await db.db.select({ n: count() }).from(movies).finally(() => db.close());
   expect(n).toBeGreaterThan(0);
-  await expect(page.getByText(`${n} films are loaded so far.`)).toBeVisible();
+  await expect(page.getByText(`${n.toLocaleString("en-US")} films are loaded so far.`)).toBeVisible();
 });
 
 test("the category in the address picks the tab", async ({ page }) => {

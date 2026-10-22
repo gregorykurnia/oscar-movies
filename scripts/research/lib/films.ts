@@ -9,7 +9,7 @@ import type { FilmLink } from "./tables";
 import type { NewFilm } from "./writer";
 
 export type ResearchedFilm =
-  | { ok: true; link: FilmLink; imdb?: string; wd: string; facts: Facts }
+  | { ok: true; link: FilmLink; imdb?: string; wd?: string; facts: Facts }
   | { ok: false; link: FilmLink; reason: string };
 
 const linkId = (link: FilmLink) => (link.wd ? `wd:${link.wd}` : (link.article ?? `text:${link.text}`));
@@ -56,7 +56,9 @@ export function researched(map: Map<string, ResearchedFilm>, link: FilmLink): Re
  */
 export function filmRef(film: ResearchedFilm): Pick<ResultEntry, "imdb" | "wd" | "title" | "unresolved"> {
   if (!film.ok) return { title: film.link.text, unresolved: true };
-  return film.imdb ? { imdb: film.imdb, title: film.facts.title } : { wd: film.wd, title: film.facts.title };
+  if (film.imdb) return { imdb: film.imdb, title: film.facts.title };
+  if (!film.wd) throw new Error(`${film.facts.title} has neither an IMDb ID nor a Wikidata item.`);
+  return { wd: film.wd, title: film.facts.title };
 }
 
 /** The resolved films, ready for `addMovies`. */

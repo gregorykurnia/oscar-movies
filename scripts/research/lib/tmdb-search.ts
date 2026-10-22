@@ -1,0 +1,80 @@
+// The second place to look for a film Wikidata has no item for (IMPLEMENTATION_PLAN.md §3.4):
+// TMDB's search by title, then each candidate's details and credits, judged by the same rule as
+// the Wikidata search (`choose`: a film within a year of the film year that agrees on the
+// director, or on country and title). A match gives the IMDb ID, which is the film's key in
+// `data/`; a film TMDB lists without an IMDb ID is not taken.
+import type { Facts, TmdbOptions } from "./facts";
+import { bcp47 } from "./facts";
+import { choose, type Candidate, type FilmQuery } from "./wikidata-search";
+
+type Search = { results?: Array<{ id: number; release_date?: string }> };
+type Details = {
+  id: number;
+  imdb_id?: string | null;
+  title?: string;
+  original_title?: string;
+  original_language?: string;
+  release_date?: string;
+  origin_country?: string[];
+  production_countries?: Array<{ iso_3166_1: string }>;
+  credits?: { crew?: Array<{ job?: string; name?: string }> };
+};
+
+export type TmdbFound = { ok: true; imdb: string; tmdb: number; why: string; facts: Facts } | { ok: false; reason: string };
+
+/** TMDB's own language codes that aren't ISO 639-1: `cn` is Cantonese, `xx` means none. */
+function languageOf(code: string | undefined): string | undefined {
+  if (!code || code === "xx") return undefined;
+  return code === "cn" ? "yue" : code;
+}
+
+const codes = (d: Details) =>
+  [...(d.origin_country ?? []), ...(d.production_countries ?? []).map((c) => c.iso_3166_1)].filter(
+    (c, i, all) => /^[A-Z]{2}$/.test(c) && all.indexOf(c) === i,
+  );
+
+export async function findOnTmdb(tmdb: TmdbOptions, query: FilmQuery): Promise<TmdbFound> {
+  const headers = { Authorization: `Bearer ${tmdb.token}` };
+  const texts = [...new Set([query.title, query.originalTitle].filter((t): t is string => !!t))];
+  const ids = new Set<number>();
+  for (const text of texts) {
+    const found = await tmdb.fetcher.getJson<Search>(
+      `https://api.themoviedb.org/3/search/movie?${new URLSearchParams({ query: text, include_adult: "false" })}`,
+      { headers, label: `tmdb-search-${text}` },
+    );
+    for (const r of found.results ?? []) {
+      const y = Number(r.release_date?.slice(0, 4));
+      if (y >= query.year - 1 && y <= query.year + 1) ids.add(r.id);
+    }
+  }
+  if (ids.size === 0) return { ok: false, reason: "TMDB search found nothing in those years" };
+  const details = new Map<string, Details>();
+  for (const id of [...ids].slice(0, 8)) {
+    const d = await tmdb.fetcher.getJson<Details>(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`, {
+      headers,
+      label: `tmdb-movie-credits-${id}`,
+    });
+    details.set(String(id), d);
+  }
+  const candidates: Candidate[] = [...details.values()].map((d) => ({
+    id: String(d.id),
+    isFilm: typeof d.imdb_id === "string" && /^tt\d+$/.test(d.imdb_id),
+    years: d.release_date ? [Number(d.release_date.slice(0, 4))] : [],
+    directors: (d.credits?.crew ?? []).flatMap((c) => (c.job === "Director" && c.name ? [c.name] : [])),
+    countries: codes(d),
+    titles: [d.title, d.original_title].filter((t): t is string => !!t),
+  }));
+  const hit = choose(query, candidates);
+  if (!hit.ok) return hit;
+  const d = details.get(hit.id) as Details;
+  const language = languageOf(d.original_language);
+  const original = d.original_title && d.original_title !== d.title ? d.original_title : undefined;
+  const facts: Facts = { title: d.title ?? query.title, countries: codes(d) };
+  if (original && language && language !== "en") {
+    facts.originalTitle = original;
+    facts.originalLang = bcp47(language);
+  }
+  if (language) facts.language = language;
+  facts.tmdb = d.id;
+  return { ok: true, imdb: d.imdb_id as string, tmdb: d.id, why: hit.why, facts };
+}

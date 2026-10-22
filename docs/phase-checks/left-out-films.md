@@ -10,3 +10,4 @@ Films an award list names that have no IMDb ID and no Wikidata item (IMPLEMENTAT
 | Oscars | 2023 | Animated eligible | Warrior King | No Wikidata item |
 | Oscars | 2024 | Animated eligible | Rocket Club: Across the Cosmos | No Wikidata item |
 | Oscars | 2025 | Animated eligible | All Operators Are Currently Unavailable | No Wikidata item |
+| Oscars | 2026 | International submission | Child (Luxembourg, Cyrus Neshvad) | No Wikidata item, and TMDB has no entry with an IMDb ID (searched 2026-10-22); announced only weeks ago, so look again before the shortlists |

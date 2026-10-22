@@ -1,0 +1,42 @@
+{
+  "linkFixes": {
+    "2023 Croatia": {
+      "article": null,
+      "why": "the list links Traces (2026, Ukraine); Croatia's 2023 submission is another film of that name, found by a search"
+    }
+  },
+  "leaveOut": {
+    "2026 Luxembourg": {
+      "why": "Child (Cyrus Neshvad): no Wikidata item and no IMDb ID found on TMDB (searched 2026-10-22); announced only weeks ago"
+    }
+  },
+  "titles": {
+    "tt2409642": "Pleasure Boy Komola",
+    "tt2559036": "Forgotten",
+    "tt3182596": "Factory Girl",
+    "tt2852432": "Norte, the End of History",
+    "tt3397160": "Stefan Zweig: Farewell to Europe",
+    "tt4876286": "About Us",
+    "tt4287852": "Nagasaki: Memories of My Son",
+    "tt5435084": "Barakah Meets Barakah",
+    "tt7428830": "A Letter to the President",
+    "tt4912622": "The Gold Seekers",
+    "tt8814620": "The Goalkeeper",
+    "tt8305116": "Ayka",
+    "tt9522080": "Papicha",
+    "tt8439860": "The Domain",
+    "tt10199586": "Atlantics",
+    "tt8958304": "Sincerely Yours, Dhaka",
+    "tt8777758": "Emptiness",
+    "tt8019498": "Operation Just Cause",
+    "tt15108354": "The Great Movement",
+    "tt6723432": "Submersible",
+    "tt16266336": "Missing Home",
+    "tt12065036": "The Visitor",
+    "tt25406412": "Inshallah a Boy",
+    "tt31113406": "We Shall Not Be Moved",
+    "tt30151456": "In the Arms of the Tree",
+    "tt37459928": "Liti Liti",
+    "tt47678982": "Independence: Keeper of the Decree"
+  }
+}

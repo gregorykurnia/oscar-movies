@@ -85,7 +85,8 @@ export function readMoviesFiles(dataDir: string): Map<number, MoviesFile> {
   return files;
 }
 
-export type NewFilm = { imdb?: string; wd: string; facts: Facts };
+/** `wd` is missing only for a film found on TMDB that Wikidata has no item for. */
+export type NewFilm = { imdb?: string; wd?: string; facts: Facts };
 
 /** The key a film is filed under: its IMDb ID, or its QID when it has none. */
 export const movieKey = (film: { imdb?: string; wd?: string }) => (film.imdb ?? film.wd) as string;
@@ -111,7 +112,7 @@ export function addMovies(dataDir: string, year: number, films: NewFilm[]): { ad
   const kept: string[] = [];
   for (const film of films) {
     const key = movieKey(film);
-    if (known.has(key) || known.has(film.wd)) {
+    if (known.has(key) || (film.wd && known.has(film.wd))) {
       kept.push(key);
       continue;
     }
@@ -119,7 +120,7 @@ export function addMovies(dataDir: string, year: number, films: NewFilm[]): { ad
     const entry: MovieEntry = { slug, ...film.facts };
     file[key] = entry;
     known.add(key);
-    known.add(film.wd);
+    if (film.wd) known.add(film.wd);
     taken.add(slug);
     added.push(key);
   }
