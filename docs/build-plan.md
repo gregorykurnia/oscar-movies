@@ -426,7 +426,6 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Neon `test` branch strings in `.env.test`; OMDb key and TMDB token in `.env.local` and `.env.test` (`IMPLEMENTATION_PLAN.md` §12) | 2026-10-22 | `autorun all` (0.3 on) |
 
 ## Upkeep log
 
