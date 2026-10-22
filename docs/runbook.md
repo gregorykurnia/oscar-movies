@@ -43,7 +43,7 @@ On `test`, both commands default to `.cache/marks.test.json` (gitignored), so a 
 
 - **Failed deployments:** Vercel emails the account owner. Look at the build log in the Vercel dashboard (project `oscar-movies` → Deployments).
 - **Runtime errors:** Vercel's runtime logs (dashboard → Logs, or `npx vercel logs <url>`). Hobby keeps them only briefly, so look soon after a problem is reported.
-- **The daily scores job:** each run writes a `data_loads` row (`kind = scores`) with its outcome. `/data` shows a notice when scores are more than 3 days old, so a broken cron shows up in the app itself.
+- **The daily scores job:** each run writes a `data_loads` row (`kind = scores`) with its outcome. `/data` shows a notice when scores are more than 3 days old, so a broken cron shows up in the app itself. A run stops early on a refused key, OMDb's daily limit (1,000 calls, shared with `test`) or 10 films in a row failing; its `summary.stoppedBy` says which. To catch up by hand: `npm run scores:refresh -- --target production --yes-production --dry-run`, then without `--dry-run`.
 - Who looks: the owner, when an email arrives or a page looks wrong; Claude, when asked ("check the logs").
 
 ## Spending limits

@@ -576,7 +576,12 @@ export function gitCommit(): string | null {
 }
 
 /** POSTs `APP_URL/api/revalidate` for the award data. A failure is a warning: the load is in. */
-export async function revalidateAwards(): Promise<string> {
+export function revalidateAwards(): Promise<string> {
+  return revalidateTags(["awards"]);
+}
+
+/** POSTs `APP_URL/api/revalidate` for the given tags. Returns a line to print, never throws. */
+export async function revalidateTags(tags: ("awards" | "scores")[]): Promise<string> {
   const { APP_URL: appUrl, REVALIDATE_SECRET: secret } = process.env;
   if (!appUrl || !secret) return "Warning: APP_URL or REVALIDATE_SECRET isn't set, so the app's cache wasn't expired.";
   const url = new URL("/api/revalidate", appUrl);
@@ -584,11 +589,11 @@ export async function revalidateAwards(): Promise<string> {
     const response = await fetch(url, {
       method: "POST",
       headers: { authorization: `Bearer ${secret}`, "content-type": "application/json" },
-      body: JSON.stringify({ tags: ["awards"] }),
+      body: JSON.stringify({ tags }),
       signal: AbortSignal.timeout(15_000),
     });
     if (!response.ok) return `Warning: ${url} answered ${response.status}, so the app's cache wasn't expired.`;
-    return `Expired the app's award data at ${url.origin}.`;
+    return `Expired the app's ${tags.join(" and ")} data at ${url.origin}.`;
   } catch (error) {
     const reason = error instanceof Error ? (error.cause instanceof Error ? error.cause.message : error.message) : String(error);
     return `Warning: couldn't reach ${url.origin} (${reason}), so the app's cache wasn't expired. Pages show the new data once it is.`;

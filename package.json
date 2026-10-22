@@ -26,7 +26,8 @@
     "db:mark-branch": "tsx scripts/mark-branch.ts",
     "db:seed:test": "tsx scripts/seed-test.ts",
     "marks:export": "tsx scripts/marks.ts export",
-    "marks:restore": "tsx scripts/marks.ts restore"
+    "marks:restore": "tsx scripts/marks.ts restore",
+    "scores:refresh": "tsx scripts/scores.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "1.2.0",
