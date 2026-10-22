@@ -81,6 +81,10 @@
   --animate-shimmer: shimmer 1.4s linear infinite;
   /* Skeletons appear only when loading takes more than 300ms (guide §7). */
   --animate-appear: appear 0s linear 300ms forwards;
+  /* Popovers fade and drop 4px; the phone menu slides down from the top (guide §12). */
+  --animate-pop: pop-in var(--dur) var(--ease);
+  --animate-sheet: sheet-in var(--dur-slow) var(--ease);
+  --animate-fade: fade-in var(--dur-slow) var(--ease);
   --breakpoint-md: 761px;
   --breakpoint-xl: 1101px;
 
@@ -133,7 +137,12 @@
 }
 
 @layer base {
+  html {
+    background-color: var(--paper);
+  }
+
   body {
+    color: var(--ink);
     font-feature-settings: "tnum" 1;
   }
 }
@@ -145,6 +154,18 @@
 
 @keyframes appear {
   to { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(-100%); }
 }
 
 /* Reduced motion: every transition and animation is instant, and nothing shimmers (guide §12). */
