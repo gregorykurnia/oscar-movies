@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { OUTCOMES, compareOutcome, flagsFor, isNomination, outcomeStage, type Outcome } from "./stage";
+import { OUTCOMES, compareOutcome, flagsFor, isNomination, isShortlisted, outcomeStage, type Outcome } from "./stage";
 
 describe("compareOutcome", () => {
   it("orders submitted < eligible = shortlisted < runner_up = nominated < won", () => {
@@ -16,6 +16,13 @@ describe("isNomination", () => {
   it("counts runner-up, nominated and won", () => {
     const noms = OUTCOMES.filter((o: Outcome) => isNomination(o));
     expect(noms).toEqual(["runner_up", "nominated", "won"]);
+  });
+});
+
+describe("isShortlisted", () => {
+  it("counts the shortlist and everything past it, not eligible or submitted", () => {
+    const listed = OUTCOMES.filter((o: Outcome) => isShortlisted(o));
+    expect(listed).toEqual(["shortlisted", "runner_up", "nominated", "won"]);
   });
 });
 

@@ -67,4 +67,40 @@ describe("FilmList and FilmRow", () => {
     expect(row.className).toContain("var(--gold-wash)");
     expect(within(row).getByText("Conclave")).toBeTruthy();
   });
+
+  it("a lead is the first column on desktop and a line above the film on phone", () => {
+    const { container } = render(
+      <FilmList head={["Oscar"]} leadLabel="Country" columns={["176px", "minmax(0,1fr)", "132px", "84px"]}>
+        <FilmRow
+          title="I'm Still Here"
+          href="/movies/im-still-here"
+          lead={<span>Brazil</span>}
+          results={[{ label: "Oscar", value: <StagePill stage="won" /> }]}
+        />
+      </FilmList>,
+    );
+    const head = container.querySelector("[aria-hidden]") as HTMLElement;
+    expect(head.textContent).toBe("CountryFilmOscar");
+    const lead = screen.getByText("Brazil").parentElement as HTMLElement;
+    expect(lead.className).toContain("max-md:[grid-area:lead]");
+    expect(lead.parentElement?.className).toContain("[grid-template-areas:'lead_lead'_'film_marks'_'res_res']");
+  });
+
+  it("the results line is indented past the flags only when the row has flags", () => {
+    const { container } = render(
+      <FilmList>
+        <FilmRow title="With flags" href="/a" flags={["gb"]} results={[{ label: "Oscar", value: "Won" }]} />
+        <FilmRow title="No flags" href="/b" results={[{ label: "Oscar", value: "Won" }]} />
+      </FilmList>,
+    );
+    const lines = container.querySelectorAll(".md\\:contents");
+    expect(lines[0].className).toContain("pl-[33px]");
+    expect(lines[1].className).not.toContain("pl-[33px]");
+  });
+
+  it("without a lead the phone areas are unchanged", () => {
+    list();
+    const row = screen.getByRole("heading", { level: 3, name: "Conclave" }).closest(".grid") as HTMLElement;
+    expect(row.className).toContain("[grid-template-areas:'film_marks'_'res_res']");
+  });
 });

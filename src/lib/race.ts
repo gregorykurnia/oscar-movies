@@ -1,6 +1,6 @@
 // The race's season states (plan §3.2 rule 4, guide §8.12) and the words of its stage line and
 // tab leads. Pure, shared by the race pages; results only until the chances arrive (Phase 3).
-import { isNomination, OUTCOMES, type Outcome } from "@/lib/stage";
+import { isNomination, isShortlisted, type Outcome } from "@/lib/stage";
 import { formatDate } from "@/lib/format";
 
 export const RACE_CATEGORIES = [
@@ -44,7 +44,7 @@ export function seasonState(outcomes: Outcome[]): SeasonState {
  */
 export function raceEntries<T extends { outcome: Outcome }>(entries: T[], state: SeasonState): T[] {
   if (state === "before") return [];
-  if (state === "shortlist") return entries.filter((e) => OUTCOMES.indexOf(e.outcome) >= OUTCOMES.indexOf("shortlisted"));
+  if (state === "shortlist") return entries.filter((e) => isShortlisted(e.outcome));
   return entries.filter((e) => isNomination(e.outcome));
 }
 

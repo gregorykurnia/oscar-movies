@@ -27,6 +27,11 @@ export function isNomination(outcome: Outcome): boolean {
   return RANK[outcome] >= RANK.nominated;
 }
 
+/** On the shortlist or further (shortlisted, runner-up, nominated, won): not just eligible or submitted. */
+export function isShortlisted(outcome: Outcome): boolean {
+  return OUTCOMES.indexOf(outcome) >= OUTCOMES.indexOf("shortlisted");
+}
+
 /** The stage pill for an outcome. */
 export function outcomeStage(outcome: Outcome): Stage {
   return outcome === "runner_up" ? "runner-up" : outcome;

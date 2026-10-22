@@ -5,25 +5,34 @@ import { ScoreLine, type Scores } from "@/components/score-line/ScoreLine";
 import { cn } from "@/lib/cn";
 
 // Guide §7 Film row: flags · title with a meta line and the scores line · result columns · marks.
-// The list sets the desktop columns once (--film-cols) and every row inherits them.
+// The list sets the desktop columns once (--film-cols) and every row inherits them. A row's lead
+// (International's submitting country) is the first column on desktop and a line above the film
+// on phone.
 const DEFAULT_COLUMNS = ["minmax(0,1fr)", "132px", "168px", "84px"];
 
 const rowGrid =
-  "grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2.5 [grid-template-areas:'film_marks'_'res_res'] " +
+  "grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2.5 " +
   "md:grid-cols-[var(--film-cols)] md:gap-4 md:[grid-template-areas:none]";
+// Phone: the film and marks, then the results (a lead takes a line of its own above).
+const phoneAreas = "[grid-template-areas:'film_marks'_'res_res']";
+const phoneAreasWithLead = "[grid-template-areas:'lead_lead'_'film_marks'_'res_res']";
 
 /**
  * A list of film rows: the first rule in ink, a head row of column labels on desktop.
- * `columns` are the desktop grid tracks: the film column, one per result, then the marks.
+ * `columns` are the desktop grid tracks: the lead (if rows have one), the film column, one per
+ * result, then the marks.
  */
 export function FilmList({
   head,
+  leadLabel,
   columns = DEFAULT_COLUMNS,
   children,
   className,
 }: {
   /** Labels of the result columns, in order ("BAFTA", "Oscar, Best Picture"). */
   head?: string[];
+  /** The lead column's label ("Country"), when the rows have a lead. */
+  leadLabel?: string;
   columns?: string[];
   children: ReactNode;
   className?: string;
@@ -32,6 +41,7 @@ export function FilmList({
     <div className={cn("border-t border-ink", className)} style={{ "--film-cols": columns.join(" ") } as CSSProperties}>
       {head ? (
         <div aria-hidden="true" className={cn(rowGrid, "hidden border-b border-line py-2.5 text-caption text-ink-muted md:grid")}>
+          {leadLabel ? <span>{leadLabel}</span> : null}
           <span>Film</span>
           {head.map((label) => (
             <span key={label}>{label}</span>
@@ -59,6 +69,7 @@ export function FilmRow({
   title,
   href,
   lang,
+  lead,
   flags = [],
   firstFlagLabel,
   meta,
@@ -73,6 +84,8 @@ export function FilmRow({
   href: string;
   /** The title's language where it isn't English ("pt"). */
   lang?: string;
+  /** The first column (International: the submitting country's flag and name). */
+  lead?: ReactNode;
   /** Country codes, main country first. */
   flags?: string[];
   /** Accessible name of the first flag ("Brazil, submitting country"). */
@@ -94,11 +107,13 @@ export function FilmRow({
     <div
       className={cn(
         rowGrid,
+        lead ? phoneAreasWithLead : phoneAreas,
         "grid border-b border-line py-4 md:py-[18px]",
         winner && "-mx-4 bg-[linear-gradient(90deg,var(--gold-wash),transparent_70%)] px-4",
       )}
       data-winner={winner || undefined}
     >
+      {lead ? <div className="min-w-0 text-small max-md:[grid-area:lead]">{lead}</div> : null}
       <div className="flex min-w-0 gap-3 max-md:[grid-area:film] md:gap-3.5">
         <Flags codes={flags} stacked firstLabel={firstFlagLabel} className="pt-1" />
         <div className="min-w-0">
@@ -116,7 +131,13 @@ export function FilmRow({
           {scores ? <ScoreLine scores={scores} className="mt-1" /> : null}
         </div>
       </div>
-      <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 pl-[33px] text-caption max-md:[grid-area:res] md:contents">
+      {/* On phone the results line sits under the title, indented past the flags when there are some. */}
+      <div
+        className={cn(
+          "flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-caption max-md:[grid-area:res] md:contents",
+          flags.length > 0 && "pl-[33px]",
+        )}
+      >
         {results.map((result) => (
           <span
             key={result.label}
