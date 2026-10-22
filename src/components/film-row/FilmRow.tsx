@@ -83,7 +83,7 @@ export function FilmRow({
   /** A stage pill after the title. */
   badge?: ReactNode;
   results: FilmResult[];
-  /** The Marks pair (wired in task 1.7). */
+  /** The marks pair: `FilmMarks` for a real film. */
   marks?: ReactNode;
   /** The winner's row: a gold wash fading from the left. */
   winner?: boolean;

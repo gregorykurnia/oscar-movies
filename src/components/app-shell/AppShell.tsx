@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Toaster } from "@/components/toast/Toaster";
 import { Footer } from "./Footer";
 import { TopBar } from "./TopBar";
 
@@ -24,6 +25,8 @@ export function AppShell({
         {children}
       </main>
       <Footer />
+      {/* Failure toasts (a mark that didn't save), bottom right. */}
+      <Toaster />
     </div>
   );
 }

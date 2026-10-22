@@ -2,7 +2,7 @@ import { Bookmark, Check } from "lucide-react";
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-// Look and states only (guide §7 Marks). Saving and flipping back are wired in task 1.7.
+// Look and states only (guide §7 Marks). `FilmMarks` and `FilmLabelledMarks` (MarksProvider.tsx) wire them to the store.
 
 export type MarkKind = "watched" | "want";
 /** idle; saving (the gold ring, shown only after 400ms by the caller); failed (red ring for 2s). */

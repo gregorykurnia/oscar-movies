@@ -65,7 +65,7 @@ export function Components({ s }: { s: Sample }) {
       <Board
         id="marks"
         title="Watched and want to watch"
-        note="Round toggle buttons, 36px (40px on phone), hit area at least 44px. Marking watched clears want to watch. The change shows at once; if saving fails, the mark flips back, shows the failed ring for 2s and a toast says so. Here the states are set by hand; saving is wired in task 1.7."
+        note="Round toggle buttons, 36px (40px on phone), hit area at least 44px. Marking watched clears want to watch. The change shows at once; if saving fails, the mark flips back, shows the failed ring for 2s and a toast says so. Here the states are set by hand; /styleguide/marks has real ones that save."
       >
         <Spec>
           <Cell name="Off">
@@ -109,7 +109,7 @@ export function Components({ s }: { s: Sample }) {
       <Board
         id="toast"
         title="Toast"
-        note="Only for failures and the odd neutral note; successes need none. Bottom right (bottom, full width on phone), stays until closed or retried. The Toaster that places it joins the shell with task 1.7; here it is drawn in place."
+        note="Only for failures and the odd neutral note; successes need none. Bottom right (bottom, full width on phone), stays until closed or retried. The shell's Toaster places the live ones; here it is drawn in place."
       >
         <Spec>
           <Cell name="Failure toast">

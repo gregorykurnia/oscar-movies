@@ -3,7 +3,7 @@
 //
 // Each query is written twice over: `queryX(db, …)` takes any client (database tests pass the
 // `test` branch's), and `getX(…)` is the cached version pages call. Marks are never cached
-// (`src/data/marks.ts`).
+// (read in `src/data/watch-list.ts`, written in `src/data/marks.ts`).
 import { count } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Scores } from "@/components/score-line/ScoreLine";
