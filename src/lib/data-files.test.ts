@@ -1,6 +1,44 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { marksFileSchema } from "./data-files";
+import { awardsFileSchema, editionFileSchema, marksFileSchema, moviesFileSchema } from "./data-files";
+
+const readJson = (path: string): unknown => JSON.parse(readFileSync(path, "utf8"));
+
+describe("data file schemas", () => {
+  it("accept the repo's awards, movies and edition files", () => {
+    expect(awardsFileSchema.safeParse(readJson("data/awards.json")).success).toBe(true);
+    expect(moviesFileSchema.safeParse(readJson("data/movies/2024.json")).success).toBe(true);
+    expect(editionFileSchema.safeParse(readJson("data/editions/oscars/2024.json")).success).toBe(true);
+  });
+
+  const film = { slug: "flow", title: "Flow", countries: ["LV"] };
+  it.each([
+    ["a key that is neither an IMDb ID nor a QID", { "flow-2024": film }],
+    ["a lowercase country", { tt1: { ...film, countries: ["lv"] } }],
+    ["an original title without its language", { tt1: { ...film, originalTitle: "Straume" } }],
+    ["a QID key with another wd", { Q1: { ...film, wd: "Q2" } }],
+    ["a slug with spaces", { tt1: { ...film, slug: "Flow 2024" } }],
+  ])("movies: refuse %s", (_, file) => {
+    expect(moviesFileSchema.safeParse(file).success).toBe(false);
+  });
+
+  const edition = { award: "oscars", year: 2024, status: "loaded", sourceUrls: [], results: [], screenings: [] };
+  const result = { category: "picture", title: "Flow", outcome: "nominated" };
+  it.each([
+    ["a result with no film ID", { results: [result] }],
+    ["an unresolved result that has an ID", { results: [{ ...result, imdb: "tt1", unresolved: true }] }],
+    ["an unknown outcome", { results: [{ ...result, imdb: "tt1", outcome: "lost" }] }],
+    ["a bad date", { winnersOn: "2 March 2025" }],
+    ["a year before 2012", { year: 2011 }],
+  ])("editions: refuse %s", (_, change) => {
+    expect(editionFileSchema.safeParse({ ...edition, ...change }).success).toBe(false);
+  });
+
+  it("editions: accept an unresolved film by its title", () => {
+    const unresolved = { ...result, unresolved: true };
+    expect(editionFileSchema.safeParse({ ...edition, results: [unresolved] }).success).toBe(true);
+  });
+});
 
 describe("marksFileSchema", () => {
   it("accepts the test fixture", () => {

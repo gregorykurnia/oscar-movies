@@ -1,0 +1,2325 @@
+{
+ "entities": {
+  "Q101112656": {
+   "id": "Q101112656",
+   "labels": {
+    "en": {
+     "value": "The Brutalist"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt8999762"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "The Brutalist",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 145,
+         "id": "Q145"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "549509"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "The Brutalist"
+    }
+   }
+  },
+  "Q109228991": {
+   "id": "Q109228991",
+   "labels": {
+    "en": {
+     "value": "Dune: Part Two"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt15239678"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "693134"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 16,
+         "id": "Q16"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 878,
+         "id": "Q878"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 28,
+         "id": "Q28"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 664,
+         "id": "Q664"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 38,
+         "id": "Q38"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 810,
+         "id": "Q810"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1005,
+         "id": "Q1005"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Dune: Part Two",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Dune: Part Two"
+    }
+   }
+  },
+  "Q113380226": {
+   "id": "Q113380226",
+   "labels": {
+    "en": {
+     "value": "The Substance"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt17526714"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "933260"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 145,
+         "id": "Q145"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "The Substance",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "The Substance"
+    }
+   }
+  },
+  "Q113877606": {
+   "id": "Q113877606",
+   "labels": {
+    "en": {
+     "value": "Inside Out 2"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Inside Out 2",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "preferred"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Головоломка 2",
+         "language": "ru"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt22022452"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1022789"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Inside Out 2"
+    }
+   }
+  },
+  "Q116030637": {
+   "id": "Q116030637",
+   "labels": {
+    "en": {
+     "value": "Nickel Boys"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Nickel Boys",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt23055660"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1028196"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Nickel Boys"
+    }
+   }
+  },
+  "Q116701124": {
+   "id": "Q116701124",
+   "labels": {
+    "en": {
+     "value": "Conclave"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt20215234"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 145,
+         "id": "Q145"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Conclave",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "974576"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Conclave (film)"
+    }
+   }
+  },
+  "Q118175825": {
+   "id": "Q118175825",
+   "labels": {
+    "en": {
+     "value": "A Complete Unknown"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt11563598"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "661539"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "A Complete Unknown",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "A Complete Unknown"
+    }
+   }
+  },
+  "Q123185887": {
+   "id": "Q123185887",
+   "labels": {
+    "en": {
+     "value": "Anora"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 7737,
+         "id": "Q7737"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 8785,
+         "id": "Q8785"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Anora",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt28607951"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1064213"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Anora"
+    }
+   }
+  },
+  "Q123928072": {
+   "id": "Q123928072",
+   "labels": {
+    "en": {
+     "value": "Emilia Pérez"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt20221436"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1321,
+         "id": "Q1321"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 150,
+         "id": "Q150"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "974950"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Emilia Pérez",
+         "language": "fr"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Emilia Pérez"
+    }
+   }
+  },
+  "Q124262351": {
+   "id": "Q124262351",
+   "labels": {
+    "en": {
+     "value": "I'm Still Here"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 155,
+         "id": "Q155"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt14961016"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 5146,
+         "id": "Q5146"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Ainda Estou Aqui",
+         "language": "pt-br"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1000837"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "I'm Still Here (2024 film)"
+    }
+   }
+  },
+  "Q124309715": {
+   "id": "Q124309715",
+   "labels": {
+    "en": {
+     "value": "Sugarcane"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt30319854"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1158874"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 16,
+         "id": "Q16"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 150,
+         "id": "Q150"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Sugarcane (film)"
+    }
+   }
+  },
+  "Q124364998": {
+   "id": "Q124364998",
+   "labels": {
+    "en": {
+     "value": "Porcelain War"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt30294282"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1214527"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 212,
+         "id": "Q212"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 408,
+         "id": "Q408"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Porcelain War"
+    }
+   }
+  },
+  "Q124365100": {
+   "id": "Q124365100",
+   "labels": {
+    "en": {
+     "value": "Soundtrack to a Coup d'Etat"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt14452174"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1214539"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 31,
+         "id": "Q31"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 55,
+         "id": "Q55"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Soundtrack To A Coup D'État",
+         "language": "de"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Soundtrack To A Coup D'État",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Soundtrack to a Coup d'Etat"
+    }
+   }
+  },
+  "Q124365850": {
+   "id": "Q124365850",
+   "labels": {
+    "en": {
+     "value": "Black Box Diaries"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt30227076"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1214499"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 5287,
+         "id": "Q5287"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 145,
+         "id": "Q145"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 17,
+         "id": "Q17"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Black Box Diaries",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Black Box Diaries"
+    }
+   }
+  },
+  "Q124378349": {
+   "id": "Q124378349",
+   "labels": {
+    "en": {
+     "value": "The Wild Robot"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt29623480"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "The Wild Robot",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1184918"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "The Wild Robot"
+    }
+   }
+  },
+  "Q124440294": {
+   "id": "Q124440294",
+   "labels": {
+    "en": {
+     "value": "No Other Land"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt30953759"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 20,
+         "id": "Q20"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 9288,
+         "id": "Q9288"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 13955,
+         "id": "Q13955"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1232493"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "No Other Land",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "No Other Land"
+    }
+   }
+  },
+  "Q124656179": {
+   "id": "Q124656179",
+   "labels": {
+    "en": {
+     "value": "Memoir of a Snail"
+    }
+   },
+   "claims": {
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 408,
+         "id": "Q408"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt23770030"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1064486"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Memoir of a Snail",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Memoir of a Snail"
+    }
+   }
+  },
+  "Q125422231": {
+   "id": "Q125422231",
+   "labels": {
+    "en": {
+     "value": "The Girl with the Needle"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt10236164"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 35,
+         "id": "Q35"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 9035,
+         "id": "Q9035"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Pigen med nålen",
+         "language": "da"
+        }
+       }
+      },
+      "rank": "preferred"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "The Girl with the Needle",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Dziewczyna z igłą",
+         "language": "pl"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1232827"
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "The Girl with the Needle"
+    }
+   }
+  },
+  "Q125563776": {
+   "id": "Q125563776",
+   "labels": {
+    "en": {
+     "value": "The Seed of the Sacred Fig"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt32178949"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "1278263"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Dāne-ye anjīr-e ma'ābed",
+         "language": "fa"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 183,
+         "id": "Q183"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 794,
+         "id": "Q794"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 9168,
+         "id": "Q9168"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "The Seed of the Sacred Fig"
+    }
+   }
+  },
+  "Q125622088": {
+   "id": "Q125622088",
+   "labels": {
+    "en": {
+     "value": "Flow"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt4772188"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "823219"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Straume",
+         "language": "lv"
+        }
+       }
+      },
+      "rank": "preferred"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Flow",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Поток",
+         "language": "ru"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "novalue"
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 211,
+         "id": "Q211"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 142,
+         "id": "Q142"
+        }
+       }
+      },
+      "rank": "normal"
+     },
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 31,
+         "id": "Q31"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Flow (2024 film)"
+    }
+   }
+  },
+  "Q126390903": {
+   "id": "Q126390903",
+   "labels": {
+    "en": {
+     "value": "Wallace and Gromit: Vengeance Most Fowl"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt17163970"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "929204"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 145,
+         "id": "Q145"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Wallace & Gromit: Vengeance Most Fowl",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Wallace & Gromit: Vengeance Most Fowl"
+    }
+   }
+  },
+  "Q24797403": {
+   "id": "Q24797403",
+   "labels": {
+    "en": {
+     "value": "Wicked"
+    }
+   },
+   "claims": {
+    "P345": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "tt1262426"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P4947": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "string",
+        "value": "402431"
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P364": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 1860,
+         "id": "Q1860"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P1476": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "monolingualtext",
+        "value": {
+         "text": "Wicked",
+         "language": "en"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ],
+    "P495": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "datavalue": {
+        "type": "wikibase-entityid",
+        "value": {
+         "entity-type": "item",
+         "numeric-id": 30,
+         "id": "Q30"
+        }
+       }
+      },
+      "rank": "normal"
+     }
+    ]
+   },
+   "sitelinks": {
+    "enwiki": {
+     "title": "Wicked (2024 film)"
+    }
+   }
+  }
+ },
+ "success": 1
+}

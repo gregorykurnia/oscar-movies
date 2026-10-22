@@ -1,0 +1,26 @@
+{
+ "claims": {
+  "P218": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "datavalue": {
+      "type": "string",
+      "value": "he"
+     }
+    },
+    "rank": "preferred"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "datavalue": {
+      "type": "string",
+      "value": "iw"
+     }
+    },
+    "rank": "normal"
+   }
+  ]
+ }
+}

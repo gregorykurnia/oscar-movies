@@ -1,0 +1,16 @@
+{
+ "claims": {
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "datavalue": {
+      "type": "string",
+      "value": "CA"
+     }
+    },
+    "rank": "normal"
+   }
+  ]
+ }
+}
