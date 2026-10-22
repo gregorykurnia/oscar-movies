@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { editionLabel, yearRange } from "./years";
+import { editionLabel, parseFilmYear, yearRange } from "./years";
 
 describe("editionLabel", () => {
   it("numbers the Academy Awards from 1927", () => {
@@ -21,5 +21,17 @@ describe("editionLabel", () => {
 describe("yearRange", () => {
   it("runs newest first", () => {
     expect(yearRange(2026, 2024)).toEqual([2026, 2025, 2024]);
+  });
+});
+
+describe("parseFilmYear", () => {
+  it("reads the years the app covers and nothing else", () => {
+    expect(parseFilmYear("2024")).toBe(2024);
+    expect(parseFilmYear("2012")).toBe(2012);
+    expect(parseFilmYear("2026")).toBe(2026);
+    expect(parseFilmYear("2011")).toBeNull();
+    expect(parseFilmYear("2027")).toBeNull();
+    expect(parseFilmYear("2024.0")).toBeNull();
+    expect(parseFilmYear("abc")).toBeNull();
   });
 });

@@ -26,8 +26,8 @@ export function YearSwitcher({
   years: number[];
   /** The live season, marked with a gold dot. */
   liveYear?: number;
-  /** The address for a year, with "{year}" in it ("/race/{year}?category=picture"). */
-  href: string;
+  /** The address for a year, with "{year}" in it ("/grid/{year}"), or a function of the year (client callers). */
+  href: string | ((year: number) => string);
   className?: string;
 }) {
   const router = useRouter();
@@ -37,7 +37,7 @@ export function YearSwitcher({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const yearRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const popId = useId();
-  const hrefFor = (y: number) => href.replaceAll("{year}", String(y));
+  const hrefFor = (y: number) => (typeof href === "function" ? href(y) : href.replaceAll("{year}", String(y)));
 
   // Opening puts keyboard focus on the page's year.
   useEffect(() => {

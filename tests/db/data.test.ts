@@ -6,8 +6,9 @@
 import { eq, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
-import { marks, movies } from "../../src/db/schema";
+import { dataLoads, marks, movies } from "../../src/db/schema";
 import { queryFilmCount } from "../../src/data/films";
+import { queryLastUpdate } from "../../src/data/loads";
 import { queryOscarEdition, queryOscarResults, querySubmissions } from "../../src/data/oscars";
 import {
   buildWatchList,
@@ -65,6 +66,17 @@ describe("film rows", () => {
         count: stored.scoreCount,
       },
     });
+  });
+});
+
+describe("last update", () => {
+  it("is the latest award load, not a score refresh", async () => {
+    await rolledBack(async (tx) => {
+      await tx.insert(dataLoads).values({ kind: "race-update", summary: {}, loadedAt: new Date("2030-01-02T10:00:00Z") });
+      await tx.insert(dataLoads).values({ kind: "scores", summary: {}, loadedAt: new Date("2030-01-03T10:00:00Z") });
+      expect(await queryLastUpdate(tx)).toEqual(new Date("2030-01-02T10:00:00Z"));
+    });
+    expect(await queryLastUpdate(db)).toBeInstanceOf(Date);
   });
 });
 

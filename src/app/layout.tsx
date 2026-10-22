@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { AppShell } from "@/components/app-shell/AppShell";
 import { MarksProvider } from "@/components/marks/MarksProvider";
 import { ServerMarks } from "@/components/marks/ServerMarks";
+import { LIVE_YEAR } from "@/lib/years";
 import "./globals.css";
 
 // Geist for every page (guide §4, §14). The variable goes on <html>; globals.css assigns it to --font-sans.
@@ -29,10 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={geist.variable}>
       <body>
-        {/* Every page renders inside the shell (guide §6.1). Its season and watch-list captions arrive with the data (1.6, 1.8). */}
+        {/* Every page renders inside the shell (guide §6.1). Its watch-list caption arrives with the watch list (1.14). */}
         {/* The marks are read per request, beside the page rather than before it (plan §5.1). */}
         <MarksProvider>
-          <AppShell>{children}</AppShell>
+          <AppShell season={LIVE_YEAR}>{children}</AppShell>
           <Suspense fallback={null}>
             <ServerMarks />
           </Suspense>

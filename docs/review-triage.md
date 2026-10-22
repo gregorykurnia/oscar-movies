@@ -19,6 +19,6 @@ Every "should fix" item from a phase review goes to exactly one place: fixed in 
 | 0-7 | `/styleguide` at 390: the switch squeezed the title to "Stylegui / de" | Fixed: switch labels "Normal" / "Stress" |
 | 0-8 | `/styleguide` part labels in all caps (guide §4, §15) | Fixed: section headings in sentence case |
 | 0-9 | `/styleguide` film list sample: Brazil's flag as submitting country on Sentimental Value (Norway) | Fixed: The Secret Agent |
-| 0-10 | Home stage line says "Nominations Jan"; the preview's 2026 frame says "Jan 2027" | Task 1.8 (the real stage line, from the season's dates) |
-| 0-11 | Home has no year switcher or "Updated" date | Task 1.8 (recorded in 0.10) |
+| 0-10 | Home stage line says "Nominations Jan"; the preview's 2026 frame says "Jan 2027" | Task 1.8, done: `StageLine` from the season's dates |
+| 0-11 | Home has no year switcher or "Updated" date | Task 1.8, done: year switcher and "Updated" in the PageHeader |
 | 0-12 | Error page reference is Next's numeric digest, not the preview's short hex | Dropped: the digest is what finds the error in Vercel's logs; the guide doesn't set a format |

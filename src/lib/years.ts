@@ -20,3 +20,10 @@ export function editionLabel(year: number): string {
   const suffix = tens >= 11 && tens <= 13 ? "th" : (["th", "st", "nd", "rd"][n % 10] ?? "th");
   return `${n}${suffix} Academy Awards`;
 }
+
+/** A film year from the address ("2024"), or null when it isn't one the app covers. */
+export function parseFilmYear(value: string): number | null {
+  if (!/^\d{4}$/.test(value)) return null;
+  const year = Number(value);
+  return year >= OLDEST_YEAR && year <= LIVE_YEAR ? year : null;
+}
