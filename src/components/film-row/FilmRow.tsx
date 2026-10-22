@@ -29,8 +29,8 @@ export function FilmList({
   children,
   className,
 }: {
-  /** Labels of the result columns, in order ("BAFTA", "Oscar, Best Picture"). */
-  head?: string[];
+  /** Labels of the result columns, in order ("BAFTA", "Oscar, Best Picture"); a numeric column's label is right-aligned over its figures. */
+  head?: (string | { label: string; numeric: true })[];
   /** The lead column's label ("Country"), when the rows have a lead. */
   leadLabel?: string;
   columns?: string[];
@@ -43,9 +43,15 @@ export function FilmList({
         <div aria-hidden="true" className={cn(rowGrid, "hidden border-b border-line py-2.5 text-caption text-ink-muted md:grid")}>
           {leadLabel ? <span>{leadLabel}</span> : null}
           <span>Film</span>
-          {head.map((label) => (
-            <span key={label}>{label}</span>
-          ))}
+          {head.map((h) =>
+            typeof h === "string" ? (
+              <span key={h}>{h}</span>
+            ) : (
+              <span key={h.label} className="text-right">
+                {h.label}
+              </span>
+            ),
+          )}
           <span />
         </div>
       ) : null}

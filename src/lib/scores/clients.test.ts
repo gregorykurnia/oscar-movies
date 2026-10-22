@@ -64,6 +64,10 @@ describe("TMDB", () => {
     expect(parseTmdb({ vote_average: 0, vote_count: 0 })).toEqual({ kind: "ok", value: { tmdbScore: null } });
   });
 
+  it("has no score when TMDB rates 0.0 with votes (no real rating is below 0.5)", () => {
+    expect(parseTmdb({ vote_average: 0, vote_count: 1 })).toEqual({ kind: "ok", value: { tmdbScore: null } });
+  });
+
   it("stops on a refused token and fails the film on a 404", async () => {
     expect((await fetchTmdb(1, "t", json({}, 401))).kind).toBe("stop");
     expect((await fetchTmdb(1, "t", json({}, 404))).kind).toBe("failed");

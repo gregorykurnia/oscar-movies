@@ -115,41 +115,67 @@ describe("marks store", () => {
   });
 
   describe("two quick taps: the last one wins", () => {
-    it("replies arriving in order", async () => {
+    it("the second waits for the first, then is sent", async () => {
       const { store, calls } = setup();
       store.tap(9, "watched", "Anora");
       store.tap(9, "watched", "Anora");
       expect(store.get(9).value).toEqual({ watched: false, want: false });
+      // One save in flight per film: the database sees the taps in order.
+      expect(calls).toHaveLength(1);
       calls[0].resolve(true);
       await flush();
       // The older reply doesn't flip the mark back on.
       expect(store.get(9).value).toEqual({ watched: false, want: false });
+      expect(calls.map((c) => c.input)).toEqual([
+        { movieId: 9, watched: true, want: false },
+        { movieId: 9, watched: false, want: false },
+      ]);
       calls[1].resolve(true);
       await flush();
       expect(store.get(9)).toEqual({ value: { watched: false, want: false }, status: {} });
     });
 
-    it("the older reply arriving last is ignored", async () => {
+    it("only the newest waiting tap is sent", async () => {
       const { store, calls } = setup();
       store.tap(9, "watched", "Anora");
       store.tap(9, "want", "Anora");
-      calls[1].resolve(true);
-      await flush();
+      store.tap(9, "watched", "Anora");
       calls[0].resolve(true);
       await flush();
-      expect(store.get(9).value).toEqual({ watched: false, want: true });
+      expect(calls.map((c) => c.input)).toEqual([{ movieId: 9, watched: true, want: false }]);
+      // The newest state equals what was just saved: nothing more to send.
+      expect(calls).toHaveLength(1);
+      expect(store.get(9)).toEqual({ value: { watched: true, want: false }, status: {} });
     });
 
-    it("an older request failing doesn't flip back or toast", async () => {
+    it("sends the newest waiting tap when it differs", async () => {
+      const { store, calls } = setup();
+      store.tap(9, "watched", "Anora");
+      store.tap(9, "want", "Anora");
+      store.tap(9, "want", "Anora");
+      store.tap(9, "want", "Anora");
+      calls[0].resolve(true);
+      await flush();
+      expect(calls.map((c) => c.input)).toEqual([
+        { movieId: 9, watched: true, want: false },
+        { movieId: 9, watched: false, want: true },
+      ]);
+      calls[1].resolve(true);
+      await flush();
+      expect(store.get(9)).toEqual({ value: { watched: false, want: true }, status: {} });
+    });
+
+    it("an older request failing doesn't flip back or toast, and the newer is still sent", async () => {
       const { store, calls, failures } = setup();
       store.tap(9, "watched", "Anora");
-      store.tap(9, "watched", "Anora");
+      store.tap(9, "want", "Anora");
       calls[0].resolve(false);
       await flush();
       expect(failures).toHaveLength(0);
+      expect(store.get(9).value).toEqual({ watched: false, want: true });
       calls[1].resolve(true);
       await flush();
-      expect(store.get(9)).toEqual({ value: { watched: false, want: false }, status: {} });
+      expect(store.get(9)).toEqual({ value: { watched: false, want: true }, status: {} });
     });
 
     it("the newest failing flips back to what the database last confirmed", async () => {
@@ -172,6 +198,33 @@ describe("marks store", () => {
       store.tap(2, "watched", "Anora");
       expect(store.get(2)).toEqual({ value: { watched: true, want: false }, status: {} });
     });
+
+    it("Try again on an old toast does nothing after a newer tap", async () => {
+      const { store, calls, failures } = setup();
+      store.tap(4, "watched", "Anora");
+      calls[0].resolve(false);
+      await flush();
+      store.tap(4, "want", "Anora");
+      calls[1].resolve(true);
+      await flush();
+      failures[0].retry();
+      expect(calls).toHaveLength(2);
+      expect(store.get(4).value).toEqual({ watched: false, want: true });
+    });
+  });
+
+  it("counts the films shown as want to watch, once the marks are read", () => {
+    const store = createMarksStore({ save: () => new Promise(() => {}), onFailure: () => {} });
+    expect(store.wantCount()).toBeUndefined();
+    store.hydrate([
+      { movieId: 1, watched: false, want: true },
+      { movieId: 2, watched: true, want: false },
+    ]);
+    expect(store.wantCount()).toBe(1);
+    store.tap(3, "want", "Flow");
+    expect(store.wantCount()).toBe(2);
+    store.tap(1, "watched", "Hamnet");
+    expect(store.wantCount()).toBe(1);
   });
 
   it("other films are untouched", () => {

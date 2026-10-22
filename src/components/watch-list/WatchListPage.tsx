@@ -1,16 +1,14 @@
-import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
-import { buttonClasses } from "@/components/button/Button";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
 import { FilmMarks } from "@/components/marks/MarksProvider";
 import { PageHeader } from "@/components/page-header/PageHeader";
 import { Segmented } from "@/components/segmented/Segmented";
+import { ShowAllRow } from "@/components/show-all/ShowAllRow";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { getWatchList, type StagedFilm } from "@/data/watch-list";
-import { outcomeStage } from "@/lib/stage";
 import {
   parseWatchQuery,
   SEASON_LIMIT,
@@ -26,6 +24,9 @@ type Query = Record<string, string | string[] | undefined>;
 
 // Film · Oscar stage · nominations · marks.
 const COLUMNS = ["minmax(0,1fr)", "132px", "104px", "84px"];
+
+// The "Show all" row's tail ("sorted by Oscar stage"); Oscar keeps its capital.
+const SORTED_BY: Record<WatchQuery["sort"], string> = { stage: "Oscar stage", nominations: "nominations", average: "average score" };
 
 const filmCount = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "film" : "films"}`;
 
@@ -106,7 +107,7 @@ function Section({ id, title, count, children }: { id: string; title: string; co
   return (
     <section aria-labelledby={`${id}-h`} className="mt-10 md:mt-12">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 id={`${id}-h`} className="text-title-phone font-semibold tracking-title [overflow-wrap:anywhere] md:text-title">
+        <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {title}
         </h2>
         <span className="text-small text-ink-muted">{filmCount(count)}</span>
@@ -118,21 +119,21 @@ function Section({ id, title, count, children }: { id: string; title: string; co
 
 function Films({ films }: { films: StagedFilm[] }) {
   return (
-    <FilmList head={["Oscar stage", "Nominations"]} columns={COLUMNS}>
-      {films.map(({ film, stage, nominations, flags }) => (
+    <FilmList head={["Oscar stage", { label: "Nominations", numeric: true }]} columns={COLUMNS}>
+      {films.map(({ film, stage, pill, categories, nominations, flags }) => (
         <FilmRow
           key={film.id}
           headingLevel={3}
           title={film.title}
           href={`/movies/${film.slug}`}
           flags={flags}
-          meta={film.year}
+          meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
           scores={film.scores}
           winner={stage === "won"}
           results={[
             {
               label: "Oscar stage",
-              value: stage ? <StagePill stage={outcomeStage(stage)} /> : <span className="text-ink-muted">No Oscar result</span>,
+              value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">No Oscar result</span>,
             },
             { label: "Nominations", value: nominations, numeric: true },
           ]}
@@ -145,10 +146,11 @@ function Films({ films }: { films: StagedFilm[] }) {
 
 function ShowAll({ total, state }: { total: number; state: WatchQuery }) {
   return (
-    <div className="mt-5 flex justify-center">
-      <Link href={watchHref({ ...state, all: true })} scroll={false} className={buttonClasses()}>
-        Show all {total.toLocaleString("en-US")} films
-      </Link>
-    </div>
+    <ShowAllRow
+      href={watchHref({ ...state, all: true })}
+      scroll={false}
+      label={`Show all ${filmCount(total)}`}
+      rest={`sorted by ${SORTED_BY[state.sort]}`}
+    />
   );
 }

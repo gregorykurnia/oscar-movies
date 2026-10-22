@@ -53,6 +53,21 @@ export function HydrateMarks({ marks }: { marks: ({ movieId: number } & MarkValu
   return null;
 }
 
+/**
+ * How many films are marked want to watch, live (the phone menu's caption). Undefined before the
+ * marks are read, or outside the provider (component tests).
+ */
+export function useWantCount(): number | undefined {
+  const store = useContext(MarksContext);
+  return useSyncExternalStore(
+    store?.subscribe ?? noSubscribe,
+    () => store?.wantCount(),
+    () => undefined,
+  );
+}
+
+const noSubscribe = () => () => {};
+
 /** One film's marks, whether they can be changed now, and the tap. */
 function useFilmMarks(movieId: number, title: string) {
   const store = useMarksStore();

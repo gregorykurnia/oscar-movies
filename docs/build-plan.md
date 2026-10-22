@@ -429,6 +429,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Approve the first `production` migration (`npm run db:migrate`, then `db:mark-branch -- --target production --yes-production`) | 2026-10-22 | the first release |
 | Say "release" for the first deploy; check the live URL loads and reads the database | 2026-10-22 | Phase 0 done, `APP_URL` |
 | Check `/styleguide` against `design-preview.html` in a local preview and sign it off | 2026-10-22 | Phase 0 done |
+| Approve the Phase 1 production migrations (now including `0002_tmdb_zero_votes`, which clears TMDB 0.0 scores) and data load; Claude shows the dry run first | 2026-10-22 | Phase 1 release |
+| Set `CRON_SECRET` in Vercel Production, then release, so the daily score cron runs | 2026-10-22 | daily scores live |
+| Phase 1 owner check: mark the films seen for 2024–2026, check a handful of Oscar years against memory, sign off | 2026-10-22 | Phase 1 done |
 
 ## Upkeep log
 

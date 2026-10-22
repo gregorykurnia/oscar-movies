@@ -6,9 +6,12 @@ import { expect, test } from "@playwright/test";
 test("on a desktop, / opens the box, a result shows its row, and Enter opens the film", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
-  await page.keyboard.press("/");
   const box = page.getByRole("combobox", { name: "Search films and awards" });
-  await expect(box).toBeFocused();
+  // The `/` key works once the page has hydrated; a press before that does nothing (1.R).
+  await expect(async () => {
+    await page.keyboard.press("/");
+    await expect(box).toBeFocused({ timeout: 1000 });
+  }).toPass();
 
   await box.fill("ainda estou");
   const option = page.getByRole("option", { name: /I'm Still Here/ });

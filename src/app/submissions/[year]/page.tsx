@@ -15,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const year = parseFilmYear((await params).year);
-  return { title: year ? `${year} submissions` : "Not found" };
+  return { title: year ? `${year} submissions` : "Page not found" };
 }
 
 // International Feature submissions for a film year (guide §8.3). The sort and the chips are read

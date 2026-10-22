@@ -4,6 +4,7 @@ import { Search, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, type KeyboardEvent, type RefObject } from "react";
 import { cn } from "@/lib/cn";
+import { useWantCount } from "@/components/marks/MarksProvider";
 import { IconButton } from "./IconButton";
 import { NAV_ITEMS, type NavKey } from "./nav";
 import { Wordmark } from "./Wordmark";
@@ -38,6 +39,7 @@ export function PhoneMenu({
 }) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const wantCount = useWantCount();
 
   useEffect(() => {
     if (!open) return;
@@ -81,9 +83,10 @@ export function PhoneMenu({
     }
   }
 
+  const watchCaption = toWatch ?? wantCount;
   const captions: Partial<Record<NavKey, string>> = {
     race: season !== undefined ? `${season} season` : undefined,
-    "watch-list": toWatch !== undefined ? `${toWatch.toLocaleString("en-US")} to watch` : undefined,
+    "watch-list": watchCaption !== undefined ? `${watchCaption.toLocaleString("en-US")} to watch` : undefined,
   };
 
   return (

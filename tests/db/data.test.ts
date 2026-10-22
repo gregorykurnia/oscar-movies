@@ -194,7 +194,19 @@ describe("marks and the watch list", () => {
       flags: ["BR", "FR"],
     });
     // I'm Still Here was nominated for Best Picture and won International.
-    expect(season.find((f) => f.film.slug === "im-still-here")?.nominations).toBe(2);
+    expect(season.find((f) => f.film.slug === "im-still-here")).toMatchObject({
+      nominations: 2,
+      pill: "won",
+      categories: ["Picture", "International"],
+    });
+    // International's eligible reads Not nominated; Animated's eligible list stays Eligible (1.R).
+    const eligible = season.filter((f) => f.stage === "eligible");
+    const intl = eligible.filter((f) => f.categories.join() === "International");
+    const animated = eligible.filter((f) => f.categories.join() === "Animated");
+    expect(intl.length).toBeGreaterThan(50);
+    expect(intl.every((f) => f.pill === "not-nominated")).toBe(true);
+    expect(animated.length).toBeGreaterThan(0);
+    expect(animated.every((f) => f.pill === "eligible")).toBe(true);
   });
 
   it("list the want-to-watch films, including ones with no Oscar result", async () => {

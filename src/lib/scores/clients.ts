@@ -80,12 +80,15 @@ export async function fetchOmdb(imdbId: string, apiKey: string, fetchImpl: Fetch
 
 type TmdbBody = { vote_average?: number; vote_count?: number };
 
-/** Reads TMDB's answer. A film nobody has voted on has no user score yet (null, not 0). */
+/**
+ * Reads TMDB's answer. A film nobody has voted on has no user score yet (null, not 0); so does
+ * one TMDB rates 0.0 (votes without a rating: its lowest real rating is 0.5).
+ */
 export function parseTmdb(body: TmdbBody): ClientResult<TmdbScores> {
   if (typeof body.vote_average !== "number" || typeof body.vote_count !== "number") {
     return { kind: "failed", reason: "TMDB: no vote_average in the answer" };
   }
-  const tmdbScore = body.vote_count > 0 ? inRange(oneDecimal(body.vote_average), 10) : null;
+  const tmdbScore = body.vote_count > 0 && body.vote_average > 0 ? inRange(oneDecimal(body.vote_average), 10) : null;
   return { kind: "ok", value: { tmdbScore } };
 }
 

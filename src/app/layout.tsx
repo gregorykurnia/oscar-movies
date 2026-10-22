@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={geist.variable}>
       <body>
-        {/* Every page renders inside the shell (guide §6.1). The phone menu's "N to watch" caption is not wired yet (a follow-up to 1.14). */}
+        {/* Every page renders inside the shell (guide §6.1); the phone menu counts "N to watch" from the marks. */}
         {/* The marks are read per request, beside the page rather than before it (plan §5.1). */}
         <MarksProvider>
           <AppShell season={LIVE_YEAR}>{children}</AppShell>

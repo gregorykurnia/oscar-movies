@@ -51,7 +51,8 @@ const getWide = () => window.matchMedia?.(WIDE).matches ?? false;
 const LazyFlag = lazy(() => import("@/components/flag/Flag").then((m) => ({ default: m.Flag })));
 
 function ResultFlag({ code }: { code: string | null }) {
-  const blank = <span aria-hidden="true" className="block h-3.5 w-[21px] rounded-xs bg-track" />;
+  // `--line`, not `--track`: the highlighted row is `--track`, and the placeholder must show on it.
+  const blank = <span aria-hidden="true" className="block h-3.5 w-[21px] rounded-xs bg-line" />;
   if (!code) return blank;
   return (
     <Suspense fallback={blank}>
@@ -205,13 +206,16 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
   const wasOpen = useRef(false);
 
   const normalized = normalizeQuery(query);
-  const films = found?.data.films ?? [];
-  const awards = found?.data.awards ?? [];
-  const hrefs = [...films.map((f) => f.href), ...awards.map((a) => a.href)];
-  const activeIndex = hrefs.length > 0 ? Math.min(active, hrefs.length - 1) : -1;
   // Results are kept while the next answer loads; they go when the query is cleared or search closes.
   const shown = normalized && found ? found : null;
   const fresh = shown !== null && shown.query === normalized;
+  // The options are only those on screen: none while the box is empty or the failure shows, so
+  // Enter and the arrows never reach a hidden result (1.R).
+  const listed = shown !== null && !failed ? shown : null;
+  const films = listed?.data.films ?? [];
+  const awards = listed?.data.awards ?? [];
+  const hrefs = [...films.map((f) => f.href), ...awards.map((a) => a.href)];
+  const activeIndex = hrefs.length > 0 ? Math.min(active, hrefs.length - 1) : -1;
 
   const close = useCallback(() => {
     setQuery("");
@@ -341,8 +345,8 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
       role="combobox"
       aria-label="Search films and awards"
       aria-autocomplete="list"
-      aria-expanded={shown !== null && hrefs.length > 0}
-      aria-controls={shown !== null && hrefs.length > 0 ? listId : undefined}
+      aria-expanded={hrefs.length > 0}
+      aria-controls={hrefs.length > 0 ? listId : undefined}
       aria-activedescendant={activeIndex >= 0 ? optionId(activeIndex) : undefined}
       autoComplete="off"
       autoCorrect="off"

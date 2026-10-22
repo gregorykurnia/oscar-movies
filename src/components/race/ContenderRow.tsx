@@ -7,9 +7,9 @@ import { cn } from "@/lib/cn";
 // Guide §6.5 Contender row, results only: film (1fr) · marks (84px). The "to be nominated" and
 // "to win" columns, the precursor line and the chance line join it with the chances (Phase 3).
 
-/** The race's list: the first rule in ink, the rest in line. */
+/** The rows: the first rule in ink, and a closing rule under the last (drop it when a "Show all" row follows: it has its own rule). */
 export function ContenderList({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("[&>*:first-child]:border-t-ink", className)}>{children}</div>;
+  return <div className={cn("border-b border-line [&>*:first-child]:border-t-ink", className)}>{children}</div>;
 }
 
 export function ContenderRow({

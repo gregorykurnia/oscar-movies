@@ -136,6 +136,19 @@ export function stageLine({
   }
 }
 
+/**
+ * A category with no Oscar results yet (the Oscar year page's empty state): the next announcement
+ * it waits for. Picture and Animated have no dated shortlist, so they wait for the nominations.
+ */
+export function noResultsNote(category: RaceCategory, dates: { shortlistOn: string | null; nominationsOn: string | null }): string {
+  const date = (iso: string) => formatDate(new Date(`${iso}T00:00:00Z`), true);
+  if ((category === "documentary" || category === "international") && dates.shortlistOn) {
+    return `The shortlist comes out ${date(dates.shortlistOn)}.`;
+  }
+  if (dates.nominationsOn) return `Nominations are announced ${date(dates.nominationsOn)}.`;
+  return "Nothing is loaded for this category yet.";
+}
+
 /** Under a tab's name (guide §6.3), until the chances arrive: the winner, or a count. */
 export type TabLead = { kind: "winner"; title: string; flag: string | null } | { kind: "text"; text: string };
 

@@ -2,7 +2,7 @@
 // order and recheck ages, and a save after failed calls keeps every stored score. Each test
 // runs inside a transaction that is rolled back. Films use `test-scores-` slugs and year 1990
 // (outside the app's years) so the seeded films don't get in the way of `--year` queues.
-import { eq, inArray, TransactionRollbackError } from "drizzle-orm";
+import { asc, eq, inArray, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { dataLoads, movies } from "../../src/db/schema";
@@ -93,7 +93,8 @@ describe("score store", () => {
       const [after] = await tx.select().from(movies).where(eq(movies.id, row.id));
       expect(after).toMatchObject({ ...scored, imdbAt: at, rtAt: at, mcAt: at, tmdbAt: at, scoresCheckedAt: NOW });
       expect(after.scoreCount).toBe(4);
-      const loads = await tx.select().from(dataLoads).where(inArray(dataLoads.kind, ["scores"]));
+      // Without an order Postgres may return the rows in any order: the newest is the highest id.
+      const loads = await tx.select().from(dataLoads).where(inArray(dataLoads.kind, ["scores"])).orderBy(asc(dataLoads.id));
       expect(loads.at(-1)?.summary).toMatchObject({ source: "script", checked: 1 });
     });
   });

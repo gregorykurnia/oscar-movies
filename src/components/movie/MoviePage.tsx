@@ -11,7 +11,7 @@ import { getMovie, type MovieData, type OscarBox } from "@/data/movie";
 import { cn } from "@/lib/cn";
 import { movieFacts, oscarBoxNote, oscarsHeading, shownOriginalTitle } from "@/lib/movie";
 import { RACE_CATEGORIES } from "@/lib/race";
-import { outcomeStage } from "@/lib/stage";
+import { oscarStage } from "@/lib/stage";
 import { editionLabel } from "@/lib/years";
 
 const CATEGORY_NAMES = Object.fromEntries(RACE_CATEGORIES.map((c) => [c.slug, c.oscar]));
@@ -100,7 +100,7 @@ function OscarResult({ box, showEdition }: { box: OscarBox; showEdition: boolean
           {showEdition ? `${editionLabel(box.year)} · ${note}` : note}
         </span>
       </div>
-      <StagePill stage={outcomeStage(box.outcome)} />
+      <StagePill stage={oscarStage(box.outcome, box.category)} />
     </li>
   );
 }

@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const year = parseFilmYear((await params).year);
-  return { title: year ? `Oscars ${year}` : "Not found" };
+  return { title: year ? `Oscars ${year}` : "Page not found" };
 }
 
 // The Oscars' own year page (guide §8.2, on the award-page template).

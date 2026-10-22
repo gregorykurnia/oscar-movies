@@ -261,10 +261,20 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
         want: w.to.want,
         updatedAt: w.to.updatedAt ? new Date(w.to.updatedAt) : new Date(),
       };
-      await tx
-        .insert(marks)
-        .values({ movieId: w.film.id, ...values })
-        .onConflictDoUpdate({ target: marks.movieId, set: values });
+      if (w.from === null) {
+        // No row to lock when the plan was checked: a tap could have added one since. Never
+        // overwrite it; stop, and the whole restore rolls back (1.R).
+        const added = await tx
+          .insert(marks)
+          .values({ movieId: w.film.id, ...values })
+          .onConflictDoNothing({ target: marks.movieId })
+          .returning({ movieId: marks.movieId });
+        if (added.length === 0) {
+          throw new Error(`Marks changed since the plan was made: ${filmLabel(w.film)}. Nothing was written; run the dry run again.`);
+        }
+      } else {
+        await tx.update(marks).set(values).where(eq(marks.movieId, w.film.id));
+      }
     }
   });
   return plan.writes.length;

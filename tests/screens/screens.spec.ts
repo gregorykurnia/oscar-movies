@@ -53,7 +53,10 @@ async function openSearch(page: Page, phone: boolean) {
   if (phone) await page.getByRole("button", { name: "Search", exact: true }).click();
   else await page.keyboard.press("/");
   await page.getByRole("combobox").fill("ainda estou");
-  await expect(page.getByRole("option", { name: /I'm Still Here/ })).toBeVisible();
+  const option = page.getByRole("option", { name: /I'm Still Here/ });
+  await expect(option).toBeVisible();
+  // The flags load the first time search opens: wait for the row's flag, not its placeholder.
+  await expect(option.getByRole("img")).toBeVisible();
 }
 
 // `name` is the file name and the `--grep` name. The error page has no address of its own, so

@@ -12,8 +12,8 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getOscarEdition, getOscarResults, type OscarEdition, type OscarEntry } from "@/data/oscars";
 import { formatDate } from "@/lib/format";
-import { RACE_CATEGORIES, raceEntries, seasonState, type RaceCategory, type SeasonState } from "@/lib/race";
-import { outcomeStage } from "@/lib/stage";
+import { noResultsNote, RACE_CATEGORIES, raceEntries, seasonState, type RaceCategory, type SeasonState } from "@/lib/race";
+import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
@@ -117,8 +117,9 @@ function CategorySection({
 }) {
   return (
     <section id={slug} aria-labelledby={`${slug}-h`} className="mt-10 scroll-mt-20 md:mt-12">
-      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 id={`${slug}-h`} className="text-title-phone font-semibold tracking-title md:text-title">
+      {/* On phone the note always takes its own line, so every category's heading reads the same. */}
+      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 max-md:flex-col">
+        <h2 id={`${slug}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {name}
         </h2>
         {STATE_NOTE[state] ? <span className="text-small text-ink-muted">{STATE_NOTE[state]}</span> : null}
@@ -139,7 +140,7 @@ function CategorySection({
                   label: "Oscar",
                   value: (
                     <>
-                      <StagePill stage={outcomeStage(e.outcome)} />
+                      <StagePill stage={oscarStage(e.outcome, slug)} />
                       {e.country ? <span className="ml-2 text-caption text-ink-muted">for {countryName(e.country)}</span> : null}
                     </>
                   ),
@@ -160,7 +161,7 @@ function CategorySection({
             ) : undefined
           }
         >
-          {edition.shortlistOn ? `The shortlist comes out ${formatDate(new Date(`${edition.shortlistOn}T00:00:00Z`), true)}.` : "Nothing is loaded for this category yet."}
+          {noResultsNote(slug, edition)}
         </EmptyState>
       )}
     </section>

@@ -15,7 +15,7 @@ import {
   type SearchableAward,
   type SearchFilm,
 } from "@/lib/search";
-import { flagsFor, outcomeStage, type Outcome } from "@/lib/stage";
+import { flagsFor, oscarStage, type Outcome } from "@/lib/stage";
 import type { ReadDb } from "./films";
 
 /** The Oscar categories as a result row names them, in the order a film lists them. */
@@ -36,6 +36,11 @@ function oscarSummary(db: ReadDb) {
       stage: sql<Outcome>`max(${results.outcome})`.as("stage"),
       country: sql<string | null>`max(${results.country})`.as("country"),
       categories: sql<string>`string_agg(distinct ${awardCategories.oscarCategory}::text, ',')`.as("categories"),
+      // Every eligible result is International's: a furthest stage of eligible reads Not nominated.
+      eligibleOnlyInternational:
+        sql<boolean>`bool_and(${results.outcome} <> 'eligible' or ${awardCategories.oscarCategory} = 'international')`.as(
+          "eligible_only_international",
+        ),
     })
     .from(results)
     .innerJoin(editions, eq(editions.id, results.editionId))
@@ -71,6 +76,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
       stage: summary.stage,
       country: summary.country,
       categories: summary.categories,
+      eligibleOnlyInternational: summary.eligibleOnlyInternational,
     })
     .from(movies)
     .leftJoin(summary, eq(summary.movieId, movies.id))
@@ -95,7 +101,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
       .filter((slug) => slug in CATEGORY_LABELS)
       .sort((a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b))
       .map((slug) => CATEGORY_LABELS[slug]),
-    stage: row.stage ? outcomeStage(row.stage) : null,
+    stage: row.stage ? oscarStage(row.stage, row.eligibleOnlyInternational ? "international" : null) : null,
     href: `/movies/${row.slug}`,
   }));
 }

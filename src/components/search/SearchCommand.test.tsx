@@ -122,6 +122,26 @@ describe("SearchCommand", () => {
     expect(screen.queryByRole("dialog", { name: "Search" })).toBeNull();
   });
 
+  it("an emptied box or a failed search leaves no hidden result for Enter or the arrows", async () => {
+    fetchMock.mockResolvedValueOnce(answer({ films: [anora], awards: [] }));
+    render(<Harness initiallyOpen />);
+    type("anora");
+    await screen.findByRole("option", { name: /Anora/ });
+    type("");
+    expect(screen.queryByRole("option")).toBeNull();
+    expect(box().getAttribute("aria-activedescendant")).toBeNull();
+    fireEvent.keyDown(box(), { key: "Enter" });
+    expect(push).not.toHaveBeenCalled();
+
+    fetchMock.mockResolvedValueOnce(answer(500));
+    type("anor");
+    await screen.findByText("Search isn't available right now.", { selector: "strong" });
+    expect(box().getAttribute("aria-activedescendant")).toBeNull();
+    fireEvent.keyDown(box(), { key: "ArrowDown" });
+    fireEvent.keyDown(box(), { key: "Enter" });
+    expect(push).not.toHaveBeenCalled();
+  });
+
   it("Esc closes and clears, and focus goes back to the button that opened it", async () => {
     fetchMock.mockResolvedValue(answer({ films: [anora], awards: [] }));
     render(<Harness />);

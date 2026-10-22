@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  noResultsNote,
   parseCategory,
   raceEntries,
   raceHref,
@@ -144,5 +145,20 @@ describe("tabLead", () => {
     });
     expect(tabLead({ state: "before", entries: [], submissions: 100 })).toEqual({ kind: "text", text: "100 submissions" });
     expect(tabLead({ state: "before", entries: [], submissions: 0 })).toEqual({ kind: "text", text: "No contenders yet" });
+  });
+});
+
+describe("noResultsNote", () => {
+  const dates = { shortlistOn: "2026-12-15", nominationsOn: "2027-01-21" };
+  it("Documentary and International wait for the shortlist", () => {
+    expect(noResultsNote("international", dates)).toBe("The shortlist comes out 15 Dec 2026.");
+    expect(noResultsNote("documentary", dates)).toBe("The shortlist comes out 15 Dec 2026.");
+  });
+  it("Picture and Animated wait for the nominations", () => {
+    expect(noResultsNote("picture", dates)).toBe("Nominations are announced 21 Jan 2027.");
+    expect(noResultsNote("animated", dates)).toBe("Nominations are announced 21 Jan 2027.");
+  });
+  it("says nothing is loaded when no date is known", () => {
+    expect(noResultsNote("picture", { shortlistOn: "2026-12-15", nominationsOn: null })).toBe("Nothing is loaded for this category yet.");
   });
 });

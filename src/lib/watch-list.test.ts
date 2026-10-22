@@ -17,6 +17,8 @@ function film(title: string, stage: Outcome | null, nominations: number, average
       scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 },
     },
     stage,
+    pill: null,
+    categories: [],
     nominations,
     flags: [],
   };

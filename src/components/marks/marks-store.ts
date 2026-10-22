@@ -1,8 +1,10 @@
 // The marks on the page (plan §5.1, §5.6), kept outside React so every rule is unit tested:
 // a tap flips the mark at once (watched clears want, want clears watched), the save runs
 // behind it, the gold ring shows only after 400ms, a failed save flips the mark back with a
-// red ring for 2s and a toast, and of two quick taps the last one wins (replies to older
-// requests are ignored). `MarksProvider` holds one store for the whole app.
+// red ring for 2s and a toast, and of two quick taps the last one wins. A film has at most one
+// save in flight: a tap during it waits, and only the newest waiting state is sent when it
+// settles, so saves reach the database in tap order even when a navigation lets Next run
+// Server Actions side by side (1.R). `MarksProvider` holds one store for the whole app.
 import type { MarkValue } from "@/data/marks";
 import type { MarkKind, MarkStatus } from "./Marks";
 
@@ -43,6 +45,11 @@ export function failureMessage(title: string, shown: MarkValue): string {
   return `${title} is back to ${state}. Check the connection and try again.`;
 }
 
+/** One save: the state sent, the mark tapped, and its number. */
+type Request = { seq: number; kind: MarkKind; target: MarkValue; title: string };
+
+const same = (a: MarkValue, b: MarkValue) => a.watched === b.watched && a.want === b.want;
+
 type Film = {
   snapshot: FilmMarksSnapshot;
   /** The state the database holds, as far as the replies tell. */
@@ -53,6 +60,10 @@ type Film = {
   settledSeq: number;
   /** The request `confirmed` came from, so an older success arriving late can't overwrite it. */
   confirmedSeq: number;
+  /** A save is on its way; taps meanwhile wait in `queued`. */
+  inFlight: boolean;
+  /** The newest tap made while a save was in flight (older waiting taps are dropped). */
+  queued: Request | null;
   timers: ReturnType<typeof setTimeout>[];
 };
 
@@ -66,7 +77,7 @@ export function createMarksStore({ save, onFailure }: { save: SaveMark; onFailur
   function film(movieId: number): Film {
     let f = films.get(movieId);
     if (!f) {
-      f = { snapshot: IDLE, confirmed: NONE, seq: 0, settledSeq: 0, confirmedSeq: 0, timers: [] };
+      f = { snapshot: IDLE, confirmed: NONE, seq: 0, settledSeq: 0, confirmedSeq: 0, inFlight: false, queued: null, timers: [] };
       films.set(movieId, f);
     }
     return f;
@@ -83,7 +94,7 @@ export function createMarksStore({ save, onFailure }: { save: SaveMark; onFailur
     f.snapshot = { value, status };
   }
 
-  /** Sends `target` as the film's whole state, showing it at once. `kind` is the mark tapped. */
+  /** Shows `target` at once and saves it as the film's whole state. `kind` is the mark tapped. */
   function set(movieId: number, kind: MarkKind, target: MarkValue, title: string) {
     if (phase !== "ready") return;
     const f = film(movieId);
@@ -98,37 +109,55 @@ export function createMarksStore({ save, onFailure }: { save: SaveMark; onFailur
       }, SAVING_DELAY_MS),
     );
     emit();
+    const request: Request = { seq, kind, target, title };
+    if (f.inFlight) f.queued = request;
+    else send(movieId, f, request);
+  }
 
-    const settle = (ok: boolean) => {
-      f.settledSeq = Math.max(f.settledSeq, seq);
-      if (ok && seq > f.confirmedSeq) {
-        f.confirmed = target;
-        f.confirmedSeq = seq;
-      }
-      // An older reply: the newer request decides what's shown.
-      if (seq !== f.seq) return;
-      clearTimers(f);
-      if (ok) {
-        show(f, target);
-      } else {
-        const shown = f.confirmed;
-        show(f, shown, { [kind]: "failed" });
-        f.timers.push(
-          setTimeout(() => {
-            if (f.seq !== seq) return;
-            show(f, f.snapshot.value);
-            emit();
-          }, FAILED_RING_MS),
-        );
-        onFailure({ movieId, title, shown, retry: () => set(movieId, kind, target, title) });
-      }
-      emit();
+  function send(movieId: number, f: Film, request: Request) {
+    f.inFlight = true;
+    const done = (ok: boolean) => {
+      f.inFlight = false;
+      const next = f.queued;
+      f.queued = null;
+      finish(movieId, f, request, ok);
+      if (!next) return;
+      // The database already holds the newest state: nothing left to send.
+      if (ok && same(next.target, request.target)) finish(movieId, f, next, true);
+      else send(movieId, f, next);
     };
-
-    save({ movieId, ...target }).then(
-      (result) => settle(result?.ok === true),
-      () => settle(false),
+    save({ movieId, ...request.target }).then(
+      (result) => done(result?.ok === true),
+      () => done(false),
     );
+  }
+
+  /** A save's reply: what the database holds, and what's shown if it's the newest tap. */
+  function finish(movieId: number, f: Film, { seq, kind, target, title }: Request, ok: boolean) {
+    f.settledSeq = Math.max(f.settledSeq, seq);
+    if (ok && seq > f.confirmedSeq) {
+      f.confirmed = target;
+      f.confirmedSeq = seq;
+    }
+    // An older reply: the newer request decides what's shown.
+    if (seq !== f.seq) return;
+    clearTimers(f);
+    if (ok) {
+      show(f, target);
+    } else {
+      const shown = f.confirmed;
+      show(f, shown, { [kind]: "failed" });
+      f.timers.push(
+        setTimeout(() => {
+          if (f.seq !== seq) return;
+          show(f, f.snapshot.value);
+          emit();
+        }, FAILED_RING_MS),
+      );
+      // Try again from an old toast does nothing once a newer tap was made.
+      onFailure({ movieId, title, shown, retry: () => f.seq === seq && set(movieId, kind, target, title) });
+    }
+    emit();
   }
 
   const get = (movieId: number): FilmMarksSnapshot => films.get(movieId)?.snapshot ?? IDLE;
@@ -140,6 +169,13 @@ export function createMarksStore({ save, onFailure }: { save: SaveMark; onFailur
     },
     getPhase: () => phase,
     get,
+    /** Films shown as want to watch (the phone menu's "N to watch"); undefined until the marks are read. */
+    wantCount(): number | undefined {
+      if (phase !== "ready") return undefined;
+      let n = 0;
+      for (const f of films.values()) if (f.snapshot.value.want) n++;
+      return n;
+    },
     /**
      * The marks read on the server (`null`: they couldn't be read). Films with a save in
      * flight keep what the page shows; every other film takes the server's state.

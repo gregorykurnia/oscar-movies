@@ -21,7 +21,7 @@ import {
   tabLead,
   type RaceCategory,
 } from "@/lib/race";
-import { outcomeStage } from "@/lib/stage";
+import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 import { CategoryTabs } from "./CategoryTabs";
 import { ContenderList, ContenderRow } from "./ContenderRow";
@@ -151,6 +151,8 @@ function CategoryPanel({
   const pills = showsStagePills(state);
   return (
     <>
+      {/* The tab names the panel on screen; the heading keeps the outline h1 → h2 → h3 (1.R). */}
+      <h2 className="sr-only">{RACE_CATEGORIES.find((c) => c.slug === category)!.oscar}</h2>
       <StageLine line={line} className="mt-[18px] md:mt-7" />
       {shown.length > 0 ? (
         <ContenderList className="mt-3">
@@ -161,7 +163,7 @@ function CategoryPanel({
               href={`/movies/${e.film.slug}`}
               flags={e.flags}
               firstFlagLabel={e.country ? `${countryName(e.country)}, submitting country` : undefined}
-              badge={pills ? <StagePill stage={outcomeStage(e.outcome)} /> : undefined}
+              badge={pills ? <StagePill stage={oscarStage(e.outcome, category)} /> : undefined}
               scores={e.film.scores}
               marks={<FilmMarks movieId={e.film.id} title={e.film.title} />}
             />

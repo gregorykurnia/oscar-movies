@@ -15,6 +15,13 @@
       "when": 1792682878641,
       "tag": "0001_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792699137281,
+      "tag": "0002_tmdb_zero_votes",
+      "breakpoints": true
     }
   ]
 }

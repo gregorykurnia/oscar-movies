@@ -61,9 +61,9 @@ export function StatusPage({
 export type StatusLink = { label: string; caption: string; href: string };
 
 /**
- * The 404's three links: the live race, this year's awards, the watch list. Until the data layer
- * knows the live season and the list's size (tasks 1.6, 1.8), `season` and `toWatch` are unset
- * and the labels carry no year or count.
+ * The 404's three links: the live race, this year's awards, the watch list. Without `season` the
+ * labels carry no year; without `toWatch` the watch list's caption has no count (the 404 is a
+ * server page and the count lives in the marks on the client).
  */
 export function usefulLinks({ season, toWatch }: { season?: number; toWatch?: number } = {}): StatusLink[] {
   return [

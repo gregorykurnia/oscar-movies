@@ -46,7 +46,8 @@ test("the home page links the apple icon and the absolute preview image", async 
 });
 
 const PAGES = [
-  { path: "/", title: "Oscar Movies", status: 200 },
+  { path: "/", title: /^The \d{4} race · Oscar Movies$/, status: 200 },
+  { path: "/race/2024", title: "The 2024 race · Oscar Movies", status: 200 },
   { path: "/styleguide", title: "Styleguide · Oscar Movies", status: 200 },
   { path: "/no-such-page", title: "Page not found · Oscar Movies", status: 404 },
 ];

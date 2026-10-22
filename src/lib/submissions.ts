@@ -4,7 +4,7 @@
 import type { Stage } from "@/components/stage-pill/StagePill";
 import { countryName } from "@/components/flag/Flag";
 import type { OscarEntry } from "@/data/oscars";
-import { isShortlisted, OUTCOMES, outcomeStage, type Outcome } from "@/lib/stage";
+import { isShortlisted, OUTCOMES, oscarStage, type Outcome } from "@/lib/stage";
 
 export const SUBMISSION_SORTS = ["country", "stage", "average"] as const;
 export type SubmissionSort = (typeof SUBMISSION_SORTS)[number];
@@ -58,7 +58,7 @@ export function toggleFilter(filters: SubmissionFilter[], filter: SubmissionFilt
  * way rather than "Eligible".
  */
 export function submissionStage(outcome: Outcome): Stage {
-  return outcome === "eligible" ? "not-nominated" : outcomeStage(outcome);
+  return oscarStage(outcome, "international");
 }
 
 const countryOf = (e: OscarEntry) => (e.country ? countryName(e.country) : "");

@@ -37,6 +37,14 @@ export function outcomeStage(outcome: Outcome): Stage {
   return outcome === "runner_up" ? "runner-up" : outcome;
 }
 
+/**
+ * The stage pill for an outcome in a category. International's `eligible` (submitted, went to the
+ * vote, not nominated) reads Not nominated on every page, as on the submissions page (task 1.10).
+ */
+export function oscarStage(outcome: Outcome, category?: string | null): Stage {
+  return outcome === "eligible" && category === "international" ? "not-nominated" : outcomeStage(outcome);
+}
+
 /** A film's flags: the submitting country first (International), then its production countries. */
 export function flagsFor(countries: string[], submittingCountry?: string | null): string[] {
   if (!submittingCountry) return countries;

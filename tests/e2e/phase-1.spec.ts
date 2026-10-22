@@ -122,9 +122,12 @@ test("marking a film watched shows on every page it appears on", async ({ page }
 test("search finds a film by its original title and opens it", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
-  await page.keyboard.press("/");
   const box = page.getByRole("combobox", { name: "Search films and awards" });
-  await expect(box).toBeFocused();
+  // The `/` key works once the page has hydrated; a press before that does nothing (1.R).
+  await expect(async () => {
+    await page.keyboard.press("/");
+    await expect(box).toBeFocused({ timeout: 1000 });
+  }).toPass();
 
   await box.fill("agente secreto");
   const option = page.getByRole("option", { name: new RegExp(FILM.title) });

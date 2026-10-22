@@ -405,7 +405,7 @@ export function Components({ s }: { s: Sample }) {
           ))}
         </FilmList>
         <FilmList
-          head={["To win", "Nominations"]}
+          head={[{ label: "To win", numeric: true }, { label: "Nominations", numeric: true }]}
           columns={["minmax(0,1fr)", "132px", "132px", "84px"]}
           className="w-full"
         >

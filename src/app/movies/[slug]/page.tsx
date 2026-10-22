@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Wait for the request, so `next build` never reads the database.
   await connection();
   const film = await getMovie((await params).slug);
-  return { title: film ? `${film.title} (${film.year})` : "Not found" };
+  return { title: film ? `${film.title} (${film.year})` : "Page not found" };
 }
 
 // The film is read per request (MoviePage), so every slug the database holds works with no list to build.

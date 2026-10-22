@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const year = parseFilmYear((await params).year);
-  return { title: year ? `The ${year} race` : "Not found" };
+  return { title: year ? `The ${year} race` : "Page not found" };
 }
 
 // The race for any film year (guide §8.1). The live season's is also at `/`.
