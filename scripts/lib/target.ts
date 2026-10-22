@@ -29,33 +29,78 @@ export function readEnvFile(path: string): Record<string, string> {
   return parseEnv(readFileSync(path, "utf8")) as Record<string, string>;
 }
 
-function hostOf(url: string | undefined): string | null {
+/**
+ * The Neon endpoint a connection string reaches: the host's first label without `-pooler`,
+ * so a branch's direct and pooled strings give the same answer. Null when it isn't a URL.
+ */
+export function endpointOf(url: string | undefined): string | null {
   if (!url) return null;
   try {
-    return new URL(url).hostname;
+    return new URL(url).hostname.split(".")[0].replace(/-pooler$/, "");
   } catch {
     return null;
   }
 }
 
-/**
- * Loads the target's env file into `process.env` (its values win over the shell's) and
- * refuses when its database host is the same as the other target's, which would mean
- * `.env.test` points at production or the other way round.
- */
-export function loadTargetEnv(target: DbBranch): void {
-  const env = readEnvFile(ENV_FILES[target]);
-  const host = hostOf(env.DATABASE_URL);
-  if (!host) throw new Error(`DATABASE_URL in ${ENV_FILES[target]} is missing or not a URL.`);
+const DB_URL_KEYS = ["DATABASE_URL", "DATABASE_URL_POOLED"] as const;
 
-  const other: DbBranch = target === "test" ? "production" : "test";
-  if (existsSync(ENV_FILES[other])) {
-    const otherHost = hostOf(readEnvFile(ENV_FILES[other]).DATABASE_URL);
-    if (otherHost === host) {
-      throw new Error(
-        `${ENV_FILES[target]} and ${ENV_FILES[other]} point at the same database host. Fix the env files first.`,
-      );
+/**
+ * What is wrong with a target's env file, given the other target's (null when that file is
+ * missing). Empty means it's safe to use. Never includes a connection string.
+ */
+export function envProblems(
+  target: DbBranch,
+  env: Record<string, string | undefined>,
+  otherEnv: Record<string, string | undefined> | null,
+): string[] {
+  const file = ENV_FILES[target];
+  const problems: string[] = [];
+  const endpoints = DB_URL_KEYS.map((key) => {
+    const endpoint = endpointOf(env[key]);
+    if (!endpoint) problems.push(`${key} in ${file} is missing or not a URL.`);
+    return endpoint;
+  });
+  if (endpoints[0] && endpoints[1] && endpoints[0] !== endpoints[1]) {
+    problems.push(`DATABASE_URL and DATABASE_URL_POOLED in ${file} reach different databases.`);
+  }
+  if (otherEnv) {
+    const other: DbBranch = target === "test" ? "production" : "test";
+    const otherEndpoints = DB_URL_KEYS.map((key) => endpointOf(otherEnv[key]));
+    if (endpoints.some((e) => e && otherEndpoints.includes(e))) {
+      problems.push(`${file} points at the same database as ${ENV_FILES[other]}.`);
     }
   }
-  Object.assign(process.env, env);
+  if (target === "test") {
+    if (env.EXPECT_DB_BRANCH !== "test") {
+      problems.push(`EXPECT_DB_BRANCH in ${file} must be "test".`);
+    }
+    if (env.APP_URL !== TEST_APP_URL) {
+      problems.push(`APP_URL in ${file} must be ${TEST_APP_URL}.`);
+    }
+  }
+  return problems;
+}
+
+/** Where the end-to-end tests run the app (IMPLEMENTATION_PLAN.md §8). */
+export const TEST_APP_URL = "http://localhost:3100";
+
+/**
+ * Reads the target's env file and refuses it when `envProblems` finds anything: above all,
+ * a database string that reaches the other target's database, which would mean `.env.test`
+ * points at production or the other way round.
+ */
+export function readTargetEnv(target: DbBranch): Record<string, string> {
+  const env = readEnvFile(ENV_FILES[target]);
+  const other: DbBranch = target === "test" ? "production" : "test";
+  const otherEnv = existsSync(ENV_FILES[other]) ? readEnvFile(ENV_FILES[other]) : null;
+  const problems = envProblems(target, env, otherEnv);
+  if (problems.length > 0) {
+    throw new Error(`Refusing ${ENV_FILES[target]}. Fix the env file first:\n- ${problems.join("\n- ")}`);
+  }
+  return env;
+}
+
+/** `readTargetEnv`, then loads the values into `process.env` (they win over the shell's). */
+export function loadTargetEnv(target: DbBranch): void {
+  Object.assign(process.env, readTargetEnv(target));
 }

@@ -19,3 +19,22 @@ export async function readDbBranch(db: Pick<ScriptDb, "select">): Promise<string
     .where(eq(appMeta.key, "db_branch"));
   return rows[0]?.value ?? null;
 }
+
+/**
+ * The server's branch guard, run by `src/instrumentation.ts` when `EXPECT_DB_BRANCH` is set
+ * (`.env.test` only): reads `app_meta` over the app's own connection and stops the server at
+ * once when the branch isn't the expected one, before it answers any request.
+ */
+export async function guardAppBranch(expected: string): Promise<void> {
+  const { getDb } = await import("./index");
+  const branch = await readDbBranch(getDb()).catch((error: unknown) => {
+    const reason = error instanceof Error ? error.message : String(error);
+    return `unreadable (${reason})`;
+  });
+  if (branch !== expected) {
+    console.error(
+      `Branch guard: EXPECT_DB_BRANCH is "${expected}" but app_meta.db_branch is ${JSON.stringify(branch)}. Stopping the server.`,
+    );
+    process.exit(1);
+  }
+}

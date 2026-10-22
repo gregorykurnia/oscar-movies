@@ -1,6 +1,7 @@
 // Schema constraints (IMPLEMENTATION_PLAN.md §3.1, task 0.3): one row per table goes in and
 // comes back out, and every check, unique key and delete rule refuses what it should. Each
 // test runs inside a transaction that is rolled back, so the `test` branch stays as it was.
+// Slugs start with `test-` so they never clash with the seeded data (`db:seed:test`).
 import { readFileSync } from "node:fs";
 import { eq, sql, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
@@ -51,7 +52,7 @@ async function addMovie(tx: Tx, values: Partial<typeof movies.$inferInsert> = {}
   n += 1;
   const [row] = await tx
     .insert(movies)
-    .values({ slug: `film-${n}`, title: `Film ${n}`, year: 2024, countries: ["US"], imdbId: `tt9000${n}`, ...values })
+    .values({ slug: `test-film-${n}`, title: `Film ${n}`, year: 2024, countries: ["US"], imdbId: `tt9000${n}`, ...values })
     .returning();
   return row;
 }
@@ -59,7 +60,7 @@ async function addMovie(tx: Tx, values: Partial<typeof movies.$inferInsert> = {}
 async function addAward(tx: Tx) {
   const [award] = await tx
     .insert(awards)
-    .values({ slug: "oscars", name: "Academy Awards", shortName: "Oscars", kind: "oscars", calendarOrder: 99 })
+    .values({ slug: "test-oscars", name: "Academy Awards", shortName: "Oscars", kind: "oscars", calendarOrder: 99 })
     .returning();
   const [category] = await tx
     .insert(awardCategories)
@@ -124,7 +125,7 @@ describe("movies", () => {
 
   it("refuses bad ids, out-of-range scores and duplicates", async () => {
     await rolledBack(async (tx) => {
-      await addMovie(tx, { slug: "first", imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 1 });
+      await addMovie(tx, { slug: "test-first", imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 1 });
       await expectViolation(tx, "movies_has_id", (sp) => addMovie(sp, { imdbId: null }));
       await expectViolation(tx, "movies_imdb_id_format", (sp) => addMovie(sp, { imdbId: "nm123" }));
       await expectViolation(tx, "movies_wikidata_id_format", (sp) => addMovie(sp, { wikidataId: "P345" }));
@@ -135,7 +136,7 @@ describe("movies", () => {
       await expectViolation(tx, "movies_imdb_id_unique", (sp) => addMovie(sp, { imdbId: "tt0000001" }));
       await expectViolation(tx, "movies_wikidata_id_unique", (sp) => addMovie(sp, { wikidataId: "Q1" }));
       await expectViolation(tx, "movies_tmdb_id_unique", (sp) => addMovie(sp, { tmdbId: 1 }));
-      await expectViolation(tx, "movies_slug_unique", (sp) => addMovie(sp, { slug: "first" }));
+      await expectViolation(tx, "movies_slug_unique", (sp) => addMovie(sp, { slug: "test-first" }));
     });
   });
 });
@@ -167,14 +168,14 @@ describe("awards, award_categories and editions", () => {
     await rolledBack(async (tx) => {
       const { award, category, edition } = await addAward(tx);
       const [a] = await tx.select().from(awards).where(eq(awards.id, award.id));
-      expect(a).toMatchObject({ slug: "oscars", kind: "oscars", winnersOnly: false, isSelection: false });
+      expect(a).toMatchObject({ slug: "test-oscars", kind: "oscars", winnersOnly: false, isSelection: false });
       const [c] = await tx.select().from(awardCategories).where(eq(awardCategories.id, category.id));
       expect(c).toMatchObject({ oscarCategory: "picture", loose: false, sortOrder: 0 });
       const [e] = await tx.select().from(editions).where(eq(editions.id, edition.id));
       expect(e).toMatchObject({ year: 2024, status: "loaded", winnersOn: "2025-03-02", sourceUrls: [] });
 
       await expectViolation(tx, "awards_slug_unique", (sp) =>
-        sp.insert(awards).values({ slug: "oscars", name: "x", shortName: "x", kind: "major", calendarOrder: 1 }),
+        sp.insert(awards).values({ slug: "test-oscars", name: "x", shortName: "x", kind: "major", calendarOrder: 1 }),
       );
       await expectViolation(tx, "award_categories_award_slug_key", (sp) =>
         sp.insert(awardCategories).values({ awardId: award.id, slug: "picture", name: "x", oscarCategory: "picture" }),
@@ -187,7 +188,7 @@ describe("awards, award_categories and editions", () => {
       );
       const [festival] = await tx
         .insert(awards)
-        .values({ slug: "cannes", name: "Cannes Film Festival", shortName: "Cannes", kind: "festival", calendarOrder: 1 })
+        .values({ slug: "test-cannes", name: "Cannes Film Festival", shortName: "Cannes", kind: "festival", calendarOrder: 1 })
         .returning();
       await tx.insert(editions).values({ awardId: festival.id, year: 2025, status: "no_data" });
       await expectViolation(tx, "editions_award_id_awards_id_fk", (sp) =>

@@ -22,7 +22,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node --env-file=.env.local ./node_modules/.bin/drizzle-kit migrate",
     "db:migrate:test": "node --env-file=.env.test ./node_modules/.bin/drizzle-kit migrate",
-    "db:mark-branch": "tsx scripts/mark-branch.ts"
+    "db:mark-branch": "tsx scripts/mark-branch.ts",
+    "db:seed:test": "tsx scripts/seed-test.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "1.2.0",
