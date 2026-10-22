@@ -426,6 +426,8 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
+| Approve `DESIGN_GUIDE.md` and `design-preview.html` (open the preview in a browser; then the guide is frozen as v1.0) | 2026-10-22 | Step 7 |
+| Confirm the voice (plain, brief, warm, no jokes) and the reason for choosing direction A (`design/decisions.md`) | 2026-10-22 | Step 6 sign-off |
 
 ## Upkeep log
 
