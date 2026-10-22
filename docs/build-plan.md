@@ -426,6 +426,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
+| Plan review of `IMPLEMENTATION_PLAN.md` (fresh session, Opus 5.5 Medium), then approval | 2026-10-22 | Step 8 and the build |
 
 ## Upkeep log
 

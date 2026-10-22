@@ -1,0 +1,369 @@
+# Oscar Movies: Implementation Plan
+
+**Status:** Draft v0.1 (2026-10-22), waiting for the plan review and the owner's approval. **Companion to:** `PRODUCT_PLAN.md` v1.0 (source of truth for what). **Look and feel:** `DESIGN_GUIDE.md` v1.0 and `design-preview.html` are binding for every page.
+
+**AI Build Log project:** Oscar Movies
+
+> **How to build from this plan (for every implementer, human or model):** one task at a time, in order.
+> 1. Check your model and effort against the task's pick. If they differ, say so and suggest switching before you start.
+> 2. Do that one task, and only that task. Read the sections it names, not the whole plan.
+> 3. Run the checks in `CLAUDE.md`.
+> 4. Tick the task here, with a one-line note if anything turned out different from the plan, in the same commit as the work.
+> 5. Commit and push, as `CLAUDE.md` says.
+> 6. Stop and report what was done, the commit, and the next task with its model and effort. Wait for the owner.
+>
+> Do several tasks in one go only when the owner says so (for example "do tasks 3 to 5" or "carry on while the model stays the same"), still ticking, committing and pushing after each. Stop anyway when the next task's model is different, at the end of a phase, or at anything that needs the owner.
+>
+> When the owner leaves it to `autorun`, each session does one task and ends, and the runner starts the next on that task's model (`docs/build-plan.md` §7.4). This plan is written so `autorun all` can run it from the first task to the last: every task line carries its pick, each phase ends with its end-to-end task and review row, and lines with no pick (marked *Owner*) are left for the owner. Every open question has a default in §11, so no task stops to ask.
+
+## 1. Stack
+
+The default stack (`docs/build-plan.md`): Next.js App Router + TypeScript, Neon Postgres, Drizzle ORM + drizzle-kit, Server Actions + Zod, Tailwind CSS v4 + shadcn/ui (restyled), `next/font` (Geist), `lucide-react`, Vitest + Playwright, GitHub, Vercel Hobby. Versions: whatever `create-next-app@latest` and `npm install` give at scaffold time (2026-10-22: Next 16.4, React 19.3, Drizzle 0.45, Tailwind 4.3, Zod 4, Vitest 5, Playwright 1.64), saved exact (`.npmrc`: `save-exact=true`). Check Next.js APIs against the installed docs (`node_modules/next/dist/docs/`), never memory: caching and `revalidateTag` changed in 16. Node: the LTS Vercel offers by default (`engines.node`); the server's Node 26 is fine locally.
+
+| Concern | Choice | Why |
+|---|---|---|
+| DB driver | `@neondatabase/serverless`: `drizzle-orm/neon-http` in the app, `neon-serverless` (WebSocket `Pool`) in scripts | HTTP is fastest for single queries on Vercel; scripts need real transactions |
+| Flags | `country-flag-icons` (3:2 SVG React components, MIT) | Named in the design guide §7; no emoji |
+| Research parsing | `cheerio` | Reads Wikipedia's parsed HTML tables in the import scripts (scripts only, never shipped to the browser) |
+| Toasts | `sonner` (via shadcn), restyled | Guide §7, §14 |
+| Script runner | `tsx` | Runs the TypeScript scripts in `scripts/` |
+| Scores | OMDb API (IMDb, Tomatometer, Metascore in one call; free key, 1,000 calls a day) + TMDB API (user score; free key) | Product plan §7 feasibility: the only legal free sources |
+| Movie facts and IDs | Wikipedia + Wikidata APIs (no key), TMDB as fallback | Wikidata gives IMDb ID (P345), TMDB ID (P4947), countries (P495 → ISO code P297), original title (P1476), language (P364), all CC0, so the facts can live in the repo |
+| Scheduled job | Vercel Cron (Hobby: once a day) | The daily score batch (§5.4) |
+| Search | Postgres `unaccent` + `pg_trgm` | Accent-free title matching under 100 ms (feasibility) |
+
+## 2. Environments and secrets
+
+| Environment | Neon branch | Env vars live in |
+|---|---|---|
+| Local development and previews | `production` (default, §11) | `.env.local` |
+| Automated tests (Vitest database tests, Playwright) | `test` | `.env.test` |
+| Vercel Preview | `test` (no deployments: `staging` is off; kept for completeness) | Vercel, Preview environment |
+| Vercel Production | `production` | Vercel, Production environment |
+
+- **Variables** (names in `.env.example`, values never in git or docs): `DATABASE_URL` (direct, for migrations and scripts), `DATABASE_URL_POOLED` (the app), `OMDB_API_KEY`, `TMDB_READ_TOKEN`, `CRON_SECRET` (Vercel sends it to the cron route), `REVALIDATE_SECRET`, `APP_URL` (where the loader sends the revalidate call: the live URL, or `http://localhost:3100` in `.env.test`), `EXPECT_DB_BRANCH` (`test` in `.env.test` only).
+- **Which database am I on:** each branch has an `app_meta` row `db_branch` = `test` or `production`, written once when the branch is set up. Playwright's global setup and `instrumentation.ts` (when `EXPECT_DB_BRANCH` is set) read it and stop at once if it isn't `test`. Every script that writes takes `--target test|production` explicitly, reads the matching env file, checks `app_meta` against the target, and refuses `production` unless `--yes-production` is passed.
+- **Migrations:** `npm run db:migrate:test` first; `npm run db:migrate` (production) only with the owner's approval, before the code that needs it is released. Migrations stay backward compatible for one release (add first, drop a release later).
+- **Region:** Vercel's function region set to the Neon project's region.
+
+## 3. Data
+
+### 3.1 Schema (`src/db/schema.ts`, migrations in `drizzle/`)
+
+Enums: `award_kind` (oscars, major, festival, critics) · `oscar_category` (picture, documentary, international, animated) · `outcome` (submitted, eligible, shortlisted, runner_up, nominated, won) · `edition_status` (loaded, partial, no_data) · `snapshot` (live, eve_nominations, eve_ceremony).
+
+| Table | Columns (constraints) | Notes |
+|---|---|---|
+| `movies` | `id` serial PK · `slug` text unique not null · `title`, `original_title`, `original_lang` (BCP 47, for `lang=`) · `year` smallint not null · `countries` text[] not null (ISO 3166-1 alpha-2, main first) · `language` · `imdb_id` text unique (`^tt\d+$`) · `wikidata_id` text unique · `tmdb_id` int unique · check: `imdb_id` or `wikidata_id` not null · `imdb_rating` numeric(3,1) 0–10 · `rt_score`, `mc_score` smallint 0–100 · `tmdb_score` numeric(3,1) 0–10 · `imdb_at`, `rt_at`, `mc_at`, `tmdb_at`, `scores_checked_at` timestamptz · generated stored `avg_score` numeric(4,1) and `score_count` smallint (§3.2 rule 1) · generated stored `search_key` (`f_unaccent(lower(title ∥ ' ' ∥ original_title))`) | Index: `year`, `avg_score`, GIN trigram on `search_key`. `f_unaccent` is an immutable SQL wrapper around `unaccent` (needed for generated columns and indexes) |
+| `marks` | `movie_id` PK → movies **on delete restrict** · `watched`, `want` boolean not null default false · `updated_at` · check `not (watched and want)` | The only data that exists nowhere else. Never written by imports |
+| `awards` | `id` · `slug` unique · `name`, `short_name` · `kind` · `calendar_order` smallint · `winners_only` bool (announces winners only) · `is_selection` bool (AFI: a list, no winner) · `url` | From `data/awards.json` |
+| `award_categories` | `id` · `award_id` → awards restrict · `slug` · `name` (the award's own name) · `oscar_category` · `loose` bool + `mapping_note` (director or cast prizes) · `sort_order` · unique (`award_id`, `slug`) | The mapping shown on award pages |
+| `editions` | `id` · `award_id` → awards restrict · `year` smallint (the film year it honours, 2012–) · `ordinal` (98th) · `status` · `shortlist_on`, `nominations_on`, `winners_on` date · `source_urls` text[] · `note` · unique (`award_id`, `year`) | One award in one film year. Dates drive the season stage and the eve snapshots |
+| `results` | `id` · `edition_id` → editions **cascade** · `category_id` → award_categories restrict · `movie_id` → movies restrict · `outcome` · `country` (submitting country, International only) · unique (`edition_id`, `category_id`, `movie_id`) | Index `movie_id`, `category_id`. One row per film per category: its furthest stage |
+| `screenings` | `id` · `edition_id` → editions cascade · `movie_id` → movies restrict · `section`, `section_order` · `prize` · unique (`edition_id`, `movie_id`, `section`) | Festival lineups, 2025 on |
+| `accuracy` | `category_id` PK → award_categories cascade · hits and counts for the three figures (§5.2) · `computed_at` | Computed, never typed |
+| `predictions` | PK (`year`, `oscar_category`, `snapshot`, `movie_id`) · `p_nominate`, `p_win` real · `rank` · `why` jsonb · `computed_at` | Computed (§5.3) |
+| `data_loads` | `id` · `kind` (awards, race-update, correction, scores) · `summary` jsonb · `git_commit` · `loaded_at` | "Updated 20 Dec 2025", the coverage page, the cron's outcome |
+| `app_meta` | `key` PK · `value` | `db_branch` (§2) |
+
+**Rules.** Outcome order: submitted < eligible = shortlisted < runner_up = nominated < won (runner_up counts as a nomination; product plan §10). A result's category must belong to its edition's award (the loader checks). Nothing in the app deletes; the loader only replaces the contents of editions present in the data files. Movies are never deleted by a load; merging duplicates is an explicit correction that moves the marks first.
+
+### 3.2 Derived values
+1. **Average:** IMDb × 10, TMDB × 10, Tomatometer and Metacritic as they are; mean of the ones present, one decimal, shown rounded; `score_count` 0–4. No scores: null.
+2. **Oscar stage of a film in a year:** its furthest Oscar outcome in that category.
+3. **Current season:** the latest year with an Oscars edition (2026 now).
+4. **Season stage per Oscar category** (stage line, race states): from the Oscars edition's `shortlist_on`, `nominations_on`, `winners_on` and which outcomes exist.
+
+### 3.3 Data files (the source for every load; reviewed in git)
+```
+data/awards.json                       awards and their categories, with the Oscar mapping
+data/editions/<award>/<year>.json      status, dates, sources, results [{category, imdb|wd, title, outcome, country?}], screenings
+data/movies/<year>.json                facts per film, keyed by IMDb ID (or Wikidata QID): slug, titles, lang, countries, language, wd, tmdb
+data/marks.json                        the marks export (by IMDb ID or QID, so it survives any reload)
+```
+Every file has a Zod schema in `src/lib/data-files.ts`; `npm run data:check` validates all of them plus sanity rules: per Oscar year, Picture has 8–10 nominees (10 from 2021) and the others 5, exactly one winner per category from the finished years, the winner is among the nominees, every film resolves to one movie, every loaded edition has its dates, slugs are unique and never change. Raw downloads go to `.cache/` (gitignored).
+
+### 3.4 Research pipeline (how award data gets in)
+- `scripts/research/lib/`: Wikipedia fetch (MediaWiki `action=parse`, cached in `.cache/wiki/`, polite user agent, one request at a time), table reader (cheerio), link resolver (article title → Wikidata QID via `pageprops`, batched → P345 IMDb ID, P4947 TMDB ID), facts fetcher (Wikidata, TMDB fallback), and a writer that merges into `data/` without reordering untouched entries (small diffs).
+- One script per award (`scripts/research/<award>.ts [--years 2012-2026]`) writes `data/editions/<award>/<year>.json`. **Films are matched by IMDb ID, never by title.** An unresolved film is written with its Wikipedia title and `unresolved: true`; `data:check` lists them, and the task resolves them (by a Wikidata search by title plus year plus director) or records them.
+- Editions with no findable source are written with `status: no_data`; partial ones `partial` with a `note`. Never invent a result.
+- Sources that aren't Wikipedia (small critics groups) are read from the group's own pages; the URL goes in `source_urls`.
+
+### 3.5 Loader (`npm run load -- --target test|production [--dry-run] [--only <award>]`)
+1. Check `app_meta` against the target (§2). On `production`: export the marks to `data/marks.json` first and stop if that fails.
+2. Validate all files (`data:check`). 3. Plan: diff files against the database, per row: insert, update (with the changed fields), delete (results and screenings of a reloaded edition only). Print the plan as a summary (counts per award and year) plus every change to an existing row; `--dry-run` stops here.
+4. Apply the plan in **one transaction**; then recompute accuracy and predictions (§5.2–5.3) for affected seasons; write a `data_loads` row; POST `APP_URL/api/revalidate`.
+5. A second run plans nothing (tested).
+- `npm run marks:export -- --target …` writes `data/marks.json`; `npm run marks:restore -- --target … [--dry-run]` writes marks back by IMDb ID or QID (only rows that differ, dry run first).
+
+### 3.6 Seed data for `test`
+`npm run db:seed:test`: loads every data file into `test` with the same loader, then resets the marks to `tests/fixtures/marks.json` (a few known films). Phase 0 has a tiny `data/` set (five 2024 films, the 97th Oscars Picture nominees) so the smoke test has something to read; Phase 1 replaces it with real data. E2E tests that change marks reset their own film's marks before and after. Stress data (no-space titles, missing scores, huge counts) lives in the styleguide's stress switch and in unit tests, not in the database.
+
+## 4. Pages and routes
+
+Every page renders inside `AppShell` and starts with `PageHeader`. Templates are `DESIGN_GUIDE.md` §8.
+
+| Route | Purpose | Template | Phase |
+|---|---|---|---|
+| `/` | The race, current season (`?category=`) | §8.1 | 0 (empty), 1 (results), 3 (chances) |
+| `/race/[year]` | The race for any year | §8.1 | 1 |
+| `/awards` → `/awards/[current]` | Awards index for a year | §8.7 | 2 |
+| `/awards/[award]/[year]` | One award or festival's results (Oscars from Phase 1) | §8.2 | 1, 2 |
+| `/grid/[year]?category=&sort=&filter=&critics=` | Year grid (`/grid` redirects) | §8.4 | 2 |
+| `/years/[year]` | Year summary | §8.8 | 2 |
+| `/accuracy/[category]` (`#method`) | Accuracy table, backtest, method (`/accuracy` → picture) | §8.5 | 2, 3 |
+| `/submissions/[year]` | International submissions (`/submissions` redirects) | §8.3 | 1 |
+| `/festivals/[year]` | Festivals index (`/festivals` redirects) | §8.7 | 2 (prizes), 5 (lineups) |
+| `/festivals/[festival]/[year]` | Festival lineup by section | §8.3 | 5 |
+| `/watch-list` | Want to watch, then unwatched current-season films | §8.3 | 1 |
+| `/movies/[slug]` | Movie page | §8.6 | 1, 2, 5 |
+| `/data` | Data coverage and sources | §8.9 | 3 |
+| `/styleguide` | Every component in every state, for comparison with the preview (404 when `VERCEL_ENV=production`) | §14 | 0 |
+| `not-found`, `error` | 404 and error pages | §8.11 | 0 |
+| `GET /api/search?q=` | Search results (films, awards) | §7 Search | 1 |
+| `GET /api/cron/scores` | Daily score batch (Bearer `CRON_SECRET`) | | 1 |
+| `POST /api/revalidate` | Called by the loader and the cron (`REVALIDATE_SECRET`) | | 0 |
+
+Marks are written by one Server Action (`src/app/actions/marks.ts`). There are no other write paths in the app.
+
+## 5. Key components and tricky parts
+
+### 5.1 Caching with live marks
+Award data changes only on a load, scores once a day, marks any time. Data functions in `src/data/` use `'use cache'` with `cacheTag('awards')` or `cacheTag('scores')` and a long `cacheLife`; `/api/revalidate` expires the tag it's sent. Marks are never cached: the root layout reads all non-empty marks (a few hundred rows) per request inside a Suspense boundary and hands them to a client `MarksProvider`; every `Marks` button reads and writes that provider, so one tap updates every row on the page. Counts that include marks ("23 of 61 watched") are computed from the provider on the client.
+
+### 5.2 Accuracy figures (`src/lib/accuracy.ts`, pure, unit tested)
+For each award category mapped to Oscar category C, over **finished** seasons (Oscars `winners_on` passed and results loaded), counting only editions with status `loaded` or `partial` that have results in that category:
+- **Winner → Oscar win:** years whose winner won Oscar C / years with a winner (ties: a hit if any winner won).
+- **Winner → Oscar nomination:** years whose winner was nominated (or won) / years with a winner.
+- **Nominees → Oscar nominees:** of all its nominees (winners, runners-up and AFI's list included), the share nominated for Oscar C. `–` for `winners_only` awards, with the reason in a footnote.
+`no_data` years are left out and the year count shows it. A hand-checked fixture (one award, all years worked out by hand in `tests/fixtures/accuracy-*.json`) must match exactly.
+
+### 5.3 Predictions (`src/lib/predict/`, pure, unit tested; product plan §3.4 and feasibility notes)
+- **Features:** for a film in season Y and Oscar category C, its results at every award category mapped to C: `won` or `nominated` (a win replaces the nomination for the same award category); for the nomination model also its Oscar `shortlisted`/`eligible`/`submitted` status.
+- **History:** every finished season except Y (leave one season out), so past years' predictions don't see their own answer. The method text says so.
+- **Weights:** for each (award category, result) pair, the smoothed hit rate `h = (hits + α·p0) / (n + α)`, where `p0` is the base rate among all contenders and α is a pseudo-count (start at 3; chosen by leave-one-season-out log loss); weight `w = ln(h / p0)`, clipped to [−1, 3].
+- **% to win:** score = sum of the film's weights; softmax over the category's contenders with temperature T (fitted leave-one-season-out). Adds to 100. Before the Oscar nominations, no film is shown above 90% (the rest spread in proportion).
+- **% to be nominated** (shown until the nominations): logistic `σ(a·score + b)` with a and b fitted leave-one-season-out, then b shifted so the total equals the slots (Picture: that year's number of nominees, 10 from 2021; others 5), each capped at 99%.
+- **Contenders before the nominations:** every film with a nomination or win at a followed award or festival in that category that season, plus the Oscar shortlist or eligible list once it exists; after the nominations, the nominees only.
+- **Snapshots:** `live` uses every loaded result; `eve_nominations` and `eve_ceremony` use only results announced before the day before the Oscar nominations or ceremony (by `nominations_on`/`winners_on` of each precursor edition). Past years show `eve_ceremony` as "final prediction"; the backtest uses both eves.
+- **Early:** a category with fewer than 3 precursor editions announced that season shows "Early: few results yet."
+- **The "why"** (`why` jsonb): the top four results by weight with their record ("won the Oscar 5 of 13 years"); past films with a similar run (same top two results) and how many won; their years.
+- Computed by `scripts/compute.ts` (also run by the loader) into `predictions`; pages never compute.
+
+### 5.4 Scores (`src/lib/scores/`, shared by the cron route and `npm run scores:refresh`)
+- **Batch:** films whose scores were never checked first, then current- and previous-season films checked more than 7 days ago, then older films checked more than 30 days ago; at most 300 OMDb calls a run (900 while never-checked films remain), stopping at 250 seconds. Calls one at a time, paused on HTTP 429 or OMDb's "limit reached".
+- **Merge rule:** a failed call or "N/A" never overwrites a stored score with null; each score's `*_at` changes only when the value was confirmed. `scores_checked_at` always moves, so a failing film doesn't block the queue.
+- The run writes a `data_loads` row (`kind: scores`, counts, errors) and revalidates `scores`. The test branch shares the OMDb key's daily quota: refresh `test` only for the years a test needs (`--target test --year 2025 --limit 300`).
+- Phase 1 checks OMDb's hit rate on 50 films (mixed years and countries) and records it in §11.
+
+### 5.5 Search (`/api/search`, `SearchCommand`)
+`f_unaccent(lower(q))` against `movies.search_key` with `%` (trigram) or prefix `ILIKE`, ranked by similarity then Oscar stage, top 8 films; awards matched by name and short name (about 80 rows), top 5. Debounced 120ms on the client; stale responses dropped. Popover on desktop, full-screen sheet on phone (guide §7).
+
+### 5.6 Marks (`Marks`, `MarksProvider`, `actions/marks.ts`)
+One tap: the provider flips at once (watched clears want); the Server Action (Zod: movie id exists, field, value) upserts `marks`. A spinner ring shows only after 400ms. On failure the mark flips back, shows its error ring for 2s and a toast ("Couldn't save. Hamnet is back to not watched. Check the connection and try again." with Try again). Two quick taps on the same mark: the last one wins (requests carry a sequence number; older replies are ignored). Offline (`navigator.onLine` false): marks disabled and the offline notice shows.
+
+### 5.7 Year grid (`YearGrid`)
+A real `<table>` in a frame that scrolls sideways; the film column is `position: sticky`. Columns: film, Wins, Noms, Oscars, majors and festivals in calendar order, then critics groups folded into one count chip column (unfolded with `critics=open`, one column each). Rendered on the server; one category per page. Picture can reach about 100 rows × 80 columns: keep each cell to one element with a `title` and accessible name; no client JS beyond the marks and the toolbar.
+
+## 6. Phase task checklists
+
+Every phase ends with its end-to-end task, a screenshot task, and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
+
+**Before the first `autorun`** (the owner, once): items 1–6 in §12. Tasks 0.1 and 0.2 run in a normal `claude` session (0.2 needs the owner there for logins and secrets); start `autorun` from 0.3.
+
+### Phase 0: Foundation
+- [ ] 0.1 Scaffold the app with every npm script `CLAUDE.md` and §8 rely on, `vercel.json` (staging off), `.npmrc`, `.env.example`, `.gitignore` additions (`.cache/`, `.next-test/`), noindex header in `next.config.ts` (read §1, §2, §9). Done when: `npm run typecheck`, `lint`, `test` and `build` pass on the empty app · Haiku 5.5 Max: config and scripts copied from this plan, nothing the app depends on yet
+- [ ] 0.2 Connect Neon and Vercel with the owner (playbook Step 8 items 2 and 4): `.env.local`, the `test` branch and `.env.test`, `app_meta` on both branches, Vercel link, env vars, region, `staging` deployments off (read §2). Done when: both connections answer a one-line query and Vercel shows the project with Production env vars · Sonnet 5.5 High: secrets and production settings, done by hand with the owner
+- [ ] 0.3 Schema and first migration on `test` (`src/db/schema.ts`, `src/db/index.ts`, `drizzle/`; read §3.1). Done when: `db:migrate:test` runs clean, a second run does nothing, and a database test inserts and reads one row per table, including the check constraints · Opus 5.5 High: the schema guards the marks and every later import; a wrong delete rule can lose the only irreplaceable data
+- *Owner:* approve running the first migration on `production` (Claude runs `npm run db:migrate`)
+- [ ] 0.4 Test harness: Playwright against a production build in `.next-test` on port 3100 with `.env.test`, rebuilt only when source changed; global setup and `instrumentation.ts` branch guard; Vitest unit and database projects; `db:seed:test` with the Phase 0 data set (read §2, §3.6, §8). Done when: a deliberately wrong `.env.test` makes the e2e run stop before any test · Opus 5.5 High: tests reaching production is a known failure on this machine (another project, 2026-10-22)
+- [ ] 0.5 Tokens and theme: `src/styles/tokens.css` copied from guide §3 unchanged, `globals.css` with the Tailwind `@theme inline` and shadcn variables, Geist via `next/font` (read guide §3, §4, §14). Done when: a unit test confirms tokens.css matches the guide's block byte for byte · Haiku 5.5 Max: an exact copy of a given block
+- [ ] 0.6 Core components with unit tests: Button, TextLink, StagePill, Flag and Flags, ScoreLine, ScoreTiles, Marks (look and states only), Segmented, Chip, Notice, EmptyState, Skeleton, Toast (read guide §7, §9, §13; match the reference file's §3). Done when: each renders every state shown there with tokens only (hex grep clean) · Opus 5.5 High: these set the look of every page; drift here repeats everywhere
+- [ ] 0.7 Layout components: AppShell (TopBar, PhoneMenu, Footer, search box and button, inert until 1.12), PageHeader, YearSwitcher, FilmRow, StatsStrip, DataTable (read guide §6.1, §6.2, §7). Done when: keyboard and Esc behaviour of the menu and the year switcher are covered by unit tests · Opus 5.5 High: the shell frames every page, and the phone menu has focus trapping
+- [ ] 0.8 `/styleguide` (every component in every state, with the stress switch), 404 and error pages (read guide §8.11, §14). Done when: the page lists every component built so far, and the 404 and error pages match the reference file's §5 · Sonnet 5.5 High: assembled from built components following the preview's sections
+- [ ] 0.9 Identity and search engines: `app/icon.svg`, `favicon.ico`, `apple-icon.png`, 512 PNG, `opengraph-image.png`, title template, `robots.txt` disallow all, `robots` metadata noindex (read guide §10). Done when: the files exist at their sizes and every page sends `noindex` · Haiku 5.5 Max: exact drawings from the preview's SVG and fixed settings
+- [ ] 0.10 Home placeholder and smoke test: `/` renders the race frame with the "No contenders yet" empty state and the count of films from the database; `/api/revalidate`; `tests/e2e/smoke.spec.ts` (read guide §8.12). Done when: the smoke test passes against `test` · Sonnet 5.5 High: first page on the real data path, but no writes
+- [ ] 0.11 Running the live app: `docs/runbook.md` with §10's backups, alerts, limits, rollback and noindex checks; marks export and restore scripts with a round-trip database test (read §3.5, §10). Done when: export then restore on `test` changes nothing, and restore's dry run lists every planned write · Opus 5.5 High: the restore script writes the irreplaceable marks
+- [ ] 0.12 Screenshots: `tests/screens/screens.spec.ts` with a route list and a `--grep` per page; capture `/styleguide`, 404, error and `/` at 390 and 1280 into `screenshots/phase-0/` · Haiku 5.5 Max: a script that takes pictures; the judging happens in the phase review
+- [ ] 0.R Phase 0 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10; guide §15 against the screenshots and the preview) · Opus 5.5 High: the phase sets the look of every page, so design drift must be caught here
+- *Owner:* say "release" for the first deploy (Vercel builds `main`); check the live URL loads and reads the database
+- *Owner:* check `/styleguide` against `design-preview.html` (local preview) and sign it off
+- **Done when:** the live address loads the empty shell and reads from the database; the smoke test passes locally and live; the owner has signed off `/styleguide`.
+
+### Phase 1: Oscars and movies
+- [ ] 1.1 Research toolkit and data files (`scripts/research/lib/`, `src/lib/data-files.ts`, `scripts/check-data.ts`; read §3.3, §3.4). Done when: unit tests on saved Wikipedia pages resolve films to IMDb IDs and write a valid edition file · Opus 5.5 High: every import repeats this pattern, and a matching mistake corrupts data silently
+- [ ] 1.2 Loader (`scripts/load.ts`; read §3.5). Done when: database tests prove a dry run writes nothing, a load is one transaction (a forced error leaves no change), a second run plans nothing, and a production target exports the marks first · Opus 5.5 High: it writes production and must never touch the marks
+- [ ] 1.3 Oscars import: Picture, Documentary, Animated 2012–2026 with shortlists, eligible lists and dates; movie facts for every film; load on `test` (read §3.4, §3.6). Done when: `data:check` passes and the winners match the Academy's list for every year · Opus 5.5 Medium: first full import; the checks prove it, and later imports copy it
+- [ ] 1.4 International Feature import 2012–2026: every submission with its country, shortlists, nominees, winners (2026: the submissions announced so far); load on `test`. Done when: each year's submission count matches Wikipedia's list and `data:check` passes · Sonnet 5.5 High: follows 1.3, but about 90 films a year and the submitting country must be right
+- [ ] 1.5 Scores: OMDb and TMDB clients, merge rule, batch, `/api/cron/scores` and its `vercel.json` cron entry, `npm run scores:refresh`; refresh 2024–2026 films on `test`; OMDb hit rate on 50 films recorded in §11 (read §5.4). Done when: unit tests prove a failed call never clears a score, and the cron route refuses a missing secret · Opus 5.5 Medium: well specified and tested; scores can be refetched, so a bug costs a refresh, not data
+- [ ] 1.6 Data layer: cached queries for film rows (flags, scores, average, Oscar stage), Oscar results by year and category, submissions, watch list (`src/data/`; read §5.1). Done when: database tests cover each query against the seeded `test` data · Opus 5.5 Medium: every page reads through it; the caching rules must hold
+- [ ] 1.7 Marks: Server Action, `MarksProvider`, Marks wired with saving, failed and offline states (read §5.6, guide §7 Marks). Done when: unit tests cover flip-back on failure, last tap wins, and watched clears want; an e2e test marks a film on one page and sees it on another · Opus 5.5 High: the only irreplaceable data, written from every page
+- [ ] 1.8 The race, results only: `/` and `/race/[year]` with CategoryTabs, StageLine and contender rows showing the Oscar stage (no % yet), season states for finished years and the current one (read guide §6.3–6.5, §8.1, §8.12). Done when: `/race/2024` shows the real nominees and winners in all four tabs, and `?category=` survives a reload · Opus 5.5 High: the signature screen; its rows and tabs are the app's look
+- [ ] 1.9 Oscar year page `/awards/oscars/[year]` on the award-page template, without accuracy figures (read guide §8.2). Done when: all four categories list nominees and winners with flags, scores and marks · Sonnet 5.5 High: follows the preview's award page with built components
+- [ ] 1.10 Calibration build: International submissions `/submissions/[year]` with sort and chips (read guide §8.3, §7.5 here). Done when: sort and filters are kept in the address · Haiku 5.5 Max: the calibration trial, built on the cheaper row on purpose
+- [ ] 1.11 Calibration verdict: compare 1.10 with the reference file and guide §15, fix or rebuild it, record the result in §7.5 and change the picks of the rows §7.5 names. Done when: §7.5 has the verdict and the submissions page passes §15 · Sonnet 5.5 High: the picked row judges whether the cheaper one was as good
+- [ ] 1.12 Search: `/api/search`, SearchCommand popover, phone sheet, `/` key (read §5.5, guide §7 Search). Done when: unit tests find "Ainda Estou Aqui" by "ainda estou" and "I'm Still Here", and keyboard navigation works · Sonnet 5.5 High: fully specified in the guide, moderate keyboard logic
+- [ ] 1.13 Movie page `/movies/[slug]`: titles, flags, labelled marks, score tiles with dates, Oscar result boxes (read guide §8.6). Done when: a 2024 film with a missing score shows "–" and "No score yet" · Sonnet 5.5 High: follows the preview's movie page
+- [ ] 1.14 Watch list `/watch-list`: both sections, sort by Oscar stage, nominations, average score (read guide §8.3). Done when: unmarking a film from the list removes it on the next visit, not mid-tap · Sonnet 5.5 High: film-list pattern, plus marks changing the list under the owner's finger
+- [ ] 1.15 End-to-end test of the Done-when scenario (`tests/e2e/phase-1.spec.ts`). Done when: it passes against `test` · Sonnet 5.5 High: user flows that write marks
+- [ ] 1.16 Screenshots: add the race, Oscar year, submissions, movie, watch list and search to the screenshot spec and capture them at 390 and 1280 · Haiku 5.5 Max: extending the script from 0.12
+- [ ] 1.R Phase 1 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10) · Opus 5.5 High: the phase built pages and the marks, the riskiest write
+- *Owner:* approve the Phase 1 production migrations and data load (Claude shows the dry run, then loads); start the cron by releasing; mark the films seen for 2024–2026; check a handful of Oscar years against memory; sign off
+- **Done when:** the 2025 Oscars page shows all four categories with flags, scores and average; marking a film watched shows on every page it appears on; search finds a film by its original title.
+
+### Phase 2: Major awards and festival prizes
+- [ ] 2.1 Award registry: the 12 majors and 5 festivals with calendar order, categories, Oscar mapping, `loose` notes, `winners_only`, `is_selection` (`data/awards.json`; read product plan §3.1). Done when: every category in product plan §3.1 is mapped and `data:check` passes · Opus 5.5 Medium: the mapping decides every accuracy figure and prediction weight
+- [ ] 2.2 Imports: Golden Globes, BAFTA, Actor Awards, PGA, DGA, 2012–2026, with dates; load on `test` (read §3.4). Done when: `data:check` passes and each award's winners match Wikipedia's for every year · Sonnet 5.5 High: repeats 1.3 with each award's own table layout
+- [ ] 2.3 Imports: AFI Top 10, Annie Awards, Cinema Eye Honors, European Film Awards, Independent Spirit Awards, Satellite Awards, 2012–2026; load on `test`. Done when: as 2.2, with any `no_data` year noted · Sonnet 5.5 High: same pattern, more uneven tables
+- [ ] 2.4 Imports: Cannes, Venice, Berlin, Sundance and Toronto major prizes 2012–2026 (Toronto runners-up as `runner_up`); load on `test`. Done when: as 2.2 · Sonnet 5.5 High: same pattern; festival prize names change over the years
+- [ ] 2.5 Accuracy figures: `src/lib/accuracy.ts` and its part of `scripts/compute.ts` (read §5.2). Done when: the hand-checked fixture matches exactly and winners-only awards give `–` · Opus 5.5 Medium: precise logic proven by a hand-worked fixture
+- [ ] 2.6 Award page for every award, with the accuracy stats strip and category segmented control (read guide §8.2). Done when: BAFTA 2025 lists nominees, winners and their Oscar results · Sonnet 5.5 High: extends the Oscar year page from 1.9
+- [ ] 2.7 Awards index `/awards/[year]` and festivals index `/festivals/[year]` (prizes only until Phase 5) (read guide §8.7). Done when: Oscars first, then majors, festivals, critics groups (empty for now), with No data pills · Sonnet 5.5 High: a list page from built pieces (§7.5 may lower it)
+- [ ] 2.8 Accuracy page `/accuracy/[category]`: grouped, sortable table with years counted (backtest and method in 3.4) (read guide §8.5). Done when: sorting by each figure works by keyboard and `aria-sort` is right · Sonnet 5.5 High: the data table from 0.7 with sort state
+- [ ] 2.9 Year grid `/grid/[year]` with sort, Unwatched filter, critics folding, legend (read §5.7, guide §8.4). Done when: the 2025 Picture grid shows every nominated film with won and nominated cells, and the page never scrolls sideways at 390 · Opus 5.5 High: the densest visual in the app, with no exact preview at full size
+- [ ] 2.10 Year summary `/years/[year]` (read guide §8.8). Done when: each count links to its filtered list · Sonnet 5.5 High: stats strip and tables from built pieces (§7.5 may lower it)
+- [ ] 2.11 Precursor results on the movie page (by section, with Not nominated) and the precursor line in race rows (read guide §6.5, §8.6). Done when: a 2024 Best Picture nominee shows its won, nominated and not-nominated awards · Sonnet 5.5 High: queries and rows on existing pages; "not nominated" needs care
+- [ ] 2.12 End-to-end test of the Done-when scenario (`tests/e2e/phase-2.spec.ts`) · Sonnet 5.5 High: user flows across the new pages
+- [ ] 2.13 Screenshots: add the award page, indexes, accuracy, grid (folded and open), year summary and movie page to the spec; capture at 390 and 1280 · Haiku 5.5 Max: extending the script
+- [ ] 2.R Phase 2 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10) · Opus 5.5 High: the grid and the accuracy figures are both new and central
+- *Owner:* approve the production data load; spot-check three awards; sign off; release
+- **Done when:** BAFTA 2025's page lists its nominees and winners with their Oscar results; the accuracy figures for a hand-checked award match; the 2025 grid shows every nominated movie with its awards coloured.
+
+### Phase 3: Predictions and the live race
+- [ ] 3.1 Prediction engine `src/lib/predict/` (read §5.3, product plan §3.4). Done when: unit tests prove each category's % to win adds to 100, % to be nominated adds to the slots, the early cap holds, and leave-one-season-out never sees the held-out season · Opus 5.5 High: the app's central idea, new, and only partly specified
+- [ ] 3.2 Predictions in `scripts/compute.ts`: contender sets, live and eve snapshots for every season, run by the loader (read §5.3). Done when: a database test reloads one precursor and the 2026 chances change · Opus 5.5 Medium: wiring a tested engine to tested data
+- [ ] 3.3 The race with chances: Pct, ChanceLine, WhyPanel, the to-be-nominated column, Show all, every season state (read guide §6.4–6.6, §8.12). Done when: `/race/2024` shows the final predictions and the "why" opens and closes by keyboard · Opus 5.5 High: the signature elements and the hardest interactive screen
+- [ ] 3.4 Accuracy page backtest and method (`#method`); Watch list sort by % chance (read guide §8.5, §5.3 here). Done when: the backtest lists every finished season with the favourite and its result · Sonnet 5.5 High: tables and text from built pieces; the wording must match §5.3 exactly
+- [ ] 3.5 Data coverage page `/data`: coverage strips, stale-score notice (more than 3 days), Sources with the TMDB logo and notices (read guide §8.9). Done when: each source's notice reads as the guide gives it · Sonnet 5.5 High: follows the preview's data page
+- [ ] 3.6 The "update the race" routine: `docs/update-the-race.md` and `npm run race:check` (lists new and changed results and the chances that move) (read §3.5). Done when: the routine dry-runs a sample update on `test` · Opus 5.5 Medium: a written routine the owner relies on every week of the season
+- [ ] 3.7 2026 season catch-up: every 2026 result announced so far, through the routine, on `test`. Done when: `race:check` is clean and the 2026 race shows contenders · Sonnet 5.5 High: research with the pattern already built
+- [ ] 3.8 Launch checks run once: accessibility scan of the main pages, performance check of `/` and the grid, the security scan; list findings in `docs/phase-checks/launch.md` · Sonnet 5.5 High: runs tools (the security scan is `/security-review`) and sorts the findings; fixes go to 3.R
+- [ ] 3.9 End-to-end test of the Done-when scenario (`tests/e2e/phase-3.spec.ts`; the update uses a sample data file on `test`, then removes it) · Sonnet 5.5 High: flows that load data
+- [ ] 3.10 Screenshots: the race in each season state, the "why", accuracy with backtest, `/data`; capture at 390 and 1280 · Haiku 5.5 Max: extending the script
+- [ ] 3.R Phase 3 review: end-of-phase review and its fixes, including the launch findings (`docs/build-plan.md` Step 10) · Opus 5.5 High: the race is the home screen and the deadline release follows
+- *Owner:* compare the predictions with instinct; approve the production load; check on a real phone; release before the Oscar nominations (January 2027)
+- **Done when:** each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change.
+
+### Phase 4: Critics groups
+- [ ] 4.1 Critics registry: all 63 groups with the identities in product plan §10, calendar order, mapped categories (Critics Choice Documentary and IDA with their Director and Political categories), `winners_only` (`data/awards.json`). Done when: `data:check` passes and every group in product plan §3.1 is present · Opus 5.5 Medium: mapping decisions feed every figure
+- [ ] 4.2 Imports: critics groups 1–8 in the product plan's order (African American to Boston Society, then British Independent, Central Florida), 2012–2026; load on `test`. Done when: `data:check` passes and every edition is loaded, partial or no data with a note · Sonnet 5.5 High: same pattern; uneven sources must end as "no data", never guesses
+- [ ] 4.3 Imports: critics groups 9–16 (Chicago FCA to Georgia) · Sonnet 5.5 High: as 4.2
+- [ ] 4.4 Imports: critics groups 17–24 (Gotham to Kansas City) · Sonnet 5.5 High: as 4.2
+- [ ] 4.5 Imports: critics groups 25–32 (Las Vegas to New Jersey) · Sonnet 5.5 High: as 4.2
+- [ ] 4.6 Imports: critics groups 33–40 (New York Circle to Online FTV) · Sonnet 5.5 High: as 4.2
+- [ ] 4.7 Imports: critics groups 41–48 (Peabody to San Diego) · Sonnet 5.5 High: as 4.2
+- [ ] 4.8 Imports: critics groups 49–56 (San Francisco Bay Area to Vancouver) · Sonnet 5.5 High: as 4.2
+- [ ] 4.9 Imports: critics groups 57–63 (the rest, ending with Washington DC) · Sonnet 5.5 High: as 4.2
+- [ ] 4.10 Critics groups across the pages: grid columns unfolded, accuracy "Show all N critics groups", movie page summary heading, awards index section; predictions recomputed. Done when: each group with data appears below the majors · Sonnet 5.5 High: existing pages with a new group
+- [ ] 4.11 End-to-end test of the Done-when scenario (`tests/e2e/phase-4.spec.ts`) · Sonnet 5.5 High: flows across pages
+- [ ] 4.12 Screenshots: grid unfolded, accuracy with critics, a critics award page; capture at 390 and 1280 · Haiku 5.5 Max: extending the script
+- [ ] 4.R Phase 4 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10) · Opus 5.5 Medium: mostly data and existing pages; the review checks data honesty
+- *Owner:* approve the production load; spot-check two critics groups; sign off; release
+- **Done when:** each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked.
+
+### Phase 5: Festival lineups
+- [ ] 5.1 Lineup imports 2025: Cannes, Venice, Berlin by section, with prizes; facts for new films; load on `test`. Done when: section counts match the festivals' published lineups · Sonnet 5.5 High: new data shape, same pattern
+- [ ] 5.2 Lineup imports 2025: Sundance, Toronto; and 2026 for all five; load on `test`; scores for new films within the quota. Done when: as 5.1 · Sonnet 5.5 High: as 5.1
+- [ ] 5.3 Festival lineup page `/festivals/[festival]/[year]`, lineups in the festivals index, screenings on the movie page (read guide §8.3, §8.6). Done when: earlier years say lineups start in 2025 · Sonnet 5.5 High: film-list pattern (§7.5 may lower it)
+- [ ] 5.4 End-to-end test of the Done-when scenario (`tests/e2e/phase-5.spec.ts`) · Sonnet 5.5 High: flows across pages
+- [ ] 5.5 Screenshots: lineup page, festivals index, movie page with screenings; capture at 390 and 1280 · Haiku 5.5 Max: extending the script
+- [ ] 5.R Phase 5 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10) · Opus 5.5 High: new page kind and about 1,000 new films
+- *Owner:* approve the production load; sign off; release
+- **Done when:** Cannes 2025's page lists every section's films with flags and scores.
+
+## 7. Who builds it, and how
+
+### 7.1 Project profile
+- **What can do real damage:** the watched and want-to-watch marks (exist nowhere else, open to anyone with the link, Neon Free restores only 6 hours); anything that writes production (loads, migrations, the daily cron); tests reaching production (it happened on another project on this machine, 2026-10-22); wrong film matching or category mapping, which silently skews every accuracy figure and prediction, the app's whole point (reloadable, but only if someone notices).
+- **What is visually demanding:** the race with its signature elements (% numerals, chance line, word tabs, the "why") through six season states; the year grid (up to 8,000 cells, sticky column, folding); the component library and AppShell, which set every page's look. Everything else has a frame in the preview.
+- **What is new or unusual:** the prediction engine; the Wikipedia → Wikidata → IMDb research pipeline; two rate-limited score APIs sharing one quota; accent-free trigram search; Next 16 caching with live marks.
+- **What is routine and repetitive:** film-list pages after the first, indexes, per-award imports after the Oscars, eight critics batches, screenshot runs, tokens and icons.
+
+### 7.2 Tier list for this app
+| Kind of work here | Pick | Reason |
+|---|---|---|
+| Schema, loader, marks, restore, test isolation | Opus 5.5 High | Can lose the marks or write the wrong database |
+| Component library, AppShell, the race, the year grid, phase reviews (Phases 0–3, 5) | Opus 5.5 High | Sets the look, or dense visuals with no exact reference |
+| Prediction engine | Opus 5.5 High | New and only partly specified; it's the app's central idea |
+| First import of a kind, registries (mapping), accuracy maths, compute wiring, scores, data layer, update routine | Opus 5.5 Medium | Precise, checkable by tests or hand-worked fixtures. The first import is a tier above later ones |
+| Later imports, pages from preview templates, search, e2e specs, launch checks, connecting services | Sonnet 5.5 High | Many rules, little damage, references exist. Haiku stops here: these have interaction or failure states |
+| Scaffold, tokens, identity files, screenshot runs | Haiku 5.5 Max | Exact copies and scripts with no state |
+| Repeats of the film-list pattern (awards and festivals index, year summary, lineup page) | Sonnet 5.5 High, or Haiku 5.5 Max if §7.5 says so | Decided by the calibration trial |
+
+Never Opus 5.5 Low or Sonnet 5.5 Medium (`docs/build-plan.md`).
+
+### 7.3 Per-task picks
+On every task line in §6, with a reason in this app's terms.
+
+### 7.4 One task at a time
+The rule at the top of this plan, by hand or with `autorun` (`docs/build-plan.md` §7.4).
+
+### 7.5 Calibration trial
+Tasks 1.10–1.11: Haiku 5.5 Max builds the International submissions page; Sonnet 5.5 High compares it with the preview and guide §15 and fixes or rebuilds it. If it needed only small fixes, change the picks of 2.7, 2.10 and 5.3 to Haiku 5.5 Max; otherwise leave them. Decided on quality alone.
+- **Result:** (written by 1.11)
+
+### 7.6 Escalation log
+A task moves up one row the first time a cheaper model gets it wrong twice; later tasks of that kind start at the higher row.
+
+| Date | Task | From → to | Why |
+|---|---|---|---|
+
+## 8. Testing and verification
+
+| Level | Tool | What it covers |
+|---|---|---|
+| Unit | Vitest (`npm test`, no database) | Pure logic: averages, stage order, accuracy, predictions, score merge, data-file schemas, search normalisation; components' states (Testing Library) |
+| Database | Vitest (`npm run test:db`, `test` branch) | Schema constraints, queries, loader (dry run, one transaction, second run empty), marks export and restore |
+| End-to-end | Playwright (`npm run test:e2e`), production build on port 3100, `test` branch | Each phase's Done when; marks writes; search; smoke (`smoke.spec.ts`) |
+| Visual | Playwright screenshot spec (`npm run screens -- --grep <page>`), 390 and 1280, light only | Every page and state against the preview, judged in the phase review |
+| Data | `npm run data:check`, `npm run race:check` | Every data file and load (§3.3, 3.6) |
+| Manual | The owner | Real-data checks at each phase's end; a real phone before release |
+
+Playwright: 1 worker (2 CPUs, 11 GB on the server), servers stopped after each run. Tests that change marks reset their own film. The build per run is skipped when the source hasn't changed since the last test build.
+
+## 9. Project structure
+```
+src/
+  app/                    routes (§4), actions/marks.ts, api/{search,cron/scores,revalidate}
+  components/             shared components (guide §14), one folder each with its test
+  data/                   cached queries (§5.1)
+  db/                     schema.ts, index.ts (clients), meta.ts (branch guard)
+  lib/                    accuracy.ts, predict/, scores/, data-files.ts, format.ts, stage.ts
+  styles/tokens.css
+scripts/                  load.ts, compute.ts, check-data.ts, race-check.ts, marks.ts, scores.ts, research/
+data/                     awards.json, editions/, movies/, marks.json
+drizzle/                  SQL migrations
+tests/                    e2e/, screens/, fixtures/, db/
+docs/                     build-plan.md, runbook.md, update-the-race.md, review-triage.md, phase-checks/
+```
+
+## 10. Running the live app
+- **Backups:** Neon Free restores 6 hours back. Award data is in the repo and can be reloaded. The marks are exported to `data/marks.json` (committed) before every production load, correction or race update, and whenever the owner says "back up marks". Restore with `marks:restore` (dry run first).
+- **Error alerts:** Vercel's runtime logs (short retention on Hobby) and its emails on failed deployments. The cron records each run in `data_loads`; `/data` shows a notice when scores are more than 3 days old, so a broken cron is visible in the app.
+- **Spending limits:** Vercel Hobby and Neon Free can't bill. Keep it that way: no card on Neon, no Pro on Vercel without the owner. OMDb and TMDB keys are free and capped by the services.
+- **Rollback:** Vercel's instant rollback to the previous production deployment; tried once on a deployment before the launch release (3.R). Migrations stay backward compatible for one release.
+- **Search engines:** kept out: `robots.txt` disallows all, every page has `noindex, nofollow`, and an `X-Robots-Tag` header.
+- **Security:** no sign-in (owner's choice); the only write is the marks action (validated); cron and revalidate routes need their secrets; imports run only from scripts.
+
+## 11. Not decided yet
+| Item | Blocks | Default if unanswered |
+|---|---|---|
+| Local development database: `production` (real marks in previews) or a `dev` branch | 0.2 | `production`, as `CLAUDE.md`'s previews assume; automated checks always use `test` |
+| OMDb hit rate for Tomatometer and Metascore (checked in 1.5) | Nothing | Missing scores show "–"; no fallback (product plan §3.2) |
+| Dates of the 99th Oscars (shortlists, nominations, ceremony) | 1.3 | Researched in 1.3 from the Academy's announced calendar; updated by the routine if they move |
+| A film with no IMDb ID or Wikidata item | Its import | Left out, listed in the task's commit and `docs/phase-checks/`, and added later by a correction |
+| Ties and joint winners | Accuracy | A hit if any winner won (§5.2) |
+| Critics groups' identities | 4.1 | Product plan §10 defaults |
+
+## 12. Things I need to do myself
+| When | Action | Why |
+|---|---|---|
+| Before 0.2 | Paste the Neon `production` pooled and direct strings into `.env.local` (or send them; Claude writes them and never repeats them) and the project ID | Database |
+| Before 0.2 | `! npx neonctl auth` and `! npx vercel login` in the session | Logins only the owner can do |
+| Before 0.2 | Create the Vercel project connected to the GitHub repo, or ask Claude to | Hosting |
+| Before 1.5 | Request an OMDb key (omdbapi.com, activate by email) and a TMDB API read token (account → API, "personal"); paste them into `.env.local` and `.env.test` or send them | Scores |
+| Before 1.3 | Nothing: Wikipedia and Wikidata need no key | |
+| Each phase | Approve production migrations and data loads; Claude shows the dry run first | Production data |
+| Each phase | Sign off with real data; say "release" | Releases only move on the owner's word |
+| In season (Nov–Mar) | Ask Claude to "update the race" after new results (2–3 times a week) | Live race |
+| Before launch | Check the app on a real phone | Real-device check |
