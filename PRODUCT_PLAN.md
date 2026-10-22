@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Draft v0.3 (2026-10-22). Feasibility check done; the owner's decisions on its suggested changes are applied (TMDB user score replaces Letterboxd, daily refresh batch, marks backed up before each load, Sources section). Awaiting the owner's approval.
+**Status:** Approved v1.0 (2026-10-22). Approved by the owner after the feasibility check (v0.3 content).
 
 ## 1. Overview
 
@@ -275,6 +275,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: Major awards first, critics groups ("minor") in the next phase; critics groups get their own columns and sections, below the majors.
 - 2026-10-22: Accepted: want-to-watch list, search. Declined: posters, prediction history chart.
 - 2026-10-22: Watched is just watched or not.
+- 2026-10-22: Plan approved as v1.0.
 - 2026-10-22: Every movie shows its country flag, not only International entries.
 
 ## 10. Open questions
