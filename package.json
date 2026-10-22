@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "test": "vitest run --project unit",
     "test:db": "vitest run --project db",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --project chromium",
     "screens": "playwright test tests/screens",
     "data:check": "tsx scripts/check-data.ts",
     "race:check": "tsx scripts/race-check.ts",

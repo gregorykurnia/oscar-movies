@@ -8,7 +8,9 @@ import { readTokens, styleguideOpen } from "./tokens";
 export const metadata: Metadata = { title: "Styleguide" };
 
 async function Content({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
-  const { stress } = await searchParams;
+  const { stress, error } = await searchParams;
+  // `?error=1` throws on purpose, so the screenshot spec can capture the real error page (task 0.12).
+  if (error === "1") throw new Error("Deliberate error for the error page (task 0.12)");
   return <Styleguide stress={stress === "1"} tokens={await readTokens()} />;
 }
 
