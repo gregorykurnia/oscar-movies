@@ -1,6 +1,6 @@
 # Oscar Movies: Implementation Plan
 
-**Status:** Draft v0.1 (2026-10-22), waiting for the plan review and the owner's approval. **Companion to:** `PRODUCT_PLAN.md` v1.0 (source of truth for what). **Look and feel:** `DESIGN_GUIDE.md` v1.0 and `design-preview.html` are binding for every page.
+**Status:** Approved v1.0 (2026-10-22). The owner approved it without the separate plan review. **Companion to:** `PRODUCT_PLAN.md` v1.0 (source of truth for what). **Look and feel:** `DESIGN_GUIDE.md` v1.0 and `design-preview.html` are binding for every page.
 
 **AI Build Log project:** Oscar Movies
 
@@ -44,7 +44,7 @@ The default stack (`docs/build-plan.md`): Next.js App Router + TypeScript, Neon 
 - **Variables** (names in `.env.example`, values never in git or docs): `DATABASE_URL` (direct, for migrations and scripts), `DATABASE_URL_POOLED` (the app), `OMDB_API_KEY`, `TMDB_READ_TOKEN`, `CRON_SECRET` (Vercel sends it to the cron route), `REVALIDATE_SECRET`, `APP_URL` (where the loader sends the revalidate call: the live URL, or `http://localhost:3100` in `.env.test`), `EXPECT_DB_BRANCH` (`test` in `.env.test` only).
 - **Which database am I on:** each branch has an `app_meta` row `db_branch` = `test` or `production`, written once when the branch is set up. Playwright's global setup and `instrumentation.ts` (when `EXPECT_DB_BRANCH` is set) read it and stop at once if it isn't `test`. Every script that writes takes `--target test|production` explicitly, reads the matching env file, checks `app_meta` against the target, and refuses `production` unless `--yes-production` is passed.
 - **Migrations:** `npm run db:migrate:test` first; `npm run db:migrate` (production) only with the owner's approval, before the code that needs it is released. Migrations stay backward compatible for one release (add first, drop a release later).
-- **Region:** Vercel's function region set to the Neon project's region.
+- **Region:** Neon `aws-ap-southeast-1`; Vercel functions in `sin1` (`vercel.json`), next to it.
 
 ## 3. Data
 
@@ -169,13 +169,13 @@ A real `<table>` in a frame that scrolls sideways; the film column is `position:
 
 Every phase ends with its end-to-end task, a screenshot task, and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
 
-**Before the first `autorun`** (the owner, once): items 1–6 in §12. Tasks 0.1 and 0.2 run in a normal `claude` session (0.2 needs the owner there for logins and secrets); start `autorun` from 0.3.
+**Before the first `autorun all`:** the items marked *before the run* in §12. Task 0.2 is done; `autorun all` starts at 0.1.
 
 ### Phase 0: Foundation
 - [ ] 0.1 Scaffold the app with every npm script `CLAUDE.md` and §8 rely on, `vercel.json` (staging off), `.npmrc`, `.env.example`, `.gitignore` additions (`.cache/`, `.next-test/`), noindex header in `next.config.ts` (read §1, §2, §9). Done when: `npm run typecheck`, `lint`, `test` and `build` pass on the empty app · Haiku 5.5 Max: config and scripts copied from this plan, nothing the app depends on yet
-- [ ] 0.2 Connect Neon and Vercel with the owner (playbook Step 8 items 2 and 4): `.env.local`, the `test` branch and `.env.test`, `app_meta` on both branches, Vercel link, env vars, region, `staging` deployments off (read §2). Done when: both connections answer a one-line query and Vercel shows the project with Production env vars · Sonnet 5.5 High: secrets and production settings, done by hand with the owner
-- [ ] 0.3 Schema and first migration on `test` (`src/db/schema.ts`, `src/db/index.ts`, `drizzle/`; read §3.1). Done when: `db:migrate:test` runs clean, a second run does nothing, and a database test inserts and reads one row per table, including the check constraints · Opus 5.5 High: the schema guards the marks and every later import; a wrong delete rule can lose the only irreplaceable data
-- *Owner:* approve running the first migration on `production` (Claude runs `npm run db:migrate`)
+- [x] 0.2 Connect Neon and Vercel with the owner (playbook Step 8 items 2 and 4) · Sonnet 5.5 High: secrets and production settings, done by hand with the owner. Done 2026-10-22 in the Step 7 session: `.env.local` (production, both strings answer), `.env.test` prepared (test strings and score keys from the owner, §12), Vercel project `oscar-movies` created, linked, connected to GitHub, Production env vars set, `vercel.json` committed. `app_meta` rows move to 0.3 (`test`) and the first production migration (`production`)
+- [ ] 0.3 Schema and first migration on `test` (`src/db/schema.ts`, `src/db/index.ts`, `drizzle/`; read §3.1). Also `npm run db:mark-branch -- --target test` writes `app_meta.db_branch`. Done when: `db:migrate:test` runs clean, a second run does nothing, and a database test inserts and reads one row per table, including the check constraints · Opus 5.5 High: the schema guards the marks and every later import; a wrong delete rule can lose the only irreplaceable data
+- *Owner:* approve running the first migration on `production` (Claude runs `npm run db:migrate`, then `npm run db:mark-branch -- --target production`)
 - [ ] 0.4 Test harness: Playwright against a production build in `.next-test` on port 3100 with `.env.test`, rebuilt only when source changed; global setup and `instrumentation.ts` branch guard; Vitest unit and database projects; `db:seed:test` with the Phase 0 data set (read §2, §3.6, §8). Done when: a deliberately wrong `.env.test` makes the e2e run stop before any test · Opus 5.5 High: tests reaching production is a known failure on this machine (another project, 2026-10-22)
 - [ ] 0.5 Tokens and theme: `src/styles/tokens.css` copied from guide §3 unchanged, `globals.css` with the Tailwind `@theme inline` and shadcn variables, Geist via `next/font` (read guide §3, §4, §14). Done when: a unit test confirms tokens.css matches the guide's block byte for byte · Haiku 5.5 Max: an exact copy of a given block
 - [ ] 0.6 Core components with unit tests: Button, TextLink, StagePill, Flag and Flags, ScoreLine, ScoreTiles, Marks (look and states only), Segmented, Chip, Notice, EmptyState, Skeleton, Toast (read guide §7, §9, §13; match the reference file's §3). Done when: each renders every state shown there with tokens only (hex grep clean) · Opus 5.5 High: these set the look of every page; drift here repeats everywhere
@@ -186,7 +186,7 @@ Every phase ends with its end-to-end task, a screenshot task, and its review row
 - [ ] 0.11 Running the live app: `docs/runbook.md` with §10's backups, alerts, limits, rollback and noindex checks; marks export and restore scripts with a round-trip database test (read §3.5, §10). Done when: export then restore on `test` changes nothing, and restore's dry run lists every planned write · Opus 5.5 High: the restore script writes the irreplaceable marks
 - [ ] 0.12 Screenshots: `tests/screens/screens.spec.ts` with a route list and a `--grep` per page; capture `/styleguide`, 404, error and `/` at 390 and 1280 into `screenshots/phase-0/` · Haiku 5.5 Max: a script that takes pictures; the judging happens in the phase review
 - [ ] 0.R Phase 0 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10; guide §15 against the screenshots and the preview) · Opus 5.5 High: the phase sets the look of every page, so design drift must be caught here
-- *Owner:* say "release" for the first deploy (Vercel builds `main`); check the live URL loads and reads the database
+- *Owner:* say "release" for the first deploy (Vercel builds `main`); check the live URL loads and reads the database. Claude then sets `APP_URL` (the live URL) in `.env.local` and Vercel
 - *Owner:* check `/styleguide` against `design-preview.html` (local preview) and sign it off
 - **Done when:** the live address loads the empty shell and reads from the database; the smoke test passes locally and live; the owner has signed off `/styleguide`.
 
@@ -348,7 +348,6 @@ docs/                     build-plan.md, runbook.md, update-the-race.md, review-
 ## 11. Not decided yet
 | Item | Blocks | Default if unanswered |
 |---|---|---|
-| Local development database: `production` (real marks in previews) or a `dev` branch | 0.2 | `production`, as `CLAUDE.md`'s previews assume; automated checks always use `test` |
 | OMDb hit rate for Tomatometer and Metascore (checked in 1.5) | Nothing | Missing scores show "–"; no fallback (product plan §3.2) |
 | Dates of the 99th Oscars (shortlists, nominations, ceremony) | 1.3 | Researched in 1.3 from the Academy's announced calendar; updated by the routine if they move |
 | A film with no IMDb ID or Wikidata item | Its import | Left out, listed in the task's commit and `docs/phase-checks/`, and added later by a correction |
@@ -358,12 +357,13 @@ docs/                     build-plan.md, runbook.md, update-the-race.md, review-
 ## 12. Things I need to do myself
 | When | Action | Why |
 |---|---|---|
-| Before 0.2 | Paste the Neon `production` pooled and direct strings into `.env.local` (or send them; Claude writes them and never repeats them) and the project ID | Database |
-| Before 0.2 | `! npx neonctl auth` and `! npx vercel login` in the session | Logins only the owner can do |
-| Before 0.2 | Create the Vercel project connected to the GitHub repo, or ask Claude to | Hosting |
-| Before 1.5 | Request an OMDb key (omdbapi.com, activate by email) and a TMDB API read token (account → API, "personal"); paste them into `.env.local` and `.env.test` or send them | Scores |
-| Before 1.3 | Nothing: Wikipedia and Wikidata need no key | |
-| Each phase | Approve production migrations and data loads; Claude shows the dry run first | Production data |
+| Done 2026-10-22 | Neon `production` strings in `.env.local`; Vercel logged in; local previews use `production`; production steps wait for the owner during `autorun all` | |
+| **Before the run** | In the Neon console: Branches → create branch `test` from the production branch → copy its direct and pooled connection strings into `.env.test` (`DATABASE_URL`, `DATABASE_URL_POOLED`), or send them | Every task from 0.3 tests against `test` |
+| **Before the run** | Request an OMDb key (omdbapi.com/apikey.aspx, free tier, activate by email) and a TMDB API read access token (themoviedb.org → Settings → API, "personal"); put both in `.env.local` and `.env.test` (`OMDB_API_KEY`, `TMDB_READ_TOKEN`), or send them | Task 1.5 and every import's movie facts |
+| Before the run (optional) | `autorun notify-setup` in your terminal | Phone notifications when the run stops or finishes |
+| Start | `autorun all` in your own terminal, inside `~/oscar-movies` | |
+| Mornings after a run | `autorun recap` and `autorun decisions`; then approve the production steps it left (migrations, data loads: Claude shows the dry run first) | Production data stays the owner's call |
 | Each phase | Sign off with real data; say "release" | Releases only move on the owner's word |
+| End of Phase 0 | Check `/styleguide` against `design-preview.html` | Design sign-off |
 | In season (Nov–Mar) | Ask Claude to "update the race" after new results (2–3 times a week) | Live race |
 | Before launch | Check the app on a real phone | Real-device check |

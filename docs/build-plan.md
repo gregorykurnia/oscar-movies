@@ -403,8 +403,8 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | App name | Oscar Movies (working name) |
 | Folder | `~/oscar-movies` on the Oracle server (`investment-office`) |
 | GitHub repo | https://github.com/gregorykurnia/oscar-movies |
-| Neon project ID | |
-| Vercel project | |
+| Neon project ID | (region `aws-ap-southeast-1`; ID not recorded yet) |
+| Vercel project | `oscar-movies` (gregorykurnia-8729s-projects), region `sin1` |
 | Live URL | |
 | Extra services | OMDb API (free key), TMDB API (free key); IMDb datasets, Wikipedia, Wikidata (no key) |
 
@@ -416,7 +416,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 - [x] Step 4 (2026-10-22): design brief answered, `design/brief.md` written
 - [x] Step 5 (2026-10-22): direction chosen (`design/decisions.md`): A, Spotlight, after one round of A variants
 - [x] Step 6 (2026-10-22): design guide and preview approved and frozen as v1.0
-- [ ] Step 7: implementation plan reviewed and approved; `autorun check` finds its first task and pick
+- [x] Step 7 (2026-10-22): implementation plan approved v1.0 (owner skipped the separate review); `autorun check` finds task 0.1 (Haiku 5.5 Max)
 - [ ] Step 8: GitHub linked and both branches pushed; Neon `production` and `test` connected; Vercel linked with env vars and `staging` deployments off; first release live
 - [ ] Step 9: Phase 0 done; `/styleguide` signed off against the preview
 - [ ] Steps 9–10: every phase built, reviewed and signed off
@@ -426,7 +426,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Plan review of `IMPLEMENTATION_PLAN.md` (fresh session, Opus 5.5 Medium), then approval | 2026-10-22 | Step 8 and the build |
+| Neon `test` branch strings in `.env.test`; OMDb key and TMDB token in `.env.local` and `.env.test` (`IMPLEMENTATION_PLAN.md` §12) | 2026-10-22 | `autorun all` (0.3 on) |
 
 ## Upkeep log
 
