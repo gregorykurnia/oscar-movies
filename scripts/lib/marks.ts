@@ -2,11 +2,12 @@
 // that exists nowhere else, so the export names films by IMDb ID or QID (it survives any
 // reload) and restore writes only the films whose marks differ, after a plan that lists
 // every write. Restore never clears a mark that the file doesn't mention.
-import { relative, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { dirname, relative, resolve } from "node:path";
 import { eq, inArray, or } from "drizzle-orm";
 import type { ScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
-import type { MarkEntry, MarksFile } from "../../src/lib/data-files";
+import { marksFileSchema, type MarkEntry, type MarksFile } from "../../src/lib/data-files";
 
 /** A script client or a transaction on one. */
 export type Db = Pick<ScriptDb, "select" | "insert" | "transaction">;
@@ -175,6 +176,38 @@ export function exportProblem(opts: {
 /** A path relative to the project folder, with forward slashes (`./data//marks.json` → `data/marks.json`). */
 function normalize(file: string): string {
   return relative(process.cwd(), resolve(file)).split("\\").join("/");
+}
+
+/** Reads and validates a marks file; stops with every problem when it isn't valid. */
+export function readMarksFile(path: string): MarksFile {
+  if (!existsSync(path)) throw new Error(`${path} doesn't exist. Nothing was written.`);
+  const parsed = marksFileSchema.safeParse(JSON.parse(readFileSync(path, "utf8")));
+  if (!parsed.success) {
+    const issues = parsed.error.issues.map((i) => `${i.path.join(".") || "file"}: ${i.message}`);
+    throw new Error(`${path} isn't a valid marks file. Nothing was written.\n- ${issues.join("\n- ")}`);
+  }
+  return parsed.data;
+}
+
+/**
+ * Exports every marked film to `file` (`marks:export`, and the loader before a production
+ * load). Stops, keeping the file, when `exportProblem` finds one. Writes a temporary file and
+ * renames it, so a crash never leaves the backup half-written. Returns the line to print.
+ */
+export async function exportMarksToFile(
+  db: Db,
+  opts: { target: "test" | "production"; file: string; allowShrink: boolean },
+): Promise<string> {
+  const { target, file, allowShrink } = opts;
+  const previous = existsSync(file) ? readMarksFile(file).length : null;
+  const entries = await exportMarks(db);
+  const problem = exportProblem({ target, file, previous, next: entries.length, allowShrink });
+  if (problem) throw new Error(problem);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(`${file}.tmp`, serializeMarks(entries));
+  renameSync(`${file}.tmp`, file);
+  const was = previous === null ? "" : ` (the file had ${previous} before)`;
+  return `Exported ${entries.length} marked films from ${target} to ${file}${was}.`;
 }
 
 /** Reads what restore needs from the database and plans it (no writes). */

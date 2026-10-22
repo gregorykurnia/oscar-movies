@@ -8,19 +8,15 @@
 // file doesn't mention. The file defaults to `data/marks.json` (committed) for production
 // and `.cache/marks.test.json` (gitignored) for test, so a test run never overwrites the
 // production backup.
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
 import { createScriptDb } from "../src/db";
 import { readDbBranch, type DbBranch } from "../src/db/meta";
-import { marksFileSchema } from "../src/lib/data-files";
 import {
   applyRestore,
-  exportMarks,
-  exportProblem,
+  exportMarksToFile,
   formatPlan,
   loadRestorePlan,
   PRODUCTION_MARKS_FILE,
-  serializeMarks,
+  readMarksFile,
 } from "./lib/marks";
 import { loadTargetEnv, parseTargetArgs } from "./lib/target";
 
@@ -28,16 +24,6 @@ const DEFAULT_FILES: Record<DbBranch, string> = {
   production: PRODUCTION_MARKS_FILE,
   test: ".cache/marks.test.json",
 };
-
-function readMarksFile(path: string) {
-  if (!existsSync(path)) throw new Error(`${path} doesn't exist. Nothing was written.`);
-  const parsed = marksFileSchema.safeParse(JSON.parse(readFileSync(path, "utf8")));
-  if (!parsed.success) {
-    const issues = parsed.error.issues.map((i) => `${i.path.join(".") || "file"}: ${i.message}`);
-    throw new Error(`${path} isn't a valid marks file. Nothing was written.\n- ${issues.join("\n- ")}`);
-  }
-  return parsed.data;
-}
 
 async function main() {
   const [command, ...argv] = process.argv.slice(2);
@@ -62,16 +48,7 @@ async function main() {
     }
 
     if (command === "export") {
-      const previous = existsSync(file) ? readMarksFile(file).length : null;
-      const entries = await exportMarks(db);
-      const problem = exportProblem({ target, file, previous, next: entries.length, allowShrink });
-      if (problem) throw new Error(problem);
-      // Write a temporary file and rename it, so a crash never leaves the backup half-written.
-      mkdirSync(dirname(file), { recursive: true });
-      writeFileSync(`${file}.tmp`, serializeMarks(entries));
-      renameSync(`${file}.tmp`, file);
-      const was = previous === null ? "" : ` (the file had ${previous} before)`;
-      console.log(`Exported ${entries.length} marked films from ${target} to ${file}${was}.`);
+      console.log(await exportMarksToFile(db, { target, file, allowShrink }));
       return;
     }
 

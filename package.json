@@ -19,6 +19,7 @@
     "screens": "playwright test tests/screens",
     "data:check": "tsx scripts/check-data.ts",
     "race:check": "tsx scripts/race-check.ts",
+    "load": "tsx scripts/load.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts --target production --yes-production",
     "db:migrate:test": "tsx scripts/migrate.ts --target test",
