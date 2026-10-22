@@ -1,9 +1,10 @@
 "use client";
 
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
+import { SearchCommand } from "@/components/search/SearchCommand";
 import { cn } from "@/lib/cn";
 import { IconButton } from "./IconButton";
 import { currentNav, NAV_ITEMS } from "./nav";
@@ -13,7 +14,7 @@ import { Wordmark } from "./Wordmark";
 /**
  * Guide §6.1 Top bar: wordmark, main nav and search. Compact (≤1100px): the search box becomes
  * an icon button. Phone (≤760px): menu button, wordmark, search button.
- * Search is inert until task 1.12 wires SearchCommand into the box and the buttons.
+ * `SearchCommand` is the box and the buttons; the phone menu's search button opens it too.
  */
 export function TopBar({ season, toWatch }: { season?: number; toWatch?: number }) {
   const pathname = usePathname() ?? "/";
@@ -21,6 +22,11 @@ export function TopBar({ season, toWatch }: { season?: number; toWatch?: number 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const openSearch = useCallback(() => {
+    setMenuOpen(false);
+    setSearchOpen(true);
+  }, []);
 
   return (
     <header className="relative z-30 border-b border-line bg-surface">
@@ -53,20 +59,7 @@ export function TopBar({ season, toWatch }: { season?: number; toWatch?: number 
             </Link>
           ))}
         </nav>
-        {/* The search box (desktop) and the search button (compact and phone). Inert until 1.12. */}
-        <button
-          type="button"
-          disabled
-          aria-label="Search films and awards"
-          className="ml-auto hidden h-[38px] w-[260px] items-center gap-2 rounded-[9px] border border-line bg-paper pr-2.5 pl-3 text-small text-ink-muted xl:flex"
-        >
-          <Search aria-hidden="true" className="size-4 flex-none" strokeWidth={1.75} />
-          <span className="flex-1 truncate text-left">Search films and awards</span>
-          <kbd className="rounded-[5px] border border-line bg-surface px-1.5 text-micro leading-[18px] text-ink-muted">/</kbd>
-        </button>
-        <IconButton aria-label="Search" disabled className="-mr-1.5 ml-auto md:mr-0 xl:hidden">
-          <Search aria-hidden="true" strokeWidth={1.75} />
-        </IconButton>
+        <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
       </div>
       <PhoneMenu
         open={menuOpen}
@@ -75,6 +68,7 @@ export function TopBar({ season, toWatch }: { season?: number; toWatch?: number 
         returnFocusTo={menuButtonRef}
         season={season}
         toWatch={toWatch}
+        onSearch={openSearch}
       />
     </header>
   );

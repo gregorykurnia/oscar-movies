@@ -66,13 +66,14 @@ describe("AppShell", () => {
     expect(within(main).getByRole("link", { name: "Race" }).getAttribute("aria-current")).toBeNull();
   });
 
-  it("search is shown but inert until task 1.12", () => {
+  it("shows the search box with its / hint and a search button, both opening search", () => {
     renderShell();
     const box = screen.getByRole("button", { name: "Search films and awards" });
-    expect(box.hasAttribute("disabled")).toBe(true);
+    expect(box.hasAttribute("disabled")).toBe(false);
     expect(box.textContent).toContain("Search films and awards");
     expect(box.querySelector("kbd")?.textContent).toBe("/");
-    expect(screen.getByRole("button", { name: "Search" }).hasAttribute("disabled")).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Search" }));
+    expect(screen.getByRole("dialog", { name: "Search" })).toBeTruthy();
   });
 });
 
@@ -126,6 +127,14 @@ describe("Phone menu", () => {
     const event = fireEvent.keyDown(close, { key: "Tab" });
     expect(event).toBe(true); // not prevented
     expect(document.activeElement).toBe(close);
+  });
+
+  it("its search button closes the menu and opens the search sheet", () => {
+    const { dialog } = openMenu();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Search" }));
+    expect(screen.queryByRole("dialog", { name: "Menu" })).toBeNull();
+    expect(screen.getByRole("dialog", { name: "Search" })).toBeTruthy();
+    expect(document.activeElement).toBe(screen.getByRole("combobox", { name: "Search films and awards" }));
   });
 
   it("lists the nav with the current page's gold bar and the captions", () => {

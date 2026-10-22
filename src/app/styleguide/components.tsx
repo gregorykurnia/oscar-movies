@@ -347,7 +347,7 @@ export function Components({ s }: { s: Sample }) {
       <Board
         id="page-header"
         title="AppShell and PageHeader"
-        note="This page sits in the real AppShell: the top bar above (the phone menu from the menu button at phone width) and the footer below. Search is inert until task 1.12. Every page starts with PageHeader: an optional back link, the one h1, a sub line, actions at the right."
+        note="This page sits in the real AppShell: the top bar above (the phone menu from the menu button at phone width) and the footer below. Every page starts with PageHeader: an optional back link, the one h1, a sub line, actions at the right."
       >
         <Cell name="With back link, sub and year switcher" className="w-full">
           <PageHeader

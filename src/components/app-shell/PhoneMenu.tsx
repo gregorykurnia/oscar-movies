@@ -22,6 +22,7 @@ export function PhoneMenu({
   returnFocusTo,
   season,
   toWatch,
+  onSearch,
 }: {
   open: boolean;
   onClose: () => void;
@@ -32,6 +33,8 @@ export function PhoneMenu({
   season?: number;
   /** Films on the want-to-watch list, shown under Watch list ("4 to watch"). */
   toWatch?: number;
+  /** The search button: closes the menu and opens the search sheet. */
+  onSearch: () => void;
 }) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -100,8 +103,7 @@ export function PhoneMenu({
             <X aria-hidden="true" strokeWidth={1.75} />
           </IconButton>
           <Wordmark onClick={onClose} />
-          {/* Search arrives in task 1.12; until then the button does nothing. */}
-          <IconButton aria-label="Search" disabled className="-mr-1.5 ml-auto">
+          <IconButton aria-label="Search" onClick={onSearch} className="-mr-1.5 ml-auto">
             <Search aria-hidden="true" strokeWidth={1.75} />
           </IconButton>
         </div>

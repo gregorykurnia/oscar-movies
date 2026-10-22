@@ -1,6 +1,6 @@
-import { Search } from "lucide-react";
 import Link from "next/link";
-import { Button, buttonClasses } from "@/components/button/Button";
+import { buttonClasses } from "@/components/button/Button";
+import { OpenSearchButton } from "@/components/search/OpenSearchButton";
 import { StatusPage, usefulLinks } from "./StatusPage";
 
 /** Guide §8.11: any unknown address, year or award. */
@@ -27,11 +27,7 @@ export function NotFoundPage({
           <Link href="/" className={buttonClasses({ variant: "primary" })}>
             Go to the race
           </Link>
-          {/* Inert until 1.12, like the top bar's search. */}
-          <Button variant="secondary" disabled>
-            <Search aria-hidden="true" strokeWidth={1.75} />
-            Search
-          </Button>
+          <OpenSearchButton />
         </>
       }
       links={usefulLinks({ season, toWatch })}
