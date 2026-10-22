@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Draft v0.1 (2026-10-22). First draft from the owner's description and three interview rounds. Awaiting the feasibility check (Step 3), then approval.
+**Status:** Draft v0.2 (2026-10-22). Adds a % chance to be nominated before the Oscar nominations; open-question defaults accepted. Awaiting the feasibility check (Step 3), then approval.
 
 ## 1. Overview
 
@@ -61,7 +61,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - Opens on the **current season** (2026 now). A year switcher reaches any year from 2012 on.
-- The four categories, each as its own section (tabs on phone): its contenders or nominees, each with its **Oscar stage**, its **% chance to win**, its main precursor results (e.g. "Won: BAFTA, PGA · Nominated: Globes"), scores, flag and watched marks.
+- The four categories, each as its own section (tabs on phone): its contenders or nominees, each with its **Oscar stage**, its **% chance to be nominated** (until the nominations are announced), its **% chance to win**, its main precursor results (e.g. "Won: BAFTA, PGA · Nominated: Globes"), scores, flag and watched marks.
 - Before the Oscar nominations, the contenders are every film with a nomination or win at any followed award or festival in that category (and the shortlist once it exists). After the nominations, only the nominees. After the ceremony, the winner is marked and the % chances freeze as "final prediction".
 - Past years show the real Oscar nominees and winners, with the prediction the app would have made on the eve of the ceremony, so the method can be judged.
 - Each film's % opens a short **"why"**: the past seasons and precursor results it is based on.
@@ -70,12 +70,13 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 ### 3.4 Predictions: % chance to win
 
-**Purpose:** a running prediction for each Oscar category, purely from past patterns.
+**Purpose:** a running prediction for each Oscar category, purely from past patterns: who gets nominated, and who wins.
 
 **Requirements**
 - Each contender's chance comes from **how past contenders with a similar run of precursor results did** (2012 to the last finished season): which awards they won or were nominated at, weighted by how well those awards have predicted that category. The chances in a category add up to 100%.
+- **% chance to be nominated**, shown until the Oscar nominations are announced: from how often past contenders with a similar run of precursor results (and shortlist status, where there is one) got the nomination. These don't add up to 100%; together they add up to roughly the number of nomination slots (10 for Picture, 5 for the others).
 - Recalculated whenever new results are loaded, and when an Oscar ceremony's results make a season "finished" (so its history now counts).
-- The method is explained in plain words on the accuracy page, with the backtest: for each past year, the app's eve-of-ceremony favourite and whether it won.
+- The method is explained in plain words on the accuracy page, with the backtest: for each past year, the app's eve-of-ceremony favourite and whether it won, and how many of the nominees it had in its top slots on the eve of the nominations.
 
 **UX notes:** shown as a whole-number % with a bar. With little data early in the season, the category says "Early: few results yet".
 
@@ -220,7 +221,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | 0. Foundation | The app shell, design system, database, live on Vercel, kept out of search engines | The live address loads the empty shell and reads from the database; the smoke test passes locally and live |
 | 1. Oscars and movies | Oscars 2012–2026 (submissions, shortlists, nominees, winners), movies with flags and the four scores (weekly refresh), Oscar year pages, International submissions, movie page, watched / want to watch, Watch list, search | The 2025 Oscars page shows all four categories with flags, scores and average; marking a film watched shows on every page it appears on; search finds a film by its original title |
 | 2. Major awards and festival prizes | The 12 major awards and the 5 festivals' prizes, 2012–2026; award pages, awards index, accuracy figures and page, year grid, year summary, the movie page's award list | BAFTA 2025's page lists its nominees and winners with their Oscar results; the accuracy figures for a hand-checked award match; the 2025 grid shows every nominated movie with its awards coloured |
-| 3. Predictions and the live race | % chance per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
+| 3. Predictions and the live race | % chance to be nominated and to win per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
 | 4. Critics groups | The 63 critics groups, 2012–2026, in the grid, award pages, accuracy figures and predictions | Each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked |
 | 5. Festival lineups | 2025 and 2026 lineups by section for the five festivals; festival screenings on the movie page | Cannes 2025's page lists every section's films with flags and scores |
 
@@ -237,6 +238,8 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: Scores refreshed weekly; free services only.
 - 2026-10-22: Years 2012–2025 finished, 2026 tracked live. Deadline: Oscar nominations, January 2027.
 - 2026-10-22: Oscar shortlists tracked as a stage.
+- 2026-10-22: Before the nominations, the race also shows a % chance to be nominated, from past seasons' patterns.
+- 2026-10-22: Open-question defaults accepted by the owner (they stay in §10 until something changes them).
 - 2026-10-22: Festival major prizes since 2012; full lineups from 2025.
 - 2026-10-22: Major awards first, critics groups ("minor") in the next phase; critics groups get their own columns and sections, below the majors.
 - 2026-10-22: Accepted: want-to-watch list, search. Declined: posters, prediction history chart.
@@ -250,6 +253,5 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | Which group do the shorthand names mean: "Hollywood", "Black", "Toronto", "Peabody"? | Hollywood = Hollywood Critics Association (now Astra Film Awards); Black = Black Film Critics Circle; Toronto = Toronto Film Critics Association (the festival is separate); Peabody = its documentary winners |
 | Critics Choice and Gotham are big precursors; major or minor? | Minor, as listed by the owner |
 | Rotten Tomatoes: critics (Tomatometer) or audience score? | Tomatometer |
-| Should the race also show a "% chance to be nominated" before nominations? | No: win % only; before nominations, the pool is every film with precursor attention |
 | Toronto's festival prizes: which runners-up count? | The first and second runners-up of each People's Choice award, counted as nominations |
 | Where no source gives a score (e.g. Letterboxd for some films) | Shown as "–" and left out of the average |
