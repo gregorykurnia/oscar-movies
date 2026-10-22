@@ -414,7 +414,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 - [x] Steps 1–2 (2026-10-22): product plan drafted, suggestions accepted or declined
 - [x] Step 3 (2026-10-22): feasibility checked; product plan approved v1.0
 - [x] Step 4 (2026-10-22): design brief answered, `design/brief.md` written
-- [ ] Step 5: direction chosen (`design/decisions.md`)
+- [x] Step 5 (2026-10-22): direction chosen (`design/decisions.md`): A, Spotlight, after one round of A variants
 - [ ] Step 6: design guide and preview approved and frozen
 - [ ] Step 7: implementation plan reviewed and approved; `autorun check` finds its first task and pick
 - [ ] Step 8: GitHub linked and both branches pushed; Neon `production` and `test` connected; Vercel linked with env vars and `staging` deployments off; first release live
@@ -426,7 +426,6 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Pick a design direction: owner leans to A; pick A, A1, A2 or A3 (variants of A in `design/directions/`), the last round | 2026-10-22 | Step 6 |
 
 ## Upkeep log
 
