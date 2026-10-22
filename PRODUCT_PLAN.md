@@ -1,17 +1,17 @@
 # Oscar Movies: Product Plan
 
-**Status:** Draft v0.2 (2026-10-22). Adds a % chance to be nominated before the Oscar nominations; open-question defaults accepted. Awaiting the feasibility check (Step 3), then approval.
+**Status:** Draft v0.3 (2026-10-22). Feasibility check done; the owner's decisions on its suggested changes are applied (TMDB user score replaces Letterboxd, daily refresh batch, marks backed up before each load, Sources section). Awaiting the owner's approval.
 
 ## 1. Overview
 
-A personal web app for following the film awards season and the Oscars. For each **film year** (films of 2025 = the 98th Oscars in March 2026), it shows the nominees and winners of the Oscars and of every award and festival the owner follows, in four Oscar categories: **Best Picture, Documentary Feature, International Feature and Animated Feature**. It measures how well each award has predicted the Oscars since 2012, and uses that history to give each contender in the current race a **% chance to win**. Every movie, wherever it appears, shows its **country flag**, its **IMDb, Rotten Tomatoes, Metacritic and Letterboxd** scores and their average, and whether the owner has **watched** it or **wants to watch** it.
+A personal web app for following the film awards season and the Oscars. For each **film year** (films of 2025 = the 98th Oscars in March 2026), it shows the nominees and winners of the Oscars and of every award and festival the owner follows, in four Oscar categories: **Best Picture, Documentary Feature, International Feature and Animated Feature**. It measures how well each award has predicted the Oscars since 2012, and uses that history to give each contender in the current race a **% chance to win**. Every movie, wherever it appears, shows its **country flag**, its **IMDb, Rotten Tomatoes, Metacritic and TMDB** scores and their average, and whether the owner has **watched** it or **wants to watch** it.
 
 **Main parts:** the Oscar race (home), award and festival pages per year, the year grid, accuracy figures, International Feature submissions, festival lineups, movie pages, watch lists, search.
 
 **Basic principles**
 - **Users:** the owner only. **No sign-in** (owner's choice). The live app is kept out of search engines.
 - **Years:** 2012–2025 as finished seasons, plus the **2026 season tracked live** as awards are announced.
-- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed weekly. The app has no editing forms: corrections and season updates go through Claude (see 3.12).
+- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. The app has no editing forms: corrections and season updates go through Claude (see 3.12).
 
 ## 2. Users and jobs
 
@@ -49,11 +49,12 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Purpose:** every movie shows the same key facts everywhere.
 
 **Requirements**
-- Every movie row, anywhere in the app, shows: title (original title on the detail page), **country flag(s)**, **IMDb, Rotten Tomatoes (Tomatometer), Metacritic, Letterboxd**, the **average**, and the watched / want-to-watch marks.
-- **Average:** each score converted to 0–100 (IMDb × 10, Letterboxd × 20, Tomatometer and Metacritic as they are), averaged over the scores that exist. It shows how many sources it's based on (e.g. "84 · 3 of 4") so a missing score is visible.
+- Every movie row, anywhere in the app, shows: title (original title on the detail page), **country flag(s)**, **IMDb, Rotten Tomatoes (Tomatometer), Metacritic, TMDB user score**, the **average**, and the watched / want-to-watch marks.
+- **Average:** each score converted to 0–100 (IMDb × 10, TMDB × 10, Tomatometer and Metacritic as they are), averaged over the scores that exist. It shows how many sources it's based on (e.g. "84 · 3 of 4") so a missing score is visible.
 - **Flags:** every movie gets the flag(s) of its production countries, main country first; co-productions show up to three flags plus "+N". For International Feature submissions, the **submitting country's** flag comes first, since that's what the race is about.
-- A missing score shows as "–", never as 0.
-- Scores are refreshed **weekly**: every week for current-season films, rarely for older ones (they barely change). Each score shows when it was last updated on the movie page.
+- A missing score shows as "–", never as 0. Rotten Tomatoes comes through OMDb and can be missing or late for new and foreign films; there is no paid or scraped fallback.
+- Letterboxd isn't shown: it has no legal free source (its API isn't granted to personal projects and its terms forbid scraping).
+- Scores are refreshed in a **small daily batch**, so each current-season film is updated about once a week and older films about monthly (they barely change). Each score shows when it was last updated on the movie page.
 
 ### 3.3 The Oscar race (home)
 
@@ -98,7 +99,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - For each award category, over finished seasons since 2012:
   - **Winner → Oscar win:** how often its winner won the matching Oscar ("9 of 14 years, 64%").
   - **Winner → Oscar nomination:** how often its winner was nominated for it.
-  - **Nominees → Oscar nominees:** of its nominees, the share that got the Oscar nomination (only for awards that announce nominees).
+  - **Nominees → Oscar nominees:** of its nominees, the share that got the Oscar nomination. Awards that announce winners only (many critics groups) show "–" here, and the page says why.
 - **Running:** they update automatically when an Oscar season finishes; the current season never counts until its ceremony is over.
 - An **accuracy page** per Oscar category ranks every award and festival by these figures (major and critics groups in their own sections), sortable by each figure, with the number of years each is based on.
 
@@ -154,7 +155,9 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - Claude researches and loads 2012–2026: Oscars (including submissions and shortlists), major awards and festival prizes first; critics groups next; festival lineups for 2025–2026 last (see the build plan).
-- **During the season**, the owner asks Claude to "update the race"; it researches new results, shows the owner what it will add or change, then loads it. Scores refresh weekly on their own.
+- **During the season**, the owner asks Claude to "update the race"; it researches new results, shows the owner what it will add or change, then loads it. Scores refresh on their own.
+- **Before every import, correction or race update**, the watched and want-to-watch marks are exported into the repo first. They are the only data that can't be researched again, and Neon's free plan can only undo the last 6 hours.
+- A **Sources** section on the data coverage page credits TMDB (its required notice and logo), Wikipedia (CC BY-SA) and the other sources.
 - **Corrections:** the owner tells Claude what's wrong; the same review-then-load step applies.
 - A **data coverage page** shows, per award and year, whether results are loaded, partly loaded or missing, and when scores were last refreshed.
 
@@ -208,7 +211,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 ## 7. Technical approach
 
-A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATION_PLAN.md`). No sign-in: anyone with the live address could see the app and change the watched marks, so it's kept out of search engines (`noindex`, `robots.txt`). Paid services: **none** (free tiers only).
+A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATION_PLAN.md`). No sign-in: anyone with the live address could see the app and change the watched marks (the owner accepted this, 2026-10-22), so it's kept out of search engines (`noindex`, `robots.txt`). Paid services: **none** (free tiers only).
 
 **Feasibility notes** (Step 3, 2026-10-22). **Verdict:** buildable on the default stack at no cost, and Phases 0–3 are realistic by January 2027, with **one score that can't be had legally (Letterboxd)** and a few smaller changes listed below.
 
@@ -230,14 +233,14 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - **IMDb datasets, Wikipedia, Wikidata**: no account or key.
 - **Vercel cron**: part of Hobby, nothing to set up beyond the `CRON_SECRET` value Claude generates.
 
-**Requirements that should change** (the owner decides):
-- **§1, §3.2 Letterboxd score:** can't be fetched legally for free. Suggest: drop Letterboxd and average the other three ("84 · 2 of 3"), or replace it with the TMDB user score (free, legal, but a different crowd).
-- **§3.2 Rotten Tomatoes:** OMDb's Tomatometer may be missing or lag for new and foreign films. Suggest: accept "–" (already the default) and state that RT comes via OMDb and may lag; no paid or scraped fallback.
-- **§3.2 weekly refresh:** Hobby crons run daily, not on a chosen weekday. Suggest: "each current-season film refreshed about once a week" (a daily batch), older films monthly.
-- **§1, §6 no sign-in:** strangers or bots who find the URL can change marks. Suggest: keep no sign-in for reading, but marking needs an **owner key** set once per device via a private link (stored in a long-lived cookie): no login screen, no account.
-- **§3.12 / §5 backups:** Neon Free's 6-hour restore window can't undo a bad import found a day later. Suggest: each import and "update the race" first exports the marks into the repo, and imports are re-runnable from the repo's data files.
-- **§3.6 / §3.4 critics groups that publish winners only:** they get only the two winner figures; their nominees figure shows "–" (the plan already allows this, worth stating on the accuracy page).
-- **New small item, credits page:** TMDB requires its notice and logo, and Wikipedia data needs CC BY-SA credit. Suggest: a short "Sources" section on the data coverage page.
+**Requirement changes** (suggested by the check, decided by the owner 2026-10-22, applied above):
+- Letterboxd → **TMDB user score** (§1, §3.2).
+- Rotten Tomatoes may be missing or late: shown as "–", no fallback (§3.2).
+- Weekly refresh → a **daily batch** (each current film about weekly, older ones monthly) (§3.2).
+- Owner key for marking: **declined**; marks stay open to anyone with the link (§7).
+- **Marks exported into the repo** before every data load (§3.12).
+- Winners-only awards show "–" for the nominees figure, with the reason (§3.6).
+- **Sources** section with the TMDB notice and Wikipedia credit (§3.12).
 
 ## 8. Build plan
 
@@ -246,7 +249,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | Phase | What gets built | Done when |
 |---|---|---|
 | 0. Foundation | The app shell, design system, database, live on Vercel, kept out of search engines | The live address loads the empty shell and reads from the database; the smoke test passes locally and live |
-| 1. Oscars and movies | Oscars 2012–2026 (submissions, shortlists, nominees, winners), movies with flags and the four scores (weekly refresh), Oscar year pages, International submissions, movie page, watched / want to watch, Watch list, search | The 2025 Oscars page shows all four categories with flags, scores and average; marking a film watched shows on every page it appears on; search finds a film by its original title |
+| 1. Oscars and movies | Oscars 2012–2026 (submissions, shortlists, nominees, winners), movies with flags and the four scores (daily refresh batch), Oscar year pages, International submissions, movie page, watched / want to watch, Watch list, search | The 2025 Oscars page shows all four categories with flags, scores and average; marking a film watched shows on every page it appears on; search finds a film by its original title |
 | 2. Major awards and festival prizes | The 12 major awards and the 5 festivals' prizes, 2012–2026; award pages, awards index, accuracy figures and page, year grid, year summary, the movie page's award list | BAFTA 2025's page lists its nominees and winners with their Oscar results; the accuracy figures for a hand-checked award match; the 2025 grid shows every nominated movie with its awards coloured |
 | 3. Predictions and the live race | % chance to be nominated and to win per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
 | 4. Critics groups | The 63 critics groups, 2012–2026, in the grid, award pages, accuracy figures and predictions | Each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked |
@@ -262,7 +265,8 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: "Correlation" means hit rates: winner → Oscar win, winner → Oscar nomination, nominees → Oscar nominees.
 - 2026-10-22: % chance to win comes from past seasons' patterns of precursor results.
 - 2026-10-22: Claude researches and loads all data; no editing forms in the app.
-- 2026-10-22: Scores refreshed weekly; free services only.
+- 2026-10-22: Scores refreshed about weekly (daily batch); free services only.
+- 2026-10-22 (feasibility): TMDB user score replaces Letterboxd (no legal free source). Marks stay open to anyone with the link (owner's choice). Marks exported into the repo before every data load. Sources section added. Winners-only awards show "–" for the nominees figure.
 - 2026-10-22: Years 2012–2025 finished, 2026 tracked live. Deadline: Oscar nominations, January 2027.
 - 2026-10-22: Oscar shortlists tracked as a stage.
 - 2026-10-22: Before the nominations, the race also shows a % chance to be nominated, from past seasons' patterns.
@@ -281,4 +285,4 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | Critics Choice and Gotham are big precursors; major or minor? | Minor, as listed by the owner |
 | Rotten Tomatoes: critics (Tomatometer) or audience score? | Tomatometer |
 | Toronto's festival prizes: which runners-up count? | The first and second runners-up of each People's Choice award, counted as nominations |
-| Where no source gives a score (e.g. Letterboxd for some films) | Shown as "–" and left out of the average |
+| Where no source gives a score (e.g. Rotten Tomatoes for some new or foreign films) | Shown as "–" and left out of the average |

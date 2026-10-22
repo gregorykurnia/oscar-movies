@@ -406,7 +406,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Neon project ID | |
 | Vercel project | |
 | Live URL | |
-| Extra services | |
+| Extra services | OMDb API (free key), TMDB API (free key); IMDb datasets, Wikipedia, Wikidata (no key) |
 
 ## Checklist (tick in the project's copy)
 
