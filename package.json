@@ -21,9 +21,12 @@
     "race:check": "tsx scripts/race-check.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node --env-file=.env.local ./node_modules/.bin/drizzle-kit migrate",
-    "db:migrate:test": "node --env-file=.env.test ./node_modules/.bin/drizzle-kit migrate"
+    "db:migrate:test": "node --env-file=.env.test ./node_modules/.bin/drizzle-kit migrate",
+    "db:mark-branch": "tsx scripts/mark-branch.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "1.2.0",
+    "drizzle-orm": "0.45.4",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"

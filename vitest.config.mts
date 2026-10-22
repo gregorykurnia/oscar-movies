@@ -1,7 +1,8 @@
 import { defineConfig } from "vitest/config";
 
 // `npm test` runs the unit project, which never touches a database.
-// `npm run test:db` runs the database project; its branch guard arrives in task 0.4.
+// `npm run test:db` runs the database project on the `test` branch; its setup file stops
+// every test unless `app_meta` says `test` (task 0.4 adds the e2e guard).
 export default defineConfig({
   test: {
     passWithNoTests: true,
@@ -16,6 +17,9 @@ export default defineConfig({
         test: {
           name: "db",
           include: ["tests/db/**/*.test.ts"],
+          setupFiles: ["tests/db/setup.ts"],
+          testTimeout: 30_000,
+          fileParallelism: false,
         },
       },
     ],
