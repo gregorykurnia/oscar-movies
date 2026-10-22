@@ -8,13 +8,6 @@ import { cn } from "@/lib/cn";
 
 const COLUMNS = 3;
 
-/** Years from newest to oldest, inclusive (2026 to 2012). */
-export function yearRange(newest: number, oldest: number): number[] {
-  const years: number[] = [];
-  for (let y = newest; y >= oldest; y--) years.push(y);
-  return years;
-}
-
 /**
  * Guide §7 Year switcher: a button with the year and a chevron that opens a 264px popover with
  * the film years in a 3-column grid, newest first. Arrow keys move, Enter picks, Esc closes and
@@ -29,7 +22,7 @@ export function YearSwitcher({
 }: {
   /** The page's year (gold wash). */
   year: number;
-  /** Newest first; see yearRange. */
+  /** Newest first; see yearRange in lib/years. */
   years: number[];
   /** The live season, marked with a gold dot. */
   liveYear?: number;

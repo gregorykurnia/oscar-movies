@@ -25,14 +25,18 @@ export function PageHeader({
   sub,
   back,
   actions,
+  headingLevel = 1,
   className,
 }: {
   title: ReactNode;
   sub?: ReactNode;
   back?: BackLink;
   actions?: ReactNode;
+  /** 1 on every page; 2 only for the styleguide's samples, which sit under the page's own h1. */
+  headingLevel?: 1 | 2;
   className?: string;
 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h1";
   return (
     <header className={cn("flex items-start justify-between gap-4 md:items-end md:gap-6", className)}>
       <div className="min-w-0">
@@ -49,9 +53,9 @@ export function PageHeader({
             </Link>
           )
         ) : null}
-        <h1 className="text-display-phone leading-tight font-semibold tracking-display [overflow-wrap:anywhere] md:text-display">
+        <Heading className="text-display-phone leading-tight font-semibold tracking-display [overflow-wrap:anywhere] md:text-display">
           {title}
-        </h1>
+        </Heading>
         {sub ? (
           <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-body-phone text-ink-muted md:mt-2.5 md:text-body">
             {sub}

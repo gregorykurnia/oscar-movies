@@ -49,4 +49,10 @@ describe("PageHeader", () => {
     expect(router.back).toHaveBeenCalledOnce();
     referrer.mockRestore();
   });
+
+  it("can draw a sample as an h2 under the page's own h1 (the styleguide)", () => {
+    render(<PageHeader title="BAFTA 2024" headingLevel={2} />);
+    expect(screen.getByRole("heading", { level: 2, name: "BAFTA 2024" })).toBeTruthy();
+    expect(screen.queryByRole("heading", { level: 1 })).toBeNull();
+  });
 });

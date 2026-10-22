@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { YearSwitcher, yearRange } from "./YearSwitcher";
+import { yearRange } from "@/lib/years";
+import { YearSwitcher } from "./YearSwitcher";
 
 const router = vi.hoisted(() => ({ push: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
