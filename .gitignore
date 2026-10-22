@@ -1,0 +1,10 @@
+# Secrets: never commit. Only .env.example (names, no values) is tracked.
+.env*
+!.env.example
+
+.vercel/
+node_modules/
+.next/
+screenshots/
+test-results/
+playwright-report/
