@@ -1,1 +1,128 @@
+@import "../styles/tokens.css";
 @import "tailwindcss";
+
+/* Only the guide's tokens are utilities: clear Tailwind's defaults first (guide §14). */
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --leading-*: initial;
+  --tracking-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --breakpoint-*: initial;
+
+  /* One family (guide §4): the browser's monospace defaults (kbd, code) use Geist too. */
+  --default-mono-font-family: var(--font-sans);
+}
+
+/* Utilities for the tokens in tokens.css. inline: each utility reads its token at runtime. */
+@theme inline {
+  /* Surfaces, text, gold, failure, overlays */
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-track: var(--track);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-faint: var(--ink-faint);
+  --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-ink-hover: var(--gold-ink-hover);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-wash: var(--gold-wash);
+  --color-on-gold: var(--on-gold);
+  --color-error: var(--error);
+  --color-error-wash: var(--error-wash);
+  --color-scrim: var(--scrim);
+
+  /* Type: one family, four weights, the size scale (the phone sizes go with md:) */
+  --font-sans: var(--font-sans);
+  --font-weight-light: var(--weight-light);
+  --font-weight-normal: var(--weight-regular);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-semibold: var(--weight-semibold);
+  --text-display: var(--text-display);
+  --text-display-phone: var(--text-display-phone);
+  --text-section: var(--text-section);
+  --text-section-phone: var(--text-section-phone);
+  --text-title: var(--text-title);
+  --text-title-phone: var(--text-title-phone);
+  --text-body: var(--text-body);
+  --text-body-phone: var(--text-body-phone);
+  --text-small: var(--text-small);
+  --text-caption: var(--text-caption);
+  --text-micro: var(--text-micro);
+  --leading-tight: var(--leading-tight);
+  --leading-snug: var(--leading-snug);
+  --tracking-display: var(--tracking-display);
+  --tracking-heading: var(--tracking-heading);
+  --tracking-title: var(--tracking-title);
+  --tracking-num: var(--tracking-num);
+
+  /* Shape, shadows, breakpoints (mobile first: md is the desktop layout) */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-toast: var(--shadow-toast);
+  --breakpoint-md: 761px;
+  --breakpoint-xl: 1101px;
+
+  /* shadcn colour names point at the shadcn variables below */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* shadcn variables: each points at a token and holds no value of its own (guide §14). */
+:root {
+  color-scheme: light;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--gold-ink);
+  --primary-foreground: var(--on-gold);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink);
+  --muted: var(--track);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--track);
+  --accent-foreground: var(--ink);
+  --destructive: var(--error);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--gold-ink);
+
+  /* next/font's Geist comes first (layout.tsx sets --font-geist on <html>), then the system fallbacks. */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  body {
+    font-feature-settings: "tnum" 1;
+  }
+}

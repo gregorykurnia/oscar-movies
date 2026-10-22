@@ -1,0 +1,86 @@
+/* Oscar Movies design tokens, v1.0 (2026-10-22). Light only.
+   Source of truth: DESIGN_GUIDE.md §3. Copied unchanged into src/styles/tokens.css. */
+:root {
+  /* Surfaces */
+  --paper: #FCFBF9;          /* page background (warm white) */
+  --surface: #FFFFFF;        /* top bar, controls, popovers, dialogs */
+  --track: #F1EEE8;          /* bar tracks, skeletons, neutral pills, hover fill */
+  --line: #ECE8E2;           /* dividers, row rules, control borders */
+  --line-strong: #D9D3CA;    /* control borders on hover, table header rule */
+
+  /* Text */
+  --ink: #1D1C1A;            /* text, first-row rule, active nav (16.5:1 on paper) */
+  --ink-muted: #6F6B64;          /* secondary text (5.1:1 on paper, 4.6:1 on track and gold-wash) */
+  --ink-subtle: #8C877E;         /* large text (24px and up) and icons only (3.4:1) */
+  --ink-faint: #A8A39A;          /* decoration and disabled only; never text someone must read */
+
+  /* Gold: wins, the current stage, actions. The only accent. */
+  --gold: #B8862B;           /* row lines, chance bars, the stage dot, won cells (3.1:1; never text) */
+  --gold-ink: #8A6418;       /* gold text, the leader's %, primary buttons, focus ring (5.2:1) */
+  --gold-ink-hover: #7A5814; /* primary button hover and press */
+  --gold-soft: #E7D3A8;      /* nominated cell ring, gold rule on the gold wash */
+  --gold-wash: #F8F1E2;      /* the "why", active marks, won pill, selected rows */
+  --on-gold: #FFFFFF;        /* text and icons on gold-ink or gold */
+
+  /* Failure (the only other hue) */
+  --error: #A3271C;          /* error text and icon (6.5:1 on error-wash) */
+  --error-wash: #FBEEEC;     /* error panel background */
+
+  /* Overlays */
+  --scrim: rgba(29, 28, 26, 0.32);
+  --shadow-pop: 0 0 0 1px rgba(29, 28, 26, 0.06), 0 12px 32px -8px rgba(29, 28, 26, 0.18);
+  --shadow-toast: 0 0 0 1px rgba(29, 28, 26, 0.06), 0 12px 32px -10px rgba(29, 28, 26, 0.30);
+  --flag-edge: inset 0 0 0 1px rgba(29, 28, 26, 0.12);
+
+  /* Shape */
+  --radius-xs: 2px;          /* flags */
+  --radius-sm: 6px;          /* pills, kbd, grid cells */
+  --radius: 10px;            /* controls, panels, the "why" */
+  --radius-lg: 14px;         /* popovers, dialogs, score tiles */
+  --radius-pill: 999px;      /* marks, chips */
+
+  /* Type */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-display: 52px;      --text-display-phone: 34px;   /* PageHeader title */
+  --text-section: 26px;      --text-section-phone: 20px;   /* race tabs, section headings */
+  --text-title: 21px;        --text-title-phone: 17px;     /* film title in the race, movie page headings */
+  --text-body: 15px;         --text-body-phone: 14px;
+  --text-small: 14px;        /* precursor line, list rows, nav */
+  --text-caption: 13px;      /* scores line, column labels, footnotes */
+  --text-micro: 12px;        /* pills, kbd, grid headers */
+  --num-xl: 46px;            --num-xl-phone: 34px;         /* % chance to win */
+  --num-l: 34px;             --num-l-phone: 28px;          /* stats, score tiles */
+  --leading-tight: 1.05;
+  --leading-snug: 1.3;
+  --leading: 1.5;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-title: -0.015em;
+  --tracking-num: -0.04em;
+  --weight-light: 300;       /* big numerals only */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;    /* display title, wordmark, small headings */
+
+  /* Space (4px base) */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px; --space-6: 24px;  --space-7: 28px;  --space-8: 32px;
+  --space-10: 40px; --space-12: 48px; --space-14: 56px; --space-16: 64px;
+  --space-24: 96px;
+
+  /* Layout */
+  --content-max: 1120px;
+  --gutter: 32px;            --gutter-phone: 16px;
+  --topbar-h: 64px;          --topbar-h-phone: 56px;
+  --bp-phone: 760px;         /* at or below: phone layout */
+  --bp-compact: 1100px;      /* at or below: search box becomes a button */
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 120ms;         /* hover, press, mark toggle */
+  --dur: 200ms;              /* the "why" opening, popovers, tab line */
+  --dur-slow: 280ms;         /* phone menu and search sheet */
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px var(--paper), 0 0 0 4px var(--gold-ink);
+}
