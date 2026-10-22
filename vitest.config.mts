@@ -19,6 +19,7 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: { "@": src } },
         test: {
           name: "db",
           include: ["tests/db/**/*.test.ts"],
