@@ -24,18 +24,20 @@ npm run marks:export -- --target production --yes-production   # writes data/mar
 git add data/marks.json && git commit -m "Back up marks" && git push origin staging
 ```
 
-The export says how many films the file had before. If the new count is much lower, don't commit it: the earlier backup is still in git (`git log -p data/marks.json`).
+The export says how many films the file had before, and it keeps the file as it is when the database has fewer marked films than the file: that usually means marks were lost, and the file may be the only copy. Find out why first. Only if marks were removed on purpose, run it again with `--allow-shrink`. The earlier backups are in git too (`git log -p data/marks.json`). A test export can't write `data/marks.json`, even with `--file`, and every script stops on an argument it doesn't know (a typo in `--dry-run` never becomes a real write).
 
 **Restoring the marks.** Restore writes only films whose marks differ from the file, in one transaction, and never clears a mark the file doesn't mention (it lists those as "keep"). Films are matched by IMDb ID, then by Wikidata QID. If any entry names a film that isn't in the database, it stops and writes nothing.
 
 1. Dry run, and read every line of the plan:
    `npm run marks:restore -- --target production --yes-production --dry-run`
 2. If the plan is right, run it without `--dry-run`.
-3. Run the dry run again: it must say `0 to write`.
+3. Run the dry run again: it must say `0 to write`. If a mark changes between the plan and the write (a tap on the live site), restore writes nothing and asks for a fresh dry run.
 
 To restore from an older backup, take it out of git first (`git show <commit>:data/marks.json > .cache/marks.old.json`) and pass `--file .cache/marks.old.json`.
 
-On `test`, both commands default to `.cache/marks.test.json` (gitignored), so a test run never overwrites the production backup. `tests/db/marks.test.ts` proves that export then restore changes nothing and that the dry run lists every write.
+On `test`, both commands default to `.cache/marks.test.json` (gitignored), so a test run never overwrites the production backup.
+
+**If a branch is reset or restored from the other one** (Neon → Branches → Reset from parent), its `app_meta` row comes along: `test` would then say `production`, and every script and test refuses it (the safe direction). `db:mark-branch` never overwrites a mark, so fix it by hand in the Neon SQL editor on that branch: `update app_meta set value = 'test' where key = 'db_branch';`. `tests/db/marks.test.ts` proves that export then restore changes nothing and that the dry run lists every write.
 
 ## Error alerts
 

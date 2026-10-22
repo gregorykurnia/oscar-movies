@@ -410,7 +410,7 @@ export function Components({ s }: { s: Sample }) {
           className="w-full"
         >
           <FilmRow
-            title={s.films[2].title}
+            title={s.stress ? s.films[2].title : "The Secret Agent"}
             href="#"
             flags={["BR", "FR", "NL"]}
             firstFlagLabel="Brazil, submitting country"

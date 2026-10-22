@@ -2,6 +2,7 @@
 // that exists nowhere else, so the export names films by IMDb ID or QID (it survives any
 // reload) and restore writes only the films whose marks differ, after a plan that lists
 // every write. Restore never clears a mark that the file doesn't mention.
+import { relative, resolve } from "node:path";
 import { eq, inArray, or } from "drizzle-orm";
 import type { ScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
@@ -142,6 +143,40 @@ export function serializeMarks(file: MarksFile): string {
   return `[\n${file.map((m) => `  ${JSON.stringify(m)}`).join(",\n")}\n]\n`;
 }
 
+/** The committed production backup; a test export must never write it. */
+export const PRODUCTION_MARKS_FILE = "data/marks.json";
+
+/**
+ * Why an export must not overwrite its file, or null when it may. `previous` is the file's
+ * entry count (null when there's no valid file). Fewer marked films than the file holds usually
+ * means the database lost marks, and the file may be the only copy left: that needs
+ * `--allow-shrink` (docs/runbook.md).
+ */
+export function exportProblem(opts: {
+  target: "test" | "production";
+  file: string;
+  previous: number | null;
+  next: number;
+  allowShrink: boolean;
+}): string | null {
+  const { target, file, previous, next, allowShrink } = opts;
+  if (target === "test" && normalize(file) === PRODUCTION_MARKS_FILE) {
+    return `A test export can't write ${PRODUCTION_MARKS_FILE}, the production backup.`;
+  }
+  if (previous !== null && next < previous && !allowShrink) {
+    return (
+      `${file} has ${previous} marked films and ${target} has only ${next}. The file was kept as it is. ` +
+      "If marks were removed on purpose, run the export again with --allow-shrink."
+    );
+  }
+  return null;
+}
+
+/** A path relative to the project folder, with forward slashes (`./data//marks.json` → `data/marks.json`). */
+function normalize(file: string): string {
+  return relative(process.cwd(), resolve(file)).split("\\").join("/");
+}
+
 /** Reads what restore needs from the database and plans it (no writes). */
 export async function loadRestorePlan(db: Db, entries: MarksFile): Promise<RestorePlan> {
   const imdbIds = entries.flatMap((m) => (m.imdb ? [m.imdb] : []));
@@ -159,13 +194,34 @@ export async function loadRestorePlan(db: Db, entries: MarksFile): Promise<Resto
   return planRestore(entries, films, current);
 }
 
-/** Writes the plan in one transaction. Refuses a plan with problems. */
+/**
+ * Writes the plan in one transaction. Refuses a plan with problems, and a plan that's out of
+ * date: if any planned film's mark changed after the plan was made (a tap on the live site
+ * during a restore), nothing is written and the dry run has to be read again.
+ */
 export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
   if (plan.problems.length > 0) {
     throw new Error("The plan has entries that can't be restored. Fix the file first; nothing was written.");
   }
   if (plan.writes.length === 0) return 0;
   await db.transaction(async (tx) => {
+    const ids = plan.writes.map((w) => w.film.id);
+    const rows = await tx
+      .select({ movieId: marks.movieId, watched: marks.watched, want: marks.want })
+      .from(marks)
+      .where(inArray(marks.movieId, ids))
+      .for("update");
+    const now = new Map(rows.map((r) => [r.movieId, r]));
+    const moved = plan.writes.filter((w) => {
+      const row = now.get(w.film.id);
+      return w.from === null ? row !== undefined : row === undefined || !sameMark(row, w.from);
+    });
+    if (moved.length > 0) {
+      throw new Error(
+        `Marks changed since the plan was made: ${moved.map((w) => filmLabel(w.film)).join(", ")}. ` +
+          "Nothing was written; run the dry run again.",
+      );
+    }
     for (const w of plan.writes) {
       const values = {
         watched: w.to.watched,

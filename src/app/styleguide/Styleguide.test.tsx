@@ -45,10 +45,10 @@ describe("/styleguide", () => {
   it("has one h1 and the stress switch reflects the address", () => {
     const { container, rerender } = render(<Styleguide stress={false} tokens={tokens} />);
     expect(container.querySelectorAll("h1")).toHaveLength(1);
-    expect(screen.getByRole("link", { name: "Normal data" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Normal" }).getAttribute("aria-current")).toBe("page");
     expect(screen.queryByText(/Rindfleisch/)).toBeNull();
     rerender(<Styleguide stress tokens={tokens} />);
-    expect(screen.getByRole("link", { name: "Stress data" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Stress" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getAllByText(/Rindfleisch/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/1,204/).length).toBeGreaterThan(0);
   });

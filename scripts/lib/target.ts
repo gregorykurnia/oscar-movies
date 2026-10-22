@@ -11,7 +11,30 @@ export const ENV_FILES: Record<DbBranch, string> = {
 
 export type TargetArgs = { target: DbBranch; yesProduction: boolean };
 
-export function parseTargetArgs(argv: string[]): TargetArgs {
+/** A script's own arguments on top of `--target` and `--yes-production`. */
+export type ArgSpec = { flags?: string[]; values?: string[] };
+
+/**
+ * Stops on anything the script doesn't know, so a typo such as `--dryrun` never turns a dry
+ * run into a real write, and a value can't be another flag (`--file --dry-run`).
+ */
+export function checkArgs(argv: string[], spec: ArgSpec = {}): void {
+  const flags = ["--yes-production", ...(spec.flags ?? [])];
+  const values = ["--target", ...(spec.values ?? [])];
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (values.includes(arg)) {
+      const value = argv[i + 1];
+      if (value === undefined || value.startsWith("--")) throw new Error(`${arg} needs a value.`);
+      i++;
+    } else if (!flags.includes(arg)) {
+      throw new Error(`Unknown argument ${JSON.stringify(arg)}. Nothing was written.`);
+    }
+  }
+}
+
+export function parseTargetArgs(argv: string[], spec?: ArgSpec): TargetArgs {
+  checkArgs(argv, spec);
   const i = argv.indexOf("--target");
   const target = i >= 0 ? argv[i + 1] : undefined;
   if (!isDbBranch(target)) {

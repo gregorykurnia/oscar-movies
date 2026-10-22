@@ -1,7 +1,8 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page. Pictures go to screenshots/phase-0/ (gitignored); the phase review judges them.
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-0/
+// (gitignored); the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -38,6 +39,9 @@ for (const route of ROUTES) {
       await page.evaluate(async () => {
         await document.fonts.ready;
       });
+      // Guide §15: no sideways page scroll at any width (wide tables scroll inside their own frame).
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow, `${route.path} scrolls sideways at ${width}px`).toBeLessThanOrEqual(0);
       await page.screenshot({
         path: join(OUT_DIR, `${route.name}-${width}.png`),
         fullPage: true,

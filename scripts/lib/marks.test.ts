@@ -1,6 +1,6 @@
 // The restore planner's rules (IMPLEMENTATION_PLAN.md §3.5): no database, made-up films.
 import { describe, expect, it } from "vitest";
-import { formatPlan, planRestore, serializeMarks, type Film } from "./marks";
+import { exportProblem, formatPlan, planRestore, serializeMarks, type Film } from "./marks";
 
 const anora: Film = { id: 1, imdbId: "tt1", wikidataId: "Q1", title: "Anora", year: 2024 };
 const conclave: Film = { id: 2, imdbId: "tt2", wikidataId: "Q2", title: "Conclave", year: 2024 };
@@ -117,5 +117,27 @@ describe("serializeMarks", () => {
         { wd: "Q3", watched: false, want: true },
       ]),
     ).toBe('[\n  {"imdb":"tt1","watched":true,"want":false},\n  {"wd":"Q3","watched":false,"want":true}\n]\n');
+  });
+});
+
+describe("exportProblem", () => {
+  const base = { target: "production" as const, file: "data/marks.json", allowShrink: false };
+
+  it("lets an export write a new file, the same count or more", () => {
+    expect(exportProblem({ ...base, previous: null, next: 0 })).toBeNull();
+    expect(exportProblem({ ...base, previous: 4, next: 4 })).toBeNull();
+    expect(exportProblem({ ...base, previous: 4, next: 9 })).toBeNull();
+  });
+
+  it("keeps a file that would shrink unless --allow-shrink is passed", () => {
+    expect(exportProblem({ ...base, previous: 12, next: 0 })).toMatch(/has 12 marked films and production has only 0/);
+    expect(exportProblem({ ...base, previous: 12, next: 3, allowShrink: true })).toBeNull();
+  });
+
+  it("never lets a test export write the production backup", () => {
+    for (const file of ["data/marks.json", "./data/marks.json", "data//marks.json"]) {
+      expect(exportProblem({ ...base, target: "test", file, previous: null, next: 1 })).toMatch(/production backup/);
+    }
+    expect(exportProblem({ ...base, target: "test", file: ".cache/marks.test.json", previous: null, next: 1 })).toBeNull();
   });
 });

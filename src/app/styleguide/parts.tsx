@@ -4,11 +4,11 @@ import { cn } from "@/lib/cn";
 // The styleguide's own scaffolding: boards, rows of cells with captions, in the preview's shapes
 // (design-preview.html §2 and §3). Only the guide's tokens are used.
 
-/** A titled part ("Foundations", "Components"): a small uppercase label over a sentence. */
+/** A titled part ("Foundations", "Components"): a section heading (guide §4) over a sentence. */
 export function Part({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="mt-16 scroll-mt-24">
-      <h2 id={`${id}-h`} className="text-caption font-semibold tracking-[0.08em] text-ink-muted uppercase">
+      <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading text-ink md:text-section">
         {title}
       </h2>
       {children}

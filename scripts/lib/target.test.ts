@@ -78,4 +78,13 @@ describe("parseTargetArgs", () => {
     expect(() => parseTargetArgs(["--target", "production"])).toThrow(/--yes-production/);
     expect(parseTargetArgs(["--target", "test"])).toEqual({ target: "test", yesProduction: false });
   });
+
+  it("refuses unknown arguments and flags given as values", () => {
+    const spec = { flags: ["--dry-run"], values: ["--file"] };
+    expect(parseTargetArgs(["--target", "test", "--dry-run", "--file", "x.json"], spec).target).toBe("test");
+    expect(() => parseTargetArgs(["--target", "test", "--dryrun"], spec)).toThrow(/Unknown argument "--dryrun"/);
+    expect(() => parseTargetArgs(["--target", "test", "--file", "--dry-run"], spec)).toThrow(/--file needs a value/);
+    expect(() => parseTargetArgs(["--target", "test", "--file"], spec)).toThrow(/--file needs a value/);
+    expect(() => parseTargetArgs(["--target"])).toThrow(/--target needs a value/);
+  });
 });

@@ -20,8 +20,8 @@ export function Styleguide({ stress, tokens }: { stress: boolean; tokens: Record
           <Segmented
             label="Data"
             items={[
-              { label: "Normal data", href: "/styleguide", current: !stress },
-              { label: "Stress data", href: "/styleguide?stress=1", current: stress },
+              { label: "Normal", href: "/styleguide", current: !stress },
+              { label: "Stress", href: "/styleguide?stress=1", current: stress },
             ]}
           />
         }

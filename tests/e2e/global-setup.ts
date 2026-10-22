@@ -9,7 +9,7 @@
 // The returned teardown stops that server (by its process group) when the run ends.
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, openSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, openSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { drizzle as drizzleHttp } from "drizzle-orm/neon-http";
 import { createScriptDb } from "../../src/db";
@@ -102,6 +102,8 @@ function buildIfChanged(env: NodeJS.ProcessEnv) {
     return;
   }
   console.log(`[e2e] Building into ${DIST_DIR}…`);
+  // Forget the old hash first: a build that dies halfway must never pass for an up-to-date one.
+  rmSync(HASH_FILE, { force: true });
   // `next build` points `next-env.d.ts` at its own folder; keep the tracked file as it is.
   const nextEnvTypes = readFileSync("next-env.d.ts");
   const result = spawnSync(NEXT_BIN, ["build"], { env, stdio: "inherit" });

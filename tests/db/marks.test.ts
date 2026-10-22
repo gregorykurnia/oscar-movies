@@ -111,6 +111,23 @@ describe("marks export and restore", () => {
     });
   });
 
+  it("writes nothing when a planned film's mark changed after the plan", async () => {
+    await rolledBack(async (tx) => {
+      const { one, two } = await addFilms(tx);
+      const file = await exportMarks(tx);
+      await tx.update(marks).set({ watched: false, want: true }).where(eq(marks.movieId, one));
+      await tx.delete(marks).where(eq(marks.movieId, two));
+      const plan = await loadRestorePlan(tx, file);
+      expect(plan.writes.map((w) => w.film.id).sort()).toEqual([one, two].sort());
+
+      // A tap on the live site between the plan and the write: one goes back to watched.
+      await tx.update(marks).set({ watched: true, want: false }).where(eq(marks.movieId, one));
+      const before = await snapshot(tx);
+      await expect(applyRestore(tx, plan)).rejects.toThrow(/Marks One \(2024, tt80000001\).*Nothing was written/);
+      expect(await snapshot(tx)).toEqual(before);
+    });
+  });
+
   it("refuses to write when an entry names a film that isn't there", async () => {
     await rolledBack(async (tx) => {
       const before = await snapshot(tx);

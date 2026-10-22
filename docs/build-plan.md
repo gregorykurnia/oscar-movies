@@ -426,6 +426,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
+| Approve the first `production` migration (`npm run db:migrate`, then `db:mark-branch -- --target production --yes-production`) | 2026-10-22 | the first release |
+| Say "release" for the first deploy; check the live URL loads and reads the database | 2026-10-22 | Phase 0 done, `APP_URL` |
+| Check `/styleguide` against `design-preview.html` in a local preview and sign it off | 2026-10-22 | Phase 0 done |
 
 ## Upkeep log
 
