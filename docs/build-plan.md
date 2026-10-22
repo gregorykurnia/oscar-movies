@@ -411,7 +411,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 ## Checklist (tick in the project's copy)
 
 - [x] Step 0 (2026-10-22): folder, `.gitignore`, this plan copied with the model table snapshot, `CLAUDE.md`, first commit on `main`, `staging` created (both pushed if GitHub was ready)
-- [ ] Steps 1–2: product plan drafted, suggestions accepted or declined
+- [x] Steps 1–2 (2026-10-22): product plan drafted, suggestions accepted or declined
 - [ ] Step 3: feasibility checked; product plan approved v1.0
 - [ ] Step 4: design brief
 - [ ] Step 5: direction chosen (`design/decisions.md`)
