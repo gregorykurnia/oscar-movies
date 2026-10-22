@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oscar race · Oscar Movies (direction B: Board)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #F4F4F2;
+    --panel: #FFFFFF;
+    --ink: #1A1A1C;
+    --muted: #6B6B70;
+    --faint: #A2A2A6;
+    --line: #E8E8E5;
+    --track: #EFEFEC;
+    --gold: #C79A3A;
+    --gold-ink: #8F6A1C;
+    --gold-soft: #FAF3E2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: "Onest", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" 1;
+  }
+  svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .flag { width: 18px; height: 12px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(26,26,28,.12); flex: none; display: block; }
+
+  .app { display: grid; grid-template-columns: 236px 1fr; min-height: 100vh; }
+
+  /* Sidebar */
+  .side { background: var(--panel); border-right: 1px solid var(--line); padding: 22px 16px; display: flex; flex-direction: column; gap: 22px; position: sticky; top: 0; height: 100vh; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; padding: 0 8px; letter-spacing: -0.01em; }
+  .mark { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-soft); display: grid; place-items: center; }
+  .mark i { width: 6px; height: 16px; border-radius: 3px 3px 1px 1px; background: var(--gold); display: block; }
+  .search { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px; border-radius: 8px; background: var(--canvas); color: var(--faint); }
+  .search kbd { margin-left: auto; font: inherit; font-size: 11px; color: var(--muted); background: var(--panel); border-radius: 4px; padding: 0 5px; box-shadow: 0 0 0 1px var(--line); }
+  .nav { display: grid; gap: 2px; }
+  .nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--muted); text-decoration: none; font-weight: 500; }
+  .nav a.on { background: var(--gold-soft); color: var(--ink); }
+  .nav a.on svg { color: var(--gold-ink); }
+  .nav a .n { margin-left: auto; font-size: 12px; color: var(--faint); font-weight: 400; }
+  .season { margin-top: auto; padding: 12px; border-radius: 10px; background: var(--canvas); }
+  .season .lbl { font-size: 12px; color: var(--muted); }
+  .season .val { display: flex; align-items: center; justify-content: space-between; font-weight: 600; margin-top: 2px; }
+
+  /* Main */
+  .main { padding: 28px 32px 48px; min-width: 0; }
+  .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+  .sub { color: var(--muted); margin-top: 4px; }
+  .filters { display: flex; gap: 8px; }
+  .chip { height: 34px; padding: 0 12px; border-radius: 8px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--muted); }
+  .chip.on { color: var(--ink); }
+
+  .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .cat { background: var(--panel); border-radius: 14px; box-shadow: 0 0 0 1px var(--line); position: relative; }
+  .cat-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--line); }
+  .cat-head h2 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+  .cat-head .stage { margin-top: 3px; font-size: 12px; color: var(--muted); }
+  .cat-head .stage b { color: var(--gold-ink); font-weight: 600; }
+  .tag { font-size: 11px; font-weight: 600; color: var(--muted); background: var(--canvas); border-radius: 5px; padding: 1px 6px; }
+  .colh { display: flex; justify-content: space-between; padding: 8px 16px 0; font-size: 11px; color: var(--faint); }
+
+  .c { padding: 11px 16px 12px; border-top: 1px solid var(--line); }
+  .c:first-of-type { border-top: 0; }
+  .c-top { display: flex; align-items: center; gap: 8px; }
+  .c-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+  .c-pct { font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+  .c-pct small { font-size: 11px; font-weight: 600; color: var(--muted); }
+  .c.lead .c-pct { color: var(--gold-ink); }
+  .bar { margin: 7px 0 7px; height: 5px; border-radius: 3px; background: var(--track); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--gold); border-radius: 3px; }
+  .c-prec { font-size: 12px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-prec .k { color: var(--muted); }
+  .c-meta { margin-top: 5px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+  .c-meta .avg { color: var(--ink); font-weight: 600; }
+  .marks { margin-left: auto; display: flex; gap: 2px; }
+  .mk { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; color: var(--faint); }
+  .mk svg.i { width: 15px; height: 15px; }
+  .mk.on { color: var(--gold-ink); background: var(--gold-soft); }
+  .mk.on.bm svg.i { fill: currentColor; }
+  .cat-foot { padding: 11px 16px; border-top: 1px solid var(--line); font-weight: 500; color: var(--muted); display: flex; justify-content: space-between; }
+  .cat-foot span:first-child { color: var(--ink); }
+
+  /* "why" popover */
+  .pop { position: absolute; z-index: 5; left: calc(100% + 10px); top: 92px; width: 330px; background: var(--panel); border-radius: 12px; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -12px rgba(26,26,28,.22); padding: 16px 18px 18px; }
+  .pop::before { content: ""; position: absolute; left: -6px; top: 22px; width: 12px; height: 12px; background: var(--panel); transform: rotate(45deg); box-shadow: -1px 1px 0 var(--line); }
+  .pop h3 { font-size: 14px; font-weight: 600; }
+  .pop p { margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .pop ul { list-style: none; margin-top: 12px; display: grid; gap: 9px; }
+  .pop li { font-size: 13px; }
+  .pop li .w { display: flex; align-items: center; gap: 8px; margin-top: 3px; color: var(--muted); font-size: 12px; }
+  .pop li .w span:first-child { flex: 1; height: 4px; border-radius: 2px; background: var(--track); overflow: hidden; }
+  .pop li .w i { display: block; height: 100%; background: var(--gold); }
+  .c-pct.open { background: var(--gold-soft); border-radius: 6px; padding: 0 5px; margin-right: -5px; }
+
+  .phone-only { display: none; }
+
+  /* Phone */
+  @media (max-width: 760px) {
+    .app { display: block; padding-bottom: 72px; }
+    .side { display: none; }
+    .phone-only { display: flex; }
+    .appbar { position: sticky; top: 0; z-index: 4; height: 56px; padding: 0 16px; align-items: center; gap: 10px; background: var(--panel); border-bottom: 1px solid var(--line); }
+    .appbar .brand { padding: 0; }
+    .appbar .yr { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; height: 34px; padding: 0 10px; border-radius: 8px; background: var(--canvas); }
+    .appbar .sbtn { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px; background: var(--canvas); }
+    .main { padding: 18px 16px 24px; }
+    .head { margin-bottom: 14px; }
+    h1 { font-size: 24px; }
+    .sub { font-size: 13px; }
+    .filters { display: none; }
+    .seg { gap: 4px; padding: 4px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); margin-bottom: 14px; }
+    .seg span { flex: 1; text-align: center; height: 34px; line-height: 34px; border-radius: 7px; font-weight: 500; color: var(--muted); font-size: 13px; }
+    .seg span.on { background: var(--gold-soft); color: var(--ink); font-weight: 600; }
+    .board { display: block; }
+    .cat:not(:first-child) { display: none; }
+    .pop { display: none; }
+    .c { padding: 13px 16px 14px; }
+    .c-title { font-size: 15px; }
+    .c-pct { font-size: 19px; }
+    .tabbar { position: fixed; left: 0; right: 0; bottom: 0; height: 64px; background: var(--panel); border-top: 1px solid var(--line); justify-content: space-around; align-items: center; padding-bottom: 4px; }
+    .tabbar a { display: grid; justify-items: center; gap: 3px; font-size: 11px; color: var(--muted); text-decoration: none; font-weight: 500; }
+    .tabbar a.on { color: var(--ink); }
+    .tabbar a.on svg { color: var(--gold-ink); }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="f-us" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></symbol>
+  <symbol id="f-gb" viewBox="0 0 30 20"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="1.5"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.4"/></symbol>
+  <symbol id="f-no" viewBox="0 0 30 20"><rect width="30" height="20" fill="#BA0C2F"/><path d="M11 0V20M0 10H30" stroke="#fff" stroke-width="5"/><path d="M11 0V20M0 10H30" stroke="#00205B" stroke-width="2.5"/></symbol>
+  <symbol id="f-dk" viewBox="0 0 30 20"><rect width="30" height="20" fill="#C8102E"/><path d="M11 0V20M0 10H30" stroke="#fff" stroke-width="3"/></symbol>
+  <symbol id="f-br" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009C3B"/><path d="M15 2.5L27.5 10L15 17.5L2.5 10Z" fill="#FFDF00"/><circle cx="15" cy="10" r="4.2" fill="#002776"/></symbol>
+  <symbol id="f-fr" viewBox="0 0 30 20"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></symbol>
+  <symbol id="f-ir" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#239F40"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><rect y="13.33" width="30" height="6.67" fill="#DA0000"/><circle cx="15" cy="10" r="1.8" fill="#DA0000"/></symbol>
+  <symbol id="f-es" viewBox="0 0 30 20"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></symbol>
+  <symbol id="f-tn" viewBox="0 0 30 20"><rect width="30" height="20" fill="#E70013"/><circle cx="15" cy="10" r="5" fill="#fff"/><circle cx="15.6" cy="10" r="3.3" fill="#E70013"/><circle cx="16.6" cy="10" r="2.7" fill="#fff"/></symbol>
+  <symbol id="f-kr" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="4.5" fill="#CD2E3A"/><path d="M10.5 10a4.5 4.5 0 0 0 9 0a2.25 2.25 0 0 0-4.5 0a2.25 2.25 0 0 1-4.5 0z" fill="#0047A0"/><g fill="#000"><rect x="4" y="3.2" width="4" height="0.8" transform="rotate(34 6 3.6)"/><rect x="22" y="3.2" width="4" height="0.8" transform="rotate(-34 24 3.6)"/><rect x="4" y="16" width="4" height="0.8" transform="rotate(-34 6 16.4)"/><rect x="22" y="16" width="4" height="0.8" transform="rotate(34 24 16.4)"/></g></symbol>
+  <symbol id="f-de" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#000"/><rect y="6.67" width="30" height="6.67" fill="#DD0000"/><rect y="13.33" width="30" height="6.67" fill="#FFCE00"/></symbol>
+  <symbol id="f-ar" viewBox="0 0 30 20"><rect width="30" height="20" fill="#74ACDF"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="1.9" fill="#F6B40E"/></symbol>
+  <symbol id="f-ua" viewBox="0 0 30 20"><rect width="30" height="10" fill="#0057B7"/><rect y="10" width="30" height="10" fill="#FFD700"/></symbol>
+  <symbol id="f-mx" viewBox="0 0 30 20"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2" fill="#8C5A2B"/></symbol>
+  <symbol id="f-ie" viewBox="0 0 30 20"><rect width="10" height="20" fill="#169B62"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#FF883E"/></symbol>
+</svg>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="mark" aria-hidden="true"><i></i></span>Oscar Movies</div>
+    <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search<kbd>/</kbd></div>
+    <nav class="nav">
+      <a class="on" href="#"><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg>Race</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>Awards</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>Year grid</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Accuracy</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5"/></svg>Submissions</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v12M18 6v12"/></svg>Festivals</a>
+      <a href="#"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>Watch list<span class="n">14</span></a>
+    </nav>
+    <div class="season">
+      <div class="lbl">Season</div>
+      <div class="val">2025 · 98th Oscars <svg class="i" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+    </div>
+  </aside>
+
+  <header class="appbar phone-only">
+    <div class="brand"><span class="mark" aria-hidden="true"><i></i></span>Oscar Movies</div>
+    <span class="yr">2025 <svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="m6 9 6 6 6-6"/></svg></span>
+    <span class="sbtn"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+  </header>
+
+  <main class="main">
+    <div class="head">
+      <div>
+        <h1>Oscar race</h1>
+        <p class="sub">2025 season · updated 20 Dec 2025</p>
+      </div>
+      <div class="filters">
+        <span class="chip on">All films</span>
+        <span class="chip">Unwatched</span>
+        <span class="chip">Want to watch</span>
+      </div>
+    </div>
+
+    <div class="seg phone-only"><span class="on">Picture</span><span>Documentary</span><span>Intl</span><span>Animated</span></div>
+
+    <div class="board">
+      <!-- Picture -->
+      <section class="cat">
+        <div class="cat-head">
+          <h2>Best Picture</h2>
+          <div class="stage"><b>Nominations 22 Jan</b> · Ceremony 15 Mar</div>
+        </div>
+        <div class="colh"><span>Contender</span><span>To win</span></div>
+        <div class="c lead">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">One Battle After Another</span><span class="c-pct open">41<small>%</small></span></div>
+          <div class="bar"><i style="width:41%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Gotham, NBR <span class="k">· Nom</span> Globes, CCA, AFI</div>
+          <div class="c-meta"><span>Nom 99%</span><span class="avg">86 · 4/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-gb"/></svg><span class="c-title">Hamnet</span><span class="c-pct">18<small>%</small></span></div>
+          <div class="bar"><i style="width:18%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> TIFF People's Choice <span class="k">· Nom</span> Globes, CCA</div>
+          <div class="c-meta"><span>Nom 97%</span><span class="avg">83 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Sinners</span><span class="c-pct">11<small>%</small></span></div>
+          <div class="bar"><i style="width:11%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Globes, CCA, AFI</div>
+          <div class="c-meta"><span>Nom 95%</span><span class="avg">83 · 4/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-no"/></svg><span class="c-title">Sentimental Value</span><span class="c-pct">8<small>%</small></span></div>
+          <div class="bar"><i style="width:8%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Cannes Grand Prix <span class="k">· Nom</span> Globes, CCA</div>
+          <div class="c-meta"><span>Nom 90%</span><span class="avg">85 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Marty Supreme</span><span class="c-pct">6<small>%</small></span></div>
+          <div class="bar"><i style="width:6%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Globes, CCA, AFI</div>
+          <div class="c-meta"><span>Nom 86%</span><span class="avg">88 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Frankenstein</span><span class="c-pct">5<small>%</small></span></div>
+          <div class="bar"><i style="width:5%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Globes, CCA, AFI</div>
+          <div class="c-meta"><span>Nom 84%</span><span class="avg">79 · 4/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="cat-foot"><span>All 38 contenders</span><span>Picture</span></div>
+
+        <div class="pop" role="dialog" aria-label="Why 41%">
+          <h3>Why 41%</h3>
+          <p>Six films since 2012 had a run like this by late December. Three won Best Picture.</p>
+          <ul>
+            <li>Won Gotham, Best Feature<div class="w"><span><i style="width:38%"></i></span>5 of 13 won the Oscar</div></li>
+            <li>Nominated, Critics Choice<div class="w"><span><i style="width:84%"></i></span>84% got the nomination</div></li>
+            <li>Nominated, Golden Globes<div class="w"><span><i style="width:71%"></i></span>71% got the nomination</div></li>
+            <li>Won NBR, Best Film<div class="w"><span><i style="width:8%"></i></span>1 of 13 won the Oscar</div></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Documentary -->
+      <section class="cat">
+        <div class="cat-head">
+          <h2>Documentary <span class="tag">Shortlist</span></h2>
+          <div class="stage">Shortlist out 16 Dec · <b>Nominations 22 Jan</b></div>
+        </div>
+        <div class="colh"><span>Contender</span><span>To win</span></div>
+        <div class="c lead">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">The Perfect Neighbor</span><span class="c-pct">31<small>%</small></span></div>
+          <div class="bar"><i style="width:31%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Gotham Doc <span class="k">· Nom</span> Critics Choice Doc</div>
+          <div class="c-meta"><span>Nom 88%</span><span class="avg">81 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Cover-Up</span><span class="c-pct">18<small>%</small></span></div>
+          <div class="bar"><i style="width:18%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Cinema Eye, Gotham</div>
+          <div class="c-meta"><span>Nom 79%</span><span class="avg">80 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-dk"/></svg><span class="c-title">Mr. Nobody Against Putin</span><span class="c-pct">14<small>%</small></span></div>
+          <div class="bar"><i style="width:14%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Critics Choice Doc, Cinema Eye</div>
+          <div class="c-meta"><span>Nom 71%</span><span class="avg">79 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-ua"/></svg><span class="c-title">2000 Meters to Andriivka</span><span class="c-pct">12<small>%</small></span></div>
+          <div class="bar"><i style="width:12%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Cinema Eye, IDA</div>
+          <div class="c-meta"><span>Nom 66%</span><span class="avg">84 · 3/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">The Alabama Solution</span><span class="c-pct">9<small>%</small></span></div>
+          <div class="bar"><i style="width:9%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Cinema Eye, IDA</div>
+          <div class="c-meta"><span>Nom 58%</span><span class="avg">82 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="cat-foot"><span>All 15 shortlisted</span><span>Documentary</span></div>
+      </section>
+
+      <!-- International -->
+      <section class="cat">
+        <div class="cat-head">
+          <h2>International <span class="tag">Shortlist</span></h2>
+          <div class="stage">Shortlist out 16 Dec · <b>Nominations 22 Jan</b></div>
+        </div>
+        <div class="colh"><span>Submitted by</span><span>To win</span></div>
+        <div class="c lead">
+          <div class="c-top"><svg class="flag"><use href="#f-br"/></svg><span class="c-title">The Secret Agent</span><span class="c-pct">34<small>%</small></span></div>
+          <div class="bar"><i style="width:34%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Globes, CCA · Brazil</div>
+          <div class="c-meta"><span>Nom 94%</span><span class="avg">85 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-fr"/></svg><span class="c-title">It Was Just an Accident</span><span class="c-pct">27<small>%</small></span></div>
+          <div class="bar"><i style="width:27%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Palme d'Or <span class="k">· Nom</span> Globes · France</div>
+          <div class="c-meta"><span>Nom 91%</span><span class="avg">84 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-no"/></svg><span class="c-title">Sentimental Value</span><span class="c-pct">24<small>%</small></span></div>
+          <div class="bar"><i style="width:24%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Grand Prix <span class="k">· Nom</span> Globes, CCA · Norway</div>
+          <div class="c-meta"><span>Nom 93%</span><span class="avg">85 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-es"/></svg><span class="c-title">Sirāt</span><span class="c-pct">5<small>%</small></span></div>
+          <div class="bar"><i style="width:5%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Cannes Jury Prize · Spain</div>
+          <div class="c-meta"><span>Nom 62%</span><span class="avg">78 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-tn"/></svg><span class="c-title">The Voice of Hind Rajab</span><span class="c-pct">4<small>%</small></span></div>
+          <div class="bar"><i style="width:4%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> Venice Grand Jury · Tunisia</div>
+          <div class="c-meta"><span>Nom 55%</span><span class="avg">80 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="cat-foot"><span>All 15 shortlisted</span><span>86 submitted</span></div>
+      </section>
+
+      <!-- Animated -->
+      <section class="cat">
+        <div class="cat-head">
+          <h2>Animated <span class="tag">Eligible</span></h2>
+          <div class="stage">Eligible list out · <b>Nominations 22 Jan</b></div>
+        </div>
+        <div class="colh"><span>Contender</span><span>To win</span></div>
+        <div class="c lead">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">KPop Demon Hunters</span><span class="c-pct">52<small>%</small></span></div>
+          <div class="bar"><i style="width:52%"></i></div>
+          <div class="c-prec"><span class="k">Won</span> NBR Animated <span class="k">· Nom</span> Annie, Globes</div>
+          <div class="c-meta"><span>Nom 98%</span><span class="avg">78 · 4/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Zootopia 2</span><span class="c-pct">17<small>%</small></span></div>
+          <div class="bar"><i style="width:17%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Annie, Globes, CCA</div>
+          <div class="c-meta"><span>Nom 93%</span><span class="avg">78 · 4/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-fr"/></svg><span class="c-title">Arco</span><span class="c-pct">12<small>%</small></span></div>
+          <div class="bar"><i style="width:12%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Annie, Globes</div>
+          <div class="c-meta"><span>Nom 84%</span><span class="avg">81 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-fr"/></svg><span class="c-title">Little Amélie or the Character of Rain</span><span class="c-pct">9<small>%</small></span></div>
+          <div class="bar"><i style="width:9%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Annie, Globes</div>
+          <div class="c-meta"><span>Nom 76%</span><span class="avg">82 · 3/4</span><span class="marks"><span class="mk"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="c">
+          <div class="c-top"><svg class="flag"><use href="#f-us"/></svg><span class="c-title">Elio</span><span class="c-pct">5<small>%</small></span></div>
+          <div class="bar"><i style="width:5%"></i></div>
+          <div class="c-prec"><span class="k">Nom</span> Annie, CCA</div>
+          <div class="c-meta"><span>Nom 61%</span><span class="avg">71 · 4/4</span><span class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></span></div>
+        </div>
+        <div class="cat-foot"><span>All 35 eligible</span><span>Animated</span></div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="tabbar phone-only">
+    <a class="on" href="#"><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg>Race</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>Awards</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>Grid</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>Watch list</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>More</a>
+  </nav>
+</div>
+</body>
+</html>
