@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oscar race · Oscar Movies (direction A2: Headliner)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font: "Albert Sans";
+    --paper: #FAFAF8; --surface: #FFFFFF; --ink: #1B1B19; --muted: #6C6A65; --faint: #A6A39D;
+    --line: #EAE8E3; --track: #EFEDE8; --gold: #BC8C2E; --gold-ink: #87631A; --gold-wash: #F7F0E0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font), system-ui, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 1; }
+  svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .flag { width: 21px; height: 14px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(29,28,26,.12); flex: none; display: block; }
+  .flags { display: inline-flex; gap: 3px; align-items: center; }
+  .flags .more { font-size: 12px; color: var(--muted); margin-left: 2px; }
+  .topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+  .topbar-in { max-width: 1120px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; gap: 32px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; white-space: nowrap; }
+  .mark { width: 26px; height: 26px; border-radius: 7px; background: var(--ink); position: relative; }
+  .mark::after { content: ""; position: absolute; left: 11px; top: 5px; width: 4px; height: 16px; border-radius: 2px; background: var(--gold); }
+  .nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .nav a { color: inherit; text-decoration: none; white-space: nowrap; }
+  .nav a.on { color: var(--ink); font-weight: 500; }
+  .search { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 260px; height: 38px; padding: 0 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); color: var(--faint); font-size: 14px; }
+  .search kbd { margin-left: auto; font-family: inherit; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; background: var(--surface); }
+  .menu-btn, .search-btn { display: none; background: none; border: 0; color: var(--ink); }
+  main { max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; }
+  .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  h1 { font-size: 52px; line-height: 1.05; font-weight: 600; letter-spacing: -0.035em; }
+  .sub { margin-top: 10px; color: var(--muted); font-size: 15px; }
+  .year { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font: inherit; font-weight: 500; color: var(--ink); }
+  .stage-line { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  .stage-line .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px var(--gold-wash); }
+  .stage-line strong { color: var(--ink); font-weight: 500; }
+  .prec { font-size: 14px; color: var(--ink); }
+  .prec .k { color: var(--muted); }
+  .scores { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); }
+  .scores .avg { color: var(--ink); font-weight: 500; }
+  .scores .na { color: var(--faint); }
+  .marks { display: flex; justify-content: flex-end; gap: 6px; }
+  .mk { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--faint); background: var(--surface); }
+  .mk svg.i { width: 16px; height: 16px; }
+  .mk.on { background: var(--gold-wash); border-color: transparent; color: var(--gold-ink); }
+  .mk.on.bm svg.i { fill: currentColor; }
+  .why h3 { font-size: 15px; font-weight: 600; }
+  .why p { margin-top: 6px; font-size: 14px; color: var(--muted); max-width: 46ch; }
+  .why ul { list-style: none; display: grid; gap: 10px; }
+  .why li { display: grid; grid-template-columns: minmax(0, 1fr) 64px max-content; gap: 12px; align-items: center; font-size: 14px; }
+  .why .wb { height: 4px; border-radius: 2px; background: rgba(29,28,26,.08); }
+  .why .wb i { display: block; height: 100%; border-radius: 2px; background: var(--gold); }
+  .why .r { color: var(--muted); text-align: right; white-space: nowrap; }
+  .more-row { border-top: 1px solid var(--line); padding: 22px 0; font-size: 14px; color: var(--muted); }
+  .more-row strong { color: var(--ink); font-weight: 500; }
+  .foot { margin-top: 40px; font-size: 13px; color: var(--faint); }
+  @media (max-width: 760px) {
+    body { font-size: 14px; }
+    .topbar-in { padding: 0 16px; height: 56px; gap: 12px; }
+    .nav, .search { display: none; }
+    .menu-btn, .search-btn { display: grid; place-items: center; width: 40px; height: 40px; }
+    .search-btn { margin-left: auto; }
+    main { padding: 28px 16px 64px; }
+    h1 { font-size: 34px; }
+    .sub { font-size: 14px; margin-top: 6px; }
+    .page-head { align-items: flex-start; }
+    .year { height: 36px; padding: 0 10px; }
+    .stage-line { font-size: 13px; }
+    .prec { font-size: 13px; }
+    .scores { font-size: 12px; gap: 2px 12px; }
+    .why li { grid-template-columns: 1fr 56px; }
+    .why .r { grid-column: 1 / -1; text-align: left; margin-top: -6px; font-size: 13px; white-space: normal; }
+  }
+
+  h1 { font-weight: 700; letter-spacing: -0.04em; }
+  .tabs { margin-top: 40px; display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--track); }
+  .tab { padding: 8px 18px; border-radius: 9px; font-weight: 500; color: var(--muted); font-size: 15px; }
+  .tab.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(27,27,25,.08), 0 0 0 1px var(--line); }
+  .stage { margin-top: 22px; }
+  .hero { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 36px 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 48px; position: relative; overflow: hidden; }
+  .hero .rank { font-size: 13px; color: var(--gold-ink); font-weight: 600; }
+  .hero .tl { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+  .hero .tl .flag { width: 30px; height: 20px; border-radius: 3px; }
+  .hero .title { font-size: 40px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; }
+  .hero .prec { margin-top: 14px; font-size: 16px; }
+  .hero .scores { margin-top: 10px; font-size: 14px; }
+  .hero .marks { justify-content: flex-start; margin-top: 22px; }
+  .hero .mk { width: auto; height: 38px; border-radius: 19px; padding: 0 14px 0 12px; gap: 7px; display: inline-flex; align-items: center; font-size: 14px; color: var(--muted); }
+  .hero .mk.on { color: var(--gold-ink); }
+  .hero .big { text-align: right; align-self: center; }
+  .hero .big .pct { font-size: 120px; font-weight: 300; letter-spacing: -0.06em; line-height: .9; color: var(--gold-ink); }
+  .hero .big .pct sup { font-size: 40px; vertical-align: top; position: relative; top: 10px; color: var(--muted); margin-left: 4px; }
+  .hero .big .lbl { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .hero .big .lbl b { color: var(--ink); font-weight: 600; }
+  .hero .why { grid-column: 1 / -1; margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; }
+  .hero .heroline { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--gold); }
+  .field-h { margin-top: 44px; display: grid; grid-template-columns: minmax(0, 1fr) 120px 150px 84px; font-size: 13px; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid var(--ink); }
+  .field-h span { text-align: right; }
+  .field-h span:first-child { text-align: left; font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) 120px 150px 84px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .film { display: flex; gap: 14px; min-width: 0; align-items: flex-start; }
+  .film .flags { padding-top: 4px; }
+  .film .title { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .film .prec { font-size: 13px; margin-top: 2px; }
+  .film .scores { font-size: 12px; margin-top: 3px; }
+  .nom { text-align: right; color: var(--muted); font-size: 16px; }
+  .nom small { display: none; }
+  .win { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+  .win .b { width: 64px; height: 4px; border-radius: 2px; background: var(--track); }
+  .win .b i { display: block; height: 100%; border-radius: 2px; background: var(--gold); }
+  .win .pct { font-size: 26px; font-weight: 400; letter-spacing: -0.03em; min-width: 52px; text-align: right; }
+  .row .mk { width: 30px; height: 30px; }
+  .row .mk svg.i { width: 14px; height: 14px; }
+  @media (max-width: 760px) {
+    .tabs { margin-top: 24px; display: flex; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+    .tab { padding: 7px 12px; font-size: 14px; flex: none; }
+    .hero { margin-top: 18px; padding: 22px 20px 24px; grid-template-columns: 1fr; border-radius: 14px; }
+    .hero .title { font-size: 28px; }
+    .hero .tl .flag { width: 24px; height: 16px; }
+    .hero .prec { font-size: 14px; margin-top: 10px; }
+    .hero .big { text-align: left; order: -1; display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+    .hero .big .pct { font-size: 72px; }
+    .hero .big .pct sup { font-size: 26px; top: 6px; }
+    .hero .big .lbl { margin: 0; }
+    .hero .marks { margin-top: 16px; }
+    .hero .why { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; padding-top: 18px; }
+    .field-h { margin-top: 32px; grid-template-columns: 1fr auto; }
+    .field-h span:not(:first-child) { display: none; }
+    .row { grid-template-columns: 1fr auto; grid-template-areas: "film win" "film nom" "marks marks"; row-gap: 2px; }
+    .film { grid-area: film; }
+    .win { grid-area: win; padding-left: 10px; }
+    .win .b { display: none; }
+    .win .pct { font-size: 24px; min-width: 0; }
+    .nom { grid-area: nom; font-size: 12px; align-self: start; }
+    .nom small { display: inline; }
+    .row .marks { grid-area: marks; justify-content: flex-start; margin: 10px 0 0 35px; }
+  }
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="f-us" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></symbol>
+  <symbol id="f-gb" viewBox="0 0 30 20"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="1.5"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.4"/></symbol>
+  <symbol id="f-no" viewBox="0 0 30 20"><rect width="30" height="20" fill="#BA0C2F"/><path d="M11 0V20M0 10H30" stroke="#fff" stroke-width="5"/><path d="M11 0V20M0 10H30" stroke="#00205B" stroke-width="2.5"/></symbol>
+  <symbol id="f-dk" viewBox="0 0 30 20"><rect width="30" height="20" fill="#C8102E"/><path d="M11 0V20M0 10H30" stroke="#fff" stroke-width="3"/></symbol>
+  <symbol id="f-br" viewBox="0 0 30 20"><rect width="30" height="20" fill="#009C3B"/><path d="M15 2.5L27.5 10L15 17.5L2.5 10Z" fill="#FFDF00"/><circle cx="15" cy="10" r="4.2" fill="#002776"/></symbol>
+  <symbol id="f-fr" viewBox="0 0 30 20"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></symbol>
+  <symbol id="f-ir" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#239F40"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><rect y="13.33" width="30" height="6.67" fill="#DA0000"/><circle cx="15" cy="10" r="1.8" fill="#DA0000"/></symbol>
+  <symbol id="f-es" viewBox="0 0 30 20"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></symbol>
+  <symbol id="f-tn" viewBox="0 0 30 20"><rect width="30" height="20" fill="#E70013"/><circle cx="15" cy="10" r="5" fill="#fff"/><circle cx="15.6" cy="10" r="3.3" fill="#E70013"/><circle cx="16.6" cy="10" r="2.7" fill="#fff"/></symbol>
+  <symbol id="f-kr" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="4.5" fill="#CD2E3A"/><path d="M10.5 10a4.5 4.5 0 0 0 9 0a2.25 2.25 0 0 0-4.5 0a2.25 2.25 0 0 1-4.5 0z" fill="#0047A0"/><g fill="#000"><rect x="4" y="3.2" width="4" height="0.8" transform="rotate(34 6 3.6)"/><rect x="22" y="3.2" width="4" height="0.8" transform="rotate(-34 24 3.6)"/><rect x="4" y="16" width="4" height="0.8" transform="rotate(-34 6 16.4)"/><rect x="22" y="16" width="4" height="0.8" transform="rotate(34 24 16.4)"/></g></symbol>
+  <symbol id="f-de" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#000"/><rect y="6.67" width="30" height="6.67" fill="#DD0000"/><rect y="13.33" width="30" height="6.67" fill="#FFCE00"/></symbol>
+  <symbol id="f-ar" viewBox="0 0 30 20"><rect width="30" height="20" fill="#74ACDF"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="1.9" fill="#F6B40E"/></symbol>
+  <symbol id="f-ua" viewBox="0 0 30 20"><rect width="30" height="10" fill="#0057B7"/><rect y="10" width="30" height="10" fill="#FFD700"/></symbol>
+  <symbol id="f-mx" viewBox="0 0 30 20"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2" fill="#8C5A2B"/></symbol>
+  <symbol id="f-ie" viewBox="0 0 30 20"><rect width="10" height="20" fill="#169B62"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#FF883E"/></symbol>
+</svg>
+<header class="topbar">
+  <div class="topbar-in">
+    <button class="menu-btn" aria-label="Menu"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="brand"><span class="mark" aria-hidden="true"></span>Oscar Movies</div>
+    <nav class="nav"><a class="on" href="#">Race</a><a href="#">Awards</a><a href="#">Year grid</a><a href="#">Accuracy</a><a href="#">Submissions</a><a href="#">Festivals</a><a href="#">Watch list</a></nav>
+    <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search films and awards<kbd>/</kbd></div>
+    <button class="search-btn" aria-label="Search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+  </div>
+</header>
+<main>
+  <div class="page-head">
+    <div><h1>The 2025 race</h1><p class="sub">98th Academy Awards. Updated 20 Dec 2025.</p></div>
+    <button class="year">2025 <svg class="i" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+  </div>
+  <div class="tabs" role="tablist"><div class="tab on" role="tab"><div class="name">Picture</div></div><div class="tab" role="tab"><div class="name">Documentary</div></div><div class="tab" role="tab"><div class="name">International</div></div><div class="tab" role="tab"><div class="name">Animated</div></div></div>
+  <div class="stage"><div class="stage-line"><span class="dot"></span><span><strong>Nominations 22 Jan</strong> · Ceremony 15 Mar</span></div></div>
+  <section class="hero">
+    <div>
+      <div class="rank">Favourite to win Best Picture</div>
+      <div class="tl"><span class="flags"><svg class="flag"><use href="#f-us"/></svg></span><div class="title">One Battle After Another</div></div>
+      <div class="prec"><span class="k">Won:</span> Gotham, NBR <span class="k">· Nominated:</span> Golden Globes, Critics Choice, AFI</div>
+      <div class="scores"><span>IMDb 7.9</span><span>RT 95</span><span>MC 95</span><span>TMDB 7.5</span><span class="avg">86 · 4 of 4</span></div>
+      <div class="marks"><span class="mk on"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Watched</span><span class="mk bm"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>Want to watch</span></div>
+    </div>
+    <div class="big"><div class="pct">41<sup>%</sup></div><div class="lbl">to win · <b>99%</b> to be nominated</div></div>
+    <div class="why"><div><h3>Why 41%</h3><p>Since 2012, six films reached late December with a run like this one: a Gotham or NBR win plus nominations at the Globes and Critics Choice. Three of them won Best Picture.</p></div><ul><li><span>Won Gotham, Best Feature</span><span class="wb"><i style="width:38%"></i></span><span class="r">won the Oscar 5 of 13 years</span></li><li><span>Nominated, Critics Choice</span><span class="wb"><i style="width:84%"></i></span><span class="r">84% of nominees nominated</span></li><li><span>Nominated, Golden Globes</span><span class="wb"><i style="width:71%"></i></span><span class="r">71% of nominees nominated</span></li><li><span>Won NBR, Best Film</span><span class="wb"><i style="width:8%"></i></span><span class="r">won the Oscar 1 of 13 years</span></li></ul></div>
+    <div class="heroline" style="width:41%"></div>
+  </section>
+  <div class="field-h"><span>The rest of the field</span><span>To be nominated</span><span>To win</span><span></span></div>
+  <div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-gb"/></svg><svg class="flag"><use href="#f-us"/></svg></span><div><div class="title">Hamnet</div><div class="prec"><span class="k">Won:</span> Toronto People's Choice <span class="k">· Nominated:</span> Golden Globes, Critics Choice, AFI</div><div class="scores"><span>IMDb 8.0</span><span>RT 87</span><span>MC 84</span><span>TMDB 7.9</span><span class="avg">83 · 4 of 4</span></div></div></div>
+      <div class="nom">97%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:36%"></i></span><span class="pct">18%</span></div>
+      <div class="marks"><span class="mk" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div><div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-us"/></svg></span><div><div class="title">Sinners</div><div class="prec"><span class="k">Nominated:</span> Golden Globes, Critics Choice, AFI</div><div class="scores"><span>IMDb 7.6</span><span>RT 97</span><span>MC 84</span><span>TMDB 7.5</span><span class="avg">83 · 4 of 4</span></div></div></div>
+      <div class="nom">95%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:22%"></i></span><span class="pct">11%</span></div>
+      <div class="marks"><span class="mk on" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div><div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-no"/></svg><svg class="flag"><use href="#f-fr"/></svg><svg class="flag"><use href="#f-dk"/></svg><span class="more">+2</span></span><div><div class="title">Sentimental Value</div><div class="prec"><span class="k">Won:</span> Cannes Grand Prix <span class="k">· Nominated:</span> Golden Globes, Critics Choice</div><div class="scores"><span>IMDb 7.8</span><span>RT 96</span><span>MC 87</span><span>TMDB 7.7</span><span class="avg">85 · 4 of 4</span></div></div></div>
+      <div class="nom">90%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:16%"></i></span><span class="pct">8%</span></div>
+      <div class="marks"><span class="mk" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm on" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div><div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-us"/></svg></span><div><div class="title">Marty Supreme</div><div class="prec"><span class="k">Nominated:</span> Golden Globes, Critics Choice, AFI</div><div class="scores"><span>IMDb 8.1</span><span>RT 94</span><span>MC 89</span><span class="na">TMDB –</span><span class="avg">88 · 3 of 4</span></div></div></div>
+      <div class="nom">86%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:12%"></i></span><span class="pct">6%</span></div>
+      <div class="marks"><span class="mk" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div><div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-us"/></svg><svg class="flag"><use href="#f-mx"/></svg></span><div><div class="title">Frankenstein</div><div class="prec"><span class="k">Nominated:</span> Golden Globes, Critics Choice, AFI</div><div class="scores"><span>IMDb 7.5</span><span>RT 86</span><span>MC 78</span><span>TMDB 7.8</span><span class="avg">79 · 4 of 4</span></div></div></div>
+      <div class="nom">84%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:10%"></i></span><span class="pct">5%</span></div>
+      <div class="marks"><span class="mk on" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div><div class="row">
+      <div class="film"><span class="flags"><svg class="flag"><use href="#f-ir"/></svg><svg class="flag"><use href="#f-fr"/></svg><span class="more">+1</span></span><div><div class="title">It Was Just an Accident</div><div class="prec"><span class="k">Won:</span> Cannes Palme d'Or <span class="k">· Nominated:</span> Golden Globes</div><div class="scores"><span>IMDb 7.5</span><span>RT 98</span><span>MC 89</span><span>TMDB 7.3</span><span class="avg">84 · 4 of 4</span></div></div></div>
+      <div class="nom">58%<small> to be nominated</small></div>
+      <div class="win"><span class="b"><i style="width:8%"></i></span><span class="pct">4%</span></div>
+      <div class="marks"><span class="mk" title="Watched"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mk bm" title="Want to watch"><svg class="i" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
+    </div>
+  <div class="more-row"><strong>Show all 38 contenders</strong> · Bugonia, Train Dreams, The Secret Agent and 33 more under 3%</div>
+  <p class="foot">The % chance to win in a category adds up to 100. Select a % to see the past seasons behind it.</p>
+</main>
+</body>
+</html>

@@ -426,7 +426,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Pick a design direction (A Spotlight, B Board, C Scorecard) or a mix, from the screenshots in `design/directions/` | 2026-10-22 | Step 6 |
+| Pick a design direction: owner leans to A; pick A, A1, A2 or A3 (variants of A in `design/directions/`), the last round | 2026-10-22 | Step 6 |
 
 ## Upkeep log
 
