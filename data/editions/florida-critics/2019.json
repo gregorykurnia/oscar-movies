@@ -1,0 +1,30 @@
+{
+  "award": "florida-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-19",
+  "winnersOn": "2019-12-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2019"],
+  "results": [
+    { "category": "picture", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2935510", "title": "Ad Astra", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "won" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8185182", "title": "Long Day's Journey into Night", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8969332", "title": "The Biggest Little Farm", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4520988", "title": "Frozen 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9426210", "title": "Weathering with You", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

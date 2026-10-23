@@ -190,5 +190,17 @@
   "tt32141590": { "slug": "witches", "title": "Witches", "countries": ["GB"], "language": "en", "wd": "Q130731189", "tmdb": 1276031 },
   "tt13940818": { "slug": "the-contestant", "title": "The Contestant", "countries": ["GB", "US"], "language": "en", "wd": "Q122964827", "tmdb": 1156638 },
   "tt28244549": { "slug": "grand-theft-hamlet", "title": "Grand Theft Hamlet", "countries": ["GB"], "language": "en", "wd": "Q124843645", "tmdb": 1234397 },
-  "tt30320489": { "slug": "two-strangers-trying-not-to-kill-each-other", "title": "Two Strangers Trying Not to Kill Each Other", "countries": ["DK", "GB", "US"], "language": "en", "tmdb": 1205660 }
+  "tt30320489": { "slug": "two-strangers-trying-not-to-kill-each-other", "title": "Two Strangers Trying Not to Kill Each Other", "countries": ["DK", "GB", "US"], "language": "en", "tmdb": 1205660 },
+  "tt12037194": { "slug": "furiosa-a-mad-max-saga", "title": "Furiosa: A Mad Max Saga", "countries": ["AU", "US"], "language": "en", "wd": "Q100361125", "tmdb": 786892 },
+  "tt22207786": { "slug": "red-rooms", "title": "Red Rooms", "originalTitle": "Les Chambres rouges", "originalLang": "fr-CA", "countries": ["CA"], "language": "fr", "wd": "Q118921851", "tmdb": 912480 },
+  "tt32046411": { "slug": "the-click-trap", "title": "The Click Trap", "countries": ["FR", "ES"], "language": "fr", "wd": "Q136146988", "tmdb": 874527 },
+  "tt31189897": { "slug": "billy-and-molly-an-otter-love-story", "title": "Billy & Molly: An Otter Love Story", "countries": ["US"], "language": "en", "wd": "Q124848219", "tmdb": 1242387 },
+  "tt30796448": { "slug": "the-greatest-night-in-pop", "title": "The Greatest Night in Pop", "countries": ["US"], "language": "en", "wd": "Q124165657", "tmdb": 1226841 },
+  "tt19308034": { "slug": "jim-henson-idea-man", "title": "Jim Henson Idea Man", "countries": ["US"], "language": "en", "wd": "Q125448412", "tmdb": 1273196 },
+  "tt26420234": { "slug": "music-by-john-williams", "title": "Music by John Williams", "countries": ["US"], "language": "en", "wd": "Q130394862", "tmdb": 1076708 },
+  "tt30259532": { "slug": "girls-state", "title": "Girls State", "countries": ["US"], "language": "en", "wd": "Q124311946", "tmdb": 986355 },
+  "tt31189901": { "slug": "the-truth-vs-alex-jones", "title": "The Truth vs. Alex Jones", "countries": ["US"], "language": "en", "wd": "Q124850707", "tmdb": 1242397 },
+  "tt31080737": { "slug": "bad-river", "title": "Bad River", "countries": ["US"], "language": "en", "tmdb": 1248426 },
+  "tt33336815": { "slug": "stopping-the-steal", "title": "Stopping the Steal", "countries": ["US", "GB"], "language": "en", "tmdb": 1352173 },
+  "tt14407336": { "slug": "the-beast", "title": "The Beast", "originalTitle": "La Bête", "originalLang": "fr", "countries": ["FR", "CA"], "language": "fr", "wd": "Q112054817", "tmdb": 914206 }
 }

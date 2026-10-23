@@ -177,5 +177,13 @@
   "tt8793990": { "slug": "evelyn", "title": "Evelyn", "countries": ["GB"], "language": "en", "wd": "Q66828813", "tmdb": 545556 },
   "tt4489624": { "slug": "nae-pasaran", "title": "Nae Pasaran", "countries": ["GB"], "language": "en", "wd": "Q24579372", "tmdb": 506612 },
   "tt2981746": { "slug": "being-frank-the-chris-sievey-story", "title": "Being Frank: The Chris Sievey Story", "countries": ["US", "GB"], "language": "en", "tmdb": 503761 },
-  "tt8520614": { "slug": "under-the-wire", "title": "Under the Wire", "countries": ["US", "GB"], "language": "en", "tmdb": 524006 }
+  "tt8520614": { "slug": "under-the-wire", "title": "Under the Wire", "countries": ["US", "GB"], "language": "en", "tmdb": 524006 },
+  "tt7768848": { "slug": "wild-wild-country", "title": "Wild Wild Country", "countries": ["US"], "language": "en", "wd": "Q50822507" },
+  "tt8632862": { "slug": "fahrenheit-11-9", "title": "Fahrenheit 11/9", "countries": ["US"], "language": "en", "wd": "Q30000531", "tmdb": 532908 },
+  "tt8004578": { "slug": "flint-town", "title": "Flint Town", "countries": ["US"], "language": "en", "wd": "Q50366624" },
+  "tt8106552": { "slug": "the-fourth-estate", "title": "The Fourth Estate", "countries": ["US"], "wd": "Q55089526" },
+  "tt6566624": { "slug": "hitlers-hollywood", "title": "Hitler's Hollywood", "originalTitle": "Hitlers Hollywood", "originalLang": "de", "countries": ["DE"], "language": "de", "tmdb": 439988 },
+  "tt8289196": { "slug": "john-mccain-for-whom-the-bell-tolls", "title": "John McCain: For Whom the Bell Tolls", "countries": ["US"], "language": "en", "tmdb": 525949 },
+  "tt4595882": { "slug": "can-you-ever-forgive-me", "title": "Can You Ever Forgive Me?", "countries": ["US"], "language": "en", "wd": "Q28860129", "tmdb": 401847 },
+  "tt8749146": { "slug": "monrovia-indiana", "title": "Monrovia, Indiana", "countries": ["US"], "language": "en", "wd": "Q58814612", "tmdb": 537968 }
 }

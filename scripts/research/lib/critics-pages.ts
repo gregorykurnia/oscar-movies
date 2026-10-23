@@ -21,6 +21,8 @@ export type Block = {
 };
 
 const RUNNER_UP = /^runners?-?\s?ups?\b/i;
+/** "Runner-up: None" (Florida 2023): a line that says there was no runner-up. */
+const NO_RUNNER_UP = /^runners?-?\s?ups?:?\s*(none|n\/a)\.?$/i;
 
 function itemOf($: cheerio.CheerioAPI, li: Element): Item {
   const own = ownContent($, li);
@@ -38,6 +40,8 @@ export function readLabelBlocks(html: string): Block[] {
     const label = clean($(b).text()).replace(/:$/, "");
     const container = $(b).parent();
     if (!label || !container.is("li, p, div, dt")) return;
+    // A nominee box's header (`readNomineeLists` and `readPlainWinnerCells` read those).
+    if (container.is("div") && container.parent().is("td, th")) return;
     const own = container.clone();
     own.find("ul, ol, sup.reference").remove();
     if (clean(own.text()).replace(/:$/, "") !== label) return;
@@ -57,9 +61,32 @@ export function readHeadingBlocks(html: string): Block[] {
     const label = clean($(h).text());
     const start = $(h).closest(".mw-heading").length > 0 ? $(h).closest(".mw-heading") : $(h);
     let node = start.next();
-    while (node.length > 0 && !node.is(".mw-heading, h2, h3, h4, ul, ol, table")) node = node.next();
+    // The winner may stand in a bold line of its own above the runners-up (Florida's pages).
+    const lead: Item[] = [];
+    while (node.length > 0 && !node.is(".mw-heading, h2, h3, h4, ul, ol, table")) {
+      if (node.is("p") && node.find("b").length > 0 && node.find("i").length > 0 && clean(node.text()).length < 150) lead.push(itemOf($, node.get(0) as Element));
+      node = node.next();
+    }
     if (!label || !node.is("ul, ol")) return;
-    blocks.push({ label, items: node.children("li").toArray().map((li) => itemOf($, li)), winnersAreAll: false });
+    blocks.push({ label, items: [...lead, ...node.children("li").toArray().map((li) => itemOf($, li))], winnersAreAll: false });
+  });
+  return blocks;
+}
+
+/**
+ * A nominee box whose winner is a line of its own (a bold `p`) between the header and the list of
+ * the others: the Critics' Choice pages to 2015. `readNomineeLists` reads such a box without its winner.
+ */
+export function readPlainWinnerCells(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("td, th").each((_, cell) => {
+    const header = $(cell).children("div").first();
+    const lines = $(cell).children("p").toArray();
+    if (header.length === 0 || lines.length === 0) return;
+    const label = clean(header.text());
+    const items = [...lines, ...$(cell).children("ul, ol").children("li").toArray()].map((el) => itemOf($, el as Element));
+    if (label && items.length > 0) blocks.push({ label, items, winnersAreAll: false });
   });
   return blocks;
 }
@@ -72,16 +99,22 @@ export function readBlocks(html: string): Block[] {
       items: l.nominees.map((n) => ({ ...n, runnerUp: false, plain: n.film ?? { article: null, text: clean(n.line.split(/\s[–-]\s/)[0]) } })),
       winnersAreAll: false,
     }));
-  return [...asItems(readNomineeLists(html)), ...asItems(readLabelledCells(html)), ...readLabelBlocks(html), ...readHeadingBlocks(html)].filter(
-    (b) => b.items.length > 0,
-  );
+  const plain = readPlainWinnerCells(html);
+  const plainLabels = new Set(plain.map((b) => b.label));
+  return [
+    ...asItems(readNomineeLists(html)).filter((b) => !plainLabels.has(b.label)),
+    ...plain,
+    ...asItems(readLabelledCells(html)),
+    ...readLabelBlocks(html),
+    ...readHeadingBlocks(html),
+  ].filter((b) => b.items.length > 0);
 }
 
 export type BlockRow = { link: FilmLink; outcome: "won" | "runner_up" | "nominated" };
 
 /** What a block says about films: the winners, the runners-up and the nominees (a line with no italic film is read as the film itself). */
 export function blockRows(block: Block): BlockRow[] {
-  return block.items.flatMap((item) => {
+  return block.items.filter((item) => !NO_RUNNER_UP.test(item.line)).flatMap((item) => {
     const outcome = item.runnerUp ? "runner_up" : block.winnersAreAll || item.winner ? "won" : "nominated";
     return (item.films.length > 0 ? item.films : item.line ? [item.plain] : []).map((link) => ({ link, outcome }) as BlockRow);
   });

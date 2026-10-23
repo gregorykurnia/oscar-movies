@@ -1,0 +1,31 @@
+{
+  "award": "florida-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-21",
+  "winnersOn": "2015-12-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2015"],
+  "results": [
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "won" },
+    { "category": "international", "imdb": "tt3612616", "title": "Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4935446", "title": "Heart of a Dog", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

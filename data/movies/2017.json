@@ -194,5 +194,15 @@
   "tt7321274": { "slug": "kingdom-of-us", "title": "Kingdom of Us", "countries": ["GB"], "language": "en", "wd": "Q47458545", "tmdb": 473313 },
   "tt2634548": { "slug": "uncle-howard", "title": "Uncle Howard", "countries": ["US"], "language": "en", "wd": "Q18811642", "tmdb": 373470 },
   "tt6981046": { "slug": "williams", "title": "Williams", "countries": ["GB"], "language": "en", "wd": "Q30668333", "tmdb": 465171 },
-  "tt6373826": { "slug": "almost-heaven", "title": "Almost Heaven", "countries": ["CN", "GB"], "language": "zh", "tmdb": 436366 }
+  "tt6373826": { "slug": "almost-heaven", "title": "Almost Heaven", "countries": ["CN", "GB"], "language": "zh", "tmdb": 436366 },
+  "tt5329376": { "slug": "beware-the-slenderman", "title": "Beware the Slenderman", "countries": ["US"], "language": "en", "wd": "Q23013553", "tmdb": 376424 },
+  "tt5651050": { "slug": "bright-lights-starring-carrie-fisher-and-debbie-reynolds", "title": "Bright Lights: Starring Carrie Fisher and Debbie Reynolds", "countries": ["US"], "language": "en", "wd": "Q24590815", "tmdb": 398738 },
+  "tt5966990": { "slug": "california-typewriter", "title": "California Typewriter", "countries": ["US"], "language": "en", "wd": "Q26863800", "tmdb": 414792 },
+  "tt6212934": { "slug": "eagles-of-death-metal-nos-amis-our-friends", "title": "Eagles of Death Metal: Nos Amis (Our Friends)", "countries": ["US"], "language": "en", "wd": "Q28494655", "tmdb": 426243 },
+  "tt6402212": { "slug": "spettacolo", "title": "Spettacolo", "countries": ["US"], "language": "en", "wd": "Q48672701", "tmdb": 433416 },
+  "tt6013154": { "slug": "dolores", "title": "Dolores", "countries": ["US"], "language": "en", "wd": "Q45348546", "tmdb": 432619 },
+  "tt7208366": { "slug": "11-8-16", "title": "11/8/16", "countries": ["US"], "language": "en", "tmdb": 479426 },
+  "tt6710658": { "slug": "the-reagan-show", "title": "The Reagan Show", "countries": ["GB", "US"], "language": "en", "tmdb": 452166 },
+  "tt4929038": { "slug": "the-ornithologist", "title": "The Ornithologist", "countries": ["PT", "FR", "BR"], "language": "pt", "wd": "Q17040489", "tmdb": 377274 },
+  "tt7253506": { "slug": "joan-didion-the-center-will-not-hold", "title": "Joan Didion: The Center Will Not Hold", "countries": ["US"], "language": "en", "wd": "Q47363562", "tmdb": 473408 }
 }

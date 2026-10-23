@@ -1,0 +1,32 @@
+{
+  "award": "chicago-critics",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-12-18",
+  "winnersOn": "2020-12-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Chicago_Film_Critics_Association_Awards_2020"],
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10551102", "title": "Lovers Rock", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10767168", "title": "La Llorona", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8241872", "title": "Vitalina Varela", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11874226", "title": "American Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11464826", "title": "The Social Dilemma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6193408", "title": "A Shaun the Sheep Movie: Farmageddon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8173728", "title": "The Wolf House", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

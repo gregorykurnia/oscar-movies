@@ -1,0 +1,13 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2020,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt13243898", "title": "The Mole – Undercover in North Korea", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "won" }
+  ],
+  "screenings": []
+}

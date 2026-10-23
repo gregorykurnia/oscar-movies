@@ -1,0 +1,32 @@
+{
+  "award": "chicago-critics",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-12-12",
+  "winnersOn": "2017-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Chicago_Film_Critics_Association_Awards_2017"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4954522", "title": "Raw", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5952382", "title": "Abacus: Small Enough to Jail", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6209282", "title": "Ex Libris – The New York Public Library", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4420704", "title": "Kedi", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4116284", "title": "The Lego Batman Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5311514", "title": "Your Name", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

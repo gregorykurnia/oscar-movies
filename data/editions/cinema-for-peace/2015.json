@@ -1,0 +1,13 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2015,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt1365050", "title": "Beasts of No Nation", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt1135989", "title": "A Tale of Love and Darkness", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -177,5 +177,9 @@
   "tt4698684": { "slug": "hunt-for-the-wilderpeople", "title": "Hunt for the Wilderpeople", "countries": ["NZ"], "language": "en", "wd": "Q22236109", "tmdb": 371645 },
   "tt3688612": { "slug": "the-hard-stop", "title": "The Hard Stop", "countries": ["GB"], "language": "en", "wd": "Q28457039", "tmdb": 358927 },
   "tt5124774": { "slug": "the-confession", "title": "The Confession", "countries": ["US"], "language": "en", "tmdb": 404496 },
-  "tt5536398": { "slug": "versus-the-life-and-films-of-ken-loach", "title": "Versus: The Life and Films of Ken Loach", "countries": ["GB"], "language": "en", "tmdb": 400326 }
+  "tt5536398": { "slug": "versus-the-life-and-films-of-ken-loach", "title": "Versus: The Life and Films of Ken Loach", "countries": ["GB"], "language": "en", "tmdb": 400326 },
+  "tt4789160": { "slug": "keep-quiet", "title": "Keep Quiet", "countries": ["GB", "HU"], "language": "en", "wd": "Q24660056", "tmdb": 385808 },
+  "tt5278506": { "slug": "tickled", "title": "Tickled", "countries": ["NZ"], "language": "en", "wd": "Q24042656", "tmdb": 373072 },
+  "tt5278460": { "slug": "audrie-and-daisy", "title": "Audrie & Daisy", "countries": ["US"], "language": "en", "wd": "Q22343547", "tmdb": 376228 },
+  "tt5278578": { "slug": "newtown", "title": "Newtown", "countries": ["US"], "language": "en", "tmdb": 376234 }
 }

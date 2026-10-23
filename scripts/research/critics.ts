@@ -20,7 +20,8 @@ import { createFetcher } from "./lib/fetcher";
 import { blockRows, guessTitles, leadDates, readBlocks, type BlockRow } from "./lib/critics-pages";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import { resolveArticles } from "./lib/resolve";
-import { clean, filmOf, readWikitables, type FilmLink } from "./lib/tables";
+import type { Element } from "domhandler";
+import { clean, filmOf, linkOf, ownContent, readWikitables, type FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
 import { isFilm, releaseYears } from "./lib/wikidata-search";
 import { fetchPage } from "./lib/wikipedia";
@@ -288,6 +289,81 @@ async function readBofca(year: number, ctx: Ctx): Promise<Read | null> {
   };
 }
 
+/** Georgia's "Top categories winners history" table: the Best Film winner of each year ("2012 - 2nd" is the film year, then the edition). */
+async function readGeorgia(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Georgia Film Critics Association");
+  const table = readWikitables(page.html).find((t) => t.headers.includes("Best Film") && t.headers.includes("Year"));
+  if (!table) throw new Error("Georgia: the winners history table is gone from the page");
+  const col = table.headers.indexOf("Best Film");
+  const row = table.rows.find((r) => parseInt(r[0].text, 10) === year);
+  if (!row) return null;
+  const cell = row[col];
+  return {
+    rows: [{ category: "picture", link: cell.film ?? { article: null, text: cell.text }, outcome: "won" }],
+    missing: ["international", "documentary", "animated"],
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the Best Film winner (nominees and the other categories are on the group's own site, not loaded) and gives no announcement date"],
+    problems: [],
+  };
+}
+
+/**
+ * Cinema for Peace: one heading per ceremony year (Berlin, February: the year after the films), each
+ * with a bullet per prize, "The Cinema for Peace Dove for The Most Valuable Film of the Year: A by X; B by Y".
+ * Only the winners are listed from 2011 on; a prize shared by several films has them all as winners.
+ */
+async function readCinemaForPeace(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Cinema for Peace Awards");
+  const $ = cheerio.load(page.html);
+  const prizes: Array<{ slug: string; label: RegExp }> = [
+    { slug: "most-valuable-film", label: /^The Cinema for Peace Dove for The Most Valuable Film of the Year:/ },
+    { slug: "most-valuable-documentary", label: /^The Cinema for Peace Dove for The Most Valuable Documentary of the Year:/ },
+  ];
+  const heading = $("h3")
+    .toArray()
+    .find((h) => clean($(h).text()) === String(year + 1));
+  if (!heading) return null;
+  let node = $(heading).closest(".mw-heading").next();
+  while (node.length > 0 && !node.is("ul, .mw-heading")) node = node.next();
+  if (!node.is("ul")) return null;
+  const rows: Row[] = [];
+  const missing: string[] = [];
+  for (const prize of prizes) {
+    const li = node
+      .children("li")
+      .toArray()
+      .find((l) => prize.label.test(clean($(l).text())));
+    if (!li) {
+      missing.push(prize.slug);
+      continue;
+    }
+    const own = ownContent($, li);
+    const anchors = own.find("a").toArray().map((a) => linkOf($, $(a) as cheerio.Cheerio<Element>));
+    for (const segment of clean(own.text()).replace(prize.label, "").split(/;\s*/)) {
+      const title = clean(segment.split(/\s+by\s+/)[0]);
+      if (!title) continue;
+      rows.push({ category: prize.slug, link: anchors.find((a) => flat(a.text) === flat(title)) ?? { article: null, text: title }, outcome: "won" });
+    }
+  }
+  if (rows.length === 0) return null;
+  return {
+    rows,
+    missing,
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the winners of each prize and gives no ceremony date"],
+    problems: [],
+  };
+}
+
+const ordinal = (n: number) => `${n}${[11, 12, 13].includes(n % 100) ? "th" : (["th", "st", "nd", "rd"][n % 10] ?? "th")}`;
+
+const FILM_CATEGORIES = [
+  { slug: "picture", label: /^best(film|picture)$/ },
+  { slug: "international", label: CATEGORIES.international },
+  { slug: "documentary", label: CATEGORIES.documentary },
+  { slug: "animated", label: CATEGORIES.animated },
+];
+
 export const GROUPS: Group[] = [
   {
     slug: "african-american-critics",
@@ -389,6 +465,91 @@ export const GROUPS: Group[] = [
     winnersOnly: false,
     read: async () => null,
   },
+  {
+    slug: "chicago-critics",
+    name: "Chicago FCA",
+    years: [2012, 2025],
+    why: "the Chicago Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("chicago-critics", { page: (y) => `Chicago Film Critics Association Awards ${y}`, categories: FILM_CATEGORIES, winnersOnly: false }),
+  },
+  {
+    slug: "chicago-indie-critics",
+    name: "Chicago Indie Critics",
+    years: [2100, 2100],
+    why: "Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them",
+    winnersOnly: false,
+    read: async () => null,
+  },
+  {
+    slug: "cinema-for-peace",
+    name: "Cinema for Peace",
+    years: [2012, 2024],
+    why: "the Cinema for Peace Awards for these films are not on Wikipedia (its list stops at the 2025 gala, for 2024 films)",
+    winnersOnly: false,
+    read: readCinemaForPeace,
+  },
+  {
+    slug: "columbus-critics",
+    name: "Columbus",
+    years: [2100, 2100],
+    why: "Wikipedia has no page for the Columbus Film Critics Association's awards and no other source was found for them",
+    winnersOnly: false,
+    read: async () => null,
+  },
+  {
+    slug: "critics-choice",
+    name: "Critics Choice",
+    years: [2012, 2025],
+    why: "the Critics' Choice Awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("critics-choice", { page: (y) => `${ordinal(y - 1994)} Critics' Choice Awards`, categories: FILM_CATEGORIES, winnersOnly: false }),
+  },
+  {
+    slug: "critics-choice-documentary",
+    name: "Critics Choice Documentary",
+    years: [2016, 2026],
+    why: "the first Critics' Choice Documentary Awards were in November 2016, so there are none for earlier films",
+    winnersOnly: false,
+    read: pageRead("critics-choice-documentary", {
+      page: (y) => `${ordinal(y - 2015)} Critics' Choice Documentary Awards`,
+      categories: [
+        { slug: "feature", label: /^bestdocumentaryfeature$/ },
+        // 2016–2018 call it "Best Direction for a Documentary Feature".
+        { slug: "director", label: /^best(director|directionforadocumentaryfeature)$/ },
+        { slug: "political", label: /^bestpoliticaldocumentary$/ },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "dallas-fort-worth-critics",
+    name: "Dallas-Fort Worth",
+    years: [2012, 2025],
+    why: "the Dallas–Fort Worth Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("dallas-fort-worth-critics", {
+      page: (y) => `Dallas–Fort Worth Film Critics Association Awards ${y}`,
+      categories: FILM_CATEGORIES,
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "florida-critics",
+    name: "Florida",
+    years: [2013, 2025],
+    why: "the Florida Film Critics Circle's awards for these films are not on Wikipedia (it has a page for each year from 2013)",
+    winnersOnly: false,
+    read: pageRead("florida-critics", { page: (y) => `Florida Film Critics Circle Awards ${y}`, categories: FILM_CATEGORIES, winnersOnly: false }),
+  },
+  {
+    slug: "georgia-critics",
+    name: "Georgia",
+    years: [2012, 2025],
+    why: "the Georgia Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: readGeorgia,
+  },
 ];
 
 function parseList(argv: string[], flag: string): string | undefined {
@@ -475,6 +636,7 @@ async function main() {
       const standIn = !group.winnersOnly && hasNominees && winnersOn && !read.nominationsOn && !manual?.nominationsOn;
       if (winnersOn && winnersOn > today) {
         local.push(`${label}: the winners' day ${winnersOn} is still ahead`);
+        gaps.push(`the winners are announced on ${winnersOn}`);
         winnersOn = undefined;
       }
 
@@ -493,7 +655,7 @@ async function main() {
 
       // A film the page names without a working link: the Wikipedia article "<title> (<year> film)" and the like,
       // taken only when its Wikidata item is a film released within a year of this one.
-      const unlinked = [...new Set(kept.filter((e) => !e.link.article && !e.link.wd).map((e) => e.link.text))];
+      const unlinked = [...new Set(kept.filter((e) => !e.link.article && !e.link.wd && !sources.tmdbSearch[`${group.slug} ${year} ${e.link.text}`]).map((e) => e.link.text))];
       const guessed = new Map<string, string>();
       if (unlinked.length > 0) {
         const candidates = unlinked.flatMap((text) => guessTitles(text, year));
@@ -518,7 +680,7 @@ async function main() {
       for (const e of kept) {
         const search = sources.tmdbSearch[`${group.slug} ${year} ${e.link.text}`];
         const known = researched(films, e.link);
-        if (!search || known.ok || viaTmdb.has(e.link.text)) continue;
+        if (!search || (known.ok && known.imdb) || viaTmdb.has(e.link.text)) continue;
         const hit = tmdb ? await findOnTmdb(tmdb, { title: e.link.text, year, country: search.country, directors: search.directors }) : null;
         if (hit?.ok) viaTmdb.set(e.link.text, { ok: true, link: e.link, imdb: hit.imdb, facts: hit.facts });
         else problems.push(`${label}: ${e.link.text} wasn't found on TMDB (${hit ? hit.reason : "no TMDB token"})`);
@@ -544,8 +706,10 @@ async function main() {
         const winners = inCategory.filter((r) => r.outcome === "won").length;
         if (winners !== 1) problems.push(`${label}: ${category} has ${winners} winners (a tie, if the page says so)`);
       }
-      const movies = addMovies(DATA_DIR, year, newFilms(new Map([...films, ...[...viaTmdb].map(([k, v]): [string, ResearchedFilm] => [`tmdb:${k}`, v])])));
-      for (const f of [...films.values(), ...viaTmdb.values()]) {
+      // A film TMDB replaced (Wikidata's item had no IMDb ID: a manga, a book) is not added from Wikidata too.
+      const wikidataFilms = [...films].filter(([, f]) => !viaTmdb.has(f.link.text));
+      const movies = addMovies(DATA_DIR, year, newFilms(new Map([...wikidataFilms, ...[...viaTmdb].map(([k, v]): [string, ResearchedFilm] => [`tmdb:${k}`, v])])));
+      for (const f of [...wikidataFilms.map(([, f]) => f), ...viaTmdb.values()]) {
         if (f.ok && !f.imdb) problems.push(`${label}: check ${f.link.text} → ${f.wd} has no IMDb ID`);
         const isNew = f.ok && movies.added.includes(movieKey(f));
         if (isNew && f.ok && loose(f.facts.title) !== loose(f.link.text) && loose(f.facts.title) !== loose(plainTitle(f.link.article ?? ""))) {
@@ -566,6 +730,7 @@ async function main() {
         .map((k) => sources.absent[k]);
       if (absent.length > 0) noteParts.push(absent.join(" "));
       if (standIn) noteParts.push("The day the nominees were announced is not stated; the awards day stands in for it.");
+      else if (!group.winnersOnly && !hasNominees && !nominationsOn && winnersOn && gaps.length === 0) noteParts.push("Only the winners and runners-up are listed, and the day the nominees were announced is not stated.");
       const edition: EditionFile = {
         award: group.slug,
         year,

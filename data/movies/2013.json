@@ -164,5 +164,6 @@
   "tt2433336": { "slug": "the-moo-man", "title": "The Moo Man", "countries": ["GB"], "language": "en", "wd": "Q7752140", "tmdb": 159029 },
   "tt2332801": { "slug": "the-spirit-of-45", "title": "The Spirit of '45", "countries": ["GB"], "language": "en", "wd": "Q14783948", "tmdb": 164580 },
   "tt2126403": { "slug": "the-stone-roses-made-of-stone", "title": "The Stone Roses: Made of Stone", "countries": ["GB"], "language": "en", "wd": "Q16168469", "tmdb": 193524 },
-  "tt2094890": { "slug": "mother-of-george", "title": "Mother of George", "countries": ["US"], "language": "en", "wd": "Q16253364", "tmdb": 157384 }
+  "tt2094890": { "slug": "mother-of-george", "title": "Mother of George", "countries": ["US"], "language": "en", "wd": "Q16253364", "tmdb": 157384 },
+  "tt3401232": { "slug": "syria-children-on-the-frontline", "title": "Syria: Children on the Frontline", "countries": ["US"], "language": "en", "tmdb": 397421 }
 }

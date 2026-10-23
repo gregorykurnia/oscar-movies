@@ -1,0 +1,33 @@
+{
+  "award": "critics-choice-documentary",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-10-14",
+  "winnersOn": "2025-11-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/10th_Critics'_Choice_Documentary_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "feature", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt35307139", "title": "The Alabama Solution", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30012657", "title": "Apocalypse in the Tropics", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt34965967", "title": "Deaf President Now!", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14419140", "title": "Pee-wee as Himself", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt32249940", "title": "Riefenstahl", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt37660542", "title": "The Tale of Silyan", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "director", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt30012657", "title": "Apocalypse in the Tropics", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt34965967", "title": "Deaf President Now!", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt35307139", "title": "The Alabama Solution", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt35307139", "title": "The Alabama Solution", "outcome": "won" },
+    { "category": "political", "imdb": "tt30012657", "title": "Apocalypse in the Tropics", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt34965967", "title": "Deaf President Now!", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt34966678", "title": "The Librarians", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt33075192", "title": "My Undesirable Friends: Part I — Last Air in Moscow", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

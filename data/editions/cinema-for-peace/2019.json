@@ -1,0 +1,12 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2019,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt8579674", "title": "1917", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "won" }
+  ],
+  "screenings": []
+}

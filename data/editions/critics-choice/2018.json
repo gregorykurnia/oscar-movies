@@ -1,0 +1,33 @@
+{
+  "award": "critics-choice",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-10",
+  "winnersOn": "2019-01-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/24th_Critics'_Choice_Awards"],
+  "note": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1825683", "title": "Black Panther", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1213641", "title": "First Man", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5028340", "title": "Mary Poppins Returns", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6266538", "title": "Vice", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2709692", "title": "The Grinch", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6900448", "title": "Mirai of the Future", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

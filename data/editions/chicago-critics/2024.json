@@ -1,0 +1,32 @@
+{
+  "award": "chicago-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-10",
+  "winnersOn": "2024-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Chicago_Film_Critics_Association_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12037194", "title": "Furiosa: A Mad Max Saga", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15574270", "title": "I Saw the TV Glow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28490044", "title": "Evil Does Not Exist", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt22207786", "title": "Red Rooms", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,14 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2024,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt32046411", "title": "The Click Trap", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "won" }
+  ],
+  "screenings": []
+}

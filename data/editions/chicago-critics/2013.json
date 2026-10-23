@@ -1,0 +1,31 @@
+{
+  "award": "chicago-critics",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-12-13",
+  "winnersOn": "2013-12-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Chicago_Film_Critics_Association_Awards_2013"],
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2258858", "title": "Wadjda", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1638364", "title": "The Armstrong Lie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1798188", "title": "From Up on Poppy Hill", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1453405", "title": "Monsters University", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

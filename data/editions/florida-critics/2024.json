@@ -1,0 +1,32 @@
+{
+  "award": "florida-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-20",
+  "winnersOn": "2024-12-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2024"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt14407336", "title": "The Beast", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12818328", "title": "Hundreds of Beavers", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt18162096", "title": "Do Not Expect Too Much from the End of the World", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt23951384", "title": "The Colors Within", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

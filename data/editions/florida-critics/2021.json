@@ -1,0 +1,29 @@
+{
+  "award": "florida-critics",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-12-15",
+  "winnersOn": "2021-12-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2021"],
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6217926", "title": "Annette", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11389748", "title": "Mass", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "won" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14034966", "title": "Wheel of Fortune and Fantasy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11655202", "title": "Riders of Justice", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14300912", "title": "Procession", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2953050", "title": "Encanto", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2458948", "title": "Evangelion: 3.0+1.0 Thrice Upon a Time", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt10534996", "title": "Josep", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt13651628", "title": "Belle", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

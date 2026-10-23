@@ -184,5 +184,20 @@
   "tt7206446": { "slug": "poly-styrene-i-am-a-cliche", "title": "Poly Styrene: I Am a Cliché", "countries": ["GB"], "language": "en", "wd": "Q107417969", "tmdb": 455889 },
   "tt14030682": { "slug": "who-we-are-a-chronicle-of-racism-in-america", "title": "Who We Are: A Chronicle of Racism in America", "countries": ["US"], "language": "en", "tmdb": 803737 },
   "tt11342978": { "slug": "i-am-belmaya", "title": "I Am Belmaya", "countries": ["US"], "language": "en", "tmdb": 787364 },
-  "tt11613502": { "slug": "keyboard-fantasies", "title": "Keyboard Fantasies", "countries": ["GB"], "language": "en", "tmdb": 634586 }
+  "tt11613502": { "slug": "keyboard-fantasies", "title": "Keyboard Fantasies", "countries": ["GB"], "language": "en", "tmdb": 634586 },
+  "tt14055432": { "slug": "the-crime-of-the-century", "title": "The Crime of the Century", "countries": ["US"], "language": "en", "wd": "Q106995454" },
+  "tt10837932": { "slug": "a-crime-on-the-bayou", "title": "A Crime on the Bayou", "countries": ["US"], "language": "en", "wd": "Q106866736", "tmdb": 763040 },
+  "tt11225756": { "slug": "the-lost-leonardo", "title": "The Lost Leonardo", "countries": ["DK", "FR", "SE"], "language": "en", "wd": "Q108293356", "tmdb": 822099 },
+  "tt11092594": { "slug": "my-name-is-pauli-murray", "title": "My Name is Pauli Murray", "countries": ["US"], "language": "en", "wd": "Q105259678", "tmdb": 776589 },
+  "tt10388028": { "slug": "enemies-of-the-state", "title": "Enemies of the State", "countries": ["US"], "language": "en", "wd": "Q106616382", "tmdb": 698495 },
+  "tt15520020": { "slug": "four-hours-at-the-capitol", "title": "Four Hours at the Capitol", "countries": ["US"], "language": "en", "wd": "Q110348897", "tmdb": 879535 },
+  "tt10290160": { "slug": "influence", "title": "Influence", "countries": ["CA"], "language": "en", "wd": "Q104903100", "tmdb": 653755 },
+  "tt13622180": { "slug": "mayor-pete", "title": "Mayor Pete", "countries": ["US"], "language": "en", "wd": "Q105883095", "tmdb": 782310 },
+  "tt13065642": { "slug": "nasrin", "title": "Nasrin", "countries": ["US"], "language": "en", "wd": "Q104865176", "tmdb": 742249 },
+  "tt11905538": { "slug": "not-going-quietly", "title": "Not Going Quietly", "countries": ["US"], "language": "en", "wd": "Q97356266", "tmdb": 736117 },
+  "tt11310380": { "slug": "missing-in-brooks-county", "title": "Missing in Brooks County", "countries": ["US"], "language": "en", "tmdb": 710047 },
+  "tt6217926": { "slug": "annette", "title": "Annette", "countries": ["FR", "DE", "BE", "MX", "JP"], "language": "en", "wd": "Q29168508", "tmdb": 424277 },
+  "tt11389748": { "slug": "mass", "title": "Mass", "countries": ["US"], "language": "en", "wd": "Q104213702", "tmdb": 423333 },
+  "tt11655202": { "slug": "riders-of-justice", "title": "Riders of Justice", "originalTitle": "Retfærdighedens ryttere", "originalLang": "da", "countries": ["DK", "SE", "FI"], "language": "da", "wd": "Q87126473", "tmdb": 663870 },
+  "tt2458948": { "slug": "evangelion-3-0-1-0-thrice-upon-a-time", "title": "Evangelion: 3.0+1.0 Thrice Upon a Time", "originalTitle": "シン・エヴァンゲリオン劇場版𝄇", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q6434144", "tmdb": 283566 }
 }

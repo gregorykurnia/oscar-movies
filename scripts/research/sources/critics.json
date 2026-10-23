@@ -6,13 +6,20 @@
     "african-american-critics/2015/international": "AAFCA gave no international prize that year.",
     "african-american-critics/2016/international": "AAFCA gave no international prize that year.",
     "boston-society/2021/international": "The society gave no foreign-language prize that year (Best Picture and Best English Language Film instead).",
-    "boston-society/2022/international": "The society gave no foreign-language prize that year (Best Picture and Best English Language Film instead)."
+    "boston-society/2022/international": "The society gave no foreign-language prize that year (Best Picture and Best English Language Film instead).",
+    "critics-choice/2016/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2017/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2018/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2019/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2020/animated": "The 26th Critics' Choice Awards (March 2021) gave no animated prize; Best Animated Movie went to the first Critics' Choice Super Awards.",
+    "critics-choice/2020/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2021/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2022/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2023/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2024/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately.",
+    "critics-choice/2025/documentary": "The Critics' Choice Movie Awards gave no documentary prize from the 2016 films on (Best Documentary Feature ran 1995–2015); the Critics' Choice Documentary Awards are loaded separately."
   },
   "linkFixes": {
-    "The Panther And The Thief": {
-      "article": "The Painter and the Thief",
-      "why": "AWFJ's table misspells the 2020 documentary's title."
-    },
     "Nascondino": {
       "article": "Hide and Seek (2021 film)",
       "why": "Nascondino is the Italian title of Victoria Fiore's 2021 documentary Hide and Seek, which Wikipedia files under its English title."
@@ -20,6 +27,14 @@
     "Seahorse": {
       "wd": "Q96482265",
       "why": "BIFA 2019's documentary nominee Seahorse (Seahorse: The Dad Who Gave Birth, by Jeanie Finlay) is plain text on the page; Wikidata's film item (IMDb tt6314864) is used."
+    },
+    "The Panther And The Thief": {
+      "article": "The Painter and the Thief",
+      "why": "AWFJ's table misspells the 2020 documentary's title."
+    },
+    "The Way I See It": {
+      "article": "The Way I See It (film)",
+      "why": "The page links Temple Grandin's book; the nominee is Dawn Porter's 2020 documentary."
     }
   },
   "tmdbSearch": {
@@ -30,14 +45,6 @@
       ],
       "country": "US",
       "why": "No Wikipedia article; TMDB lists the documentary."
-    },
-    "women-film-journalists 2022 The Janes": {
-      "directors": [
-        "Tia Lessin",
-        "Emma Pildes"
-      ],
-      "country": "US",
-      "why": "No Wikipedia article for the documentary; TMDB lists it."
     },
     "british-independent 2012 London: The Modern Babylon": {
       "directors": [
@@ -96,19 +103,19 @@
       "country": "GB",
       "why": "No Wikipedia article; TMDB lists the documentary."
     },
-    "british-independent 2020 The Reason I Jump": {
-      "directors": [
-        "Jerry Rothwell"
-      ],
-      "country": "GB",
-      "why": "The page's link leads nowhere; TMDB lists the documentary."
-    },
     "british-independent 2020 Being a Human Person": {
       "directors": [
         "Fred Scott"
       ],
       "country": "GB",
       "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "british-independent 2020 The Reason I Jump": {
+      "directors": [
+        "Jerry Rothwell"
+      ],
+      "country": "GB",
+      "why": "The page's link leads nowhere; TMDB lists the documentary."
     },
     "british-independent 2020 White Riot": {
       "directors": [
@@ -177,6 +184,132 @@
       ],
       "country": "GB",
       "why": "No Wikipedia article; TMDB lists the documentary (another film of the name, an animation, is not it)."
+    },
+    "cinema-for-peace 2013 Syria: Children on the Frontline": {
+      "directors": [
+        "Marcel Mettelsiefen"
+      ],
+      "country": "GB",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2016 Newtown": {
+      "directors": [
+        "Kim A. Snyder"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2017 11/8/16": {
+      "directors": [
+        "Don Argott",
+        "Alma Har'el"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2017 The Reagan Show": {
+      "directors": [
+        "Pacho Velez",
+        "Sierra Pettengill"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2018 Hitler's Hollywood": {
+      "directors": [
+        "Rüdiger Suchsland"
+      ],
+      "country": "DE",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2018 John McCain: For Whom the Bell Tolls": {
+      "directors": [
+        "Peter W. Kunhardt",
+        "George Kunhardt"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2021 Missing in Brooks County": {
+      "directors": [
+        "Lisa Molomot",
+        "Jeff Bemiss"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2023 Bobi Wine: The People's President": {
+      "directors": [
+        "Moses Bwayo",
+        "Christopher Sharp"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2023 Lakota Nation vs. United States": {
+      "directors": [
+        "Laura Tomaselli",
+        "Jesse Short Bull"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2023 Stamped from the Beginning": {
+      "directors": [
+        "Roger Ross Williams"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2024 Bad River": {
+      "directors": [
+        "Mary Mazzio"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "critics-choice-documentary 2024 Stopping the Steal": {
+      "directors": [
+        "Dan Reed"
+      ],
+      "country": "GB",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "dallas-fort-worth-critics 2014 The Great Invisible": {
+      "directors": [
+        "Margaret Brown"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "florida-critics 2025 100 Meters": {
+      "directors": [
+        "Kenji Iwaisawa"
+      ],
+      "country": "JP",
+      "why": "Wikipedia has no article for the 2025 film (the title leads to the manga it comes from); TMDB lists it."
+    },
+    "florida-critics 2025 River of Grass": {
+      "directors": [
+        "Sasha Wortzel"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "florida-critics 2025 Sabbath Queen": {
+      "directors": [
+        "Sandi Simcha DuBowski"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "women-film-journalists 2022 The Janes": {
+      "directors": [
+        "Tia Lessin",
+        "Emma Pildes"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article for the documentary; TMDB lists it."
     }
   },
   "leaveOut": {
@@ -185,11 +318,24 @@
     },
     "british-independent 2018 Island": {
       "why": "No Wikipedia article, and TMDB's search by this title lists no British documentary from 2017 to 2019."
+    },
+    "cinema-for-peace 2018 The Heart of Nuba": {
+      "why": "No Wikipedia article; TMDB lists Kenneth A. Carlson's documentary as released in 2016, two years before this edition's film year."
+    },
+    "cinema-for-peace 2023 Motherland": {
+      "why": "The winner is Hanna Badziaka and Alexander Mihalkovich's Belarus documentary, which has no Wikipedia article and no match on TMDB's search (the article \"Motherland (2022 film)\" is a different documentary)."
+    },
+    "critics-choice-documentary 2018 Crime + Punishment": {
+      "why": "No Wikipedia article, and TMDB's search by this title lists no matching documentary (Stephen Maing's 2018 film)."
     }
   },
   "titles": {
-    "tt9218128": "Gladiator II",
+    "tt12037194": "Furiosa: A Mad Max Saga",
+    "tt2265171": "The Raid 2",
+    "tt38691481": "Everest: The Other Side",
+    "tt4929038": "The Ornithologist",
+    "tt5124774": "The Confession: Living the War on Terror",
     "tt6133444": "The Fire Inside",
-    "tt5124774": "The Confession: Living the War on Terror"
+    "tt9218128": "Gladiator II"
   }
 }

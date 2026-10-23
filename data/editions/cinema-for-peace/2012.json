@@ -1,0 +1,13 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2012,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt0443272", "title": "Lincoln", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "won" }
+  ],
+  "screenings": []
+}

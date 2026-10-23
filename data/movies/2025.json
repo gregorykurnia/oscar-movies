@@ -190,5 +190,11 @@
   "tt32143856": { "slug": "antidote", "title": "Antidote", "countries": ["GB"], "language": "en", "wd": "Q126436355", "tmdb": 1275774 },
   "tt27623454": { "slug": "the-shepherd-and-the-bear", "title": "The Shepherd and the Bear", "countries": ["US", "FR"], "language": "en", "wd": "Q133286532", "tmdb": 1125043 },
   "tt32123163": { "slug": "mother-vera", "title": "Mother Vera", "countries": ["GB"], "language": "en", "tmdb": 639908 },
-  "tt16242538": { "slug": "motherboard", "title": "Motherboard", "countries": ["GB"], "language": "en", "tmdb": 1245192 }
+  "tt16242538": { "slug": "motherboard", "title": "Motherboard", "countries": ["GB"], "language": "en", "tmdb": 1245192 },
+  "tt14419140": { "slug": "pee-wee-as-himself", "title": "Pee-wee as Himself", "countries": ["US"], "wd": "Q131601899" },
+  "tt33455099": { "slug": "the-mastermind", "title": "The Mastermind", "countries": ["US", "GB"], "language": "en", "wd": "Q130569520", "tmdb": 1352624 },
+  "tt29002950": { "slug": "resurrection", "title": "Resurrection", "originalTitle": "狂野时代", "originalLang": "zh-hans", "countries": ["CN"], "language": "cmn", "wd": "Q122329458", "tmdb": 878608 },
+  "tt17497960": { "slug": "blknws-terms-and-conditions", "title": "BLKNWS: Terms & Conditions", "countries": ["US"], "language": "en", "wd": "Q131842275", "tmdb": 931942 },
+  "tt32145808": { "slug": "sabbath-queen", "title": "Sabbath Queen", "countries": ["US"], "language": "en", "tmdb": 1275983 },
+  "tt35672369": { "slug": "river-of-grass", "title": "River of Grass", "countries": ["US"], "language": "en", "tmdb": 1430055 }
 }

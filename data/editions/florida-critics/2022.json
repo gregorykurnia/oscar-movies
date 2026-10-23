@@ -1,0 +1,29 @@
+{
+  "award": "florida-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-12-14",
+  "winnersOn": "2022-12-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2022"],
+  "results": [
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "won" },
+    { "category": "international", "imdb": "tt11087960", "title": "Playground", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16376494", "title": "Descendant", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt10540510", "title": "Inu-Oh", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

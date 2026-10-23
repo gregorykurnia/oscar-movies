@@ -1,6 +1,8 @@
 // The readers the critics-groups import (`critics.ts`, task 4.2) adds: bold-label lists with
 // runner-ups, headings with lists, lines naming two films, the dates in a page's opening
-// sentences, AAFCA's top-ten table, and the year its main article files a film under.
+// sentences, AAFCA's top-ten table, and the year its main article files a film under; task 4.3 adds
+// the winner-in-its-own-line nominee boxes (Critics' Choice to 2015), a bold winner line under a heading
+// (Florida 2013) and "Runner-up: None".
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { aafcaLabelYear, GROUPS, readAafcaTopTen, sourcesSchema } from "./critics";
@@ -44,6 +46,47 @@ describe("readBlocks", () => {
       <li><i><a href="/wiki/A_Simple_Life">A Simple Life</a></i> (<i>Tao jie</i>)</li></ul></td></tr></table>`;
     const [list] = readNomineeLists(html);
     expect(list.nominees.map((n) => n.films.map((f) => f.text))).toEqual([["Palm Springs", "Sound of Metal"], ["A", "B"], ["A Simple Life"]]);
+  });
+});
+
+describe("layouts of task 4.3", () => {
+  it("reads a nominee box whose winner is a bold line above the others (Critics' Choice 2012), once", () => {
+    const html = `<table><tr><td><div><b>Best Picture</b></div>
+      <p><i><b><a href="/wiki/Argo_(2012_film)">Argo</a></b></i></p>
+      <ul><li><i><a href="/wiki/Lincoln_(film)">Lincoln</a></i></li><li><i><a href="/wiki/Life_of_Pi_(film)">Life of Pi</a></i></li></ul></td></tr></table>`;
+    const blocks = readBlocks(html);
+    expect(blocks.map((b) => b.label)).toEqual(["Best Picture"]);
+    expect(blockRows(blocks[0]).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Argo", "won"],
+      ["Lincoln", "nominated"],
+      ["Life of Pi", "nominated"],
+    ]);
+  });
+
+  it("keeps a nominee box whose winner heads the list as one block (Critics' Choice 2019 on)", () => {
+    const html = `<table><tr><td><div><b><a href="/wiki/X">Best Picture</a></b></div><ul>
+      <li><i><b><a href="/wiki/Once">Once</a></b></i><ul><li><i><a href="/wiki/Joker_(2019_film)">Joker</a></i></li></ul></li></ul></td></tr></table>`;
+    const blocks = readBlocks(html);
+    expect(blocks).toHaveLength(1);
+    expect(blockRows(blocks[0]).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Once", "won"],
+      ["Joker", "nominated"],
+    ]);
+  });
+
+  it("reads the bold winner line between a heading and the runner-up list (Florida 2013)", () => {
+    const html = `<div class="mw-heading"><h3>Best Picture</h3></div><p><i><b><a href="/wiki/12_Years_a_Slave_(film)">12 Years a Slave</a></b></i></p>
+      <ul><li><b>Runner-up:</b> <i><a href="/wiki/American_Hustle">American Hustle</a></i></li></ul>`;
+    expect(blockRows(readBlocks(html)[0]).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["12 Years a Slave", "won"],
+      ["American Hustle", "runner_up"],
+    ]);
+  });
+
+  it("does not take a description paragraph for a winner, nor 'Runner-up: None' for a film (Florida 2023)", () => {
+    const html = `<div class="mw-heading"><h3>Best Film</h3></div><p>Given for the year's <b>best</b> film, chosen by vote among all the members of the circle over many weeks of discussion and polling.</p>
+      <ul><li><i><a href="/wiki/Poor_Things_(film)">Poor Things</a></i></li><li>Runner-up: None</li></ul>`;
+    expect(blockRows(readBlocks(html)[0]).map((r) => [r.link.text, r.outcome])).toEqual([["Poor Things", "nominated"]]);
   });
 });
 

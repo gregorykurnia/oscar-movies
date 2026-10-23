@@ -1,0 +1,30 @@
+{
+  "award": "florida-critics",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-12-17",
+  "winnersOn": "2020-12-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2020"],
+  "results": [
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "won" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9187214", "title": "The Strong Ones", "outcome": "won" },
+    { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11719648", "title": "Dry Wind", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1667354", "title": "The Painted Bird", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9081558", "title": "Those Who Remained", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10011412", "title": "You Don't Nomi", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11874226", "title": "American Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11464016", "title": "Gunda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7488208", "title": "Over the Moon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9193612", "title": "Ride Your Wave", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8173728", "title": "The Wolf House", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -187,5 +187,10 @@
   "tt5117428": { "slug": "wild-rose", "title": "Wild Rose", "countries": ["GB"], "language": "en", "wd": "Q63160297", "tmdb": 482981 },
   "tt7298400": { "slug": "ash-is-purest-white", "title": "Ash Is Purest White", "originalTitle": "江湖儿女", "originalLang": "zh", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51797794", "tmdb": 441393 },
   "tt10915286": { "slug": "tell-me-who-i-am", "title": "Tell Me Who I Am", "countries": ["GB"], "language": "en", "wd": "Q72386851", "tmdb": 627070 },
-  "tt6314864": { "slug": "seahorse", "title": "Seahorse", "countries": ["GB"], "language": "en", "wd": "Q96482265", "tmdb": 589366 }
+  "tt6314864": { "slug": "seahorse", "title": "Seahorse", "countries": ["GB"], "language": "en", "wd": "Q96482265", "tmdb": 589366 },
+  "tt6675244": { "slug": "transit-2019", "title": "Transit", "countries": ["DE", "FR"], "language": "de", "wd": "Q47408473", "tmdb": 471853 },
+  "tt5105734": { "slug": "the-kingmaker", "title": "The Kingmaker", "countries": ["US", "DK"], "language": "en", "wd": "Q78216512", "tmdb": 618265 },
+  "tt9573980": { "slug": "leaving-neverland", "title": "Leaving Neverland", "countries": ["US", "GB"], "language": "en", "wd": "Q60795735" },
+  "tt2935510": { "slug": "ad-astra", "title": "Ad Astra", "countries": ["US"], "language": "en", "wd": "Q38774788", "tmdb": 419704 },
+  "tt8185182": { "slug": "long-days-journey-into-night", "title": "Long Day's Journey into Night", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51879925", "tmdb": 486898 }
 }

@@ -184,5 +184,10 @@
   "tt9288822": { "slug": "the-wonder", "title": "The Wonder", "countries": ["IE", "GB", "US"], "language": "en", "wd": "Q113331181", "tmdb": 823766 },
   "tt8595016": { "slug": "my-old-school", "title": "My Old School", "countries": ["GB"], "language": "en", "wd": "Q110700676", "tmdb": 913867 },
   "tt7975192": { "slug": "hide-and-seek", "title": "Hide and Seek", "countries": ["US"], "language": "en", "wd": "Q106074143", "tmdb": 801271 },
-  "tt14291906": { "slug": "my-childhood-my-country-20-years-in-afghanistan", "title": "My Childhood, My Country: 20 Years in Afghanistan", "countries": ["GB", "US", "AF"], "language": "en", "tmdb": 837383 }
+  "tt14291906": { "slug": "my-childhood-my-country-20-years-in-afghanistan", "title": "My Childhood, My Country: 20 Years in Afghanistan", "countries": ["GB", "US", "AF"], "language": "en", "tmdb": 837383 },
+  "tt16376478": { "slug": "aftershock", "title": "Aftershock", "countries": ["US"], "language": "en", "wd": "Q111909008", "tmdb": 913821 },
+  "tt4554690": { "slug": "the-automat", "title": "The Automat", "countries": ["US"], "language": "en", "wd": "Q110001785", "tmdb": 729830 },
+  "tt17490116": { "slug": "gabby-giffords-wont-back-down", "title": "Gabby Giffords Won't Back Down", "countries": ["US"], "language": "en", "wd": "Q111942295", "tmdb": 933963 },
+  "tt12899886": { "slug": "george-carlins-american-dream", "title": "George Carlin's American Dream", "countries": ["US"], "language": "en", "wd": "Q112108191" },
+  "tt21376776": { "slug": "freedom-on-fire-ukraines-fight-for-freedom", "title": "Freedom on Fire: Ukraine’s Fight for Freedom", "countries": ["UA", "GB", "US"], "language": "uk", "wd": "Q116753821", "tmdb": 1004670 }
 }

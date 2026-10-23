@@ -1,0 +1,19 @@
+{
+  "award": "florida-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-16",
+  "winnersOn": "2014-12-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2014"],
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "international", "imdb": "tt2265171", "title": "The Raid 2", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
+  ],
+  "screenings": []
+}

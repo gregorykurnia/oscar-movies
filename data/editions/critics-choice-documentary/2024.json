@@ -1,0 +1,33 @@
+{
+  "award": "critics-choice-documentary",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-10-14",
+  "winnersOn": "2024-11-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/9th_Critics'_Choice_Documentary_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "won" },
+    { "category": "feature", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "won" },
+    { "category": "feature", "imdb": "tt31189897", "title": "Billy & Molly: An Otter Love Story", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30796448", "title": "The Greatest Night in Pop", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19308034", "title": "Jim Henson Idea Man", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt26420234", "title": "Music by John Williams", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt31064841", "title": "Piece by Piece", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "won" },
+    { "category": "director", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt19308034", "title": "Jim Henson Idea Man", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "won" },
+    { "category": "political", "imdb": "tt30259532", "title": "Girls State", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt30294282", "title": "Porcelain War", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt31189901", "title": "The Truth vs. Alex Jones", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt31080737", "title": "Bad River", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt33336815", "title": "Stopping the Steal", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

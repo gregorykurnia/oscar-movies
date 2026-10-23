@@ -1,0 +1,19 @@
+{
+  "award": "florida-critics",
+  "year": 2013,
+  "status": "partial",
+  "winnersOn": "2013-12-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2013"],
+  "note": "Only the winners and runners-up are listed, and the day the nominees were announced is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" }
+  ],
+  "screenings": []
+}

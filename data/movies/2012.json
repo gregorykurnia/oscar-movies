@@ -162,5 +162,7 @@
   "tt2023690": { "slug": "sightseers", "title": "Sightseers", "countries": ["GB"], "language": "en", "wd": "Q7512122", "tmdb": 117974 },
   "tt1833844": { "slug": "berberian-sound-studio", "title": "Berberian Sound Studio", "countries": ["GB"], "language": "en", "wd": "Q761590", "tmdb": 116811 },
   "tt2079571": { "slug": "roman-polanski-a-film-memoir", "title": "Roman Polanski: A Film Memoir", "countries": ["IT", "GB", "DE"], "language": "en", "wd": "Q3940522", "tmdb": 119415 },
-  "tt1819513": { "slug": "dreams-of-a-life", "title": "Dreams of a Life", "countries": ["GB"], "language": "en", "wd": "Q5306747", "tmdb": 83540 }
+  "tt1819513": { "slug": "dreams-of-a-life", "title": "Dreams of a Life", "countries": ["GB"], "language": "en", "wd": "Q5306747", "tmdb": 83540 },
+  "tt1568921": { "slug": "arrietty", "title": "Arrietty", "originalTitle": "借りぐらしのアリエッティ", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q699835", "tmdb": 51739 },
+  "tt1827512": { "slug": "the-kid-with-a-bike", "title": "The Kid with a Bike", "originalTitle": "Le gamin au vélo", "originalLang": "fr", "countries": ["FR", "BE", "IT"], "language": "fr", "wd": "Q2072055", "tmdb": 63831 }
 }

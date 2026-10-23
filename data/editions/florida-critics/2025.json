@@ -1,0 +1,32 @@
+{
+  "award": "florida-critics",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-15",
+  "winnersOn": "2025-12-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Florida_Film_Critics_Circle_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt27180099", "title": "Grand Tour", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt33455099", "title": "The Mastermind", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27180099", "title": "Grand Tour", "outcome": "won" },
+    { "category": "international", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt29002950", "title": "Resurrection", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt17497960", "title": "BLKNWS: Terms & Conditions", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34963732", "title": "Predators", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "won" },
+    { "category": "animated", "imdb": "tt14883538", "title": "Arco", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32145808", "title": "Sabbath Queen", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt35672369", "title": "River of Grass", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt32600395", "title": "100 METERS", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

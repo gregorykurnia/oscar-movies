@@ -1,0 +1,11 @@
+{
+  "award": "cinema-for-peace",
+  "year": 2018,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated; \"The Heart of Nuba\" is left out (no film record could be matched).",
+  "results": [
+    { "category": "most-valuable-film", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" }
+  ],
+  "screenings": []
+}

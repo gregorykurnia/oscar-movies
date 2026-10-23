@@ -165,5 +165,6 @@
   "tt3544082": { "slug": "45-years", "title": "45 Years", "countries": ["GB"], "language": "en", "wd": "Q18642424", "tmdb": 311291 },
   "tt2884018": { "slug": "macbeth", "title": "Macbeth", "countries": ["GB", "FR"], "language": "en", "wd": "Q15934383", "tmdb": 225728 },
   "tt3669520": { "slug": "palio", "title": "Palio", "countries": ["GB"], "language": "it", "wd": "Q22200721", "tmdb": 332741 },
-  "tt4144504": { "slug": "how-to-change-the-world", "title": "How to Change the World", "countries": ["CA", "GB", "US"], "language": "en", "tmdb": 319073 }
+  "tt4144504": { "slug": "how-to-change-the-world", "title": "How to Change the World", "countries": ["CA", "GB", "US"], "language": "en", "tmdb": 319073 },
+  "tt1135989": { "slug": "a-tale-of-love-and-darkness", "title": "A Tale of Love and Darkness", "originalTitle": "סיפור על אהבה וחושך", "originalLang": "he", "countries": ["IL", "US"], "language": "he", "wd": "Q19881205", "tmdb": 336029 }
 }

@@ -1,0 +1,33 @@
+{
+  "award": "critics-choice-documentary",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-10-10",
+  "winnersOn": "2016-11-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/1st_Critics'_Choice_Documentary_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "feature", "imdb": "tt5895028", "title": "The 13th", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4632316", "title": "Gleason", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3917210", "title": "Life, Animated", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5278506", "title": "Tickled", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5116410", "title": "Tower", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3568002", "title": "The Witness", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt5895028", "title": "The 13th", "outcome": "won" },
+    { "category": "political", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt5278460", "title": "Audrie & Daisy", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt5446858", "title": "Zero Days", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "director", "imdb": "tt2531318", "title": "The Beatles: Eight Days a Week", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt5116410", "title": "Tower", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt4632316", "title": "Gleason", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt3917210", "title": "Life, Animated", "outcome": "nominated" },
+    { "category": "political", "imdb": "tt5278578", "title": "Newtown", "outcome": "nominated" }
+  ],
+  "screenings": []
+}
