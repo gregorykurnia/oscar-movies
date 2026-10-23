@@ -94,11 +94,11 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
 
 const OSCAR_CATEGORIES: OscarCategory[] = ["picture", "documentary", "international", "animated"];
 
-type Tables = {
+export type Tables = {
   awardRows: Array<typeof awards.$inferSelect>;
   categoryRows: Array<typeof awardCategories.$inferSelect>;
   editionRows: Array<typeof editions.$inferSelect>;
-  resultRows: ResultRow[];
+  resultRows: Array<ResultRow & { id?: number }>;
 };
 
 /**
@@ -180,22 +180,35 @@ export function snapshotsFor(season: Season, today: string): Snapshot[] {
   return out;
 }
 
-/**
- * Recomputes the predictions of every season and Oscar category and replaces the `predictions`
- * table. Every season, not just the loaded ones: each season is history for all the others
- * (leave one season out), so one new result can move any of them. Returns a line to print.
- */
-export async function recomputePredictions(db: Db, today: string): Promise<string> {
-  const tables: Tables = {
+/** The rows predictions are worked out from (results with their ids, so a plan can be laid over them). */
+export async function readPredictionTables(db: Db): Promise<Tables> {
+  return {
     awardRows: await db.select().from(awards),
     categoryRows: await db.select().from(awardCategories),
     editionRows: await db.select().from(editions),
     resultRows: await db
-      .select({ editionId: results.editionId, categoryId: results.categoryId, movieId: results.movieId, outcome: results.outcome })
+      .select({
+        id: results.id,
+        editionId: results.editionId,
+        categoryId: results.categoryId,
+        movieId: results.movieId,
+        outcome: results.outcome,
+      })
       .from(results),
   };
-  const computedAt = new Date();
-  const rows: Array<typeof predictions.$inferInsert> = [];
+}
+
+export type PredictionRow = Omit<typeof predictions.$inferInsert, "computedAt"> & {
+  oscarCategory: OscarCategory;
+  pWin: number;
+  pNominate: number | null;
+  /** Its season is finished (history), so the race shows its `eve_ceremony` snapshot. */
+  finished: boolean;
+};
+
+/** The predictions of every season, Oscar category and stored snapshot, from `tables`. Writes nothing. */
+export function computePredictionRows(tables: Tables, today: string): PredictionRow[] {
+  const rows: PredictionRow[] = [];
   for (const category of OSCAR_CATEGORIES) {
     const seasons = buildSeasons(tables, category, today);
     for (const season of seasons) {
@@ -212,13 +225,33 @@ export async function recomputePredictions(db: Db, today: string): Promise<strin
             pNominate: c.pNominate,
             rank: c.rank,
             why: c.why,
-            computedAt,
+            finished: season.finished,
           });
         }
       }
     }
   }
+  return rows;
+}
 
+/**
+ * Recomputes the predictions of every season and Oscar category and replaces the `predictions`
+ * table. Every season, not just the loaded ones: each season is history for all the others
+ * (leave one season out), so one new result can move any of them. Returns a line to print.
+ */
+export async function recomputePredictions(db: Db, today: string): Promise<string> {
+  const computedAt = new Date();
+  const rows = computePredictionRows(await readPredictionTables(db), today).map((r) => ({
+    year: r.year,
+    oscarCategory: r.oscarCategory,
+    snapshot: r.snapshot,
+    movieId: r.movieId,
+    pWin: r.pWin,
+    pNominate: r.pNominate,
+    rank: r.rank,
+    why: r.why,
+    computedAt,
+  }));
   await db.delete(predictions);
   for (let i = 0; i < rows.length; i += 500) await db.insert(predictions).values(rows.slice(i, i + 500));
   return `Predictions: ${rows.length} rows recomputed.`;

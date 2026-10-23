@@ -1,0 +1,20 @@
+{
+  "award": "tiff",
+  "year": 2026,
+  "status": "loaded",
+  "nominationsOn": "2026-09-20",
+  "winnersOn": "2026-09-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2026_Toronto_International_Film_Festival"],
+  "note": "SAMPLE ONLY (docs/update-the-race.md): People's Choice swapped and Fjord added, made up for a dry run of the routine. Never copy into data/.",
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt11995650", "title": "I Play Rocky", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt35511966", "title": "La bola negra", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt15095848", "title": "Being Heumann", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt35410859", "title": "Fjord", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt42387153", "title": "Darlene Love: I Know Where I've Been", "outcome": "won" },
+    { "category": "peoples-choice-international", "imdb": "tt37363222", "title": "Elsinore", "outcome": "won" },
+    { "category": "peoples-choice-international", "imdb": "tt37803364", "title": "Possible Love", "outcome": "runner_up" },
+    { "category": "peoples-choice-international", "imdb": "tt38708063", "title": "The Assassin(s)", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}
