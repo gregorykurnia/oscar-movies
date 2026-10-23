@@ -1,7 +1,7 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-2/
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-3/
 // (gitignored); the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phase 0's and Phase 1's pictures stay in their folders.
-// The Phase 2 review runs the whole list into this one, so until then it holds only the new pages.
-const OUT_DIR = "screenshots/phase-2";
+// Each phase's review judges its own folder. Phases 0 to 2 keep theirs. The Phase 3 review runs the
+// whole list into this one, so until then it holds only the new pages.
+const OUT_DIR = "screenshots/phase-3";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -63,12 +63,14 @@ async function openSearch(page: Page, phone: boolean) {
 // `name` is the file name and the `--grep` name. The error page has no address of its own, so
 // `?error=1` throws on purpose (src/app/styleguide/page.tsx). `prepare` sets up data the picture
 // needs and returns what puts it back; `open` opens a box over the page once its heading is checked.
+// `ready` waits for the words of the state the picture is of (so a picture can't drift to another state).
 type Route = {
   name: string;
   path: string;
   status: number;
   heading: string | RegExp;
   prepare?: () => Promise<() => Promise<void>>;
+  ready?: (page: Page) => Promise<void>;
   open?: (page: Page, phone: boolean) => Promise<void>;
 };
 
@@ -107,6 +109,43 @@ const ROUTES: Route[] = [
   { name: "grid-2025-open", path: "/grid/2025?critics=open", status: 200, heading: "2025 year grid" },
   { name: "year-summary-2025", path: "/years/2025", status: 200, heading: "2025 year summary" },
   { name: "movie-awards", path: "/movies/the-brutalist", status: 200, heading: "The Brutalist" },
+  // Phase 3 (task 3.10). The 2026 race in its live states: Picture with chances from the precursors, the
+  // "why" open on its leader, Documentary "Early" (two precursor awards with results), and Animated with
+  // no contenders yet. `race-2024` (above) is a finished season. The shortlist and nomination states need
+  // 2026's Oscar lists (16 Dec 2026, 22 Jan 2027); until then the styleguide's race boards show them from
+  // fixtures. `data` is the coverage page (task 3.5).
+  { name: "race-2026", path: "/race/2026", status: 200, heading: "The 2026 race" },
+  {
+    name: "race-2026-why",
+    path: "/race/2026",
+    status: 200,
+    heading: "The 2026 race",
+    open: async (page) => {
+      await page.getByRole("button", { name: /chance to win, show why/ }).first().click();
+      await expect(page.getByRole("heading", { name: /^Why \d+%$/ })).toBeVisible();
+    },
+  },
+  {
+    name: "race-2026-animated",
+    path: "/race/2026?category=animated",
+    status: 200,
+    heading: "The 2026 race",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { level: 3, name: "No contenders yet" })).toBeVisible();
+    },
+  },
+  {
+    name: "race-2026-early",
+    path: "/race/2026?category=documentary",
+    status: 200,
+    heading: "The 2026 race",
+    ready: async (page) => {
+      // Every category's panel is in the page, the others hidden: check the one on screen.
+      const panel = page.getByRole("tabpanel", { name: "Documentary" });
+      await expect(panel.getByText("Early: few results yet.", { exact: true })).toBeVisible();
+    },
+  },
+  { name: "data", path: "/data", status: 200, heading: "Data and sources" },
 ];
 
 for (const route of ROUTES) {
@@ -120,6 +159,7 @@ for (const route of ROUTES) {
         // Parts of a page stream in after `load` (the styleguide's sections): wait until the network is quiet.
         await page.waitForLoadState("networkidle");
         await expect(page.getByRole("heading", { level: 1, name: route.heading })).toBeVisible();
+        await route.ready?.(page);
         await route.open?.(page, phone);
         await page.evaluate(async () => {
           await document.fonts.ready;
