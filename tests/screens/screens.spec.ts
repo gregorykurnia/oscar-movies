@@ -1,7 +1,7 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-4/
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-5/
 // (gitignored); the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phases 0 to 3 keep theirs. The Phase 4 review runs the
-// whole list into this one, so until then it holds only the pages task 4.12 re-shot or added.
-const OUT_DIR = "screenshots/phase-4";
+// Each phase's review judges its own folder. Phases 0 to 4 keep theirs. The Phase 5 review runs the
+// whole list into this one, so until then it holds only the pages task 5.5 re-shot or added.
+const OUT_DIR = "screenshots/phase-5";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -109,7 +109,19 @@ const ROUTES: Route[] = [
   // nominated awards. Folding changes only the critics columns, which hold data from Phase 4 on.
   { name: "awards-bafta-2025", path: "/awards/bafta/2025", status: 200, heading: "BAFTA 2025" },
   { name: "awards-index-2025", path: "/awards/2025", status: 200, heading: "Awards 2025" },
-  { name: "festivals-index-2025", path: "/festivals/2025", status: 200, heading: "Festivals 2025" },
+  {
+    name: "festivals-index-2025",
+    path: "/festivals/2025",
+    status: 200,
+    heading: "Festivals 2025",
+    // Re-shot in Phase 5 (task 5.5): from 2025 a festival row opens its lineup (task 5.3).
+    ready: async (page) => {
+      await expect(page.getByRole("region", { name: "Festivals" }).getByRole("link", { name: /Cannes/ })).toHaveAttribute(
+        "href",
+        "/festivals/cannes/2025",
+      );
+    },
+  },
   { name: "accuracy-picture", path: "/accuracy/picture", status: 200, heading: "Accuracy: Best Picture" },
   { name: "grid-2025-folded", path: "/grid/2025", status: 200, heading: "2025 year grid" },
   {
@@ -222,6 +234,39 @@ const ROUTES: Route[] = [
         if (await show.count()) await show.click();
         await expect(group.getByRole("button", { name: "Show fewer" })).toBeVisible({ timeout: 1000 });
       }).toPass();
+    },
+  },
+  // Phase 5 (task 5.5). The lineup page in a year with films (Cannes 2025: sections, flags, scores) and in
+  // 2024, which says "Lineups start in 2025". `movie-screenings` is a film with two screenings and a prize:
+  // the Palme d'Or at Cannes 2025 and TIFF 2025's Special Presentations, both listed in its Festivals group.
+  {
+    name: "festival-lineup-cannes-2025",
+    path: "/festivals/cannes/2025",
+    status: 200,
+    heading: "Cannes 2025",
+    // The lineup streams in after the page: wait for its first section.
+    ready: async (page) => {
+      await expect(page.locator('section[id^="section-"]').first()).toBeVisible();
+    },
+  },
+  {
+    name: "festival-lineup-cannes-2024",
+    path: "/festivals/cannes/2024",
+    status: 200,
+    heading: "Cannes 2024",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { name: "Lineups start in 2025" })).toBeVisible();
+    },
+  },
+  {
+    name: "movie-screenings",
+    path: "/movies/it-was-just-an-accident",
+    status: 200,
+    heading: "It Was Just an Accident",
+    ready: async (page) => {
+      const festivals = page.getByRole("group", { name: "Festivals" });
+      await expect(festivals).toContainText("Palme d'Or");
+      await expect(festivals).toContainText("Special Presentations");
     },
   },
 ];
