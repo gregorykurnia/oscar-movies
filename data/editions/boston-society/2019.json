@@ -8,7 +8,12 @@
     { "category": "picture", "imdb": "tt3281548", "title": "Little Women", "outcome": "won" },
     { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
     { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" },
-    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" }
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt9358044", "title": "Hail Satan?", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "runner_up" }
   ],
   "screenings": []
 }

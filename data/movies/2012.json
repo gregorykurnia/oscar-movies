@@ -178,5 +178,6 @@
   "tt1316540": { "slug": "the-turin-horse", "title": "The Turin Horse", "originalTitle": "A torinói ló", "originalLang": "hu", "countries": ["HU", "FR", "DE", "CH", "US"], "language": "hu", "wd": "Q1336326", "tmdb": 81401 },
   "tt1772925": { "slug": "jiro-dreams-of-sushi", "title": "Jiro Dreams of Sushi", "countries": ["US"], "language": "ja", "wd": "Q1279290", "tmdb": 80767 },
   "tt0770802": { "slug": "samsara", "title": "Samsara", "countries": ["US"], "language": "en", "wd": "Q3150366", "tmdb": 89708 },
-  "tt1922645": { "slug": "the-fairy", "title": "The Fairy", "originalTitle": "La Fée", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3013017", "tmdb": 89287 }
+  "tt1922645": { "slug": "the-fairy", "title": "The Fairy", "originalTitle": "La Fée", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3013017", "tmdb": 89287 },
+  "tt1650453": { "slug": "i-wish", "title": "I Wish", "originalTitle": "奇跡", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q1053293", "tmdb": 79382 }
 }

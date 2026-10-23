@@ -8,7 +8,13 @@
     { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "won" },
     { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
     { "category": "documentary", "imdb": "tt11398152", "title": "Geographies of Solitude", "outcome": "won" },
-    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" }
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt13651794", "title": "May December", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt10651230", "title": "The Peasants", "outcome": "runner_up" }
   ],
   "screenings": []
 }

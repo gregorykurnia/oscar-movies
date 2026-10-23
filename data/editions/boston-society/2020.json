@@ -8,7 +8,11 @@
     { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
     { "category": "international", "imdb": "tt10767168", "title": "La Llorona", "outcome": "won" },
     { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
-    { "category": "animated", "imdb": "tt8173728", "title": "The Wolf House", "outcome": "won" }
+    { "category": "animated", "imdb": "tt8173728", "title": "The Wolf House", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt1667354", "title": "The Painted Bird", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt11296058", "title": "The Painter and the Thief", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "runner_up" }
   ],
   "screenings": []
 }

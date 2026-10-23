@@ -634,7 +634,7 @@ async function readPeabody(year: number, ctx: Ctx): Promise<Read | null> {
 const ordinal = (n: number) => `${n}${[11, 12, 13].includes(n % 100) ? "th" : (["th", "st", "nd", "rd"][n % 10] ?? "th")}`;
 
 /** International-film labels the later pages use: "Best International Feature (Film)", "… Film in Non-English Language", "Best Film Not in the English Language". */
-const INTERNATIONAL_ANY = /^(best)?(foreign|nonenglish|international)(language)?(independent)?(film|feature)(film)?(inanonenglish(language)?|innonenglish(language)?)?$|^bestfilmnotintheenglishlanguage$/;
+const INTERNATIONAL_ANY = /^(best)?(foreign|nonenglish|international)(foreign)?(language)?(independent)?(film|feature)(film)?(inanonenglish(language)?|innonenglish(language)?)?$|^bestfilmnotintheenglishlanguage$/;
 
 /** The four film categories with `INTERNATIONAL_ANY` and, if the group labels it otherwise, its own picture and documentary labels. */
 const withAnyInternational = (picture: RegExp = /^best(film|picture)$/, documentary: RegExp = CATEGORIES.documentary): Cat[] => [
@@ -1225,6 +1225,18 @@ export const GROUPS: Group[] = [
       categories: withAnyInternational(/^best(film|picture)$/),
       extra: [readCategoryTables, readDtBlocks],
       dropSection: /^canadian/i,
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "washington-dc-critics",
+    name: "Washington DC",
+    years: [2012, 2025],
+    why: "the Washington D.C. Area Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("washington-dc-critics", {
+      page: (y) => `Washington D.C. Area Film Critics Association Awards ${y}`,
+      categories: withAnyInternational(),
       winnersOnly: false,
     }),
   },

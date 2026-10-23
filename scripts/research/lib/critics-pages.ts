@@ -53,6 +53,12 @@ export function readLabelBlocks(html: string): Block[] {
       .children("li")
       .toArray()
       .flatMap((li) => [li, ...$(li).children("ul, ol").children("li").toArray().filter((r) => RUNNER_UP.test(clean(ownContent($, r).text())))]);
+    // WAFCA: the winner's list, then the nominees in a `dl` > `dd` > list after it (to 2019) or a list nested under the winner (2020).
+    const others = container.is("p") ? [...list.next("dl").find("ul, ol").first().children("li").toArray(), ...list.children("li").children("ul, ol").children("li").toArray()] : [];
+    if (others.length > 0) {
+      blocks.push({ label, items: [...lines.map((li) => ({ ...itemOf($, li), winner: true })), ...others.map((li) => itemOf($, li))], winnersAreAll: false });
+      return;
+    }
     blocks.push({ label, items: lines.map((li) => itemOf($, li)), winnersAreAll: true });
   });
   return blocks;

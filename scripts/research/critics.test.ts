@@ -6,7 +6,8 @@
 // NSFC's numbered lines ("1. A <br> 2. B"); task 4.6 adds "(Runner-up)" in bold (Online Film Critics Society 2017)
 // and the New York Film Critics Online article, which has no page for most years; task 4.7 adds Peabody's documentary
 // section of a decade list; task 4.8 adds the category tables (Toronto, Vancouver), a `dl` label over a list,
-// St. Louis's nested lists and the Dorian Awards' year headings.
+// St. Louis's nested lists and the Dorian Awards' year headings; task 4.9 adds WAFCA's nominees in a `dl` under the winner (to 2019)
+// or nested under it (2020).
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { aafcaLabelYear, dorianFilmYear, GROUPS, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
@@ -433,5 +434,37 @@ describe("task 4.8 editions", () => {
     expect(edition("seattle-critics/2020").note).toMatch(/Seattle Mariners/);
     const utah = edition("utah-critics/2020");
     expect([utah.status, Boolean(utah.note)]).toEqual(["no_data", true]);
+  });
+});
+
+describe("task 4.9 readers and editions", () => {
+  it("reads a bold paragraph label, the winner's list and the nominees in a definition list after it, or nested under the winner", () => {
+    const html = `<p><b>Best Film</b></p><ul><li><i><b><a href="/wiki/Zero_Dark_Thirty">Zero Dark Thirty</a></b></i></li></ul>
+      <dl><dd><ul><li><i><a href="/wiki/Argo_(2012_film)">Argo</a></i></li><li><i><a href="/wiki/Lincoln_(film)">Lincoln</a></i></li></ul></dd></dl>
+      <p><b>Best Documentary</b></p><ul><li><i><b><a href="/wiki/Boys_State">Boys State</a></b></i><ul><li><i><a href="/wiki/Collective">Collective</a></i></li></ul></li></ul>`;
+    const blocks = readBlocks(html);
+    expect(blockRows(blocks.find((b) => b.label === "Best Film")!).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Zero Dark Thirty", "won"],
+      ["Argo", "nominated"],
+      ["Lincoln", "nominated"],
+    ]);
+    expect(blockRows(blocks.find((b) => b.label === "Best Documentary")!).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Boys State", "won"],
+      ["Collective", "nominated"],
+    ]);
+  });
+
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
+
+  it("loads Washington DC 2012–2025 with its winners and nominees; 2026 is no_data", () => {
+    expect(of("washington-dc-critics/2012", "picture", "won")).toEqual(["Zero Dark Thirty"]);
+    expect(of("washington-dc-critics/2012", "picture", "nominated")).toHaveLength(4);
+    expect(of("washington-dc-critics/2020", "picture", "won")).toEqual(["Nomadland"]);
+    expect(of("washington-dc-critics/2020", "international", "nominated")).toHaveLength(4);
+    expect(edition("washington-dc-critics/2020").nominationsOn).toBe("2021-02-06");
+    expect(of("washington-dc-critics/2023", "international", "won")).toEqual(["Anatomy of a Fall"]);
+    for (let year = 2012; year <= 2025; year++) expect(edition(`washington-dc-critics/${year}`).status).toBe("loaded");
+    expect(edition("washington-dc-critics/2026").status).toBe("no_data");
   });
 });

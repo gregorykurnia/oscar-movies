@@ -1,0 +1,32 @@
+{
+  "award": "washington-dc-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-07",
+  "winnersOn": "2015-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Washington_D.C._Area_Film_Critics_Association_Awards_2015"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3397884", "title": "Sicario", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3742378", "title": "The Second Mother", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}
