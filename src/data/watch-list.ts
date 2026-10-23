@@ -5,7 +5,7 @@
 import { and, asc, eq, or, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
-import { awardCategories, awards, editions, marks, movies, results } from "@/db/schema";
+import { awardCategories, awards, editions, marks, movies, predictions, results } from "@/db/schema";
 import type { Stage } from "@/components/stage-pill/StagePill";
 import { RACE_CATEGORIES } from "@/lib/race";
 import { flagsFor, oscarStage, type Outcome } from "@/lib/stage";
@@ -24,6 +24,8 @@ export type StagedFilm = {
   categories: string[];
   /** Oscar nominations (runner-up, nominated or won), one per category. */
   nominations: number;
+  /** Its best chance to win (0–1) in the live season's prediction, any category; null: none stored. */
+  chance: number | null;
   /** Flags to show: an International submission's country first. */
   flags: string[];
 };
@@ -102,6 +104,7 @@ function toStagedFilm({ stage, nominations, country, categories, eligibleOnlyInt
     pill: stage ? oscarStage(stage, eligibleOnlyInternational ? "international" : null) : null,
     categories: RACE_CATEGORIES.filter((c) => slugs.includes(c.slug)).map((c) => c.name),
     nominations: nominations ?? 0,
+    chance: null,
     flags: flagsFor(film.countries, country),
   };
 }
@@ -138,15 +141,44 @@ export async function queryWantedFilms(db: ReadDb): Promise<StagedFilm[]> {
   return rows.map(toStagedFilm);
 }
 
+/** Each film's best chance to win in a season's live prediction (its best category), by movie ID. */
+export async function queryLiveChances(db: ReadDb, year: number): Promise<Record<number, number>> {
+  const rows = await db
+    .select({ movieId: predictions.movieId, pWin: sql<number>`max(${predictions.pWin})` })
+    .from(predictions)
+    .where(and(eq(predictions.year, year), eq(predictions.snapshot, "live")))
+    .groupBy(predictions.movieId);
+  return Object.fromEntries(rows.map((r) => [r.movieId, Number(r.pWin)]));
+}
+
+/** Cached `queryLiveChances`. */
+export async function getLiveChances(year: number): Promise<Record<number, number>> {
+  "use cache";
+  cacheTag("awards");
+  cacheLife("max");
+  return queryLiveChances(getDb(), year);
+}
+
 /** The watch list's two sections; the page sorts each. */
-export function buildWatchList(wanted: StagedFilm[], season: StagedFilm[], allMarks: Mark[]): WatchList {
+export function buildWatchList(
+  wanted: StagedFilm[],
+  season: StagedFilm[],
+  allMarks: Mark[],
+  chances: Record<number, number> = {},
+): WatchList {
   const marked = new Set(allMarks.filter((m) => m.watched || m.want).map((m) => m.movieId));
-  return { want: wanted, unwatched: season.filter((f) => !marked.has(f.film.id)) };
+  const withChance = (f: StagedFilm): StagedFilm => ({ ...f, chance: chances[f.film.id] ?? null });
+  return { want: wanted.map(withChance), unwatched: season.filter((f) => !marked.has(f.film.id)).map(withChance) };
 }
 
 /** The watch list for a season, read per request (it depends on the marks). */
 export async function getWatchList(year: number): Promise<WatchList> {
   const db = getDb();
-  const [wanted, season, allMarks] = await Promise.all([queryWantedFilms(db), getSeasonFilms(year), queryMarks(db)]);
-  return buildWatchList(wanted, season, allMarks);
+  const [wanted, season, allMarks, chances] = await Promise.all([
+    queryWantedFilms(db),
+    getSeasonFilms(year),
+    queryMarks(db),
+    getLiveChances(year),
+  ]);
+  return buildWatchList(wanted, season, allMarks, chances);
 }

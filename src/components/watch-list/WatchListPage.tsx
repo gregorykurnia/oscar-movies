@@ -8,6 +8,7 @@ import { Segmented } from "@/components/segmented/Segmented";
 import { ShowAllRow } from "@/components/show-all/ShowAllRow";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
+import { formatChance } from "@/lib/race-chances";
 import { getWatchList, type StagedFilm } from "@/data/watch-list";
 import {
   parseWatchQuery,
@@ -22,11 +23,12 @@ import { LIVE_YEAR } from "@/lib/years";
 
 type Query = Record<string, string | string[] | undefined>;
 
-// Film · Oscar stage · nominations · marks.
+// Film · Oscar stage · nominations · marks; sorted by % chance, a "To win" column joins after the stage.
 const COLUMNS = ["minmax(0,1fr)", "132px", "104px", "84px"];
+const CHANCE_COLUMNS = ["minmax(0,1fr)", "132px", "88px", "104px", "84px"];
 
 // The "Show all" row's tail ("sorted by Oscar stage"); Oscar keeps its capital.
-const SORTED_BY: Record<WatchQuery["sort"], string> = { stage: "Oscar stage", nominations: "nominations", average: "average score" };
+const SORTED_BY: Record<WatchQuery["sort"], string> = { stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score" };
 
 const filmCount = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "film" : "films"}`;
 
@@ -79,7 +81,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
 
       <Section id="want" title="Want to watch" count={want.length}>
         {want.length > 0 ? (
-          <Films films={want} />
+          <Films films={want} sort={state.sort} />
         ) : (
           <EmptyState title="Nothing marked yet" headingLevel={3}>
             Tap the bookmark on any film to put it here.
@@ -90,7 +92,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
       <Section id="season" title={`Not watched yet, ${LIVE_YEAR} season`} count={unwatched.length}>
         {unwatched.length > 0 ? (
           <>
-            <Films films={shown} />
+            <Films films={shown} sort={state.sort} />
             {unwatched.length > shown.length ? <ShowAll total={unwatched.length} state={state} /> : null}
           </>
         ) : (
@@ -117,10 +119,14 @@ function Section({ id, title, count, children }: { id: string; title: string; co
   );
 }
 
-function Films({ films }: { films: StagedFilm[] }) {
+function Films({ films, sort }: { films: StagedFilm[]; sort: WatchQuery["sort"] }) {
+  const byChance = sort === "chance";
   return (
-    <FilmList head={["Oscar stage", { label: "Nominations", numeric: true }]} columns={COLUMNS}>
-      {films.map(({ film, stage, pill, categories, nominations, flags }) => (
+    <FilmList
+      head={["Oscar stage", ...(byChance ? [{ label: "To win", numeric: true as const }] : []), { label: "Nominations", numeric: true }]}
+      columns={byChance ? CHANCE_COLUMNS : COLUMNS}
+    >
+      {films.map(({ film, stage, pill, categories, nominations, chance, flags }) => (
         <FilmRow
           key={film.id}
           headingLevel={3}
@@ -135,6 +141,9 @@ function Films({ films }: { films: StagedFilm[] }) {
               label: "Oscar stage",
               value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">No Oscar result</span>,
             },
+            ...(byChance
+              ? [{ label: "To win", value: chance === null ? <span className="text-ink-muted">–</span> : `${formatChance(chance)}%`, numeric: true }]
+              : []),
             { label: "Nominations", value: nominations, numeric: true },
           ]}
           marks={<FilmMarks movieId={film.id} title={film.title} />}

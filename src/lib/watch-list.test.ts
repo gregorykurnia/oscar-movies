@@ -4,7 +4,7 @@ import type { Outcome } from "@/lib/stage";
 import { parseWatchQuery, sortWatchList, watchHref } from "./watch-list";
 
 let nextId = 1;
-function film(title: string, stage: Outcome | null, nominations: number, average: number | null): StagedFilm {
+function film(title: string, stage: Outcome | null, nominations: number, average: number | null, chance: number | null = null): StagedFilm {
   return {
     film: {
       id: nextId++,
@@ -20,6 +20,7 @@ function film(title: string, stage: Outcome | null, nominations: number, average
     pill: null,
     categories: [],
     nominations,
+    chance,
     flags: [],
   };
 }
@@ -31,7 +32,8 @@ describe("the address", () => {
     expect(parseWatchQuery({})).toEqual({ sort: "stage", all: false });
     expect(parseWatchQuery({ sort: "nominations", all: "1" })).toEqual({ sort: "nominations", all: true });
     expect(parseWatchQuery({ sort: ["average", "stage"] })).toEqual({ sort: "average", all: false });
-    expect(parseWatchQuery({ sort: "chance", all: "yes" })).toEqual({ sort: "stage", all: false });
+    expect(parseWatchQuery({ sort: "chance" })).toEqual({ sort: "chance", all: false });
+    expect(parseWatchQuery({ sort: "popular", all: "yes" })).toEqual({ sort: "stage", all: false });
   });
 
   it("writes only what differs from the defaults", () => {

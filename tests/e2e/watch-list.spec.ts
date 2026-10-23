@@ -70,6 +70,26 @@ test("both sections list their films, and the sort is kept in the address", asyn
   }
 });
 
+test("sorted by % chance, the season's films run from the best chance down, and the figure shows", async ({ page }) => {
+  await page.goto("/watch-list?sort=chance&all=1");
+  await expect(page.getByRole("navigation", { name: "Sort by" }).getByRole("link", { name: "% chance" })).toHaveAttribute("aria-current", "page");
+  const season = section(page, "Not watched yet, 2026 season");
+  const rows = season.getByRole("heading", { level: 3 });
+  await expect(rows).toHaveCount(100);
+  // The "To win" figures in row order: percentages first, then the dashes (no chance stored).
+  const figures = await season.evaluate((el) =>
+    [...el.querySelectorAll("span")]
+      .filter((s) => s.firstElementChild?.textContent === "To win ")
+      .map((s) => (s.textContent ?? "").replace("To win ", "").trim()),
+  );
+  expect(figures).toHaveLength(100);
+  const real = figures.filter((t) => t !== "–");
+  expect(figures.slice(real.length).every((t) => t === "–")).toBe(true);
+  const pct = real.map((t) => (t === "<1%" ? 0.5 : parseFloat(t)));
+  expect(pct.length).toBeGreaterThan(5);
+  expect(pct).toEqual([...pct].sort((a, b) => b - a));
+});
+
 test("unmarking a film leaves its row until the next visit", async ({ page }) => {
   const id = await movieId("im-still-here");
   const saved = await readMark(id);

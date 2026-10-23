@@ -62,9 +62,41 @@ test("/accuracy opens Best Picture: grouped table, winner-won first, years count
   await expect(page.getByRole("link", { name: "How the % chance works" })).toHaveAttribute("href", "/accuracy/picture#method");
 });
 
+test("the Backtest lists every finished season with its favourite and result, and the method follows", async ({ page }) => {
+  await page.goto("/accuracy/picture");
+  const seasonsLine = (await page.getByText(/finished seasons\)\.$/).textContent()) ?? "";
+  const finished = Number(/\((\d+) finished seasons\)/.exec(seasonsLine)![1]);
+
+  const backtest = page.getByRole("region", { name: "Backtest" });
+  await expect(backtest.getByRole("heading", { level: 2 })).toHaveText("Backtest");
+  const table = backtest.getByRole("table", { name: "The app's eve-of-ceremony favourite for Best Picture, by season" });
+  const rows = table.locator("tbody tr");
+  await expect(rows).toHaveCount(finished);
+  // Newest first; a season's favourite links to its film and its result is a Won pill or "Lost to".
+  const years = (await rows.locator("td:first-child").allTextContents()).map(Number);
+  expect(years).toEqual([...years].sort((a, b) => b - a));
+  expect(years.at(-1)).toBe(2012);
+  await expect(rows.first().getByRole("link")).toHaveAttribute("href", /^\/movies\//);
+  await expect(rows.first().getByRole("cell").nth(2)).toHaveText(/^\d+%$/);
+  for (const result of await rows.locator("td:last-child").allTextContents()) expect(result).toMatch(/^(Won|Lost to .+)$/);
+
+  // The strip's first figure counts the same rows.
+  const won = (await table.locator("[data-stage='won']").count()).toString();
+  await expect(backtest.getByText(new RegExp(`^${won} of ${finished}$`))).toBeVisible();
+  await expect(backtest.getByText("Nominees in the top slots, eve of nominations")).toBeVisible();
+
+  // The link to the method lands on it.
+  await page.getByRole("link", { name: "How the % chance works" }).click();
+  await expect(page).toHaveURL(/\/accuracy\/picture#method$/);
+  const method = page.locator("section#method");
+  await expect(method.getByRole("heading", { level: 2 })).toHaveText("How the % chance works");
+  await expect(method).toContainText("never sees its own answer");
+  await expect(method).toBeInViewport();
+});
+
 test("every figure head sorts by keyboard, aria-sort is right, and the address keeps the sort", async ({ page }) => {
   await page.goto("/accuracy/picture");
-  const table = page.getByRole("table");
+  const table = page.getByRole("table", { name: "How well each award foretells Best Picture" });
 
   for (const key of ["nomination", "nominees", "years", "win"] as const) {
     const head = table.getByRole("columnheader", { name: HEADS[key] });
@@ -129,7 +161,8 @@ test("the category control switches category and starts from the default sort; a
 test("at 390 the page never scrolls sideways and the Years column is left out", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/accuracy/picture");
-  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByRole("table", { name: "How well each award foretells Best Picture" })).toBeVisible();
   await expect(page.getByRole("columnheader", { name: HEADS.years })).toBeHidden();
+  await expect(page.getByRole("table", { name: /eve-of-ceremony favourite/ })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

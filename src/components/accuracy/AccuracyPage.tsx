@@ -6,17 +6,21 @@ import { Segmented } from "@/components/segmented/Segmented";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { TextLink } from "@/components/text-link/TextLink";
 import { getAccuracy } from "@/data/accuracy";
+import { getBacktest } from "@/data/backtest";
 import { parseSort, seasonsSpan } from "@/lib/accuracy-page";
 import { RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { AccuracyTable } from "./AccuracyTable";
+import { Backtest } from "./Backtest";
+import { Method } from "./Method";
 
 type Query = Record<string, string | string[] | undefined>;
 
 /**
  * Guide §8.5 Accuracy (`/accuracy/[category]`): PageHeader, the category control with the link to
  * the method, then the table of every award's figures for that Oscar category, grouped and
- * sortable, with the years counted and the footnote on "–". The backtest and the method come with
- * the predictions (task 3.4). The sort is in the address (`?sort=win&dir=desc`).
+ * sortable, with the years counted and the footnote on "–", then the Backtest (every finished
+ * season's favourite) and the method in plain words (`#method`). The sort is in the address
+ * (`?sort=win&dir=desc`).
  */
 export function AccuracyPage({ category, query }: { category: RaceCategory; query: Promise<Query> }) {
   const oscar = RACE_CATEGORIES.find((c) => c.slug === category)!.oscar;
@@ -42,6 +46,10 @@ export function AccuracyPage({ category, query }: { category: RaceCategory; quer
       <Suspense fallback={<RaceRowsSkeleton label="Loading accuracy" />}>
         <Table category={category} oscar={oscar} query={query} />
       </Suspense>
+      <Suspense fallback={<RaceRowsSkeleton label="Loading the backtest" />}>
+        <BacktestSection category={category} oscar={oscar} />
+      </Suspense>
+      <Method />
     </>
   );
 }
@@ -51,6 +59,12 @@ async function Sub({ category }: { category: RaceCategory }) {
   await connection();
   const { seasons } = await getAccuracy(category, new Date().toISOString().slice(0, 10));
   return <p>How often each award&apos;s results matched the Oscars, {seasonsSpan(seasons)}.</p>;
+}
+
+async function BacktestSection({ category, oscar }: { category: RaceCategory; oscar: string }) {
+  await connection();
+  const { seasons } = await getAccuracy(category, new Date().toISOString().slice(0, 10));
+  return <Backtest backtest={await getBacktest(category, seasons)} oscar={oscar} />;
 }
 
 async function Table({ category, oscar, query }: { category: RaceCategory; oscar: string; query: Promise<Query> }) {

@@ -3,12 +3,12 @@
 import type { StagedFilm } from "@/data/watch-list";
 import { compareOutcome } from "@/lib/stage";
 
-// `% chance` joins these when the predictions arrive (task 3.4).
-export const WATCH_SORTS = ["stage", "nominations", "average"] as const;
+export const WATCH_SORTS = ["stage", "chance", "nominations", "average"] as const;
 export type WatchSort = (typeof WATCH_SORTS)[number];
 
 export const WATCH_SORT_LABELS: Record<WatchSort, string> = {
   stage: "Oscar stage",
+  chance: "% chance",
   nominations: "Nominations",
   average: "Average score",
 };
@@ -44,6 +44,15 @@ const byTitle = (a: StagedFilm, b: StagedFilm) => a.film.title.localeCompare(b.f
 const COMPARE: Record<WatchSort, (a: StagedFilm, b: StagedFilm) => number> = {
   // Furthest first (won, nominated, shortlisted, …), then most nominations.
   stage: (a, b) => stageRank(b) - stageRank(a) || b.nominations - a.nominations || byTitle(a, b),
+  // Best chance to win first (the live season's prediction, best category); a film with none last.
+  chance: (a, b) => {
+    const x = a.chance;
+    const y = b.chance;
+    if (x === y) return stageRank(b) - stageRank(a) || byTitle(a, b);
+    if (x === null) return 1;
+    if (y === null) return -1;
+    return y - x || stageRank(b) - stageRank(a) || byTitle(a, b);
+  },
   // Most nominations first, then furthest stage.
   nominations: (a, b) => b.nominations - a.nominations || stageRank(b) - stageRank(a) || byTitle(a, b),
   // Highest average first; films with no scores last.

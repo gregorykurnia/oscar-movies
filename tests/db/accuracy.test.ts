@@ -3,6 +3,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryAccuracy } from "../../src/data/accuracy";
+import { queryBacktest } from "../../src/data/backtest";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -46,5 +47,30 @@ describe("queryAccuracy", () => {
     const cinemaEye = rows.find((r) => r.award.startsWith("Cinema Eye"))!;
     expect(cinemaEye.years).toBeLessThanOrEqual(seasons.length);
     expect(cinemaEye.years).toBe(cinemaEye.win!.count);
+  });
+});
+
+describe("queryBacktest", () => {
+  it("lists every finished Best Picture season with its favourite and result", async () => {
+    const { seasons } = await queryAccuracy(db, "picture", "2026-03-16");
+    const backtest = await queryBacktest(db, "picture", seasons);
+    expect(backtest.rows.map((r) => r.year)).toEqual([...seasons].sort((a, b) => b - a));
+    // The seeded history has both eves for every finished season.
+    for (const row of backtest.rows) {
+      expect(row.favourite, String(row.year)).not.toBeNull();
+      expect(row.result, String(row.year)).not.toBeNull();
+      expect(row.topSlots, String(row.year)).not.toBeNull();
+    }
+    expect(backtest.favouriteWon.count).toBe(seasons.length);
+    const hits = backtest.rows.filter((r) => r.result?.kind === "won").length;
+    expect(backtest.favouriteWon.hits).toBe(hits);
+    const lost = backtest.rows.find((r) => r.result?.kind === "lost");
+    if (lost?.result?.kind === "lost") expect(lost.result.to.length).toBeGreaterThan(0);
+    // 2021 on has ten Picture slots.
+    expect(backtest.rows.find((r) => r.year === 2024)!.topSlots!.slots).toBe(10);
+  });
+
+  it("is empty for no seasons", async () => {
+    expect((await queryBacktest(db, "picture", [])).rows).toEqual([]);
   });
 });

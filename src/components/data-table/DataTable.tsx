@@ -16,6 +16,8 @@ export type DataColumn = {
   firstDirection?: SortDirection;
   /** Left out on phone (the "Years" column). */
   hidePhone?: boolean;
+  /** A text column after the first (the backtest's favourite); figures are right-aligned. */
+  alignLeft?: boolean;
 };
 
 export type DataRow =
@@ -64,7 +66,7 @@ export function DataTable({
                   className={cn(
                     cellPad,
                     "border-b border-ink py-2.5 align-bottom text-caption font-normal whitespace-nowrap text-ink-muted",
-                    i === 0 ? "text-left" : "text-right",
+                    i === 0 || col.alignLeft ? "text-left" : "text-right",
                     hide(col),
                   )}
                 >
@@ -118,7 +120,7 @@ export function DataTable({
                       cellPad,
                       "border-b border-line align-middle md:py-3.5",
                       // On phone the first column keeps room for a long award name; the frame scrolls instead.
-                      i === 0 ? "text-left max-md:min-w-[140px]" : "text-right",
+                      i === 0 ? "text-left max-md:min-w-[140px]" : columns[i]?.alignLeft ? "text-left" : "text-right",
                       columns[i] && hide(columns[i]),
                     )}
                   >
