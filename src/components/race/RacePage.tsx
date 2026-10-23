@@ -9,32 +9,51 @@ import { StagePill } from "@/components/stage-pill/StagePill";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getLastUpdate } from "@/data/loads";
+import { Notice } from "@/components/notice/Notice";
 import { getRacePrecursors, type RacePrecursors } from "@/data/precursors";
 import { getOscarEdition, getOscarResults, type OscarEdition, type OscarEntry } from "@/data/oscars";
+import { getPrecursorAwardCount, getRacePredictions } from "@/data/predictions";
+import type { FilmRowData } from "@/data/films";
 import { formatDate } from "@/lib/format";
+import { eve } from "@/lib/predict/season";
 import {
   RACE_CATEGORIES,
-  raceEntries,
   seasonDate,
   seasonState,
   showsStagePills,
   stageLine,
   tabLead,
   type RaceCategory,
+  type SeasonState,
 } from "@/lib/race";
-import { oscarStage } from "@/lib/stage";
+import {
+  chanceColumns,
+  formatChance,
+  leaderOf,
+  raceRows,
+  raceSnapshot,
+  showAllText,
+  splitRows,
+  stagePillsBefore,
+  type Chance,
+  type RaceSnapshot,
+} from "@/lib/race-chances";
+import { flagsFor, oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 import { CategoryTabs } from "./CategoryTabs";
-import { ContenderList, ContenderRow } from "./ContenderRow";
+import { ContenderRow, type ChanceColumns } from "./ContenderRow";
+import { RaceList } from "./RaceList";
 import { RaceYearSwitcher } from "./RaceYearSwitcher";
 import { StageLine } from "./StageLine";
+import { WhyPanel } from "./WhyPanel";
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 
 /**
  * Guide §8.1 The Oscar race, for `/` (the live season) and `/race/[year]`: PageHeader with the
- * year switcher, the race tabs, and per category the stage line and the contender rows. Results
- * only until the chances arrive (Phase 3): the Oscar stage, the precursor line, flags, scores and marks.
+ * year switcher, the race tabs, and per category the stage line, the contender rows with their
+ * chances and "why" (live; past seasons show the final prediction, made on the eve of the
+ * ceremony), "Show all" and the footnote. Season states: guide §8.12.
  */
 export function RacePage({ year }: { year: number }) {
   return (
@@ -44,11 +63,9 @@ export function RacePage({ year }: { year: number }) {
         sub={
           <p>
             {editionLabel(year)}.
-            {year === LIVE_YEAR ? (
-              <Suspense fallback={null}>
-                <Updated />
-              </Suspense>
-            ) : null}
+            <Suspense fallback={null}>
+              <SubNote year={year} />
+            </Suspense>
           </p>
         }
         actions={
@@ -64,9 +81,16 @@ export function RacePage({ year }: { year: number }) {
   );
 }
 
-async function Updated() {
+/** After the ceremony: when the final prediction was made (its eve). Before it, the live season's last update. */
+async function SubNote({ year }: { year: number }) {
   // Wait for the request, so `next build` never reads the database.
   await connection();
+  const today = new Date().toISOString().slice(0, 10);
+  const edition = await getOscarEdition(year);
+  if (edition?.winnersOn && edition.winnersOn <= today) {
+    return ` Final prediction, made ${formatDate(new Date(`${eve(edition.winnersOn)}T00:00:00Z`), true)}.`;
+  }
+  if (year !== LIVE_YEAR) return null;
   const at = await getLastUpdate();
   return at ? ` Updated ${formatDate(new Date(at), true)}.` : null;
 }
@@ -89,27 +113,59 @@ async function Race({ year }: { year: number }) {
     );
   }
 
+  const states = results.map((all) => seasonState(all.map((e) => e.outcome)));
+  const chances = await Promise.all(
+    RACE_CATEGORIES.map(async ({ slug }, i) => {
+      const snapshot = raceSnapshot(states[i]);
+      const stored = await getRacePredictions(year, slug, snapshot);
+      // A finished season without its eve (no ceremony date) falls back to the live chances.
+      if (stored.length > 0 || snapshot === "live") return { snapshot, stored };
+      return { snapshot: "live" as const, stored: await getRacePredictions(year, slug, "live") };
+    }),
+  );
+  const early = await Promise.all(
+    RACE_CATEGORIES.map(({ slug }, i) =>
+      chances[i].snapshot === "live" && (states[i] === "before" || states[i] === "shortlist") ? getPrecursorAwardCount(year, slug) : null,
+    ),
+  );
+
   const leads = {} as Record<RaceCategory, ReactNode>;
   const panels = {} as Record<RaceCategory, ReactNode>;
   RACE_CATEGORIES.forEach(({ slug }, i) => {
     const all = results[i];
-    const state = seasonState(all.map((e) => e.outcome));
-    const shown = raceEntries(all, state);
+    const state = states[i];
+    const rows = raceRows({ state, entries: all, predictions: chances[i].stored }).map((r) => ({
+      ...r,
+      flags: r.entry?.flags ?? flagsFor(r.film.countries),
+    }));
     const submissions = slug === "international" ? all.length : 0;
-    const lead = tabLead({ state, submissions, entries: shown.map((e) => ({ outcome: e.outcome, title: e.film.title, flags: e.flags })) });
-    leads[slug] =
-      lead.kind === "winner" ? (
+    const leader = state === "finished" ? null : leaderOf(rows);
+    if (leader) {
+      leads[slug] = (
         <>
-          {lead.flag ? <Flag code={lead.flag} size="sm" /> : null}
+          {leader.flags[0] ? <Flag code={leader.flags[0]} size="sm" /> : null}
           <span data-lead-text className="truncate">
-            {lead.title}
+            {leader.film.title}
           </span>
+          <span className="flex-none">{formatChance(leader.chance!.pWin)}%</span>
         </>
-      ) : (
-        <span data-lead-text className="truncate">
-          {lead.text}
-        </span>
       );
+    } else {
+      const lead = tabLead({ state, submissions, entries: rows.flatMap((r) => (r.entry ? [{ outcome: r.entry.outcome, title: r.film.title, flags: r.flags }] : [])) });
+      leads[slug] =
+        lead.kind === "winner" ? (
+          <>
+            {lead.flag ? <Flag code={lead.flag} size="sm" /> : null}
+            <span data-lead-text className="truncate">
+              {lead.title}
+            </span>
+          </>
+        ) : (
+          <span data-lead-text className="truncate">
+            {lead.text}
+          </span>
+        );
+    }
     panels[slug] = (
       <CategoryPanel
         year={year}
@@ -117,7 +173,9 @@ async function Race({ year }: { year: number }) {
         edition={edition}
         today={today}
         state={state}
-        shown={shown}
+        snapshot={chances[i].snapshot}
+        rows={rows}
+        early={early[i] !== null && early[i] < 3}
         precursors={precursors[i]}
         submissions={submissions}
       />
@@ -127,13 +185,17 @@ async function Race({ year }: { year: number }) {
   return <CategoryTabs leads={leads} panels={panels} />;
 }
 
+type Row = { film: FilmRowData; entry: OscarEntry | null; chance: Chance | null; flags: string[] };
+
 function CategoryPanel({
   year,
   category,
   edition,
   today,
   state,
-  shown,
+  snapshot,
+  rows,
+  early,
   precursors,
   submissions,
 }: {
@@ -141,41 +203,82 @@ function CategoryPanel({
   category: RaceCategory;
   edition: OscarEdition;
   today: string;
-  state: ReturnType<typeof seasonState>;
-  shown: OscarEntry[];
+  state: SeasonState;
+  snapshot: RaceSnapshot;
+  rows: Row[];
+  /** Fewer than 3 precursor awards have announced results (live, before the nominations). */
+  early: boolean;
   precursors: RacePrecursors;
   submissions: number;
 }) {
+  const oscar = RACE_CATEGORIES.find((c) => c.slug === category)!.oscar;
   const line = stageLine({
     category,
     state,
     dates: edition,
-    entries: shown.map((e) => ({ outcome: e.outcome, title: e.film.title })),
+    entries: rows.flatMap((r) => (r.entry ? [{ outcome: r.entry.outcome, title: r.film.title }] : [])),
     today,
   });
-  const pills = showsStagePills(state);
+  const labels = chanceColumns(state, rows);
+  const columns: ChanceColumns = labels === null ? "none" : labels.nominate ? "both" : "win";
+  const pills = state === "before" ? stagePillsBefore(rows.map((r) => r.entry?.outcome ?? null)) : showsStagePills(state);
   const lines = new Map(precursors.map((p) => [p.movieId, p]));
+  const leader = leaderOf(rows);
+  const { shown, more } = splitRows(rows, state);
+  const showAll = more.length > 0 ? showAllText(rows.length, more.map((r) => ({ title: r.film.title }))) : null;
+
+  const render = (r: Row) => (
+    <ContenderRow
+      key={r.film.id}
+      title={r.film.title}
+      href={`/movies/${r.film.slug}`}
+      flags={r.flags}
+      firstFlagLabel={r.entry?.country ? `${countryName(r.entry.country)}, submitting country` : undefined}
+      badge={pills && r.entry ? <StagePill stage={oscarStage(r.entry.outcome, category)} /> : undefined}
+      precursors={lines.get(r.film.id)}
+      scores={r.film.scores}
+      marks={<FilmMarks movieId={r.film.id} title={r.film.title} />}
+      columns={columns}
+      chance={
+        r.chance
+          ? {
+              id: `${category}-${r.film.id}`,
+              pWin: r.chance.pWin,
+              pNominate: r.chance.pNominate,
+              leader: r === leader,
+              final: snapshot === "eve_ceremony",
+              why: <WhyPanel pct={formatChance(r.chance.pWin)} why={r.chance.why} oscar={oscar} methodHref={`/accuracy/${category}#method`} />,
+            }
+          : null
+      }
+    />
+  );
+
   return (
     <>
       {/* The tab names the panel on screen; the heading keeps the outline h1 → h2 → h3 (1.R). */}
-      <h2 className="sr-only">{RACE_CATEGORIES.find((c) => c.slug === category)!.oscar}</h2>
-      <StageLine line={line} className="mt-[18px] md:mt-7" />
-      {shown.length > 0 ? (
-        <ContenderList className="mt-3">
-          {shown.map((e) => (
-            <ContenderRow
-              key={e.film.id}
-              title={e.film.title}
-              href={`/movies/${e.film.slug}`}
-              flags={e.flags}
-              firstFlagLabel={e.country ? `${countryName(e.country)}, submitting country` : undefined}
-              badge={pills ? <StagePill stage={oscarStage(e.outcome, category)} /> : undefined}
-              precursors={lines.get(e.film.id)}
-              scores={e.film.scores}
-              marks={<FilmMarks movieId={e.film.id} title={e.film.title} />}
-            />
-          ))}
-        </ContenderList>
+      <h2 className="sr-only">{oscar}</h2>
+      <StageLine line={line} columns={labels} className="mt-[18px] md:mt-7" />
+      {rows.length > 0 && early ? (
+        <Notice tone="gold" title="Early: few results yet." className="mt-5">
+          Chances will move a lot as more awards announce their nominees and winners.
+        </Notice>
+      ) : null}
+      {rows.length > 0 ? (
+        <>
+          <RaceList
+            className={early ? "mt-5" : "mt-3"}
+            rows={shown.map(render)}
+            more={more.map(render)}
+            moreLabel={showAll?.label}
+            moreRest={showAll?.rest}
+          />
+          {labels ? (
+            <p className="mt-10 text-caption text-ink-muted md:mt-12">
+              The % chance to win in a category adds up to 100. Tap a % to see the past seasons behind it.
+            </p>
+          ) : null}
+        </>
       ) : (
         <NothingYet year={year} category={category} edition={edition} today={today} submissions={submissions} />
       )}

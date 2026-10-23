@@ -75,6 +75,8 @@
   /* The segmented control's selected item: a hairline lift, drawn from --ink (guide §7). */
   --shadow-hairline: 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent),
     0 0 0 1px color-mix(in srgb, var(--ink) 4%, transparent);
+  --text-num-xl: var(--num-xl);
+  --text-num-xl-phone: var(--num-xl-phone);
   --text-num-l: var(--num-l);
   --text-num-l-phone: var(--num-l-phone);
   --ease-app: var(--ease);

@@ -19,6 +19,7 @@ const BUILT = [
   "Button", "TextLink", "StagePill", "Flag", "Flags", "ScoreLine", "ScoreTiles", "Mark", "Marks", "LabelledMark",
   "Segmented", "Chip", "Notice", "EmptyState", "Skeleton", "Toast", "AppShell", "PageHeader", "YearSwitcher",
   "FilmList", "FilmRow", "StatsStrip", "DataTable", "CategoryTabs", "StageLine", "ContenderRow", "ShowAllRow", "SearchCommand",
+  "Pct", "ChanceLine", "WhyPanel", "RaceList",
 ];
 
 describe("/styleguide", () => {
