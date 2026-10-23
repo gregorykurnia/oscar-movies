@@ -21,7 +21,7 @@ const CATEGORY_NAMES = Object.fromEntries(RACE_CATEGORIES.map((c) => [c.slug, c.
  * Guide §8.6 Movie page (`/movies/[slug]`): back link (the browser's Back when the visit came
  * from this app), title, a sub line with large flags, original title, year, countries and
  * language, the labelled marks, the score tiles, the Oscar result boxes and the Awards sections
- * (won, nominated, not nominated). Festival screenings arrive with Phase 5.
+ * (won, nominated, not nominated), with the festival screenings in the Festivals part.
  */
 export function MoviePage({ slug }: { slug: string }) {
   return (
@@ -57,7 +57,12 @@ async function Movie({ slug }: { slug: string }) {
       <FilmLabelledMarks movieId={film.id} title={film.title} className="mt-6 flex flex-wrap gap-2" />
       <ScoreTiles scores={film.scores} className="mt-7 md:mt-10" />
       <OscarSection film={film} />
-      <AwardsSection rows={film.awards} today={new Date().toISOString().slice(0, 10)} />
+      <AwardsSection
+        rows={film.awards}
+        screenings={film.screenings}
+        year={film.year}
+        today={new Date().toISOString().slice(0, 10)}
+      />
     </>
   );
 }

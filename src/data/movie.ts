@@ -4,8 +4,9 @@
 import { and, asc, eq, inArray, ne, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
-import { awardCategories, awards, editions, movies, results } from "@/db/schema";
+import { awardCategories, awards, editions, movies, results, screenings } from "@/db/schema";
 import type { ScoreTilesData } from "@/components/score-tiles/ScoreTiles";
+import { orderScreenings, type MovieScreening } from "@/lib/lineup";
 import { movieAwardRows, type AwardCandidate, type AwardResult, type MovieAwardRow } from "@/lib/movie-awards";
 import { compareOutcome, isShortlisted, type Outcome } from "@/lib/stage";
 import type { ReadDb } from "./films";
@@ -42,6 +43,8 @@ export type MovieData = {
   oscars: OscarBox[];
   /** Results at every other award, with "not nominated" rows; the page picks what to show by the day. */
   awards: MovieAwardRow[];
+  /** The festival lineups the film is in, in calendar order (2025 on). */
+  screenings: MovieScreening[];
 };
 
 const NOMINATED: Outcome[] = ["runner_up", "nominated", "won"];
@@ -128,14 +131,34 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
       m.id,
       mine.filter((r) => isShortlisted(r.outcome)).map((r) => ({ year: r.year, oscarCategory: r.category })),
     ),
+    screenings: await queryScreenings(db, m.id),
   };
+}
+
+/** The film's screenings at the festivals, in calendar order. */
+async function queryScreenings(db: ReadDb, movieId: number): Promise<MovieScreening[]> {
+  const rows = await db
+    .select({
+      awardSlug: awards.slug,
+      awardName: awards.name,
+      calendarOrder: awards.calendarOrder,
+      year: editions.year,
+      section: screenings.section,
+      sectionOrder: screenings.sectionOrder,
+      prize: screenings.prize,
+    })
+    .from(screenings)
+    .innerJoin(editions, eq(editions.id, screenings.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .where(eq(screenings.movieId, movieId));
+  return orderScreenings(rows);
 }
 
 /**
  * The film's rows at the other awards. A "not nominated" needs a category the film is in the
  * running for in that film year: an Oscar shortlist place or better, or a result at another award
  * mapped to it. It's only said by awards with a `loaded` edition that announced nominees, for a
- * category that gave results, and never for festivals (the lineups come with Phase 5).
+ * category that gave results, and never for festivals (their lineups are the screenings).
  */
 async function queryAwardRows(
   db: ReadDb,

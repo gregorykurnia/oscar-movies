@@ -47,17 +47,21 @@ export function StagePill({
   stage,
   children,
   className,
+  wrap = false,
 }: {
   stage: Stage;
   /** Overrides the standard label (e.g. a festival prize name). */
   children?: React.ReactNode;
   className?: string;
+  /** A long label (a prize name) breaks over lines instead of running past its column. */
+  wrap?: boolean;
 }) {
   return (
     <span
       data-stage={stage}
       className={cn(
-        "inline-flex h-[22px] items-center gap-[5px] rounded-sm px-2 align-middle text-micro leading-none font-medium whitespace-nowrap",
+        "inline-flex items-center gap-[5px] rounded-sm px-2 align-middle text-micro font-medium",
+        wrap ? "max-w-full min-h-[22px] py-[3px] leading-snug" : "h-[22px] leading-none whitespace-nowrap",
         looks[stage],
         className,
       )}

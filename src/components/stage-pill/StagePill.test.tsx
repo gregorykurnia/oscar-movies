@@ -40,4 +40,16 @@ describe("StagePill", () => {
     render(<StagePill stage="won">Golden Lion</StagePill>);
     expect(screen.getByText("Golden Lion")).toBeTruthy();
   });
+
+  // A prize name too long for a phone column breaks over lines when asked to (task 5.3).
+  it("keeps a label on one line unless it wraps", () => {
+    const name = "Louis Roederer Foundation Rising Star Award";
+    const { unmount } = render(<StagePill stage="won">{name}</StagePill>);
+    expect(screen.getByText(name).className).toContain("whitespace-nowrap");
+    unmount();
+    render(<StagePill stage="won" wrap>{name}</StagePill>);
+    const pill = screen.getByText(name);
+    expect(pill.className).not.toContain("whitespace-nowrap");
+    expect(pill.className).toContain("max-w-full");
+  });
 });

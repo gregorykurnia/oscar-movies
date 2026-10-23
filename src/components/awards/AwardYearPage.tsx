@@ -18,6 +18,7 @@ import { accuracyStats, oscarCell, oscarName } from "@/lib/award-page";
 import { kindLabel, type AwardSummary } from "@/lib/awards";
 import { getMarks } from "@/data/watch-list";
 import { formatDate } from "@/lib/format";
+import { hasLineups, lineupPath } from "@/lib/lineup";
 import { keepMarked, markChips, markFilterQuery, markSets, parseMarkFilter, MARK_FILTER_LABELS, type MarkFilter, type MarkSets } from "@/lib/mark-filter";
 import { outcomeStage } from "@/lib/stage";
 import { LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
@@ -69,7 +70,19 @@ async function Sub({ award, year }: { award: AwardSummary; year: number }) {
   // Wait for the request, so `next build` never reads the database.
   await connection();
   const data = await getAwardYear(award.slug, year);
-  return <p>{subLine(award, data?.edition ?? null)}</p>;
+  // A festival links to its lineup from 2025 on (guide §8.2).
+  const lineup = award.kind === "festival" && hasLineups(year);
+  return (
+    <p>
+      {subLine(award, data?.edition ?? null)}
+      {lineup ? (
+        <>
+          {" · "}
+          <TextLink href={lineupPath(award.slug, year)}>Lineup</TextLink>
+        </>
+      ) : null}
+    </p>
+  );
 }
 
 /** The year switcher keeps the mark chip when it changes the year. */

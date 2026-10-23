@@ -1,8 +1,20 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import type { MovieScreening } from "@/lib/lineup";
 import type { MovieAwardRow } from "@/lib/movie-awards";
 import { AwardsSection, CRITICS_CAP } from "./AwardsSection";
+
+const screening = (more: Partial<MovieScreening>): MovieScreening => ({
+  awardSlug: "cannes",
+  awardName: "Cannes Film Festival",
+  calendarOrder: 30,
+  year: 2025,
+  section: "In Competition",
+  sectionOrder: 1,
+  prize: null,
+  ...more,
+});
 
 const row = (more: Partial<MovieAwardRow>): MovieAwardRow => ({
   awardSlug: "bafta",
@@ -77,5 +89,42 @@ describe("AwardsSection", () => {
     expect(screen.getByText("Every followed award that gave these categories in 2024")).toBeTruthy();
     const festivals = screen.getByRole("group", { name: "Festivals" });
     expect(within(festivals).getByText("No followed festival prize.")).toBeTruthy();
+  });
+
+  // Task 5.3: the screenings sit under the prizes, with the section and prizes, each linked to its lineup.
+  it("lists the film's screenings with their section and prizes, each linked to its lineup, as Selected", () => {
+    render(
+      <AwardsSection
+        today="2025-06-01"
+        year={2025}
+        rows={[]}
+        screenings={[
+          screening({ prize: "Palme d'Or; Best Director" }),
+          screening({ awardSlug: "venice", awardName: "Venice Film Festival", calendarOrder: 40, section: "Out of Competition", sectionOrder: 3 }),
+        ]}
+      />,
+    );
+    const festivals = screen.getByRole("group", { name: "Festivals" });
+    const items = within(festivals).getAllByRole("listitem");
+    expect(items.map((i) => i.getAttribute("data-result"))).toEqual(["selected", "selected"]);
+    expect(within(items[0]).getByRole("link", { name: "Cannes Film Festival" }).getAttribute("href")).toBe("/festivals/cannes/2025");
+    expect(within(items[0]).getByText("In Competition · Palme d'Or; Best Director")).toBeTruthy();
+    expect(within(items[0]).getByText("Selected")).toBeTruthy();
+    expect(within(items[1]).getByRole("link", { name: "Venice Film Festival" }).getAttribute("href")).toBe("/festivals/venice/2025");
+    expect(within(festivals).queryByText(/tracked from 2025/)).toBeNull();
+  });
+
+  it("says a film from before the lineups, with no screening, that lineups are tracked from 2025 on", () => {
+    render(<AwardsSection today="2025-03-01" year={2024} rows={[row({})]} />);
+    const festivals = screen.getByRole("group", { name: "Festivals" });
+    expect(within(festivals).getByText("No followed festival prize. Festival lineups are tracked from 2025 on.")).toBeTruthy();
+  });
+
+  it("adds the coverage line under a festival prize that a film from before the lineups has", () => {
+    const prize = row({ kind: "festival", awardSlug: "cannes", awardName: "Cannes Film Festival", category: "Palme d'Or", result: "won" });
+    render(<AwardsSection today="2025-03-01" year={2024} rows={[prize]} />);
+    const festivals = screen.getByRole("group", { name: "Festivals" });
+    expect(within(festivals).getByRole("link", { name: "Cannes Film Festival" })).toBeTruthy();
+    expect(within(festivals).getByText("Festival lineups are tracked from 2025 on.")).toBeTruthy();
   });
 });

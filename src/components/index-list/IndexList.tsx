@@ -12,16 +12,20 @@ export function IndexSection({
   id,
   title,
   count,
+  note,
   first = false,
   children,
 }: {
   id: string;
   title: string;
   count?: number;
+  /** Said after the count, in the same small type ("prizes only before 2025"). */
+  note?: string;
   /** Directly under the PageHeader or a feature link, so a smaller gap. */
   first?: boolean;
   children: ReactNode;
 }) {
+  const caption = [count || null, note].filter(Boolean).join(" · ");
   return (
     <section aria-labelledby={id} className={first ? "mt-10 md:mt-12" : "mt-10 md:mt-14"}>
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -31,7 +35,7 @@ export function IndexSection({
         >
           {title}
         </h2>
-        {count ? <span className="text-small text-ink-muted">{count}</span> : null}
+        {caption ? <span className="text-small text-ink-muted">{caption}</span> : null}
       </div>
       {children}
     </section>

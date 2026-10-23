@@ -10,6 +10,7 @@ import { getYearEditions, type YearEdition } from "@/data/awards";
 import { getOscarResults } from "@/data/oscars";
 import type { AwardSummary } from "@/lib/awards";
 import { awardsOfKind, editionState, givesLabel, oscarsLine, rowDate, type IndexState } from "@/lib/awards-index";
+import { FIRST_LINEUP_YEAR, hasLineups, lineupPath } from "@/lib/lineup";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
@@ -35,13 +36,16 @@ export function AwardsIndexPage({ year }: { year: number }) {
   );
 }
 
-/** Guide §8.7 festivals index (`/festivals/[year]`): the festivals' prizes for a year, on the same template. */
+/**
+ * Guide §8.7 festivals index (`/festivals/[year]`): the festivals for a year, on the same template.
+ * From 2025 a festival opens its lineup; before, its prizes.
+ */
 export function FestivalsIndexPage({ year }: { year: number }) {
   return (
     <>
       <PageHeader
         title={`Festivals ${year}`}
-        sub="Festival prizes, in calendar order."
+        sub={hasLineups(year) ? "Festival lineups, in calendar order." : "Festival prizes, in calendar order."}
         actions={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href="/festivals/{year}" />}
       />
       <Suspense fallback={<RaceRowsSkeleton label="Loading festivals" />}>
@@ -97,8 +101,14 @@ async function FestivalSection({ year }: { year: number }) {
   const byAward = new Map(editions.map((e) => [e.slug, e]));
   const festivals = awardsOfKind("festival", new Map(editions.map((e) => [e.slug, e.winnersOn])));
   return (
-    <IndexSection id="festivals-h" title="Festivals" count={festivals.length} first>
-      <AwardRows awards={festivals} year={year} byAward={byAward} />
+    <IndexSection
+      id="festivals-h"
+      title="Festivals"
+      count={festivals.length}
+      note={hasLineups(year) ? undefined : `prizes only before ${FIRST_LINEUP_YEAR}`}
+      first
+    >
+      <AwardRows awards={festivals} year={year} byAward={byAward} lineups />
     </IndexSection>
   );
 }
@@ -107,20 +117,24 @@ function AwardRows({
   awards,
   year,
   byAward,
+  lineups = false,
 }: {
   awards: AwardSummary[];
   year: number;
   byAward: Map<string, YearEdition>;
+  /** The festivals index: a festival opens its lineup from 2025, its prizes before. */
+  lineups?: boolean;
 }) {
   return (
     <IndexList>
       {awards.map((award) => {
         const edition = byAward.get(award.slug);
         const state = editionState(edition);
+        const opens = lineups && hasLineups(year) ? lineupPath(award.slug, year) : `/awards/${award.slug}/${year}`;
         return (
           <IndexRow
             key={award.slug}
-            href={state === "no-data" ? undefined : `/awards/${award.slug}/${year}`}
+            href={state === "no-data" ? undefined : opens}
             name={award.name}
             gives={givesLabel(award)}
             end={state === "loaded" ? rowDate(award.kind, edition?.winnersOn ?? null) : <StatePill state={state} />}

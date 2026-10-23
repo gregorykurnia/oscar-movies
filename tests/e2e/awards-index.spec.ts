@@ -73,12 +73,13 @@ test("/awards and /festivals open the live season, and the festivals index lists
   const links = page.getByRole("region", { name: "Festivals" }).getByRole("link");
   await expect(links).toHaveCount(5);
   const hrefs = await links.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+  // From 2025 a festival row opens its lineup (task 5.3).
   expect(hrefs).toEqual([
-    "/awards/sundance/2025",
-    "/awards/berlin/2025",
-    "/awards/cannes/2025",
-    "/awards/venice/2025",
-    "/awards/tiff/2025",
+    "/festivals/sundance/2025",
+    "/festivals/berlin/2025",
+    "/festivals/cannes/2025",
+    "/festivals/venice/2025",
+    "/festivals/tiff/2025",
   ]);
 });
 
