@@ -4,15 +4,523 @@
     "name": "Academy Awards",
     "shortName": "Oscars",
     "kind": "oscars",
-    "calendarOrder": 100,
+    "calendarOrder": 1000,
     "winnersOnly": false,
     "isSelection": false,
     "url": "https://www.oscars.org",
     "categories": [
-      { "slug": "picture", "name": "Best Picture", "oscarCategory": "picture", "sortOrder": 1 },
-      { "slug": "international", "name": "Best International Feature Film", "oscarCategory": "international", "sortOrder": 2 },
-      { "slug": "documentary", "name": "Best Documentary Feature Film", "oscarCategory": "documentary", "sortOrder": 3 },
-      { "slug": "animated", "name": "Best Animated Feature Film", "oscarCategory": "animated", "sortOrder": 4 }
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Feature Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary Feature Film",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Feature Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "afi",
+    "name": "AFI Awards (Top 10 films)",
+    "shortName": "AFI",
+    "kind": "major",
+    "calendarOrder": 600,
+    "winnersOnly": false,
+    "isSelection": true,
+    "url": "https://www.afi.com/award/afi-awards/",
+    "categories": [
+      {
+        "slug": "top-10",
+        "name": "Top 10 Films of the Year",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      }
+    ]
+  },
+  {
+    "slug": "cinema-eye",
+    "name": "Cinema Eye Honors",
+    "shortName": "Cinema Eye",
+    "kind": "major",
+    "calendarOrder": 610,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.cinemaeyehonors.com",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Outstanding Achievement in Nonfiction Feature Filmmaking",
+        "oscarCategory": "documentary",
+        "sortOrder": 1
+      }
+    ]
+  },
+  {
+    "slug": "golden-globes",
+    "name": "Golden Globe Awards",
+    "shortName": "Globes",
+    "kind": "major",
+    "calendarOrder": 620,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://goldenglobes.com",
+    "categories": [
+      {
+        "slug": "drama",
+        "name": "Best Motion Picture – Drama",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "musical-comedy",
+        "name": "Best Motion Picture – Musical or Comedy",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      },
+      {
+        "slug": "non-english",
+        "name": "Best Motion Picture – Non-English Language",
+        "oscarCategory": "international",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Motion Picture – Animated",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "european-film-awards",
+    "name": "European Film Awards",
+    "shortName": "EFA",
+    "kind": "major",
+    "calendarOrder": 630,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://europeanfilmawards.eu",
+    "categories": [
+      {
+        "slug": "film",
+        "name": "European Film",
+        "oscarCategory": "international",
+        "loose": true,
+        "mappingNote": "Best European film, so English-language films and films their country didn't submit can win",
+        "sortOrder": 1
+      },
+      {
+        "slug": "documentary",
+        "name": "European Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 2
+      },
+      {
+        "slug": "animated",
+        "name": "European Animated Feature Film",
+        "oscarCategory": "animated",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "satellite",
+    "name": "Satellite Awards",
+    "shortName": "Satellite",
+    "kind": "major",
+    "calendarOrder": 640,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.pressacademy.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Motion Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "drama",
+        "name": "Best Motion Picture – Drama",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      },
+      {
+        "slug": "comedy-musical",
+        "name": "Best Motion Picture – Comedy or Musical",
+        "oscarCategory": "picture",
+        "sortOrder": 3
+      },
+      {
+        "slug": "international",
+        "name": "Best Motion Picture – International",
+        "oscarCategory": "international",
+        "sortOrder": 4
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Motion Picture – Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 5
+      },
+      {
+        "slug": "animated",
+        "name": "Best Motion Picture – Animated or Mixed Media",
+        "oscarCategory": "animated",
+        "sortOrder": 6
+      }
+    ]
+  },
+  {
+    "slug": "dga",
+    "name": "Directors Guild of America Awards",
+    "shortName": "DGA",
+    "kind": "major",
+    "calendarOrder": 650,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.dga.org",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Outstanding Directorial Achievement in Theatrical Feature Film",
+        "oscarCategory": "picture",
+        "loose": true,
+        "mappingNote": "A director prize, read as a vote for the film",
+        "sortOrder": 1
+      },
+      {
+        "slug": "documentary",
+        "name": "Outstanding Directorial Achievement in Documentary",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A director prize, read as a vote for the film",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "spirit-awards",
+    "name": "Independent Spirit Awards",
+    "shortName": "Spirit",
+    "kind": "major",
+    "calendarOrder": 660,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.filmindependent.org/spirit-awards/",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Best Feature",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary Feature",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "annie",
+    "name": "Annie Awards",
+    "shortName": "Annie",
+    "kind": "major",
+    "calendarOrder": 670,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://annieawards.org",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Best Feature",
+        "oscarCategory": "animated",
+        "sortOrder": 1
+      },
+      {
+        "slug": "indie-feature",
+        "name": "Best Feature – Independent",
+        "oscarCategory": "animated",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "bafta",
+    "name": "BAFTA Film Awards",
+    "shortName": "BAFTA",
+    "kind": "major",
+    "calendarOrder": 680,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.bafta.org/film",
+    "categories": [
+      {
+        "slug": "film",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "non-english",
+        "name": "Film Not in the English Language",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "pga",
+    "name": "Producers Guild of America Awards",
+    "shortName": "PGA",
+    "kind": "major",
+    "calendarOrder": 690,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://producersguild.org",
+    "categories": [
+      {
+        "slug": "theatrical",
+        "name": "Darryl F. Zanuck Award for Outstanding Producer of Theatrical Motion Pictures",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "documentary",
+        "name": "Outstanding Producer of Documentary Theatrical Motion Pictures",
+        "oscarCategory": "documentary",
+        "sortOrder": 2
+      },
+      {
+        "slug": "animated",
+        "name": "Outstanding Producer of Animated Theatrical Motion Pictures",
+        "oscarCategory": "animated",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "actor-awards",
+    "name": "Actor Awards (formerly SAG Awards)",
+    "shortName": "Actor Awards",
+    "kind": "major",
+    "calendarOrder": 700,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.sagawards.org",
+    "categories": [
+      {
+        "slug": "cast",
+        "name": "Outstanding Performance by a Cast in a Motion Picture",
+        "oscarCategory": "picture",
+        "loose": true,
+        "mappingNote": "A cast prize, read as a vote for the film",
+        "sortOrder": 1
+      }
+    ]
+  },
+  {
+    "slug": "sundance",
+    "name": "Sundance Film Festival",
+    "shortName": "Sundance",
+    "kind": "festival",
+    "calendarOrder": 10,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://www.sundance.org",
+    "categories": [
+      {
+        "slug": "us-dramatic-jury",
+        "name": "U.S. Grand Jury Prize: Dramatic",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "us-dramatic-audience",
+        "name": "Audience Award: U.S. Dramatic",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      },
+      {
+        "slug": "world-dramatic-jury",
+        "name": "World Cinema Grand Jury Prize: Dramatic",
+        "oscarCategory": "international",
+        "sortOrder": 3
+      },
+      {
+        "slug": "world-dramatic-audience",
+        "name": "Audience Award: World Cinema Dramatic",
+        "oscarCategory": "international",
+        "sortOrder": 4
+      },
+      {
+        "slug": "us-documentary-jury",
+        "name": "U.S. Grand Jury Prize: Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 5
+      },
+      {
+        "slug": "us-documentary-audience",
+        "name": "Audience Award: U.S. Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 6
+      },
+      {
+        "slug": "world-documentary-jury",
+        "name": "World Cinema Grand Jury Prize: Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 7
+      },
+      {
+        "slug": "world-documentary-audience",
+        "name": "Audience Award: World Cinema Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 8
+      }
+    ]
+  },
+  {
+    "slug": "berlin",
+    "name": "Berlin International Film Festival",
+    "shortName": "Berlin",
+    "kind": "festival",
+    "calendarOrder": 20,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://www.berlinale.de",
+    "categories": [
+      {
+        "slug": "golden-bear",
+        "name": "Golden Bear",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "grand-jury",
+        "name": "Silver Bear Grand Jury Prize",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "cannes",
+    "name": "Cannes Film Festival",
+    "shortName": "Cannes",
+    "kind": "festival",
+    "calendarOrder": 30,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://www.festival-cannes.com",
+    "categories": [
+      {
+        "slug": "palme-dor",
+        "name": "Palme d'Or",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "grand-prix",
+        "name": "Grand Prix",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      },
+      {
+        "slug": "jury-prize",
+        "name": "Jury Prize",
+        "oscarCategory": "picture",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "venice",
+    "name": "Venice International Film Festival",
+    "shortName": "Venice",
+    "kind": "festival",
+    "calendarOrder": 40,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://www.labiennale.org/en/cinema",
+    "categories": [
+      {
+        "slug": "golden-lion",
+        "name": "Golden Lion",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "grand-jury",
+        "name": "Grand Jury Prize",
+        "oscarCategory": "picture",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "tiff",
+    "name": "Toronto International Film Festival",
+    "shortName": "TIFF",
+    "kind": "festival",
+    "calendarOrder": 50,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.tiff.net",
+    "categories": [
+      {
+        "slug": "peoples-choice",
+        "name": "People's Choice Award",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "peoples-choice-documentary",
+        "name": "People's Choice Documentary Award",
+        "oscarCategory": "documentary",
+        "sortOrder": 2
+      },
+      {
+        "slug": "peoples-choice-international",
+        "name": "International People's Choice Award",
+        "oscarCategory": "international",
+        "sortOrder": 3
+      }
     ]
   }
 ]
