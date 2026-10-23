@@ -7,6 +7,7 @@
 import type { FilmRowData } from "@/data/films";
 import type { AwardKind, AwardSummary } from "@/lib/awards";
 import { DASH, formatScore } from "@/lib/format";
+import { MARK_FILTERS, parseMarkFilter, passesMark, toggleFilterIn, type MarkSets } from "@/lib/mark-filter";
 import { parseCategory, RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { compareOutcome, flagsFor, isNomination, isShortlisted, type Outcome } from "@/lib/stage";
 
@@ -188,7 +189,7 @@ export const GRID_SORT_LABELS: Record<GridSort, string> = {
   average: "Average score",
   title: "Title",
 };
-export const GRID_FILTERS = ["watched", "unwatched"] as const;
+export const GRID_FILTERS = MARK_FILTERS;
 export type GridFilter = (typeof GRID_FILTERS)[number];
 
 export type GridQuery = {
@@ -207,11 +208,11 @@ const first = (value: string | string[] | undefined) => [value].flat()[0];
 
 /** The address's view. Anything unknown is ignored: Picture, by wins, no filter, critics folded. */
 export function parseGridQuery(params: SearchParams): GridQuery {
-  const filters = [params.filter ?? []].flat();
+  const mark = parseMarkFilter(params);
   return {
     category: first(params.category) === "all" ? "all" : parseCategory(params.category),
     sort: GRID_SORTS.find((s) => s === first(params.sort)) ?? DEFAULT_SORT,
-    filters: GRID_FILTERS.filter((f) => filters.includes(f)),
+    filters: mark ? [mark] : [],
     criticsOpen: first(params.critics) === "open",
   };
 }
@@ -244,11 +245,11 @@ function byAverage(a: GridFilm, b: GridFilm): number {
 }
 
 /**
- * The rows the page shows: the filters (Watched keeps films marked watched, Unwatched the rest; a
- * want-to-watch film is unwatched), then the sort. Wins: most wins, then nominations; Nominations:
+ * The rows the page shows: the filter (Watched keeps films marked watched, Unwatched the rest, so a
+ * want-to-watch film stays; Want to watch keeps those), then the sort. Wins: most wins, then nominations; Nominations:
  * the other way round; Average: highest first, no scores last; every sort ends on the title.
  */
-export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, watched: ReadonlySet<number>): GridFilm[] {
+export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, marks: MarkSets): GridFilm[] {
   const totals = new Map(films.map((f) => [f.film.id, gridTotals(f)]));
   const t = (f: GridFilm) => totals.get(f.film.id)!;
   const compare: Record<GridSort, (a: GridFilm, b: GridFilm) => number> = {
@@ -257,17 +258,13 @@ export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, watche
     average: (a, b) => byAverage(a, b) || t(b).wins - t(a).wins || byTitle(a, b),
     title: byTitle,
   };
-  const kept = (f: GridFilm) => filters.every((filter) => (filter === "watched") === watched.has(f.film.id));
+  const kept = (f: GridFilm) => filters.every((filter) => passesMark(filter, f.film.id, marks));
   return films.filter(kept).sort(compare[sort]);
 }
 
-// Watched and Unwatched exclude each other: turning one on turns the other off.
-const OPPOSITE_FILTER: Record<GridFilter, GridFilter> = { watched: "unwatched", unwatched: "watched" };
-
-/** The filters with one chip flipped: on, it replaces its opposite; off, it's removed. */
+/** The filters with one chip flipped: on, it replaces the other chips; off, it's removed. */
 export function toggleGridFilter(filters: GridFilter[], filter: GridFilter): GridFilter[] {
-  if (filters.includes(filter)) return filters.filter((f) => f !== filter);
-  return GRID_FILTERS.filter((f) => f === filter || (filters.includes(f) && f !== OPPOSITE_FILTER[filter]));
+  return toggleFilterIn(GRID_FILTERS, filters, filter);
 }
 
 /** The head's groups (guide §8.4): Totals, Oscars, Major awards, Festivals, Critics groups. */

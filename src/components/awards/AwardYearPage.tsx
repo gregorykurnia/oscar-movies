@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { FilterChips } from "@/components/chip/FilterChips";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { countryName } from "@/components/flag/Flag";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
@@ -15,9 +16,13 @@ import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getAwardYear, type AwardCategoryResults, type AwardEdition } from "@/data/awards";
 import { accuracyStats, oscarCell, oscarName } from "@/lib/award-page";
 import { kindLabel, type AwardSummary } from "@/lib/awards";
+import { getMarks } from "@/data/watch-list";
 import { formatDate } from "@/lib/format";
+import { keepMarked, markChips, markFilterQuery, markSets, parseMarkFilter, MARK_FILTER_LABELS, type MarkFilter, type MarkSets } from "@/lib/mark-filter";
 import { outcomeStage } from "@/lib/stage";
 import { LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
+
+type Query = Record<string, string | string[] | undefined>;
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 // Film column · this award's result · the Oscar result · marks.
@@ -33,9 +38,10 @@ function subLine(award: AwardSummary, edition: AwardEdition | null): string {
  * Guide §8.2 Award page, one year (`/awards/[award]/[year]`), for every major award and festival
  * prize: back link to the awards index, PageHeader with the year switcher, a jump control to the
  * categories the award gave that year, and per category the award's own name over its accuracy
- * strip and film list (Film · this award's result · Oscar result · marks).
+ * strip and film list (Film · this award's result · Oscar result · marks). The Watched, Unwatched
+ * and Want to watch chips are in the address and filter every category's list by the live marks.
  */
-export function AwardYearPage({ award, year }: { award: AwardSummary; year: number }) {
+export function AwardYearPage({ award, year, query }: { award: AwardSummary; year: number; query: Promise<Query> }) {
   return (
     <>
       <PageHeader
@@ -46,10 +52,14 @@ export function AwardYearPage({ award, year }: { award: AwardSummary; year: numb
             <Sub award={award} year={year} />
           </Suspense>
         }
-        actions={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href={`/awards/${award.slug}/{year}`} />}
+        actions={
+          <Suspense fallback={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href={`/awards/${award.slug}/{year}`} />}>
+            <SwitchYear award={award} year={year} query={query} />
+          </Suspense>
+        }
       />
       <Suspense fallback={<RaceRowsSkeleton />}>
-        <Categories award={award} year={year} />
+        <Categories award={award} year={year} query={query} />
       </Suspense>
     </>
   );
@@ -62,9 +72,18 @@ async function Sub({ award, year }: { award: AwardSummary; year: number }) {
   return <p>{subLine(award, data?.edition ?? null)}</p>;
 }
 
-async function Categories({ award, year }: { award: AwardSummary; year: number }) {
+/** The year switcher keeps the mark chip when it changes the year. */
+async function SwitchYear({ award, year, query }: { award: AwardSummary; year: number; query: Promise<Query> }) {
+  const filter = parseMarkFilter(await query);
+  return <YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href={`/awards/${award.slug}/{year}${markFilterQuery(filter)}`} />;
+}
+
+async function Categories({ award, year, query }: { award: AwardSummary; year: number; query: Promise<Query> }) {
+  // Wait for the request: the address and the marks are read per visit.
   await connection();
-  const data = await getAwardYear(award.slug, year);
+  const [data, marks, params] = await Promise.all([getAwardYear(award.slug, year), getMarks(), query]);
+  const filter = parseMarkFilter(params);
+  const sets = markSets(marks);
   const edition = data?.edition ?? null;
   if (!data || !edition) {
     return (
@@ -91,24 +110,36 @@ async function Categories({ award, year }: { award: AwardSummary; year: number }
           {edition.note ?? `Some of this year's ${award.shortName} results are missing.`}
         </Notice>
       ) : null}
-      {categories.length > 1 ? (
-        <div className="mt-6 md:mt-7">
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7">
+        {categories.length > 1 ? (
           <Segmented
             label="Jump to category"
             items={categories.map((c) => ({ label: c.category.name, href: `#${c.category.slug}` }))}
           />
-        </div>
-      ) : null}
+        ) : null}
+        <FilterChips label="Filter" items={markChips(`/awards/${award.slug}/${year}`, filter)} />
+      </div>
       {categories.map((c) => (
-        <CategorySection key={c.category.slug} award={award} data={c} />
+        <CategorySection key={c.category.slug} award={award} data={c} filter={filter} sets={sets} />
       ))}
       <Footnote award={award} categories={categories} />
     </>
   );
 }
 
-function CategorySection({ award, data }: { award: AwardSummary; data: AwardCategoryResults }) {
-  const { category, entries, oscarState } = data;
+function CategorySection({
+  award,
+  data,
+  filter,
+  sets,
+}: {
+  award: AwardSummary;
+  data: AwardCategoryResults;
+  filter: MarkFilter | null;
+  sets: MarkSets;
+}) {
+  const { category, entries: all, oscarState } = data;
+  const entries = keepMarked(all, filter, sets, (e) => e.film.id);
   const oscar = oscarName(category.oscarCategory);
   return (
     <section id={category.slug} aria-labelledby={`${category.slug}-h`} className="mt-10 scroll-mt-20 md:mt-12">
@@ -124,45 +155,51 @@ function CategorySection({ award, data }: { award: AwardSummary; data: AwardCate
         </span>
       </div>
       <StatsStrip stats={accuracyStats(category.figures)} className="mb-2" />
-      <FilmList head={[award.shortName, oscar]} columns={COLUMNS}>
-        {entries.map((e) => {
-          const cell = oscarCell(e.oscar, oscarState, category.oscarCategory);
-          return (
-            <FilmRow
-              key={e.film.id}
-              title={e.film.title}
-              href={`/movies/${e.film.slug}`}
-              flags={e.flags}
-              scores={e.film.scores}
-              winner={e.outcome === "won"}
-              results={[
-                {
-                  label: award.shortName,
-                  value: award.isSelection ? (
-                    <StagePill stage="nominated">Selected</StagePill>
-                  ) : (
-                    <StagePill stage={outcomeStage(e.outcome)} />
-                  ),
-                },
-                {
-                  label: "Oscar",
-                  value: cell ? (
-                    <>
-                      <StagePill stage={cell.stage} />
-                      {cell.country ? (
-                        <span className="ml-2 text-caption text-ink-muted">for {countryName(cell.country)}</span>
-                      ) : null}
-                    </>
-                  ) : (
-                    <span className="text-ink-muted">Not yet</span>
-                  ),
-                },
-              ]}
-              marks={<FilmMarks movieId={e.film.id} title={e.film.title} />}
-            />
-          );
-        })}
-      </FilmList>
+      {entries.length === 0 && filter ? (
+        <p className="text-small text-ink-muted">
+          No {MARK_FILTER_LABELS[filter].toLowerCase()} films in {category.name}.
+        </p>
+      ) : (
+        <FilmList head={[award.shortName, oscar]} columns={COLUMNS}>
+          {entries.map((e) => {
+            const cell = oscarCell(e.oscar, oscarState, category.oscarCategory);
+            return (
+              <FilmRow
+                key={e.film.id}
+                title={e.film.title}
+                href={`/movies/${e.film.slug}`}
+                flags={e.flags}
+                scores={e.film.scores}
+                winner={e.outcome === "won"}
+                results={[
+                  {
+                    label: award.shortName,
+                    value: award.isSelection ? (
+                      <StagePill stage="nominated">Selected</StagePill>
+                    ) : (
+                      <StagePill stage={outcomeStage(e.outcome)} />
+                    ),
+                  },
+                  {
+                    label: "Oscar",
+                    value: cell ? (
+                      <>
+                        <StagePill stage={cell.stage} />
+                        {cell.country ? (
+                          <span className="ml-2 text-caption text-ink-muted">for {countryName(cell.country)}</span>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span className="text-ink-muted">Not yet</span>
+                    ),
+                  },
+                ]}
+                marks={<FilmMarks movieId={e.film.id} title={e.film.title} />}
+              />
+            );
+          })}
+        </FilmList>
+      )}
     </section>
   );
 }

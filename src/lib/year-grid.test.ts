@@ -221,7 +221,13 @@ describe("the address", () => {
     expect(toggleGridFilter(["unwatched"], "unwatched")).toEqual([]);
   });
 
-  it("keeps Watched and Unwatched apart: turning one on turns the other off", () => {
+  it("keeps the mark chips apart: turning one on turns the others off", () => {
+    expect(toggleGridFilter(["unwatched"], "want")).toEqual(["want"]);
+    expect(toggleGridFilter(["want"], "want")).toEqual([]);
+    expect(parseGridQuery({ filter: ["want", "watched"] }).filters).toEqual(["watched"]);
+    expect(gridHref(2025, { category: "picture", sort: "wins", filters: ["want"], criticsOpen: false })).toBe(
+      "/grid/2025?filter=want",
+    );
     expect(toggleGridFilter([], "watched")).toEqual(["watched"]);
     expect(toggleGridFilter(["unwatched"], "watched")).toEqual(["watched"]);
     expect(toggleGridFilter(["watched"], "unwatched")).toEqual(["unwatched"]);
@@ -239,7 +245,8 @@ describe("viewGrid", () => {
     gf(film(4, "Emilia Pérez", 65), { a: won, b: nom, c: nom }),
   ];
   const view = (over: Partial<GridQuery>): GridQuery => ({ category: "picture", sort: "wins", filters: [], criticsOpen: false, ...over });
-  const titles = (v: GridQuery, watched = new Set<number>()) => viewGrid([...films], v, watched).map((f) => f.film.title);
+  const titles = (v: GridQuery, watched = new Set<number>(), want = new Set<number>()) =>
+    viewGrid([...films], v, { watched, want }).map((f) => f.film.title);
 
   it("sorts by wins, then nominations, then title", () => {
     expect(titles(view({}))).toEqual(["Anora", "Conclave", "Emilia Pérez", "Wicked"]);
@@ -264,6 +271,7 @@ describe("viewGrid", () => {
   it("filters to films marked watched, and a film both watched and unwatched can't be shown", () => {
     expect(titles(view({ filters: ["watched"] }), new Set([2, 3]))).toEqual(["Anora", "Wicked"]);
     expect(titles(view({ filters: ["watched", "unwatched"] }), new Set([2, 3]))).toEqual([]);
+    expect(titles(view({ filters: ["want"] }), new Set([2]), new Set([3, 4]))).toEqual(["Emilia Pérez", "Wicked"]);
   });
 });
 

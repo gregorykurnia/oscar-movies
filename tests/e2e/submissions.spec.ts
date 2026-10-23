@@ -11,7 +11,8 @@ test("/submissions/2024 lists the year's submissions by country, A to Z, with ea
   const rows = page.getByRole("main").getByRole("heading", { level: 2 });
   await expect(rows).toHaveCount(89);
   await expect(rows.first()).toHaveText("Waterdrop");
-  await expect(page.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(89);
+  // One mark per row, and the Watched chip answers to the same name.
+  await expect(page.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(89 + 1);
 
   // The winner: the gold wash, the country's flag and name in the first column, "Won".
   const winner = page.locator("[data-winner]");

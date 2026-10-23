@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import { OscarYearPage } from "@/components/awards/OscarYearPage";
 import { LIVE_YEAR, OLDEST_YEAR, parseFilmYear, yearRange } from "@/lib/years";
 
-type Props = { params: Promise<{ year: string }> };
+type Props = {
+  params: Promise<{ year: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 // Every film year's header is known at build; the lists are read per request (OscarYearPage).
 export function generateStaticParams() {
@@ -15,9 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: year ? `Oscars ${year}` : "Page not found" };
 }
 
-// The Oscars' own year page (guide §8.2, on the award-page template).
-export default async function Page({ params }: Props) {
+// The Oscars' own year page (guide §8.2, on the award-page template). The mark chip is read from the address.
+export default async function Page({ params, searchParams }: Props) {
   const year = parseFilmYear((await params).year);
   if (year === null) notFound();
-  return <OscarYearPage year={year} />;
+  return <OscarYearPage year={year} query={searchParams} />;
 }

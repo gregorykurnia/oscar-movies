@@ -41,7 +41,7 @@ const ELIGIBLE_AR = row(8, "Kill the Jockey", "AR", "eligible", 70);
 const ELIGIBLE_TR = row(9, "Life", "TR", "eligible", 70);
 const ENTRIES = [WON, NOMINATED_FR, NOMINATED_LV, SHORTLISTED, ELIGIBLE_AL, SUBMITTED, ELIGIBLE_IR, ELIGIBLE_AR, ELIGIBLE_TR];
 const titles = (rows: OscarEntry[]) => rows.map((e) => e.film.title);
-const NONE = new Set<number>();
+const NONE = { watched: new Set<number>(), want: new Set<number>() };
 
 describe("parseSubmissionQuery", () => {
   it("the address without parameters is the default sort and no filters", () => {
@@ -157,7 +157,7 @@ describe("viewSubmissions", () => {
   });
 
   it("Unwatched drops the watched films and keeps the rest (want to watch included)", () => {
-    const watched = new Set([WON.film.id]);
+    const watched = { watched: new Set([WON.film.id]), want: new Set<number>() };
     expect(titles(viewSubmissions(ENTRIES, { sort: "country", filters: ["unwatched"] }, watched))).toEqual([
       "Waterdrop",
       "Algiers",
@@ -170,8 +170,26 @@ describe("viewSubmissions", () => {
     ]);
   });
 
+  it("Watched keeps the films marked watched, Want to watch the want-to-watch ones", () => {
+    const [first, second] = [ENTRIES[0], ENTRIES[1]];
+    const marks = { watched: new Set([first.film.id]), want: new Set([second.film.id]) };
+    expect(titles(viewSubmissions(ENTRIES, { sort: "country", filters: ["watched"] }, marks))).toEqual([first.film.title]);
+    expect(titles(viewSubmissions(ENTRIES, { sort: "country", filters: ["want"] }, marks))).toEqual([second.film.title]);
+  });
+
+  it("a mark chip replaces the other mark chips and keeps Shortlisted", () => {
+    expect(toggleFilter(["shortlisted", "unwatched"], "want")).toEqual(["shortlisted", "want"]);
+    expect(toggleFilter(["want"], "watched")).toEqual(["watched"]);
+    expect(toggleFilter(["watched"], "watched")).toEqual([]);
+  });
+
+  it("reads one mark chip from the address, the first in the chips' order", () => {
+    expect(parseSubmissionQuery({ filter: ["want", "watched", "shortlisted"] }).filters).toEqual(["shortlisted", "watched"]);
+    expect(submissionsQuery({ sort: "country", filters: ["want"] })).toBe("?filter=want");
+  });
+
   it("both chips together, then the sort", () => {
-    const watched = new Set([WON.film.id]);
+    const watched = { watched: new Set([WON.film.id]), want: new Set<number>() };
     expect(titles(viewSubmissions(ENTRIES, { sort: "stage", filters: ["shortlisted", "unwatched"] }, watched))).toEqual([
       "Emilia Pérez",
       "Flow",

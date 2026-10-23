@@ -8,10 +8,12 @@ import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getMarks } from "@/data/watch-list";
+import { MARK_FILTER_LABELS, markSets } from "@/lib/mark-filter";
 import { getYearGrid } from "@/data/year-grid";
 import { RACE_CATEGORIES } from "@/lib/race";
 import {
   filmCountLabel,
+  GRID_FILTERS,
   GRID_SORT_LABELS,
   GRID_SORTS,
   gridCategoryName,
@@ -32,13 +34,26 @@ type Query = Record<string, string | string[] | undefined>;
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 
+const EMPTY_TITLE: Record<GridFilter, string> = {
+  watched: "No watched films",
+  unwatched: "No unwatched films",
+  want: "No films to watch",
+};
+
+/** Why a mark filter left nothing, for `where` ("the 2025 grid for Best Picture"). */
+function emptyNote(filter: GridFilter, where: string): string {
+  if (filter === "watched") return `You haven't marked a film in ${where} as watched yet.`;
+  if (filter === "want") return `You haven't marked a film in ${where} as want to watch.`;
+  return `You've watched every film in ${where}.`;
+}
+
 /** The words after a view's count: " for Best Picture", none for all categories. */
 const scopeOf = (view: GridQuery) => (view.category === "all" ? "" : ` for ${gridCategoryName(view.category)}`);
 
 /**
  * Guide §8.4 the year grid (`/grid/[year]?category=&sort=&filter=&critics=`): PageHeader with the
- * count, the "Year summary" link and the year switcher; a toolbar (category, sort, Watched and
- * Unwatched, and the critics groups' folding when the category has any); the grid; the legend. The
+ * count, the "Year summary" link and the year switcher; a toolbar (category, sort, Watched,
+ * Unwatched and Want to watch, and the critics groups' folding when the category has any); the grid; the legend. The
  * whole view is in the address; the grid is read for it, and the watched filters read the marks per
  * visit. "all" is every category together (the year summary's totals link there).
  */
@@ -91,8 +106,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
   await connection();
   const view = parseGridQuery(await query);
   const [grid, marks] = await Promise.all([getYearGrid(year, view.category), getMarks()]);
-  const watched = new Set(marks.filter((m) => m.watched).map((m) => m.movieId));
-  const shown = viewGrid(grid.films, view, watched);
+  const shown = viewGrid(grid.films, view, markSets(marks));
   const critics = grid.columns.filter((c) => c.kind === "critics");
   const scope = scopeOf(view);
   const filterChip = (filter: GridFilter, label: string) => ({
@@ -101,7 +115,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
     pressed: view.filters.includes(filter),
   });
 
-  const chips = [filterChip("watched", "Watched"), filterChip("unwatched", "Unwatched")];
+  const chips = GRID_FILTERS.map((filter) => filterChip(filter, MARK_FILTER_LABELS[filter]));
   if (critics.length > 0) {
     chips.push({
       label: "Critics groups folded",
@@ -141,7 +155,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
         </EmptyState>
       ) : shown.length === 0 ? (
         <EmptyState
-          title={view.filters.includes("watched") ? "No watched films" : "No unwatched films"}
+          title={EMPTY_TITLE[view.filters[0]]}
           className="mt-6"
           actions={
             <TextLink href={gridHref(year, { ...view, filters: [] })} className="text-small">
@@ -149,9 +163,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             </TextLink>
           }
         >
-          {view.filters.includes("watched")
-            ? `You haven't marked a film in the ${year} grid${scope} as watched yet.`
-            : `You've watched every film in the ${year} grid${scope}.`}
+          {emptyNote(view.filters[0], `the ${year} grid${scope}`)}
         </EmptyState>
       ) : (
         <>

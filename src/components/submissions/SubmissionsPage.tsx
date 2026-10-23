@@ -13,9 +13,11 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getOscarEdition, getSubmissions } from "@/data/oscars";
 import { getMarks } from "@/data/watch-list";
+import { markSets } from "@/lib/mark-filter";
 import { DASH, formatDate } from "@/lib/format";
 import {
   FILTER_LABELS,
+  FILTER_PHRASES,
   parseSubmissionQuery,
   SORT_LABELS,
   SUBMISSION_FILTERS,
@@ -36,8 +38,8 @@ const COLUMNS = ["176px", "minmax(0,1fr)", "132px", "84px"];
 
 /**
  * Guide §8.3 film list for International submissions (`/submissions/[year]`): PageHeader with the
- * year switcher, then a toolbar (the sort as a segmented control, the Shortlisted and Unwatched
- * chips) over the list: the submitting country's flag and name, the film, its Oscar stage and the
+ * year switcher, then a toolbar (the sort as a segmented control, the Shortlisted chip and the
+ * mark chips) over the list: the submitting country's flag and name, the film, its Oscar stage and the
  * marks. The sort and the chips are in the address, and the list is read for that address.
  */
 export function SubmissionsPage({ year, query }: { year: number; query: Promise<Query> }) {
@@ -102,8 +104,7 @@ async function Submissions({ year, query }: { year: number; query: Promise<Query
   }
 
   const state = parseSubmissionQuery(params);
-  const watched = new Set(marks.filter((m) => m.watched).map((m) => m.movieId));
-  const shown = viewSubmissions(entries, state, watched);
+  const shown = viewSubmissions(entries, state, markSets(marks));
 
   return (
     <>
@@ -156,7 +157,7 @@ async function Submissions({ year, query }: { year: number; query: Promise<Query
             </TextLink>
           }
         >
-          Nothing in the {year} submissions is {state.filters.map((f) => FILTER_LABELS[f].toLowerCase()).join(" and ")}.
+          Nothing in the {year} submissions is {state.filters.map((f) => FILTER_PHRASES[f]).join(" and ")}.
         </EmptyState>
       )}
     </>

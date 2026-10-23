@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { FilterChips } from "@/components/chip/FilterChips";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { countryName } from "@/components/flag/Flag";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
@@ -11,10 +12,14 @@ import { StagePill } from "@/components/stage-pill/StagePill";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getOscarEdition, getOscarResults, type OscarEdition, type OscarEntry } from "@/data/oscars";
+import { getMarks } from "@/data/watch-list";
 import { formatDate } from "@/lib/format";
+import { keepMarked, markChips, markFilterQuery, markSets, parseMarkFilter, MARK_FILTER_LABELS, type MarkFilter, type MarkSets } from "@/lib/mark-filter";
 import { noResultsNote, RACE_CATEGORIES, raceEntries, seasonState, type RaceCategory, type SeasonState } from "@/lib/race";
 import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
+
+type Query = Record<string, string | string[] | undefined>;
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 // Film column · the Oscar result · marks.
@@ -24,9 +29,10 @@ const COLUMNS = ["minmax(0,1fr)", "220px", "84px"];
  * Guide §8.2 Award page, one year, for the Oscars (`/awards/oscars/[year]`): back link to the
  * awards index, PageHeader with the year switcher, a jump control, and per category the Oscar's
  * own name over the film list (Film · Oscar result · marks). No accuracy figures: the Oscars are
- * the result the other awards are measured against.
+ * the result the other awards are measured against. The Watched, Unwatched and Want to watch chips
+ * beside the jump control are in the address and filter every category's list by the live marks.
  */
-export function OscarYearPage({ year }: { year: number }) {
+export function OscarYearPage({ year, query }: { year: number; query: Promise<Query> }) {
   return (
     <>
       <PageHeader
@@ -37,10 +43,14 @@ export function OscarYearPage({ year }: { year: number }) {
             <Sub year={year} />
           </Suspense>
         }
-        actions={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href="/awards/oscars/{year}" />}
+        actions={
+          <Suspense fallback={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href="/awards/oscars/{year}" />}>
+            <SwitchYear year={year} query={query} />
+          </Suspense>
+        }
       />
       <Suspense fallback={<RaceRowsSkeleton />}>
-        <Categories year={year} />
+        <Categories year={year} query={query} />
       </Suspense>
     </>
   );
@@ -54,12 +64,23 @@ async function Sub({ year }: { year: number }) {
   return <p>{date ? `${editionLabel(year)} · ${date}` : editionLabel(year)}</p>;
 }
 
-async function Categories({ year }: { year: number }) {
+/** The year switcher keeps the mark chip when it changes the year. */
+async function SwitchYear({ year, query }: { year: number; query: Promise<Query> }) {
+  const filter = parseMarkFilter(await query);
+  return <YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href={`/awards/oscars/{year}${markFilterQuery(filter)}`} />;
+}
+
+async function Categories({ year, query }: { year: number; query: Promise<Query> }) {
+  // Wait for the request: the address and the marks are read per visit.
   await connection();
-  const [edition, ...results] = await Promise.all([
+  const [edition, marks, params, ...results] = await Promise.all([
     getOscarEdition(year),
+    getMarks(),
+    query,
     ...RACE_CATEGORIES.map((c) => getOscarResults(year, c.slug)),
   ]);
+  const filter = parseMarkFilter(params);
+  const sets = markSets(marks);
   if (!edition) {
     return (
       <EmptyState title="Not loaded yet" className="mt-10 md:mt-12">
@@ -69,11 +90,12 @@ async function Categories({ year }: { year: number }) {
   }
   return (
     <>
-      <div className="mt-6 md:mt-7">
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7">
         <Segmented
           label="Jump to category"
           items={RACE_CATEGORIES.map((c) => ({ label: c.name, href: `#${c.slug}` }))}
         />
+        <FilterChips label="Filter" items={markChips(`/awards/oscars/${year}`, filter)} />
       </div>
       {RACE_CATEGORIES.map(({ slug, oscar }, i) => {
         const state = seasonState(results[i].map((e) => e.outcome));
@@ -85,6 +107,8 @@ async function Categories({ year }: { year: number }) {
             name={oscar}
             state={state}
             entries={raceEntries(results[i], state)}
+            filter={filter}
+            sets={sets}
             edition={edition}
           />
         );
@@ -105,7 +129,9 @@ function CategorySection({
   slug,
   name,
   state,
-  entries,
+  entries: all,
+  filter,
+  sets,
   edition,
 }: {
   year: number;
@@ -113,8 +139,11 @@ function CategorySection({
   name: string;
   state: SeasonState;
   entries: OscarEntry[];
+  filter: MarkFilter | null;
+  sets: MarkSets;
   edition: OscarEdition;
 }) {
+  const entries = keepMarked(all, filter, sets, (e) => e.film.id);
   return (
     <section id={slug} aria-labelledby={`${slug}-h`} className="mt-10 scroll-mt-20 md:mt-12">
       {/* On phone the note always takes its own line, so every category's heading reads the same. */}
@@ -150,6 +179,8 @@ function CategorySection({
             />
           ))}
         </FilmList>
+      ) : all.length > 0 && filter ? (
+        <p className="text-small text-ink-muted">No {MARK_FILTER_LABELS[filter].toLowerCase()} films in {name}.</p>
       ) : (
         <EmptyState
           title="No Oscar results yet"

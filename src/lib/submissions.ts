@@ -4,11 +4,12 @@
 import type { Stage } from "@/components/stage-pill/StagePill";
 import { countryName } from "@/components/flag/Flag";
 import type { OscarEntry } from "@/data/oscars";
+import { isMarkFilter, MARK_FILTER_LABELS, MARK_FILTERS, passesMark, toggleFilterIn, type MarkFilter, type MarkSets } from "@/lib/mark-filter";
 import { isShortlisted, OUTCOMES, oscarStage, type Outcome } from "@/lib/stage";
 
 export const SUBMISSION_SORTS = ["country", "stage", "average"] as const;
 export type SubmissionSort = (typeof SUBMISSION_SORTS)[number];
-export const SUBMISSION_FILTERS = ["shortlisted", "unwatched"] as const;
+export const SUBMISSION_FILTERS = ["shortlisted", ...MARK_FILTERS] as const;
 export type SubmissionFilter = (typeof SUBMISSION_FILTERS)[number];
 
 export const SORT_LABELS: Record<SubmissionSort, string> = {
@@ -18,7 +19,14 @@ export const SORT_LABELS: Record<SubmissionSort, string> = {
 };
 export const FILTER_LABELS: Record<SubmissionFilter, string> = {
   shortlisted: "Shortlisted",
-  unwatched: "Unwatched",
+  ...MARK_FILTER_LABELS,
+};
+/** What the empty state says a film is under each chip. */
+export const FILTER_PHRASES: Record<SubmissionFilter, string> = {
+  shortlisted: "shortlisted",
+  watched: "marked watched",
+  unwatched: "unwatched",
+  want: "marked want to watch",
 };
 
 const DEFAULT_SORT: SubmissionSort = "country";
@@ -31,7 +39,9 @@ type SearchParams = Record<string, string | string[] | undefined>;
 export function parseSubmissionQuery(params: SearchParams): SubmissionQuery {
   const sort = SUBMISSION_SORTS.find((s) => s === [params.sort].flat()[0]) ?? DEFAULT_SORT;
   const values = [params.filter ?? []].flat();
-  return { sort, filters: SUBMISSION_FILTERS.filter((f) => values.includes(f)) };
+  // Only one mark chip counts: the first in the chips' order, as a hand-typed address may repeat them.
+  const mark = MARK_FILTERS.find((f) => values.includes(f));
+  return { sort, filters: SUBMISSION_FILTERS.filter((f) => (isMarkFilter(f) ? f === mark : values.includes(f))) };
 }
 
 /** The address's query for a sort and filters: "?sort=stage&filter=shortlisted", or "" for the defaults. */
@@ -47,9 +57,9 @@ export function submissionsHref(year: number, state: SubmissionQuery): string {
   return `/submissions/${year}${submissionsQuery(state)}`;
 }
 
-/** The filters with one chip flipped, kept in the order the chips are shown. */
+/** The filters with one chip flipped, kept in the order the chips are shown; a mark chip replaces the other mark chips. */
 export function toggleFilter(filters: SubmissionFilter[], filter: SubmissionFilter): SubmissionFilter[] {
-  return SUBMISSION_FILTERS.filter((f) => (f === filter ? !filters.includes(f) : filters.includes(f)));
+  return toggleFilterIn(SUBMISSION_FILTERS, filters, filter);
 }
 
 /**
@@ -84,14 +94,13 @@ const COMPARE: Record<SubmissionSort, (a: OscarEntry, b: OscarEntry) => number> 
 };
 
 /**
- * The rows the page shows: the chips filter (shortlisted: the shortlist and further; unwatched: not
- * marked watched, so a want-to-watch film stays), then the sort.
+ * The rows the page shows: the chips filter (shortlisted: the shortlist and further; a mark chip:
+ * `passesMark`), then the sort.
  */
-export function viewSubmissions(entries: OscarEntry[], { sort, filters }: SubmissionQuery, watched: ReadonlySet<number>): OscarEntry[] {
+export function viewSubmissions(entries: OscarEntry[], { sort, filters }: SubmissionQuery, marks: MarkSets): OscarEntry[] {
+  const mark: MarkFilter | undefined = filters.find(isMarkFilter);
   const shown = entries.filter(
-    (e) =>
-      (!filters.includes("shortlisted") || isShortlisted(e.outcome)) &&
-      (!filters.includes("unwatched") || !watched.has(e.film.id)),
+    (e) => (!filters.includes("shortlisted") || isShortlisted(e.outcome)) && (!mark || passesMark(mark, e.film.id, marks)),
   );
   return shown.sort(COMPARE[sort]);
 }
