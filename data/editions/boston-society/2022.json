@@ -1,0 +1,14 @@
+{
+  "award": "boston-society",
+  "year": 2022,
+  "status": "loaded",
+  "winnersOn": "2022-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2022"],
+  "note": "The society gave no foreign-language prize that year (Best Picture and Best English Language Film instead).",
+  "results": [
+    { "category": "picture", "imdb": "tt19719836", "title": "Return to Seoul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "won" }
+  ],
+  "screenings": []
+}

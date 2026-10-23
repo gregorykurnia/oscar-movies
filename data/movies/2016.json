@@ -171,5 +171,11 @@
   "tt5278836": { "slug": "between-sea-and-land", "title": "Between Sea and Land", "originalTitle": "La ciénaga: Entre el mar y la tierra", "originalLang": "es", "countries": ["CO"], "language": "es", "wd": "Q22179822", "tmdb": 373353 },
   "tt5278466": { "slug": "jim-the-james-foley-story", "title": "Jim: The James Foley Story", "countries": ["US"], "language": "en", "wd": "Q24593936", "tmdb": 373441 },
   "tt4341582": { "slug": "queen-of-katwe", "title": "Queen of Katwe", "countries": ["US"], "language": "en", "wd": "Q20921603", "tmdb": 317557 },
-  "tt5929776": { "slug": "before-the-flood", "title": "Before the Flood", "countries": ["US"], "language": "en", "wd": "Q26869689", "tmdb": 410718 }
+  "tt5929776": { "slug": "before-the-flood", "title": "Before the Flood", "countries": ["US"], "language": "en", "wd": "Q26869689", "tmdb": 410718 },
+  "tt4120176": { "slug": "things-to-come", "title": "Things to Come", "originalTitle": "L’Avenir", "originalLang": "fr", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20814850", "tmdb": 374465 },
+  "tt2818252": { "slug": "couple-in-a-hole", "title": "Couple in a Hole", "countries": ["GB", "BE", "FR"], "language": "en", "wd": "Q22000142", "tmdb": 358926 },
+  "tt4698684": { "slug": "hunt-for-the-wilderpeople", "title": "Hunt for the Wilderpeople", "countries": ["NZ"], "language": "en", "wd": "Q22236109", "tmdb": 371645 },
+  "tt3688612": { "slug": "the-hard-stop", "title": "The Hard Stop", "countries": ["GB"], "language": "en", "wd": "Q28457039", "tmdb": 358927 },
+  "tt5124774": { "slug": "the-confession", "title": "The Confession", "countries": ["US"], "language": "en", "tmdb": 404496 },
+  "tt5536398": { "slug": "versus-the-life-and-films-of-ken-loach", "title": "Versus: The Life and Films of Ken Loach", "countries": ["GB"], "language": "en", "tmdb": 400326 }
 }

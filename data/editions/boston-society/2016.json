@@ -1,0 +1,15 @@
+{
+  "award": "boston-society",
+  "year": 2016,
+  "status": "loaded",
+  "winnersOn": "2016-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2016"],
+  "results": [
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
+    { "category": "international", "imdb": "tt4120176", "title": "Things to Come", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5116410", "title": "Tower", "outcome": "won" }
+  ],
+  "screenings": []
+}

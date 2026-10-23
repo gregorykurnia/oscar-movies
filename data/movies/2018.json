@@ -164,5 +164,18 @@
   "tt7689912": { "slug": "the-price-of-free", "title": "The Price of Free", "countries": ["US"], "language": "en", "wd": "Q58411506", "tmdb": 490792 },
   "tt7689926": { "slug": "the-sentence", "title": "The Sentence", "countries": ["US"], "language": "en", "wd": "Q95991514", "tmdb": 492638 },
   "tt7689946": { "slug": "this-is-home-a-refugee-story", "title": "This Is Home: A Refugee Story", "countries": ["SA", "SY", "US"], "language": "ar", "tmdb": 493114 },
-  "tt5795282": { "slug": "this-changes-everything-2018", "title": "This Changes Everything", "countries": ["US"], "language": "en", "wd": "Q56697342", "tmdb": 541577 }
+  "tt5795282": { "slug": "this-changes-everything-2018", "title": "This Changes Everything", "countries": ["US"], "language": "en", "wd": "Q56697342", "tmdb": 541577 },
+  "tt7242142": { "slug": "blindspotting", "title": "Blindspotting", "countries": ["US"], "language": "en", "wd": "Q47064265", "tmdb": 489930 },
+  "tt1034415": { "slug": "suspiria", "title": "Suspiria", "countries": ["US", "IT"], "language": "en", "wd": "Q28123467", "tmdb": 361292 },
+  "tt5580266": { "slug": "the-hate-u-give", "title": "The Hate U Give", "countries": ["US"], "language": "en", "wd": "Q39659551", "tmdb": 470044 },
+  "tt7440432": { "slug": "quincy", "title": "Quincy", "countries": ["US"], "language": "en", "wd": "Q56561552", "tmdb": 504561 },
+  "tt5688932": { "slug": "sorry-to-bother-you", "title": "Sorry to Bother You", "countries": ["US"], "language": "en", "wd": "Q32067450", "tmdb": 424781 },
+  "tt6977442": { "slug": "liyana", "title": "Liyana", "countries": ["US", "QA", "SZ"], "language": "en", "wd": "Q65091690", "tmdb": 461844 },
+  "tt6212478": { "slug": "american-animals", "title": "American Animals", "countries": ["US", "GB"], "language": "en", "wd": "Q33256085", "tmdb": 489931 },
+  "tt5628302": { "slug": "beast", "title": "Beast", "countries": ["GB"], "language": "en", "wd": "Q48674188", "tmdb": 470918 },
+  "tt6108178": { "slug": "disobedience", "title": "Disobedience", "countries": ["GB", "IE", "US"], "language": "en", "wd": "Q28465803", "tmdb": 419743 },
+  "tt8793990": { "slug": "evelyn", "title": "Evelyn", "countries": ["GB"], "language": "en", "wd": "Q66828813", "tmdb": 545556 },
+  "tt4489624": { "slug": "nae-pasaran", "title": "Nae Pasaran", "countries": ["GB"], "language": "en", "wd": "Q24579372", "tmdb": 506612 },
+  "tt2981746": { "slug": "being-frank-the-chris-sievey-story", "title": "Being Frank: The Chris Sievey Story", "countries": ["US", "GB"], "language": "en", "tmdb": 503761 },
+  "tt8520614": { "slug": "under-the-wire", "title": "Under the Wire", "countries": ["US", "GB"], "language": "en", "tmdb": 524006 }
 }

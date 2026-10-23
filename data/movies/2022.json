@@ -173,5 +173,16 @@
   "tt10931784": { "slug": "nanny", "title": "Nanny", "countries": ["US"], "language": "en", "wd": "Q107389143", "tmdb": 843932 },
   "tt14376344": { "slug": "cha-cha-real-smooth", "title": "Cha Cha Real Smooth", "countries": ["US"], "language": "en", "wd": "Q110027782", "tmdb": 814340 },
   "tt16227006": { "slug": "the-exiles", "title": "The Exiles", "countries": ["US"], "language": "en", "tmdb": 913827 },
-  "tt15144270": { "slug": "black-ice", "title": "Black Ice", "countries": ["CA"], "language": "en", "wd": "Q113504770", "tmdb": 1005727 }
+  "tt15144270": { "slug": "black-ice", "title": "Black Ice", "countries": ["CA"], "language": "en", "wd": "Q113504770", "tmdb": 1005727 },
+  "tt16977750": { "slug": "sidney", "title": "Sidney", "countries": ["US"], "language": "en", "wd": "Q113685676", "tmdb": 961722 },
+  "tt12530246": { "slug": "emancipation", "title": "Emancipation", "countries": ["US"], "language": "en", "wd": "Q107803472", "tmdb": 715931 },
+  "tt13495458": { "slug": "the-inspection", "title": "The Inspection", "countries": ["US"], "language": "en", "wd": "Q112030155", "tmdb": 837938 },
+  "tt10192406": { "slug": "causeway", "title": "Causeway", "countries": ["US"], "language": "en", "wd": "Q64691760", "tmdb": 595586 },
+  "tt19770238": { "slug": "aftersun", "title": "Aftersun", "countries": ["GB", "US"], "language": "en", "wd": "Q111668106", "tmdb": 965150 },
+  "tt8649344": { "slug": "blue-jean", "title": "Blue Jean", "countries": ["GB"], "language": "en", "wd": "Q113556570", "tmdb": 971699 },
+  "tt13352968": { "slug": "good-luck-to-you-leo-grande", "title": "Good Luck to You, Leo Grande", "countries": ["GB"], "language": "en", "wd": "Q106740037", "tmdb": 758330 },
+  "tt9288822": { "slug": "the-wonder", "title": "The Wonder", "countries": ["IE", "GB", "US"], "language": "en", "wd": "Q113331181", "tmdb": 823766 },
+  "tt8595016": { "slug": "my-old-school", "title": "My Old School", "countries": ["GB"], "language": "en", "wd": "Q110700676", "tmdb": 913867 },
+  "tt7975192": { "slug": "hide-and-seek", "title": "Hide and Seek", "countries": ["US"], "language": "en", "wd": "Q106074143", "tmdb": 801271 },
+  "tt14291906": { "slug": "my-childhood-my-country-20-years-in-afghanistan", "title": "My Childhood, My Country: 20 Years in Afghanistan", "countries": ["GB", "US", "AF"], "language": "en", "tmdb": 837383 }
 }

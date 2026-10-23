@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-11-03",
+  "winnersOn": "2025-11-30",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt32321317", "title": "Pillion", "outcome": "won" },
+    { "category": "picture", "imdb": "tt27674982", "title": "The Ballad of Wallis Island", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt31514146", "title": "I Swear", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt35695538", "title": "My Father's Shadow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt35715953", "title": "Urchin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32843349", "title": "Sorry, Baby", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33567409", "title": "A Want in Her", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt32143856", "title": "Antidote", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27623454", "title": "The Shepherd and the Bear", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32123163", "title": "Mother Vera", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16242538", "title": "Motherboard", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

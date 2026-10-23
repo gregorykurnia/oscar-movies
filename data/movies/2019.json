@@ -175,5 +175,17 @@
   "tt7671064": { "slug": "brittany-runs-a-marathon", "title": "Brittany Runs a Marathon", "countries": ["US"], "language": "en", "wd": "Q52151283", "tmdb": 529862 },
   "tt9326056": { "slug": "sea-of-shadows", "title": "Sea of Shadows", "countries": ["AT", "AU", "US"], "language": "en", "wd": "Q84158729", "tmdb": 566219 },
   "tt10773380": { "slug": "i-am-not-alone", "title": "I Am Not Alone", "countries": ["AM", "US"], "language": "hy", "wd": "Q73918180", "tmdb": 621759 },
-  "tt10883124": { "slug": "dads", "title": "Dads", "countries": ["US"], "language": "en", "wd": "Q74191437", "tmdb": 621757 }
+  "tt10883124": { "slug": "dads", "title": "Dads", "countries": ["US"], "language": "en", "wd": "Q74191437", "tmdb": 621757 },
+  "tt7914416": { "slug": "one-cut-of-the-dead", "title": "One Cut of the Dead", "originalTitle": "カメラを止めるな!", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q55223237", "tmdb": 513434 },
+  "tt9358044": { "slug": "hail-satan", "title": "Hail Satan?", "countries": ["US"], "language": "en", "wd": "Q61450779", "tmdb": 565719 },
+  "tt6857112": { "slug": "us", "title": "Us", "countries": ["US"], "language": "en", "wd": "Q56000996", "tmdb": 458723 },
+  "tt4916630": { "slug": "just-mercy", "title": "Just Mercy", "countries": ["US"], "language": "en", "wd": "Q56419916", "tmdb": 522212 },
+  "tt8722346": { "slug": "queen-and-slim", "title": "Queen & Slim", "countries": ["US"], "language": "en", "wd": "Q60683357", "tmdb": 536743 },
+  "tt8652728": { "slug": "waves-2019", "title": "Waves", "countries": ["US"], "language": "en", "wd": "Q56205334", "tmdb": 533444 },
+  "tt4648786": { "slug": "harriet", "title": "Harriet", "countries": ["US"], "language": "en", "wd": "Q30609465", "tmdb": 506528 },
+  "tt9652782": { "slug": "bait", "title": "Bait", "countries": ["GB"], "language": "en", "wd": "Q61889586", "tmdb": 576069 },
+  "tt5117428": { "slug": "wild-rose", "title": "Wild Rose", "countries": ["GB"], "language": "en", "wd": "Q63160297", "tmdb": 482981 },
+  "tt7298400": { "slug": "ash-is-purest-white", "title": "Ash Is Purest White", "originalTitle": "江湖儿女", "originalLang": "zh", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51797794", "tmdb": 441393 },
+  "tt10915286": { "slug": "tell-me-who-i-am", "title": "Tell Me Who I Am", "countries": ["GB"], "language": "en", "wd": "Q72386851", "tmdb": 627070 },
+  "tt6314864": { "slug": "seahorse", "title": "Seahorse", "countries": ["GB"], "language": "en", "wd": "Q96482265", "tmdb": 589366 }
 }

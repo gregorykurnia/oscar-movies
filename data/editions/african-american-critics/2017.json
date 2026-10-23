@@ -1,0 +1,23 @@
+{
+  "award": "african-american-critics",
+  "year": 2017,
+  "status": "loaded",
+  "winnersOn": "2017-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://en.wikipedia.org/wiki/African-American_Film_Critics_Association_Awards_2017"],
+  "results": [
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2380307", "title": "Coco", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3564472", "title": "Girls Trip", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5390504", "title": "Detroit", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6057032", "title": "Gook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3268340", "title": "Crown Heights", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5301662", "title": "Marshall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6333070", "title": "The Wound", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5758404", "title": "STEP", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" }
+  ],
+  "screenings": []
+}

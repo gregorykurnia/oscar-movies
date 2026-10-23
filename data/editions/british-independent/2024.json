@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-11-05",
+  "winnersOn": "2024-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt27367464", "title": "Kneecap", "outcome": "won" },
+    { "category": "picture", "imdb": "tt19637052", "title": "Love Lies Bleeding", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32083311", "title": "On Becoming a Guinea Fowl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11687002", "title": "The Outrun", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt30444418", "title": "Santosh", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14561712", "title": "La chimera", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32141590", "title": "Witches", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt13940818", "title": "The Contestant", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28244549", "title": "Grand Theft Hamlet", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30320489", "title": "Two Strangers Trying Not to Kill Each Other", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

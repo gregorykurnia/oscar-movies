@@ -183,5 +183,17 @@
   "tt11393948": { "slug": "epicentro", "title": "Epicentro", "countries": ["AT", "FR"], "language": "es", "wd": "Q98457335", "tmdb": 653754 },
   "tt9098928": { "slug": "the-reason-i-jump", "title": "The Reason I Jump", "countries": ["US", "GB"], "language": "en", "tmdb": 653758 },
   "tt11735544": { "slug": "beans", "title": "Beans", "countries": ["CA"], "language": "en", "wd": "Q97959512", "tmdb": 726220 },
-  "tt8891904": { "slug": "inconvenient-indian", "title": "Inconvenient Indian", "countries": ["CA"], "language": "en", "wd": "Q98078707", "tmdb": 592640 }
+  "tt8891904": { "slug": "inconvenient-indian", "title": "Inconvenient Indian", "countries": ["CA"], "language": "en", "wd": "Q98078707", "tmdb": 592640 },
+  "tt1051906": { "slug": "the-invisible-man", "title": "The Invisible Man", "countries": ["US", "AU"], "language": "en", "wd": "Q64004122", "tmdb": 570670 },
+  "tt11905462": { "slug": "athlete-a", "title": "Athlete A", "countries": ["US"], "language": "en", "wd": "Q96372504", "tmdb": 684700 },
+  "tt8173728": { "slug": "the-wolf-house", "title": "The Wolf House", "originalTitle": "La Casa Lobo", "originalLang": "es", "countries": ["CL"], "language": "es", "wd": "Q56307570", "tmdb": 499537 },
+  "tt9067182": { "slug": "rocks", "title": "Rocks", "countries": ["GB"], "language": "en", "wd": "Q73541400", "tmdb": 575773 },
+  "tt4460792": { "slug": "calm-with-horses", "title": "Calm With Horses", "countries": ["IE", "GB"], "language": "en", "wd": "Q85309679", "tmdb": 574396 },
+  "tt8508734": { "slug": "his-house", "title": "His House", "countries": ["GB", "US"], "language": "en", "wd": "Q83826818", "tmdb": 575774 },
+  "tt7557108": { "slug": "saint-maud", "title": "Saint Maud", "countries": ["GB"], "language": "en", "wd": "Q68681279", "tmdb": 575776 },
+  "tt8399664": { "slug": "babyteeth", "title": "Babyteeth", "countries": ["AU"], "language": "en", "wd": "Q66712802", "tmdb": 522098 },
+  "tt10010368": { "slug": "the-australian-dream", "title": "The Australian Dream", "countries": ["AU"], "language": "en", "wd": "Q85806427", "tmdb": 520754 },
+  "tt10851618": { "slug": "rising-phoenix", "title": "Rising Phoenix", "countries": ["GB"], "language": "en", "wd": "Q98688194", "tmdb": 726887 },
+  "tt9308410": { "slug": "being-a-human-person", "title": "Being a Human Person", "countries": ["GB", "SE"], "language": "en", "tmdb": 682436 },
+  "tt8351520": { "slug": "white-riot", "title": "White Riot", "countries": ["GB"], "language": "en", "tmdb": 627051 }
 }

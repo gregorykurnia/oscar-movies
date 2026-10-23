@@ -1,0 +1,14 @@
+{
+  "award": "boston-society",
+  "year": 2023,
+  "status": "loaded",
+  "winnersOn": "2023-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "won" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11398152", "title": "Geographies of Solitude", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" }
+  ],
+  "screenings": []
+}

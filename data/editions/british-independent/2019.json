@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-10-30",
+  "winnersOn": "2019-12-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2019"],
+  "results": [
+    { "category": "picture", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9652782", "title": "Bait", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6439020", "title": "The Personal History of David Copperfield", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6920356", "title": "The Souvenir", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5117428", "title": "Wild Rose", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt7298400", "title": "Ash Is Purest White", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6062774", "title": "Monos", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1984135", "title": "Coup 53", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5433114", "title": "Diego Maradona", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10915286", "title": "Tell Me Who I Am", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6314864", "title": "Seahorse", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

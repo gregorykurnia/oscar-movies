@@ -757,7 +757,7 @@
     "shortName": "Boston Society",
     "kind": "critics",
     "calendarOrder": 235,
-    "winnersOnly": false,
+    "winnersOnly": true,
     "isSelection": false,
     "url": "https://bostonfilmcritics.org",
     "categories": [
@@ -793,7 +793,7 @@
     "shortName": "Boston Online",
     "kind": "critics",
     "calendarOrder": 240,
-    "winnersOnly": false,
+    "winnersOnly": true,
     "isSelection": false,
     "categories": [
       {
@@ -1005,7 +1005,7 @@
     "shortName": "AAFCA",
     "kind": "critics",
     "calendarOrder": 270,
-    "winnersOnly": false,
+    "winnersOnly": true,
     "isSelection": false,
     "url": "https://aafca.com",
     "categories": [

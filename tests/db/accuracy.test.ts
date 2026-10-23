@@ -28,7 +28,7 @@ describe("queryAccuracy", () => {
     expect(bafta.win!.count).toBe(14);
     expect(bafta.nominees!.count).toBeGreaterThan(14);
     expect(rows.some((r) => r.key.startsWith("oscars/"))).toBe(false);
-    expect(new Set(rows.map((r) => r.kind))).toEqual(new Set(["major", "festival"]));
+    expect(new Set(rows.map((r) => r.kind))).toEqual(new Set(["major", "festival", "critics"]));
   });
 
   it("marks a winners-only award with no nominee figure and a list with no winner count", async () => {

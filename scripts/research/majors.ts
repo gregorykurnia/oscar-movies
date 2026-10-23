@@ -317,7 +317,7 @@ async function main() {
             ? { article: manual.article, text: manual.text }
             : readHeadingWinner(page.html, heading, /^Outstanding (Achievement in )?Non-?[Ff]iction Feature/);
           if (manual) manualUrls.push(manual.url);
-          if (film) found.push({ category, list: { category, nominees: [{ film, winner: true, line: film.text }] } });
+          if (film) found.push({ category, list: { category, nominees: [{ film, films: [film], winner: true, line: film.text }] } });
           else {
             missing.push(category);
             local.push(`${label}: no ${category} winner under "${heading}" in ${spec.winnerOnlyUntil!.article}`);

@@ -1,0 +1,20 @@
+{
+  "award": "african-american-critics",
+  "year": 2021,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt10696784", "title": "The Harder They Fall", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9620288", "title": "King Richard", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2452150", "title": "Respect", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10095582", "title": "The Tragedy of Macbeth", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8893974", "title": "Passing", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11214590", "title": "House of Gucci", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14030682", "title": "Who We Are: A Chronicle of Racism in America", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

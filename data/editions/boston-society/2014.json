@@ -1,0 +1,18 @@
+{
+  "award": "boston-society",
+  "year": 2014,
+  "status": "loaded",
+  "winnersOn": "2014-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2014"],
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1935156", "title": "Jodorowsky's Dune", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

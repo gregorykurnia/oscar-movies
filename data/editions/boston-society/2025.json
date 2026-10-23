@@ -1,0 +1,14 @@
+{
+  "award": "boston-society",
+  "year": 2025,
+  "status": "loaded",
+  "winnersOn": "2025-12-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt26245982", "title": "Afternoons of Solitude", "outcome": "won" },
+    { "category": "animated", "imdb": "tt34965172", "title": "Endless Cookie", "outcome": "won" }
+  ],
+  "screenings": []
+}

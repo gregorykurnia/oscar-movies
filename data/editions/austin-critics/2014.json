@@ -1,0 +1,25 @@
+{
+  "award": "austin-critics",
+  "year": 2014,
+  "status": "partial",
+  "nominationsOn": "2014-12-17",
+  "winnersOn": "2014-12-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Austin_Film_Critics_Association_Awards_2014"],
+  "note": "Only the winners are listed (and a top ten for Best Film). The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1706620", "title": "Snowpiercer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1791528", "title": "Inherent Vice", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2267998", "title": "Gone Girl", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

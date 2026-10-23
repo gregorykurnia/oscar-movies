@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-12-09",
+  "winnersOn": "2021-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2020"],
+  "results": [
+    { "category": "picture", "imdb": "tt9067182", "title": "Rocks", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4460792", "title": "Calm With Horses", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8508734", "title": "His House", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7557108", "title": "Saint Maud", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "international", "imdb": "tt8399664", "title": "Babyteeth", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7945450", "title": "Notturno", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10010368", "title": "The Australian Dream", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10851618", "title": "Rising Phoenix", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9098928", "title": "The Reason I Jump", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9308410", "title": "Being a Human Person", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8351520", "title": "White Riot", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

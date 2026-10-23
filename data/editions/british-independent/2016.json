@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2016,
+  "status": "partial",
+  "nominationsOn": "2016-11-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2016"],
+  "note": "The announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt3721936", "title": "American Honey", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2818252", "title": "Couple in a Hole", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5117222", "title": "Notes on Blindness", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4273292", "title": "Under the Shadow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "international", "imdb": "tt4698684", "title": "Hunt for the Wilderpeople", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5117222", "title": "Notes on Blindness", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5097070", "title": "Dancer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3688612", "title": "The Hard Stop", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5124774", "title": "The Confession: Living the War on Terror", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5536398", "title": "Versus: The Life and Films of Ken Loach", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

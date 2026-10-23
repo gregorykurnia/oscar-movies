@@ -1,0 +1,25 @@
+{
+  "award": "british-independent",
+  "year": 2017,
+  "status": "partial",
+  "nominationsOn": "2017-11-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2017"],
+  "note": "The announcement date is not stated; \"Half Way\" is left out (no film record could be matched).",
+  "results": [
+    { "category": "picture", "imdb": "tt5635086", "title": "God’s Own Country", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4686844", "title": "The Death of Stalin", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6213284", "title": "I Am Not a Witch", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4291600", "title": "Lady Macbeth", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "international", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7321274", "title": "Kingdom of Us", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2634548", "title": "Uncle Howard", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6981046", "title": "Williams", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6373826", "title": "Almost Heaven", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -151,5 +151,16 @@
   "tt2131698": { "slug": "zaytoun", "title": "Zaytoun", "originalTitle": "זייתון", "originalLang": "he", "countries": ["IL", "GB", "FR"], "language": "ar", "wd": "Q3574953", "tmdb": 121640 },
   "tt2370718": { "slug": "artifact", "title": "Artifact", "countries": ["US"], "language": "en", "wd": "Q3624405", "tmdb": 127853 },
   "tt1754546": { "slug": "storm-surfers-3d", "title": "Storm Surfers 3D", "countries": ["AU"], "language": "en", "wd": "Q50575626", "tmdb": 128217 },
-  "tt2350608": { "slug": "revolution", "title": "Revolution", "countries": ["CA"], "language": "en", "wd": "Q7318625", "tmdb": 128201 }
+  "tt2350608": { "slug": "revolution", "title": "Revolution", "countries": ["CA"], "language": "en", "wd": "Q7318625", "tmdb": 128201 },
+  "tt2076220": { "slug": "holy-motors", "title": "Holy Motors", "countries": ["FR", "DE"], "language": "fr", "wd": "Q304739", "tmdb": 103328 },
+  "tt1371111": { "slug": "cloud-atlas", "title": "Cloud Atlas", "countries": ["DE", "US", "HK", "SG", "CN", "ES", "GB"], "language": "en", "wd": "Q28936", "tmdb": 83542 },
+  "tt1560747": { "slug": "the-master", "title": "The Master", "countries": ["US"], "language": "en", "wd": "Q283586", "tmdb": 68722 },
+  "tt1276104": { "slug": "looper", "title": "Looper", "countries": ["US", "CN"], "language": "en", "wd": "Q53719", "tmdb": 59967 },
+  "tt1211890": { "slug": "middle-of-nowhere", "title": "Middle of Nowhere", "countries": ["US"], "language": "en", "wd": "Q3736162", "tmdb": 83588 },
+  "tt1621045": { "slug": "think-like-a-man", "title": "Think like a Man", "countries": ["US"], "language": "en", "wd": "Q548148", "tmdb": 67660 },
+  "tt1441940": { "slug": "broken", "title": "Broken", "countries": ["GB"], "language": "en", "wd": "Q925605", "tmdb": 109584 },
+  "tt2023690": { "slug": "sightseers", "title": "Sightseers", "countries": ["GB"], "language": "en", "wd": "Q7512122", "tmdb": 117974 },
+  "tt1833844": { "slug": "berberian-sound-studio", "title": "Berberian Sound Studio", "countries": ["GB"], "language": "en", "wd": "Q761590", "tmdb": 116811 },
+  "tt2079571": { "slug": "roman-polanski-a-film-memoir", "title": "Roman Polanski: A Film Memoir", "countries": ["IT", "GB", "DE"], "language": "en", "wd": "Q3940522", "tmdb": 119415 },
+  "tt1819513": { "slug": "dreams-of-a-life", "title": "Dreams of a Life", "countries": ["GB"], "language": "en", "wd": "Q5306747", "tmdb": 83540 }
 }

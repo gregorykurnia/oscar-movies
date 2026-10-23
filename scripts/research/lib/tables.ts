@@ -21,6 +21,8 @@ export type FilmLink = {
 
 export type Nominee = {
   film: FilmLink | null;
+  /** Every film named on the line outside brackets (a tie names two: "A and B (TIE)"); `film` is the first. */
+  films: FilmLink[];
   winner: boolean;
   /** The whole line as text (people, country, language), for checks and notes. */
   line: string;
@@ -57,6 +59,38 @@ export function filmOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): Fi
   return { article: null, text: clean(italic.text()) };
 }
 
+/** Every italic film name on a line that isn't in brackets (a bracketed one is the film's other title), with its link. */
+export function filmsOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): FilmLink[] {
+  const found: FilmLink[] = [];
+  let depth = 0;
+  const walk = (nodes: AnyNode[]) => {
+    for (const node of nodes) {
+      if (node.type === "text") {
+        for (const ch of (node as unknown as { data: string }).data) {
+          if (ch === "(") depth++;
+          else if (ch === ")") depth = Math.max(0, depth - 1);
+        }
+      } else if (node.type === "tag") {
+        const el = node as Element;
+        if (el.name === "sup" || el.name === "style") continue;
+        if (el.name === "i") {
+          const text = clean($(el).text());
+          if (depth === 0 && text) {
+            // One italic holding several linked names ("A and B (TIE)") names several films.
+            const links = $(el).find("a").toArray();
+            if (links.length > 0) found.push(...links.map((a) => linkOf($, $(a))).filter((l) => l.text));
+            else found.push({ article: null, text });
+          }
+          continue;
+        }
+        walk($(el).contents().toArray());
+      }
+    }
+  };
+  walk(own.toArray().flatMap((n) => (n.type === "tag" ? $(n).contents().toArray() : [n])));
+  return found;
+}
+
 /**
  * Every nominee box on the page: a cell whose first element is a header (a `div` or `b`
  * holding the category name) followed by lists of nominees. Winners are the lines in bold or
@@ -78,13 +112,13 @@ export function readNomineeLists(html: string): NomineeList[] {
 }
 
 /** One nominee line; a bold film name (even inside the italics), or a mark ‡, makes it a winner. */
-function nomineeOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): Nominee {
+export function nomineeOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): Nominee {
   const line = clean(own.text());
   const film = filmOf($, own);
   const boldText = clean(own.find("b").text());
   // Bold covers the film's name, or half the line (a winner's line may name the producers too).
   const bold = boldText.length > 0 && (boldText.length >= line.length / 2 || (film !== null && boldText.includes(film.text)));
-  return { film, winner: bold || WINNER_MARK.test(line), line };
+  return { film, films: filmsOf($, own), winner: bold || WINNER_MARK.test(line), line };
 }
 
 /**
@@ -250,7 +284,7 @@ export function readArticleYears(html: string): Map<number, Nominee[]> {
       if (!year || !cell || !cell.text) continue;
       const link = cell.film ?? cell.links[0] ?? null;
       const line = cell.text.replace(/\s*[†‡*]+$/, "");
-      years.set(year, [...(years.get(year) ?? []), { film: link ?? { article: null, text: line }, winner: cell.bold, line }]);
+      years.set(year, [...(years.get(year) ?? []), { film: link ?? { article: null, text: line }, films: [link ?? { article: null, text: line }], winner: cell.bold, line }]);
     }
   }
   return years;

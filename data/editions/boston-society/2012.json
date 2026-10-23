@@ -1,0 +1,19 @@
+{
+  "award": "boston-society",
+  "year": 2012,
+  "status": "loaded",
+  "winnersOn": "2012-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2012"],
+  "results": [
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1602620", "title": "Amour", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2076220", "title": "Holy Motors", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

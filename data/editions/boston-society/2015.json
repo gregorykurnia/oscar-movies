@@ -1,0 +1,19 @@
+{
+  "award": "boston-society",
+  "year": 2015,
+  "status": "loaded",
+  "winnersOn": "2015-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2015"],
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "international", "imdb": "tt2844798", "title": "White God", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

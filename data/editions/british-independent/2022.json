@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-11-04",
+  "winnersOn": "2022-12-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2022"],
+  "results": [
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8649344", "title": "Blue Jean", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13352968", "title": "Good Luck to You, Leo Grande", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9051908", "title": "Living", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9288822", "title": "The Wonder", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "won" },
+    { "category": "international", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10196368", "title": "Nothing Compares", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8595016", "title": "My Old School", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14291906", "title": "My Childhood, My Country: 20 Years in Afghanistan", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7975192", "title": "Hide and Seek", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14683452", "title": "Young Plato", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

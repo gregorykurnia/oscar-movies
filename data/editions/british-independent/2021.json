@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-11-03",
+  "winnersOn": "2021-12-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2021"],
+  "results": [
+    { "category": "picture", "imdb": "tt10692788", "title": "After Love", "outcome": "won" },
+    { "category": "picture", "imdb": "tt11559472", "title": "Ali & Ava", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11127680", "title": "Boiling Point", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8338762", "title": "The Nest", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6992978", "title": "The Souvenir Part II", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "international", "imdb": "tt10262648", "title": "Compartment No. 6", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8550054", "title": "Pleasure", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7206446", "title": "Poly Styrene: I Am a Cliché", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11548822", "title": "Cow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13234764", "title": "Dying to Divorce", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11342978", "title": "I Am Belmaya", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11613502", "title": "Keyboard Fantasies", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

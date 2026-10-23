@@ -1,0 +1,14 @@
+{
+  "award": "boston-society",
+  "year": 2024,
+  "status": "loaded",
+  "winnersOn": "2024-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "international", "imdb": "tt18162096", "title": "Do Not Expect Too Much from the End of the World", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" }
+  ],
+  "screenings": []
+}

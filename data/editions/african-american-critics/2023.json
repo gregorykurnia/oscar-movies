@@ -1,0 +1,20 @@
+{
+  "award": "african-american-critics",
+  "year": 2023,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "won" },
+    { "category": "picture", "imdb": "tt13321244", "title": "Origin", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1200263", "title": "The Color Purple", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

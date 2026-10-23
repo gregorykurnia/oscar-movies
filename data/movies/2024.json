@@ -175,5 +175,20 @@
   "tt18277182": { "slug": "girls-will-be-girls", "title": "Girls Will Be Girls", "originalTitle": "गर्ल्स विल बी गर्ल्स", "originalLang": "hi", "countries": ["IN", "FR"], "language": "hi", "wd": "Q123982001", "tmdb": 1108828 },
   "tt30320576": { "slug": "a-new-kind-of-wilderness", "title": "A New Kind of Wilderness", "originalTitle": "Ukjent landskap", "originalLang": "no", "countries": ["NO"], "language": "no", "tmdb": 1208994 },
   "tt12908150": { "slug": "the-life-of-chuck", "title": "The Life of Chuck", "countries": ["US"], "language": "en", "wd": "Q123169098", "tmdb": 842924 },
-  "tt33312360": { "slug": "the-tragically-hip-no-dress-rehearsal", "title": "The Tragically Hip: No Dress Rehearsal", "countries": ["CA"], "wd": "Q129677494" }
+  "tt33312360": { "slug": "the-tragically-hip-no-dress-rehearsal", "title": "The Tragically Hip: No Dress Rehearsal", "countries": ["CA"], "wd": "Q129677494" },
+  "tt19637052": { "slug": "love-lies-bleeding", "title": "Love Lies Bleeding", "countries": ["GB", "US"], "language": "en", "wd": "Q113488690", "tmdb": 948549 },
+  "tt5040012": { "slug": "nosferatu", "title": "Nosferatu", "countries": ["US"], "language": "en", "wd": "Q116361132", "tmdb": 426063 },
+  "tt15507512": { "slug": "the-piano-lesson", "title": "The Piano Lesson", "countries": ["US"], "language": "en", "wd": "Q117842630", "tmdb": 804406 },
+  "tt9218128": { "slug": "gladiator-2", "title": "Gladiator 2", "countries": ["GB", "US"], "language": "en", "wd": "Q115789958", "tmdb": 558449 },
+  "tt31839336": { "slug": "albany-road", "title": "Albany Road", "countries": ["US"], "language": "en", "wd": "Q125790356", "tmdb": 1274047 },
+  "tt6133444": { "slug": "flint-strong", "title": "Flint Strong", "countries": ["US"], "language": "en", "wd": "Q96378044", "tmdb": 610219 },
+  "tt28523838": { "slug": "exhibiting-forgiveness", "title": "Exhibiting Forgiveness", "countries": ["US"], "language": "en", "wd": "Q123782116", "tmdb": 1203653 },
+  "tt14093994": { "slug": "the-last-of-the-sea-women", "title": "The Last of the Sea Women", "countries": ["US"], "language": "en", "wd": "Q130305832", "tmdb": 1036573 },
+  "tt12818328": { "slug": "hundreds-of-beavers", "title": "Hundreds of Beavers", "countries": ["US"], "language": "en", "wd": "Q124694222", "tmdb": 1019939 },
+  "tt14561712": { "slug": "la-chimera", "title": "La chimera", "countries": ["CH", "IT", "FR"], "language": "it", "wd": "Q113860622", "tmdb": 837335 },
+  "tt11687002": { "slug": "the-outrun", "title": "The Outrun", "countries": ["GB", "DE", "ES"], "language": "en", "wd": "Q121363012", "tmdb": 785542 },
+  "tt32141590": { "slug": "witches", "title": "Witches", "countries": ["GB"], "language": "en", "wd": "Q130731189", "tmdb": 1276031 },
+  "tt13940818": { "slug": "the-contestant", "title": "The Contestant", "countries": ["GB", "US"], "language": "en", "wd": "Q122964827", "tmdb": 1156638 },
+  "tt28244549": { "slug": "grand-theft-hamlet", "title": "Grand Theft Hamlet", "countries": ["GB"], "language": "en", "wd": "Q124843645", "tmdb": 1234397 },
+  "tt30320489": { "slug": "two-strangers-trying-not-to-kill-each-other", "title": "Two Strangers Trying Not to Kill Each Other", "countries": ["DK", "GB", "US"], "language": "en", "tmdb": 1205660 }
 }

@@ -1,0 +1,26 @@
+{
+  "award": "women-film-journalists",
+  "year": 2017,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
+  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5215486", "title": "Dawson City: Frozen Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4420704", "title": "Kedi", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5758404", "title": "STEP", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

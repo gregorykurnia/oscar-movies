@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2018,
+  "status": "partial",
+  "nominationsOn": "2018-10-31",
+  "winnersOn": "2018-12-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2018"],
+  "note": "\"Island\" is left out (no film record could be matched).",
+  "results": [
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6212478", "title": "American Animals", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5628302", "title": "Beast", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6108178", "title": "Disobedience", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5742374", "title": "You Were Never Really Here", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6217608", "title": "The Rider", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8793990", "title": "Evelyn", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4489624", "title": "Nae Pasaran", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2981746", "title": "Being Frank: The Chris Sievey Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8520614", "title": "Under the Wire", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,24 @@
+{
+  "award": "women-film-journalists",
+  "year": 2014,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
+  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1714915", "title": "Only Lovers Left Alive", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1935156", "title": "Jodorowsky's Dune", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

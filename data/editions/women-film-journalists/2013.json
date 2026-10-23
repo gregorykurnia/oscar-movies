@@ -1,0 +1,30 @@
+{
+  "award": "women-film-journalists",
+  "year": 2013,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
+  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2430104", "title": "After Tiller", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1462900", "title": "The Grandmaster", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2404461", "title": "The Past", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2258858", "title": "Wadjda", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,132 @@
+// Page readers for the critics groups (IMPLEMENTATION_PLAN.md task 4.2): their Wikipedia pages
+// come in more layouts than the major awards': nominee boxes and labelled cells (`tables.ts`),
+// bold-label bullet lists ("Best Film:" with the winner and "Runner-up:" lines under it), and
+// headings each followed by a bullet list. All of them end up as `Block`s: a label and its lines.
+import * as cheerio from "cheerio";
+import type { Element } from "domhandler";
+import { clean, linkOf, nomineeOf, ownContent, readLabelledCells, readNomineeLists, type FilmLink, type Nominee } from "./tables";
+
+export type Item = Nominee & {
+  /** A "Runner-up: …" line. */
+  runnerUp: boolean;
+  /** The line's first link, or its text before a dash: the film of a line with no italics (BIFA's 2013 page). */
+  plain: FilmLink;
+};
+
+export type Block = {
+  label: string;
+  items: Item[];
+  /** Every line that isn't a runner-up is a winner (a bold label with the winner under it), instead of the bold line being the winner. */
+  winnersAreAll: boolean;
+};
+
+const RUNNER_UP = /^runners?-?\s?ups?\b/i;
+
+function itemOf($: cheerio.CheerioAPI, li: Element): Item {
+  const own = ownContent($, li);
+  const text = clean(own.text());
+  const a = own.find("a").first();
+  const plain = a.length > 0 ? linkOf($, a as cheerio.Cheerio<Element>) : { article: null, text: clean(text.split(/\s[–-]\s/)[0]) };
+  return { ...nomineeOf($, own), runnerUp: RUNNER_UP.test(text), plain };
+}
+
+/** "Best Film:" in bold, with its lines in the list under it (nested in the same item, or the list that follows). */
+export function readLabelBlocks(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("b, strong").each((_, b) => {
+    const label = clean($(b).text()).replace(/:$/, "");
+    const container = $(b).parent();
+    if (!label || !container.is("li, p, div, dt")) return;
+    const own = container.clone();
+    own.find("ul, ol, sup.reference").remove();
+    if (clean(own.text()).replace(/:$/, "") !== label) return;
+    const next = (container.is("dt") ? container.parent("dl") : container).next();
+    const list = container.is("li") ? container.children("ul, ol").first() : next.is("ul, ol") ? next : $();
+    if (list.length === 0) return;
+    blocks.push({ label, items: list.children("li").toArray().map((li) => itemOf($, li)), winnersAreAll: true });
+  });
+  return blocks;
+}
+
+/** A heading with a bullet list under it (the list may follow a line or two of description). */
+export function readHeadingBlocks(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("h2, h3, h4").each((_, h) => {
+    const label = clean($(h).text());
+    const start = $(h).closest(".mw-heading").length > 0 ? $(h).closest(".mw-heading") : $(h);
+    let node = start.next();
+    while (node.length > 0 && !node.is(".mw-heading, h2, h3, h4, ul, ol, table")) node = node.next();
+    if (!label || !node.is("ul, ol")) return;
+    blocks.push({ label, items: node.children("li").toArray().map((li) => itemOf($, li)), winnersAreAll: false });
+  });
+  return blocks;
+}
+
+/** Every block on a page, whatever its layout. */
+export function readBlocks(html: string): Block[] {
+  const asItems = (lists: ReturnType<typeof readNomineeLists>): Block[] =>
+    lists.map((l) => ({
+      label: l.category,
+      items: l.nominees.map((n) => ({ ...n, runnerUp: false, plain: n.film ?? { article: null, text: clean(n.line.split(/\s[–-]\s/)[0]) } })),
+      winnersAreAll: false,
+    }));
+  return [...asItems(readNomineeLists(html)), ...asItems(readLabelledCells(html)), ...readLabelBlocks(html), ...readHeadingBlocks(html)].filter(
+    (b) => b.items.length > 0,
+  );
+}
+
+export type BlockRow = { link: FilmLink; outcome: "won" | "runner_up" | "nominated" };
+
+/** What a block says about films: the winners, the runners-up and the nominees (a line with no italic film is read as the film itself). */
+export function blockRows(block: Block): BlockRow[] {
+  return block.items.flatMap((item) => {
+    const outcome = item.runnerUp ? "runner_up" : block.winnersAreAll || item.winner ? "won" : "nominated";
+    return (item.films.length > 0 ? item.films : item.line ? [item.plain] : []).map((link) => ({ link, outcome }) as BlockRow);
+  });
+}
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const iso = (y: number, m: number, d: number) => `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+
+/** Every day a sentence names ("December 11, 2018", "11 December 2018"), in order. */
+export function daysIn(sentence: string): string[] {
+  const month = `(${MONTHS.join("|")})`;
+  const found: Array<{ at: number; day: string }> = [];
+  for (const m of sentence.matchAll(new RegExp(`${month} (\\d{1,2})(?:st|nd|rd|th)?,? (\\d{4})`, "g"))) {
+    found.push({ at: m.index ?? 0, day: iso(Number(m[3]), MONTHS.indexOf(m[1]) + 1, Number(m[2])) });
+  }
+  for (const m of sentence.matchAll(new RegExp(`(\\d{1,2})(?:st|nd|rd|th)? ${month},? (\\d{4})`, "g"))) {
+    found.push({ at: m.index ?? 0, day: iso(Number(m[3]), MONTHS.indexOf(m[2]) + 1, Number(m[1])) });
+  }
+  return found.sort((a, b) => a.at - b.at).map((f) => f.day);
+}
+
+/**
+ * The days a page's opening paragraphs give: a sentence that mentions nominations or nominees is
+ * the nominations day; the first other sentence with a day and "announced", "given", "held",
+ * "presented" or "took place" is the winners' day.
+ */
+export function leadDates(html: string): { nominationsOn?: string; winnersOn?: string } {
+  const $ = cheerio.load(html);
+  const lead = $("p")
+    .toArray()
+    .map((p) => clean($(p).clone().find("sup.reference").remove().end().text()))
+    .filter((t) => t.length > 30)
+    .slice(0, 3)
+    .join(" ");
+  const out: { nominationsOn?: string; winnersOn?: string } = {};
+  for (const sentence of lead.split(/(?<=[a-z0-9)])\.\s+(?=[A-Z])/)) {
+    const day = daysIn(sentence)[0];
+    if (!day) continue;
+    if (/nominat|nominee/i.test(sentence)) out.nominationsOn ??= day;
+    else if (/announced|given|held|presented|took place|revealed/i.test(sentence)) out.winnersOn ??= day;
+  }
+  return out;
+}
+
+/** The titles to try for a film the page names without a working link: its year-qualified article names first. */
+export function guessTitles(text: string, year: number): string[] {
+  return [`${text} (${year} film)`, `${text} (${year - 1} film)`, `${text} (film)`, text];
+}

@@ -1,0 +1,27 @@
+{
+  "award": "british-independent",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2012-12-09",
+  "winnersOn": "2012-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2012"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1441940", "title": "Broken", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2023690", "title": "Sightseers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1412386", "title": "The Best Exotic Marigold Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1966604", "title": "The Imposter", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1833844", "title": "Berberian Sound Studio", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1966604", "title": "The Imposter", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2079571", "title": "Roman Polanski: A Film Memoir", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1183919", "title": "Marley", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1819513", "title": "Dreams of a Life", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1937419", "title": "London: The Modern Babylon", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

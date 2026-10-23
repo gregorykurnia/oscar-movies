@@ -154,5 +154,16 @@
   "tt4137902": { "slug": "dark-horse-the-incredible-true-story-of-dream-alliance", "title": "Dark Horse: The Incredible True Story of Dream Alliance", "countries": ["GB"], "language": "en", "wd": "Q19824619", "tmdb": 297393 },
   "tt3368222": { "slug": "angry-indian-goddesses", "title": "Angry Indian Goddesses", "countries": ["IN", "DE"], "language": "hi", "wd": "Q20814436", "tmdb": 358893 },
   "tt1870548": { "slug": "this-changes-everything", "title": "This Changes Everything", "countries": ["CA", "US"], "language": "en", "wd": "Q21034405", "tmdb": 355389 },
-  "tt4196504": { "slug": "al-purdy-was-here", "title": "Al Purdy Was Here", "countries": ["CA"], "language": "en", "wd": "Q20992322", "tmdb": 356463 }
+  "tt4196504": { "slug": "al-purdy-was-here", "title": "Al Purdy Was Here", "countries": ["CA"], "language": "en", "wd": "Q20992322", "tmdb": 356463 },
+  "tt3076658": { "slug": "creed", "title": "Creed", "countries": ["US"], "language": "en", "wd": "Q18822138", "tmdb": 312221 },
+  "tt2764784": { "slug": "phoenix", "title": "Phoenix", "countries": ["DE", "PL"], "language": "de", "wd": "Q18202704", "tmdb": 254578 },
+  "tt1745787": { "slug": "the-tribe", "title": "The Tribe", "originalTitle": "Плем'я", "originalLang": "uk", "countries": ["UA"], "language": "ukl", "wd": "Q16939876", "tmdb": 271397 },
+  "tt4594834": { "slug": "chiraq", "title": "Chiraq", "countries": ["US"], "language": "en", "wd": "Q19885337", "tmdb": 340275 },
+  "tt0810819": { "slug": "the-danish-girl", "title": "The Danish Girl", "countries": ["US", "GB", "BE", "DE", "DK"], "language": "en", "wd": "Q19347583", "tmdb": 306819 },
+  "tt4504040": { "slug": "a-ballerinas-tale", "title": "A Ballerina's Tale", "countries": ["US"], "language": "en", "wd": "Q19824574", "tmdb": 334682 },
+  "tt0983983": { "slug": "shaun-the-sheep", "title": "Shaun the Sheep", "countries": ["GB"], "language": "en", "wd": "Q477959" },
+  "tt3544082": { "slug": "45-years", "title": "45 Years", "countries": ["GB"], "language": "en", "wd": "Q18642424", "tmdb": 311291 },
+  "tt2884018": { "slug": "macbeth", "title": "Macbeth", "countries": ["GB", "FR"], "language": "en", "wd": "Q15934383", "tmdb": 225728 },
+  "tt3669520": { "slug": "palio", "title": "Palio", "countries": ["GB"], "language": "it", "wd": "Q22200721", "tmdb": 332741 },
+  "tt4144504": { "slug": "how-to-change-the-world", "title": "How to Change the World", "countries": ["CA", "GB", "US"], "language": "en", "tmdb": 319073 }
 }

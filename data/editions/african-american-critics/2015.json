@@ -1,0 +1,23 @@
+{
+  "award": "african-american-critics",
+  "year": 2015,
+  "status": "loaded",
+  "winnersOn": "2015-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://en.wikipedia.org/wiki/African-American_Film_Critics_Association_Awards_2015"],
+  "note": "AAFCA gave no international prize that year.",
+  "results": [
+    { "category": "picture", "imdb": "tt1398426", "title": "Straight Outta Compton", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3076658", "title": "Creed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1365050", "title": "Beasts of No Nation", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4126312", "title": "3 1/2 Minutes, 10 Bullets", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4594834", "title": "Chiraq", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0810819", "title": "The Danish Girl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4504040", "title": "A Ballerina's Tale", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "won" }
+  ],
+  "screenings": []
+}

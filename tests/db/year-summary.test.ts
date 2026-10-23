@@ -6,14 +6,15 @@ import { queryMarks } from "../../src/data/watch-list";
 import { queryYearGrid } from "../../src/data/year-grid";
 import { RACE_CATEGORIES } from "../../src/lib/race";
 import { mostNominated, yearSummary } from "../../src/lib/year-summary";
+import { majorsOnly } from "./majors-only";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
 
 async function summaryOf(year: number) {
-  const all = await queryYearGrid(db, year, "all");
+  const all = majorsOnly(await queryYearGrid(db, year, "all"));
   const categories = [];
-  for (const c of RACE_CATEGORIES) categories.push({ slug: c.slug, grid: await queryYearGrid(db, year, c.slug) });
+  for (const c of RACE_CATEGORIES) categories.push({ slug: c.slug, grid: majorsOnly(await queryYearGrid(db, year, c.slug)) });
   const watched = new Set((await queryMarks(db)).filter((m) => m.watched).map((m) => m.movieId));
   return { all, categories, summary: yearSummary(all, categories, watched) };
 }

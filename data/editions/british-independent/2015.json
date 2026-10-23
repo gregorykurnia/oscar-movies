@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2015,
+  "status": "partial",
+  "nominationsOn": "2015-11-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2015"],
+  "note": "The announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3544082", "title": "45 Years", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3464902", "title": "The Lobster", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2884018", "title": "Macbeth", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3170832", "title": "Room", "outcome": "won" },
+    { "category": "international", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3655522", "title": "Girlhood", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4137902", "title": "Dark Horse: The Incredible True Story of Dream Alliance", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3669520", "title": "Palio", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4684410", "title": "A Syrian Love Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4144504", "title": "How to Change the World", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

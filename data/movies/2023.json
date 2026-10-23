@@ -170,5 +170,18 @@
   "tt26440619": { "slug": "afire", "title": "Afire", "originalTitle": "Roter Himmel", "originalLang": "de", "countries": ["DE"], "language": "de", "wd": "Q116621601", "tmdb": 900379 },
   "tt12427158": { "slug": "a-thousand-and-one", "title": "A Thousand and One", "countries": ["US"], "language": "en", "wd": "Q115687524", "tmdb": 855263 },
   "tt24076146": { "slug": "the-persian-version", "title": "The Persian Version", "countries": ["US"], "language": "en", "wd": "Q115687604", "tmdb": 1058620 },
-  "tt12277540": { "slug": "mr-dressup-the-magic-of-make-believe", "title": "Mr. Dressup: The Magic of Make-Believe", "countries": ["CA"], "language": "en", "wd": "Q121161343", "tmdb": 1154686 }
+  "tt12277540": { "slug": "mr-dressup-the-magic-of-make-believe", "title": "Mr. Dressup: The Magic of Make-Believe", "countries": ["CA"], "language": "en", "wd": "Q121161343", "tmdb": 1154686 },
+  "tt23289160": { "slug": "godzilla-minus-one", "title": "Godzilla Minus One", "originalTitle": "ゴジラ-1.0", "originalLang": "ja", "countries": ["JP", "US"], "language": "ja", "wd": "Q115053037", "tmdb": 940721 },
+  "tt21064584": { "slug": "the-iron-claw", "title": "The Iron Claw", "countries": ["US", "GB"], "language": "en", "wd": "Q114901506", "tmdb": 850165 },
+  "tt13321244": { "slug": "origin", "title": "Origin", "countries": ["US"], "language": "en", "wd": "Q116745152", "tmdb": 753336 },
+  "tt11398152": { "slug": "geographies-of-solitude", "title": "Geographies of Solitude", "countries": ["CA"], "language": "en", "wd": "Q110843361", "tmdb": 927998 },
+  "tt20114686": { "slug": "femme", "title": "Femme", "countries": ["GB"], "language": "en", "wd": "Q116250318", "tmdb": 976581 },
+  "tt22890246": { "slug": "how-to-have-sex", "title": "How to Have Sex", "countries": ["GB", "GR", "BE"], "language": "en", "wd": "Q117753851", "tmdb": 1075175 },
+  "tt15893750": { "slug": "rye-lane", "title": "Rye Lane", "countries": ["GB"], "language": "en", "wd": "Q115675219", "tmdb": 1049638 },
+  "tt8591526": { "slug": "fremont", "title": "Fremont", "countries": ["US"], "language": "en", "wd": "Q116688562", "tmdb": 1048522 },
+  "tt23736044": { "slug": "monster", "title": "Monster", "originalTitle": "怪物", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q116687945", "tmdb": 1050035 },
+  "tt22464734": { "slug": "another-body", "title": "Another Body", "countries": ["US"], "language": "en", "wd": "Q118645525", "tmdb": 1031143 },
+  "tt21148004": { "slug": "lyra", "title": "Lyra", "countries": ["GB"], "language": "en", "wd": "Q115217305", "tmdb": 947248 },
+  "tt9573150": { "slug": "occupied-city", "title": "Occupied City", "countries": ["GB", "US"], "language": "en", "wd": "Q117842597", "tmdb": 573952 },
+  "tt22008182": { "slug": "if-the-streets-were-on-fire", "title": "If the Streets Were on Fire", "countries": ["GB"], "language": "en", "tmdb": 1019166 }
 }

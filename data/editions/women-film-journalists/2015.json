@@ -1,0 +1,26 @@
+{
+  "award": "women-film-journalists",
+  "year": 2015,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
+  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4185572", "title": "The Hunting Ground", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0983983", "title": "Shaun the Sheep", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

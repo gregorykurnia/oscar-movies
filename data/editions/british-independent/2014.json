@@ -1,0 +1,27 @@
+{
+  "award": "british-independent",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-07",
+  "winnersOn": "2014-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2014"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt3169706", "title": "Pride", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2614684", "title": "'71", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2234003", "title": "Calvary", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2473794", "title": "Mr. Turner", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "international", "imdb": "tt2359024", "title": "Blue Ruin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2334649", "title": "Fruitvale Station", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2321549", "title": "The Babadook", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2446600", "title": "Next Goal Wins", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2920540", "title": "20,000 Days on Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455822", "title": "Night Will Fall", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3512066", "title": "The Possibilities Are Endless", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

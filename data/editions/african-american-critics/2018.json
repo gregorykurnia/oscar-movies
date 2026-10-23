@@ -1,0 +1,23 @@
+{
+  "award": "african-american-critics",
+  "year": 2018,
+  "status": "loaded",
+  "winnersOn": "2018-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://en.wikipedia.org/wiki/African-American_Film_Critics_Association_Awards_2018"],
+  "results": [
+    { "category": "picture", "imdb": "tt1825683", "title": "Black Panther", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580266", "title": "The Hate U Give", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7440432", "title": "Quincy", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7242142", "title": "Blindspotting", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5688932", "title": "Sorry to Bother You", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4218572", "title": "Widows", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7440432", "title": "Quincy", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" }
+  ],
+  "screenings": []
+}

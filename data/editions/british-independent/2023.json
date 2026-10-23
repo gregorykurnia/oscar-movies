@@ -1,0 +1,26 @@
+{
+  "award": "british-independent",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-11-02",
+  "winnersOn": "2023-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "won" },
+    { "category": "picture", "imdb": "tt20114686", "title": "Femme", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt22890246", "title": "How to Have Sex", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15893750", "title": "Rye Lane", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8649252", "title": "Scrapper", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8591526", "title": "Fremont", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt23736044", "title": "Monster", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22464734", "title": "Another Body", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21376900", "title": "Bobi Wine: The People's President", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21148004", "title": "Lyra", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9573150", "title": "Occupied City", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22008182", "title": "If the Streets Were on Fire", "outcome": "won" }
+  ],
+  "screenings": []
+}

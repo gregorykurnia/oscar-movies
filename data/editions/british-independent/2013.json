@@ -1,0 +1,27 @@
+{
+  "award": "british-independent",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-12-08",
+  "winnersOn": "2013-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/British_Independent_Film_Awards_2013"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1845838", "title": "Metro Manila", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2304426", "title": "The Selfish Giant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2567712", "title": "Starred Up", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2392326", "title": "Le Week-End", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2334873", "title": "Blue Jasmine", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2258858", "title": "Wadjda", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2347569", "title": "Frances Ha", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2481238", "title": "Pussy Riot: A Punk Prayer", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1464783", "title": "The Great Hip-Hop Hoax", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2433336", "title": "The Moo Man", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2332801", "title": "The Spirit of '45", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2126403", "title": "The Stone Roses: Made of Stone", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

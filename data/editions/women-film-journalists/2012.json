@@ -1,0 +1,23 @@
+{
+  "award": "women-film-journalists",
+  "year": 2012,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
+  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1966604", "title": "The Imposter", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "international", "imdb": "tt1276419", "title": "A Royal Affair", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

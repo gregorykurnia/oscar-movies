@@ -178,5 +178,21 @@
   "tt3278224": { "slug": "i-dream-in-another-language", "title": "I Dream in Another Language", "originalTitle": "Sueño en otro idioma", "originalLang": "es", "countries": ["MX"], "language": "es", "wd": "Q28532726", "tmdb": 355196 },
   "tt6333058": { "slug": "dina", "title": "Dina", "countries": ["US"], "language": "en", "wd": "Q30765975", "tmdb": 432607 },
   "tt7043176": { "slug": "long-time-running", "title": "Long Time Running", "countries": ["CA"], "language": "en", "wd": "Q33520321", "tmdb": 470640 },
-  "tt7215262": { "slug": "super-size-me-2-holy-chicken", "title": "Super Size Me 2: Holy Chicken!", "countries": ["US"], "language": "en", "wd": "Q42048444", "tmdb": 468996 }
+  "tt7215262": { "slug": "super-size-me-2-holy-chicken", "title": "Super Size Me 2: Holy Chicken!", "countries": ["US"], "language": "en", "wd": "Q42048444", "tmdb": 468996 },
+  "tt3315342": { "slug": "logan", "title": "Logan", "countries": ["US"], "language": "en", "wd": "Q24053263", "tmdb": 263115 },
+  "tt3967856": { "slug": "okja", "title": "Okja", "countries": ["US", "KR"], "language": "en", "wd": "Q23932553", "tmdb": 387426 },
+  "tt5084170": { "slug": "blade-of-the-immortal", "title": "Blade of the Immortal", "originalTitle": "無限の住人", "originalLang": "ja", "countries": ["JP", "GB", "KR"], "language": "ja", "wd": "Q28213068", "tmdb": 426284 },
+  "tt4954522": { "slug": "raw", "title": "Raw", "originalTitle": "Grave", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q21427355", "tmdb": 393519 },
+  "tt5836866": { "slug": "the-work", "title": "The Work", "countries": ["US"], "language": "en", "wd": "Q55635643", "tmdb": 438449 },
+  "tt3564472": { "slug": "girls-trip", "title": "Girls Trip", "countries": ["US"], "language": "en", "wd": "Q25631071", "tmdb": 417870 },
+  "tt5390504": { "slug": "detroit", "title": "Detroit", "countries": ["US"], "language": "en", "wd": "Q27965056", "tmdb": 407448 },
+  "tt6057032": { "slug": "gook", "title": "Gook", "countries": ["US"], "language": "en", "wd": "Q30521624", "tmdb": 432942 },
+  "tt5301662": { "slug": "marshall", "title": "Marshall", "countries": ["US"], "language": "en", "wd": "Q22078078", "tmdb": 392982 },
+  "tt5758404": { "slug": "step", "title": "STEP", "countries": ["US"], "language": "en", "wd": "Q30612756", "tmdb": 433010 },
+  "tt5215486": { "slug": "dawson-city-frozen-time", "title": "Dawson City: Frozen Time", "countries": ["US"], "language": "en", "wd": "Q26864875", "tmdb": 413580 },
+  "tt4686844": { "slug": "the-death-of-stalin", "title": "The Death of Stalin", "countries": ["FR", "GB"], "language": "en", "wd": "Q24905490", "tmdb": 402897 },
+  "tt7321274": { "slug": "kingdom-of-us", "title": "Kingdom of Us", "countries": ["GB"], "language": "en", "wd": "Q47458545", "tmdb": 473313 },
+  "tt2634548": { "slug": "uncle-howard", "title": "Uncle Howard", "countries": ["US"], "language": "en", "wd": "Q18811642", "tmdb": 373470 },
+  "tt6981046": { "slug": "williams", "title": "Williams", "countries": ["GB"], "language": "en", "wd": "Q30668333", "tmdb": 465171 },
+  "tt6373826": { "slug": "almost-heaven", "title": "Almost Heaven", "countries": ["CN", "GB"], "language": "zh", "tmdb": 436366 }
 }

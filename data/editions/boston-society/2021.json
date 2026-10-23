@@ -1,0 +1,14 @@
+{
+  "award": "boston-society",
+  "year": 2021,
+  "status": "loaded",
+  "winnersOn": "2021-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2021"],
+  "note": "The society gave no foreign-language prize that year (Best Picture and Best English Language Film instead).",
+  "results": [
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "won" }
+  ],
+  "screenings": []
+}

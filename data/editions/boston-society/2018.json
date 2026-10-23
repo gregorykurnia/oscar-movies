@@ -1,0 +1,18 @@
+{
+  "award": "boston-society",
+  "year": 2018,
+  "status": "loaded",
+  "winnersOn": "2018-12-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Society_of_Film_Critics_Awards_2018"],
+  "results": [
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

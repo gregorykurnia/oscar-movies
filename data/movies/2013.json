@@ -150,5 +150,19 @@
   "tt2265179": { "slug": "blood-brother", "title": "Blood Brother", "countries": ["US"], "language": "en", "tmdb": 155556 },
   "tt1392214": { "slug": "prisoners", "title": "Prisoners", "countries": ["US"], "language": "en", "wd": "Q3404003", "tmdb": 146233 },
   "tt3091338": { "slug": "hi-ho-mistahey", "title": "Hi-Ho Mistahey!", "countries": ["CA"], "language": "cr", "wd": "Q15052309", "tmdb": 212847 },
-  "tt2468638": { "slug": "beyond-the-edge", "title": "Beyond the Edge", "countries": ["NZ"], "language": "en", "wd": "Q15109412", "tmdb": 211088 }
+  "tt2468638": { "slug": "beyond-the-edge", "title": "Beyond the Edge", "countries": ["NZ"], "language": "en", "wd": "Q15109412", "tmdb": 211088 },
+  "tt2370248": { "slug": "short-term-12", "title": "Short Term 12", "countries": ["US"], "language": "en", "wd": "Q14623727", "tmdb": 169813 },
+  "tt1935179": { "slug": "mud", "title": "Mud", "countries": ["US"], "language": "en", "wd": "Q3266461", "tmdb": 103731 },
+  "tt2209418": { "slug": "before-midnight", "title": "Before Midnight", "countries": ["US"], "language": "en", "wd": "Q2909183", "tmdb": 132344 },
+  "tt0453562": { "slug": "42", "title": "42", "countries": ["US"], "language": "en", "wd": "Q3599091", "tmdb": 109410 },
+  "tt2304771": { "slug": "mandela-long-walk-to-freedom", "title": "Mandela: Long Walk to Freedom", "countries": ["GB", "US"], "language": "en", "wd": "Q12126034", "tmdb": 192136 },
+  "tt1206543": { "slug": "out-of-the-furnace", "title": "Out of the Furnace", "countries": ["US"], "language": "en", "wd": "Q3061288", "tmdb": 164457 },
+  "tt2304426": { "slug": "the-selfish-giant", "title": "The Selfish Giant", "countries": ["GB"], "language": "en", "wd": "Q13380361", "tmdb": 194101 },
+  "tt2567712": { "slug": "starred-up", "title": "Starred Up", "countries": ["GB"], "language": "en", "wd": "Q14954169", "tmdb": 209276 },
+  "tt2392326": { "slug": "le-week-end", "title": "Le Week-End", "countries": ["GB", "FR"], "language": "en", "wd": "Q14942817", "tmdb": 209350 },
+  "tt1464783": { "slug": "the-great-hip-hop-hoax", "title": "The Great Hip-Hop Hoax", "countries": ["GB"], "language": "en", "wd": "Q14954341", "tmdb": 178019 },
+  "tt2433336": { "slug": "the-moo-man", "title": "The Moo Man", "countries": ["GB"], "language": "en", "wd": "Q7752140", "tmdb": 159029 },
+  "tt2332801": { "slug": "the-spirit-of-45", "title": "The Spirit of '45", "countries": ["GB"], "language": "en", "wd": "Q14783948", "tmdb": 164580 },
+  "tt2126403": { "slug": "the-stone-roses-made-of-stone", "title": "The Stone Roses: Made of Stone", "countries": ["GB"], "language": "en", "wd": "Q16168469", "tmdb": 193524 },
+  "tt2094890": { "slug": "mother-of-george", "title": "Mother of George", "countries": ["US"], "language": "en", "wd": "Q16253364", "tmdb": 157384 }
 }

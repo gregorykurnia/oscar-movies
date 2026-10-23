@@ -1,0 +1,23 @@
+{
+  "award": "african-american-critics",
+  "year": 2016,
+  "status": "loaded",
+  "winnersOn": "2016-12-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://en.wikipedia.org/wiki/African-American_Film_Critics_Association_Awards_2016"],
+  "note": "AAFCA gave no international prize that year.",
+  "results": [
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2671706", "title": "Fences", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4846340", "title": "Hidden Figures", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3741834", "title": "Lion", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4196450", "title": "The Birth of a Nation", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4669986", "title": "Loving", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4341582", "title": "Queen of Katwe", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" }
+  ],
+  "screenings": []
+}

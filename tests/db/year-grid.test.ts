@@ -4,6 +4,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryYearGrid } from "../../src/data/year-grid";
 import { gridTotals } from "../../src/lib/year-grid";
+import { majorsOnly } from "./majors-only";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -23,7 +24,7 @@ const OSCAR_NOMINEES_2025 = [
 
 describe("queryYearGrid", () => {
   it("2025 Picture: every award that gives Picture as a column, Oscars first, all loaded", async () => {
-    const { columns } = await queryYearGrid(db, 2025, "picture");
+    const { columns } = majorsOnly(await queryYearGrid(db, 2025, "picture"));
     expect(columns.map((c) => c.slug)).toEqual([
       "oscars",
       "afi",
@@ -44,7 +45,7 @@ describe("queryYearGrid", () => {
   });
 
   it("2025 Picture: every film with a nomination anywhere, the Oscar nominees and the winner among them", async () => {
-    const { films } = await queryYearGrid(db, 2025, "picture");
+    const { films } = majorsOnly(await queryYearGrid(db, 2025, "picture"));
     expect(films).toHaveLength(31);
     const oscars = films.filter((f) => f.cells.oscars).map((f) => f.film.title).sort();
     expect(oscars).toEqual(OSCAR_NOMINEES_2025);
@@ -57,7 +58,7 @@ describe("queryYearGrid", () => {
   });
 
   it("2025 International: the Oscar shortlist makes a row, a submission alone doesn't; the submitting country's flag leads", async () => {
-    const { films } = await queryYearGrid(db, 2025, "international");
+    const { films } = majorsOnly(await queryYearGrid(db, 2025, "international"));
     expect(films).toHaveLength(20);
     expect(films.filter((f) => f.cells.oscars?.outcome === "shortlisted")).toHaveLength(10);
     expect(films.some((f) => f.cells.oscars?.outcome === "submitted" && Object.keys(f.cells).length === 1)).toBe(false);
@@ -65,10 +66,10 @@ describe("queryYearGrid", () => {
   });
 
   it("2025 all categories: the four categories' films together, each once, with every award as a column", async () => {
-    const { columns, films } = await queryYearGrid(db, 2025, "all");
+    const { columns, films } = majorsOnly(await queryYearGrid(db, 2025, "all"));
     const union = new Set<number>();
     for (const category of ["picture", "documentary", "international", "animated"] as const) {
-      for (const f of (await queryYearGrid(db, 2025, category)).films) union.add(f.film.id);
+      for (const f of majorsOnly(await queryYearGrid(db, 2025, category)).films) union.add(f.film.id);
     }
     expect(films.map((f) => f.film.id).sort((a, b) => a - b)).toEqual([...union].sort((a, b) => a - b));
     expect(columns).toHaveLength(17);
@@ -76,7 +77,7 @@ describe("queryYearGrid", () => {
   });
 
   it("2026 Animated: the columns with no data, and no films yet", async () => {
-    const { columns, films } = await queryYearGrid(db, 2026, "animated");
+    const { columns, films } = majorsOnly(await queryYearGrid(db, 2026, "animated"));
     expect(columns[0]).toMatchObject({ slug: "oscars", status: "partial" });
     expect(columns.slice(1).every((c) => c.status === "no_data")).toBe(true);
     expect(films).toEqual([]);
