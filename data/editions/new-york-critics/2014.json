@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2014,
+  "status": "loaded",
+  "winnersOn": "2014-12-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
+  ],
+  "screenings": []
+}

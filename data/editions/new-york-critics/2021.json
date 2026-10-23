@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2021,
+  "status": "loaded",
+  "winnersOn": "2021-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2021_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" }
+  ],
+  "screenings": []
+}

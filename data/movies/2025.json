@@ -206,5 +206,7 @@
   "tt34956443": { "slug": "ne-zha-2", "title": "Ne Zha 2", "originalTitle": "哪吒之魔童闹海", "originalLang": "zh-CN", "countries": ["CN"], "language": "cmn", "wd": "Q131937861", "tmdb": 980477 },
   "tt33029955": { "slug": "one-to-one-john-and-yoko", "title": "One to One: John & Yoko", "countries": ["GB"], "language": "en", "wd": "Q130242435", "tmdb": 1320392 },
   "tt14142060": { "slug": "rental-family", "title": "Rental Family", "countries": ["US", "JP"], "language": "en", "wd": "Q124947229", "tmdb": 1208348 },
-  "tt36589943": { "slug": "natchez", "title": "Natchez", "countries": ["US"], "language": "en", "wd": "Q134979718", "tmdb": 1465655 }
+  "tt36589943": { "slug": "natchez", "title": "Natchez", "countries": ["US"], "language": "en", "wd": "Q134979718", "tmdb": 1465655 },
+  "tt29567915": { "slug": "nuremberg", "title": "Nuremberg", "countries": ["US"], "language": "en", "wd": "Q124393313", "tmdb": 1214931 },
+  "tt36463894": { "slug": "predator-killer-of-killers", "title": "Predator: Killer of Killers", "countries": ["US"], "language": "en", "wd": "Q130639284", "tmdb": 1376434 }
 }

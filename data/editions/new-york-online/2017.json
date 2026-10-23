@@ -1,0 +1,23 @@
+{
+  "award": "new-york-online",
+  "year": 2017,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580036", "title": "I, Tonya", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2396589", "title": "Mudbound", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5776858", "title": "Phantom Thread", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6294822", "title": "The Post", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6752848", "title": "Bombshell: The Hedy Lamarr Story", "outcome": "won" },
+    { "category": "international", "imdb": "tt5723272", "title": "In the Fade", "outcome": "won" }
+  ],
+  "screenings": []
+}

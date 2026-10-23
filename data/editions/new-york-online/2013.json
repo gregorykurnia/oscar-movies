@@ -1,0 +1,24 @@
+{
+  "award": "new-york-online",
+  "year": 2013,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2209418", "title": "Before Midnight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0790636", "title": "Dallas Buyers Club", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392214", "title": "Prisoners", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -224,5 +224,6 @@
   "tt11392114": { "slug": "bloody-nose-empty-pockets", "title": "Bloody Nose, Empty Pockets", "countries": ["US"], "language": "en", "wd": "Q104777708", "tmdb": 605437 },
   "tt3464896": { "slug": "small-axe", "title": "Small Axe", "countries": ["GB"], "language": "en", "wd": "Q96100975" },
   "tt10539608": { "slug": "the-midnight-sky", "title": "The Midnight Sky", "countries": ["US"], "language": "en", "wd": "Q71767482", "tmdb": 614911 },
-  "tt11388580": { "slug": "miss-americana", "title": "Miss Americana", "countries": ["US"], "language": "en", "wd": "Q77833628", "tmdb": 653567 }
+  "tt11388580": { "slug": "miss-americana", "title": "Miss Americana", "countries": ["US"], "language": "en", "wd": "Q77833628", "tmdb": 653567 },
+  "tt9482230": { "slug": "tommaso", "title": "Tommaso", "countries": ["IT"], "language": "en", "wd": "Q64174405", "tmdb": 575426 }
 }

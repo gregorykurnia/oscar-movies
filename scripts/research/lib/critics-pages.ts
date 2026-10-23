@@ -126,7 +126,8 @@ export function readBlocks(html: string): Block[] {
   const asItems = (lists: ReturnType<typeof readNomineeLists>): Block[] =>
     lists.map((l) => ({
       label: l.category,
-      items: l.nominees.map((n) => ({ ...n, runnerUp: false, plain: n.film ?? { article: null, text: clean(n.line.split(/\s[–-]\s/)[0]) } })),
+      // The Online Film Critics Society's 2017 page bolds its runners-up like its winners, but marks them "(Runner-up)".
+      items: l.nominees.map((n) => ({ ...n, runnerUp: /\(runners?-?\s?ups?\)/i.test(n.line), plain: n.film ?? { article: null, text: clean(n.line.split(/\s[–-]\s/)[0]) } })),
       winnersAreAll: false,
     }));
   const plain = readPlainWinnerCells(html);

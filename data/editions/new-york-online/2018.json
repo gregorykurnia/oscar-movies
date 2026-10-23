@@ -1,0 +1,23 @@
+{
+  "award": "new-york-online",
+  "year": 2018,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the page names no Best Picture winner for this year; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7014006", "title": "Eighth Grade", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3892172", "title": "Leave No Trace", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6266538", "title": "Vice", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "won" }
+  ],
+  "screenings": []
+}

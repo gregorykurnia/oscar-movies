@@ -1,5 +1,11 @@
 {
-  "dates": {},
+  "dates": {
+    "online-critics/2012": {
+      "nominationsOn": "2012-12-24",
+      "winnersOn": "2012-12-31",
+      "why": "The page says the nominations were announced on 24 December 2012 and \"the winners were announced on Monday, December 31\" (no year; 31 December 2012 was a Monday)."
+    }
+  },
   "absent": {
     "african-american-critics/2012/documentary": "AAFCA gave no documentary prize that year.",
     "african-american-critics/2013/documentary": "AAFCA gave no documentary prize that year.",
@@ -428,6 +434,20 @@
       ],
       "country": "GB",
       "why": "Wikipedia has the article but its Wikidata item has no IMDb ID; TMDB lists the documentary."
+    },
+    "online-critics 2013 56 Up": {
+      "directors": [
+        "Michael Apted"
+      ],
+      "country": "GB",
+      "why": "The page links the Up Series article, whose Wikidata item has no IMDb ID; TMDB lists the 2012 film 56 Up."
+    },
+    "new-york-online 2025 100 Meters": {
+      "directors": [
+        "Kenji Iwaisawa"
+      ],
+      "country": "JP",
+      "why": "Wikidata's item for the animated film has no IMDb ID; TMDB lists it."
     }
   },
   "leaveOut": {
@@ -457,6 +477,7 @@
     "tt4929038": "The Ornithologist",
     "tt5124774": "The Confession: Living the War on Terror",
     "tt6133444": "The Fire Inside",
-    "tt9218128": "Gladiator II"
+    "tt9218128": "Gladiator II",
+    "tt1124037": "Free State of Jones"
   }
 }

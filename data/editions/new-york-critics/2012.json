@@ -1,0 +1,22 @@
+{
+  "award": "new-york-critics",
+  "year": 2012,
+  "status": "loaded",
+  "winnersOn": "2012-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2076220", "title": "Holy Motors", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt1827487", "title": "Once Upon a Time in Anatolia", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2380247", "title": "The Central Park Five", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt1667905", "title": "This Is Not a Film", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,23 @@
+{
+  "award": "new-york-online",
+  "year": 2012,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1235830", "title": "Chico & Rita", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2380247", "title": "The Central Park Five", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" }
+  ],
+  "screenings": []
+}

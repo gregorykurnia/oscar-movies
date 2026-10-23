@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2016,
+  "status": "loaded",
+  "winnersOn": "2016-12-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2016_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2020,
+  "status": "loaded",
+  "winnersOn": "2020-12-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2020_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" }
+  ],
+  "screenings": []
+}

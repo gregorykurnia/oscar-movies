@@ -190,5 +190,7 @@
   "tt0475290": { "slug": "hail-caesar", "title": "Hail, Caesar!", "countries": ["GB", "US"], "language": "en", "wd": "Q18516636", "tmdb": 270487 },
   "tt4572514": { "slug": "patriots-day", "title": "Patriots Day", "countries": ["US"], "language": "en", "wd": "Q23767799", "tmdb": 388399 },
   "tt1683048": { "slug": "de-palma", "title": "De Palma", "countries": ["US"], "language": "en", "wd": "Q25136504", "tmdb": 355254 },
-  "tt4935480": { "slug": "miss-sharon-jones", "title": "Miss Sharon Jones!", "countries": ["US"], "language": "en", "wd": "Q26964879", "tmdb": 358924 }
+  "tt4935480": { "slug": "miss-sharon-jones", "title": "Miss Sharon Jones!", "countries": ["US"], "language": "en", "wd": "Q26964879", "tmdb": 358924 },
+  "tt1124037": { "slug": "free-state-of-jones", "title": "Free State of Jones", "countries": ["US"], "language": "en", "wd": "Q19730988", "tmdb": 316152 },
+  "tt4263482": { "slug": "the-witch", "title": "The Witch", "countries": ["US", "CA"], "language": "en", "wd": "Q19057481", "tmdb": 310131 }
 }

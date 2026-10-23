@@ -1,0 +1,23 @@
+{
+  "award": "new-york-online",
+  "year": 2020,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt9000224", "title": "The Assistant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7939766", "title": "I'm Thinking of Ending Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9482230", "title": "Tommaso", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11290556", "title": "The Way I See It", "outcome": "won" },
+    { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "won" }
+  ],
+  "screenings": []
+}

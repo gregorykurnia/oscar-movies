@@ -441,6 +441,85 @@ const FILM_CATEGORIES = [
   { slug: "animated", label: CATEGORIES.animated },
 ];
 
+/**
+ * New York Film Critics Online: a page of its own only for 2025 (nominee boxes, with the nominees and the day of both
+ * announcements). The earlier years are in the group's main article, one heading per year: a "Top 10 Films" list
+ * (alphabetical, all of them honoured: nominees for Best Picture) and a "Various Awards" bullet list of winners
+ * ("Best Film: …"); 2024 has the bullets directly with "Runner-up" lines. No dates there.
+ */
+const NYFCO_PAGES = pageRead("new-york-online", {
+  page: (y) => `${y} New York Film Critics Online Awards`,
+  categories: [
+    { slug: "picture", label: /^best(film|picture)$/ },
+    { slug: "international", label: CATEGORIES.internationalFeature },
+    { slug: "documentary", label: CATEGORIES.documentary },
+    { slug: "animated", label: CATEGORIES.animated },
+  ],
+  winnersOnly: false,
+});
+
+const NYFCO_LINES: Array<{ slug: string; label: RegExp }> = [
+  { slug: "picture", label: /^best(film|picture)$/ },
+  { slug: "international", label: CATEGORIES.internationalFeature },
+  { slug: "documentary", label: CATEGORIES.documentary },
+  { slug: "animated", label: CATEGORIES.animated },
+];
+
+async function readNyfco(year: number, ctx: Ctx): Promise<Read | null> {
+  const own = await NYFCO_PAGES(year, ctx);
+  if (own) return own;
+  const page = await ctx.page("New York Film Critics Online");
+  const $ = cheerio.load(page.html);
+  const heading = $("h2")
+    .toArray()
+    .find((h) => clean($(h).text()) === String(year));
+  if (!heading) return null;
+  const rows: Row[] = [];
+  const local: string[] = [];
+  let section = "";
+  for (let node = $(heading).closest(".mw-heading").next(); node.length > 0 && !node.is(".mw-heading2"); node = node.next()) {
+    if (node.is(".mw-heading3")) section = clean(node.text());
+    if (!node.is("ul")) continue;
+    for (const li of node.children("li").toArray()) {
+      const content = ownContent($, li);
+      if (/^top\b/i.test(section)) {
+        const film = filmOf($, content);
+        if (film) rows.push({ category: "picture", link: film, outcome: "nominated" });
+        else local.push(`new-york-online ${year}: a line of "${section}" names no film ("${clean(content.text())}")`);
+        continue;
+      }
+      const text = clean(content.text());
+      const cat = NYFCO_LINES.find((c) => c.label.test(flat(text.split(":")[0])));
+      if (!cat) continue;
+      const film = filmOf($, content);
+      if (!film) {
+        local.push(`new-york-online ${year}: ${cat.slug} names no film ("${text}")`);
+        continue;
+      }
+      rows.push({ category: cat.slug, link: film, outcome: "won" });
+      for (const r of $(li).children("ul").children("li").toArray()) {
+        const runner = filmOf($, ownContent($, r));
+        if (runner && /^runner/i.test(clean(ownContent($, r).text()))) rows.push({ category: cat.slug, link: runner, outcome: "runner_up" });
+      }
+    }
+  }
+  if (rows.length === 0) return null;
+  // A year whose list gives no Best Picture winner (2018) still has its top list; the gap is said instead of "not found".
+  const noPictureWinner = rows.some((r) => r.category === "picture") && !rows.some((r) => r.category === "picture" && r.outcome === "won");
+  const missing = NYFCO_LINES.map((c) => c.slug).filter((s) => !rows.some((r) => r.category === s && r.outcome === "won") && !(s === "picture" && noPictureWinner));
+  const runnerUps = rows.some((r) => r.outcome === "runner_up");
+  return {
+    rows,
+    missing,
+    urls: [page.url],
+    gaps: [
+      runnerUps ? "only the winners, their runners-up and (Best Picture) a top list are listed" : "only the winners (and a top list for Best Picture) are listed",
+      ...(noPictureWinner ? ["the page names no Best Picture winner for this year"] : []),
+    ],
+    problems: local,
+  };
+}
+
 /** A group with no Wikipedia page of its awards and no other source found: every year is `no_data`. */
 function noPage(slug: string, name: string, full: string): Group {
   return {
@@ -793,6 +872,54 @@ export const GROUPS: Group[] = [
     }),
   },
   noPage("new-jersey-critics", "New Jersey", "the New Jersey Film Critics Circle"),
+  {
+    slug: "new-york-critics",
+    name: "New York Circle",
+    years: [2012, 2025],
+    why: "the New York Film Critics Circle's awards for these films are not on Wikipedia",
+    winnersOnly: true,
+    read: pageRead("new-york-critics", {
+      page: (y) => `${y} New York Film Critics Circle Awards`,
+      categories: [
+        { slug: "picture", label: /^best(film|picture)$/ },
+        { slug: "international", label: CATEGORIES.international },
+        { slug: "documentary", label: /^bestnon(fiction|-fiction)film$/ },
+        { slug: "animated", label: CATEGORIES.animated },
+      ],
+      winnersOnly: true,
+    }),
+  },
+  {
+    slug: "new-york-online",
+    name: "New York Online",
+    years: [2012, 2025],
+    why: "the New York Film Critics Online awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: readNyfco,
+  },
+  noPage("north-carolina-critics", "North Carolina", "the North Carolina Film Critics Association"),
+  noPage("north-dakota-critics", "North Dakota", "the North Dakota Film Society"),
+  noPage("north-texas-critics", "North Texas", "the North Texas Film Critics Association"),
+  noPage("oklahoma-critics", "Oklahoma", "the Oklahoma Film Critics Circle"),
+  {
+    slug: "online-critics",
+    name: "Online FCS",
+    years: [2012, 2025],
+    why: "the Online Film Critics Society's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("online-critics", {
+      page: (y) => `Online Film Critics Society Awards ${y}`,
+      categories: [
+        { slug: "picture", label: /^best(film|picture)$/ },
+        { slug: "international", label: /^best(filmnotintheenglishlanguage|(foreign|nonenglish|international)(language)?film)$/ },
+        { slug: "documentary", label: CATEGORIES.documentary },
+        { slug: "animated", label: CATEGORIES.animated },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  noPage("online-female-critics", "Online Female", "the Online Association of Female Film Critics"),
+  noPage("online-ftv", "Online FTV", "the Online Film & Television Association"),
 ];
 
 function parseList(argv: string[], flag: string): string | undefined {

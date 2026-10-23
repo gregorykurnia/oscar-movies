@@ -1,0 +1,23 @@
+{
+  "award": "new-york-critics",
+  "year": 2013,
+  "status": "loaded",
+  "winnersOn": "2013-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2404461", "title": "The Past", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1453405", "title": "Monsters University", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

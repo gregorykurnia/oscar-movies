@@ -1,0 +1,25 @@
+{
+  "award": "new-york-online",
+  "year": 2016,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners (and a top list for Best Picture) are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2671706", "title": "Fences", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1124037", "title": "The Free State of Jones", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1619029", "title": "Jackie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4669986", "title": "Loving", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" }
+  ],
+  "screenings": []
+}

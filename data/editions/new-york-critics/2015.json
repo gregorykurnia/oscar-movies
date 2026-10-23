@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2015,
+  "status": "loaded",
+  "winnersOn": "2015-12-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "won" },
+    { "category": "international", "imdb": "tt3409392", "title": "Timbuktu", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4936064", "title": "In Jackson Heights", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" }
+  ],
+  "screenings": []
+}

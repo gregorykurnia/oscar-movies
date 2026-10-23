@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2024,
+  "status": "loaded",
+  "winnersOn": "2024-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2024_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "won" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -177,5 +177,8 @@
   "tt1091191": { "slug": "lone-survivor", "title": "Lone Survivor", "countries": ["US"], "language": "en", "wd": "Q3258993", "tmdb": 193756 },
   "tt0359950": { "slug": "the-secret-life-of-walter-mitty", "title": "The Secret Life of Walter Mitty", "countries": ["US", "GB"], "language": "en", "wd": "Q3522637", "tmdb": 116745 },
   "tt3091552": { "slug": "at-berkeley", "title": "At Berkeley", "countries": ["US"], "language": "en", "wd": "Q23999260", "tmdb": 211024 },
-  "tt1293751": { "slug": "casting-by", "title": "Casting By", "countries": ["US"], "language": "en", "wd": "Q16249127", "tmdb": 127878 }
+  "tt1293751": { "slug": "casting-by", "title": "Casting By", "countries": ["US"], "language": "en", "wd": "Q16249127", "tmdb": 127878 },
+  "tt2165735": { "slug": "drug-war", "title": "Drug War", "originalTitle": "毒战", "originalLang": "zh", "countries": ["CN", "HK"], "language": "cmn", "wd": "Q4249764", "tmdb": 110410 },
+  "tt2268732": { "slug": "museum-hours", "title": "Museum Hours", "countries": ["AT", "US"], "language": "en", "wd": "Q16253440", "tmdb": 128133 },
+  "tt2147134": { "slug": "56-up", "title": "56 Up", "countries": ["GB"], "language": "en", "tmdb": 116167 }
 }

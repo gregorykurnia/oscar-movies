@@ -1,0 +1,18 @@
+{
+  "award": "new-york-online",
+  "year": 2024,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/New_York_Film_Critics_Online"],
+  "note": "Only the winners, their runners-up and (Best Picture) a top list are listed; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

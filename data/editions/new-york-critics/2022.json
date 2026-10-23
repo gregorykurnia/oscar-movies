@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2022,
+  "status": "loaded",
+  "winnersOn": "2022-12-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "won" },
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" }
+  ],
+  "screenings": []
+}

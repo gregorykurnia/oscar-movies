@@ -3,7 +3,8 @@
 // sentences, AAFCA's top-ten table, and the year its main article files a film under; task 4.3 adds
 // the winner-in-its-own-line nominee boxes (Critics' Choice to 2015), a bold winner line under a heading
 // (Florida 2013) and "Runner-up: None"; task 4.5 adds LAFCA's runner-up one level under the winner and
-// NSFC's numbered lines ("1. A <br> 2. B").
+// NSFC's numbered lines ("1. A <br> 2. B"); task 4.6 adds "(Runner-up)" in bold (Online Film Critics Society 2017)
+// and the New York Film Critics Online article, which has no page for most years.
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { aafcaLabelYear, GROUPS, readAafcaTopTen, sourcesSchema } from "./critics";
@@ -226,6 +227,65 @@ describe("task 4.5 editions", () => {
 
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["latino-entertainment-journalists", "michigan-critics", "minnesota-critics", "music-city-critics", "new-jersey-critics"]) {
+      const e = edition(`${slug}/2020`);
+      expect(e.status, slug).toBe("no_data");
+      expect(e.note, slug).toBeTruthy();
+    }
+  });
+});
+
+describe("layouts of task 4.6", () => {
+  it("reads a bold line marked (Runner-up) as a runner-up, not a second winner (Online Film Critics Society 2017)", () => {
+    const html = `<table class="wikitable"><tr><th>Best Picture</th></tr><tr><td><ul>
+      <li><i><b><a href="/wiki/Get_Out">Get Out</a></b></i></li>
+      <li><b><i><a href="/wiki/The_Shape_of_Water_(film)">The Shape of Water</a></i> (Runner-up)</b></li>
+      <li><i><a href="/wiki/Dunkirk_(2017_film)">Dunkirk</a></i></li></ul></td></tr></table>`;
+    const block = readBlocks(html).find((b) => b.label === "Best Picture");
+    expect(blockRows(block!).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Get Out", "won"],
+      ["The Shape of Water", "runner_up"],
+      ["Dunkirk", "nominated"],
+    ]);
+  });
+});
+
+describe("task 4.6 editions", () => {
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
+
+  it("reads the New York Circle's winners with their runners-up (2012) and its Non-Fiction prize as the documentary", () => {
+    expect(of("new-york-critics/2012", "picture", "won")).toEqual(["Zero Dark Thirty"]);
+    expect(of("new-york-critics/2012", "picture", "runner_up")).toEqual(["Argo", "The Master"]);
+    expect(of("new-york-critics/2024", "documentary", "won")).toEqual(["No Other Land"]);
+    expect(edition("new-york-critics/2024").nominationsOn).toBeUndefined();
+  });
+
+  it("reads New York Online's main article for 2012 to 2024 (partial, no dates) and its own 2025 page (loaded, both days)", () => {
+    expect(of("new-york-online/2012", "picture", "won")).toEqual(["Zero Dark Thirty"]);
+    expect(edition("new-york-online/2012").results.filter((r) => r.category === "picture")).toHaveLength(10);
+    expect(edition("new-york-online/2012").status).toBe("partial");
+    expect(edition("new-york-online/2018").note).toMatch(/no Best Picture winner/);
+    expect(of("new-york-online/2024", "picture", "runner_up")).toEqual(["The Brutalist"]);
+    const e = edition("new-york-online/2025");
+    expect([e.status, e.nominationsOn, e.winnersOn]).toEqual(["loaded", "2025-12-08", "2025-12-15"]);
+  });
+
+  it("keeps Online FCS 2017's winner and runner-up apart, and takes 2012's days from its sentence", () => {
+    expect(of("online-critics/2017", "picture", "won")).toEqual(["Get Out"]);
+    expect(of("online-critics/2017", "picture", "runner_up")).toEqual(["The Shape of Water"]);
+    const e = edition("online-critics/2012");
+    expect([e.status, e.nominationsOn, e.winnersOn]).toEqual(["loaded", "2012-12-24", "2012-12-31"]);
+  });
+
+  it("finds 56 Up and 100 Meters on TMDB, not as Wikidata items with no IMDb ID", () => {
+    expect(of("online-critics/2013", "documentary", "nominated")).toContain("56 Up");
+    expect(edition("new-york-online/2025").results.some((r) => r.title.toLowerCase() === "100 meters")).toBe(true);
+    const movies = JSON.parse(readFileSync("data/movies/2013.json", "utf8")) as Record<string, unknown>;
+    expect(Object.keys(movies)).not.toContain("Q2716721");
+  });
+
+  it("marks groups with no page as no_data, with a note", () => {
+    for (const slug of ["north-carolina-critics", "north-dakota-critics", "north-texas-critics", "oklahoma-critics", "online-female-critics", "online-ftv"]) {
       const e = edition(`${slug}/2020`);
       expect(e.status, slug).toBe("no_data");
       expect(e.note, slug).toBeTruthy();

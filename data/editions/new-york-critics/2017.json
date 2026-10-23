@@ -1,0 +1,14 @@
+{
+  "award": "new-york-critics",
+  "year": 2017,
+  "status": "loaded",
+  "winnersOn": "2017-11-30",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2017_New_York_Film_Critics_Circle_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" }
+  ],
+  "screenings": []
+}

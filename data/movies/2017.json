@@ -214,5 +214,9 @@
   "tt1389072": { "slug": "downsizing", "title": "Downsizing", "countries": ["US"], "language": "en", "wd": "Q22075017", "tmdb": 301337 },
   "tt5029608": { "slug": "frantz", "title": "Frantz", "countries": ["DE", "FR"], "language": "fr", "wd": "Q25395940", "tmdb": 377263 },
   "tt5279122": { "slug": "brimstone-and-glory", "title": "Brimstone & Glory", "countries": ["US", "MX"], "language": "en", "tmdb": 444012 },
-  "tt6498644": { "slug": "eric-clapton-life-in-12-bars-2017", "title": "Eric Clapton: Life in 12 Bars", "countries": ["US", "GB"], "language": "en", "tmdb": 445065 }
+  "tt6498644": { "slug": "eric-clapton-life-in-12-bars-2017", "title": "Eric Clapton: Life in 12 Bars", "countries": ["US", "GB"], "language": "en", "tmdb": 445065 },
+  "tt6752848": { "slug": "bombshell-the-hedy-lamarr-story", "title": "Bombshell: The Hedy Lamarr Story", "countries": ["US"], "language": "en", "wd": "Q44492116", "tmdb": 455565 },
+  "tt6265828": { "slug": "a-ghost-story", "title": "A Ghost Story", "countries": ["US"], "language": "en", "wd": "Q27964497", "tmdb": 428449 },
+  "tt5109784": { "slug": "mother-2017", "title": "Mother!", "countries": ["US"], "language": "en", "wd": "Q25339558", "tmdb": 381283 },
+  "tt4795546": { "slug": "nocturama", "title": "Nocturama", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20971361", "tmdb": 380623 }
 }
