@@ -4,7 +4,6 @@ import { FilterChips } from "@/components/chip/FilterChips";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
 import { FilmMarks } from "@/components/marks/MarksProvider";
-import { Notice } from "@/components/notice/Notice";
 import { PageHeader } from "@/components/page-header/PageHeader";
 import { Segmented } from "@/components/segmented/Segmented";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
@@ -24,6 +23,7 @@ import {
   LINEUP_SORTS,
   LINEUPS_START,
   lineupHref,
+  lineupNote,
   lineupQuery,
   parseLineupQuery,
   prizesOf,
@@ -109,20 +109,18 @@ async function Lineup({ festival, year, query }: { festival: AwardSummary; year:
   // Wait for the request: the address and the marks are read per visit.
   await connection();
   const [{ edition, sections }, marks, params] = await Promise.all([getLineup(festival.slug, year), getMarks(), query]);
-  if (!edition) {
-    return (
+  // The edition's status is about its prizes; whether there's a lineup is whether it has screenings
+  // (a coming festival's lineup can be loaded months before its prizes).
+  if (sections.length === 0) {
+    return edition ? (
+      <EmptyState title="No lineup for this year" className="mt-10 md:mt-12">
+        {year === LIVE_YEAR
+          ? `${festival.name} hasn't published its ${year} lineup yet.`
+          : `The app has no ${festival.shortName} lineup for ${year}.`}
+      </EmptyState>
+    ) : (
       <EmptyState title="Not loaded yet" className="mt-10 md:mt-12">
         The {year} {festival.shortName} lineup isn&apos;t in the app yet.
-      </EmptyState>
-    );
-  }
-  if (edition.status === "no_data" || sections.length === 0) {
-    return (
-      <EmptyState title="No lineup for this year" className="mt-10 md:mt-12">
-        {edition.note ??
-          (year === LIVE_YEAR
-            ? `${festival.name} hasn't published its ${year} lineup yet.`
-            : `The app has no ${festival.shortName} lineup for ${year}.`)}
       </EmptyState>
     );
   }
@@ -131,14 +129,9 @@ async function Lineup({ festival, year, query }: { festival: AwardSummary; year:
   const shown = viewLineup(sections, state, markSets(marks));
   return (
     <>
-      {edition.status === "partial" ? (
-        <Notice tone="neutral" title="Partly loaded." className="mt-6 md:mt-7">
-          {edition.note ?? `Some of this year's ${festival.shortName} lineup is missing.`}
-        </Notice>
-      ) : null}
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7">
         <div className="flex min-w-0 max-w-full items-center gap-3">
-          <span className="flex-none text-caption text-ink-muted">Sort by</span>
+          <span aria-hidden="true" className="flex-none text-caption text-ink-muted">Sort by</span>
           <Segmented
             label="Sort by"
             className="min-w-0"
@@ -159,7 +152,7 @@ async function Lineup({ festival, year, query }: { festival: AwardSummary; year:
         />
       </div>
       {shown.length > 0 ? (
-        shown.map((section) => <SectionFilms key={section.order} section={section} />)
+        shown.map((section) => <SectionFilms key={section.order} section={section} year={year} />)
       ) : (
         <EmptyState
           title="No films match"
@@ -173,12 +166,12 @@ async function Lineup({ festival, year, query }: { festival: AwardSummary; year:
           Nothing in the {year} {festival.shortName} lineup is {state.filter && filterPhrase(state.filter)}.
         </EmptyState>
       )}
-      <Footnote />
+      <Footnote leftOut={lineupNote(edition?.note ?? null)} />
     </>
   );
 }
 
-function SectionFilms({ section }: { section: LineupSection }) {
+function SectionFilms({ section, year }: { section: LineupSection; year: number }) {
   const id = sectionId(section);
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="mt-10 scroll-mt-20 md:mt-12">
@@ -193,24 +186,28 @@ function SectionFilms({ section }: { section: LineupSection }) {
       </div>
       <FilmList head={["Prize"]} columns={COLUMNS}>
         {section.films.map((film) => {
-          const prizes = prizesOf(film.prize);
+          const prizes = prizesOf(film.prize, section.name);
           return (
             <FilmRow
               key={film.id}
               title={film.title}
               href={`/movies/${film.slug}`}
               flags={film.countries}
-              meta={String(film.year)}
+              // The lineup's year goes without saying; a film from another year says which.
+              meta={film.year === year ? undefined : String(film.year)}
               scores={film.scores}
               winner={prizes.length > 0}
               results={[
                 {
                   label: "Prize",
+                  // On phone a film with no prize has no Prize line at all.
+                  phoneHidden: prizes.length === 0,
                   value:
                     prizes.length > 0 ? (
-                      <span className="flex flex-wrap gap-1.5">
-                        {prizes.map((prize) => (
-                          <StagePill key={prize} stage="won" wrap>
+                      <span className="inline-flex max-w-full flex-wrap gap-1.5 align-middle">
+                        {prizes.map((prize, i) => (
+                          <StagePill key={`${i}-${prize}`} stage="won" wrap>
+                            {i > 0 ? <span className="sr-only">; </span> : null}
                             {prize}
                           </StagePill>
                         ))}
@@ -230,13 +227,14 @@ function SectionFilms({ section }: { section: LineupSection }) {
 }
 
 /** Where the lineups come from (guide §8.9): Wikipedia's tables, and the sections with no published count to check against. */
-function Footnote() {
+function Footnote({ leftOut }: { leftOut: string | null }) {
   return (
     <footer className="mt-10 space-y-1.5 border-t border-line pt-4 text-caption text-ink-muted md:mt-12">
       <p>
         Lineups are based on Wikipedia articles, used under CC BY-SA 4.0. Short films, series, VR works and restorations are left
         out.
       </p>
+      {leftOut ? <p>Also left out: {leftOut}</p> : null}
       <p>
         Some sections have no published count to check against, so for those Wikipedia&apos;s table is the only source.{" "}
         <TextLink href="/data">Data coverage and sources</TextLink>

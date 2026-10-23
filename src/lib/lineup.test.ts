@@ -8,6 +8,7 @@ import {
   hasLineups,
   LINEUPS_START,
   lineupHref,
+  lineupNote,
   lineupPath,
   lineupQuery,
   orderScreenings,
@@ -140,5 +141,31 @@ describe("a film's screenings", () => {
   it("captions its section and prizes, with the year first when the list spans years", () => {
     expect(screeningCaption(screening({ prize: "Palme d'Or" }), false)).toBe("In Competition · Palme d'Or");
     expect(screeningCaption(screening({ section: "Un Certain Regard" }), true)).toBe("2025 · Un Certain Regard");
+  });
+
+  it("drops a prize's trailing section name inside that section", () => {
+    expect(prizesOf("Jury Prize (Un Certain Regard); FIPRESCI Prize", "Un Certain Regard")).toEqual(["Jury Prize", "FIPRESCI Prize"]);
+    expect(prizesOf("Jury Prize (Un Certain Regard)", "In Competition")).toEqual(["Jury Prize (Un Certain Regard)"]);
+    expect(screeningCaption(screening({ section: "Un Certain Regard", prize: "Jury Prize (Un Certain Regard)" }), false)).toBe(
+      "Un Certain Regard · Jury Prize",
+    );
+  });
+
+  it("doesn't repeat a prize the page already lists as its own row", () => {
+    const s = screening({ prize: "Palme d'Or; Best Actor" });
+    expect(screeningCaption(s, false, ["Palme d'Or"])).toBe("In Competition · Best Actor");
+    expect(screeningCaption(screening({ prize: "Palme d'Or" }), false, ["palme d'or"])).toBe("In Competition");
+    expect(screeningCaption(s, false, ["Grand Prix"])).toBe("In Competition · Palme d'Or; Best Actor");
+    const sundance = screening({ section: "U.S. Dramatic Competition", prize: "Grand Jury Prize; Audience Award" });
+    expect(screeningCaption(sundance, false, ["U.S. Grand Jury Prize: Dramatic"])).toBe("U.S. Dramatic Competition · Audience Award");
+    expect(screeningCaption(screening({ prize: "Jury Prize" }), false, ["Grand Jury Prize"])).toBe("In Competition · Jury Prize");
+  });
+});
+
+describe("lineupNote", () => {
+  it("reads the films left out of the lineup from the edition's note", () => {
+    expect(lineupNote(null)).toBeNull();
+    expect(lineupNote("Dates are approximate.")).toBeNull();
+    expect(lineupNote("Dates are approximate. Lineup: Memory left out (no IMDb ID).")).toBe("Memory left out (no IMDb ID).");
   });
 });

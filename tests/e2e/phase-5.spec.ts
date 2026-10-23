@@ -5,7 +5,7 @@
 import { expect, test } from "@playwright/test";
 import { and, asc, eq, lt, notInArray, sql } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
-import { awards, editions, movies, screenings } from "../../src/db/schema";
+import { awards, editions, marks, movies, screenings } from "../../src/db/schema";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -23,9 +23,15 @@ type Row = {
   prize: string | null;
 };
 
+// The page's own title order (`localeCompare`), which isn't Postgres's byte order ("EPiC" and "Easy's Waltz").
+const byTitle = (a: Row, b: Row) => a.title.localeCompare(b.title, "en");
+/** The page's Average score order: highest first, films with none last, ties by title. */
+const byAverage = (a: Row, b: Row) =>
+  a.avg === b.avg ? byTitle(a, b) : a.avg === null ? 1 : b.avg === null ? -1 : b.avg - a.avg || byTitle(a, b);
+
 /** Every screening of the festival's edition, in programme order then title. */
 async function lineupRows(slug: string, year: number): Promise<Row[]> {
-  return db
+  const rows = await db
     .select({
       slug: movies.slug,
       title: movies.title,
@@ -40,7 +46,8 @@ async function lineupRows(slug: string, year: number): Promise<Row[]> {
     .innerJoin(awards, eq(awards.id, editions.awardId))
     .innerJoin(movies, eq(movies.id, screenings.movieId))
     .where(and(eq(awards.slug, slug), eq(editions.year, year)))
-    .orderBy(asc(screenings.sectionOrder), asc(movies.title));
+    .orderBy(asc(screenings.sectionOrder));
+  return rows.sort((a, b) => a.order - b.order || byTitle(a, b));
 }
 
 function bySection(rows: Row[]) {
@@ -97,11 +104,15 @@ test("the festivals index opens Cannes 2025, whose page lists every section's fi
   });
   expect(onPage.flatMap((s) => s.films)).toHaveLength(rows.length);
 
-  // A prize is a pill on the film that won it.
+  // A prize is a pill on the film that won it (in its section's list, so its row).
   const prized = rows.find((r) => r.prize);
   expect(prized, "a Cannes 2025 film with a prize").toBeTruthy();
-  const firstPrize = prized!.prize!.split("; ")[0];
-  await expect(page.getByText(firstPrize, { exact: true }).first()).toBeVisible();
+  const firstPrize = prized!.prize!.split("; ")[0].replace(` (${prized!.section})`, "");
+  const prizedRow = page
+    .locator(`section#section-${prized!.order}`)
+    .locator("div[data-winner]")
+    .filter({ has: page.locator(`a[href="/movies/${prized!.slug}"]`) });
+  await expect(prizedRow.getByText(firstPrize, { exact: true })).toBeVisible();
 });
 
 test("the sort in the address puts the best-scored film first in each section", async ({ page }) => {
@@ -112,21 +123,42 @@ test("the sort in the address puts the best-scored film first in each section", 
   await expect(page).toHaveURL(/\?sort=average$/);
   await expect(page.getByRole("link", { name: "Average score", exact: true })).toHaveAttribute("aria-current", "page");
 
-  const expected = sections.map((s) =>
-    [...s.rows]
-      .sort((a, b) => (a.avg === null ? 1 : b.avg === null ? -1 : 0) || (b.avg ?? 0) - (a.avg ?? 0) || a.title.localeCompare(b.title, "en"))
-      .map((r) => r.slug),
-  );
-  const slugs = await page.evaluate(() =>
-    [...document.querySelectorAll('section[id^="section-"]')].map((s) =>
-      [...s.querySelectorAll('a[href^="/movies/"]')].map((a) => a.getAttribute("href")!.replace("/movies/", "")),
+  const expected = sections.map((s) => [...s.rows].sort(byAverage).map((r) => r.slug));
+  const pageSlugs = () =>
+    page.evaluate(() =>
+      [...document.querySelectorAll('section[id^="section-"]')].map((s) =>
+        [...s.querySelectorAll('a[href^="/movies/"]')].map((a) => a.getAttribute("href")!.replace("/movies/", "")),
+      ),
+    );
+  expect(await pageSlugs()).toEqual(expected);
+
+  // The Watched chip joins the sort in the address and keeps only the films marked watched (read
+  // from the database; none at all shows "No films match"). A press before hydration does
+  // nothing, so it's pressed until the chip says so.
+  const watched = new Set(
+    (await db.select({ slug: movies.slug }).from(marks).innerJoin(movies, eq(movies.id, marks.movieId)).where(eq(marks.watched, true))).map(
+      (r) => r.slug,
     ),
   );
-  expect(slugs).toEqual(expected);
+  const chip = page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Watched", exact: true });
+  await expect(async () => {
+    if ((await chip.getAttribute("aria-pressed")) !== "true") await chip.click();
+    await expect(page).toHaveURL(/\?sort=average&filter=watched$/, { timeout: 3000 });
+  }).toPass();
+  const kept = expected.map((s) => s.filter((slug) => watched.has(slug))).filter((s) => s.length > 0);
+  if (kept.length === 0) await expect(page.getByText("No films match")).toBeVisible();
+  else await expect.poll(pageSlugs).toEqual(kept);
 
-  // The mark chip joins the sort in the address and the year switcher keeps both.
-  await page.getByRole("group", { name: "Filter" }).getByRole("button").or(page.getByRole("group", { name: "Filter" }).getByRole("link")).first().click();
-  await expect(page).toHaveURL(/\?sort=average&filter=/);
+  // The year switcher keeps both.
+  const switcher = page.getByRole("button", { name: `Year: ${YEAR}` });
+  await expect(async () => {
+    if ((await switcher.getAttribute("aria-expanded")) !== "true") await switcher.click();
+    await expect(page.getByRole("dialog", { name: "Choose a year" })).toBeVisible({ timeout: 3000 });
+  }).toPass();
+  await expect(page.getByRole("dialog", { name: "Choose a year" }).locator(`a[href^="/festivals/${FESTIVAL.slug}/${YEAR + 1}"]`)).toHaveAttribute(
+    "href",
+    `/festivals/${FESTIVAL.slug}/${YEAR + 1}?sort=average&filter=watched`,
+  );
 });
 
 test("a film's page lists its screening, which links back to the lineup", async ({ page }) => {
@@ -141,6 +173,8 @@ test("a film's page lists its screening, which links back to the lineup", async 
     .innerJoin(movies, eq(movies.id, screenings.movieId))
     .where(eq(movies.slug, film.slug));
   const others = all.filter((r) => r.slug === FESTIVAL.slug && r.year === YEAR);
+  // The section the film was found in (and won its prize in, when it has one).
+  const here = others.find((r) => r.section === film.section) ?? others[0];
 
   await page.goto(`/festivals/${FESTIVAL.slug}/${YEAR}`);
   await page.locator(`section a[href="/movies/${film.slug}"]`).first().click();
@@ -153,9 +187,11 @@ test("a film's page lists its screening, which links back to the lineup", async 
   for (const r of others) {
     await expect(selected.filter({ hasText: r.section }).first()).toBeVisible();
   }
-  if (film.prize) await expect(selected.filter({ hasText: others[0].section }).first()).toContainText(film.prize.split("; ")[0]);
+  // Its prizes are on the page: a followed one (Palme d'Or) as the festival's own Won row, the rest
+  // in the screening's caption.
+  if (film.prize) await expect(festivals).toContainText(film.prize.split("; ")[0].replace(` (${film.section})`, ""));
 
-  await selected.filter({ hasText: others[0].section }).first().getByRole("link").click();
+  await selected.filter({ hasText: here.section }).first().getByRole("link").click();
   await expect(page).toHaveURL(new RegExp(`/festivals/${FESTIVAL.slug}/${YEAR}$`));
 });
 
@@ -166,9 +202,13 @@ test("an earlier year says lineups start in 2025, and a film from before has the
   await expect(page.getByRole("link", { name: `Prizes for ${YEAR - 1}` })).toHaveAttribute("href", `/awards/${FESTIVAL.slug}/${YEAR - 1}`);
   await expect(page.locator('section[id^="section-"]')).toHaveCount(0);
 
-  // The year switcher goes back to a year with a lineup.
+  // The festivals index before 2025 opens the prizes, and says so.
   await page.goto(`/festivals/${YEAR - 1}`);
-  await expect(page.getByRole("region", { name: "Festivals" }).getByRole("listitem").filter({ hasText: /Cannes/ })).toBeVisible();
+  await expect(page.getByText(/prizes only before 2025/)).toBeVisible();
+  await expect(page.getByRole("region", { name: "Festivals" }).getByRole("link", { name: /Cannes/ })).toHaveAttribute(
+    "href",
+    `/awards/${FESTIVAL.slug}/${YEAR - 1}`,
+  );
 
   // A film from before 2025 that no lineup lists: its page says lineups are tracked from 2025 on.
   const [old] = await db

@@ -111,12 +111,43 @@ export function orderScreenings(screenings: MovieScreening[]): MovieScreening[] 
   );
 }
 
-/** A screening's prizes, one pill each: "Best Director; Best Actor" is two. */
-export function prizesOf(prize: string | null): string[] {
-  return prize ? prize.split("; ") : [];
+/**
+ * A screening's prizes, one pill each: "Best Director; Best Actor" is two. Inside a section a
+ * prize's trailing "(<section>)" repeats the heading, so it goes: "Jury Prize (Un Certain Regard)"
+ * reads "Jury Prize" under Un Certain Regard.
+ */
+export function prizesOf(prize: string | null, section?: string): string[] {
+  if (!prize) return [];
+  const suffix = section ? ` (${section})` : null;
+  return prize.split("; ").map((p) => (suffix && p.endsWith(suffix) && p.length > suffix.length ? p.slice(0, -suffix.length) : p));
 }
 
-/** A screening row's caption: the section and its prizes, the year first when the list spans years. */
-export function screeningCaption(s: Pick<MovieScreening, "year" | "section" | "prize">, showYear: boolean): string {
-  return [showYear ? String(s.year) : null, s.section, s.prize].filter(Boolean).join(" · ");
+const plain = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+/**
+ * A listed category names the prize: "Palme d'Or" is "Palme d'Or"; Sundance's "U.S. Grand Jury Prize:
+ * Dramatic" and "Audience Award: World Cinema Dramatic" are its sections' "Grand Jury Prize" and "Audience Award".
+ */
+const names = (listed: string, prize: string) =>
+  [plain(listed), plain(listed.split(":")[0]).replace(/^(?:u s|world cinema) /, "")].includes(plain(prize));
+
+/**
+ * A screening row's caption: the section and its prizes, the year first when the list spans years.
+ * A prize the page already lists as its own row (`listed`: the festival's won categories that
+ * year, "Palme d'Or", "U.S. Grand Jury Prize: Dramatic") isn't said twice.
+ */
+export function screeningCaption(
+  s: Pick<MovieScreening, "year" | "section" | "prize">,
+  showYear: boolean,
+  listed: string[] = [],
+): string {
+  const prizes = prizesOf(s.prize, s.section).filter((p) => !listed.some((l) => names(l, p)));
+  return [showYear ? String(s.year) : null, s.section, prizes.length > 0 ? prizes.join("; ") : null]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+/** The films an edition's note says were left out of its lineup ("Lineup: Memory left out (…)."), or null. */
+export function lineupNote(note: string | null): string | null {
+  const m = note?.match(/Lineup:\s*([^]*)$/);
+  return m ? m[1].trim() || null : null;
 }

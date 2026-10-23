@@ -82,7 +82,9 @@ export function AwardsSection({
           })}
         </div>
       ) : (
-        <p className="text-small text-ink-muted">No award results for this film yet.</p>
+        <p className="text-small text-ink-muted">
+          {coverage ? `No award results for this film yet. ${COVERAGE_NOTICE}` : "No award results for this film yet."}
+        </p>
       )}
     </section>
   );
@@ -118,7 +120,7 @@ function FestivalsGroup({
             result="selected"
             href={lineupPath(s.awardSlug, s.year)}
             name={s.awardName}
-            caption={screeningCaption(s, showYear)}
+            caption={screeningCaption(s, showYear, wonAt(rows, s))}
             pill={<StagePill stage="nominated">Selected</StagePill>}
           />
         ))}
@@ -126,6 +128,11 @@ function FestivalsGroup({
       {coverage ? <Notice tone="neutral" className="mt-3">{COVERAGE_NOTICE}</Notice> : null}
     </div>
   );
+}
+
+/** The prizes a festival's rows already show as won that year, so the screening doesn't repeat them. */
+function wonAt(rows: MovieAwardRow[], s: MovieScreening): string[] {
+  return rows.filter((r) => r.awardSlug === s.awardSlug && r.year === s.year && r.result === "won").map((r) => r.category);
 }
 
 function NoFestivals({ coverage }: { coverage: boolean }) {

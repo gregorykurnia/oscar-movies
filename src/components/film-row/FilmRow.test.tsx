@@ -103,4 +103,19 @@ describe("FilmList and FilmRow", () => {
     const row = screen.getByRole("heading", { level: 3, name: "Conclave" }).closest(".grid") as HTMLElement;
     expect(row.className).toContain("[grid-template-areas:'film_marks'_'res_res']");
   });
+
+  it("leaves a phone-hidden result out of the phone's results line, and the line itself when nothing is left", () => {
+    render(
+      <FilmList head={["Prize"]}>
+        <FilmRow title="Alpha" href="/movies/alpha" results={[{ label: "Prize", value: <span>–</span>, phoneHidden: true }]} />
+        <FilmRow title="Sirāt" href="/movies/sirat" results={[{ label: "Prize", value: <span><StagePill stage="won">Jury Prize</StagePill></span> }]} />
+      </FilmList>,
+    );
+    const empty = screen.getByText("–").parentElement!;
+    expect(empty.className).toContain("max-md:hidden");
+    expect(empty.parentElement!.className).toContain("max-md:hidden");
+    const prize = screen.getByText("Jury Prize").parentElement!.parentElement!;
+    expect(prize.className).not.toContain("max-md:hidden");
+    expect(prize.parentElement!.className).not.toContain("max-md:hidden");
+  });
 });

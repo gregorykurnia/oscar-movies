@@ -130,11 +130,14 @@ function AwardRows({
       {awards.map((award) => {
         const edition = byAward.get(award.slug);
         const state = editionState(edition);
-        const opens = lineups && hasLineups(year) ? lineupPath(award.slug, year) : `/awards/${award.slug}/${year}`;
+        // A lineup can be loaded before its festival's prizes, so from 2025 a festival with an edition opens it.
+        const lineup = lineups && hasLineups(year);
+        const opens = lineup ? lineupPath(award.slug, year) : `/awards/${award.slug}/${year}`;
+        const linked = lineup ? edition !== undefined : state !== "no-data";
         return (
           <IndexRow
             key={award.slug}
-            href={state === "no-data" ? undefined : opens}
+            href={linked ? opens : undefined}
             name={award.name}
             gives={givesLabel(award)}
             end={state === "loaded" ? rowDate(award.kind, edition?.winnersOn ?? null) : <StatePill state={state} />}

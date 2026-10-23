@@ -69,6 +69,8 @@ export type FilmResult = {
   numeric?: boolean;
   /** A number in gold-ink (a win count, the leader). */
   gold?: boolean;
+  /** Left out of the phone's results line (an empty "–" that would take a line of its own). */
+  phoneHidden?: boolean;
 };
 
 export function FilmRow({
@@ -142,6 +144,7 @@ export function FilmRow({
         className={cn(
           "flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-caption max-md:[grid-area:res] md:contents",
           flags.length > 0 && "pl-[33px]",
+          results.every((r) => r.phoneHidden) && "max-md:hidden",
         )}
       >
         {results.map((result) => (
@@ -152,6 +155,7 @@ export function FilmRow({
                 "md:text-right md:text-[18px] md:font-light md:tracking-[-0.02em]",
               !result.numeric && "md:text-small",
               result.gold && "text-gold-ink",
+              result.phoneHidden && "max-md:hidden",
             )}
           >
             <span className="text-ink-muted md:sr-only">{result.label} </span>

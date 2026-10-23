@@ -114,6 +114,19 @@ describe("AwardsSection", () => {
     expect(within(festivals).queryByText(/tracked from 2025/)).toBeNull();
   });
 
+  it("doesn't repeat in the screening a prize the festival's own row shows as won", () => {
+    const palme = row({ kind: "festival", awardSlug: "cannes", awardName: "Cannes Film Festival", year: 2025, category: "Palme d'Or", result: "won" });
+    render(<AwardsSection today="2025-06-01" year={2025} rows={[palme]} screenings={[screening({ prize: "Palme d'Or; Best Director" })]} />);
+    const items = within(screen.getByRole("group", { name: "Festivals" })).getAllByRole("listitem");
+    expect(items.map((i) => i.getAttribute("data-result"))).toEqual(["won", "selected"]);
+    expect(within(items[1]).getByText("In Competition · Best Director")).toBeTruthy();
+  });
+
+  it("says a film from before the lineups with no award result at all that lineups are tracked from 2025 on", () => {
+    render(<AwardsSection today="2025-03-01" year={2024} rows={[]} />);
+    expect(screen.getByText("No award results for this film yet. Festival lineups are tracked from 2025 on.")).toBeTruthy();
+  });
+
   it("says a film from before the lineups, with no screening, that lineups are tracked from 2025 on", () => {
     render(<AwardsSection today="2025-03-01" year={2024} rows={[row({})]} />);
     const festivals = screen.getByRole("group", { name: "Festivals" });

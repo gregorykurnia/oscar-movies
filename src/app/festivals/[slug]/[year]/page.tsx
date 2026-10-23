@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, year: y } = await params;
   const festival = findAward(slug);
   const year = parseFilmYear(y);
-  return { title: festival && year ? `${festival.shortName} ${year} lineup` : "Page not found" };
+  return { title: festival?.kind === "festival" && year ? `${festival.shortName} ${year} lineup` : "Page not found" };
 }
 
 // One festival's lineup in one film year (guide §8.3). The sort and the mark chip are read from the address.

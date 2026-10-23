@@ -107,6 +107,14 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
       };
     })
     .sort((a, b) => compareOutcome(b.outcome, a.outcome) || b.year - a.year);
+  const [awardRows, screeningRows] = await Promise.all([
+    queryAwardRows(
+      db,
+      m.id,
+      mine.filter((r) => isShortlisted(r.outcome)).map((r) => ({ year: r.year, oscarCategory: r.category })),
+    ),
+    queryScreenings(db, m.id),
+  ]);
 
   return {
     id: m.id,
@@ -126,12 +134,8 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
       count: m.scoreCount,
     },
     oscars,
-    awards: await queryAwardRows(
-      db,
-      m.id,
-      mine.filter((r) => isShortlisted(r.outcome)).map((r) => ({ year: r.year, oscarCategory: r.category })),
-    ),
-    screenings: await queryScreenings(db, m.id),
+    awards: awardRows,
+    screenings: screeningRows,
   };
 }
 
