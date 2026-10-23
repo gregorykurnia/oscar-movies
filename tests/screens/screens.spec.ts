@@ -1,7 +1,7 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-1/
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-2/
 // (gitignored); the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
@@ -11,8 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phase 0's pictures stay in screenshots/phase-0/.
-const OUT_DIR = "screenshots/phase-1";
+// Each phase's review judges its own folder. Phase 0's and Phase 1's pictures stay in their folders.
+// The Phase 2 review runs the whole list into this one, so until then it holds only the new pages.
+const OUT_DIR = "screenshots/phase-2";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -95,6 +96,17 @@ const ROUTES: Route[] = [
     },
   },
   { name: "search", path: "/", status: 200, heading: /^The \d{4} race$/, open: openSearch },
+  // Phase 2 (task 2.13). The Brutalist is a 2024 Best Picture nominee with won, nominated and not
+  // nominated awards. Until Phase 4 loads critics groups the two grid pictures look the same: folding
+  // only changes the critics columns.
+  { name: "awards-bafta-2025", path: "/awards/bafta/2025", status: 200, heading: "BAFTA 2025" },
+  { name: "awards-index-2025", path: "/awards/2025", status: 200, heading: "Awards 2025" },
+  { name: "festivals-index-2025", path: "/festivals/2025", status: 200, heading: "Festivals 2025" },
+  { name: "accuracy-picture", path: "/accuracy/picture", status: 200, heading: "Accuracy: Best Picture" },
+  { name: "grid-2025-folded", path: "/grid/2025", status: 200, heading: "2025 year grid" },
+  { name: "grid-2025-open", path: "/grid/2025?critics=open", status: 200, heading: "2025 year grid" },
+  { name: "year-summary-2025", path: "/years/2025", status: 200, heading: "2025 year summary" },
+  { name: "movie-awards", path: "/movies/the-brutalist", status: 200, heading: "The Brutalist" },
 ];
 
 for (const route of ROUTES) {
