@@ -24,7 +24,7 @@ import { checkArgs, readEnvFile } from "../lib/target";
 import { createFetcher } from "./lib/fetcher";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import { countryCode } from "./lib/countries";
-import { readLineupTables, readPrizeSections, type LineupRow, type PrizeEntry } from "./lib/lineup-pages";
+import { readLineupTables, readPrizeSections, readPrizeTable, SELECTION_H2, type LineupRow, type PrizeEntry } from "./lib/lineup-pages";
 import type { FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
 import { fetchPage } from "./lib/wikipedia";
@@ -87,18 +87,28 @@ export type LineupSpec = {
   slug: string;
   /** The "Independent Awards" headings that are the festival's own sections' prizes (the main ones are all under "Official Awards"). */
   ownAwards?: RegExp;
+  /** The page's top-level headings that hold the lineup tables (Sundance: "Films"; Toronto: "Program"). */
+  selection?: RegExp;
+  /** The page's prize lines read "Label – Film by Director" (Sundance). */
+  dash?: boolean;
+  /** The prizes are a table (Award, Film, Director) rather than lines (Toronto). */
+  prizeTable?: boolean;
+  /** Every prize line counts, whatever its heading (Sundance and Toronto have no "Official Awards"). */
+  allPrizes?: boolean;
 };
 
-/** Cannes, Venice and Berlin (5.1); Sundance and Toronto join in 5.2. */
+/** Cannes, Venice and Berlin (5.1); Sundance and Toronto (5.2). */
 export const LINEUPS: LineupSpec[] = [
   { slug: "cannes", ownAwards: /^(?:Critics' Week|Directors' Fortnight)$/ },
   { slug: "venice", ownAwards: /^(?:Venice International Critics' Week|Giornate degli Autori)$/ },
   { slug: "berlin", ownAwards: /^(?:Panorama Audience Award.*|Teddy Award)$/ },
+  { slug: "sundance", selection: /^films$/i, dash: true, allPrizes: true },
+  { slug: "tiff", selection: /^program$/i, prizeTable: true, allPrizes: true },
 ];
 
 /** A heading (the table's, or one of its sub-headings) that isn't feature-length films of the year. */
 export const SKIP_SECTION =
-  /short|cin[ée]fondation|immersive|classics|restored|retrospective|series|homage|world cinema project|miu miu|juniors|écrans|final cut|forum expanded/i;
+  /short|cin[ée]fondation|immersive|classics|restored|retrospective|series|homage|world cinema project|miu miu|juniors|écrans|final cut|forum expanded|episodic|from the collection|primetime|festival street/i;
 /** A prize for something other than a lineup film. */
 const SKIP_PRIZE = /short|immersive|honorary|lifetime|restored|documentary on cinema|best documentary on cinema/i;
 /** A film first released this many years before the festival is a restoration or a tribute, not part of the year's lineup. */
@@ -115,6 +125,9 @@ export function sectionName(heading: string, names: Record<string, string> = {})
   return names[plain] ?? plain;
 }
 
+/** A row that is a programme of shorts, not a film ("Redefined: Short Film Showcase" at Toronto). */
+const SKIP_TITLE = /short films?\b/i;
+
 export type LineupFilm = { row: LineupRow; section: string };
 
 /** The rows that count: not skipped by any of their headings, one per film and section. */
@@ -122,7 +135,7 @@ export function lineupFilms(rows: LineupRow[], names: Record<string, string> = {
   const seen = new Set<string>();
   const out: LineupFilm[] = [];
   for (const row of rows) {
-    if ([row.h3, row.h4, row.sub].some((h) => SKIP_SECTION.test(h))) continue;
+    if ([row.h3, row.h4, row.sub].some((h) => SKIP_SECTION.test(h)) || SKIP_TITLE.test(row.film.text)) continue;
     // A title with its year ("The Lie (1987)") is a restoration or a tribute.
     const titleYear = Number(row.film.text.match(/\((\d{4})\)\s*$/)?.[1]);
     if (titleYear && year !== undefined && titleYear <= year - OLD_AFTER) continue;
@@ -149,8 +162,12 @@ export type PrizeLine = { entry: PrizeEntry; text: string };
 /** The prize lines that count: the official awards, and the festival's own independent ones. */
 export function prizeLines(html: string, spec: LineupSpec, names: Record<string, string> = {}): PrizeLine[] {
   const out: PrizeLine[] = [];
-  for (const s of readPrizeSections(html)) {
-    const official = /^official awards$/i.test(s.h2);
+  if (spec.prizeTable) {
+    for (const entry of readPrizeTable(html)) if (!SKIP_PRIZE.test(entry.label)) out.push({ entry, text: entry.label });
+    return out;
+  }
+  for (const s of readPrizeSections(html, { dash: spec.dash })) {
+    const official = spec.allPrizes || /^official awards$/i.test(s.h2);
     if (!official && !(spec.ownAwards && /^independent awards$/i.test(s.h2) && spec.ownAwards.test(s.h3))) continue;
     if (SKIP_PRIZE_HEADING.test(s.h3)) continue;
     for (const entry of s.entries) {
@@ -234,7 +251,7 @@ async function main() {
         directors: a.directors,
         countries: a.countries,
       }));
-      const films = lineupFilms([...readLineupTables(page.html), ...added], sources.sectionNames, year);
+      const films = lineupFilms([...readLineupTables(page.html, spec.selection ?? SELECTION_H2), ...added], sources.sectionNames, year);
       const fix = (link: FilmLink): FilmLink => {
         const f = sources.linkFixes[link.article ?? link.text];
         return f ? { text: link.text, article: f.article ?? link.article, ...(f.wd ? { wd: f.wd } : {}) } : link;

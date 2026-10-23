@@ -56,11 +56,16 @@ export async function findOnTmdb(tmdb: TmdbOptions, query: FilmQuery): Promise<T
   if (ids.size === 0) return { ok: false, reason: "TMDB search found nothing in those years" };
   const details = new Map<string, Details>();
   for (const id of [...ids].slice(0, 16)) {
-    const d = await tmdb.fetcher.getJson<Details>(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`, {
-      headers,
-      label: `tmdb-movie-credits-${id}`,
-    });
-    details.set(String(id), d);
+    try {
+      const d = await tmdb.fetcher.getJson<Details>(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`, {
+        headers,
+        label: `tmdb-movie-credits-${id}`,
+      });
+      details.set(String(id), d);
+    } catch (error) {
+      // A search result whose record was merged or deleted since (404) is no candidate.
+      if (!(error instanceof Error && /\b404\b/.test(error.message))) throw error;
+    }
   }
   const candidates: Candidate[] = [...details.values()].map((d) => ({
     id: String(d.id),

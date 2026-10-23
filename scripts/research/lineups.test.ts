@@ -3,7 +3,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { readEdition } from "./lib/writer";
-import { readLineupTables, readPrizeSections, titleCell } from "./lib/lineup-pages";
+import { readLineupTables, readPrizeSections, readPrizeTable, titleCell } from "./lib/lineup-pages";
 import * as cheerio from "cheerio";
 import { lineupFilms, prizeLines, prizeText, rowsOfPrize, sectionName, sourcesLineupSchema, LINEUPS } from "./lineups";
 
@@ -141,6 +141,57 @@ describe("prizes", () => {
   });
 });
 
+describe("Sundance and Toronto pages (5.2)", () => {
+  const sundance = [
+    heading(2, "Films"),
+    heading(3, "U.S. Documentary Competition"),
+    `<table class="wikitable"><tbody><tr><th>Original title</th><th>Director(s)</th><th>Production Country</th></tr>` +
+      `<tr><td><i><a href="/wiki/Seeds_(2025_film)">Seeds</a></i></td><td>Brittany Shyne</td><td rowspan="2">United States</td></tr>` +
+      `<tr><td><i>Predators</i></td><td>David Osit</td></tr></tbody></table>`,
+    heading(3, "Episodic"),
+    table(row("<i>Pilot</i>", "Pilot", "A. Writer", "United States")),
+    heading(3, "From the Collection"),
+    table(row("<i>Old</i>", "Old", "A. Director", "United States")),
+    heading(2, "Awards"),
+    heading(3, "Grand Jury Prizes"),
+    `<ul><li>U.S. Documentary – <i><a href="/wiki/Seeds_(2025_film)">Seeds</a></i> by Brittany Shyne</li><li>Short Film – <i>Tiny</i> by Someone</li></ul>`,
+  ].join("");
+  const toronto = [
+    heading(2, "Awards"),
+    heading(3, "Regular awards"),
+    `<table class="wikitable"><tbody><tr><th>Award</th><th>Film</th><th>Director</th></tr>` +
+      `<tr><td>People's Choice Award</td><td><i><a href="/wiki/Hamnet_(film)">Hamnet</a></i></td><td>Chloé Zhao</td></tr>` +
+      `<tr><td>Platform Prize, Honorable Mention</td><td><i>Hen</i></td><td>Lizzie</td></tr></tbody></table>`,
+    heading(2, "Film market"),
+    table(row("<i>Market</i>", "Market", "M. Maker", "Canada")),
+  ].join("");
+
+  it("takes the original title column as the title when a table has no English one, and only the page's own selection headings", () => {
+    const rows = readLineupTables(sundance, LINEUPS.find((l) => l.slug === "sundance")!.selection);
+    expect(rows.filter((r) => r.h3 === "U.S. Documentary Competition").map((r) => `${r.film.text} | ${r.countries}`)).toEqual(["Seeds | United States", "Predators | United States"]);
+    expect(lineupFilms(rows, {}, 2025).map((f) => f.row.film.text)).toEqual(["Seeds", "Predators"]);
+    expect(readLineupTables(toronto, LINEUPS.find((l) => l.slug === "tiff")!.selection)).toEqual([]);
+  });
+
+  it("reads Sundance's dash lines as labels and leaves out the short film prizes", () => {
+    const lines = prizeLines(sundance, LINEUPS.find((l) => l.slug === "sundance")!);
+    expect(lines.map((l) => `${l.text} → ${l.entry.film.text}`)).toEqual(["U.S. Documentary (Grand Jury Prizes) → Seeds"]);
+  });
+
+  it("reads Toronto's prize table, the film in its second column", () => {
+    expect(readPrizeTable(toronto).map((e) => `${e.label} → ${e.film.text}`)).toEqual(["People's Choice Award → Hamnet", "Platform Prize, Honorable Mention → Hen"]);
+    expect(prizeLines(toronto, LINEUPS.find((l) => l.slug === "tiff")!).map((l) => l.text)).toEqual(["People's Choice Award", "Platform Prize, Honorable Mention"]);
+  });
+
+  it("leaves out a programme of shorts that is listed as one row", () => {
+    const rows = readLineupTables(
+      [heading(2, "Program"), heading(3, "Special Events"), table(row('Redefined: Short Film Showcase"Butter Chicken to Go"', "", "Prajj", "Canada") + row("<i>Real</i>", "", "R. Eal", "Canada"))].join(""),
+      /program/i,
+    );
+    expect(lineupFilms(rows, {}, 2026).map((f) => f.row.film.text)).toEqual(["Real"]);
+  });
+});
+
 describe("the loaded lineups against the published counts", () => {
   const sources = sourcesLineupSchema.parse(JSON.parse(readFileSync("scripts/research/sources/lineups.json", "utf8")));
 
@@ -162,10 +213,13 @@ describe("the loaded lineups against the published counts", () => {
 
   it("has no unresolved screening and no film twice in a section", () => {
     for (const { slug } of LINEUPS) {
-      const edition = readEdition("data", slug, 2025);
-      const ids = (edition?.screenings ?? []).map((s) => `${s.section}\u0000${s.imdb ?? s.wd}`);
-      expect(new Set(ids).size).toBe(ids.length);
-      expect((edition?.screenings ?? []).every((s) => !s.unresolved)).toBe(true);
+      for (const year of [2025, 2026]) {
+        const edition = readEdition("data", slug, year);
+        expect(edition?.screenings.length, `${slug} ${year}`).toBeGreaterThan(0);
+        const ids = (edition?.screenings ?? []).map((s) => `${s.section}\u0000${s.imdb ?? s.wd}`);
+        expect(new Set(ids).size).toBe(ids.length);
+        expect((edition?.screenings ?? []).every((s) => !s.unresolved)).toBe(true);
+      }
     }
   });
 });
@@ -177,4 +231,5 @@ const LEFT_OUT_SECTIONS: Record<string, string> = {
   "venice 2025 Full Speed Backward!": "Giornate degli Autori",
   "venice 2025 A Near Thing": "Giornate degli Autori",
   "berlin 2025 Underage": "Generation",
+  "sundance 2026 Troublemaker: The Story Behind the Mandela Tapes": "Premieres",
 };

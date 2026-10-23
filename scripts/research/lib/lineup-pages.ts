@@ -26,7 +26,7 @@ export type LineupRow = {
   countries: string[];
 };
 
-const SELECTION_H2 = /official selection|official sections|independent sections|parallel (?:sections|programs)|selection/i;
+export const SELECTION_H2 = /official selection|official sections|independent sections|parallel (?:sections|programs)|selection/i;
 
 /** A title cell's note after the name: "(QP)", "(CdO, QP)" (Cannes' Caméra d'Or, Œil d'or and Queer Palm tags), "(opening film)". */
 const NOTE = /\s*\((?:opening|closing|centerpiece)[^)]*\)|\s*\((?:(?:CdO|ŒdO|QP)(?:,\s*)?)+\)/g;
@@ -90,7 +90,7 @@ export function titleCell($: cheerio.CheerioAPI, el: Element): FilmLink {
 }
 
 /** Every film row of the selection tables on the page. */
-export function readLineupTables(html: string): LineupRow[] {
+export function readLineupTables(html: string, selection: RegExp = SELECTION_H2): LineupRow[] {
   const $ = cheerio.load(html);
   const heads = new Headings();
   const rows: LineupRow[] = [];
@@ -98,7 +98,7 @@ export function readLineupTables(html: string): LineupRow[] {
     const el = node as Element;
     const h = headingOf($, el);
     if (h) return void heads.set(h.level, h.text);
-    if (!SELECTION_H2.test(heads.h2)) return;
+    if (!selection.test(heads.h2)) return;
     const table = readRows($, el);
     const head = table.find((r) => r.cells.length > 0 && r.cells.every((c) => c.header) && r.sub === undefined);
     if (!head) return;
@@ -109,6 +109,8 @@ export function readLineupTables(html: string): LineupRow[] {
       directors: names.findIndex((n) => /director/.test(n)),
       countries: names.findIndex((n) => /country/.test(n)),
     };
+    // Sundance's documentary tables have only an "Original title" column: that is the title.
+    if (col.title < 0 && col.original >= 0) [col.title, col.original] = [col.original, -1];
     if (col.title < 0 || col.directors < 0) return;
     let sub = "";
     for (const r of table) {
@@ -141,7 +143,7 @@ export type PrizeEntry = {
 const AWARDS_H2 = /awards/i;
 
 /** The prize lines under the page's award headings, one list per heading, one entry per film named on a line. */
-export function readPrizeSections(html: string): Array<{ h2: string; h3: string; entries: PrizeEntry[] }> {
+export function readPrizeSections(html: string, options: { dash?: boolean } = {}): Array<{ h2: string; h3: string; entries: PrizeEntry[] }> {
   const $ = cheerio.load(html);
   const heads = new Headings();
   const out: Array<{ h2: string; h3: string; entries: PrizeEntry[] }> = [];
@@ -156,12 +158,40 @@ export function readPrizeSections(html: string): Array<{ h2: string; h3: string;
       const own = ownContent($, li);
       const text = clean(own.text());
       const colon = text.indexOf(":");
-      const label = colon > 0 && colon < 90 ? text.slice(0, colon).trim() : inherited;
+      // Sundance's lines read "U.S. Dramatic – Film by Director".
+      const dash = options.dash && colon < 0 ? text.indexOf(" – ") : -1;
+      const label = colon > 0 && colon < 90 ? text.slice(0, colon).trim() : dash > 0 && dash < 90 ? text.slice(0, dash).trim() : inherited;
       for (const film of filmsOf($, own)) entries.push({ heading: heads.h3, label, film });
       $(li).children("ul").children("li").each((_, child) => visit(child as Element, label));
     };
     $(el).children("li").each((_, li) => visit(li as Element, heads.h4 || heads.h3));
     out.push({ h2: heads.h2, h3: heads.h3, entries });
+  });
+  return out;
+}
+
+/** A prize table ("Award", "Film", "Director", as on Toronto's page): one entry per row, the film in the second column. */
+export function readPrizeTable(html: string, awardsH2: RegExp = AWARDS_H2): PrizeEntry[] {
+  const $ = cheerio.load(html);
+  const heads = new Headings();
+  const out: PrizeEntry[] = [];
+  $(".mw-heading, table.wikitable").each((_, node) => {
+    const el = node as Element;
+    const h = headingOf($, el);
+    if (h) return void heads.set(h.level, h.text);
+    if (!awardsH2.test(heads.h2)) return;
+    const rows = readRows($, el);
+    const head = rows.find((r) => r.cells.length > 0 && r.cells.every((c) => c.header) && r.sub === undefined);
+    if (!head) return;
+    const names = head.cells.map((c) => clean($(c.el).text()).toLowerCase());
+    const [award, film] = [names.findIndex((n) => /award|prize/.test(n)), names.findIndex((n) => /film|title/.test(n))];
+    if (award < 0 || film < 0) return;
+    for (const r of rows) {
+      if (r === head || r.sub !== undefined || r.cells.length === 0 || r.cells.every((c) => c.header)) continue;
+      const title = titleCell($, r.cells[film].el);
+      const label = clean($(r.cells[award].el).clone().find("sup.reference, .reference").remove().end().text());
+      if (title.text && label) out.push({ heading: "", label, film: title });
+    }
   });
   return out;
 }

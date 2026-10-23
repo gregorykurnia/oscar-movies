@@ -51,25 +51,37 @@ type TmdbFind = { movie_results?: Array<{ id: number; original_language?: string
 type TmdbMovie = { origin_country?: string[]; production_countries?: Array<{ iso_3166_1: string }>; original_language?: string };
 
 /** TMDB's answer for the facts Wikidata lacks: its ID, countries and language. */
-async function fromTmdb(tmdb: TmdbOptions, imdb: string | undefined, knownId: number | undefined) {
+async function fromTmdb(tmdb: TmdbOptions, imdb: string | undefined, knownId: number | undefined): Promise<{ tmdb?: number; countries?: string[]; language?: string }> {
   const headers = { Authorization: `Bearer ${tmdb.token}` };
   let id = knownId;
   let language: string | undefined;
-  if (id === undefined) {
-    if (!imdb) return {};
+  const find = async () => {
+    if (!imdb) return undefined;
     const found = await tmdb.fetcher.getJson<TmdbFind>(
       `https://api.themoviedb.org/3/find/${imdb}?external_source=imdb_id`,
       { headers, label: `tmdb-find-${imdb}` },
     );
-    const first = found.movie_results?.[0];
+    return found.movie_results?.[0];
+  };
+  if (id === undefined) {
+    const first = await find();
     if (!first) return {};
     id = first.id;
     language = first.original_language;
   }
-  const movie = await tmdb.fetcher.getJson<TmdbMovie>(`https://api.themoviedb.org/3/movie/${id}`, {
-    headers,
-    label: `tmdb-movie-${id}`,
-  });
+  const load = (movieId: number) => tmdb.fetcher.getJson<TmdbMovie>(`https://api.themoviedb.org/3/movie/${movieId}`, { headers, label: `tmdb-movie-${movieId}` });
+  let movie: TmdbMovie;
+  try {
+    movie = await load(id);
+  } catch (error) {
+    // Wikidata's TMDB ID can be stale (a record merged or deleted): ask by IMDb ID, else go without.
+    if (!(error instanceof Error && /\b404\b/.test(error.message)) || knownId === undefined) throw error;
+    const first = await find();
+    if (!first) return {};
+    id = first.id;
+    language = first.original_language;
+    movie = await load(id);
+  }
   const countries = [...(movie.origin_country ?? []), ...(movie.production_countries ?? []).map((c) => c.iso_3166_1)]
     .filter((c, i, all) => /^[A-Z]{2}$/.test(c) && all.indexOf(c) === i);
   return { tmdb: id, countries, language: movie.original_language ?? language };

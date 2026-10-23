@@ -24,6 +24,69 @@
     },
     "berlin 2025 Underage": {
       "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Aftertide": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Conditio Humana": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Conference": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Disappeared": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Felt": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 From My Cloud": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 I Saw the Face of God in the Jet Wash": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 It's So Beautiful Here": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Land of Barbar": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Rojo Žalia Blau": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Slightest Pretense": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2025 Ten Mornings, Ten Evenings and One Horizon": {
+      "why": "a Wavelengths experimental work (short or medium length) with no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 Hugo in Venice": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 Zoom In, Zoom Out": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 Auber 89": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 Capital Sunday – Sunday Gen": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 The Legend of the Desert": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2026 Southern Peasants": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "sundance 2026 Troublemaker: The Story Behind the Mandela Tapes": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2026 Tehran, Under the Skin": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "tiff 2026 HALF": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
     }
   },
   "titles": {
@@ -32,7 +95,10 @@
     "tt37678610": "Cora",
     "tt32263401": "Reflection in a Dead Diamond"
   },
-  "sectionNames": {},
+  "sectionNames": {
+    "Venice Open — Out of Competition": "Out of Competition",
+    "Berlinale Special — Out of Competition": "Berlinale Special"
+  },
   "published": {
     "cannes/2025/In Competition": {
       "films": 22,
@@ -92,6 +158,80 @@
       "apart": 4,
       "source": "https://berlinale.de/en/2025/topics/forum-2025.html",
       "note": "31 in the main programme and 8 in Forum Special; two shorts (Fruit Farm, Nudity) and two older films (Iracema, 1976; The Lie, 1987) are not in the screenings"
+    },
+    "sundance/2025/U.S. Dramatic Competition": {
+      "films": 10,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/World Cinema Dramatic Competition": {
+      "films": 10,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/U.S. Documentary Competition": {
+      "films": 10,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/World Documentary Competition": {
+      "films": 10,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/Next": {
+      "films": 8,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/Midnight": {
+      "films": 7,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/Spotlight": {
+      "films": 2,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/Family Matinee": {
+      "films": 1,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
+    },
+    "sundance/2025/Premieres": {
+      "films": 29,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/",
+      "note": "26 in the December 2024 announcement, three more added later (the festival's final count is 87 features: 40 competition films and these sections; From the Collection's two restorations are not in the screenings)"
+    },
+    "sundance/2026/U.S. Dramatic Competition": {
+      "films": 10,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/World Cinema Dramatic Competition": {
+      "films": 10,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/U.S. Documentary Competition": {
+      "films": 10,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/World Cinema Documentary Competition": {
+      "films": 10,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/Next": {
+      "films": 9,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/Midnight": {
+      "films": 7,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/Family Matinee": {
+      "films": 2,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026"
+    },
+    "sundance/2026/Premieres": {
+      "films": 29,
+      "source": "https://nofilmschool.com/sundance-film-festival-lineup-2026",
+      "note": "28 in the screenings and Troublemaker (no IMDb ID anywhere) left out; the festival's 90 features also count a Spotlight (2) and a Special Screening that Wikipedia's page doesn't list, not in the screenings"
+    },
+    "berlin/2026/Main Competition": {
+      "films": 22,
+      "source": "https://www.yahoo.com/entertainment/movies/articles/berlinale-unveils-2026-competition-perspectives-093617149.html"
     }
   },
   "additions": {
