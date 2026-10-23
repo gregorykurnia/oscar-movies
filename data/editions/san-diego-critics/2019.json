@@ -1,0 +1,32 @@
+{
+  "award": "san-diego-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-09",
+  "winnersOn": "2019-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2019"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7286456", "title": "Joker", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6675244", "title": "Transit", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351746", "title": "Love, Antosha", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8969332", "title": "The Biggest Little Farm", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7905466", "title": "They Shall Not Grow Old", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6348138", "title": "Missing Link", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6324278", "title": "Abominable", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

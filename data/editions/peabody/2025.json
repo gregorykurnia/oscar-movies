@@ -1,0 +1,15 @@
+{
+  "award": "peabody",
+  "year": 2025,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2020%E2%80%932029)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt35307139", "title": "The Alabama Solution", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34965515", "title": "Mr. Nobody Against Putin", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt38633124", "title": "Thoughts & Prayers", "outcome": "won" }
+  ],
+  "screenings": []
+}

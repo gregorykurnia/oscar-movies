@@ -10,22 +10,26 @@
 //   article (a winner and nine nominees a year; its own labels are the ceremony year from 2022).
 // - AWFJ's "EDA Best of Awards" table and BOFCA's "Selected past winners" table cover every year.
 // - Atlanta, Black and Central Florida have no Wikipedia page: every year is `no_data`.
+// - Peabody's documentary honorees come from the decade lists (a film counts for its own film year, not the year of
+//   the honours; series and episodes are left out); Phoenix FCS has only its Best Picture winner table.
 import { readFileSync } from "node:fs";
 import * as cheerio from "cheerio";
 import { z } from "zod";
-import type { EditionFile, ResultEntry } from "../../src/lib/data-files";
+import type { EditionFile, MoviesFile, ResultEntry } from "../../src/lib/data-files";
 import { checkArgs, readEnvFile } from "../lib/target";
 import { plainTitle } from "./lib/facts";
 import { createFetcher } from "./lib/fetcher";
 import { blockRows, daysIn, guessTitles, leadDates, readBlocks, type BlockRow } from "./lib/critics-pages";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import { resolveArticles } from "./lib/resolve";
+import type { Fetcher } from "./lib/fetcher";
 import type { Element } from "domhandler";
 import { clean, filmOf, linkOf, ownContent, readWikitables, type FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
-import { isFilm, releaseYears } from "./lib/wikidata-search";
+import { FILM_TYPES, isFilm, releaseYears } from "./lib/wikidata-search";
+import { entityIds, type Entity } from "./lib/wikidata";
 import { fetchPage } from "./lib/wikipedia";
-import { addMovies, movieKey, writeEdition } from "./lib/writer";
+import { addMovies, movieKey, readMoviesFiles, writeEdition } from "./lib/writer";
 import { infoboxDate } from "./majors";
 
 const DATA_DIR = "data";
@@ -47,6 +51,8 @@ export const sourcesSchema = z
     ),
     /** Films with no IMDb ID and no Wikidata item, left out (§11), by "<award> <year> <text on the page>". */
     leaveOut: z.record(z.string(), z.object({ why: z.string() }).strict()),
+    /** A film's year when no record, release date or title gives it (Peabody honorees), by the article it is on, with where it came from. */
+    filmYears: z.record(z.string(), z.object({ year: z.number().int().min(2012), why: z.string().min(1) }).strict()),
     /** English titles that read better than Wikidata's, by IMDb ID. */
     titles: z.record(z.string().regex(/^tt\d+$/), z.string().min(1)),
   })
@@ -89,10 +95,13 @@ type Group = {
   winnersOnly: boolean;
   /** The nominees (or runners-up, or a top list) come out on the day of the winners: the day stands for both without a note. */
   nomineesSameDay?: boolean;
+  /** The group honours several films in a category (Peabody's documentary winners): more than one winner is no doubt. */
+  manyWinners?: boolean;
   read: (year: number, ctx: Ctx) => Promise<Read | null>;
 };
 
 type Ctx = {
+  fetcher: Fetcher;
   page: (title: string) => Promise<{ html: string; url: string }>;
   sources: Sources;
   problems: string[];
@@ -429,6 +438,117 @@ async function readCinemaForPeace(year: number, ctx: Ctx): Promise<Read | null> 
     urls: [page.url],
     gaps: ["Wikipedia lists only the winners of each prize and gives no ceremony date"],
     problems: [],
+  };
+}
+
+/** Phoenix FCS's "Best Picture winners" table: the winner of each year (the year is the film year). */
+async function readPhoenix(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Phoenix Film Critics Society");
+  const table = readWikitables(page.html).find((t) => t.headers.includes("Best Picture") && t.headers.includes("Year"));
+  if (!table) throw new Error("Phoenix: the Best Picture winners table is gone from the page");
+  const col = table.headers.indexOf("Best Picture");
+  const row = table.rows.find((r) => parseInt(r[0].text, 10) === year);
+  if (!row) return null;
+  const cell = row[col];
+  return {
+    rows: [{ category: "picture", link: cell.film ?? { article: null, text: cell.text }, outcome: "won" }],
+    missing: ["international", "documentary", "animated"],
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date"],
+    problems: [],
+  };
+}
+
+/** The Peabody lists with a "Documentary" section (the 2014 honorees on), one page per decade. */
+const PEABODY_LISTS = (heading: number) => `List of Peabody Award winners (${heading >= 2020 ? "2020–2029" : "2010–2019"})`;
+
+/** The film links of the documentary honorees under one year's heading of a Peabody list: every wiki link of the "Area of excellence" cell. */
+export function readPeabodyDocumentaries(html: string, heading: number): FilmLink[] {
+  const $ = cheerio.load(html);
+  const h2 = $("h2")
+    .toArray()
+    .find((h) => clean($(h).text()) === String(heading));
+  if (!h2) return [];
+  const links: FilmLink[] = [];
+  for (let node = $(h2).closest(".mw-heading").next(); node.length > 0 && !node.is(".mw-heading2"); node = node.next()) {
+    if (!node.is("table")) continue;
+    let section = "";
+    node.find("tr").each((_, tr) => {
+      const cells = $(tr).children("td");
+      if (cells.length === 0) {
+        const th = $(tr).children("th");
+        if (th.length === 1 && th.attr("colspan")) section = clean(th.text());
+        return;
+      }
+      if (!/^documentar/i.test(section) || cells.length < 2) return;
+      const own = cells.eq(1).clone();
+      own.find("sup.reference, .reference").remove();
+      own
+        .find("a")
+        .toArray()
+        .forEach((a) => {
+          const link = linkOf($, $(a) as cheerio.Cheerio<Element>);
+          if (link.article && !links.some((l) => l.article === link.article)) links.push(link);
+        });
+    });
+  }
+  return links;
+}
+
+/**
+ * The film year of a Peabody honouree: the year of its film record when it has one, else its first release on Wikidata,
+ * else the year in its article's title; `sources.filmYears` settles the rest by hand.
+ */
+function filmYear(film: { page: string; wd: string; imdb?: string; entity: Entity }, sources: Sources, records: Map<number, MoviesFile>): number | undefined {
+  const fixed = sources.filmYears[film.page];
+  if (fixed) return fixed.year;
+  for (const [year, file] of records) {
+    if (Object.entries(file).some(([key, m]) => key === film.imdb || key === film.wd || m.wd === film.wd)) return year;
+  }
+  const released = releaseYears(film.entity);
+  if (released.length > 0) return Math.min(...released);
+  const titled = film.page.match(/\((\d{4}) (?:documentary )?film\)/);
+  return titled ? Number(titled[1]) : undefined;
+}
+
+/**
+ * Peabody's documentary honorees. Wikipedia files them under the year of the honours, which is not the film's year
+ * (a 2020 film is under 2021): a film counts for the year it was first released, taken from the headings of that
+ * year and the next. Only a link that leads to a film (not a series, an episode, a studio) counts.
+ */
+async function readPeabody(year: number, ctx: Ctx): Promise<Read | null> {
+  const rows: Row[] = [];
+  const urls: string[] = [];
+  const local: string[] = [];
+  const unplaced = new Set<string>();
+  const records = readMoviesFiles(DATA_DIR);
+  for (const heading of [year, year + 1]) {
+    if (heading > 2025) continue;
+    const page = await ctx.page(PEABODY_LISTS(heading));
+    if (!urls.includes(page.url)) urls.push(page.url);
+    const links = readPeabodyDocumentaries(page.html, heading);
+    const resolved = await resolveArticles(ctx.fetcher, links.map((l) => l.article as string));
+    for (const link of links) {
+      const r = resolved.get(link.article as string);
+      if (!r?.ok) continue;
+      const types = entityIds(r.film.entity, "P31");
+      if (!types.some((id) => FILM_TYPES.has(id))) continue;
+      const first = filmYear(r.film, ctx.sources, records);
+      if (first === undefined) {
+        if (!unplaced.has(link.text)) local.push(`peabody ${year}: ${link.text} has no film year (no release date on Wikidata, no film record, none in its title), skipped`);
+        unplaced.add(link.text);
+        continue;
+      }
+      if (first === year) rows.push({ category: "documentary", link: { ...link, article: r.film.page }, outcome: "won" });
+    }
+  }
+  if (rows.length === 0) return null;
+  return {
+    rows,
+    missing: [],
+    urls,
+    gaps: ["only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not)"],
+    problems: local,
   };
 }
 
@@ -920,6 +1040,36 @@ export const GROUPS: Group[] = [
   },
   noPage("online-female-critics", "Online Female", "the Online Association of Female Film Critics"),
   noPage("online-ftv", "Online FTV", "the Online Film & Television Association"),
+  {
+    slug: "peabody",
+    name: "Peabody",
+    years: [2014, 2025],
+    why: "Wikipedia's Peabody lists for 2012 and 2013 are one table of every area, with no documentary section, and the 2026 honours are not announced yet",
+    winnersOnly: true,
+    manyWinners: true,
+    read: readPeabody,
+  },
+  noPage("philadelphia-critics", "Philadelphia", "the Philadelphia Film Critics Circle"),
+  noPage("phoenix-critics-circle", "Phoenix CC", "the Phoenix Critics Circle"),
+  {
+    slug: "phoenix-critics-society",
+    name: "Phoenix FCS",
+    years: [2012, 2025],
+    why: "the Phoenix Film Critics Society's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: readPhoenix,
+  },
+  noPage("pittsburgh-critics", "Pittsburgh", "the Pittsburgh Film Critics Association"),
+  noPage("portland-critics", "Portland", "the Portland Critics Association"),
+  noPage("puerto-rico-critics", "Puerto Rico", "the Puerto Rico Critics Association"),
+  {
+    slug: "san-diego-critics",
+    name: "San Diego",
+    years: [2012, 2025],
+    why: "the San Diego Film Critics Society's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("san-diego-critics", { page: (y) => `San Diego Film Critics Society Awards ${y}`, categories: FILM_CATEGORIES, winnersOnly: false }),
+  },
 ];
 
 function parseList(argv: string[], flag: string): string | undefined {
@@ -959,6 +1109,7 @@ async function main() {
   const titles: string[] = [];
   const pages = new Map<string, { html: string; url: string }>();
   const ctx: Ctx = {
+    fetcher,
     page: async (title) => {
       if (!pages.has(title)) {
         const p = await fetchPage(fetcher, title);
@@ -1074,7 +1225,7 @@ async function main() {
       for (const category of cats) {
         const inCategory = [...rows.values()].filter((r) => r.category === category);
         const winners = inCategory.filter((r) => r.outcome === "won").length;
-        if (winners !== 1) problems.push(`${label}: ${category} has ${winners} winners (a tie, if the page says so)`);
+        if (winners !== 1 && !group.manyWinners) problems.push(`${label}: ${category} has ${winners} winners (a tie, if the page says so)`);
       }
       // A film TMDB replaced (Wikidata's item had no IMDb ID: a manga, a book) is not added from Wikidata too.
       const wikidataFilms = [...films].filter(([, f]) => !viaTmdb.has(f.link.text));

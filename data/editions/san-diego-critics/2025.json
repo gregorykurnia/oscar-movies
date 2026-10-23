@@ -1,0 +1,31 @@
+{
+  "award": "san-diego-critics",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-12",
+  "winnersOn": "2025-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "won" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27722618", "title": "Left-Handed Girl", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt36458116", "title": "Billy Joel: And So It Goes", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10365912", "title": "Becoming Led Zeppelin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26683420", "title": "John Candy: I Like Me", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34963732", "title": "Predators", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4900148", "title": "Elio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt36463894", "title": "Predator: Killer of Killers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

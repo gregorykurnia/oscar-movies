@@ -1,0 +1,31 @@
+{
+  "award": "san-diego-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-14",
+  "winnersOn": "2015-12-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2015"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4359416", "title": "Taxi", "outcome": "won" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1883180", "title": "A Pigeon Sat on a Branch Reflecting on Existence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3065132", "title": "He Named Me Malala", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545428", "title": "Meru", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1185418", "title": "The Wrecking Crew", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

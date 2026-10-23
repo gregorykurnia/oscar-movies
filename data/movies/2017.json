@@ -218,5 +218,7 @@
   "tt6752848": { "slug": "bombshell-the-hedy-lamarr-story", "title": "Bombshell: The Hedy Lamarr Story", "countries": ["US"], "language": "en", "wd": "Q44492116", "tmdb": 455565 },
   "tt6265828": { "slug": "a-ghost-story", "title": "A Ghost Story", "countries": ["US"], "language": "en", "wd": "Q27964497", "tmdb": 428449 },
   "tt5109784": { "slug": "mother-2017", "title": "Mother!", "countries": ["US"], "language": "en", "wd": "Q25339558", "tmdb": 381283 },
-  "tt4795546": { "slug": "nocturama", "title": "Nocturama", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20971361", "tmdb": 380623 }
+  "tt4795546": { "slug": "nocturama", "title": "Nocturama", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20971361", "tmdb": 380623 },
+  "tt5634002": { "slug": "deej", "title": "Deej", "countries": ["US"], "language": "en", "wd": "Q55393439", "tmdb": 499069 },
+  "tt7414956": { "slug": "lorraine-hansberry-sighted-eyes-feeling-heart", "title": "Lorraine Hansberry: Sighted Eyes/Feeling Heart", "countries": ["US"], "language": "en", "wd": "Q97358132", "tmdb": 487262 }
 }

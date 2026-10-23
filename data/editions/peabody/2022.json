@@ -1,0 +1,16 @@
+{
+  "award": "peabody",
+  "year": 2022,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2020%E2%80%932029)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt16376478", "title": "Aftershock", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16452546", "title": "Batata", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21818816", "title": "While We Watched", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16378164", "title": "The Territory", "outcome": "won" }
+  ],
+  "screenings": []
+}

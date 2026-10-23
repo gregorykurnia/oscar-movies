@@ -1,0 +1,32 @@
+{
+  "award": "san-diego-critics",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-12-11",
+  "winnersOn": "2017-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2017"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304046", "title": "Thelma", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5222918", "title": "The Other Side of Hope", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6209282", "title": "Ex Libris – The New York Public Library", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333074", "title": "Last Men in Aleppo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5836866", "title": "The Work", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2321405", "title": "My Life as a Zucchini", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3874544", "title": "The Boss Baby", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5538568", "title": "My Entire High School Sinking Into the Sea", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

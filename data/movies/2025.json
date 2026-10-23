@@ -208,5 +208,8 @@
   "tt14142060": { "slug": "rental-family", "title": "Rental Family", "countries": ["US", "JP"], "language": "en", "wd": "Q124947229", "tmdb": 1208348 },
   "tt36589943": { "slug": "natchez", "title": "Natchez", "countries": ["US"], "language": "en", "wd": "Q134979718", "tmdb": 1465655 },
   "tt29567915": { "slug": "nuremberg", "title": "Nuremberg", "countries": ["US"], "language": "en", "wd": "Q124393313", "tmdb": 1214931 },
-  "tt36463894": { "slug": "predator-killer-of-killers", "title": "Predator: Killer of Killers", "countries": ["US"], "language": "en", "wd": "Q130639284", "tmdb": 1376434 }
+  "tt36463894": { "slug": "predator-killer-of-killers", "title": "Predator: Killer of Killers", "countries": ["US"], "language": "en", "wd": "Q130639284", "tmdb": 1376434 },
+  "tt36458116": { "slug": "billy-joel-and-so-it-goes", "title": "Billy Joel: And So It Goes", "countries": [], "wd": "Q135321376" },
+  "tt26683420": { "slug": "john-candy-i-like-me", "title": "John Candy: I Like Me", "countries": ["US"], "language": "en", "wd": "Q135654160", "tmdb": 1492608 },
+  "tt38633124": { "slug": "thoughts-and-prayers", "title": "Thoughts & Prayers", "countries": ["US"], "language": "en", "wd": "Q136908292", "tmdb": 1559760 }
 }

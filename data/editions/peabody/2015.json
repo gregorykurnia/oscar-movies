@@ -1,0 +1,17 @@
+{
+  "award": "peabody",
+  "year": 2015,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2010%E2%80%932019)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4135896", "title": "How to Dance in Ohio", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4058426", "title": "India's Daughter", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4823702", "title": "Don't Tell Anyone", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4224328", "title": "Mavis!", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -204,5 +204,7 @@
   "tt15354916": { "slug": "jawan", "title": "Jawan", "originalTitle": "जवान", "originalLang": "hi", "countries": ["IN"], "language": "hi", "wd": "Q113493289", "tmdb": 872906 },
   "tt14570440": { "slug": "radical", "title": "Radical", "countries": ["MX"], "language": "es", "wd": "Q115686450", "tmdb": 1058694 },
   "tt22179746": { "slug": "scala", "title": "Scala!!!", "countries": ["GB"], "language": "en", "wd": "Q124791306", "tmdb": 1026468 },
-  "tt14230388": { "slug": "asteroid-city", "title": "Asteroid City", "countries": ["US"], "language": "en", "wd": "Q108086029", "tmdb": 747188 }
+  "tt14230388": { "slug": "asteroid-city", "title": "Asteroid City", "countries": ["US"], "language": "en", "wd": "Q108086029", "tmdb": 747188 },
+  "tt24079774": { "slug": "the-stroll", "title": "The Stroll", "countries": ["US"], "language": "en", "wd": "Q118466146", "tmdb": 1058623 },
+  "tt27599265": { "slug": "bread-and-roses", "title": "Bread and Roses", "countries": ["US"], "language": "en", "wd": "Q126198715", "tmdb": 1117465 }
 }

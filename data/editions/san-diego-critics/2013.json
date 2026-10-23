@@ -1,0 +1,32 @@
+{
+  "award": "san-diego-critics",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-12-11",
+  "winnersOn": "2013-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2013"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2370248", "title": "Short Term 12", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2165735", "title": "Drug War", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2024519", "title": "The Broken Circle Breakdown", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2059255", "title": "No", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2119463", "title": "Let the Fire Burn", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2980764", "title": "Get a Horse!", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

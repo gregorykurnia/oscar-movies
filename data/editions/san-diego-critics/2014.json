@@ -1,0 +1,33 @@
+{
+  "award": "san-diego-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-15",
+  "winnersOn": "2014-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2014"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2267998", "title": "Gone Girl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "international", "imdb": "tt2852376", "title": "Heli", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2406252", "title": "Venus in Fur", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2405792", "title": "Elaine Stritch: Shoot Me", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2049586", "title": "Glen Campbell: I'll Be Me", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3279124", "title": "Last Days in Vietnam", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1821658", "title": "The Nut Job", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

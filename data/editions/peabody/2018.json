@@ -1,0 +1,14 @@
+{
+  "award": "peabody",
+  "year": 2018,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2010%E2%80%932019)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8099236", "title": "The Silence of Others", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7341660", "title": "The Distant Barking of Dogs", "outcome": "won" }
+  ],
+  "screenings": []
+}

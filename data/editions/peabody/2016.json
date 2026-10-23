@@ -1,0 +1,18 @@
+{
+  "award": "peabody",
+  "year": 2016,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2010%E2%80%932019)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt6279726", "title": "4.1 Miles", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4079902", "title": "Hooligan Sparrow", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5259692", "title": "Trapped", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5278460", "title": "Audrie & Daisy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5333812", "title": "Southwest of Salem: The Story of the San Antonio Four", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5446858", "title": "Zero Days", "outcome": "won" }
+  ],
+  "screenings": []
+}

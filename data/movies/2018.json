@@ -192,5 +192,6 @@
   "tt5740866": { "slug": "whitney", "title": "Whitney", "countries": ["GB", "US"], "language": "en", "wd": "Q52791458", "tmdb": 507256 },
   "tt6412452": { "slug": "the-ballad-of-buster-scruggs", "title": "The Ballad of Buster Scruggs", "countries": ["US"], "language": "en", "wd": "Q37342034", "tmdb": 537996 },
   "tt6002232": { "slug": "custody", "title": "Custody", "originalTitle": "Jusqu'à la garde", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q38189374", "tmdb": 451657 },
-  "tt2798920": { "slug": "annihilation", "title": "Annihilation", "countries": ["US", "GB"], "language": "en", "wd": "Q25136228", "tmdb": 300668 }
+  "tt2798920": { "slug": "annihilation", "title": "Annihilation", "countries": ["US", "GB"], "language": "en", "wd": "Q25136228", "tmdb": 300668 },
+  "tt5424228": { "slug": "love-gilda", "title": "Love, Gilda", "countries": ["US"], "language": "en", "wd": "Q58313496", "tmdb": 511972 }
 }

@@ -9,7 +9,7 @@ import type { Fetcher } from "./fetcher";
 import { claimValues, entityIds, getEntities, P, WIKIDATA_API, type Entity } from "./wikidata";
 
 /** Film, animated film, documentary film, short film, silent film, anime film, television film. */
-const FILM_TYPES = new Set(["Q11424", "Q202866", "Q93204", "Q24862", "Q226730", "Q20650540", "Q1107", "Q506240"]);
+export const FILM_TYPES = new Set(["Q11424", "Q202866", "Q93204", "Q24862", "Q226730", "Q20650540", "Q1107", "Q506240"]);
 const DIRECTOR = "P57";
 const PUBLISHED = "P577";
 

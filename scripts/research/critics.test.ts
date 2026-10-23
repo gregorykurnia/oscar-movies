@@ -4,10 +4,11 @@
 // the winner-in-its-own-line nominee boxes (Critics' Choice to 2015), a bold winner line under a heading
 // (Florida 2013) and "Runner-up: None"; task 4.5 adds LAFCA's runner-up one level under the winner and
 // NSFC's numbered lines ("1. A <br> 2. B"); task 4.6 adds "(Runner-up)" in bold (Online Film Critics Society 2017)
-// and the New York Film Critics Online article, which has no page for most years.
+// and the New York Film Critics Online article, which has no page for most years; task 4.7 adds Peabody's documentary
+// section of a decade list.
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { aafcaLabelYear, GROUPS, readAafcaTopTen, sourcesSchema } from "./critics";
+import { aafcaLabelYear, GROUPS, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
 import { blockRows, daysIn, leadDates, readBlocks } from "./lib/critics-pages";
 import { readNomineeLists } from "./lib/tables";
 
@@ -286,6 +287,62 @@ describe("task 4.6 editions", () => {
 
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["north-carolina-critics", "north-dakota-critics", "north-texas-critics", "oklahoma-critics", "online-female-critics", "online-ftv"]) {
+      const e = edition(`${slug}/2020`);
+      expect(e.status, slug).toBe("no_data");
+      expect(e.note, slug).toBeTruthy();
+    }
+  });
+});
+
+describe("layouts of task 4.7", () => {
+  it("reads the film links of the Documentary honorees section of a Peabody list, and no other section", () => {
+    const html = `<div class="mw-heading mw-heading2"><h2 id="2021">2021</h2></div>
+      <table class="wikitable"><tr><th>Recipient</th><th>Area of excellence</th></tr>
+      <tr><th colspan="2"><i>Entertainment honorees</i></th></tr>
+      <tr><td>Studio</td><td><i><a href="/wiki/Ted_Lasso">Ted Lasso</a></i></td></tr>
+      <tr><th colspan="2"><i>Documentary honorees</i></th></tr>
+      <tr><td>Frontline with CineDiaz</td><td><i><a href="/wiki/A_Thousand_Cuts">A Thousand Cuts</a></i><sup class="reference"><a href="#cite_note-47">[47]</a></sup></td></tr>
+      <tr><td>American Documentary: POV</td><td><i><a href="/wiki/POV_(TV_series)">POV</a></i>, for <i><a href="/wiki/Mayor_(2020_film)">Mayor</a></i></td></tr>
+      </table>
+      <div class="mw-heading mw-heading2"><h2 id="2022">2022</h2></div>
+      <table class="wikitable"><tr><th colspan="2">Documentary honorees</th></tr><tr><td>X</td><td><a href="/wiki/Aftershock">Aftershock</a></td></tr></table>`;
+    expect(readPeabodyDocumentaries(html, 2021).map((l) => l.article)).toEqual(["A Thousand Cuts", "POV (TV series)", "Mayor (2020 film)"]);
+    expect(readPeabodyDocumentaries(html, 2023)).toEqual([]);
+  });
+});
+
+describe("task 4.7 editions", () => {
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
+
+  it("files each Peabody documentary under its film year, not the year of the honours (Writing with Fire: 2021 film, 2022 list)", () => {
+    expect(of("peabody/2021", "documentary", "won")).toContain("Writing with Fire");
+    expect(of("peabody/2022", "documentary", "won")).not.toContain("Writing with Fire");
+    expect(of("peabody/2024", "documentary", "won")).toEqual(expect.arrayContaining(["No Other Land", "Night is Not Eternal"]));
+    expect(of("peabody/2016", "documentary", "won")).toContain("O.J.: Made in America");
+  });
+
+  it("leaves 2012 and 2013 Peabody as no_data (no documentary section on the list), every other year partial with a note", () => {
+    for (const year of [2012, 2013, 2026]) expect(edition(`peabody/${year}`).status, `${year}`).toBe("no_data");
+    for (let year = 2014; year <= 2025; year++) {
+      const e = edition(`peabody/${year}`);
+      expect([e.status, Boolean(e.note)], `${year}`).toEqual(["partial", true]);
+      expect(e.results.every((r) => r.category === "documentary" && r.outcome === "won")).toBe(true);
+    }
+  });
+
+  it("reads Phoenix FCS's Best Picture winner table (partial) and San Diego's nominee boxes (loaded)", () => {
+    expect(of("phoenix-critics-society/2025", "picture", "won")).toEqual(["One Battle After Another"]);
+    expect(edition("phoenix-critics-society/2025").status).toBe("partial");
+    expect(of("san-diego-critics/2019", "picture", "won")).toEqual(["The Irishman"]);
+    expect(of("san-diego-critics/2019", "international", "won")).toEqual(["Parasite"]);
+    expect(of("san-diego-critics/2019", "documentary", "won")).toEqual(["Love, Antosha"]);
+    const e = edition("san-diego-critics/2019");
+    expect([e.status, e.winnersOn]).toEqual(["loaded", "2019-12-09"]);
+  });
+
+  it("marks groups with no page as no_data, with a note", () => {
+    for (const slug of ["philadelphia-critics", "phoenix-critics-circle", "pittsburgh-critics", "portland-critics", "puerto-rico-critics"]) {
       const e = edition(`${slug}/2020`);
       expect(e.status, slug).toBe("no_data");
       expect(e.note, slug).toBeTruthy();

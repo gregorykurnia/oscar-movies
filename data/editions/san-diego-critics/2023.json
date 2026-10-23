@@ -1,0 +1,31 @@
+{
+  "award": "san-diego-critics",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-12-14",
+  "winnersOn": "2023-12-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt9185206", "title": "Are You There God? It's Me, Margaret", "outcome": "won" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt23289160", "title": "Godzilla Minus One", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt23736044", "title": "Monster", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13885492", "title": "Little Richard: I Am Everything", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8337264", "title": "Chicken Run: Dawn of the Nugget", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

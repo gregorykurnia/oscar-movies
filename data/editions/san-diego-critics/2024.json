@@ -1,0 +1,31 @@
+{
+  "award": "san-diego-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-06",
+  "winnersOn": "2024-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt10236164", "title": "The Girl with the Needle", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28618488", "title": "Vermiglio", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26420234", "title": "Music by John Williams", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8864596", "title": "Transformers One", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

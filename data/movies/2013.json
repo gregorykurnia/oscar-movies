@@ -180,5 +180,6 @@
   "tt1293751": { "slug": "casting-by", "title": "Casting By", "countries": ["US"], "language": "en", "wd": "Q16249127", "tmdb": 127878 },
   "tt2165735": { "slug": "drug-war", "title": "Drug War", "originalTitle": "毒战", "originalLang": "zh", "countries": ["CN", "HK"], "language": "cmn", "wd": "Q4249764", "tmdb": 110410 },
   "tt2268732": { "slug": "museum-hours", "title": "Museum Hours", "countries": ["AT", "US"], "language": "en", "wd": "Q16253440", "tmdb": 128133 },
-  "tt2147134": { "slug": "56-up", "title": "56 Up", "countries": ["GB"], "language": "en", "tmdb": 116167 }
+  "tt2147134": { "slug": "56-up", "title": "56 Up", "countries": ["GB"], "language": "en", "tmdb": 116167 },
+  "tt2980764": { "slug": "get-a-horse", "title": "Get a Horse!", "countries": ["US"], "language": "en", "wd": "Q12124484", "tmdb": 234567 }
 }

@@ -191,5 +191,11 @@
   "tt2937898": { "slug": "a-most-violent-year", "title": "A Most Violent Year", "countries": ["US"], "language": "en", "wd": "Q15915435", "tmdb": 241239 },
   "tt2713180": { "slug": "fury", "title": "Fury", "countries": ["US", "CN", "GB"], "language": "en", "wd": "Q14786561", "tmdb": 228150 },
   "tt2364975": { "slug": "we-are-the-best", "title": "We Are the Best!", "originalTitle": "Vi är bäst!", "originalLang": "sv", "countries": ["SE", "DK"], "language": "sv", "wd": "Q14551360", "tmdb": 191294 },
-  "tt3720794": { "slug": "national-gallery-2014", "title": "National Gallery", "countries": ["FR", "US", "GB"], "language": "en", "wd": "Q19795309", "tmdb": 266080 }
+  "tt3720794": { "slug": "national-gallery-2014", "title": "National Gallery", "countries": ["FR", "US", "GB"], "language": "en", "wd": "Q19795309", "tmdb": 266080 },
+  "tt3458196": { "slug": "freedom-summer", "title": "Freedom Summer", "countries": ["US"], "language": "en", "wd": "Q16981421", "tmdb": 250722 },
+  "tt3886488": { "slug": "human-harvest", "title": "Human Harvest", "countries": ["CA"], "language": "en", "wd": "Q19830014", "tmdb": 329242 },
+  "tt3645982": { "slug": "the-newburgh-sting", "title": "The Newburgh Sting", "countries": ["US"], "language": "en", "wd": "Q18152894", "tmdb": 261038 },
+  "tt2406252": { "slug": "venus-in-fur", "title": "Venus in Fur", "originalTitle": "La Vénus à la fourrure", "originalLang": "fr", "countries": ["FR", "PL"], "language": "fr", "wd": "Q11390744", "tmdb": 197082 },
+  "tt2405792": { "slug": "elaine-stritch-shoot-me", "title": "Elaine Stritch: Shoot Me", "countries": ["US"], "language": "en", "wd": "Q16250107", "tmdb": 174319 },
+  "tt1821658": { "slug": "the-nut-job", "title": "The Nut Job", "countries": ["CA", "US", "KR"], "language": "en", "wd": "Q7754519", "tmdb": 227783 }
 }

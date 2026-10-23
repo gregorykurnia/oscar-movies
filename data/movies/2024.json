@@ -209,5 +209,7 @@
   "tt10399622": { "slug": "inside-the-yellow-cocoon-shell", "title": "Inside the Yellow Cocoon Shell", "originalTitle": "Bên trong vỏ kén vàng", "originalLang": "vi", "countries": ["VN", "SG", "FR", "ES"], "language": "vi", "wd": "Q118744849", "tmdb": 1114816 },
   "tt19895822": { "slug": "made-in-england-the-films-of-powell-and-pressburger", "title": "Made in England: The Films of Powell and Pressburger", "originalTitle": "Made in England: Die Filme von Powell und Pressburger", "originalLang": "de", "countries": ["US"], "language": "en", "wd": "Q127115034", "tmdb": 1139072 },
   "tt27403986": { "slug": "juror-2", "title": "Juror #2", "countries": ["US"], "language": "en", "wd": "Q119549900", "tmdb": 1106739 },
-  "tt24176060": { "slug": "queer", "title": "Queer", "countries": ["US", "IT"], "language": "en", "wd": "Q116771681", "tmdb": 1059128 }
+  "tt24176060": { "slug": "queer", "title": "Queer", "countries": ["US", "IT"], "language": "en", "wd": "Q116771681", "tmdb": 1059128 },
+  "tt27351762": { "slug": "any-other-way-the-jackie-shane-story", "title": "Any Other Way: The Jackie Shane Story", "countries": ["CA"], "language": "en", "wd": "Q124853370", "tmdb": 1242576 },
+  "tt33506269": { "slug": "night-is-not-eternal", "title": "Night is Not Eternal", "countries": ["US"], "language": "en", "wd": "Q131148456", "tmdb": 1362836 }
 }

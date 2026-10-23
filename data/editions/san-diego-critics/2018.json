@@ -1,0 +1,32 @@
+{
+  "award": "san-diego-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-10",
+  "winnersOn": "2018-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2018"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt3892172", "title": "Leave No Trace", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6412452", "title": "The Ballad of Buster Scruggs", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6644200", "title": "A Quiet Place", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "won" },
+    { "category": "international", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6742252", "title": "The Guilty", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5424228", "title": "Love, Gilda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6451304", "title": "Have a Nice Day", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

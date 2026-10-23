@@ -1,0 +1,15 @@
+{
+  "award": "peabody",
+  "year": 2019,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2010%E2%80%932019)", "https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2020%E2%80%932029)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8923500", "title": "Midnight Traveler", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6016744", "title": "The Edge of Democracy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,33 @@
+{
+  "award": "san-diego-critics",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-12-12",
+  "winnersOn": "2016-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Diego_Film_Critics_Society_Awards_2016"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4550098", "title": "Nocturnal Animals", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3740778", "title": "Mountains May Depart", "outcome": "won" },
+    { "category": "international", "imdb": "tt5221584", "title": "Aquarius", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4080728", "title": "A Man Called Ove", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5332280", "title": "Mother", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4698584", "title": "Neruda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1683048", "title": "De Palma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4632316", "title": "Gleason", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5116410", "title": "Tower", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3422078", "title": "April and the Twisted World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2262345", "title": "Long Way North", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3521164", "title": "Moana", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

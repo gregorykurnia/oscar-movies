@@ -470,6 +470,10 @@
       "why": "Camilla Nielsson's documentary has no Wikipedia article or Wikidata item, and TMDB dates it 2023, more than a year from the film year, so it can't be matched safely."
     }
   },
+  "filmYears": {
+    "Missing in Brooks County": { "year": 2020, "why": "Its Wikipedia article's infobox gives the release date 21 October 2020; Wikidata has no release date." },
+    "Night Is Not Eternal": { "year": 2024, "why": "Its Wikipedia article's infobox gives the release dates 20 October 2024 (Montclair) and 15 November 2024 (HBO); Wikidata has no release date." }
+  },
   "titles": {
     "tt12037194": "Furiosa: A Mad Max Saga",
     "tt2265171": "The Raid 2",

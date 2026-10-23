@@ -1,0 +1,14 @@
+{
+  "award": "peabody",
+  "year": 2023,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2020%E2%80%932029)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24079774", "title": "The Stroll", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21376900", "title": "Bobi Wine: The People's President", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt27599265", "title": "Bread and Roses", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -177,5 +177,10 @@
   "tt3486542": { "slug": "mediterranea", "title": "Mediterranea", "countries": ["IT", "FR", "US", "DE", "QA"], "language": "it", "wd": "Q19824788", "tmdb": 336660 },
   "tt4316236": { "slug": "the-black-panthers-vanguard-of-the-revolution", "title": "The Black Panthers: Vanguard of the Revolution", "countries": ["US"], "language": "en", "wd": "Q19363559", "tmdb": 319089 },
   "tt4338184": { "slug": "the-diplomat", "title": "The Diplomat", "countries": ["US"], "language": "en", "wd": "Q21198151", "tmdb": 333820 },
-  "tt2328813": { "slug": "hard-to-be-a-god-2015", "title": "Hard to Be a God", "originalTitle": "Трудно быть богом", "originalLang": "ru", "countries": ["RU"], "language": "ru", "wd": "Q4204793", "tmdb": 110402 }
+  "tt2328813": { "slug": "hard-to-be-a-god-2015", "title": "Hard to Be a God", "originalTitle": "Трудно быть богом", "originalLang": "ru", "countries": ["RU"], "language": "ru", "wd": "Q4204793", "tmdb": 110402 },
+  "tt4135896": { "slug": "how-to-dance-in-ohio", "title": "How to Dance in Ohio", "countries": ["US"], "language": "en", "wd": "Q19263690", "tmdb": 318259 },
+  "tt4058426": { "slug": "indias-daughter", "title": "India's Daughter", "countries": ["GB", "IN"], "language": "en", "wd": "Q19409509", "tmdb": 328233 },
+  "tt4823702": { "slug": "dont-tell-anyone", "title": "Don't Tell Anyone", "countries": ["US"], "language": "en", "wd": "Q21427360", "tmdb": 347758 },
+  "tt4224328": { "slug": "mavis", "title": "Mavis!", "countries": ["US"], "language": "en", "wd": "Q42947719", "tmdb": 320589 },
+  "tt1185418": { "slug": "the-wrecking-crew", "title": "The Wrecking Crew", "countries": ["US"], "language": "en", "wd": "Q7776296", "tmdb": 70027 }
 }

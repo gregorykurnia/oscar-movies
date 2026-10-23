@@ -176,5 +176,6 @@
   "tt2085888": { "slug": "only-the-young", "title": "Only the Young", "countries": ["US"], "language": "en", "tmdb": 102867 },
   "tt1235830": { "slug": "chico-and-rita", "title": "Chico & Rita", "countries": ["ES", "GB"], "language": "es", "wd": "Q1072224", "tmdb": 63498 },
   "tt1316540": { "slug": "the-turin-horse", "title": "The Turin Horse", "originalTitle": "A torinói ló", "originalLang": "hu", "countries": ["HU", "FR", "DE", "CH", "US"], "language": "hu", "wd": "Q1336326", "tmdb": 81401 },
-  "tt1772925": { "slug": "jiro-dreams-of-sushi", "title": "Jiro Dreams of Sushi", "countries": ["US"], "language": "ja", "wd": "Q1279290", "tmdb": 80767 }
+  "tt1772925": { "slug": "jiro-dreams-of-sushi", "title": "Jiro Dreams of Sushi", "countries": ["US"], "language": "ja", "wd": "Q1279290", "tmdb": 80767 },
+  "tt0770802": { "slug": "samsara", "title": "Samsara", "countries": ["US"], "language": "en", "wd": "Q3150366", "tmdb": 89708 }
 }

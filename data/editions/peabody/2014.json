@@ -1,0 +1,15 @@
+{
+  "award": "peabody",
+  "year": 2014,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/List_of_Peabody_Award_winners_(2010%E2%80%932019)"],
+  "note": "Only the documentary honorees that Wikipedia links to a film are loaded (series, episodes and films named without a link are not); the announcement date is not stated.",
+  "results": [
+    { "category": "documentary", "imdb": "tt3458196", "title": "Freedom Summer", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3886488", "title": "Human Harvest", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3645982", "title": "The Newburgh Sting", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3455822", "title": "Night Will Fall", "outcome": "won" }
+  ],
+  "screenings": []
+}
