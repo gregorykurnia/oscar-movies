@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2334649", "title": "Fruitvale Station", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2140373", "title": "Saving Mr. Banks", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt1757678", "title": "Avatar: Fire and Ash", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt12300742", "title": "Bugonia", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt30446847", "title": "Jay Kelly", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt29768334", "title": "Train Dreams", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt19847976", "title": "Wicked: For Good", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

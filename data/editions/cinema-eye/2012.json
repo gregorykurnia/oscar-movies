@@ -1,0 +1,12 @@
+{
+  "award": "cinema-eye",
+  "year": 2012,
+  "ordinal": "6th",
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_Eye_Honors"],
+  "note": "Only the winner is listed on Wikipedia for this year (no page for the 6th Cinema Eye Honors); the nominees and dates are not loaded.",
+  "results": [
+    { "category": "feature", "imdb": "tt2125423", "title": "5 Broken Cameras", "outcome": "won" }
+  ],
+  "screenings": []
+}

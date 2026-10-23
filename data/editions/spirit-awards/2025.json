@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2025,
+  "ordinal": "41st",
+  "status": "loaded",
+  "nominationsOn": "2025-12-03",
+  "winnersOn": "2026-02-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/41st_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt29768334", "title": "Train Dreams", "outcome": "won" },
+    { "category": "feature", "imdb": "tt34250044", "title": "Peter Hujar’s Day", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt32792934", "title": "The Plague", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt32843349", "title": "Sorry, Baby", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt31322753", "title": "Twinless", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "won" },
+    { "category": "international", "imdb": "tt29344894", "title": "All That's Left Of You", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32083311", "title": "On Becoming a Guinea Fowl", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt36544524", "title": "A Poet", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34965172", "title": "Endless Cookie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33075192", "title": "My Undesirable Friends: Part I — Last Air in Moscow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660542", "title": "The Tale of Silyan", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

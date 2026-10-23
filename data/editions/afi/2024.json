@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt11563598", "title": "A Complete Unknown", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt21823606", "title": "A Real Pain", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1262426", "title": "Wicked", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

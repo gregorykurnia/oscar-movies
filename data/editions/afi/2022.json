@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt1630029", "title": "Avatar: The Way of Water", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3704428", "title": "Elvis", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10954984", "title": "Nope", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt11198810", "title": "She Said", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1745960", "title": "Top Gun: Maverick", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt8093700", "title": "The Woman King", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt13669038", "title": "Women Talking", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

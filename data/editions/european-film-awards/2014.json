@@ -1,0 +1,26 @@
+{
+  "award": "european-film-awards",
+  "year": 2014,
+  "ordinal": "27th",
+  "status": "loaded",
+  "nominationsOn": "2014-11-08",
+  "winnersOn": "2014-12-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/27th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "film", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2802154", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "film", "wd": "Q3346699", "title": "Nymphomaniac", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3704008", "title": "Of Men and War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3172520", "title": "Sacro GRA", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3362914", "title": "We Come as Friends", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2990836", "title": "The Art of Happiness", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1181840", "title": "Jack and the Cuckoo-Clock Heart", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2368672", "title": "Minuscule: Valley of the Lost Ants", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3129484", "title": "Master of the Universe", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2593270", "title": "Just the Right Amount of Violence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3257648", "title": "Waiting for August", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

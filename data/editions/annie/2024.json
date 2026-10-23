@@ -1,0 +1,24 @@
+{
+  "award": "annie",
+  "year": 2024,
+  "ordinal": "52nd",
+  "status": "loaded",
+  "nominationsOn": "2024-12-20",
+  "winnersOn": "2025-02-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/52nd_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
+    { "category": "feature", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt21692408", "title": "Kung Fu Panda 4", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14855468", "title": "That Christmas", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9471678", "title": "Ultraman: Rising", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt21042126", "title": "Chicken for Linda!", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt5674658", "title": "Kensuke's Kingdom", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt31711040", "title": "Look Back", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt26915336", "title": "Mars Express", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

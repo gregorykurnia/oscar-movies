@@ -148,5 +148,22 @@
   "tt2531318": { "slug": "the-beatles-eight-days-a-week", "title": "The Beatles: Eight Days a Week", "countries": ["US", "GB"], "language": "en", "wd": "Q24055095", "tmdb": 391698 },
   "tt5117222": { "slug": "notes-on-blindness", "title": "Notes on Blindness", "countries": ["GB"], "language": "en", "wd": "Q24635176", "tmdb": 378441 },
   "tt3553976": { "slug": "captain-fantastic", "title": "Captain Fantastic", "countries": ["US"], "language": "en", "wd": "Q18703094", "tmdb": 334533 },
-  "tt5097070": { "slug": "dancer", "title": "Dancer", "countries": ["US", "GB", "RU", "UA"], "language": "en", "tmdb": 411201 }
+  "tt5097070": { "slug": "dancer", "title": "Dancer", "countries": ["US", "GB", "RU", "UA"], "language": "en", "tmdb": 411201 },
+  "tt3721936": { "slug": "american-honey", "title": "American Honey", "countries": ["US", "GB"], "language": "en", "wd": "Q20001112", "tmdb": 340485 },
+  "tt3850496": { "slug": "chronic", "title": "Chronic", "countries": ["US", "FR", "MX"], "language": "en", "wd": "Q19847366", "tmdb": 337104 },
+  "tt1619029": { "slug": "jackie", "title": "Jackie", "countries": ["US", "FR", "CL"], "language": "en", "wd": "Q22350767", "tmdb": 376866 },
+  "tt5221584": { "slug": "aquarius", "title": "Aquarius", "countries": ["BR"], "language": "pt", "wd": "Q23833608", "tmdb": 377273 },
+  "tt4048050": { "slug": "my-golden-years", "title": "My Golden Years", "originalTitle": "Nos Arcadies", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q18744900", "tmdb": 315575 },
+  "tt5278928": { "slug": "sonita", "title": "Sonita", "countries": ["IR", "DE", "CH", "US"], "language": "prs", "wd": "Q24052861", "tmdb": 370213 },
+  "tt5129818": { "slug": "under-the-sun", "title": "Under the Sun", "originalTitle": "В лучах солнца", "originalLang": "ru", "countries": ["CZ", "RU", "UA", "LV", "DE", "KP"], "language": "ru", "wd": "Q22570084", "tmdb": 369769 },
+  "tt4669986": { "slug": "loving", "title": "Loving", "countries": ["US", "GB"], "language": "en", "wd": "Q21527828", "tmdb": 339419 },
+  "tt4550098": { "slug": "nocturnal-animals", "title": "Nocturnal Animals", "countries": ["US"], "language": "en", "wd": "Q21527905", "tmdb": 340666 },
+  "tt3040964": { "slug": "the-jungle-book", "title": "The Jungle Book", "countries": ["US"], "language": "en", "wd": "Q16857406", "tmdb": 278927 },
+  "tt3512160": { "slug": "s-is-for-stanley", "title": "S Is for Stanley", "originalTitle": "S is for Stanley - Trent'anni dietro al volante per Stanley Kubrick", "originalLang": "it", "countries": ["IT"], "language": "it", "wd": "Q23900116", "tmdb": 399504 },
+  "tt6222300": { "slug": "21-x-new-york", "title": "21 x New York", "originalTitle": "21 x Nowy Jork", "originalLang": "pl", "countries": ["PL"], "language": "pl", "tmdb": 424094 },
+  "tt4653186": { "slug": "a-family-affair", "title": "A Family Affair", "countries": ["US", "NL"], "language": "en", "tmdb": 366752 },
+  "tt3412684": { "slug": "mr-gaga", "title": "Mr. Gaga", "originalTitle": "מיסטר גאגא", "originalLang": "he", "countries": ["IL", "SE"], "language": "he", "tmdb": 361474 },
+  "tt2338774": { "slug": "the-land-of-the-enlightened", "title": "The Land of the Enlightened", "countries": ["IE", "US", "BE", "AF", "NL", "DE"], "language": "en", "tmdb": 372711 },
+  "tt0490215": { "slug": "silence", "title": "Silence", "countries": ["US", "MX", "TW", "IT", "JP", "GB"], "language": "en", "wd": "Q18811634", "tmdb": 68730 },
+  "tt3263904": { "slug": "sully", "title": "Sully", "countries": ["US", "GB", "AU"], "language": "en", "wd": "Q21062112", "tmdb": 363676 }
 }

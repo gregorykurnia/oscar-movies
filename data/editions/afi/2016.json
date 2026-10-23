@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2671706", "title": "Fences", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2119532", "title": "Hacksaw Ridge", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt0490215", "title": "Silence", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3263904", "title": "Sully", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2948356", "title": "Zootopia", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

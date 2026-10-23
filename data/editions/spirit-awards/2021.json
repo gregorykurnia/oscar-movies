@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2021,
+  "ordinal": "37th",
+  "status": "loaded",
+  "nominationsOn": "2021-12-14",
+  "winnersOn": "2022-03-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/37th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt9100054", "title": "The Lost Daughter", "outcome": "won" },
+    { "category": "feature", "imdb": "tt14324296", "title": "A Chiara", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10986222", "title": "C'mon C'mon", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11131464", "title": "The Novice", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5439812", "title": "Zola", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt10262648", "title": "Compartment No. 6", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12618926", "title": "Parallel Mothers", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13710226", "title": "Pebbles", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10366574", "title": "Prayers for the Stolen", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13648230", "title": "In the Same Breath", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14300912", "title": "Procession", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

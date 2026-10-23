@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2024,
+  "ordinal": "40th",
+  "status": "loaded",
+  "nominationsOn": "2024-12-04",
+  "winnersOn": "2025-02-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/40th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "feature", "imdb": "tt15574270", "title": "I Saw the TV Glow", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28131427", "title": "Black Dog", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27722543", "title": "Green Border", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11891850", "title": "Hard Truths", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30319823", "title": "Gaucho Gaucho", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30342963", "title": "Patrice: The Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26773767", "title": "Hummingbirds", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -121,6 +121,12 @@ export function readLabelledCells(html: string): NomineeList[] {
         tds.each((i, td) => {
           const label = [group, columns[i]].filter(Boolean).join(" ");
           const lines: Nominee[] = [];
+          // The Spirit pages' older layout: the winner stands bare (or in bold italics) above the list of nominees.
+          if ($(td).children("p").length === 0) {
+            const lead = $(td).clone();
+            lead.find("ul, ol, sup.reference, .reference").remove();
+            if (clean(lead.text())) lines.push(nomineeOf($, lead));
+          }
           $(td)
             .children("p")
             .each((_, p) => {
@@ -161,6 +167,8 @@ export type Cell = {
   film: FilmLink | null;
   bold: boolean;
   header: boolean;
+  /** The row has the winner's gold background (`background:#FAEB86`), Wikipedia's mark where nothing is bold. */
+  shaded?: boolean;
 };
 
 export type Table = {
@@ -203,7 +211,7 @@ export function readWikitables(html: string): Table[] {
           .children("td, th")
           .each((_, el) => {
             while (grid[r][c] !== undefined) c++;
-            const cell = cellOf($, el);
+            const cell = { ...cellOf($, el), shaded: /FAEB86/i.test($(tr).attr("style") ?? "") };
             const rowspan = Math.max(1, Number($(el).attr("rowspan")) || 1);
             const colspan = Math.max(1, Number($(el).attr("colspan")) || 1);
             for (let dr = 0; dr < rowspan && r + dr < trs.length; dr++) {
@@ -224,4 +232,45 @@ export function column(table: Table, header: RegExp): number {
   const i = table.headers.findIndex((h) => header.test(h));
   if (i < 0) throw new Error(`No column matching ${String(header)} in [${table.headers.join(" | ")}].`);
   return i;
+}
+
+/**
+ * A category article ("European Film Award for Best Film"): one row per nominee, the year in the
+ * first column and the winner in bold. Returns the nominees by the year the first column gives
+ * (the leading four digits, "2013(26th)"); rows without a film cell are skipped.
+ */
+export function readArticleYears(html: string): Map<number, Nominee[]> {
+  const years = new Map<number, Nominee[]>();
+  for (const table of readWikitables(html)) {
+    const film = table.headers.findIndex((h) => /^(Film|English title|Winner)/i.test(h));
+    if (film < 0) continue;
+    for (const row of table.rows) {
+      const year = Number(row[0]?.text.match(/^(\d{4})/)?.[1]);
+      const cell = row[film];
+      if (!year || !cell || !cell.text) continue;
+      const link = cell.film ?? cell.links[0] ?? null;
+      const line = cell.text.replace(/\s*[†‡*]+$/, "");
+      years.set(year, [...(years.get(year) ?? []), { film: link ?? { article: null, text: line }, winner: cell.bold, line }]);
+    }
+  }
+  return years;
+}
+
+/**
+ * The winner of a main article that lists each year's prizes as a bulleted list under a "Winners in
+ * <year>" heading (Cinema Eye Honors): the film named on the line that starts with `label`.
+ */
+export function readHeadingWinner(html: string, heading: string, label: RegExp): FilmLink | null {
+  const $ = cheerio.load(html);
+  const h = $("h2, h3, h4")
+    .toArray()
+    .find((el) => clean($(el).text()) === heading);
+  if (!h) return null;
+  const after = $(h).closest(".mw-heading").length > 0 ? $(h).closest(".mw-heading") : $(h);
+  const list = after.nextAll("ul").first();
+  for (const li of list.children("li").toArray()) {
+    const own = ownContent($, li);
+    if (label.test(clean(own.text()))) return filmOf($, own);
+  }
+  return null;
 }

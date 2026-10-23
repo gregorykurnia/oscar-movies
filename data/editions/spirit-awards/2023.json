@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2023,
+  "ordinal": "39th",
+  "status": "loaded",
+  "nominationsOn": "2023-12-05",
+  "winnersOn": "2024-02-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/39th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt13238346", "title": "Past Lives", "outcome": "won" },
+    { "category": "feature", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13651794", "title": "May December", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16252698", "title": "Passages", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt28639049", "title": "We Grown Now", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt19623228", "title": "Godland", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6315898", "title": "Mami Wata", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt26315142", "title": "Tótem", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27502426", "title": "Four Daughters", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt22857256", "title": "Bye Bye Tiberias", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7196012", "title": "Going to Mars: The Nikki Giovanni Project", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt15307068", "title": "The Mother of All Lies", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

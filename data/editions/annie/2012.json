@@ -1,0 +1,20 @@
+{
+  "award": "annie",
+  "year": 2012,
+  "ordinal": "40th",
+  "status": "loaded",
+  "nominationsOn": "2012-12-03",
+  "winnersOn": "2013-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/40th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1217209", "title": "Brave", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt0837562", "title": "Hotel Transylvania", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1446192", "title": "Rise of the Guardians", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1430626", "title": "The Pirates! In an Adventure with Scientists!", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1355638", "title": "The Rabbi's Cat", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

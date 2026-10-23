@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2021,
+  "ordinal": "34th",
+  "status": "loaded",
+  "nominationsOn": "2021-11-09",
+  "winnersOn": "2021-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/34th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "won" },
+    { "category": "film", "imdb": "tt10262648", "title": "Compartment No. 6", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt13621424", "title": "Taming the Garden", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8801666", "title": "The Most Beautiful Boy in the World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3454424", "title": "Where Is Anne Frank", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9850492", "title": "Babi Yar. Context", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14035048", "title": "Mr. Bachmann and His Class", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3804810", "title": "Even Mice Belong in Heaven", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt13029316", "title": "The Ape Star", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

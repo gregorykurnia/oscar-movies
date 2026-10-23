@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2019,
+  "ordinal": "47th",
+  "status": "loaded",
+  "nominationsOn": "2019-12-02",
+  "winnersOn": "2020-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/47th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt4729430", "title": "Klaus", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4520988", "title": "Frozen 2", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6348138", "title": "Missing Link", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt7336470", "title": "Buñuel in the Labyrinth of the Turtles", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9116358", "title": "Promare", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9426210", "title": "Weathering with You", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt8328740", "title": "Okko's Inn", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,20 @@
+{
+  "award": "annie",
+  "year": 2014,
+  "ordinal": "42nd",
+  "status": "loaded",
+  "nominationsOn": "2014-12-01",
+  "winnersOn": "2015-01-31",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/42nd_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2361846", "title": "Cheatin'", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1865505", "title": "Song of the Sea", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2262227", "title": "The Book of Life", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

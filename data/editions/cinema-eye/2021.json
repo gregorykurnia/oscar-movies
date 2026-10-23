@@ -1,0 +1,18 @@
+{
+  "award": "cinema-eye",
+  "year": 2021,
+  "ordinal": "15th",
+  "status": "loaded",
+  "nominationsOn": "2021-11-10",
+  "winnersOn": "2022-03-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/15th_Cinema_Eye_Honors"],
+  "results": [
+    { "category": "feature", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "feature", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13648216", "title": "Faya Dayi", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7230750", "title": "The Velvet Underground", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

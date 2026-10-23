@@ -1,0 +1,28 @@
+{
+  "award": "european-film-awards",
+  "year": 2020,
+  "ordinal": "33rd",
+  "status": "loaded",
+  "nominationsOn": "2020-11-10",
+  "winnersOn": "2020-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/33rd_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "film", "imdb": "tt6470924", "title": "Berlin Alexanderplatz", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt8649186", "title": "Corpus Christi", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4516162", "title": "Martin Eden", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1667354", "title": "The Painted Bird", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt11617052", "title": "Undine", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11364376", "title": "Acasă, My Home", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11464016", "title": "Gunda", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt10534996", "title": "Josep", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9719864", "title": "Calamity, a Childhood of Martha Jane Cannary", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4729430", "title": "Klaus", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt11689090", "title": "The Nose or the Conspiracy of Mavericks", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11753696", "title": "Little Girl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394308", "title": "Saudi Runaway", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

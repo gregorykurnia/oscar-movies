@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2023,
+  "ordinal": "51st",
+  "status": "loaded",
+  "nominationsOn": "2024-01-11",
+  "winnersOn": "2024-02-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/51st_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "won" },
+    { "category": "feature", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16428256", "title": "Suzume", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt22352776", "title": "Ernest and Celestine: A Trip to Gibberitia", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt11736638", "title": "Four Souls of Coyote", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt5822848", "title": "The Inventor", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt8096846", "title": "White Plastic Sky", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

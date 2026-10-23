@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2017,
+  "ordinal": "33rd",
+  "status": "loaded",
+  "nominationsOn": "2017-11-21",
+  "winnersOn": "2018-03-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/33rd_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "feature", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6217608", "title": "The Rider", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6213284", "title": "I Am Not a Witch", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4291600", "title": "Lady Macbeth", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6509432", "title": "The Departure", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333074", "title": "Last Men in Aleppo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6149818", "title": "Quest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333078", "title": "Motherland", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

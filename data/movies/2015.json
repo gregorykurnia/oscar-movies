@@ -130,5 +130,20 @@
   "tt3203606": { "slug": "trumbo", "title": "Trumbo", "countries": ["US"], "language": "en", "wd": "Q18692630", "tmdb": 294016 },
   "tt0470752": { "slug": "ex-machina", "title": "Ex Machina", "countries": ["GB"], "language": "en", "wd": "Q16635326", "tmdb": 264660 },
   "tt3397884": { "slug": "sicario", "title": "Sicario", "countries": ["US"], "language": "en", "wd": "Q17337292", "tmdb": 273481 },
-  "tt4188338": { "slug": "something-better-to-come", "title": "Something Better to Come", "countries": ["DK", "PL", "RU"], "language": "ru", "wd": "Q20496483", "tmdb": 322142 }
+  "tt4188338": { "slug": "something-better-to-come", "title": "Something Better to Come", "countries": ["DK", "PL", "RU"], "language": "ru", "wd": "Q20496483", "tmdb": 322142 },
+  "tt3824458": { "slug": "tangerine", "title": "Tangerine", "countries": ["US"], "language": "en", "wd": "Q19263995", "tmdb": 308084 },
+  "tt3655522": { "slug": "girlhood", "title": "Girlhood", "originalTitle": "Bande de filles", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q17003709", "tmdb": 266082 },
+  "tt4082596": { "slug": "the-russian-woodpecker", "title": "The Russian Woodpecker", "countries": ["US", "UA", "GB"], "language": "en", "wd": "Q19363446", "tmdb": 319092 },
+  "tt4370922": { "slug": "t-error", "title": "(T)ERROR", "countries": ["US"], "language": "en", "wd": "Q19007150", "tmdb": 318972 },
+  "tt1355683": { "slug": "black-mass", "title": "Black Mass", "countries": ["US", "GB"], "language": "en", "wd": "Q16971610", "tmdb": 261023 },
+  "tt1674785": { "slug": "drunk-stoned-brilliant-dead", "title": "Drunk Stoned Brilliant Dead", "countries": ["US"], "language": "en", "wd": "Q19824637", "tmdb": 319070 },
+  "tt3312830": { "slug": "youth", "title": "Youth", "countries": ["IT", "FR", "CH", "GB"], "language": "en", "wd": "Q18703892", "tmdb": 310593 },
+  "tt3464902": { "slug": "the-lobster", "title": "The Lobster", "countries": ["GR", "GB", "FR"], "language": "en", "wd": "Q16996794", "tmdb": 254320 },
+  "tt4226388": { "slug": "victoria", "title": "Victoria", "countries": ["DE"], "language": "de", "wd": "Q18786433", "tmdb": 320007 },
+  "tt3984304": { "slug": "dancing-with-maria", "title": "Dancing with Maria", "originalTitle": "Bailando con Maria", "originalLang": "es", "countries": ["IT"], "language": "es", "wd": "Q22084333", "tmdb": 292369 },
+  "tt4684410": { "slug": "a-syrian-love-story", "title": "A Syrian Love Story", "countries": ["GB"], "language": "en", "wd": "Q24000141", "tmdb": 359204 },
+  "tt3011816": { "slug": "adama", "title": "Adama", "countries": ["FR"], "language": "fr", "wd": "Q21104090", "tmdb": 348375 },
+  "tt2234537": { "slug": "toto-and-his-sisters", "title": "Toto and his Sisters", "originalTitle": "Toto și surorile lui", "originalLang": "ro", "countries": ["CA", "RO", "CH", "HU"], "language": "ro", "tmdb": 314559 },
+  "tt3233704": { "slug": "becoming-bulletproof", "title": "Becoming Bulletproof", "countries": ["US"], "language": "en", "tmdb": 354100 },
+  "tt2488496": { "slug": "star-wars-the-force-awakens", "title": "Star Wars: The Force Awakens", "countries": ["US"], "language": "en", "wd": "Q6074", "tmdb": 140607 }
 }

@@ -1,0 +1,24 @@
+{
+  "award": "european-film-awards",
+  "year": 2012,
+  "ordinal": "25th",
+  "status": "loaded",
+  "nominationsOn": "2012-11-03",
+  "winnersOn": "2012-12-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/25th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "film", "imdb": "tt2178941", "title": "Barbara", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1723811", "title": "Shame", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2177511", "title": "Caesar Must Die", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1374985", "title": "Alois Nebel", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1407052", "title": "Wrinkles", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1430626", "title": "The Pirates! In an Adventure with Scientists!", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2215113", "title": "Winter Nomads", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1937419", "title": "London: The Modern Babylon", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1839662", "title": "Tea or Electricity", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

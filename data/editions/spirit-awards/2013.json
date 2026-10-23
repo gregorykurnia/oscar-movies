@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2013,
+  "ordinal": "29th",
+  "status": "loaded",
+  "nominationsOn": "2013-11-27",
+  "winnersOn": "2014-03-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/29th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2017038", "title": "All Is Lost", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2347569", "title": "Frances Ha", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2425486", "title": "Gloria", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2852400", "title": "A Touch of Sin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2430104", "title": "After Tiller", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2179053", "title": "Gideon's Army", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2486682", "title": "The Square", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

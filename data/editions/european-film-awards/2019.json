@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2019,
+  "ordinal": "32nd",
+  "status": "loaded",
+  "nominationsOn": "2019-11-09",
+  "winnersOn": "2019-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/32nd_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" },
+    { "category": "film", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2398149", "title": "An Officer and a Spy", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt8535968", "title": "System Crasher", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt7736478", "title": "The Traitor", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7336470", "title": "Buñuel in the Labyrinth of the Turtles", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7534102", "title": "The Swallows of Kabul", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6785292", "title": "Marona's Fantastic Tale", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9479138", "title": "Selfie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8647924", "title": "Putin's Witnesses", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9358250", "title": "The Disappearance of My Mother", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -150,5 +150,20 @@
   "tt1200263": { "slug": "the-color-purple", "title": "The Color Purple", "countries": ["US"], "language": "en", "wd": "Q111270010", "tmdb": 558915 },
   "tt24078380": { "slug": "the-disappearance-of-shere-hite", "title": "The Disappearance of Shere Hite", "countries": ["US"], "language": "en", "wd": "Q117443220", "tmdb": 1058648 },
   "tt10850264": { "slug": "squaring-the-circle-the-story-of-hipgnosis", "title": "Squaring the Circle (The Story of Hipgnosis)", "countries": ["GB"], "language": "en", "wd": "Q118414983", "tmdb": 949808 },
-  "tt22528178": { "slug": "kokomo-city", "title": "Kokomo City", "countries": ["US"], "language": "en", "wd": "Q116478792", "tmdb": 1058678 }
+  "tt22528178": { "slug": "kokomo-city", "title": "Kokomo City", "countries": ["US"], "language": "en", "wd": "Q116478792", "tmdb": 1058678 },
+  "tt21192142": { "slug": "all-of-us-strangers", "title": "All of Us Strangers", "countries": ["GB"], "language": "en", "wd": "Q113516747", "tmdb": 994108 },
+  "tt16252698": { "slug": "passages", "title": "Passages", "countries": ["FR", "DE", "GB"], "language": "en", "wd": "Q110270018", "tmdb": 898673 },
+  "tt28639049": { "slug": "we-grown-now", "title": "We Grown Now", "countries": ["US"], "language": "en", "wd": "Q121767976", "tmdb": 1163186 },
+  "tt3758542": { "slug": "ferrari", "title": "Ferrari", "countries": ["US", "GB", "IT", "CN"], "language": "en", "wd": "Q113043714", "tmdb": 365620 },
+  "tt21942866": { "slug": "dream-scenario", "title": "Dream Scenario", "countries": ["US"], "language": "en", "wd": "Q115804772", "tmdb": 823482 },
+  "tt8649252": { "slug": "scrapper", "title": "Scrapper", "countries": ["GB"], "language": "en", "wd": "Q115631571", "tmdb": 935906 },
+  "tt24076780": { "slug": "bad-press", "title": "Bad Press", "countries": ["US"], "language": "en", "wd": "Q117443159", "tmdb": 1058636 },
+  "tt15468586": { "slug": "lakota-nation-vs-united-states", "title": "Lakota Nation vs. United States", "countries": ["US"], "language": "en", "wd": "Q121161387", "tmdb": 965219 },
+  "tt13885492": { "slug": "little-richard-i-am-everything", "title": "Little Richard: I Am Everything", "countries": ["US"], "language": "en", "wd": "Q117842593", "tmdb": 1053718 },
+  "tt16442822": { "slug": "love-to-love-you-donna-summer", "title": "Love to Love You, Donna Summer", "countries": ["US"], "language": "en", "wd": "Q116697873", "tmdb": 1055378 },
+  "tt26448811": { "slug": "on-the-adamant", "title": "On the Adamant", "originalTitle": "Sur l’Adamant", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q116414358", "tmdb": 1070449 },
+  "tt17526454": { "slug": "a-greyhound-of-a-girl", "title": "A Greyhound of a Girl", "countries": ["EE", "DE", "IE", "IT", "LV", "LU", "GB"], "language": "en", "wd": "Q116971313", "tmdb": 588564 },
+  "tt8096846": { "slug": "white-plastic-sky", "title": "White Plastic Sky", "originalTitle": "Műanyag égbolt", "originalLang": "hu", "countries": ["HU", "SK"], "language": "hu", "tmdb": 587384 },
+  "tt26745680": { "slug": "motherland-2023", "title": "Motherland", "countries": ["SE", "NO", "UA"], "language": "sv", "tmdb": 961289 },
+  "tt26773666": { "slug": "close-to-vermeer", "title": "Close to Vermeer", "countries": ["NL"], "language": "nl", "tmdb": 1090031 }
 }

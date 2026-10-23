@@ -1,0 +1,24 @@
+{
+  "award": "european-film-awards",
+  "year": 2013,
+  "ordinal": "26th",
+  "status": "loaded",
+  "nominationsOn": "2013-11-09",
+  "winnersOn": "2013-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/26th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "won" },
+    { "category": "film", "imdb": "tt1854513", "title": "Blancanieves", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2024519", "title": "The Broken Circle Breakdown", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1924396", "title": "The Best Offer", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1954701", "title": "Oh Boy", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2852470", "title": "The Missing Picture", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1821641", "title": "The Congress", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1693039", "title": "Pinocchio", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2901760", "title": "Stop-Over", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3043848", "title": "Jasmine", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

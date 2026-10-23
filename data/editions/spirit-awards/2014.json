@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2014,
+  "ordinal": "30th",
+  "status": "loaded",
+  "nominationsOn": "2014-11-25",
+  "winnersOn": "2015-02-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/30th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2639344", "title": "Love Is Strange", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2802154", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3612616", "title": "Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2852432", "title": "Norte, Hangganan ng Kasaysayan", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1441395", "title": "Under the Skin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2920540", "title": "20,000 Days on Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3674140", "title": "The Salt of the Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3263430", "title": "Stray Dog", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

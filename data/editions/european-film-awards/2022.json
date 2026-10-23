@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2022,
+  "ordinal": "35th",
+  "status": "loaded",
+  "nominationsOn": "2022-11-08",
+  "winnersOn": "2022-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/35th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt7322224", "title": "Triangle of Sadness", "outcome": "won" },
+    { "category": "film", "imdb": "tt11930126", "title": "Alcarràs", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt11992694", "title": "Corsage", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt18550140", "title": "Holy Spider", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt15180952", "title": "The Balcony Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16377920", "title": "A House Made of Splinters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt12826598", "title": "No Dogs or Italians Allowed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt10290244", "title": "Little Nicholas - Happy as Can Be", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6435164", "title": "My Love Affair with Marriage", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt16445248", "title": "Oink", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt20221546", "title": "Mariupolis 2", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt18687842", "title": "Girl Gang", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt18083696", "title": "The March on Rome", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15502904", "title": "My Neighbors' Neighbors", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

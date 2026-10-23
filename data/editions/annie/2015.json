@@ -1,0 +1,21 @@
+{
+  "award": "annie",
+  "year": 2015,
+  "ordinal": "43rd",
+  "status": "loaded",
+  "nominationsOn": "2015-12-01",
+  "winnersOn": "2016-02-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/43rd_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt3183630", "title": "The Boy and the World", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt1640718", "title": "Kahlil Gibran's The Prophet", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt4272866", "title": "The Boy and the Beast", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt3398268", "title": "When Marnie Was There", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

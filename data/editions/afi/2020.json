@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2021-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt9784798", "title": "Judas and the Black Messiah", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10514222", "title": "Ma Rainey's Black Bottom", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt9770150", "title": "Nomadland", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

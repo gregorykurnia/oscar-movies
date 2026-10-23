@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2024,
+  "ordinal": "37th",
+  "status": "loaded",
+  "nominationsOn": "2024-11-05",
+  "winnersOn": "2024-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/37th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" },
+    { "category": "film", "imdb": "tt29439114", "title": "The Room Next Door", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt28618488", "title": "Vermiglio", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt22857256", "title": "Bye Bye Tiberias", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32123132", "title": "In Limbo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt10695672", "title": "Savages", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt28298233", "title": "Sultana's Dream", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt11242654", "title": "They Shot the Piano Player", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt27850647", "title": "Living Large", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

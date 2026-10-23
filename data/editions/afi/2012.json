@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2012-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1345836", "title": "The Dark Knight Rises", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

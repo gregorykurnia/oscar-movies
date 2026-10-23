@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2016,
+  "ordinal": "32nd",
+  "status": "loaded",
+  "nominationsOn": "2016-11-22",
+  "winnersOn": "2017-02-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/32nd_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "feature", "imdb": "tt3721936", "title": "American Honey", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3850496", "title": "Chronic", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1619029", "title": "Jackie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "international", "imdb": "tt5221584", "title": "Aquarius", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3526706", "title": "Chevalier", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048050", "title": "My Golden Years", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4273292", "title": "Under the Shadow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278928", "title": "Sonita", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5129818", "title": "Under the Sun", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

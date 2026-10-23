@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2021,
+  "ordinal": "49th",
+  "status": "loaded",
+  "nominationsOn": "2021-12-21",
+  "winnersOn": "2022-03-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/49th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2953050", "title": "Encanto", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5109280", "title": "Raya and the Last Dragon", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6467266", "title": "Sing 2", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt13651628", "title": "Belle", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt13758684", "title": "Fortune Favors Lady Nikuko", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt12439248", "title": "Pompo: The Cinéphile", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt7014378", "title": "The Summit of the Gods", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

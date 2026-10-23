@@ -1,0 +1,12 @@
+{
+  "award": "cinema-eye",
+  "year": 2016,
+  "ordinal": "10th",
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_Eye_Honors"],
+  "note": "Only the winner is listed on Wikipedia for this year (no page for the 10th Cinema Eye Honors); the nominees and dates are not loaded.",
+  "results": [
+    { "category": "feature", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "won" }
+  ],
+  "screenings": []
+}

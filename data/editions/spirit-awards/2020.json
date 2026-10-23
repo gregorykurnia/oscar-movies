@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2020,
+  "ordinal": "36th",
+  "status": "loaded",
+  "nominationsOn": "2021-01-26",
+  "winnersOn": "2021-04-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/36th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "feature", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10514222", "title": "Ma Rainey's Black Bottom", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11423784", "title": "The Disciple", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8132778", "title": "Night of the Kings", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12564514", "title": "Preparations to Be Together for an Unknown Period of Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394298", "title": "The Mole Agent", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

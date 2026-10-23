@@ -142,5 +142,18 @@
   "tt6644200": { "slug": "a-quiet-place", "title": "A Quiet Place", "countries": ["US"], "language": "en", "wd": "Q39070473", "tmdb": 447332 },
   "tt7286916": { "slug": "the-dawn-wall", "title": "The Dawn Wall", "countries": ["US", "AT"], "language": "en", "wd": "Q56604528", "tmdb": 489471 },
   "tt5844196": { "slug": "hal", "title": "Hal", "countries": ["US"], "language": "en", "wd": "Q60737777", "tmdb": 322520 },
-  "tt7573844": { "slug": "into-the-okavango", "title": "Into the Okavango", "countries": ["US"], "language": "en", "wd": "Q72398929", "tmdb": 520446 }
+  "tt7573844": { "slug": "into-the-okavango", "title": "Into the Okavango", "countries": ["US"], "language": "en", "wd": "Q72398929", "tmdb": 520446 },
+  "tt7014006": { "slug": "eighth-grade", "title": "Eighth Grade", "countries": ["US"], "language": "en", "wd": "Q47265121", "tmdb": 489925 },
+  "tt6053438": { "slug": "first-reformed", "title": "First Reformed", "countries": ["US"], "language": "en", "wd": "Q28956599", "tmdb": 458737 },
+  "tt3892172": { "slug": "leave-no-trace", "title": "Leave No Trace", "countries": ["US"], "language": "en", "wd": "Q47470782", "tmdb": 443463 },
+  "tt5742374": { "slug": "you-were-never-really-here", "title": "You Were Never Really Here", "countries": ["GB", "FR", "US"], "language": "en", "wd": "Q27703176", "tmdb": 398181 },
+  "tt6752992": { "slug": "happy-as-lazzaro", "title": "Happy as Lazzaro", "originalTitle": "Lazzaro felice", "originalLang": "it", "countries": ["IT", "CH", "DE", "FR"], "language": "it", "wd": "Q52988787", "tmdb": 481432 },
+  "tt1213641": { "slug": "first-man", "title": "First Man", "countries": ["US"], "language": "en", "wd": "Q42708010", "tmdb": 369972 },
+  "tt7784604": { "slug": "hereditary", "title": "Hereditary", "countries": ["US"], "language": "en", "wd": "Q47524071", "tmdb": 493922 },
+  "tt2328900": { "slug": "mary-queen-of-scots", "title": "Mary Queen of Scots", "countries": ["GB", "US"], "language": "en", "wd": "Q37909408", "tmdb": 457136 },
+  "tt4218572": { "slug": "widows", "title": "Widows", "countries": ["US", "GB"], "language": "en", "wd": "Q29163736", "tmdb": 401469 },
+  "tt7186092": { "slug": "nico-1988", "title": "Nico, 1988", "countries": ["IT", "BE"], "language": "en", "wd": "Q43303235", "tmdb": 473262 },
+  "tt6109168": { "slug": "bergman-a-year-in-a-life", "title": "Bergman: A Year in a Life", "originalTitle": "Bergman - ett år, ett liv", "originalLang": "sv", "countries": ["SE"], "language": "sv", "wd": "Q60410288", "tmdb": 522868 },
+  "tt7240516": { "slug": "a-woman-captured", "title": "A Woman Captured", "originalTitle": "Egy nő fogságban", "originalLang": "hu", "countries": ["HU", "DE"], "language": "hu", "wd": "Q56604343", "tmdb": 488756 },
+  "tt5222768": { "slug": "white-fang", "title": "White Fang", "originalTitle": "Croc-Blanc", "originalLang": "fr", "countries": ["FR", "LU"], "language": "fr", "wd": "Q51163619", "tmdb": 456154 }
 }

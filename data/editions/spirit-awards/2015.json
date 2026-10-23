@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2015,
+  "ordinal": "31st",
+  "status": "loaded",
+  "nominationsOn": "2015-11-24",
+  "winnersOn": "2016-02-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/31st_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1365050", "title": "Beasts of No Nation", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3824458", "title": "Tangerine", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "international", "imdb": "tt4285496", "title": "Embrace of the Serpent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3655522", "title": "Girlhood", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1883180", "title": "A Pigeon Sat on a Branch Reflecting on Existence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4935446", "title": "Heart of a Dog", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545428", "title": "Meru", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4082596", "title": "The Russian Woodpecker", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4370922", "title": "(T)ERROR", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

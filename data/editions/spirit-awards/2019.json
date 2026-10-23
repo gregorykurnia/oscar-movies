@@ -1,0 +1,28 @@
+{
+  "award": "spirit-awards",
+  "year": 2019,
+  "ordinal": "35th",
+  "status": "loaded",
+  "nominationsOn": "2019-11-21",
+  "winnersOn": "2020-02-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/35th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt8637428", "title": "The Farewell", "outcome": "won" },
+    { "category": "feature", "imdb": "tt5577494", "title": "Clemency", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5827916", "title": "A Hidden Life", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5727208", "title": "Uncut Gems", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt6390668", "title": "The Invisible Life", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7761590", "title": "Retablo", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6920356", "title": "The Souvenir", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8106566", "title": "Island of the Hungry Ghosts", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

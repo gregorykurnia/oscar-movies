@@ -1,0 +1,19 @@
+{
+  "award": "cinema-eye",
+  "year": 2023,
+  "ordinal": "17th",
+  "status": "loaded",
+  "nominationsOn": "2023-11-16",
+  "winnersOn": "2024-01-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/17th_Cinema_Eye_Honors"],
+  "results": [
+    { "category": "feature", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt24082488", "title": "The Eternal Memory", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt27502426", "title": "Four Daughters", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7196012", "title": "Going to Mars: The Nikki Giovanni Project", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16294920", "title": "32 Sounds", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt7286456", "title": "Joker", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt8946378", "title": "Knives Out", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3281548", "title": "Little Women", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3513548", "title": "Richard Jewell", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

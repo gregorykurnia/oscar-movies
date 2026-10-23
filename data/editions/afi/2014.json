@@ -1,0 +1,21 @@
+{
+  "award": "afi",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt2179136", "title": "American Sniper", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1100089", "title": "Foxcatcher", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt0816692", "title": "Interstellar", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2180411", "title": "Into the Woods", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1809398", "title": "Unbroken", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

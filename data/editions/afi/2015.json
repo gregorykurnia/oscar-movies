@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3682448", "title": "Bridge of Spies", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt2488496", "title": "Star Wars: The Force Awakens", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1398426", "title": "Straight Outta Compton", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

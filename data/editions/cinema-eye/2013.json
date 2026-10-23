@@ -1,0 +1,12 @@
+{
+  "award": "cinema-eye",
+  "year": 2013,
+  "ordinal": "7th",
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_Eye_Honors"],
+  "note": "Only the winner is listed on Wikipedia for this year (no page for the 7th Cinema Eye Honors); the nominees and dates are not loaded.",
+  "results": [
+    { "category": "feature", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" }
+  ],
+  "screenings": []
+}

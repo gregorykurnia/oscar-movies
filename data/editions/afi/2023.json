@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt5535276", "title": "Maestro", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt13651794", "title": "May December", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

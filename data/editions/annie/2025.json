@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2025,
+  "ordinal": "53rd",
+  "status": "loaded",
+  "nominationsOn": "2026-01-05",
+  "winnersOn": "2026-02-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/53rd_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
+    { "category": "feature", "imdb": "tt4900148", "title": "Elio", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30017619", "title": "The Bad Guys 2", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt14883538", "title": "Arco", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt13968662", "title": "A Magnificent Life", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt36639986", "title": "I Am Frankelda", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt28664733", "title": "Lost in Starlight", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt35114460", "title": "Scarlet", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

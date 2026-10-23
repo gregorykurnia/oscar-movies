@@ -1,0 +1,26 @@
+{
+  "award": "european-film-awards",
+  "year": 2017,
+  "ordinal": "30th",
+  "status": "loaded",
+  "nominationsOn": "2017-11-04",
+  "winnersOn": "2017-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/30th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
+    { "category": "film", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5607714", "title": "On Body and Soul", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5222918", "title": "The Other Side of Hope", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5966340", "title": "Communion", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6042860", "title": "Austerlitz", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6254144", "title": "The Good Postman", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1725969", "title": "Ethel & Ernest", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5894778", "title": "Louise en hiver", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5313906", "title": "Zombillenium", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5975242", "title": "La Chana", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6253688", "title": "Stranger in Paradise", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

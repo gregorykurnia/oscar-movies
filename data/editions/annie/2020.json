@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2020,
+  "ordinal": "48th",
+  "status": "loaded",
+  "nominationsOn": "2021-03-03",
+  "winnersOn": "2021-04-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/48th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "feature", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2850386", "title": "The Croods: A New Age", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5206260", "title": "The Willoughbys", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6587640", "title": "Trolls World Tour", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt6193408", "title": "A Shaun the Sheep Movie: Farmageddon", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9719864", "title": "Calamity, a Childhood of Martha Jane Cannary", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt10487722", "title": "On-Gaku: Our Sound", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9193612", "title": "Ride Your Wave", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

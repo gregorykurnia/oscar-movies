@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2017,
+  "ordinal": "45th",
+  "status": "loaded",
+  "nominationsOn": "2017-12-04",
+  "winnersOn": "2018-02-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/45th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2091256", "title": "Captain Underpants", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3606752", "title": "Cars 3", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3469046", "title": "Despicable Me 3", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3874544", "title": "The Boss Baby", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt4769824", "title": "In This Corner of the World", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt5731132", "title": "Napping Princess", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt5851904", "title": "The Big Bad Fox and Other Tales...", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

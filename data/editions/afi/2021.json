@@ -1,0 +1,20 @@
+{
+  "award": "afi",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/American_Film_Institute_Awards"],
+  "results": [
+    { "category": "top-10", "imdb": "tt10366460", "title": "CODA", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt11286314", "title": "Don’t Look Up", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt9620288", "title": "King Richard", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt7740496", "title": "Nightmare Alley", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt8721424", "title": "Tick, Tick... Boom!", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt10095582", "title": "The Tragedy of Macbeth", "outcome": "nominated" },
+    { "category": "top-10", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

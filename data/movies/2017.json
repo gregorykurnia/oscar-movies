@@ -154,5 +154,22 @@
   "tt7657972": { "slug": "the-newspaperman", "title": "The Newspaperman", "countries": ["US"], "language": "en", "wd": "Q51756448", "tmdb": 479119 },
   "tt1877514": { "slug": "the-vietnam-war", "title": "The Vietnam War", "countries": ["US"], "language": "en", "wd": "Q30607886" },
   "tt7306056": { "slug": "wormwood", "title": "Wormwood", "countries": ["US"], "language": "en", "wd": "Q44830804", "tmdb": 482806 },
-  "tt6238896": { "slug": "earth-one-amazing-day", "title": "Earth: One Amazing Day", "countries": ["GB"], "language": "en", "wd": "Q47538945", "tmdb": 464593 }
+  "tt6238896": { "slug": "earth-one-amazing-day", "title": "Earth: One Amazing Day", "countries": ["GB"], "language": "en", "wd": "Q47538945", "tmdb": 464593 },
+  "tt5649144": { "slug": "the-florida-project", "title": "The Florida Project", "countries": ["US"], "language": "en", "wd": "Q29514872", "tmdb": 394117 },
+  "tt6217608": { "slug": "the-rider", "title": "The Rider", "countries": ["US"], "language": "en", "wd": "Q29877021", "tmdb": 453278 },
+  "tt4291600": { "slug": "lady-macbeth", "title": "Lady Macbeth", "countries": ["GB"], "language": "en", "wd": "Q28869534", "tmdb": 410117 },
+  "tt6509432": { "slug": "the-departure", "title": "The Departure", "countries": ["US"], "language": "ja", "wd": "Q48672762", "tmdb": 454059 },
+  "tt6149818": { "slug": "quest", "title": "Quest", "countries": ["US"], "language": "en", "wd": "Q48673916", "tmdb": 432987 },
+  "tt5635086": { "slug": "gods-own-country", "title": "God’s Own Country", "countries": ["GB"], "language": "en", "wd": "Q28212152", "tmdb": 428493 },
+  "tt4420704": { "slug": "kedi", "title": "Kedi", "countries": ["TR", "US", "DE"], "language": "tr", "wd": "Q24672271", "tmdb": 392011 },
+  "tt5222918": { "slug": "the-other-side-of-hope", "title": "The Other Side of Hope", "originalTitle": "Toivon tuolla puolen", "originalLang": "fi", "countries": ["FI", "DE"], "language": "fi", "wd": "Q28059224", "tmdb": 429199 },
+  "tt6042860": { "slug": "austerlitz", "title": "Austerlitz", "countries": ["DE"], "language": "de", "wd": "Q27038118", "tmdb": 411677 },
+  "tt6254144": { "slug": "the-good-postman", "title": "The Good Postman", "countries": ["FI", "BG"], "language": "bg", "wd": "Q30605531", "tmdb": 428566 },
+  "tt5894778": { "slug": "louise-en-hiver", "title": "Louise en hiver", "countries": ["FR", "CA"], "language": "fr", "wd": "Q16661376", "tmdb": 413927 },
+  "tt5313906": { "slug": "zombillenium", "title": "Zombillenium", "originalTitle": "Zombillénium", "originalLang": "fr", "countries": ["BE", "FR"], "language": "fr", "wd": "Q30330007", "tmdb": 454549 },
+  "tt5975242": { "slug": "la-chana", "title": "La Chana", "countries": ["ES"], "language": "es", "tmdb": 445544 },
+  "tt6253688": { "slug": "stranger-in-paradise", "title": "Stranger in Paradise", "countries": ["NL"], "language": "nl", "tmdb": 426110 },
+  "tt6794398": { "slug": "hell-on-earth-the-fall-of-syria-and-the-rise-of-isis", "title": "Hell on Earth: The Fall of Syria and the Rise of ISIS", "countries": ["US"], "language": "en", "tmdb": 453008 },
+  "tt6333088": { "slug": "legion-of-brothers", "title": "Legion of Brothers", "countries": ["US"], "language": "en", "tmdb": 433054 },
+  "tt6333078": { "slug": "motherland-2017", "title": "Motherland", "countries": ["US", "PH"], "language": "en", "tmdb": 433088 }
 }

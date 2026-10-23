@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2012,
+  "ordinal": "28th",
+  "status": "loaded",
+  "nominationsOn": "2012-11-27",
+  "winnersOn": "2013-02-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/28th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1704573", "title": "Bernie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2011953", "title": "Keep the Lights On", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "international", "imdb": "tt1827487", "title": "Once Upon a Time in Anatolia", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2062969", "title": "Sister", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1820488", "title": "War Witch", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2380247", "title": "The Central Park Five", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1618399", "title": "The Waiting Room", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2073029", "title": "Marina Abramovic: The Artist Is Present", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

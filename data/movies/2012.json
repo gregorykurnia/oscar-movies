@@ -128,5 +128,18 @@
   "tt1848767": { "slug": "a-people-uncounted", "title": "A People Uncounted", "countries": ["CA"], "language": "en", "wd": "Q4658755", "tmdb": 211110 },
   "tt1990352": { "slug": "the-island-president", "title": "The Island President", "countries": ["US"], "language": "en", "wd": "Q7742680", "tmdb": 86850 },
   "tt1606829": { "slug": "the-other-dream-team", "title": "The Other Dream Team", "countries": ["US"], "language": "lt", "wd": "Q3700492", "tmdb": 84318 },
-  "tt2125666": { "slug": "the-queen-of-versailles", "title": "The Queen of Versailles", "countries": ["US"], "language": "en", "wd": "Q2889288", "tmdb": 84327 }
+  "tt2125666": { "slug": "the-queen-of-versailles", "title": "The Queen of Versailles", "countries": ["US"], "language": "en", "wd": "Q2889288", "tmdb": 84327 },
+  "tt1704573": { "slug": "bernie", "title": "Bernie", "countries": ["US"], "language": "en", "wd": "Q1029212", "tmdb": 92591 },
+  "tt2011953": { "slug": "keep-the-lights-on", "title": "Keep the Lights On", "countries": ["US"], "language": "en", "wd": "Q1059435", "tmdb": 84290 },
+  "tt1827487": { "slug": "once-upon-a-time-in-anatolia", "title": "Once Upon a Time in Anatolia", "originalTitle": "Bir Zamanlar Anadolu'da", "originalLang": "tr", "countries": ["TR", "BA"], "language": "tr", "wd": "Q1707497", "tmdb": 74879 },
+  "tt2380247": { "slug": "the-central-park-five", "title": "The Central Park Five", "countries": ["US"], "language": "en", "wd": "Q7721917", "tmdb": 124067 },
+  "tt1866249": { "slug": "the-sessions", "title": "The Sessions", "countries": ["US"], "language": "en", "wd": "Q514416", "tmdb": 113947 },
+  "tt1788461": { "slug": "the-pruitt-igoe-myth", "title": "The Pruitt-Igoe Myth", "countries": ["US"], "language": "en", "wd": "Q16254335", "tmdb": 84407 },
+  "tt1723811": { "slug": "shame", "title": "Shame", "countries": ["GB"], "language": "en", "wd": "Q909445", "tmdb": 76025 },
+  "tt1374985": { "slug": "alois-nebel", "title": "Alois Nebel", "countries": ["DE", "CZ", "SK"], "language": "cs", "wd": "Q1330720", "tmdb": 86819 },
+  "tt2215113": { "slug": "winter-nomads", "title": "Winter Nomads", "originalTitle": "Hiver nomade", "originalLang": "fr", "countries": ["CH", "FR", "DE"], "language": "fr", "tmdb": 99879 },
+  "tt1937419": { "slug": "london-the-modern-babylon", "title": "London: The Modern Babylon", "countries": ["GB"], "language": "en", "tmdb": 128129 },
+  "tt1839662": { "slug": "tea-or-electricity", "title": "Tea or Electricity", "originalTitle": "Le Thé ou l'électricité", "originalLang": "fr", "countries": ["FR"], "language": "fr", "tmdb": 141318 },
+  "tt2073029": { "slug": "marina-abramovic-the-artist-is-present", "title": "Marina Abramovic: The Artist Is Present", "countries": ["US"], "language": "en", "wd": "Q114041563", "tmdb": 84309 },
+  "tt1345836": { "slug": "the-dark-knight-rises", "title": "The Dark Knight Rises", "countries": ["US", "GB"], "language": "en", "wd": "Q189330", "tmdb": 49026 }
 }

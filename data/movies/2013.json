@@ -127,5 +127,20 @@
   "tt2140373": { "slug": "saving-mr-banks", "title": "Saving Mr. Banks", "countries": ["GB", "AU", "US"], "language": "en", "wd": "Q3474574", "tmdb": 140823 },
   "tt1974254": { "slug": "far-out-isnt-far-enough-the-tomi-ungerer-story", "title": "Far Out Isn't Far Enough: The Tomi Ungerer Story", "countries": ["US"], "language": "en", "wd": "Q5434597", "tmdb": 124069 },
   "tt1736049": { "slug": "a-place-at-the-table", "title": "A Place at the Table", "countries": ["US"], "language": "en", "wd": "Q4658861", "tmdb": 84198 },
-  "tt2480784": { "slug": "which-way-is-the-front-line-from-here-the-life-and-time-of-tim-hetherington", "title": "Which Way Is The Front Line From Here? The Life and Time of Tim Hetherington", "countries": ["GB", "US"], "language": "en", "tmdb": 159166 }
+  "tt2480784": { "slug": "which-way-is-the-front-line-from-here-the-life-and-time-of-tim-hetherington", "title": "Which Way Is The Front Line From Here? The Life and Time of Tim Hetherington", "countries": ["GB", "US"], "language": "en", "tmdb": 159166 },
+  "tt2017038": { "slug": "all-is-lost", "title": "All Is Lost", "countries": ["US"], "language": "en", "wd": "Q2837490", "tmdb": 152747 },
+  "tt2347569": { "slug": "frances-ha", "title": "Frances Ha", "countries": ["US"], "language": "en", "wd": "Q5478692", "tmdb": 121986 },
+  "tt2852400": { "slug": "a-touch-of-sin", "title": "A Touch of Sin", "originalTitle": "天注定", "originalLang": "zh", "countries": ["CN", "JP", "HK"], "language": "cmn", "wd": "Q13218237", "tmdb": 187022 },
+  "tt2430104": { "slug": "after-tiller", "title": "After Tiller", "countries": ["US"], "language": "en", "wd": "Q4690579", "tmdb": 158994 },
+  "tt2179053": { "slug": "gideons-army", "title": "Gideon's Army", "countries": ["US"], "language": "en", "wd": "Q16250739", "tmdb": 159005 },
+  "tt2545088": { "slug": "american-promise", "title": "American Promise", "countries": ["US"], "language": "en", "wd": "Q4749771", "tmdb": 158997 },
+  "tt1822381": { "slug": "evocateur-the-morton-downey-jr-movie", "title": "Évocateur: The Morton Downey Jr. Movie", "countries": ["US"], "language": "en", "wd": "Q8078545", "tmdb": 185444 },
+  "tt2306745": { "slug": "sound-city", "title": "Sound City", "countries": ["US"], "language": "en", "wd": "Q2855067", "tmdb": 157117 },
+  "tt1924396": { "slug": "the-best-offer", "title": "The Best Offer", "originalTitle": "La migliore offerta", "originalLang": "it", "countries": ["IT"], "language": "en", "wd": "Q324011", "tmdb": 152742 },
+  "tt1954701": { "slug": "oh-boy", "title": "Oh Boy", "countries": ["DE"], "language": "de", "wd": "Q1475778", "tmdb": 130739 },
+  "tt1821641": { "slug": "the-congress", "title": "The Congress", "originalTitle": "כנס העתידנים", "originalLang": "he", "countries": ["DE", "FR", "US", "IL", "LU", "BE", "PL"], "language": "en", "wd": "Q3520383", "tmdb": 152795 },
+  "tt1693039": { "slug": "pinocchio", "title": "Pinocchio", "countries": ["FR", "BE", "IT", "LU"], "language": "it", "wd": "Q5317361", "tmdb": 136619 },
+  "tt2901760": { "slug": "stop-over", "title": "Stop-Over", "originalTitle": "L'escale", "originalLang": "fa", "countries": ["FR", "CH"], "language": "fa", "tmdb": 191722 },
+  "tt3043848": { "slug": "jasmine", "title": "Jasmine", "countries": ["FR"], "language": "fr", "tmdb": 234446 },
+  "tt2334649": { "slug": "fruitvale-station", "title": "Fruitvale Station", "countries": ["US"], "language": "en", "wd": "Q3788751", "tmdb": 157354 }
 }

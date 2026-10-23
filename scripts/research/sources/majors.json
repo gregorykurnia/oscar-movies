@@ -79,12 +79,140 @@
    "2023": "2024-01-10",
    "2024": "2025-01-08",
    "2025": "2026-01-08"
+  },
+  "annie": {
+   "2012": "2012-12-03",
+   "2013": "2013-12-02",
+   "2014": "2014-12-01",
+   "2015": "2015-12-01",
+   "2016": "2016-11-28",
+   "2017": "2017-12-04",
+   "2018": "2018-12-03",
+   "2019": "2019-12-02",
+   "2020": "2021-03-03",
+   "2021": "2021-12-21",
+   "2022": "2023-01-17",
+   "2023": "2024-01-11",
+   "2024": "2024-12-20",
+   "2025": "2026-01-05"
+  },
+  "spirit-awards": {
+   "2012": "2012-11-27",
+   "2013": "2013-11-27",
+   "2014": "2014-11-25",
+   "2015": "2015-11-24",
+   "2016": "2016-11-22",
+   "2017": "2017-11-21",
+   "2018": "2018-11-16",
+   "2019": "2019-11-21",
+   "2020": "2021-01-26",
+   "2021": "2021-12-14",
+   "2022": "2022-11-22",
+   "2023": "2023-12-05",
+   "2024": "2024-12-04",
+   "2025": "2025-12-03"
+  },
+  "satellite": {
+   "2012": "2012-12-03",
+   "2013": "2013-12-02",
+   "2014": "2014-12-01",
+   "2015": "2015-12-01",
+   "2016": "2016-11-28",
+   "2017": "2017-11-29",
+   "2018": "2018-11-28",
+   "2019": "2019-12-03",
+   "2020": "2021-02-01",
+   "2021": "2021-12-01",
+   "2022": "2022-12-08",
+   "2023": "2023-12-18",
+   "2024": "2024-12-16",
+   "2025": "2025-12-16"
+  },
+  "european-film-awards": {
+   "2012": "2012-11-03",
+   "2013": "2013-11-09",
+   "2014": "2014-11-08",
+   "2015": "2015-11-08",
+   "2016": "2016-11-06",
+   "2017": "2017-11-04",
+   "2018": "2018-11-10",
+   "2019": "2019-11-09",
+   "2020": "2020-11-10",
+   "2021": "2021-11-09",
+   "2022": "2022-11-08",
+   "2023": "2023-11-07",
+   "2024": "2024-11-05",
+   "2025": "2025-11-18"
+  },
+  "cinema-eye": {
+   "2021": "2021-11-10",
+   "2022": "2022-11-10",
+   "2023": "2023-11-16",
+   "2024": "2024-11-14",
+   "2025": "2025-11-13"
+  },
+  "afi": {
+   "2012": "2012-12-10",
+   "2013": "2013-12-09",
+   "2014": "2014-12-08",
+   "2015": "2015-12-16",
+   "2016": "2016-12-08",
+   "2018": "2018-12-04",
+   "2019": "2019-12-04",
+   "2020": "2021-01-25",
+   "2021": "2021-12-08",
+   "2022": "2022-12-09",
+   "2023": "2023-12-07",
+   "2024": "2024-12-05",
+   "2025": "2025-12-04"
+  }
+ },
+ "winnersOn": {
+  "satellite": {
+   "2016": "2016-12-19",
+   "2018": "2019-01-03",
+   "2024": "2025-01-26"
+  }
+ },
+ "externalDates": {
+  "european-film-awards/2012": "EFA's own announcement, Seville, 3 November 2012 (the Wikipedia page for the 25th awards has no date)",
+  "european-film-awards/2013": "EFA's announcement at the Seville festival, 9 November 2013 (Cineuropa and others; the page names only the documentary day)",
+  "european-film-awards/2015": "EFA's announcement at the Seville festival, 8 November 2015 (trade reports; the page has no date)",
+  "afi/2012": "AFI list reported on 10 December 2012 (press coverage); the Wikipedia article names no date",
+  "afi/2013": "AFI announcement of 9 December 2013 (press coverage); not on Wikipedia",
+  "afi/2014": "AFI press release dated 8 December 2014 (afi.com/press/afi_awards_2014_announced); not on Wikipedia",
+  "afi/2015": "AFI press release dated 16 December 2015 (afi.com/press/afi_awards_2015_announced); not on Wikipedia",
+  "afi/2016": "AFI press release dated 8 December 2016 (afi.com/press/afi_awards_2016_announced); not on Wikipedia",
+  "afi/2018": "AFI announcement of 4 December 2018 (AP); not on Wikipedia"
+ },
+ "manualWinners": {
+  "cinema-eye/2020/feature": {
+   "article": "Collective (2019 film)",
+   "text": "Collective",
+   "url": "https://awardswatch.com/?p=70035",
+   "why": "Wikipedia's Cinema Eye Honors article has no list for the March 2021 ceremony (14th) but cites TheWrap's report that Collective won Outstanding Nonfiction Feature; AwardsWatch confirms it"
   }
  },
  "linkFixes": {
   "Earth: One Amazing Day": {
    "wd": "Q47538945",
    "why": "the page's link is red, but Wikidata has the film (Q47538945, 2017, directed by Peter Webber)"
+  },
+  "Marina Abramović": {
+   "article": "Marina Abramović: The Artist Is Present",
+   "why": "the Spirit page links the artist; the nominee is the 2012 documentary"
+  },
+  "Marina Abramović: The Artist Is Present": {
+   "article": "Marina Abramović: The Artist Is Present",
+   "why": "unlinked on the Satellite page; the film's Wikipedia article"
+  },
+  "Miss Hokusai": {
+   "wd": "Q11580762",
+   "why": "links the manga; the 2015 film is Q11580762 (as in oscars.json)"
+  },
+  "Okko's Inn": {
+   "wd": "Q60846262",
+   "why": "resolves to the novel series; the 2018 film is Q60846262 (as in oscars.json)"
   }
  },
  "tmdbSearch": {
@@ -101,11 +229,379 @@
    ],
    "country": "US",
    "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt5097070)"
+  },
+  "spirit-awards 2012 Marina Abramović: The Artist Is Present": {
+   "directors": [
+    "Matthew Akers"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2073029)"
+  },
+  "spirit-awards 2014 Stray Dog": {
+   "directors": [
+    "Debra Granik"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3263430)"
+  },
+  "spirit-awards 2017 Motherland": {
+   "directors": [
+    "Ramona S. Diaz"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt6333078)"
+  },
+  "spirit-awards 2018 Of Fathers and Sons": {
+   "directors": [
+    "Talal Derki"
+   ],
+   "country": "DE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt7519174)"
+  },
+  "spirit-awards 2024 Hummingbirds": {
+   "directors": [
+    "Silvia Del Carmen Castaños",
+    "Estefanía \"Beba\" Contreras"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt26773767)"
+  },
+  "annie 2018 Ce Magnifique Gâteau!": {
+   "directors": [
+    "Emma De Swaef",
+    "Marc James Roels"
+   ],
+   "country": "BE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt7925798)"
+  },
+  "annie 2023 White Plastic Sky –": {
+   "directors": [
+    "Sarolta Szabó",
+    "Tibor Bánóczki"
+   ],
+   "country": "HU",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt8096846)"
+  },
+  "satellite 2014 Afternoon of a Faun: Tanaquil Le Clercq": {
+   "directors": [
+    "Nancy Buirski"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2381319)"
+  },
+  "satellite 2014 Art and Craft": {
+   "directors": [
+    "Sam Cullman",
+    "Mark Becker",
+    "Jennifer Grausman"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3654964)"
+  },
+  "satellite 2014 Keep on Keepin' On": {
+   "directors": [
+    "Alan Hicks"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2674040)"
+  },
+  "satellite 2015 Becoming Bulletproof": {
+   "directors": [
+    "Michael Barnett"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3233704)"
+  },
+  "satellite 2017 Hell on Earth: The Fall of Syria and the Rise of ISIS": {
+   "directors": [
+    "Sebastian Junger",
+    "Nick Quested"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt6794398)"
+  },
+  "satellite 2017 Legion of Brothers": {
+   "directors": [
+    "Greg Barker"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt6333088)"
+  },
+  "satellite 2018 Crime + Punishment": {
+   "directors": [
+    "Stephen T. Maing"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt7689908)"
+  },
+  "satellite 2019 63 Up": {
+   "directors": [
+    "Michael Apted"
+   ],
+   "country": "GB",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt8929142)"
+  },
+  "satellite 2022 Young Plato": {
+   "directors": [
+    "Neasa Ní Chianáin",
+    "Declan McGrath"
+   ],
+   "country": "IE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt14683452)"
+  },
+  "satellite 2023 Close to Vermeer": {
+   "directors": [
+    "Suzanne Raes"
+   ],
+   "country": "NL",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt26773666)"
+  },
+  "cinema-eye 2023 32 Sounds": {
+   "directors": [
+    "Sam Green"
+   ],
+   "country": "US",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt16294920)"
+  },
+  "european-film-awards 2012 Winter Nomad": {
+   "directors": [
+    "Manuel von Stürler"
+   ],
+   "country": "CH",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2215113)"
+  },
+  "european-film-awards 2012 London – The Modern Babylon": {
+   "directors": [
+    "Julien Temple"
+   ],
+   "country": "GB",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt1937419)"
+  },
+  "european-film-awards 2012 Tea or Electricity": {
+   "directors": [
+    "Jérôme Le Maire"
+   ],
+   "country": "BE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt1839662)"
+  },
+  "european-film-awards 2013 Stop-Over": {
+   "directors": [
+    "Kaveh Bakhtiari"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2901760)"
+  },
+  "european-film-awards 2013 Jasmine": {
+   "directors": [
+    "Alain Ughetto"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3043848)"
+  },
+  "european-film-awards 2014 Master of the Universe": {
+   "directors": [
+    "Marc Bauder"
+   ],
+   "country": "DE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3129484)"
+  },
+  "european-film-awards 2014 Just the Right Amount of Violence": {
+   "directors": [
+    "Jon Bang Carlsen"
+   ],
+   "country": "DK",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2593270)"
+  },
+  "european-film-awards 2014 Waiting For August": {
+   "directors": [
+    "Teodora Ana Mihai"
+   ],
+   "country": "RO",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3257648)"
+  },
+  "european-film-awards 2015 Toto and His Sisters": {
+   "directors": [
+    "Alexander Nanau"
+   ],
+   "country": "RO",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2234537)"
+  },
+  "european-film-awards 2016 21 x New York": {
+   "directors": [
+    "Piotr Stasik"
+   ],
+   "country": "PL",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt6222300)"
+  },
+  "european-film-awards 2016 A Family Affair": {
+   "directors": [
+    "Tom Fassaert"
+   ],
+   "country": "NL",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt4653186)"
+  },
+  "european-film-awards 2016 Mr. Gaga": {
+   "directors": [
+    "Tomer Heymann"
+   ],
+   "country": "IL",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3412684)"
+  },
+  "european-film-awards 2016 The Land of the Enlightened": {
+   "directors": [
+    "Pieter-Jan De Pue"
+   ],
+   "country": "BE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt2338774)"
+  },
+  "european-film-awards 2017 La Chana": {
+   "directors": [
+    "Lucija Stojevic"
+   ],
+   "country": "ES",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt5975242)"
+  },
+  "european-film-awards 2017 Stranger in Paradise": {
+   "directors": [
+    "Guido Hendrikx"
+   ],
+   "country": "NL",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt6253688)"
+  },
+  "european-film-awards 2019 Selfie": {
+   "directors": [
+    "Agostino Ferrente"
+   ],
+   "country": "IT",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt9479138)"
+  },
+  "european-film-awards 2019 Putin's Witnesses": {
+   "directors": [
+    "Vitaly Mansky"
+   ],
+   "country": "LV",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt8647924)"
+  },
+  "european-film-awards 2019 The Disappearance of my Mother": {
+   "directors": [
+    "Beniamino Barrese"
+   ],
+   "country": "IT",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt9358250)"
+  },
+  "european-film-awards 2020 Little Girl": {
+   "directors": [
+    "Sébastien Lifshitz"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt11753696)"
+  },
+  "european-film-awards 2020 Saudi Runaway": {
+   "directors": [
+    "Susanne Regina Meures"
+   ],
+   "country": "CH",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt11394308)"
+  },
+  "european-film-awards 2021 Babi Yar. Context": {
+   "directors": [
+    "Sergei Loznitsa"
+   ],
+   "country": "UA",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt9850492)"
+  },
+  "european-film-awards 2021 Mr Bachmann and His Class": {
+   "directors": [
+    "Maria Speth"
+   ],
+   "country": "DE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt14035048)"
+  },
+  "european-film-awards 2021 Even Mice Belong in Heaven": {
+   "directors": [
+    "Jan Bubeníček",
+    "Denisa Grimmová Abrhámová"
+   ],
+   "country": "CZ",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt3804810)"
+  },
+  "european-film-awards 2021 The Ape Star": {
+   "directors": [
+    "Linda Hambäck"
+   ],
+   "country": "SE",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt13029316)"
+  },
+  "european-film-awards 2022 Mariupolis 2": {
+   "directors": [
+    "Mantas Kvedaravičius"
+   ],
+   "country": "LT",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt20221546)"
+  },
+  "european-film-awards 2022 Girl Gang": {
+   "directors": [
+    "Susanne Regina Meures"
+   ],
+   "country": "CH",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt18687842)"
+  },
+  "european-film-awards 2022 The March on Rome": {
+   "directors": [
+    "Mark Cousins"
+   ],
+   "country": "GB",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt18083696)"
+  },
+  "european-film-awards 2022 My Neighbors' Neighbors": {
+   "directors": [
+    "Léo Marchand",
+    "Anne-Laure Daffis"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt15502904)"
+  },
+  "european-film-awards 2023 Motherland": {
+   "directors": [
+    "Hanna Badziaka",
+    "Alexander Mihalkovich"
+   ],
+   "country": "BY",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt26745680)"
+  },
+  "european-film-awards 2023 White Plastic Sky": {
+   "directors": [
+    "Sarolta Szabó",
+    "Tibor Bánóczki"
+   ],
+   "country": "HU",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt8096846)"
+  },
+  "european-film-awards 2024 Living Large": {
+   "directors": [
+    "Kristina Dufková"
+   ],
+   "country": "CZ",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt27850647)"
+  },
+  "european-film-awards 2025 Tales from the Magic Garden": {
+   "directors": [
+    "Jean-Claude Rozec",
+    "Patrik Pašš",
+    "Leon Vidmar",
+    "David Súkup"
+   ],
+   "country": "CZ",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt10312938)"
   }
  },
  "leaveOut": {},
  "titles": {},
  "ties": {
-  "pga/2013/theatrical": 2
+  "pga/2013/theatrical": 2,
+  "satellite/2012/international": 2,
+  "satellite/2015/documentary": 2,
+  "satellite/2016/picture": 2,
+  "satellite/2017/picture": 2
  }
 }

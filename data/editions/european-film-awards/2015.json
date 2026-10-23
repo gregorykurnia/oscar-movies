@@ -1,0 +1,26 @@
+{
+  "award": "european-film-awards",
+  "year": 2015,
+  "ordinal": "28th",
+  "status": "loaded",
+  "nominationsOn": "2015-11-08",
+  "winnersOn": "2015-12-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/28th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt3312830", "title": "Youth", "outcome": "won" },
+    { "category": "film", "imdb": "tt3464902", "title": "The Lobster", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1883180", "title": "A Pigeon Sat on a Branch Reflecting on Existence", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt3296658", "title": "Rams", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4226388", "title": "Victoria", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3984304", "title": "Dancing with Maria", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4684410", "title": "A Syrian Love Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1865505", "title": "Song of the Sea", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3011816", "title": "Adama", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2234537", "title": "Toto and his Sisters", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,19 @@
+{
+  "award": "cinema-eye",
+  "year": 2024,
+  "ordinal": "18th",
+  "status": "loaded",
+  "nominationsOn": "2024-11-14",
+  "winnersOn": "2025-01-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/18th_Cinema_Eye_Honors"],
+  "results": [
+    { "category": "feature", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "feature", "imdb": "tt30227076", "title": "Black Box Diaries", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19121796", "title": "Look Into My Eyes", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

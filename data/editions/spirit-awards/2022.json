@@ -1,0 +1,27 @@
+{
+  "award": "spirit-awards",
+  "year": 2022,
+  "ordinal": "38th",
+  "status": "loaded",
+  "nominationsOn": "2022-11-22",
+  "winnersOn": "2023-03-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/38th_Independent_Spirit_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "feature", "imdb": "tt10168670", "title": "Bones and All", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13892558", "title": "Our Father, the Devil", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13669038", "title": "Women Talking", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19719976", "title": "Joyland", "outcome": "won" },
+    { "category": "international", "imdb": "tt11992694", "title": "Corsage", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt16377714", "title": "Leonor Will Never Die", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19719836", "title": "Return to Seoul", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16377920", "title": "A House Made of Splinters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11398276", "title": "Midwives", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11398388", "title": "Riotsville, U.S.A.", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

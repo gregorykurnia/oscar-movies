@@ -1,0 +1,12 @@
+{
+  "award": "cinema-eye",
+  "year": 2018,
+  "ordinal": "12th",
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_Eye_Honors"],
+  "note": "Only the winner is listed on Wikipedia for this year (no page for the 12th Cinema Eye Honors); the nominees and dates are not loaded.",
+  "results": [
+    { "category": "feature", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "won" }
+  ],
+  "screenings": []
+}

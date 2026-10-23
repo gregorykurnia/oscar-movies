@@ -3,7 +3,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { AWARDS, infoboxDate, ordinal, pageMentions } from "./majors";
-import { readLabelledCells, readNomineeLists } from "./lib/tables";
+import { readAfiYear, sectionMentions } from "./afi";
+import { readArticleYears, readHeadingWinner, readLabelledCells, readNomineeLists, readWikitables } from "./lib/tables";
 
 const table = (rows: string) => `<table class="wikitable"><tbody>${rows}</tbody></table>`;
 const names = (l: { nominees: Array<{ film: { text: string } | null; winner: boolean }> }) =>
@@ -100,6 +101,11 @@ describe("the awards", () => {
       "19th Screen Actors Guild Awards",
       "24th Producers Guild of America Awards",
       "65th Directors Guild of America Awards",
+      "40th Annie Awards",
+      "6th Cinema Eye Honors",
+      "25th European Film Awards",
+      "28th Independent Spirit Awards",
+      "17th Satellite Awards",
     ]);
     expect(pages(2025)[2]).toBe("32nd Actor Awards");
     expect(ordinal(21)).toBe("21st");
@@ -112,5 +118,76 @@ describe("the awards", () => {
       const known = registry.find((r) => r.slug === a.slug)?.categories.map((c) => c.slug) ?? [];
       expect(Object.keys(a.categories).sort(), a.slug).toEqual([...known].sort());
     }
+  });
+});
+
+describe("the readers task 2.3 adds", () => {
+  it("reads a winner standing bare above the nominees (the older Spirit Awards pages)", () => {
+    const html = table(`
+      <tr><th>Best Feature</th><th>Best Director</th></tr>
+      <tr>
+        <td><i><b><a href="/wiki/Silver_Linings_Playbook">Silver Linings Playbook</a></b></i><ul><li><i><a href="/wiki/Bernie_(2011_film)">Bernie</a></i></li></ul></td>
+        <td><i><b><a href="/wiki/Moonrise_Kingdom">Moonrise Kingdom</a></b></i></td>
+      </tr>`);
+    const lists = readLabelledCells(html);
+    expect(lists.map((l) => l.category)).toEqual(["Best Feature", "Best Director"]);
+    expect(names(lists[0])).toEqual(["*Silver Linings Playbook", "Bernie"]);
+    expect(names(lists[1])).toEqual(["*Moonrise Kingdom"]);
+  });
+
+  it("marks a row with the winner's gold background (the European Film Awards 2020-2022)", () => {
+    const html = table(`
+      <tr><th>English title</th><th>Director(s)</th></tr>
+      <tr><td>Compartment No. 6</td><td>Juho Kuosmanen</td></tr>
+      <tr style="background:#FAEB86"><td>Quo Vadis, Aida?</td><td>Jasmila Žbanić</td></tr>`);
+    const rows = readWikitables(html)[0].rows;
+    expect(rows.map((r) => r[0].shaded)).toEqual([false, true]);
+  });
+
+  it("reads a category article by year, the winner in bold, the year in the leading digits", () => {
+    const html = table(`
+      <tr><th>Year</th><th>English title</th><th>Director(s)</th></tr>
+      <tr><td>2013(26th)</td><td><b><i><a href="/wiki/The_Great_Beauty">The Great Beauty</a></i></b></td><td><b>Paolo Sorrentino</b></td></tr>
+      <tr><td>2013(26th)</td><td><i><a href="/wiki/Blancanieves">Blancanieves</a></i></td><td>Pablo Berger</td></tr>
+      <tr><td>2014(27th)</td><td><b><i><a href="/wiki/Ida_(film)">Ida</a></i></b></td><td><b>Pawel Pawlikowski</b></td></tr>`);
+    const years = readArticleYears(html);
+    expect([...years.keys()]).toEqual([2013, 2014]);
+    expect(years.get(2013)?.map((n) => `${n.winner ? "*" : ""}${n.film?.text}`)).toEqual(["*The Great Beauty", "Blancanieves"]);
+    expect(years.get(2014)?.[0].film?.article).toBe("Ida (film)");
+  });
+
+  it("finds a winner listed under a 'Winners in <year>' heading by the line's label", () => {
+    const html = `<div class="mw-heading mw-heading3"><h3 id="w">Winners in 2013</h3></div>
+      <ul><li>Outstanding Achievement in Nonfiction Feature Filmmaking - <i><a href="/wiki/5_Broken_Cameras">5 Broken Cameras</a></i> - Dir. <a href="/wiki/Emad_Burnat">Emad Burnat</a></li>
+      <li>Outstanding Achievement in Direction - <i><a href="/wiki/Detropia">Detropia</a></i></li></ul>
+      <div class="mw-heading mw-heading3"><h3 id="x">Winners in 2014</h3></div><ul><li>Outstanding Achievement in Direction - <i>Other</i></li></ul>`;
+    const label = /^Outstanding (Achievement in )?Non-?[Ff]iction Feature/;
+    expect(readHeadingWinner(html, "Winners in 2013", label)).toEqual({ article: "5 Broken Cameras", text: "5 Broken Cameras" });
+    expect(readHeadingWinner(html, "Winners in 2014", label)).toBeNull();
+    expect(readHeadingWinner(html, "Winners in 2030", label)).toBeNull();
+  });
+});
+
+describe("the AFI Top 10 reader", () => {
+  const html = `<div class="mw-heading mw-heading2"><h2 id="a">2019</h2></div>
+    <p>The 2019 AFI Awards honored the Top 10 Films. The winners were announced on December 4, 2019, while the ceremony was held on January 3, 2020.</p>
+    <div class="multicol-float"><div class="mw-heading mw-heading3"><h3 id="b">Top 10 Films</h3></div>
+    <ul><li><i><a href="/wiki/1917_(2019_film)">1917</a></i></li><li><i><a href="/wiki/The_Farewell_(2019_film)">The Farewell</a></i></li><li><i>Judas</i> (a 2021 film)</li></ul></div>
+    <div class="multicol-float"><div class="mw-heading mw-heading3"><h3 id="c">Top 10 Television Programs</h3></div><ul><li><i><a href="/wiki/Fleabag">Fleabag</a></i></li></ul></div>
+    <div class="mw-heading mw-heading2"><h2 id="d">2020</h2></div><p>next</p>`;
+  it("takes the film list of the year's section only", () => {
+    const year = readAfiYear(html, 2019);
+    expect(year?.films).toEqual([
+      { article: "1917 (2019 film)", text: "1917" },
+      { article: "The Farewell (2019 film)", text: "The Farewell" },
+      { article: null, text: "Judas" },
+    ]);
+    expect(readAfiYear(html, 2020)).toBeNull();
+    expect(readAfiYear(html, 2026)).toBeNull();
+  });
+  it("checks a date against the section's text", () => {
+    const text = readAfiYear(html, 2019)?.text ?? "";
+    expect(sectionMentions(text, "2019-12-04")).toBe(true);
+    expect(sectionMentions(text, "2019-12-05")).toBe(false);
   });
 });

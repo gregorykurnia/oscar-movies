@@ -38,18 +38,22 @@ export async function findOnTmdb(tmdb: TmdbOptions, query: FilmQuery): Promise<T
   const texts = [...new Set([query.title, query.originalTitle].filter((t): t is string => !!t))];
   const ids = new Set<number>();
   for (const text of texts) {
-    const found = await tmdb.fetcher.getJson<Search>(
-      `https://api.themoviedb.org/3/search/movie?${new URLSearchParams({ query: text, include_adult: "false" })}`,
-      { headers, label: `tmdb-search-${text}` },
-    );
-    for (const r of found.results ?? []) {
-      const y = Number(r.release_date?.slice(0, 4));
-      if (y >= query.year - 1 && y <= query.year + 1) ids.add(r.id);
+    // Two pages: a common title ("Motherland") has more than a page of films in other years.
+    for (const page of [1, 2]) {
+      const found = await tmdb.fetcher.getJson<Search>(
+        `https://api.themoviedb.org/3/search/movie?${new URLSearchParams({ query: text, include_adult: "false", ...(page > 1 ? { page: String(page) } : {}) })}`,
+        { headers, label: page > 1 ? `tmdb-search-${text}-p${page}` : `tmdb-search-${text}` },
+      );
+      for (const r of found.results ?? []) {
+        const y = Number(r.release_date?.slice(0, 4));
+        if (y >= query.year - 1 && y <= query.year + 1) ids.add(r.id);
+      }
+      if ((found.results ?? []).length < 20) break;
     }
   }
   if (ids.size === 0) return { ok: false, reason: "TMDB search found nothing in those years" };
   const details = new Map<string, Details>();
-  for (const id of [...ids].slice(0, 8)) {
+  for (const id of [...ids].slice(0, 16)) {
     const d = await tmdb.fetcher.getJson<Details>(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`, {
       headers,
       label: `tmdb-movie-credits-${id}`,

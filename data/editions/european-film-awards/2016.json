@@ -1,0 +1,26 @@
+{
+  "award": "european-film-awards",
+  "year": 2016,
+  "ordinal": "29th",
+  "status": "loaded",
+  "nominationsOn": "2016-11-06",
+  "winnersOn": "2016-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/29th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "film", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4326444", "title": "Julieta", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3512160", "title": "S Is for Stanley", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2321405", "title": "My Life as a Zucchini", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5004766", "title": "Birdboy: The Forgotten Children", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3666024", "title": "The Red Turtle", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6222300", "title": "21 x New York", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4653186", "title": "A Family Affair", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3412684", "title": "Mr. Gaga", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2338774", "title": "The Land of the Enlightened", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,12 @@
+{
+  "award": "cinema-eye",
+  "year": 2020,
+  "ordinal": "14th",
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_Eye_Honors", "https://awardswatch.com/?p=70035"],
+  "note": "Only the winner is listed on Wikipedia for this year (no page for the 14th Cinema Eye Honors); the nominees and dates are not loaded.",
+  "results": [
+    { "category": "feature", "imdb": "tt10706602", "title": "Collective", "outcome": "won" }
+  ],
+  "screenings": []
+}

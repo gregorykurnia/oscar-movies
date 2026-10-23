@@ -1,0 +1,26 @@
+{
+  "award": "european-film-awards",
+  "year": 2018,
+  "ordinal": "31st",
+  "status": "loaded",
+  "nominationsOn": "2018-11-10",
+  "winnersOn": "2018-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/31st_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt6543652", "title": "Cold War", "outcome": "won" },
+    { "category": "film", "imdb": "tt5501104", "title": "Border", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt6768578", "title": "Dogman", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt8254556", "title": "Girl", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt6752992", "title": "Happy as Lazzaro", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6109168", "title": "Bergman: A Year in a Life", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7240516", "title": "A Woman Captured", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7341660", "title": "The Distant Barking of Dogs", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7519174", "title": "Of Fathers and Sons", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8099236", "title": "The Silence of Others", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2967856", "title": "Another Day of Life", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4701724", "title": "Early Man", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5222768", "title": "White Fang", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

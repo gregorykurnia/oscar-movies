@@ -153,5 +153,21 @@
   "tt8613070": { "slug": "portrait-of-a-lady-on-fire", "title": "Portrait of a Lady on Fire", "originalTitle": "Portrait de la jeune fille en feu", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q63246568", "tmdb": 531428 },
   "tt6105098": { "slug": "the-lion-king", "title": "The Lion King", "countries": ["US"], "language": "en", "wd": "Q27044293", "tmdb": 420818 },
   "tt5433114": { "slug": "diego-maradona", "title": "Diego Maradona", "countries": ["GB"], "language": "en", "wd": "Q63457407", "tmdb": 536841 },
-  "tt6394270": { "slug": "bombshell", "title": "Bombshell", "countries": ["US"], "language": "en", "wd": "Q58814589", "tmdb": 525661 }
+  "tt6394270": { "slug": "bombshell", "title": "Bombshell", "countries": ["US"], "language": "en", "wd": "Q58814589", "tmdb": 525661 },
+  "tt5577494": { "slug": "clemency", "title": "Clemency", "countries": ["US"], "language": "en", "wd": "Q60611826", "tmdb": 565307 },
+  "tt5827916": { "slug": "a-hidden-life", "title": "A Hidden Life", "countries": ["DE", "US"], "language": "en", "wd": "Q27555348", "tmdb": 403300 },
+  "tt5727208": { "slug": "uncut-gems", "title": "Uncut Gems", "countries": ["US", "SE", "GB"], "language": "en", "wd": "Q56312570", "tmdb": 473033 },
+  "tt6920356": { "slug": "the-souvenir", "title": "The Souvenir", "countries": ["GB", "US"], "language": "en", "wd": "Q59551553", "tmdb": 473019 },
+  "tt8106566": { "slug": "island-of-the-hungry-ghosts", "title": "Island of the Hungry Ghosts", "countries": ["DE", "GB", "AU"], "language": "en", "wd": "Q63634966", "tmdb": 511539 },
+  "tt7358154": { "slug": "burning-cane", "title": "Burning Cane", "countries": ["US"], "language": "en", "wd": "Q63441078", "tmdb": 586454 },
+  "tt7984734": { "slug": "the-lighthouse", "title": "The Lighthouse", "countries": ["US", "CA"], "language": "en", "wd": "Q55402791", "tmdb": 503919 },
+  "tt5503686": { "slug": "hustlers", "title": "Hustlers", "countries": ["US"], "language": "en", "wd": "Q61951916", "tmdb": 540901 },
+  "tt10703826": { "slug": "citizen-k", "title": "Citizen K", "countries": ["US"], "language": "ru", "wd": "Q76489077", "tmdb": 618360 },
+  "tt0437086": { "slug": "alita-battle-angel", "title": "Alita: Battle Angel", "countries": ["US"], "language": "en", "wd": "Q24053265", "tmdb": 399579 },
+  "tt2398149": { "slug": "an-officer-and-a-spy", "title": "An Officer and a Spy", "originalTitle": "J'accuse", "originalLang": "fr", "countries": ["FR", "IT"], "language": "fr", "wd": "Q60833546", "tmdb": 399121 },
+  "tt9479138": { "slug": "selfie", "title": "Selfie", "countries": ["IT", "FR"], "language": "it", "tmdb": 574236 },
+  "tt8647924": { "slug": "putins-witnesses", "title": "Putin's Witnesses", "originalTitle": "Свидетели Путина", "originalLang": "ru", "countries": ["CH", "CZ", "LV", "DE"], "language": "ru", "tmdb": 527251 },
+  "tt9358250": { "slug": "the-disappearance-of-my-mother", "title": "The Disappearance of My Mother", "originalTitle": "Storia di B – La scomparsa di mia madre", "originalLang": "it", "countries": ["IT"], "language": "it", "tmdb": 566062 },
+  "tt8929142": { "slug": "63-up", "title": "63 Up", "countries": ["GB"], "language": "en", "tmdb": 698102 },
+  "tt3513548": { "slug": "richard-jewell", "title": "Richard Jewell", "countries": ["US"], "language": "en", "wd": "Q65058737", "tmdb": 292011 }
 }

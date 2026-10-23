@@ -1,0 +1,19 @@
+{
+  "award": "cinema-eye",
+  "year": 2025,
+  "ordinal": "19th",
+  "status": "loaded",
+  "nominationsOn": "2025-11-13",
+  "winnersOn": "2026-01-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/19th_Cinema_Eye_Honors"],
+  "results": [
+    { "category": "feature", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "won" },
+    { "category": "feature", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt26245982", "title": "Afternoons of Solitude", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt34963731", "title": "Seeds", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

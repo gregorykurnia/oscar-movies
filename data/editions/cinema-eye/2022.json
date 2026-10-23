@@ -1,0 +1,18 @@
+{
+  "award": "cinema-eye",
+  "year": 2022,
+  "ordinal": "16th",
+  "status": "loaded",
+  "nominationsOn": "2022-11-10",
+  "winnersOn": "2023-01-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/16th_Cinema_Eye_Honors"],
+  "results": [
+    { "category": "feature", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "won" },
+    { "category": "feature", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt17041964", "title": "Navalny", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14812784", "title": "A Night of Knowing Nothing", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16378164", "title": "The Territory", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

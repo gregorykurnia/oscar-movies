@@ -1,6 +1,7 @@
 // `npx tsx scripts/research/majors.ts [--award golden-globes,bafta] [--years 2012-2026] [--refresh] [--offline]`
-// (IMPLEMENTATION_PLAN.md §3.4, task 2.2): the film results of Golden Globes, BAFTA, Actor
-// Awards (SAG until 2024), PGA and DGA for each film year, into
+// (IMPLEMENTATION_PLAN.md §3.4, tasks 2.2 and 2.3): the film results of Golden Globes, BAFTA, Actor
+// Awards (SAG until 2024), PGA, DGA (2.2) and Annie, Cinema Eye, European Film Awards, Independent
+// Spirit and Satellite (2.3; AFI Top 10 has its own script, `afi.ts`) for each film year, into
 // `data/editions/<award>/<year>.json`, and the facts of every new film into
 // `data/movies/<year>.json`.
 // - Results: the ceremony's Wikipedia page ("70th Golden Globe Awards"). Pages come in three
@@ -23,16 +24,16 @@ import { checkArgs, readEnvFile } from "../lib/target";
 import { plainTitle } from "./lib/facts";
 import { createFetcher } from "./lib/fetcher";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
-import { readLabelledCells, readNomineeLists, type FilmLink, type NomineeList } from "./lib/tables";
+import { readArticleYears, readHeadingWinner, readLabelledCells, readNomineeLists, type FilmLink, type Nominee, type NomineeList } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
-import { fetchPage } from "./lib/wikipedia";
+import { fetchPage, pageUrl } from "./lib/wikipedia";
 import { addMovies, movieKey, writeEdition } from "./lib/writer";
 
 const DATA_DIR = "data";
-const SOURCES = "scripts/research/sources/majors.json";
+export const SOURCES = "scripts/research/sources/majors.json";
 
 const date = z.iso.date();
-const sourcesSchema = z
+export const sourcesSchema = z
   .object({
     /** Award → film year → the day the film categories' nominations came out. */
     nominationsOn: z.record(z.string(), z.record(z.string().regex(/^\d{4}$/), date)),
@@ -49,9 +50,15 @@ const sourcesSchema = z
     titles: z.record(z.string().regex(/^tt\d+$/), z.string().min(1)),
     /** "<award>/<year>/<category>" → how many winners a tie gave. */
     ties: z.record(z.string(), z.number().int().min(2)),
+    /** Award → film year → the day the winners came out, when that is not the ceremony (the infobox date). */
+    winnersOn: z.record(z.string(), z.record(z.string().regex(/^\d{4}$/), date)),
+    /** "<award>/<year>/<category>" → the winner of a year Wikipedia's article leaves out, from a source it cites. */
+    manualWinners: z.record(z.string(), z.object({ article: z.string(), text: z.string(), url: z.url(), why: z.string() }).strict()),
+    /** "<award>/<year>" → where a `nominationsOn` came from when the Wikipedia page doesn't state it. */
+    externalDates: z.record(z.string(), z.string().min(1)),
   })
   .strict();
-type Sources = z.infer<typeof sourcesSchema>;
+export type Sources = z.infer<typeof sourcesSchema>;
 
 /** The label with everything but letters and digits dropped, lower case: the dash and spacing vary by year. */
 const flat = (label: string) => label.normalize("NFKD").replace(/[^\p{L}\p{N}]+/gu, "").toLowerCase();
@@ -63,6 +70,12 @@ type Spec = {
   ordinal: (year: number) => string;
   /** Category slug → the labels (flattened, anchored) it goes by on the pages. */
   categories: Record<string, RegExp>;
+  /** Category slug → the film years (inclusive) it was given in; outside them it isn't looked for. */
+  span?: Record<string, [number, number]>;
+  /** Category slug → its own Wikipedia article, read instead of the ceremony page (one row per nominee, winner in bold). */
+  articles?: Record<string, string>;
+  /** Years up to this one have no ceremony page; the winner comes from the main article (`readMainArticleWinners`). */
+  winnerOnlyUntil?: { year: number; article: string };
 };
 
 export function ordinal(n: number): string {
@@ -117,6 +130,59 @@ export const AWARDS: Spec[] = [
     ordinal: (y) => ordinal(y - 1947),
     categories: { feature: /^featurefilm$/, documentary: /^(documentaryfilm|documentaries|documentary)$/ },
   },
+  {
+    slug: "annie",
+    page: (y) => `${ordinal(y - 1972)} Annie Awards`,
+    ordinal: (y) => ordinal(y - 1972),
+    categories: { feature: /^best(animated)?feature$/, "indie-feature": /^best(animated)?featureindependent$/ },
+    // The independent feature prize first appears for 2015 films.
+    span: { "indie-feature": [2015, 2025] },
+  },
+  {
+    slug: "cinema-eye",
+    page: (y) => `${ordinal(y - 2006)} Cinema Eye Honors`,
+    ordinal: (y) => ordinal(y - 2006),
+    categories: { feature: /^outstandingnonfictionfeature$/ },
+    // The pages for the 6th–14th honors don't exist; the main article names each winner.
+    winnerOnlyUntil: { year: 2020, article: "Cinema Eye Honors" },
+  },
+  {
+    slug: "european-film-awards",
+    page: (y) => `${ordinal(y - 1987)} European Film Awards`,
+    ordinal: (y) => ordinal(y - 1987),
+    categories: { film: /^$/, documentary: /^$/, animated: /^$/ },
+    // The animated prize begins with the 2009 awards, so every year here has all three.
+    articles: {
+      film: "European Film Award for Best Film",
+      documentary: "European Film Award for Best Documentary",
+      animated: "European Film Award for Best Animated Feature Film",
+    },
+  },
+  {
+    slug: "spirit-awards",
+    page: (y) => `${ordinal(y - 1984)} Independent Spirit Awards`,
+    ordinal: (y) => ordinal(y - 1984),
+    categories: {
+      feature: /^best(feature|film)$/,
+      international: /^bestinternationalfilm$/,
+      documentary: /^bestdocumentaryfeature$/,
+    },
+  },
+  {
+    slug: "satellite",
+    page: (y) => `${ordinal(y - 1995)} Satellite Awards`,
+    ordinal: (y) => ordinal(y - 1995),
+    categories: {
+      picture: /^bestfilm$/,
+      drama: /^bestmotionpicturedrama$/,
+      "comedy-musical": /^bestmotionpicturecomedy(or)?musical$/,
+      international: /^best(foreignlanguagefilm|motionpictureinternational)$/,
+      documentary: /^best(documentaryfilm|motionpicturedocumentary)$/,
+      animated: /^best(animatedormixedmediafilm|motionpictureanimatedormixedmedia)$/,
+    },
+    // One Best Film until 2017; the Drama and Comedy or Musical prizes from 2018.
+    span: { picture: [2012, 2017], drama: [2018, 2025], "comedy-musical": [2018, 2025] },
+  },
 ];
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -162,13 +228,13 @@ function parseYears(argv: string[]): number[] {
   return Array.from({ length: to - from + 1 }, (_, k) => from + k);
 }
 
-function fixLink(link: FilmLink, sources: Sources): FilmLink {
+export function fixLink(link: FilmLink, sources: Sources): FilmLink {
   const fix = sources.linkFixes[link.article ?? link.text];
   if (!fix) return link;
   return { text: link.text, article: fix.article ?? link.article, ...(fix.wd ? { wd: fix.wd } : {}) };
 }
 
-const loose = (t: string) => t.normalize("NFKD").replace(/[^\p{L}\p{N}]+/gu, "").toLowerCase();
+export const loose = (t: string) => t.normalize("NFKD").replace(/[^\p{L}\p{N}]+/gu, "").toLowerCase();
 
 async function main() {
   const argv = process.argv.slice(2);
@@ -189,12 +255,23 @@ async function main() {
   const problems: string[] = [];
   const titles: string[] = [];
 
+  const articleCache = new Map<string, Map<number, Nominee[]>>();
+  const articleYears = async (title: string) => {
+    if (!articleCache.has(title)) articleCache.set(title, readArticleYears((await fetchPage(fetcher, title)).html));
+    return articleCache.get(title)!;
+  };
+
   for (const spec of specs) {
     for (const year of years) {
       const label = `${spec.slug} ${year} (${spec.ordinal(year)})`;
+      // Problems found for this edition; dropped when it turns out to hold no results at all (a ceremony still to come).
+      const local: string[] = [];
+      const manualUrls: string[] = [];
+      // Years with no ceremony page: only the winner, from the main article (the edition is `partial`).
+      const winnerOnly = spec.winnerOnlyUntil !== undefined && year <= spec.winnerOnlyUntil.year;
       let page;
       try {
-        page = await fetchPage(fetcher, spec.page(year));
+        page = await fetchPage(fetcher, winnerOnly ? spec.winnerOnlyUntil!.article : spec.page(year));
       } catch (error) {
         // A ceremony that hasn't happened has no page.
         if (!/doesn't exist/.test(String(error))) throw error;
@@ -214,25 +291,75 @@ async function main() {
         continue;
       }
 
-      const winnersOn = infoboxDate(page.html);
-      const nominationsOn = sources.nominationsOn[spec.slug]?.[String(year)];
-      if (!winnersOn) problems.push(`${label}: no ceremony date in the infobox`);
-      if (!nominationsOn) problems.push(`${label}: no nominations date in ${SOURCES}`);
-      else if (!pageMentions(page.html, nominationsOn)) problems.push(`${label}: the page doesn't mention the nominations date ${nominationsOn}`);
-      if (winnersOn && nominationsOn && nominationsOn >= winnersOn) problems.push(`${label}: nominations ${nominationsOn} are not before the ceremony ${winnersOn}`);
-      const done = winnersOn !== null && winnersOn <= today;
+      const ceremonyOn = winnerOnly ? null : infoboxDate(page.html);
+      const winnersOn = winnerOnly ? null : (sources.winnersOn[spec.slug]?.[String(year)] ?? ceremonyOn);
+      const nominationsOn = winnerOnly ? undefined : sources.nominationsOn[spec.slug]?.[String(year)];
+      if (!winnerOnly) {
+        if (!ceremonyOn) local.push(`${label}: no ceremony date in the infobox`);
+        const earlyWinners = sources.winnersOn[spec.slug]?.[String(year)];
+        if (earlyWinners && !pageMentions(page.html, earlyWinners)) local.push(`${label}: the page doesn't mention the winners date ${earlyWinners}`);
+        if (!nominationsOn) local.push(`${label}: no nominations date in ${SOURCES}`);
+        else if (!sources.externalDates[`${spec.slug}/${year}`] && !pageMentions(page.html, nominationsOn)) local.push(`${label}: the page doesn't mention the nominations date ${nominationsOn}`);
+        if (winnersOn && nominationsOn && nominationsOn >= winnersOn) local.push(`${label}: nominations ${nominationsOn} are not before the winners ${winnersOn}`);
+      }
+      const done = winnerOnly || (winnersOn !== null && winnersOn <= today);
 
-      const lists: NomineeList[] = [...readNomineeLists(page.html), ...readLabelledCells(page.html)];
+      const lists: NomineeList[] = winnerOnly ? [] : [...readNomineeLists(page.html), ...readLabelledCells(page.html)];
       const found: Array<{ category: string; list: NomineeList }> = [];
       const missing: string[] = [];
       for (const [category, pattern] of Object.entries(spec.categories)) {
+        const span = spec.span?.[category];
+        if (span && (year < span[0] || year > span[1])) continue;
+        if (winnerOnly) {
+          const heading = `Winners in ${year + 1}`;
+          const manual = sources.manualWinners[`${spec.slug}/${year}/${category}`];
+          const film = manual
+            ? { article: manual.article, text: manual.text }
+            : readHeadingWinner(page.html, heading, /^Outstanding (Achievement in )?Non-?[Ff]iction Feature/);
+          if (manual) manualUrls.push(manual.url);
+          if (film) found.push({ category, list: { category, nominees: [{ film, winner: true, line: film.text }] } });
+          else {
+            missing.push(category);
+            local.push(`${label}: no ${category} winner under "${heading}" in ${spec.winnerOnlyUntil!.article}`);
+          }
+          continue;
+        }
+        const article = spec.articles?.[category];
+        if (article) {
+          const nominees = (await articleYears(article)).get(year) ?? [];
+          if (nominees.length > 0) found.push({ category, list: { category, nominees } });
+          else {
+            missing.push(category);
+            local.push(`${label}: ${category} has no rows for ${year} in ${article}`);
+          }
+          continue;
+        }
         const hits = lists.filter((l) => pattern.test(flat(l.category)) && l.nominees.length > 0);
         if (hits.length === 1) found.push({ category, list: hits[0] });
         else {
           missing.push(category);
-          problems.push(`${label}: ${category} matches ${hits.length} lists${hits.length > 1 ? ` (${hits.map((h) => h.category).join(" | ")})` : ""}`);
+          local.push(`${label}: ${category} matches ${hits.length} lists${hits.length > 1 ? ` (${hits.map((h) => h.category).join(" | ")})` : ""}`);
         }
       }
+
+      if (found.length === 0 && (winnerOnly || !done)) {
+        const edition: EditionFile = {
+          award: spec.slug,
+          year,
+          ordinal: spec.ordinal(year),
+          status: "no_data",
+          sourceUrls: [],
+          note: winnerOnly
+            ? `Wikipedia's Cinema Eye Honors article has no winners for the ${spec.ordinal(year)} honors (${year + 1}), and the ceremony has no page of its own.`
+            : `The ceremony for ${year} films has not taken place yet (early ${year + 1}).`,
+          results: [],
+          screenings: [],
+        };
+        writeEdition(DATA_DIR, edition);
+        console.log(`${label}: no_data (${winnerOnly ? "no winner listed" : "nothing on the page yet"})`);
+        continue;
+      }
+      problems.push(...local);
 
       const entries = found.flatMap(({ category, list }) =>
         list.nominees.map((n) => ({
@@ -281,7 +408,7 @@ async function main() {
         const winners = inCategory.filter((r) => r.outcome === "won").length;
         const expected = sources.ties[`${spec.slug}/${year}/${category}`] ?? 1;
         if (done && winners !== expected) problems.push(`${label}: ${category} has ${winners} winners, expected ${expected}`);
-        if (inCategory.length < 3) problems.push(`${label}: ${category} has only ${inCategory.length} films`);
+        if (!winnerOnly && inCategory.length < 3) problems.push(`${label}: ${category} has only ${inCategory.length} films`);
       }
       const movies = addMovies(DATA_DIR, year, newFilms(new Map([...films, ...[...viaTmdb].map(([k, v]): [string, ResearchedFilm] => [`tmdb:${k}`, v])])));
       for (const f of [...films.values(), ...viaTmdb.values()]) {
@@ -294,12 +421,14 @@ async function main() {
       }
       for (const line of unresolvedReport(new Map([...films].filter(([, f]) => !viaTmdb.has(f.link.text))))) problems.push(`${label}: unresolved ${line}`);
 
-      const complete = done && missing.length === 0 && Boolean(nominationsOn) && Boolean(winnersOn);
+      const complete = !winnerOnly && done && missing.length === 0 && Boolean(nominationsOn) && Boolean(winnersOn);
       const note = complete
         ? undefined
-        : missing.length > 0
-          ? `Not found on the source page: ${missing.map((c) => c).join(", ")}.`
-          : "The ceremony has not taken place yet.";
+        : winnerOnly
+          ? `Only the winner is listed on Wikipedia for this year (no page for the ${spec.ordinal(year)} ${spec.slug === "cinema-eye" ? "Cinema Eye Honors" : "ceremony"}); the nominees and dates are not loaded.`
+          : missing.length > 0
+            ? `Not found on the source page: ${missing.map((c) => c).join(", ")}.`
+            : "The ceremony has not taken place yet.";
       const edition: EditionFile = {
         award: spec.slug,
         year,
@@ -307,7 +436,7 @@ async function main() {
         status: complete ? "loaded" : "partial",
         ...(nominationsOn ? { nominationsOn } : {}),
         ...(winnersOn ? { winnersOn } : {}),
-        sourceUrls: [page.url],
+        sourceUrls: [page.url, ...(spec.articles ? Object.values(spec.articles).map(pageUrl) : []), ...manualUrls],
         ...(note ? { note } : {}),
         results: [...rows.values()],
         screenings: [],

@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2025,
+  "ordinal": "38th",
+  "status": "loaded",
+  "nominationsOn": "2025-11-18",
+  "winnersOn": "2026-01-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/38th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "film", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt36943034", "title": "The Voice of Hind Rajab", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34383611", "title": "Fiume o morte!", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt26245982", "title": "Afternoons of Solitude", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32249940", "title": "Riefenstahl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33029982", "title": "Songs of Slow Burning Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37538502", "title": "With Hasan in Gaza", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14883538", "title": "Arco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt33738802", "title": "Dog of God", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt27757752", "title": "Olivia and the Invisible Earthquake", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt10312938", "title": "Tales from the Magic Garden", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

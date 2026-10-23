@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2022,
+  "ordinal": "50th",
+  "status": "loaded",
+  "nominationsOn": "2023-01-17",
+  "winnersOn": "2023-02-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/50th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "won" },
+    { "category": "feature", "imdb": "tt3915174", "title": "Puss in Boots: The Last Wish", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9288046", "title": "The Sea Beast", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt5806814", "title": "Charlotte", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt10540510", "title": "Inu-Oh", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt10290244", "title": "Little Nicholas - Happy as Can Be", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt9288748", "title": "My Father's Dragon", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

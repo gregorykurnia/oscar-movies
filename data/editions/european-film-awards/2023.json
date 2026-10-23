@@ -1,0 +1,27 @@
+{
+  "award": "european-film-awards",
+  "year": 2023,
+  "ordinal": "36th",
+  "status": "loaded",
+  "nominationsOn": "2023-11-07",
+  "winnersOn": "2023-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/36th_European_Film_Awards", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Documentary", "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Animated_Feature_Film"],
+  "results": [
+    { "category": "film", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "film", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt27722543", "title": "Green Border", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt14225838", "title": "Io capitano", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt23640230", "title": "Smoke Sauna Sisterhood", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt22768450", "title": "Apolonia, Apolonia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27502426", "title": "Four Daughters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26448811", "title": "On the Adamant", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "won" },
+    { "category": "animated", "imdb": "tt10473036", "title": "The Amazing Maurice", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt21042126", "title": "Chicken for Linda!", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt17526454", "title": "A Greyhound of a Girl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26745680", "title": "Motherland", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8096846", "title": "White Plastic Sky", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

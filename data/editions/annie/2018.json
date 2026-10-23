@@ -1,0 +1,22 @@
+{
+  "award": "annie",
+  "year": 2018,
+  "ordinal": "46th",
+  "status": "loaded",
+  "nominationsOn": "2018-12-03",
+  "winnersOn": "2019-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/46th_Annie_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "feature", "imdb": "tt4701724", "title": "Early Man", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt6900448", "title": "Mirai of the Future", "outcome": "won" },
+    { "category": "indie-feature", "imdb": "tt4717402", "title": "Mutafukaz", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt6241872", "title": "Ruben Brandt, Collector", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt8327492", "title": "Tito e os pássaros", "outcome": "nominated" },
+    { "category": "indie-feature", "imdb": "tt7925798", "title": "This Magnificent Cake!", "outcome": "nominated" }
+  ],
+  "screenings": []
+}
