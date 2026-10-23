@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Flags } from "@/components/flag/Flag";
 import { FilmWatchedMark } from "@/components/marks/MarksProvider";
 import { cn } from "@/lib/cn";
-import type { RaceCategory } from "@/lib/race";
 import {
   averageLine,
   cellKind,
@@ -14,6 +13,7 @@ import {
   gridTotals,
   hasNoData,
   type CellKind,
+  type GridCategory,
   type GridColumn,
   type GridFilm,
 } from "@/lib/year-grid";
@@ -68,7 +68,7 @@ export function YearGrid({
   columns: GridColumn[];
   /** Already filtered and sorted. */
   films: GridFilm[];
-  category: RaceCategory;
+  category: GridCategory;
   criticsOpen: boolean;
   caption: string;
 }) {
@@ -211,7 +211,7 @@ export function YearGridLegend({
   hasCritics,
   hasNoDataColumn,
 }: {
-  category: RaceCategory;
+  category: GridCategory;
   hasCritics: boolean;
   hasNoDataColumn: boolean;
 }) {

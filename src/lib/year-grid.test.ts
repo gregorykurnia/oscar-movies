@@ -14,6 +14,7 @@ import {
   gridHref,
   gridTotals,
   hasNoData,
+  gridCategoryName,
   parseGridQuery,
   toggleGridFilter,
   viewGrid,
@@ -64,6 +65,17 @@ describe("gridColumns", () => {
 
   it("leaves out awards that don't give the category", () => {
     expect(gridColumns(AWARDS, "animated", []).map((c) => c.slug)).toEqual(["annie"]);
+  });
+
+  it("lists every award for all categories, in the same order", () => {
+    expect(gridColumns(AWARDS, "all", []).map((c) => c.slug)).toEqual(["oscars", "afi", "annie", "bafta", "sundance", "cannes", "nyfcc"]);
+  });
+});
+
+describe("gridCategoryName", () => {
+  it("names the category in words, or all of them", () => {
+    expect(gridCategoryName("picture")).toBe("Best Picture");
+    expect(gridCategoryName("all")).toBe("All categories");
   });
 });
 
@@ -192,9 +204,28 @@ describe("the address", () => {
     expect(gridHref(2024, parseGridQuery({}))).toBe("/grid/2024");
   });
 
+  it("reads the all categories view and the Watched filter", () => {
+    expect(parseGridQuery({ category: "all", filter: "watched" })).toEqual({
+      category: "all",
+      sort: "wins",
+      filters: ["watched"],
+      criticsOpen: false,
+    });
+    expect(gridHref(2025, { category: "all", sort: "noms", filters: ["watched"], criticsOpen: false })).toBe(
+      "/grid/2025?category=all&sort=noms&filter=watched",
+    );
+  });
+
   it("flips a filter", () => {
     expect(toggleGridFilter([], "unwatched")).toEqual(["unwatched"]);
     expect(toggleGridFilter(["unwatched"], "unwatched")).toEqual([]);
+  });
+
+  it("keeps Watched and Unwatched apart: turning one on turns the other off", () => {
+    expect(toggleGridFilter([], "watched")).toEqual(["watched"]);
+    expect(toggleGridFilter(["unwatched"], "watched")).toEqual(["watched"]);
+    expect(toggleGridFilter(["watched"], "unwatched")).toEqual(["unwatched"]);
+    expect(toggleGridFilter(["watched"], "watched")).toEqual([]);
   });
 });
 
@@ -228,6 +259,11 @@ describe("viewGrid", () => {
 
   it("filters to films not marked watched", () => {
     expect(titles(view({ filters: ["unwatched"] }), new Set([2, 3]))).toEqual(["Conclave", "Emilia Pérez"]);
+  });
+
+  it("filters to films marked watched, and a film both watched and unwatched can't be shown", () => {
+    expect(titles(view({ filters: ["watched"] }), new Set([2, 3]))).toEqual(["Anora", "Wicked"]);
+    expect(titles(view({ filters: ["watched", "unwatched"] }), new Set([2, 3]))).toEqual([]);
   });
 });
 

@@ -1,12 +1,13 @@
-// The year grid (plan §5.7, guide §8.4, product plan §3.7): for a film year and an Oscar category,
-// one row per film with a nomination anywhere in that category and one column per award that gives
-// it (Oscars, majors, festivals, critics groups, each in calendar order). Pure, so the columns,
-// the cells, the totals, the sort, the filter and the address are unit tested; the data layer
-// (`src/data/year-grid.ts`) reads the rows and the page draws them.
+// The year grid (plan §5.7, guide §8.4, product plan §3.7): for a film year and an Oscar category (or
+// "all" four together, the year summary's lists), one row per film with a nomination anywhere in
+// that category and one column per award that gives it (Oscars, majors, festivals, critics groups,
+// each in calendar order). Pure, so the columns, the cells, the totals, the sort, the filter and the
+// address are unit tested; the data layer (`src/data/year-grid.ts`) reads the rows and the page
+// draws them.
 import type { FilmRowData } from "@/data/films";
 import type { AwardKind, AwardSummary } from "@/lib/awards";
 import { DASH, formatScore } from "@/lib/format";
-import { parseCategory, type RaceCategory } from "@/lib/race";
+import { parseCategory, RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { compareOutcome, flagsFor, isNomination, isShortlisted, type Outcome } from "@/lib/stage";
 
 export type EditionStatus = "loaded" | "partial" | "no_data";
@@ -38,18 +39,26 @@ export type YearGrid = { columns: GridColumn[]; films: GridFilm[] };
 
 const KIND_ORDER: AwardKind[] = ["oscars", "major", "festival", "critics"];
 
+/** A grid view's category: one of the Oscar categories, or every one together ("all", the year summary's lists). */
+export type GridCategory = RaceCategory | "all";
+
+/** The category in words: "Best Picture", or "All categories". */
+export function gridCategoryName(category: GridCategory): string {
+  return category === "all" ? "All categories" : RACE_CATEGORIES.find((c) => c.slug === category)!.oscar;
+}
+
 /**
- * The awards that give the category, Oscars first, then majors, festivals and critics groups, each
- * in calendar order, with their edition's status that year.
+ * The awards that give the category (every award for "all"), Oscars first, then majors, festivals and
+ * critics groups, each in calendar order, with their edition's status that year.
  */
 export function gridColumns(
   awards: AwardSummary[],
-  category: RaceCategory,
+  category: GridCategory,
   editions: { slug: string; status: EditionStatus }[],
 ): GridColumn[] {
   const status = new Map(editions.map((e) => [e.slug, e.status]));
   return awards
-    .filter((a) => a.oscarCategories.includes(category))
+    .filter((a) => category === "all" || a.oscarCategories.includes(category))
     .sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind) || a.calendarOrder - b.calendarOrder)
     .map((a) => ({
       slug: a.slug,
@@ -88,7 +97,7 @@ function isGridFilm(cells: Record<string, GridCell>): boolean {
  * furthest result there (Golden Globes' Drama and Comedy share one column); on a tie the first
  * row read wins, so the caller orders rows by the award's category order.
  */
-export function gridFilms(rows: GridResultRow[], category: RaceCategory): GridFilm[] {
+export function gridFilms(rows: GridResultRow[], category: GridCategory): GridFilm[] {
   const byFilm = new Map<number, { film: FilmRowData; cells: Record<string, GridCell>; submittedBy: string | null }>();
   for (const row of rows) {
     let entry = byFilm.get(row.film.id);
@@ -141,7 +150,7 @@ export function cellKind(outcome: Outcome): CellKind {
  * "Won: Best Film", "Runner-up: People's Choice Award", "Selected: Top 10 Films of the Year".
  * International's `eligible` is a submission that wasn't nominated, so it reads "Submitted".
  */
-export function cellLabel(cell: GridCell, column: Pick<GridColumn, "isSelection">, category: RaceCategory): string {
+export function cellLabel(cell: GridCell, column: Pick<GridColumn, "isSelection">, category: GridCategory): string {
   const word: Record<Outcome, string> = {
     won: "Won",
     nominated: column.isSelection ? "Selected" : "Nominated",
@@ -179,11 +188,11 @@ export const GRID_SORT_LABELS: Record<GridSort, string> = {
   average: "Average score",
   title: "Title",
 };
-export const GRID_FILTERS = ["unwatched"] as const;
+export const GRID_FILTERS = ["watched", "unwatched"] as const;
 export type GridFilter = (typeof GRID_FILTERS)[number];
 
 export type GridQuery = {
-  category: RaceCategory;
+  category: GridCategory;
   sort: GridSort;
   filters: GridFilter[];
   /** Critics groups as one count column (the default) or one column each. */
@@ -200,7 +209,7 @@ const first = (value: string | string[] | undefined) => [value].flat()[0];
 export function parseGridQuery(params: SearchParams): GridQuery {
   const filters = [params.filter ?? []].flat();
   return {
-    category: parseCategory(params.category),
+    category: first(params.category) === "all" ? "all" : parseCategory(params.category),
     sort: GRID_SORTS.find((s) => s === first(params.sort)) ?? DEFAULT_SORT,
     filters: GRID_FILTERS.filter((f) => filters.includes(f)),
     criticsOpen: first(params.critics) === "open",
@@ -235,9 +244,9 @@ function byAverage(a: GridFilm, b: GridFilm): number {
 }
 
 /**
- * The rows the page shows: Unwatched keeps films not marked watched (a want-to-watch film stays),
- * then the sort. Wins: most wins, then nominations; Nominations: the other way round; Average:
- * highest first, no scores last; every sort ends on the title.
+ * The rows the page shows: the filters (Watched keeps films marked watched, Unwatched the rest; a
+ * want-to-watch film is unwatched), then the sort. Wins: most wins, then nominations; Nominations:
+ * the other way round; Average: highest first, no scores last; every sort ends on the title.
  */
 export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, watched: ReadonlySet<number>): GridFilm[] {
   const totals = new Map(films.map((f) => [f.film.id, gridTotals(f)]));
@@ -248,12 +257,17 @@ export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, watche
     average: (a, b) => byAverage(a, b) || t(b).wins - t(a).wins || byTitle(a, b),
     title: byTitle,
   };
-  return films.filter((f) => !filters.includes("unwatched") || !watched.has(f.film.id)).sort(compare[sort]);
+  const kept = (f: GridFilm) => filters.every((filter) => (filter === "watched") === watched.has(f.film.id));
+  return films.filter(kept).sort(compare[sort]);
 }
 
-/** The filters with one chip flipped. */
+// Watched and Unwatched exclude each other: turning one on turns the other off.
+const OPPOSITE_FILTER: Record<GridFilter, GridFilter> = { watched: "unwatched", unwatched: "watched" };
+
+/** The filters with one chip flipped: on, it replaces its opposite; off, it's removed. */
 export function toggleGridFilter(filters: GridFilter[], filter: GridFilter): GridFilter[] {
-  return GRID_FILTERS.filter((f) => (f === filter ? !filters.includes(f) : filters.includes(f)));
+  if (filters.includes(filter)) return filters.filter((f) => f !== filter);
+  return GRID_FILTERS.filter((f) => f === filter || (filters.includes(f) && f !== OPPOSITE_FILTER[filter]));
 }
 
 /** The head's groups (guide §8.4): Totals, Oscars, Major awards, Festivals, Critics groups. */

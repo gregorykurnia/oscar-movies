@@ -6,12 +6,11 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
 import { AWARDS } from "@/lib/awards";
-import type { RaceCategory } from "@/lib/race";
-import { gridColumns, gridFilms, type YearGrid } from "@/lib/year-grid";
+import { gridColumns, gridFilms, type GridCategory, type YearGrid } from "@/lib/year-grid";
 import { queryYearEditions } from "./awards";
 import { filmColumns, toFilmRow, type ReadDb } from "./films";
 
-export async function queryYearGrid(db: ReadDb, year: number, category: RaceCategory): Promise<YearGrid> {
+export async function queryYearGrid(db: ReadDb, year: number, category: GridCategory): Promise<YearGrid> {
   const [yearEditions, rows] = await Promise.all([
     queryYearEditions(db, year),
     db
@@ -27,7 +26,7 @@ export async function queryYearGrid(db: ReadDb, year: number, category: RaceCate
       .innerJoin(awards, eq(awards.id, editions.awardId))
       .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
       .innerJoin(movies, eq(movies.id, results.movieId))
-      .where(and(eq(editions.year, year), eq(awardCategories.oscarCategory, category)))
+      .where(and(eq(editions.year, year), category === "all" ? undefined : eq(awardCategories.oscarCategory, category)))
       // The award's own category order decides which name a tied cell shows.
       .orderBy(asc(awardCategories.sortOrder), asc(awardCategories.id)),
   ]);
@@ -47,7 +46,7 @@ export async function queryYearGrid(db: ReadDb, year: number, category: RaceCate
 }
 
 /** Cached `queryYearGrid`. */
-export async function getYearGrid(year: number, category: RaceCategory): Promise<YearGrid> {
+export async function getYearGrid(year: number, category: GridCategory): Promise<YearGrid> {
   "use cache";
   cacheTag("awards", "scores");
   cacheLife("max");

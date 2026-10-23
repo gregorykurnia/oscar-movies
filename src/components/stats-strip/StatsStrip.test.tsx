@@ -27,4 +27,20 @@ describe("StatsStrip", () => {
     expect(link.className).toContain("md:border-l");
     expect((strip.firstElementChild as HTMLElement).className).not.toContain("border-l");
   });
+
+  it("a note sits under the label, in ink-muted, and is left out when there is none", () => {
+    render(
+      <StatsStrip
+        stats={[
+          { value: "6", label: "Most nominations", note: "Anora: 2 wins at Oscars and BAFTA", href: "/grid/2025?category=all&sort=noms" },
+          { value: "61", label: "Films with a nomination" },
+        ]}
+      />,
+    );
+    const note = screen.getByText("Anora: 2 wins at Oscars and BAFTA");
+    expect(note.tagName).toBe("P");
+    expect(note.className).toContain("text-ink-muted");
+    expect(screen.getByRole("link", { name: /Most nominations/ }).textContent).toContain("Anora: 2 wins at Oscars and BAFTA");
+    expect(screen.getByText("Films with a nomination").nextElementSibling).toBeNull();
+  });
 });

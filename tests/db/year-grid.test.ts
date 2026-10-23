@@ -64,6 +64,17 @@ describe("queryYearGrid", () => {
     expect(films.find((f) => f.film.title === "Sentimental Value")!.flags[0]).toBe("NO");
   });
 
+  it("2025 all categories: the four categories' films together, each once, with every award as a column", async () => {
+    const { columns, films } = await queryYearGrid(db, 2025, "all");
+    const union = new Set<number>();
+    for (const category of ["picture", "documentary", "international", "animated"] as const) {
+      for (const f of (await queryYearGrid(db, 2025, category)).films) union.add(f.film.id);
+    }
+    expect(films.map((f) => f.film.id).sort((a, b) => a - b)).toEqual([...union].sort((a, b) => a - b));
+    expect(columns).toHaveLength(17);
+    expect(columns.map((c) => c.slug)).toEqual(expect.arrayContaining(["oscars", "annie", "sundance"]));
+  });
+
   it("2026 Animated: the columns with no data, and no films yet", async () => {
     const { columns, films } = await queryYearGrid(db, 2026, "animated");
     expect(columns[0]).toMatchObject({ slug: "oscars", status: "partial" });

@@ -7,6 +7,8 @@ export type Stat = {
   /** "of N" or a unit after the value, in ink-muted ("8 of 14"). */
   of?: string;
   label: string;
+  /** A line under the label, in ink-muted: the film behind the figure ("Anora: 3 wins at Oscars and BAFTA"). */
+  note?: string;
   /** 0–100: a 2px gold meter on a track under the label. */
   meter?: number;
   /** A stat that counts films links to the filtered list. */
@@ -27,6 +29,7 @@ export function StatsStrip({ stats, className }: { stats: Stat[]; className?: st
             <p className="mt-1 text-caption text-ink-muted decoration-current underline-offset-[3px] group-hover:text-ink group-hover:underline">
               {stat.label}
             </p>
+            {stat.note ? <p className="mt-0.5 text-caption text-ink-muted">{stat.note}</p> : null}
             {stat.meter !== undefined ? (
               <span aria-hidden="true" className="mt-2.5 block h-0.5 bg-track">
                 <span className="block h-0.5 bg-gold" style={{ width: `${Math.min(100, Math.max(0, stat.meter))}%` }} />

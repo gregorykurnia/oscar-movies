@@ -14,12 +14,14 @@ import {
   filmCountLabel,
   GRID_SORT_LABELS,
   GRID_SORTS,
+  gridCategoryName,
   gridHref,
   gridQuery,
   hasNoData,
   parseGridQuery,
   toggleGridFilter,
   viewGrid,
+  type GridFilter,
   type GridQuery,
 } from "@/lib/year-grid";
 import { LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
@@ -30,13 +32,15 @@ type Query = Record<string, string | string[] | undefined>;
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 
-const oscarName = (view: GridQuery) => RACE_CATEGORIES.find((c) => c.slug === view.category)!.oscar;
+/** The words after a view's count: " for Best Picture", none for all categories. */
+const scopeOf = (view: GridQuery) => (view.category === "all" ? "" : ` for ${gridCategoryName(view.category)}`);
 
 /**
  * Guide §8.4 the year grid (`/grid/[year]?category=&sort=&filter=&critics=`): PageHeader with the
- * count, the "Year summary" link and the year switcher; a toolbar (category, sort, Unwatched, and
- * the critics groups' folding when the category has any); the grid; the legend. The whole view is
- * in the address; the grid is read for it, and the Unwatched filter reads the marks per visit.
+ * count, the "Year summary" link and the year switcher; a toolbar (category, sort, Watched and
+ * Unwatched, and the critics groups' folding when the category has any); the grid; the legend. The
+ * whole view is in the address; the grid is read for it, and the watched filters read the marks per
+ * visit. "all" is every category together (the year summary's totals link there).
  */
 export function YearGridPage({ year, query }: { year: number; query: Promise<Query> }) {
   return (
@@ -69,7 +73,7 @@ async function Sub({ year, query }: { year: number; query: Promise<Query> }) {
   return (
     <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
       <span>
-        {oscarName(view)} · {filmCountLabel(films.length)}
+        {gridCategoryName(view.category)} · {filmCountLabel(films.length)}
       </span>
       <TextLink href={`/years/${year}`}>Year summary</TextLink>
     </p>
@@ -90,15 +94,14 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
   const watched = new Set(marks.filter((m) => m.watched).map((m) => m.movieId));
   const shown = viewGrid(grid.films, view, watched);
   const critics = grid.columns.filter((c) => c.kind === "critics");
-  const oscar = oscarName(view);
+  const scope = scopeOf(view);
+  const filterChip = (filter: GridFilter, label: string) => ({
+    label,
+    href: gridHref(year, { ...view, filters: toggleGridFilter(view.filters, filter) }),
+    pressed: view.filters.includes(filter),
+  });
 
-  const chips = [
-    {
-      label: "Unwatched",
-      href: gridHref(year, { ...view, filters: toggleGridFilter(view.filters, "unwatched") }),
-      pressed: view.filters.includes("unwatched"),
-    },
-  ];
+  const chips = [filterChip("watched", "Watched"), filterChip("unwatched", "Unwatched")];
   if (critics.length > 0) {
     chips.push({
       label: "Critics groups folded",
@@ -113,11 +116,14 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
         <Segmented
           label="Category"
           className="mr-auto"
-          items={RACE_CATEGORIES.map((c) => ({
-            label: c.name,
-            href: gridHref(year, { ...view, category: c.slug }),
-            current: c.slug === view.category,
-          }))}
+          items={[
+            { label: "All", href: gridHref(year, { ...view, category: "all" }), current: view.category === "all" },
+            ...RACE_CATEGORIES.map((c) => ({
+              label: c.name,
+              href: gridHref(year, { ...view, category: c.slug }),
+              current: c.slug === view.category,
+            })),
+          ]}
         />
         <SortMenu
           items={GRID_SORTS.map((sort) => ({
@@ -131,11 +137,11 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
 
       {grid.films.length === 0 ? (
         <EmptyState title="No nominations yet" className="mt-6">
-          No film has a nomination for {oscar} in {year} yet. The grid fills in as the awards announce theirs.
+          No film has a nomination{scope} in {year} yet. The grid fills in as the awards announce theirs.
         </EmptyState>
       ) : shown.length === 0 ? (
         <EmptyState
-          title="No unwatched films"
+          title={view.filters.includes("watched") ? "No watched films" : "No unwatched films"}
           className="mt-6"
           actions={
             <TextLink href={gridHref(year, { ...view, filters: [] })} className="text-small">
@@ -143,7 +149,9 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             </TextLink>
           }
         >
-          You&apos;ve watched every film in the {year} grid for {oscar}.
+          {view.filters.includes("watched")
+            ? `You haven't marked a film in the ${year} grid${scope} as watched yet.`
+            : `You've watched every film in the ${year} grid${scope}.`}
         </EmptyState>
       ) : (
         <>
@@ -152,7 +160,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             films={shown}
             category={view.category}
             criticsOpen={view.criticsOpen}
-            caption={`${oscar}, ${year}: each film's results at every award`}
+            caption={`${gridCategoryName(view.category)}, ${year}: each film's results at every award`}
           />
           <YearGridLegend
             category={view.category}

@@ -45,7 +45,8 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
   await expect(table.getByRole("columnheader", { name: "Festivals" })).toBeVisible();
   await expect(table.getByRole("columnheader", { name: "BAFTA" })).toBeVisible();
   await expect(page.getByRole("list", { name: "Legend" })).toContainText("Nominated or on the list");
-  await expect(page.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(31);
+  // The marks are the table's buttons; the Watched chip above it is not one of them.
+  await expect(table.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(31);
 });
 
 test("the category, sort and Unwatched filter are kept in the address and survive a reload", async ({ page }) => {
@@ -79,6 +80,22 @@ test("the category, sort and Unwatched filter are kept in the address and surviv
   await page.getByRole("button", { name: "Year: 2025" }).click();
   await page.getByRole("dialog", { name: "Choose a year" }).getByRole("link", { name: "2024" }).click();
   await expect(page).toHaveURL(/\/grid\/2024\?category=international&sort=title&filter=unwatched$/);
+});
+
+test("Watched and Unwatched are one choice, and All categories lists every category's films", async ({ page }) => {
+  await page.goto("/grid/2025?category=all&filter=unwatched");
+  await expect(page.getByText("All categories · 90 films with a nomination")).toBeVisible();
+  const filter = page.getByRole("group", { name: "Filter" });
+  await expect(filter.getByRole("button", { name: "Unwatched", exact: true })).toHaveAttribute("aria-pressed", "true");
+
+  await filter.getByRole("button", { name: "Watched", exact: true }).click();
+  await expect(page).toHaveURL(/\/grid\/2025\?category=all&filter=watched$/);
+  await expect(filter.getByRole("button", { name: "Watched", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(filter.getByRole("button", { name: "Unwatched", exact: true })).toHaveAttribute("aria-pressed", "false");
+
+  await filter.getByRole("button", { name: "Watched", exact: true }).click();
+  await expect(page).toHaveURL(/\/grid\/2025\?category=all$/);
+  await expect(filter.getByRole("button", { name: "Watched", exact: true })).toHaveAttribute("aria-pressed", "false");
 });
 
 test("the sort menu works by keyboard", async ({ page }) => {
