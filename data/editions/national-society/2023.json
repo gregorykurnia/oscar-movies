@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2024-01-06",
+  "winnersOn": "2024-01-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2023_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "won" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28494786", "title": "Menus-Plaisirs - Les Troisgros", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

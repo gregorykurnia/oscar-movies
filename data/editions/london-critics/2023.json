@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-12-20",
+  "winnersOn": "2024-02-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "picture", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13651794", "title": "May December", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13238346", "title": "Past Lives", "outcome": "won" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082488", "title": "The Eternal Memory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22179746", "title": "Scala!!!", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

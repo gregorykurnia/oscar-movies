@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2012-12-09",
+  "winnersOn": "2012-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "international", "imdb": "tt2076220", "title": "Holy Motors", "outcome": "won" },
+    { "category": "international", "imdb": "tt1445520", "title": "Footnote", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2396224", "title": "It's Such a Beautiful Day", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

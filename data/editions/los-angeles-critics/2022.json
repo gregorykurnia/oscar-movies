@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2023-01-14",
+  "winnersOn": "2023-01-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "won" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "won" }
+  ],
+  "screenings": []
+}

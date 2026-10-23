@@ -1,0 +1,27 @@
+{
+  "award": "london-critics",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2013-01-20",
+  "winnersOn": "2013-01-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2012"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2076220", "title": "Holy Motors", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1827487", "title": "Once Upon a Time in Anatolia", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2153963", "title": "Tabu", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1966604", "title": "The Imposter", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1556190", "title": "Nostalgia for the Light", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1937419", "title": "London: The Modern Babylon", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

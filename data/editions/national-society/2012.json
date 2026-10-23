@@ -1,0 +1,18 @@
+{
+  "award": "national-society",
+  "year": 2012,
+  "status": "partial",
+  "nominationsOn": "2013-01-05",
+  "winnersOn": "2013-01-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_National_Society_of_Film_Critics_Awards"],
+  "note": "Not found on the source: international.",
+  "results": [
+    { "category": "picture", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1667905", "title": "This Is Not a Film", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

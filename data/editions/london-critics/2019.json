@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-17",
+  "winnersOn": "2020-01-30",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2019"],
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7286456", "title": "Joker", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8946378", "title": "Knives Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8772262", "title": "Midsommar", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6920356", "title": "The Souvenir", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "won" },
+    { "category": "international", "imdb": "tt6752992", "title": "Happy as Lazzaro", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6062774", "title": "Monos", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4935462", "title": "Amazing Grace", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9530198", "title": "Varda by Agnès", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

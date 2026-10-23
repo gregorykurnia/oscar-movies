@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-15",
+  "winnersOn": "2026-02-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt33455099", "title": "The Mastermind", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32843349", "title": "Sorry, Baby", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt29768334", "title": "Train Dreams", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt26581740", "title": "Weapons", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33029955", "title": "One to One: John & Yoko", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt32249940", "title": "Riefenstahl", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

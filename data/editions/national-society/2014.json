@@ -1,0 +1,19 @@
+{
+  "award": "national-society",
+  "year": 2014,
+  "status": "partial",
+  "nominationsOn": "2015-01-03",
+  "winnersOn": "2015-01-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_National_Society_of_Film_Critics_Awards"],
+  "note": "Not found on the source: international.",
+  "results": [
+    { "category": "picture", "imdb": "tt2400275", "title": "Goodbye to Language", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2473794", "title": "Mr. Turner", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3720794", "title": "National Gallery", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

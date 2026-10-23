@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2021-01-09",
+  "winnersOn": "2021-01-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2020_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12094720", "title": "City Hall", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

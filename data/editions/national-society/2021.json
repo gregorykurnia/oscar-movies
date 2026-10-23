@@ -1,0 +1,18 @@
+{
+  "award": "national-society",
+  "year": 2021,
+  "status": "partial",
+  "nominationsOn": "2022-01-08",
+  "winnersOn": "2022-01-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2021_National_Society_of_Film_Critics_Awards"],
+  "note": "Not found on the source: international.",
+  "results": [
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "picture", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14300912", "title": "Procession", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7230750", "title": "The Velvet Underground", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

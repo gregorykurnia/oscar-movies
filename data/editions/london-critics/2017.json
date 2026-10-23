@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-12-19",
+  "winnersOn": "2018-01-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2017"],
+  "results": [
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5635086", "title": "God’s Own Country", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5776858", "title": "Phantom Thread", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "won" },
+    { "category": "international", "imdb": "tt5221584", "title": "Aquarius", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4954522", "title": "Raw", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4372240", "title": "78/52", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6573444", "title": "Human Flow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5836866", "title": "The Work", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -202,5 +202,6 @@
   "tt28814949": { "slug": "taylor-swift-the-eras-tour", "title": "Taylor Swift: The Eras Tour", "countries": ["US"], "language": "en", "wd": "Q122160859", "tmdb": 1160164 },
   "tt9185206": { "slug": "are-you-there-god-its-me-margaret", "title": "Are You There God? It's Me, Margaret", "countries": ["US"], "language": "en", "wd": "Q106448550", "tmdb": 555285 },
   "tt15354916": { "slug": "jawan", "title": "Jawan", "originalTitle": "जवान", "originalLang": "hi", "countries": ["IN"], "language": "hi", "wd": "Q113493289", "tmdb": 872906 },
-  "tt14570440": { "slug": "radical", "title": "Radical", "countries": ["MX"], "language": "es", "wd": "Q115686450", "tmdb": 1058694 }
+  "tt14570440": { "slug": "radical", "title": "Radical", "countries": ["MX"], "language": "es", "wd": "Q115686450", "tmdb": 1058694 },
+  "tt22179746": { "slug": "scala", "title": "Scala!!!", "countries": ["GB"], "language": "en", "wd": "Q124791306", "tmdb": 1026468 }
 }

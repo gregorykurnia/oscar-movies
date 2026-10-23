@@ -52,6 +52,18 @@
     "Marina Abramovic: The Artist is Present": {
       "article": "Marina Abramović: The Artist Is Present",
       "why": "Gotham 2012's page spells the documentary's title without the accent and has no link."
+    },
+    "National Gallery": {
+      "article": "National Gallery (film)",
+      "why": "The page links the museum; the nominee is Frederick Wiseman's 2014 documentary."
+    },
+    "Hard to Be a God": {
+      "article": "Hard to Be a God (2013 film)",
+      "why": "The page links Arkady and Boris Strugatsky's novel; the nominee is Aleksei German's 2013 film."
+    },
+    "Eric Clapton: Life in 12 Bars": {
+      "article": "Eric Clapton: Life in 12 Bars",
+      "why": "NBR's page names the 2017 documentary without a link; Wikipedia has its article."
     }
   },
   "tmdbSearch": {
@@ -342,6 +354,80 @@
       ],
       "country": "US",
       "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "london-critics 2012 London: The Modern Babylon": {
+      "directors": [
+        "Julien Temple"
+      ],
+      "country": "GB",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2012 Only the Young": {
+      "directors": [
+        "Elizabeth Mims",
+        "Jason Tippet"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2014 Art and Craft": {
+      "directors": [
+        "Sam Cullman",
+        "Jennifer Grausman"
+      ],
+      "country": "US",
+      "why": "The page links the forger Mark Landis, who has no film record; the nominee is the documentary Art and Craft, which has no Wikipedia article. TMDB lists it."
+    },
+    "nbr 2014 Keep On Keepin' On": {
+      "directors": [
+        "Alan Hicks"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2017 Brimstone & Glory": {
+      "directors": [
+        "Viktor Jakovleski"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2017 Hell on Earth: The Fall of Syria and the Rise of ISIS": {
+      "directors": [
+        "Sebastian Junger",
+        "Nick Quested"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2018 Crime + Punishment": {
+      "directors": [
+        "Stephen Maing"
+      ],
+      "country": "US",
+      "why": "The page's title redirects to the director's page; the nominee is his documentary. TMDB lists it."
+    },
+    "nbr 2019 Wrestle": {
+      "directors": [
+        "Suzannah Herbert",
+        "Lauren Belfer"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2023 32 Sounds": {
+      "directors": [
+        "Sam Green"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "nbr 2017 Eric Clapton: Life in 12 Bars": {
+      "directors": [
+        "Lili Fini Zanuck"
+      ],
+      "country": "GB",
+      "why": "Wikipedia has the article but its Wikidata item has no IMDb ID; TMDB lists the documentary."
     }
   },
   "leaveOut": {

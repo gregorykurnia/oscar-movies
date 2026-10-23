@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2025-01-04",
+  "winnersOn": "2025-01-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2024_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt18162096", "title": "Do Not Expect Too Much from the End of the World", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-12-21",
+  "winnersOn": "2023-02-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2022"],
+  "results": [
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "won" },
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9051908", "title": "Living", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1745960", "title": "Top Gun: Maverick", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "won" },
+    { "category": "international", "imdb": "tt15109082", "title": "The Quiet Girl", "outcome": "won" },
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1461238", "title": "Kurt Vonnegut: Unstuck in Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

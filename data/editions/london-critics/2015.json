@@ -1,0 +1,32 @@
+{
+  "award": "london-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2016-01-17",
+  "winnersOn": "2016-01-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2015"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3544082", "title": "45 Years", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "international", "imdb": "tt3090634", "title": "Eden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1745787", "title": "The Tribe", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3669520", "title": "Palio", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4684410", "title": "A Syrian Love Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2328813", "title": "Hard to Be a God", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

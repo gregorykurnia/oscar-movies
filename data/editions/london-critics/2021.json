@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-12-16",
+  "winnersOn": "2022-02-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2021"],
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9100054", "title": "The Lost Daughter", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8399288", "title": "Memoria", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6992978", "title": "The Souvenir Part II", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11464016", "title": "Gunda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8801666", "title": "The Most Beautiful Boy in the World", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7230750", "title": "The Velvet Underground", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

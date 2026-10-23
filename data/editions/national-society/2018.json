@@ -1,0 +1,21 @@
+{
+  "award": "national-society",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2019-01-05",
+  "winnersOn": "2019-01-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2018_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt6217608", "title": "The Rider", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7472352", "title": "Shirkers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4935462", "title": "Amazing Grace", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

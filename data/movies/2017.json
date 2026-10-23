@@ -207,5 +207,12 @@
   "tt7253506": { "slug": "joan-didion-the-center-will-not-hold", "title": "Joan Didion: The Center Will Not Hold", "countries": ["US"], "language": "en", "wd": "Q47363562", "tmdb": 473408 },
   "tt4846232": { "slug": "good-time", "title": "Good Time", "countries": ["US"], "language": "en", "wd": "Q22350752", "tmdb": 429200 },
   "tt5840448": { "slug": "rat-film", "title": "Rat Film", "countries": ["US"], "language": "en", "wd": "Q26832629", "tmdb": 409109 },
-  "tt6176928": { "slug": "whose-streets", "title": "Whose Streets?", "countries": ["US"], "language": "en", "wd": "Q28061816", "tmdb": 433036 }
+  "tt6176928": { "slug": "whose-streets", "title": "Whose Streets?", "countries": ["US"], "language": "en", "wd": "Q28061816", "tmdb": 433036 },
+  "tt4372240": { "slug": "78-52", "title": "78/52", "countries": ["US"], "language": "en", "wd": "Q48839262", "tmdb": 359749 },
+  "tt4936450": { "slug": "graduation", "title": "Graduation", "originalTitle": "Bacalaureat", "originalLang": "ro", "countries": ["RO", "FR", "BE"], "language": "ro", "wd": "Q23762934", "tmdb": 374458 },
+  "tt3890160": { "slug": "baby-driver", "title": "Baby Driver", "countries": ["GB", "US"], "language": "en", "wd": "Q23016644", "tmdb": 339403 },
+  "tt1389072": { "slug": "downsizing", "title": "Downsizing", "countries": ["US"], "language": "en", "wd": "Q22075017", "tmdb": 301337 },
+  "tt5029608": { "slug": "frantz", "title": "Frantz", "countries": ["DE", "FR"], "language": "fr", "wd": "Q25395940", "tmdb": 377263 },
+  "tt5279122": { "slug": "brimstone-and-glory", "title": "Brimstone & Glory", "countries": ["US", "MX"], "language": "en", "tmdb": 444012 },
+  "tt6498644": { "slug": "eric-clapton-life-in-12-bars-2017", "title": "Eric Clapton: Life in 12 Bars", "countries": ["US", "GB"], "language": "en", "tmdb": 445065 }
 }

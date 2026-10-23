@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-08",
+  "winnersOn": "2019-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2019_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "won" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-06",
+  "winnersOn": "2015-12-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "international", "imdb": "tt1745787", "title": "The Tribe", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-12-10",
+  "winnersOn": "2023-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2023_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt26315142", "title": "Tótem", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt28494786", "title": "Menus-Plaisirs - Les Troisgros", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24082488", "title": "The Eternal Memory", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

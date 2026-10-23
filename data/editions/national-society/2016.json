@@ -1,0 +1,21 @@
+{
+  "award": "national-society",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2017-01-07",
+  "winnersOn": "2017-01-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2016_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4120176", "title": "Things to Come", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

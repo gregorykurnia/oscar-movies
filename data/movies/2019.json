@@ -195,5 +195,11 @@
   "tt8185182": { "slug": "long-days-journey-into-night", "title": "Long Day's Journey into Night", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51879925", "tmdb": 486898 },
   "tt8923500": { "slug": "midnight-traveler", "title": "Midnight Traveler", "countries": ["CA", "QA", "US", "GB"], "language": "ps", "wd": "Q108941544", "tmdb": 566216 },
   "tt1489887": { "slug": "booksmart", "title": "Booksmart", "countries": ["US"], "language": "en", "wd": "Q55605752", "tmdb": 505600 },
-  "tt9351746": { "slug": "love-antosha", "title": "Love, Antosha", "countries": ["US"], "language": "en", "wd": "Q61450781", "tmdb": 565276 }
+  "tt9351746": { "slug": "love-antosha", "title": "Love, Antosha", "countries": ["US"], "language": "en", "wd": "Q61450781", "tmdb": 565276 },
+  "tt8772262": { "slug": "midsommar", "title": "Midsommar", "countries": ["US", "SE"], "language": "en", "wd": "Q55907451", "tmdb": 530385 },
+  "tt4935462": { "slug": "amazing-grace", "title": "Amazing Grace", "countries": ["US"], "language": "en", "wd": "Q61952411", "tmdb": 356199 },
+  "tt9530198": { "slug": "varda-by-agnes", "title": "Varda by Agnès", "originalTitle": "Varda par Agnés", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q63993096", "tmdb": 554967 },
+  "tt10289996": { "slug": "the-black-godfather", "title": "The Black Godfather", "countries": ["US"], "language": "en", "wd": "Q64450077", "tmdb": 606215 },
+  "tt9577852": { "slug": "rolling-thunder-revue-a-bob-dylan-story-by-martin-scorsese", "title": "Rolling Thunder Revue: A Bob Dylan Story by Martin Scorsese", "countries": ["US"], "language": "en", "wd": "Q63565898", "tmdb": 574638 },
+  "tt8373280": { "slug": "wrestle", "title": "Wrestle", "countries": ["US"], "language": "en", "tmdb": 511807 }
 }

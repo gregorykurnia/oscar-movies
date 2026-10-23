@@ -187,5 +187,9 @@
   "tt4595882": { "slug": "can-you-ever-forgive-me", "title": "Can You Ever Forgive Me?", "countries": ["US"], "language": "en", "wd": "Q28860129", "tmdb": 401847 },
   "tt8749146": { "slug": "monrovia-indiana", "title": "Monrovia, Indiana", "countries": ["US"], "language": "en", "wd": "Q58814612", "tmdb": 537968 },
   "tt6101602": { "slug": "madelines-madeline", "title": "Madeline's Madeline", "countries": ["US"], "language": "en", "wd": "Q50649674", "tmdb": 468735 },
-  "tt7520286": { "slug": "bisbee-17", "title": "Bisbee '17", "countries": ["US"], "language": "en", "wd": "Q64759205", "tmdb": 490758 }
+  "tt7520286": { "slug": "bisbee-17", "title": "Bisbee '17", "countries": ["US"], "language": "en", "wd": "Q64759205", "tmdb": 490758 },
+  "tt2404639": { "slug": "the-happy-prince", "title": "The Happy Prince", "countries": ["GB", "BE", "DE", "IT"], "language": "en", "wd": "Q27501903", "tmdb": 427214 },
+  "tt5740866": { "slug": "whitney", "title": "Whitney", "countries": ["GB", "US"], "language": "en", "wd": "Q52791458", "tmdb": 507256 },
+  "tt6412452": { "slug": "the-ballad-of-buster-scruggs", "title": "The Ballad of Buster Scruggs", "countries": ["US"], "language": "en", "wd": "Q37342034", "tmdb": 537996 },
+  "tt6002232": { "slug": "custody", "title": "Custody", "originalTitle": "Jusqu'à la garde", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q38189374", "tmdb": 451657 }
 }

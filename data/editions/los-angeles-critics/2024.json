@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-08",
+  "winnersOn": "2024-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2024_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt21042126", "title": "Chicken for Linda!", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

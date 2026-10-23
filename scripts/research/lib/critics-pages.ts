@@ -48,7 +48,12 @@ export function readLabelBlocks(html: string): Block[] {
     const next = (container.is("dt") ? container.parent("dl") : container).next();
     const list = container.is("li") ? container.children("ul, ol").first() : next.is("ul, ol") ? next : $();
     if (list.length === 0) return;
-    blocks.push({ label, items: list.children("li").toArray().map((li) => itemOf($, li)), winnersAreAll: true });
+    // LAFCA nests "Runner-up: …" one level under the winner's line.
+    const lines = list
+      .children("li")
+      .toArray()
+      .flatMap((li) => [li, ...$(li).children("ul, ol").children("li").toArray().filter((r) => RUNNER_UP.test(clean(ownContent($, r).text())))]);
+    blocks.push({ label, items: lines.map((li) => itemOf($, li)), winnersAreAll: true });
   });
   return blocks;
 }
@@ -69,6 +74,31 @@ export function readHeadingBlocks(html: string): Block[] {
     }
     if (!label || !node.is("ul, ol")) return;
     blocks.push({ label, items: [...lead, ...node.children("li").toArray().map((li) => itemOf($, li))], winnersAreAll: false });
+  });
+  return blocks;
+}
+
+/** A heading with numbered lines in a paragraph ("1. A <br> 2. B"): NSFC's 2012 and 2013 pages; the bold line is the winner. */
+export function readRankedLines(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("h2, h3, h4").each((_, h) => {
+    const label = clean($(h).text());
+    const start = $(h).closest(".mw-heading").length > 0 ? $(h).closest(".mw-heading") : $(h);
+    const node = start.next();
+    if (!label || !node.is("p")) return;
+    const items: Item[] = [];
+    for (const segment of (node.html() ?? "").split(/<br\s*\/?>/i)) {
+      const $$ = cheerio.load(segment, null, false);
+      $$("sup.reference, .reference").remove();
+      if (!/^\d+\.\s/.test(clean($$.root().text()))) continue;
+      const own = $$.root();
+      const link = own.find("a").first();
+      const italic = own.find("i").first();
+      const text = italic.length > 0 ? clean(italic.text()) : clean(own.text().replace(/^\d+\.\s*/, "").split(/\s[–-]\s/)[0]);
+      items.push({ ...nomineeOf($$, own), runnerUp: false, plain: link.length > 0 ? linkOf($$, link as cheerio.Cheerio<Element>) : { article: null, text } });
+    }
+    if (items.length > 0) blocks.push({ label, items, winnersAreAll: false });
   });
   return blocks;
 }
@@ -107,6 +137,7 @@ export function readBlocks(html: string): Block[] {
     ...asItems(readLabelledCells(html)),
     ...readLabelBlocks(html),
     ...readHeadingBlocks(html),
+    ...readRankedLines(html),
   ].filter((b) => b.items.length > 0);
 }
 
@@ -145,6 +176,8 @@ export function leadDates(html: string): { nominationsOn?: string; winnersOn?: s
   const $ = cheerio.load(html);
   const lead = $("p")
     .toArray()
+    // Not the paragraphs of a floated box (London's results box).
+    .filter((p) => $(p).closest("div[style]").length === 0)
     .map((p) => clean($(p).clone().find("sup.reference").remove().end().text()))
     .filter((t) => t.length > 30)
     .slice(0, 3)

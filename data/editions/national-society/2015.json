@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2016-01-03",
+  "winnersOn": "2016-01-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3409392", "title": "Timbuktu", "outcome": "won" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4936064", "title": "In Jackson Heights", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2219650", "title": "Seymour: An Introduction", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

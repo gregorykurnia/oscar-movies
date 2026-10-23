@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-07",
+  "winnersOn": "2025-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2025_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt33075192", "title": "My Undesirable Friends: Part I — Last Air in Moscow", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "won" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

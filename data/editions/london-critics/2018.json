@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-18",
+  "winnersOn": "2019-01-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2018"],
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1213641", "title": "First Man", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2404639", "title": "The Happy Prince", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3892172", "title": "Leave No Trace", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5742374", "title": "You Were Never Really Here", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6510332", "title": "McQueen", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7905466", "title": "They Shall Not Grow Old", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5740866", "title": "Whitney", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

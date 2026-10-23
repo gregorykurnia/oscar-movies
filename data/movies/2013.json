@@ -170,5 +170,12 @@
   "tt2084989": { "slug": "upstream-color", "title": "Upstream Color", "countries": ["US"], "language": "en", "wd": "Q7899323", "tmdb": 145197 },
   "tt2119463": { "slug": "let-the-fire-burn", "title": "Let the Fire Burn", "countries": ["US"], "language": "en", "wd": "Q16252460", "tmdb": 174352 },
   "tt2282662": { "slug": "our-nixon", "title": "Our Nixon", "countries": ["US"], "language": "en", "wd": "Q16164772", "tmdb": 157016 },
-  "tt2215151": { "slug": "inequality-for-all", "title": "Inequality for All", "countries": ["US"], "language": "en", "wd": "Q4516353", "tmdb": 159008 }
+  "tt2215151": { "slug": "inequality-for-all", "title": "Inequality for All", "countries": ["US"], "language": "en", "wd": "Q4516353", "tmdb": 159008 },
+  "tt2216240": { "slug": "a-hijacking", "title": "A Hijacking", "originalTitle": "Kapringen", "originalLang": "da", "countries": ["DK"], "language": "da", "wd": "Q4657304", "tmdb": 127846 },
+  "tt1931388": { "slug": "beware-of-mr-baker", "title": "Beware of Mr. Baker", "countries": ["US"], "language": "en", "wd": "Q16155155", "tmdb": 97610 },
+  "tt2332522": { "slug": "leviathan-2013", "title": "Leviathan", "countries": ["FR", "US"], "language": "en", "wd": "Q12125690", "tmdb": 127962 },
+  "tt1091191": { "slug": "lone-survivor", "title": "Lone Survivor", "countries": ["US"], "language": "en", "wd": "Q3258993", "tmdb": 193756 },
+  "tt0359950": { "slug": "the-secret-life-of-walter-mitty", "title": "The Secret Life of Walter Mitty", "countries": ["US", "GB"], "language": "en", "wd": "Q3522637", "tmdb": 116745 },
+  "tt3091552": { "slug": "at-berkeley", "title": "At Berkeley", "countries": ["US"], "language": "en", "wd": "Q23999260", "tmdb": 211024 },
+  "tt1293751": { "slug": "casting-by", "title": "Casting By", "countries": ["US"], "language": "en", "wd": "Q16249127", "tmdb": 127878 }
 }

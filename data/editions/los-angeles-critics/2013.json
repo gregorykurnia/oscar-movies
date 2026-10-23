@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-12-08",
+  "winnersOn": "2013-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1816518", "title": "Ernest & Celestine", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "won" }
+  ],
+  "screenings": []
+}

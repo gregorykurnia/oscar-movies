@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-07",
+  "winnersOn": "2014-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "international", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

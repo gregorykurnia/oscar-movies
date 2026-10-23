@@ -185,5 +185,10 @@
   "tt4468634": { "slug": "certain-women", "title": "Certain Women", "countries": ["US"], "language": "en", "wd": "Q21527818", "tmdb": 340487 },
   "tt2937696": { "slug": "thats-what-im-talking-about", "title": "That's What I'm Talking About", "countries": ["US"], "language": "en", "wd": "Q18324869", "tmdb": 295699 },
   "tt5247022": { "slug": "paterson", "title": "Paterson", "countries": ["US"], "language": "en", "wd": "Q23817035", "tmdb": 370755 },
-  "tt3799694": { "slug": "the-nice-guys", "title": "The Nice Guys", "countries": ["US"], "language": "en", "wd": "Q18415459", "tmdb": 290250 }
+  "tt3799694": { "slug": "the-nice-guys", "title": "The Nice Guys", "countries": ["US"], "language": "en", "wd": "Q18415459", "tmdb": 290250 },
+  "tt3068194": { "slug": "love-and-friendship", "title": "Love and Friendship", "countries": ["IE", "FR"], "language": "en", "wd": "Q19363674", "tmdb": 296360 },
+  "tt0475290": { "slug": "hail-caesar", "title": "Hail, Caesar!", "countries": ["GB", "US"], "language": "en", "wd": "Q18516636", "tmdb": 270487 },
+  "tt4572514": { "slug": "patriots-day", "title": "Patriots Day", "countries": ["US"], "language": "en", "wd": "Q23767799", "tmdb": 388399 },
+  "tt1683048": { "slug": "de-palma", "title": "De Palma", "countries": ["US"], "language": "en", "wd": "Q25136504", "tmdb": 355254 },
+  "tt4935480": { "slug": "miss-sharon-jones", "title": "Miss Sharon Jones!", "countries": ["US"], "language": "en", "wd": "Q26964879", "tmdb": 358924 }
 }

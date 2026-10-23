@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-12-18",
+  "winnersOn": "2021-12-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2021_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "won" },
+    { "category": "international", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14300912", "title": "Procession", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "animated", "imdb": "tt13651628", "title": "Belle", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-12-03",
+  "winnersOn": "2017-12-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2017_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
+    { "category": "international", "imdb": "tt6304162", "title": "Loveless", "outcome": "won" }
+  ],
+  "screenings": []
+}

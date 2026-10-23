@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2026-01-03",
+  "winnersOn": "2026-01-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2025_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33075192", "title": "My Undesirable Friends: Part I — Last Air in Moscow", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

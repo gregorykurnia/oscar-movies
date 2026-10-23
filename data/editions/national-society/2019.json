@@ -1,0 +1,18 @@
+{
+  "award": "national-society",
+  "year": 2019,
+  "status": "partial",
+  "nominationsOn": "2020-01-04",
+  "winnersOn": "2020-01-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2019_National_Society_of_Film_Critics_Awards"],
+  "note": "Not found on the source: international.",
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3281548", "title": "Little Women", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

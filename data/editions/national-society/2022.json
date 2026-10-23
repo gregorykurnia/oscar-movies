@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2023-01-07",
+  "winnersOn": "2023-01-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "won" },
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20205236", "title": "No Bears", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "won" },
+    { "category": "international", "imdb": "tt20205236", "title": "No Bears", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16376494", "title": "Descendant", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

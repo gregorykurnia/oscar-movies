@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2015-01-18",
+  "winnersOn": "2015-01-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2014"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2802154", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2473794", "title": "Mr. Turner", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1441395", "title": "Under the Skin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2802154", "title": "Leviathan", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2852432", "title": "Norte, Hangganan ng Kasaysayan", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2920540", "title": "20,000 Days on Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3103326", "title": "Manakamana", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2446600", "title": "Next Goal Wins", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455822", "title": "Night Will Fall", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

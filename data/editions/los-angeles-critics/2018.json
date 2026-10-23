@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-09",
+  "winnersOn": "2018-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2018_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "documentary", "imdb": "tt7472352", "title": "Shirkers", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7282468", "title": "Burning", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "won" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-19",
+  "winnersOn": "2025-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "won" },
+    { "category": "picture", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14561712", "title": "La chimera", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt27367464", "title": "Kneecap", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5040012", "title": "Nosferatu", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt14561712", "title": "La chimera", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27367464", "title": "Kneecap", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28244549", "title": "Grand Theft Hamlet", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19895822", "title": "Made in England: The Films of Powell and Pressburger", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

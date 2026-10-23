@@ -1,0 +1,19 @@
+{
+  "award": "los-angeles-critics",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-12-20",
+  "winnersOn": "2020-12-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2020_Los_Angeles_Film_Critics_Association_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt3464896", "title": "Small Axe", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "won" },
+    { "category": "international", "imdb": "tt4516162", "title": "Martin Eden", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

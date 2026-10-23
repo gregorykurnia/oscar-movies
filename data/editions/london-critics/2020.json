@@ -1,0 +1,31 @@
+{
+  "award": "london-critics",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2021-01-12",
+  "winnersOn": "2021-02-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/London_Film_Critics_Circle_Awards_2020"],
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6817944", "title": "About Endlessness", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7939766", "title": "I'm Thinking of Ending Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10551102", "title": "Lovers Rock", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4761112", "title": "The Mauritanian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9067182", "title": "Rocks", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7557108", "title": "Saint Maud", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "international", "imdb": "tt6817944", "title": "About Endlessness", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11392114", "title": "Bloody Nose, Empty Pockets", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394318", "title": "The Truffle Hunters", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

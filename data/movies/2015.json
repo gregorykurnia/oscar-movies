@@ -170,5 +170,12 @@
   "tt3172532": { "slug": "the-diary-of-a-teenage-girl", "title": "The Diary of a Teenage Girl", "countries": ["US"], "language": "en", "wd": "Q16973734", "tmdb": 250124 },
   "tt3687186": { "slug": "heaven-knows-what", "title": "Heaven Knows What", "countries": ["US"], "language": "en", "wd": "Q20022624", "tmdb": 285024 },
   "tt2080374": { "slug": "steve-jobs", "title": "Steve Jobs", "countries": ["US", "GB"], "language": "en", "wd": "Q18754959", "tmdb": 321697 },
-  "tt2379679": { "slug": "approaching-the-elephant", "title": "Approaching the Elephant", "countries": ["US"], "language": "en", "tmdb": 258100 }
+  "tt2379679": { "slug": "approaching-the-elephant", "title": "Approaching the Elephant", "countries": ["US"], "language": "en", "tmdb": 258100 },
+  "tt3090634": { "slug": "eden", "title": "Eden", "countries": ["FR"], "language": "fr", "wd": "Q16219562", "tmdb": 283330 },
+  "tt4936064": { "slug": "in-jackson-heights", "title": "In Jackson Heights", "countries": ["US"], "language": "en", "wd": "Q23899905", "tmdb": 355230 },
+  "tt3460252": { "slug": "the-hateful-eight", "title": "The Hateful Eight", "countries": ["US"], "language": "en", "wd": "Q18225084", "tmdb": 273248 },
+  "tt3486542": { "slug": "mediterranea", "title": "Mediterranea", "countries": ["IT", "FR", "US", "DE", "QA"], "language": "it", "wd": "Q19824788", "tmdb": 336660 },
+  "tt4316236": { "slug": "the-black-panthers-vanguard-of-the-revolution", "title": "The Black Panthers: Vanguard of the Revolution", "countries": ["US"], "language": "en", "wd": "Q19363559", "tmdb": 319089 },
+  "tt4338184": { "slug": "the-diplomat", "title": "The Diplomat", "countries": ["US"], "language": "en", "wd": "Q21198151", "tmdb": 333820 },
+  "tt2328813": { "slug": "hard-to-be-a-god-2015", "title": "Hard to Be a God", "originalTitle": "Трудно быть богом", "originalLang": "ru", "countries": ["RU"], "language": "ru", "wd": "Q4204793", "tmdb": 110402 }
 }

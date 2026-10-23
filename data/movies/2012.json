@@ -166,5 +166,12 @@
   "tt1568921": { "slug": "arrietty", "title": "Arrietty", "originalTitle": "借りぐらしのアリエッティ", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q699835", "tmdb": 51739 },
   "tt1827512": { "slug": "the-kid-with-a-bike", "title": "The Kid with a Bike", "originalTitle": "Le gamin au vélo", "originalLang": "fr", "countries": ["FR", "BE", "IT"], "language": "fr", "wd": "Q2072055", "tmdb": 63831 },
   "tt1695405": { "slug": "the-loneliest-planet", "title": "The Loneliest Planet", "countries": ["US", "DE"], "language": "en", "wd": "Q5394937", "tmdb": 82321 },
-  "tt2085910": { "slug": "room-237", "title": "Room 237", "countries": ["US"], "language": "en", "wd": "Q4020673", "tmdb": 84330 }
+  "tt2085910": { "slug": "room-237", "title": "Room 237", "countries": ["US"], "language": "en", "wd": "Q4020673", "tmdb": 84330 },
+  "tt2153963": { "slug": "tabu", "title": "Tabu", "countries": ["PT", "BR", "DE", "FR"], "language": "pt", "wd": "Q1748666", "tmdb": 93858 },
+  "tt1556190": { "slug": "nostalgia-for-the-light", "title": "Nostalgia for the Light", "originalTitle": "Nostalgia de la luz", "originalLang": "es", "countries": ["FR", "CL"], "language": "en", "wd": "Q2010699", "tmdb": 72721 },
+  "tt1445520": { "slug": "footnote", "title": "Footnote", "originalTitle": "הערת שוליים", "originalLang": "he", "countries": ["IL"], "language": "he", "wd": "Q324292", "tmdb": 72551 },
+  "tt2396224": { "slug": "its-such-a-beautiful-day", "title": "It's Such a Beautiful Day", "countries": ["US"], "language": "en", "wd": "Q19880634", "tmdb": 489412 },
+  "tt1659337": { "slug": "the-perks-of-being-a-wallflower", "title": "The Perks of Being a Wallflower", "countries": ["US"], "language": "en", "wd": "Q675468", "tmdb": 84892 },
+  "tt2091473": { "slug": "promised-land", "title": "Promised Land", "countries": ["US"], "language": "en", "wd": "Q3017170", "tmdb": 133694 },
+  "tt2085888": { "slug": "only-the-young", "title": "Only the Young", "countries": ["US"], "language": "en", "tmdb": 102867 }
 }

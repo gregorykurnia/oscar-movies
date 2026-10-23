@@ -2,7 +2,8 @@
 // runner-ups, headings with lists, lines naming two films, the dates in a page's opening
 // sentences, AAFCA's top-ten table, and the year its main article files a film under; task 4.3 adds
 // the winner-in-its-own-line nominee boxes (Critics' Choice to 2015), a bold winner line under a heading
-// (Florida 2013) and "Runner-up: None".
+// (Florida 2013) and "Runner-up: None"; task 4.5 adds LAFCA's runner-up one level under the winner and
+// NSFC's numbered lines ("1. A <br> 2. B").
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { aafcaLabelYear, GROUPS, readAafcaTopTen, sourcesSchema } from "./critics";
@@ -162,6 +163,69 @@ describe("task 4.4 editions", () => {
 
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["greater-western-new-york-critics", "hawaii-critics", "indiana-critics", "iowa-critics", "international-cinephile-society", "ida"]) {
+      const e = edition(`${slug}/2020`);
+      expect(e.status, slug).toBe("no_data");
+      expect(e.note, slug).toBeTruthy();
+    }
+  });
+});
+
+describe("layouts of task 4.5", () => {
+  it("reads LAFCA's runner-up nested a level under the winner", () => {
+    const html = `<ul><li><b>Best Film:</b><ul><li><b><i><a href="/wiki/Anora">Anora</a></i></b>
+      <ul><li>Runner-up: <i><a href="/wiki/The_Brutalist">The Brutalist</a></i></li></ul></li></ul></li></ul>`;
+    const film = readBlocks(html).find((b) => b.label === "Best Film");
+    expect(blockRows(film!).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["Anora", "won"],
+      ["The Brutalist", "runner_up"],
+    ]);
+  });
+
+  it("reads numbered lines under a heading (NSFC 2013): the bold line wins, a tie has two bold lines, an unlinked title is its italic text", () => {
+    const html = `<div class="mw-heading"><h3>Best Non-Fiction Film</h3></div>
+      <p>1. <b><i><a href="/wiki/The_Act_of_Killing">The Act of Killing</a></i> (TIE)</b> <br>
+      1. <b><i>At Berkeley</i> (TIE)</b> <br>
+      2. <i><a href="/wiki/Leviathan_(2012_film)">Leviathan</a></i></p>`;
+    const [block] = readBlocks(html);
+    expect(blockRows(block).map((r) => [r.link.text, r.outcome])).toEqual([
+      ["The Act of Killing", "won"],
+      ["At Berkeley", "won"],
+      ["Leviathan", "nominated"],
+    ]);
+  });
+
+  it("takes dates from the opening paragraphs, not from a floated results box (London)", () => {
+    const html = `<div style="float: right"><p>45th London Film Critics' Circle Awards</p><p>2 February 2025 and more words</p></div>
+      <p>The 45th Awards honoured the best in film of 2024, as chosen by the Circle.</p>
+      <p>The nominations were announced on 19 December 2024. Anora led the field.</p>`;
+    expect(leadDates(html)).toEqual({ nominationsOn: "2024-12-19" });
+  });
+});
+
+describe("task 4.5 editions", () => {
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
+
+  it("keeps LAFCA's ties as two winners (2022 Best Film) and its runner-up", () => {
+    expect(of("los-angeles-critics/2022", "picture", "won")).toEqual(["Everything Everywhere All at Once", "Tár"]);
+    expect(of("los-angeles-critics/2024", "picture", "runner_up")).toEqual(["The Brutalist"]);
+  });
+
+  it("lists NBR's Best Film with its top ten, and the top five in International and Documentary as nominees", () => {
+    expect(of("nbr/2024", "picture", "won")).toEqual(["Wicked"]);
+    expect(edition("nbr/2024").results.filter((r) => r.category === "picture")).toHaveLength(11);
+    expect(of("nbr/2024", "international", "won")).toEqual(["The Seed of the Sacred Fig"]);
+    expect(edition("nbr/2024").results.filter((r) => r.category === "international")).toHaveLength(6);
+  });
+
+  it("marks Las Vegas partial (Best Picture winner only) and NSFC years with no foreign prize on the page partial", () => {
+    expect(edition("las-vegas-critics/2023").status).toBe("partial");
+    expect(of("las-vegas-critics/2023", "picture", "won")).toEqual(["Oppenheimer"]);
+    expect(edition("national-society/2019").note).toMatch(/international/);
+  });
+
+  it("marks groups with no page as no_data, with a note", () => {
+    for (const slug of ["latino-entertainment-journalists", "michigan-critics", "minnesota-critics", "music-city-critics", "new-jersey-critics"]) {
       const e = edition(`${slug}/2020`);
       expect(e.status, slug).toBe("no_data");
       expect(e.note, slug).toBeTruthy();

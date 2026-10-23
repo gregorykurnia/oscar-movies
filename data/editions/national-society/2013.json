@@ -1,0 +1,21 @@
+{
+  "award": "national-society",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2014-01-04",
+  "winnersOn": "2014-01-04",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2852400", "title": "A Touch of Sin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3091552", "title": "At Berkeley", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2332522", "title": "Leviathan", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

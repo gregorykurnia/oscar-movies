@@ -1,0 +1,20 @@
+{
+  "award": "national-society",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2018-01-06",
+  "winnersOn": "2018-01-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2017_National_Society_of_Film_Critics_Awards"],
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5776858", "title": "Phantom Thread", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4936450", "title": "Graduation", "outcome": "won" },
+    { "category": "international", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6209282", "title": "Ex Libris – The New York Public Library", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5215486", "title": "Dawson City: Frozen Time", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

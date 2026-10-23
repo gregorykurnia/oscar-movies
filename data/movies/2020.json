@@ -218,5 +218,11 @@
   "Q1866923": { "slug": "la-llorona-2020", "title": "La Llorona", "countries": ["MX"], "wd": "Q1866923" },
   "tt11015214": { "slug": "class-action-park", "title": "Class Action Park", "countries": ["US"], "language": "en", "wd": "Q99519749", "tmdb": 634233 },
   "tt9196192": { "slug": "cuties", "title": "Cuties", "originalTitle": "Mignonnes", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q84349632", "tmdb": 582885 },
-  "tt9099176": { "slug": "our-time-machine", "title": "Our Time Machine", "countries": ["US", "CN"], "language": "en", "tmdb": 597614 }
+  "tt9099176": { "slug": "our-time-machine", "title": "Our Time Machine", "countries": ["US", "CN"], "language": "en", "tmdb": 597614 },
+  "tt6817944": { "slug": "about-endlessness", "title": "About Endlessness", "originalTitle": "Om det oändliga", "originalLang": "sv", "countries": ["SE"], "language": "sv", "wd": "Q31899662", "tmdb": 348672 },
+  "tt7939766": { "slug": "im-thinking-of-ending-things", "title": "I'm Thinking of Ending Things", "countries": ["US"], "language": "en", "wd": "Q63226470", "tmdb": 500840 },
+  "tt11392114": { "slug": "bloody-nose-empty-pockets", "title": "Bloody Nose, Empty Pockets", "countries": ["US"], "language": "en", "wd": "Q104777708", "tmdb": 605437 },
+  "tt3464896": { "slug": "small-axe", "title": "Small Axe", "countries": ["GB"], "language": "en", "wd": "Q96100975" },
+  "tt10539608": { "slug": "the-midnight-sky", "title": "The Midnight Sky", "countries": ["US"], "language": "en", "wd": "Q71767482", "tmdb": 614911 },
+  "tt11388580": { "slug": "miss-americana", "title": "Miss Americana", "countries": ["US"], "language": "en", "wd": "Q77833628", "tmdb": 653567 }
 }

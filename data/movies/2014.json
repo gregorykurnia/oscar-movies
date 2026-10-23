@@ -188,5 +188,8 @@
   "tt3103326": { "slug": "manakamana", "title": "Manakamana", "countries": ["US"], "language": "en", "wd": "Q19961504", "tmdb": 213684 },
   "tt3576060": { "slug": "point-and-shoot", "title": "Point and Shoot", "countries": ["US"], "language": "en", "wd": "Q19580745", "tmdb": 264166 },
   "tt2015381": { "slug": "guardians-of-the-galaxy", "title": "Guardians of the Galaxy", "countries": ["US"], "language": "en", "wd": "Q5887360", "tmdb": 118340 },
-  "tt2937898": { "slug": "a-most-violent-year", "title": "A Most Violent Year", "countries": ["US"], "language": "en", "wd": "Q15915435", "tmdb": 241239 }
+  "tt2937898": { "slug": "a-most-violent-year", "title": "A Most Violent Year", "countries": ["US"], "language": "en", "wd": "Q15915435", "tmdb": 241239 },
+  "tt2713180": { "slug": "fury", "title": "Fury", "countries": ["US", "CN", "GB"], "language": "en", "wd": "Q14786561", "tmdb": 228150 },
+  "tt2364975": { "slug": "we-are-the-best", "title": "We Are the Best!", "originalTitle": "Vi är bäst!", "originalLang": "sv", "countries": ["SE", "DK"], "language": "sv", "wd": "Q14551360", "tmdb": 191294 },
+  "tt3720794": { "slug": "national-gallery-2014", "title": "National Gallery", "countries": ["FR", "US", "GB"], "language": "en", "wd": "Q19795309", "tmdb": 266080 }
 }

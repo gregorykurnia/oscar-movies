@@ -17,7 +17,7 @@ import type { EditionFile, ResultEntry } from "../../src/lib/data-files";
 import { checkArgs, readEnvFile } from "../lib/target";
 import { plainTitle } from "./lib/facts";
 import { createFetcher } from "./lib/fetcher";
-import { blockRows, guessTitles, leadDates, readBlocks, type BlockRow } from "./lib/critics-pages";
+import { blockRows, daysIn, guessTitles, leadDates, readBlocks, type BlockRow } from "./lib/critics-pages";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import { resolveArticles } from "./lib/resolve";
 import type { Element } from "domhandler";
@@ -70,7 +70,14 @@ export type Read = {
   problems: string[];
 };
 
-type Cat = { slug: string; label: RegExp; /** Several lists match (Astra 2025's Best Picture in two genres): all are read, each with its own winner. */ multi?: boolean };
+type Cat = {
+  slug: string;
+  label: RegExp;
+  /** A list of further films the group names with its winner (NBR's "Top 5 International Films"): all are nominees. */
+  tops?: RegExp;
+  /** Several lists match (Astra 2025's Best Picture in two genres): all are read, each with its own winner. */
+  multi?: boolean;
+};
 
 type Group = {
   slug: string;
@@ -80,6 +87,8 @@ type Group = {
   why: string;
   /** Whether the group announces nominees (a `loaded` edition then needs a nominations day). */
   winnersOnly: boolean;
+  /** The nominees (or runners-up, or a top list) come out on the day of the winners: the day stands for both without a note. */
+  nomineesSameDay?: boolean;
   read: (year: number, ctx: Ctx) => Promise<Read | null>;
 };
 
@@ -156,6 +165,10 @@ function pageRead(
       }
       rows.push(...filled[0].map((r) => ({ category: cat.slug, link: r.link, outcome: r.outcome })));
       if (!rows.some((r) => r.category === cat.slug && r.outcome === "won")) local.push(`${label}: ${cat.slug} has no winner`);
+      if (cat.tops) {
+        const tops = blocks.filter((b) => cat.tops!.test(flat(b.label)));
+        if (tops.length === 1) rows.push(...blockRows(tops[0]).map((r) => ({ category: cat.slug, link: r.link, outcome: "nominated" as const })));
+      }
     }
     if (spec.topTen) {
       const tops = blocks.filter((b) => spec.topTen!.test(flat(b.label)));
@@ -328,6 +341,45 @@ async function readKansasCity(year: number, ctx: Ctx): Promise<Read | null> {
     missing: ["international", "documentary", "animated"],
     urls: [page.url],
     gaps: ["Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date"],
+    problems: [],
+  };
+}
+
+/** London: the ceremony's day is in the floated results box at the top of each year's page. */
+const LONDON_PAGES = pageRead("london-critics", {
+  page: (y) => `London Film Critics Circle Awards ${y}`,
+  categories: [
+    { slug: "picture", label: /^filmoftheyear$/ },
+    { slug: "international", label: /^foreignlanguagefilmoftheyear$/ },
+    { slug: "documentary", label: /^documentaryoftheyear$/ },
+  ],
+  winnersOnly: false,
+});
+
+async function londonRead(year: number, ctx: Ctx): Promise<Read | null> {
+  const read = await LONDON_PAGES(year, ctx);
+  if (!read || read.winnersOn) return read;
+  const page = await ctx.page(`London Film Critics Circle Awards ${year}`);
+  const $ = cheerio.load(page.html);
+  const box = clean($("div[style*='float']").first().text());
+  const winnersOn = daysIn(box)[0];
+  return winnersOn ? { ...read, winnersOn } : read;
+}
+
+/** Las Vegas' "Best Picture winners" table: the winner of each year (the year is the film year). */
+async function readLasVegas(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Las Vegas Film Critics Society");
+  const table = readWikitables(page.html).find((t) => t.headers.includes("Best Picture") && t.headers.includes("Year"));
+  if (!table) throw new Error("Las Vegas: the Best Picture winners table is gone from the page");
+  const col = table.headers.indexOf("Best Picture");
+  const row = table.rows.find((r) => parseInt(r[0].text, 10) === year);
+  if (!row) return null;
+  const cell = row[col];
+  return {
+    rows: [{ category: "picture", link: cell.film ?? { article: null, text: cell.text }, outcome: "won" }],
+    missing: ["international", "documentary", "animated"],
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date"],
     problems: [],
   };
 }
@@ -666,6 +718,81 @@ export const GROUPS: Group[] = [
     winnersOnly: true,
     read: readKansasCity,
   },
+  {
+    slug: "las-vegas-critics",
+    name: "Las Vegas",
+    years: [2012, 2025],
+    why: "the Las Vegas Film Critics Society's awards for these films are not on Wikipedia",
+    winnersOnly: true,
+    read: readLasVegas,
+  },
+  noPage("latino-entertainment-journalists", "Latino Entertainment", "the Latino Entertainment Journalists Association"),
+  {
+    slug: "london-critics",
+    name: "London",
+    years: [2012, 2025],
+    why: "the London Film Critics' Circle's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: londonRead,
+  },
+  {
+    slug: "los-angeles-critics",
+    name: "Los Angeles",
+    years: [2012, 2025],
+    why: "the Los Angeles Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    nomineesSameDay: true,
+    read: pageRead("los-angeles-critics", {
+      page: (y) => `${y} Los Angeles Film Critics Association Awards`,
+      categories: [
+        // A tie is in the label ("Best Picture (TIE)").
+        { slug: "picture", label: /^best(film|picture)(tie)?$/ },
+        { slug: "international", label: /^best(film(notintheenglishlanguage)|(foreign|nonenglish|international)(language)?film)(tie)?$/ },
+        { slug: "documentary", label: /^bestdocumentary(nonfiction)?(film)?(tie)?$/ },
+        { slug: "animated", label: /^bestanimat(ed|ion)(film|feature)?(tie)?$/ },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  noPage("michigan-critics", "Michigan", "the Michigan Movie Critics Guild"),
+  noPage("minnesota-critics", "Minnesota", "the Minnesota Film Critics Alliance"),
+  noPage("music-city-critics", "Music City", "the Music City Film Critics' Association"),
+  {
+    slug: "national-society",
+    name: "NSFC",
+    years: [2012, 2025],
+    why: "the National Society of Film Critics' awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    nomineesSameDay: true,
+    read: pageRead("national-society", {
+      page: (y) => `${y} National Society of Film Critics Awards`,
+      categories: [
+        { slug: "picture", label: /^best(picture|film)$/ },
+        { slug: "international", label: /^best(film(notintheenglishlanguage)|(foreign|nonenglish|international)(language)?film)$/ },
+        { slug: "documentary", label: /^bestnon(fiction|-fiction)film$/ },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "nbr",
+    name: "NBR",
+    years: [2012, 2025],
+    why: "the National Board of Review's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    nomineesSameDay: true,
+    read: pageRead("nbr", {
+      page: (y) => `National Board of Review Awards ${y}`,
+      categories: [
+        { slug: "picture", label: /^bestfilm$/, tops: /^top(10|ten)films$/ },
+        { slug: "international", label: /^best(foreign|international)(language)?film$/, tops: /^top(5|five)?(foreign|international)(language)?films$/ },
+        { slug: "documentary", label: /^bestdocumentary(film)?$/, tops: /^top(5|five)?documentar(y|ies)(films)?$/ },
+        { slug: "animated", label: /^bestanimat(ed|ion)(film|feature)?$/ },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  noPage("new-jersey-critics", "New Jersey", "the New Jersey Film Critics Circle"),
 ];
 
 function parseList(argv: string[], flag: string): string | undefined {
@@ -748,8 +875,8 @@ async function main() {
       if (winnersOn && nominationsOn && nominationsOn > winnersOn) local.push(`${label}: nominations ${nominationsOn} are after the winners ${winnersOn}`);
       const hasNominees = read.rows.some((r) => r.outcome === "nominated");
       if (!winnersOn) gaps.push("the announcement date is not stated");
-      else if (!group.winnersOnly && hasNominees && !nominationsOn) nominationsOn = winnersOn;
-      const standIn = !group.winnersOnly && hasNominees && winnersOn && !read.nominationsOn && !manual?.nominationsOn;
+      else if (!group.winnersOnly && (hasNominees || group.nomineesSameDay) && !nominationsOn) nominationsOn = winnersOn;
+      const standIn = !group.winnersOnly && !group.nomineesSameDay && hasNominees && winnersOn && !read.nominationsOn && !manual?.nominationsOn;
       if (winnersOn && winnersOn > today) {
         local.push(`${label}: the winners' day ${winnersOn} is still ahead`);
         gaps.push(`the winners are announced on ${winnersOn}`);
@@ -846,7 +973,7 @@ async function main() {
         .map((k) => sources.absent[k]);
       if (absent.length > 0) noteParts.push(absent.join(" "));
       if (standIn) noteParts.push("The day the nominees were announced is not stated; the awards day stands in for it.");
-      else if (!group.winnersOnly && !hasNominees && !nominationsOn && winnersOn && gaps.length === 0) noteParts.push("Only the winners and runners-up are listed, and the day the nominees were announced is not stated.");
+      else if (!group.winnersOnly && !group.nomineesSameDay && !hasNominees && !nominationsOn && winnersOn && gaps.length === 0) noteParts.push("Only the winners and runners-up are listed, and the day the nominees were announced is not stated.");
       const edition: EditionFile = {
         award: group.slug,
         year,
