@@ -17,7 +17,7 @@ export function StageLine({ line, className }: { line: StageLineText; className?
           line.done ? "bg-ink shadow-[0_0_0_4px_var(--track)]" : "bg-gold shadow-[0_0_0_4px_var(--gold-wash)]",
         )}
       />
-      <p>
+      <p className="min-w-0 [overflow-wrap:anywhere]">
         <strong className="font-medium text-ink">{line.lead}</strong>
         {line.rest ? ` · ${line.rest}` : null}
       </p>

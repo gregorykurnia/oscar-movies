@@ -29,6 +29,7 @@ import {
   type SearchResponse,
 } from "@/lib/search";
 import { OPEN_SEARCH_EVENT } from "./open-search";
+import { searchFocusedBox, searchKbd } from "./search-styles";
 
 // Guide §7 Search. One search for the whole app, in the top bar. Desktop (≥1101px): the box is the
 // input and the results drop under it as a 440px popover. Compact (761–1100px): the search icon
@@ -60,8 +61,6 @@ function ResultFlag({ code }: { code: string | null }) {
     </Suspense>
   );
 }
-
-const kbd = "rounded-[5px] border border-line bg-surface px-1.5 text-micro leading-[18px] text-ink-muted";
 
 /** The text with the part that matched the query underlined in gold. */
 function Highlight({ text, query }: { text: string; query: string }) {
@@ -175,11 +174,88 @@ function AwardOption({
 
 function Message({ icon, title, children }: { icon?: ReactNode; title: string; children: ReactNode }) {
   return (
-    <div className="px-4 pt-7 pb-6 text-center text-small text-ink-muted">
+    <div className="px-4 pt-7 pb-6 text-center text-small text-ink-muted [overflow-wrap:anywhere]">
       {icon ? <div className="mb-2 grid place-items-center">{icon}</div> : null}
       <strong className="mb-1 block font-medium text-ink">{title}</strong>
       {children}
     </div>
+  );
+}
+
+export type SearchResultsProps =
+  | { kind: "failed" }
+  | { kind: "empty"; query: string }
+  | {
+      kind: "results";
+      /** Prefix of the option ids and the list id (`useId` in the live search). */
+      id: string;
+      query: string;
+      films: SearchFilm[];
+      awards: SearchAward[];
+      activeIndex: number;
+      onNavigate?: () => void;
+    };
+
+/**
+ * What the popover or sheet shows under the input: the grouped results, "no match" or the failure.
+ * The live search renders it from its state; the styleguide draws each state from sample data.
+ */
+export function SearchResults(props: SearchResultsProps) {
+  if (props.kind === "failed") {
+    return (
+      <Message icon={<WifiOff aria-hidden="true" className="size-5" strokeWidth={1.75} />} title="Search isn't available right now.">
+        Check the connection, then type again.
+      </Message>
+    );
+  }
+  if (props.kind === "empty") {
+    return <Message title={`No movie or award matches “${props.query}”.`}>Check the spelling, or try the original title.</Message>;
+  }
+  const { id, query, films, awards, activeIndex, onNavigate = () => {} } = props;
+  const optionId = (i: number) => `${id}-option-${i}`;
+  return (
+    <>
+      <div id={`${id}-list`} role="listbox" aria-label="Search results">
+        {films.length > 0 ? (
+          <div role="group" aria-labelledby={`${id}-films`}>
+            <div id={`${id}-films`} className="px-2.5 pt-2.5 pb-1.5 text-micro text-ink-muted">
+              Films
+            </div>
+            {films.map((film, i) => (
+              <FilmOption key={film.slug} film={film} query={query} id={optionId(i)} active={i === activeIndex} onNavigate={onNavigate} />
+            ))}
+          </div>
+        ) : null}
+        {awards.length > 0 ? (
+          <div role="group" aria-labelledby={`${id}-awards`}>
+            <div id={`${id}-awards`} className="px-2.5 pt-2.5 pb-1.5 text-micro text-ink-muted">
+              Awards and festivals
+            </div>
+            {awards.map((award, i) => (
+              <AwardOption
+                key={award.slug}
+                award={award}
+                query={query}
+                id={optionId(films.length + i)}
+                active={films.length + i === activeIndex}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
+      <div className="mt-1.5 hidden gap-3.5 border-t border-line px-2.5 pt-2.5 pb-1 text-micro text-ink-muted md:flex">
+        <span>
+          <kbd className={searchKbd}>↑</kbd> <kbd className={searchKbd}>↓</kbd> move
+        </span>
+        <span>
+          <kbd className={searchKbd}>enter</kbd> open
+        </span>
+        <span>
+          <kbd className={searchKbd}>esc</kbd> close
+        </span>
+      </div>
+    </>
   );
 }
 
@@ -362,65 +438,15 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
     />
   );
 
-  const focusedBox =
-    "flex items-center gap-2 rounded-[9px] border border-gold-ink bg-surface pr-2.5 pl-3 text-ink shadow-[0_0_0_3px_var(--gold-wash)]";
-
   let results: ReactNode = null;
   if (normalized && failed) {
-    results = (
-      <Message icon={<WifiOff aria-hidden="true" className="size-5" strokeWidth={1.75} />} title="Search isn't available right now.">
-        Check the connection, then type again.
-      </Message>
-    );
+    results = <SearchResults kind="failed" />;
   } else if (shown && hrefs.length > 0) {
     results = (
-      <>
-        <div id={listId} role="listbox" aria-label="Search results">
-          {films.length > 0 ? (
-            <div role="group" aria-labelledby={`${id}-films`}>
-              <div id={`${id}-films`} className="px-2.5 pt-2.5 pb-1.5 text-micro text-ink-muted">
-                Films
-              </div>
-              {films.map((film, i) => (
-                <FilmOption key={film.slug} film={film} query={shown.query} id={optionId(i)} active={i === activeIndex} onNavigate={close} />
-              ))}
-            </div>
-          ) : null}
-          {awards.length > 0 ? (
-            <div role="group" aria-labelledby={`${id}-awards`}>
-              <div id={`${id}-awards`} className="px-2.5 pt-2.5 pb-1.5 text-micro text-ink-muted">
-                Awards and festivals
-              </div>
-              {awards.map((award, i) => (
-                <AwardOption
-                  key={award.slug}
-                  award={award}
-                  query={shown.query}
-                  id={optionId(films.length + i)}
-                  active={films.length + i === activeIndex}
-                  onNavigate={close}
-                />
-              ))}
-            </div>
-          ) : null}
-        </div>
-        <div className="mt-1.5 hidden gap-3.5 border-t border-line px-2.5 pt-2.5 pb-1 text-micro text-ink-muted md:flex">
-          <span>
-            <kbd className={kbd}>↑</kbd> <kbd className={kbd}>↓</kbd> move
-          </span>
-          <span>
-            <kbd className={kbd}>enter</kbd> open
-          </span>
-          <span>
-            <kbd className={kbd}>esc</kbd> close
-          </span>
-        </div>
-      </>
+      <SearchResults kind="results" id={id} query={shown.query} films={films} awards={awards} activeIndex={activeIndex} onNavigate={close} />
     );
   } else if (fresh) {
-    results = (
-      <Message title={`No movie or award matches “${query.trim()}”.`}>Check the spelling, or try the original title.</Message>
-    );
+    results = <SearchResults kind="empty" query={query.trim()} />;
   }
 
   const status = !open || !normalized ? "" : failed ? "Search isn't available right now." : !fresh ? "" : hrefs.length > 0 ? `${hrefs.length} results` : "No results";
@@ -428,10 +454,10 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
   return (
     <div ref={rootRef} onKeyDown={onKeyDown} className="relative ml-auto -mr-1.5 md:mr-0">
       {open && wide ? (
-        <div className={cn(focusedBox, "h-[38px] w-[260px]")}>
+        <div className={cn(searchFocusedBox, "h-[38px] w-[260px]")}>
           <Search aria-hidden="true" className="size-4 flex-none text-ink-muted" strokeWidth={1.75} />
           {input}
-          <kbd className={kbd}>esc</kbd>
+          <kbd className={searchKbd}>esc</kbd>
         </div>
       ) : (
         <button
@@ -444,7 +470,7 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
         >
           <Search aria-hidden="true" className="size-4 flex-none" strokeWidth={1.75} />
           <span className="flex-1 truncate text-left">Search films and awards</span>
-          <kbd className={kbd}>/</kbd>
+          <kbd className={searchKbd}>/</kbd>
         </button>
       )}
       <IconButton
@@ -472,7 +498,7 @@ export function SearchCommand({ open, onOpenChange }: { open: boolean; onOpenCha
           className="fixed inset-0 z-50 flex animate-sheet flex-col bg-surface md:absolute md:inset-auto md:top-full md:right-0 md:mt-1.5 md:block md:w-[440px] md:animate-none md:rounded-lg md:p-2 md:shadow-pop"
         >
           <div className="flex flex-none items-center gap-2 border-b border-line px-4 py-2.5 md:border-0 md:p-0 md:pb-1">
-            <div className={cn(focusedBox, "h-10 flex-1")}>
+            <div className={cn(searchFocusedBox, "h-10 flex-1")}>
               <Search aria-hidden="true" className="size-4 flex-none text-ink-muted" strokeWidth={1.75} />
               {input}
             </div>

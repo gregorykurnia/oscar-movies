@@ -20,6 +20,7 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { yearRange } from "@/lib/years";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { SortableTableDemo, ToastDemo } from "./demos";
+import { RACE_BOARDS, RaceBoards } from "./race";
 import { Board, Cell, Spec } from "./parts";
 import type { Sample } from "./sample";
 
@@ -39,6 +40,7 @@ export const BOARDS = [
   { id: "page-header", title: "AppShell and PageHeader", components: ["AppShell", "PageHeader"] },
   { id: "stats-table", title: "Stats strip and data table", components: ["StatsStrip", "DataTable"] },
   { id: "film-rows", title: "Film list and film row", components: ["FilmList", "FilmRow"] },
+  ...RACE_BOARDS,
   { id: "status-pages", title: "Not found and error pages", components: ["NotFoundPage", "ErrorPage"] },
 ] as const;
 
@@ -273,7 +275,7 @@ export function Components({ s }: { s: Sample }) {
       <Board
         id="navigation"
         title="Navigation pieces"
-        note="Other pages switch category or sort with the segmented control. Filters are chips. Everything that changes the view is kept in the address. Race tabs, the stage line and the chance line arrive with the race page (Phase 1)."
+        note="Other pages switch category or sort with the segmented control. Filters are chips. Everything that changes the view is kept in the address. Race tabs are on their own board below."
       >
         <Spec>
           <Cell name="Segmented" note="category">
@@ -423,6 +425,8 @@ export function Components({ s }: { s: Sample }) {
           />
         </FilmList>
       </Board>
+
+      <RaceBoards s={s} />
 
       <Board
         id="status-pages"

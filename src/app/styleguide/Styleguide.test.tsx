@@ -9,6 +9,7 @@ import { parseTokens, styleguideOpen } from "./tokens";
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: () => {}, replace: () => {} }),
   usePathname: () => "/styleguide",
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 const tokens = parseTokens(readFileSync("src/styles/tokens.css", "utf8"));
@@ -17,7 +18,7 @@ const tokens = parseTokens(readFileSync("src/styles/tokens.css", "utf8"));
 const BUILT = [
   "Button", "TextLink", "StagePill", "Flag", "Flags", "ScoreLine", "ScoreTiles", "Mark", "Marks", "LabelledMark",
   "Segmented", "Chip", "Notice", "EmptyState", "Skeleton", "Toast", "AppShell", "PageHeader", "YearSwitcher",
-  "FilmList", "FilmRow", "StatsStrip", "DataTable",
+  "FilmList", "FilmRow", "StatsStrip", "DataTable", "CategoryTabs", "StageLine", "ContenderRow", "ShowAllRow", "SearchCommand",
 ];
 
 describe("/styleguide", () => {
@@ -36,10 +37,20 @@ describe("/styleguide", () => {
     for (const label of ["Won", "Nominated", "Shortlisted", "Submitted", "Not nominated", "Runner-up", "No data", "Partly loaded", "Live"]) {
       expect(screen.getAllByText(label).length, label).toBeGreaterThan(0);
     }
-    expect(screen.getByText("No scores yet")).toBeTruthy();
+    expect(screen.getAllByText("No scores yet").length).toBeGreaterThan(0);
     expect(screen.getAllByText(/86 · 4 of 4/).length).toBeGreaterThan(0);
     expect(screen.getByText(/#FCFBF9/)).toBeTruthy();
     expect(screen.getByText(/#8A6418 · 5.2:1/)).toBeTruthy();
+  });
+
+  it("draws the race tabs, the contender rows with pills and every search state", () => {
+    render(<Styleguide stress={false} tokens={tokens} />);
+    expect(screen.getAllByRole("tab")).toHaveLength(4);
+    expect(screen.getAllByText("Season over").length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: /Show all 38 contenders/ })).toBeTruthy();
+    expect(screen.getAllByRole("listbox", { name: "Search results" }).length).toBeGreaterThan(0);
+    expect(screen.getByText("Search isn't available right now.")).toBeTruthy();
+    expect(screen.getByText(/No movie or award matches “zzzz”/)).toBeTruthy();
   });
 
   it("has one h1 and the stress switch reflects the address", () => {

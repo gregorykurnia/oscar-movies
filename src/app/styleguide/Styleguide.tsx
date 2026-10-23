@@ -55,7 +55,7 @@ export function Styleguide({ stress, tokens }: { stress: boolean; tokens: Record
 
       <Part id="components" title="Components">
         <PartIntro>
-          Every component and its states, from the real components. Race tabs, the stage line, the chance line, the contender row, the year grid and search arrive with the pages that need them.
+          Every component and its states, from the real components. The chance line and the year grid arrive with the pages that need them.
         </PartIntro>
         <Components s={s} />
       </Part>

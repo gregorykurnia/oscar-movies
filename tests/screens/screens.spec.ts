@@ -73,6 +73,7 @@ type Route = {
 
 const ROUTES: Route[] = [
   { name: "styleguide", path: "/styleguide", status: 200, heading: "Styleguide" },
+  { name: "styleguide-stress", path: "/styleguide?stress=1", status: 200, heading: "Styleguide" },
   { name: "not-found", path: "/no-such-page", status: 404, heading: "This page isn't here" },
   { name: "error", path: "/styleguide?error=1", status: 200, heading: "This page didn't load" },
   { name: "home", path: "/", status: 200, heading: /^The \d{4} race$/ },
