@@ -6,6 +6,7 @@
 // first and read every line of the plan.
 import { createScriptDb } from "../src/db";
 import { readDbBranch } from "../src/db/meta";
+import { recomputeAccuracy } from "./lib/compute";
 import { readDataSet } from "./lib/data-check";
 import { gitCommit, revalidateAwards, runLoad } from "./lib/load";
 import { exportMarksToFile, PRODUCTION_MARKS_FILE } from "./lib/marks";
@@ -35,6 +36,7 @@ async function main() {
       dryRun,
       only,
       backupMarks: () => exportMarksToFile(db, { target: "production", file: PRODUCTION_MARKS_FILE, allowShrink: false }),
+      afterWrites: async (tx) => console.log(await recomputeAccuracy(tx, new Date().toISOString().slice(0, 10))),
       revalidate: revalidateAwards,
       gitCommit: gitCommit(),
     });

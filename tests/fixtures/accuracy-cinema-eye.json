@@ -1,0 +1,510 @@
+{
+  "_note": "Cinema Eye Honors, Outstanding Nonfiction Feature (feature) → Oscar Documentary Feature. Input copied from data/ on 2026-10-23; the expected figures were worked out by hand, year by year (see _workings). `oscar` is the film's Oscar Documentary outcome, null when it was never submitted or shortlisted.",
+  "_workings": [
+    "Finished seasons: 2012-2025 (2026's Oscars are on 2027-03-14, after `today`). Cinema Eye 2026 is no_data but not finished, so it is not in noDataYears either.",
+    "Winner -> Oscar win: 2014 Citizenfour, 2019 American Factory, 2024 No Other Land won; the other 11 winners did not. 3 of 14.",
+    "Winner -> Oscar nomination: misses are 2016 Cameraperson and 2023 32 Sounds (shortlisted only); the other 12 were nominated or won. 12 of 14.",
+    "Nominees -> Oscar nominees: 2012-2020 are partial (winner only), so not counted. 2021: Flee, Ascension, Summer of Soul = 3 of 6. 2022: All That Breathes, All the Beauty and the Bloodshed, Fire of Love, Navalny = 4 of 6. 2023: 20 Days in Mariupol, The Eternal Memory, Four Daughters = 3 of 7. 2024: No Other Land, Black Box Diaries, Soundtrack to a Coup d'Etat, Sugarcane = 4 of 7. 2025: Come See Me in the Good Light, The Perfect Neighbor = 2 of 7. Total 16 of 33."
+  ],
+  "award": "cinema-eye",
+  "category": "feature",
+  "oscarCategory": "documentary",
+  "winnersOnly": false,
+  "today": "2026-10-23",
+  "expected": {
+    "win": {
+      "hits": 3,
+      "count": 14
+    },
+    "nomination": {
+      "hits": 12,
+      "count": 14
+    },
+    "nominees": {
+      "hits": 16,
+      "count": 33
+    },
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "noDataYears": [],
+    "formatted": {
+      "win": "21%",
+      "nomination": "86%",
+      "nominees": "48%"
+    }
+  },
+  "years": [
+    {
+      "year": 2012,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2013-02-24",
+        "winner": {
+          "imdb": "tt2125608",
+          "title": "Searching for Sugar Man"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2125423",
+          "title": "5 Broken Cameras",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2013,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2014-03-02",
+        "winner": {
+          "imdb": "tt2396566",
+          "title": "20 Feet from Stardom"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2375605",
+          "title": "The Act of Killing",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2014,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2015-02-22",
+        "winner": {
+          "imdb": "tt4044364",
+          "title": "Citizenfour"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt4044364",
+          "title": "Citizenfour",
+          "outcome": "won",
+          "oscar": "won"
+        }
+      ]
+    },
+    {
+      "year": 2015,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2016-02-28",
+        "winner": {
+          "imdb": "tt2870648",
+          "title": "Amy"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt3521134",
+          "title": "The Look of Silence",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2016,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2017-02-26",
+        "winner": {
+          "imdb": "tt5275892",
+          "title": "O.J.: Made in America"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt5375040",
+          "title": "Cameraperson",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2018-03-04",
+        "winner": {
+          "imdb": "tt6333060",
+          "title": "Icarus"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt5873150",
+          "title": "Strong Island",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2019-02-24",
+        "winner": {
+          "imdb": "tt7775622",
+          "title": "Free Solo"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt6634646",
+          "title": "Hale County This Morning, This Evening",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2020-02-09",
+        "winner": {
+          "imdb": "tt9351980",
+          "title": "American Factory"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt9351980",
+          "title": "American Factory",
+          "outcome": "won",
+          "oscar": "won"
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "status": "partial",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2021-04-25",
+        "winner": {
+          "imdb": "tt12888462",
+          "title": "My Octopus Teacher"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt10706602",
+          "title": "Collective",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2022-03-27",
+        "winner": {
+          "imdb": "tt7378922",
+          "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt8430054",
+          "title": "Flee",
+          "outcome": "won",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt14505430",
+          "title": "Ascension",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt13648216",
+          "title": "Faya Dayi",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt9098872",
+          "title": "The Rescue",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt7378922",
+          "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)",
+          "outcome": "nominated",
+          "oscar": "won"
+        },
+        {
+          "imdb": "tt7230750",
+          "title": "The Velvet Underground",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2023-03-12",
+        "winner": {
+          "imdb": "tt17041964",
+          "title": "Navalny"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt16377862",
+          "title": "All That Breathes",
+          "outcome": "won",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt21374850",
+          "title": "All the Beauty and the Bloodshed",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt16227014",
+          "title": "Fire of Love",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt17041964",
+          "title": "Navalny",
+          "outcome": "nominated",
+          "oscar": "won"
+        },
+        {
+          "imdb": "tt14812784",
+          "title": "A Night of Knowing Nothing",
+          "outcome": "nominated",
+          "oscar": null
+        },
+        {
+          "imdb": "tt16378164",
+          "title": "The Territory",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2024-03-10",
+        "winner": {
+          "imdb": "tt24082438",
+          "title": "20 Days in Mariupol"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt24082438",
+          "title": "20 Days in Mariupol",
+          "outcome": "nominated",
+          "oscar": "won"
+        },
+        {
+          "imdb": "tt24082488",
+          "title": "The Eternal Memory",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt27502426",
+          "title": "Four Daughters",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt7196012",
+          "title": "Going to Mars: The Nikki Giovanni Project",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt22528178",
+          "title": "Kokomo City",
+          "outcome": "nominated",
+          "oscar": null
+        },
+        {
+          "imdb": "tt19853258",
+          "title": "Still: A Michael J. Fox Movie",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt16294920",
+          "title": "32 Sounds",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2025-03-02",
+        "winner": {
+          "imdb": "tt30953759",
+          "title": "No Other Land"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt30953759",
+          "title": "No Other Land",
+          "outcome": "won",
+          "oscar": "won"
+        },
+        {
+          "imdb": "tt30227076",
+          "title": "Black Box Diaries",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt31015216",
+          "title": "Dahomey",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt12336480",
+          "title": "Daughters",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt19121796",
+          "title": "Look Into My Eyes",
+          "outcome": "nominated",
+          "oscar": null
+        },
+        {
+          "imdb": "tt14452174",
+          "title": "Soundtrack to a Coup d'Etat",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt30319854",
+          "title": "Sugarcane",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2026-03-15",
+        "winner": {
+          "imdb": "tt34965515",
+          "title": "Mr. Nobody Against Putin"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt34966013",
+          "title": "Come See Me in the Good Light",
+          "outcome": "won",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt34964205",
+          "title": "2000 Meters to Andriivka",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt26245982",
+          "title": "Afternoons of Solitude",
+          "outcome": "nominated",
+          "oscar": null
+        },
+        {
+          "imdb": "tt37660887",
+          "title": "Cover-Up",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        },
+        {
+          "imdb": "tt34962891",
+          "title": "The Perfect Neighbor",
+          "outcome": "nominated",
+          "oscar": "nominated"
+        },
+        {
+          "imdb": "tt36598711",
+          "title": "Put Your Soul on Your Hand and Walk",
+          "outcome": "nominated",
+          "oscar": null
+        },
+        {
+          "imdb": "tt34963731",
+          "title": "Seeds",
+          "outcome": "nominated",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "status": "no_data",
+      "oscars": {
+        "status": "partial",
+        "winnersOn": "2027-03-14",
+        "winner": null
+      },
+      "results": []
+    }
+  ]
+}

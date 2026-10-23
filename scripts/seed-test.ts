@@ -7,6 +7,7 @@ import { inArray, sql } from "drizzle-orm";
 import { createScriptDb, type ScriptDb } from "../src/db";
 import { readDbBranch } from "../src/db/meta";
 import { marks, movies } from "../src/db/schema";
+import { recomputeAccuracy } from "./lib/compute";
 import { readDataSet } from "./lib/data-check";
 import { revalidateAwards, runLoad } from "./lib/load";
 import { loadTargetEnv } from "./lib/target";
@@ -43,7 +44,12 @@ async function main() {
     }
     const { data, errors } = readDataSet("data");
     if (errors.length > 0) throw new Error(`The data files fail the checks:\n- ${errors.join("\n- ")}`);
-    await runLoad(db, data, { target: "test", dryRun: false, revalidate: revalidateAwards });
+    await runLoad(db, data, {
+      target: "test",
+      dryRun: false,
+      afterWrites: async (tx) => console.log(await recomputeAccuracy(tx, new Date().toISOString().slice(0, 10))),
+      revalidate: revalidateAwards,
+    });
     const fixtures = await db.transaction(resetMarks);
     const [{ films }] = await db.select({ films: sql<number>`count(*)::int` }).from(movies);
     console.log(`Seeded test: ${films} films, marks reset to ${fixtures} fixtures.`);
