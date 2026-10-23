@@ -117,7 +117,8 @@ export function DataTable({
                     className={cn(
                       cellPad,
                       "border-b border-line align-middle md:py-3.5",
-                      i === 0 ? "text-left" : "text-right",
+                      // On phone the first column keeps room for a long award name; the frame scrolls instead.
+                      i === 0 ? "text-left max-md:min-w-[140px]" : "text-right",
                       columns[i] && hide(columns[i]),
                     )}
                   >

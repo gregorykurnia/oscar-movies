@@ -65,6 +65,8 @@ test("the Oscar year page's chips filter every category by the marks and survive
     // Unwatched keeps the want-to-watch film; pressing it again clears the filter. The year
     // switcher carries the chip to the other year.
     await chip(page, "Unwatched").click();
+    await expect(page).toHaveURL(/\/awards\/oscars\/2024\?filter=unwatched$/);
+    await expect(picture.getByRole("heading", { level: 3, name: "The Brutalist" })).toBeVisible();
     await expect(picture.getByRole("heading", { level: 3, name: "Conclave" })).toBeVisible();
     await expect(picture.getByRole("heading", { level: 3, name: "Anora" })).toHaveCount(0);
     await page.getByRole("button", { name: "Year: 2024" }).click();

@@ -57,6 +57,20 @@ describe("awardsOfKind", () => {
     ]);
     expect(awardsOfKind("critics")).toEqual([]);
   });
+
+  it("follows the year's own dates where it has them, and keeps an undated award in its place", () => {
+    const dates = new Map<string, string | null>([
+      ["golden-globes", "2026-01-11"],
+      ["satellite", "2026-03-08"],
+      ["bafta", "2026-02-22"],
+      ["afi", null],
+    ]);
+    const order = awardsOfKind("major", dates).map((a) => a.slug);
+    expect(order.indexOf("bafta")).toBeLessThan(order.indexOf("satellite"));
+    expect(order.indexOf("golden-globes")).toBeLessThan(order.indexOf("bafta"));
+    expect(order.indexOf("afi")).toBe(awardsOfKind("major").map((a) => a.slug).indexOf("afi"));
+    expect(new Set(order)).toEqual(new Set(awardsOfKind("major").map((a) => a.slug)));
+  });
 });
 
 describe("oscarsLine", () => {

@@ -9,8 +9,8 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getMarks } from "@/data/watch-list";
 import { getYearSummaryGrids } from "@/data/year-summary";
-import { listHref, mostNominatedNote, yearSummary, type YearSummary } from "@/lib/year-summary";
-import { LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
+import { listHref, mostNominatedLabel, mostNominatedNote, yearSummary, type YearSummary } from "@/lib/year-summary";
+import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 
@@ -31,7 +31,7 @@ export function YearSummaryPage({ year }: { year: number }) {
     <>
       <PageHeader
         title={`${year} year summary`}
-        sub="The season in numbers. Each count opens its list."
+        sub={`${editionLabel(year)} season in numbers. Each count opens its list.`}
         back={{ label: `${year} year grid`, href: `/grid/${year}` }}
         actions={<YearSwitcher year={year} years={YEARS} liveYear={LIVE_YEAR} href="/years/{year}" />}
       />
@@ -88,7 +88,7 @@ function statsOf(year: number, summary: YearSummary): Stat[] {
     },
     {
       value: most ? String(most.count) : "–",
-      label: "Most nominations",
+      label: most ? mostNominatedLabel(most) : "Most nominations",
       note: most ? mostNominatedNote(most) : "No nominations yet",
       href: listHref(year, { category: "all", sort: "noms" }),
     },
@@ -104,7 +104,11 @@ function rowsOf(year: number, summary: YearSummary): DataRow[] {
       <TextLink key="films" href={listHref(year, { category: row.slug })}>
         {row.films}
       </TextLink>,
-      <TextLink key="watched" href={listHref(year, { category: row.slug, filters: ["watched"] })}>
+      <TextLink
+        key="watched"
+        href={listHref(year, { category: row.slug, filters: ["watched"] })}
+        tone={row.watched === 0 ? "muted" : "ink"}
+      >
         {row.watched}
       </TextLink>,
     ],

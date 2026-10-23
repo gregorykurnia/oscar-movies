@@ -54,3 +54,39 @@ Every "should fix" item from a phase review goes to exactly one place: fixed in 
 | 1-23 | Watch list rows on phone are tall (about 150px) | Dropped: the film row as the guide draws it; no change |
 | 1-24 | Home tab title was "The 2026 race" without " · Oscar Movies" (the root layout's template skips its own segment's page); `identity.spec.ts` still expected the Phase 0 "Oscar Movies" | Fixed: absolute title on `/`; the spec checks `/` and `/race/2024` |
 | 1-25 | `search.spec.ts` and `phase-1.spec.ts` pressed `/` before the page hydrated (a flaky first press) | Fixed: the specs retry the key until the box has focus |
+
+## Phase 2 review (2026-10-23)
+
+**Checks:** full Playwright suite after the fixes 71 of 73 (two specs still expected the old behaviour: the awards index's fixed order, and a new Shift+Tab step from the wrong link), both passed with `--last-failed`; another project's test browser was running on the server at the time; screenshot spec 19 of 19 (390 and 1280, light only), the five changed pages retaken; unit 591; database 80; `data:check`, typecheck, lint, build clean.
+
+Three fresh read-only reviews: logic and data (accuracy, grid, movie awards, compute, loader, importers), pages and specs, design (guide §15 on `screenshots/phase-2/` against `design-preview.html`). No raw hex or dark styles (grep clean). Differences already recorded in tasks 2.1–2.13 aren't repeated here.
+
+| # | Item | Where it went |
+|---|---|---|
+| 2-1 | Award pages' Oscar column read "Eligible" for Animated films on the Academy's eligible list after the nominees were out without them | Fixed: `oscarCell` reads Not nominated once the nominations are out. The movie page and the Oscar year page keep "Eligible" there: it is the film's place on the Oscars' own list (1-6) |
+| 2-2 | Accuracy counts a precursor winner's Oscar nomination from a season whose ceremony hasn't happened yet | Dropped: a nomination doesn't change once announced; leaving it out would count the film as a miss until the ceremony, then flip it |
+| 2-3 | Year grid sort menu: choosing a sort dropped keyboard focus on the page; Esc did nothing with focus on the button | Fixed: focus returns to the button; Esc works anywhere in the menu (`SortMenu`, `grid.spec.ts` checks both) |
+| 2-4 | `mark-filters.spec.ts`: the Unwatched step asserted what the page already showed before the click | Fixed: waits for the address, then checks an unmarked film appears |
+| 2-5 | Accuracy table kept its own sort after a link to another sort of the same category (the nav's Accuracy) | Fixed: the table resets when the address's sort changes |
+| 2-6 | Empty states inside a category section were a second `h2` (Oscar year page, race) | Fixed: `h3` |
+| 2-7 | Year summary's Watched counts come from a server read of the marks, where plan §5.1 says counts with marks are worked out on the client | Dropped: the same per-visit read as the Watch list and the mark filters (2.11a); stale only if a save is still in flight when the page opens |
+| 2-8 | `awards-year.spec.ts` finds the AFI row by a class name and counts "–" on the page | Dropped: both pass and test what they say; rewrite when that markup changes |
+| 2-9 | Movie page, capped critics groups: the list's closing rule and the Show all row's rule both show | Task 4.R: judged with real critics groups (none are loaded until Phase 4) |
+| 2-10 | Year summary: no nav item marked | Fixed: `/years/` belongs to Year grid |
+| 2-11 | Awards index says "in calendar order" but Satellite (10 Mar) sat before DGA (7 Feb) | Fixed: each list follows that year's dates; an award with no date (AFI) keeps its registry place |
+| 2-12 | Movie page: the Major awards / Festivals / Critics groups headings were in the Title style (guide §4: `h3` is Body at 600) | Fixed |
+| 2-13 | Accuracy at 390: the Award column shrank to about 75px, one word per line | Fixed: the first column of a data table keeps 140px on phone and the table scrolls in its frame |
+| 2-14 | Year summary: "9 · Most nominations" didn't say whose | Fixed: "Nominations for Hamnet, the most", the wins under it (the reference file's wording) |
+| 2-15 | Year summary sub line didn't name the ceremony (guide §11 Years) | Fixed: "98th Academy Awards season in numbers. …" |
+| 2-16 | Festivals index: h1 "Festivals 2025", then an h2 "Festivals" | Dropped: Phase 5 adds the lineups to this page, and the heading tells prizes from lineups |
+| 2-17 | Awards index: the empty Critics groups section doesn't say when they come | Dropped: there is no date to give; Phase 4 loads them and this state goes |
+| 2-18 | Award pages: the jump control marks no segment | Dropped: it jumps within the page, so no category is the current view |
+| 2-19 | BAFTA's jump segments use the award's long names and scroll on phone | Dropped: they match the section headings (the award's own names, guide §8.2); Globes' Drama and Comedy would read the same in Oscar words; the control scrolls in its frame as guide §7 allows |
+| 2-20 | Award pages: the Oscar column head read only "Best Picture" | Fixed: "Oscar, Best Picture", as the reference file |
+| 2-21 | Year grid at 1280: nothing shows that the frame scrolls on to the festivals | Dropped: guide §8.4 draws a plain bordered frame; a fade is a new look, for the guide first if the owner wants it |
+| 2-22 | Year grid: titles start at different x with one to three flags | Dropped: a slot for three flags would push most titles (one flag) right; phone hides the flags |
+| 2-23 | Movie page Awards rows stacked the category under the award, twice the reference file's height | Fixed: award · category · result on one line from 768px, stacked on phone, as the reference file's `.awl`; not-nominated names in regular weight |
+| 2-24 | Movie page Awards heading had no meta line | Fixed: "Every followed award that gave these categories in 2024" |
+| 2-25 | Movie page left out Festivals when no festival gave a prize | Fixed: the section shows "No followed festival prize." |
+| 2-26 | Race precursor line: awards not in calendar order within a group | Dropped: the order is 2.11's rule (wins first, majors before critics groups before festivals, later in the season first) |
+| 2-27 | Year summary: zero Watched counts in ink | Fixed: `--ink-muted` (`TextLink` tone `muted`) |

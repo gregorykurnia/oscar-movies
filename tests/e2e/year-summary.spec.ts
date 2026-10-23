@@ -45,8 +45,8 @@ test("/years/2025 shows the season in numbers: films, watched and the most nomin
   await expect(watched).toContainText("Watched");
 
   const most = page.locator('a[href="/grid/2025?category=all&sort=noms"]');
-  await expect(most).toContainText("Most nominations");
-  await expect(most).toContainText("Hamnet: 3 wins at Globes, Satellite and TIFF");
+  await expect(most).toContainText("Nominations for Hamnet, the most");
+  await expect(most).toContainText("3 wins at Globes, Satellite and TIFF");
 
   const table = page.getByRole("table", { name: TABLE });
   await expect(table.getByRole("columnheader", { name: "Films" })).toBeVisible();

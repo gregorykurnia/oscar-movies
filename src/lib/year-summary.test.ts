@@ -4,6 +4,7 @@ import {
   listHref,
   listOf,
   mostNominated,
+  mostNominatedLabel,
   mostNominatedNote,
   yearSummary,
 } from "./year-summary";
@@ -103,18 +104,24 @@ describe("mostNominated", () => {
   });
 });
 
-describe("the most-nominated note", () => {
-  it("names the film, its wins and the awards they came from", () => {
-    expect(mostNominatedNote({ count: 3, films: [{ title: "Anora", wins: 2, awards: ["Oscars", "BAFTA"] }] })).toBe(
-      "Anora: 2 wins at Oscars and BAFTA",
+describe("the most-nominated figure", () => {
+  it("says whose figure it is", () => {
+    expect(mostNominatedLabel({ count: 3, films: [{ title: "Anora", wins: 2, awards: ["Oscars", "BAFTA"] }] })).toBe(
+      "Nominations for Anora, the most",
     );
-    expect(mostNominatedNote({ count: 3, films: [{ title: "Anora", wins: 1, awards: ["Oscars"] }] })).toBe("Anora: 1 win at Oscars");
+  });
+
+  it("names its wins and the awards they came from", () => {
+    expect(mostNominatedNote({ count: 3, films: [{ title: "Anora", wins: 2, awards: ["Oscars", "BAFTA"] }] })).toBe(
+      "2 wins at Oscars and BAFTA",
+    );
+    expect(mostNominatedNote({ count: 3, films: [{ title: "Anora", wins: 1, awards: ["Oscars"] }] })).toBe("1 win at Oscars");
   });
 
   it("says when the film has no wins yet, and how many are tied", () => {
-    expect(mostNominatedNote({ count: 2, films: [{ title: "Wicked", wins: 0, awards: [] }] })).toBe("Wicked: no wins yet");
+    expect(mostNominatedNote({ count: 2, films: [{ title: "Wicked", wins: 0, awards: [] }] })).toBe("No wins yet");
     const tied = { count: 2, films: [{ title: "Anora", wins: 1, awards: ["Oscars"] }, { title: "Wicked", wins: 0, awards: [] }, { title: "Drift", wins: 0, awards: [] }] };
-    expect(mostNominatedNote(tied)).toBe("Anora: 1 win at Oscars · 2 more tied");
+    expect(mostNominatedNote(tied)).toBe("1 win at Oscars · 2 more tied");
   });
 });
 

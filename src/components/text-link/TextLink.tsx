@@ -3,14 +3,15 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
 type TextLinkProps = ComponentProps<typeof Link> & {
-  /** "gold" inside the gold wash (the "why"): gold-ink text on a gold-soft underline. */
-  tone?: "ink" | "gold";
+  /** "gold" inside the gold wash (the "why"): gold-ink text on a gold-soft underline. "muted" for a zero count. */
+  tone?: "ink" | "gold" | "muted";
 };
 
 // Guide §7 Text link: 1px underline in line-strong, offset 3px; hover turns it the text colour.
 const tones = {
   ink: "text-ink decoration-line-strong",
   gold: "text-gold-ink decoration-gold-soft",
+  muted: "text-ink-muted decoration-line-strong",
 };
 
 export function TextLink({ tone = "ink", className, ...rest }: TextLinkProps) {

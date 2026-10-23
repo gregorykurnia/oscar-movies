@@ -57,9 +57,10 @@ async function Sections({ year }: { year: number }) {
   const [editions, winners] = await Promise.all([getYearEditions(year), getOscarResults(year, "picture", "won")]);
   const byAward = new Map(editions.map((e) => [e.slug, e]));
   const oscars = byAward.get("oscars");
-  const majors = awardsOfKind("major");
-  const festivals = awardsOfKind("festival");
-  const critics = awardsOfKind("critics");
+  const dates = new Map(editions.map((e) => [e.slug, e.winnersOn]));
+  const majors = awardsOfKind("major", dates);
+  const festivals = awardsOfKind("festival", dates);
+  const critics = awardsOfKind("critics", dates);
   return (
     <>
       <div className="mt-10 md:mt-12">
@@ -92,8 +93,9 @@ async function Sections({ year }: { year: number }) {
 
 async function FestivalSection({ year }: { year: number }) {
   await connection();
-  const byAward = new Map((await getYearEditions(year)).map((e) => [e.slug, e]));
-  const festivals = awardsOfKind("festival");
+  const editions = await getYearEditions(year);
+  const byAward = new Map(editions.map((e) => [e.slug, e]));
+  const festivals = awardsOfKind("festival", new Map(editions.map((e) => [e.slug, e.winnersOn])));
   return (
     <IndexSection id="festivals-h" title="Festivals" count={festivals.length} first>
       <AwardRows awards={festivals} year={year} byAward={byAward} />

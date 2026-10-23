@@ -33,9 +33,18 @@ export function rowDate(kind: AwardKind, winnersOn: string | null): string {
   return kind === "festival" ? formatMonthYear(dayOf(winnersOn)) : formatDate(dayOf(winnersOn), true);
 }
 
-/** The awards of one kind, in calendar order. */
-export function awardsOfKind(kind: AwardKind): AwardSummary[] {
-  return AWARDS.filter((a) => a.kind === kind).sort((a, b) => a.calendarOrder - b.calendarOrder);
+/**
+ * The awards of one kind, in calendar order: by the year's own dates (`winnersOn` by award slug)
+ * where there are some, since an award can move in the calendar (Satellite in March one year,
+ * February the next), and the registry's order otherwise. An award with no date keeps its
+ * registry place.
+ */
+export function awardsOfKind(kind: AwardKind, dates?: ReadonlyMap<string, string | null>): AwardSummary[] {
+  const ordered = AWARDS.filter((a) => a.kind === kind).sort((a, b) => a.calendarOrder - b.calendarOrder);
+  const dateOf = (a: AwardSummary) => dates?.get(a.slug) ?? null;
+  const dated = ordered.filter((a) => dateOf(a) !== null).sort((a, b) => dateOf(a)!.localeCompare(dateOf(b)!));
+  let next = 0;
+  return ordered.map((a) => (dateOf(a) === null ? a : dated[next++]));
 }
 
 /** The Oscars' line on the awards index: the ceremony's day, then the Best Picture winner once there is one. */

@@ -12,9 +12,10 @@ export const NAV_ITEMS = [
 
 export type NavKey = (typeof NAV_ITEMS)[number]["key"];
 
-/** The nav item a path belongs to, or null (movie pages, /data, the styleguide). */
+/** The nav item a path belongs to, or null (movie pages, /data, the styleguide). The year summary is the grid's. */
 export function currentNav(pathname: string): NavKey | null {
   if (pathname === "/" || pathname.startsWith("/race/")) return "race";
+  if (pathname.startsWith("/years/")) return "grid";
   for (const item of NAV_ITEMS) {
     if (item.href !== "/" && (pathname === item.href || pathname.startsWith(`${item.href}/`))) return item.key;
   }

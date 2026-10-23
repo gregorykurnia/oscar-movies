@@ -84,13 +84,18 @@ export function listOf(items: string[]): string {
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-/** The most-nominated stat's note: the first film, its wins and where they came from, and any ties. */
+/** The figure's label, naming whose it is: "Nominations for Hamnet, the most" (guide §11). */
+export function mostNominatedLabel({ films }: MostNominated): string {
+  return `Nominations for ${films[0].title}, the most`;
+}
+
+/** The line under it: the film's wins and where they came from, and how many films tie with it. */
 export function mostNominatedNote({ films }: MostNominated): string {
   const [top, ...tied] = films;
   const wins =
-    top.wins === 0 ? "no wins yet" : `${top.wins} ${top.wins === 1 ? "win" : "wins"} at ${listOf(top.awards)}`;
+    top.wins === 0 ? "No wins yet" : `${top.wins} ${top.wins === 1 ? "win" : "wins"} at ${listOf(top.awards)}`;
   const more = tied.length > 0 ? ` · ${tied.length} more tied` : "";
-  return `${top.title}: ${wins}${more}`;
+  return `${wins}${more}`;
 }
 
 /** Where a count opens: the grid's view for the category, filter and sort it counts (the defaults otherwise). */

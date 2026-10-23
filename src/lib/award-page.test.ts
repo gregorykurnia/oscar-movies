@@ -44,6 +44,12 @@ describe("oscarCell", () => {
   it("reads an International film that went to the vote and missed as Not nominated", () => {
     expect(oscarCell({ outcome: "eligible", country: "FR" }, "finished", "international")?.stage).toBe("not-nominated");
   });
+
+  it("reads an eligible Animated film as Eligible until the nominees are out, then Not nominated", () => {
+    expect(oscarCell({ outcome: "eligible", country: null }, "shortlist", "animated")?.stage).toBe("eligible");
+    expect(oscarCell({ outcome: "eligible", country: null }, "nominations", "animated")?.stage).toBe("not-nominated");
+    expect(oscarCell({ outcome: "eligible", country: null }, "finished", "animated")?.stage).toBe("not-nominated");
+  });
 });
 
 describe("oscarName", () => {

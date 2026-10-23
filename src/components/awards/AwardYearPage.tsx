@@ -160,7 +160,7 @@ function CategorySection({
           No {MARK_FILTER_LABELS[filter].toLowerCase()} films in {category.name}.
         </p>
       ) : (
-        <FilmList head={[award.shortName, oscar]} columns={COLUMNS}>
+        <FilmList head={[award.shortName, `Oscar, ${oscar}`]} columns={COLUMNS}>
           {entries.map((e) => {
             const cell = oscarCell(e.oscar, oscarState, category.oscarCategory);
             return (

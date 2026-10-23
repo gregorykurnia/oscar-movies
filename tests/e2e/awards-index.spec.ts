@@ -15,7 +15,9 @@ test("/awards/2025 lists the Oscars first, then the majors, festivals and critic
   const majors = page.getByRole("region", { name: "Major awards" }).getByRole("listitem");
   await expect(majors).toHaveCount(11);
   await expect(majors.first()).toContainText("AFI Awards (Top 10 films)");
-  await expect(majors.last()).toContainText("Actor Awards (formerly SAG Awards)");
+  // By that year's dates: Satellite's 2025 winners came out on 10 Mar 2026, after the Actor Awards.
+  await expect(majors.nth(9)).toContainText("Actor Awards (formerly SAG Awards)");
+  await expect(majors.last()).toContainText("Satellite Awards");
   await expect(page.getByRole("region", { name: "Critics groups" }).getByRole("heading", { level: 3 })).toHaveText(
     "No critics groups yet",
   );

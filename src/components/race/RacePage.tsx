@@ -202,6 +202,7 @@ function NothingYet({
     return (
       <EmptyState
         title="No contenders yet"
+        headingLevel={3}
         className="mt-7"
         actions={<TextLink href={`/submissions/${year}`} className="text-small">See the {year} submissions</TextLink>}
       >
@@ -211,7 +212,7 @@ function NothingYet({
   }
   const beforeDecember = today < `${year}-12-01`;
   return (
-    <EmptyState title="No contenders yet" className="mt-7">
+    <EmptyState title="No contenders yet" headingLevel={3} className="mt-7">
       {beforeDecember
         ? `The first precursor results arrive in December${category === "animated" ? ", starting with the Annie Award nominations" : ""}.`
         : "Nothing is loaded for this category yet."}

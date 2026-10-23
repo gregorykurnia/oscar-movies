@@ -10,8 +10,9 @@ export type SortLink = { label: string; href: string; current: boolean };
 
 /**
  * The year grid's sort button (guide §8.4): a small secondary button "Sort: Wins" that opens a
- * popover of the sorts, each a link, so the sort stays in the address. Arrow keys move, Esc closes
- * and returns focus to the button; a press outside or tabbing away closes it.
+ * popover of the sorts, each a link, so the sort stays in the address. Arrow keys move, Esc (from
+ * the button or a link) closes and returns focus to the button, as does choosing a sort; a press
+ * outside or tabbing away closes it.
  */
 export function SortMenu({ items, className }: { items: SortLink[]; className?: string }) {
   const [open, setOpen] = useState(false);
@@ -39,6 +40,7 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
   }, [open]);
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (!open) return;
     const at = linkRefs.current.findIndex((el) => el === document.activeElement);
     const focus = (i: number) => linkRefs.current[(i + items.length) % items.length]?.focus();
     switch (e.key) {
@@ -70,6 +72,7 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
     <div
       ref={rootRef}
       className={cn("relative", className)}
+      onKeyDown={onKeyDown}
       onBlur={(e) => {
         if (open && !rootRef.current?.contains(e.relatedTarget as Node | null)) setOpen(false);
       }}
@@ -91,7 +94,6 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
           id={popId}
           role="group"
           aria-label="Sort by"
-          onKeyDown={onKeyDown}
           className="absolute top-full left-0 z-20 mt-2 w-[220px] animate-pop rounded-lg bg-surface p-1.5 shadow-pop md:right-0 md:left-auto"
         >
           {items.map((item, i) => (
@@ -103,7 +105,10 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
               href={item.href}
               scroll={false}
               aria-current={item.current ? "true" : undefined}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                buttonRef.current?.focus();
+                setOpen(false);
+              }}
               className={cn(
                 "flex h-10 items-center justify-between gap-3 rounded-[8px] px-2.5 text-small text-ink outline-none",
                 "transition-colors duration-[var(--dur-fast)] ease-app hover:bg-track focus-visible:bg-track focus-visible:shadow-focus",

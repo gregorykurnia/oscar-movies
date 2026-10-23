@@ -33,14 +33,18 @@ export function accuracyStats(figures: AwardFigures | null): Stat[] {
 
 /**
  * The Oscar column for a film. A film on the Oscar category's list shows its stage there. One
- * that isn't reads Not nominated once the nominations are out, and nothing before that.
+ * that isn't reads Not nominated once the nominations are out, and nothing before that. So does
+ * an eligible film (Animated's eligible list) once the nominees are named without it.
  */
 export function oscarCell(
   oscar: OscarOutcome,
   state: SeasonState,
   category: string,
 ): { stage: Stage; country: string | null } | null {
-  if (oscar) return { stage: oscarStage(oscar.outcome, category), country: oscar.country };
-  if (state === "nominations" || state === "finished") return { stage: "not-nominated", country: null };
+  const nominationsOut = state === "nominations" || state === "finished";
+  if (oscar && !(nominationsOut && oscar.outcome === "eligible")) {
+    return { stage: oscarStage(oscar.outcome, category), country: oscar.country };
+  }
+  if (nominationsOut) return { stage: "not-nominated", country: oscar?.country ?? null };
   return null;
 }

@@ -184,6 +184,7 @@ function CategorySection({
       ) : (
         <EmptyState
           title="No Oscar results yet"
+          headingLevel={3}
           actions={
             slug === "international" ? (
               <TextLink href={`/submissions/${year}`} className="text-small">

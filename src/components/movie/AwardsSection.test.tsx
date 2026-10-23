@@ -54,4 +54,11 @@ describe("AwardsSection", () => {
     expect(summary.closest("details")?.hasAttribute("open")).toBe(false);
     expect(within(group).getAllByRole("listitem")).toHaveLength(CRITICS_CAP + 3);
   });
+
+  it("names the year in the meta line, and says when no followed festival gave the film a prize", () => {
+    render(<AwardsSection today="2025-03-01" rows={[row({})]} />);
+    expect(screen.getByText("Every followed award that gave these categories in 2024")).toBeTruthy();
+    const festivals = screen.getByRole("group", { name: "Festivals" });
+    expect(within(festivals).getByText("No followed festival prize.")).toBeTruthy();
+  });
 });

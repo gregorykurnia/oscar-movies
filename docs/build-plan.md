@@ -432,6 +432,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Approve the Phase 1 production migrations (now including `0002_tmdb_zero_votes`, which clears TMDB 0.0 scores) and data load; Claude shows the dry run first | 2026-10-22 | Phase 1 release |
 | Set `CRON_SECRET` in Vercel Production, then release, so the daily score cron runs | 2026-10-22 | daily scores live |
 | Phase 1 owner check: mark the films seen for 2024–2026, check a handful of Oscar years against memory, sign off | 2026-10-22 | Phase 1 done |
+| Approve the Phase 2 production data load (12 majors and 5 festivals, 2012–2026, then `npm run compute`); Claude shows the dry run first | 2026-10-23 | Phase 2 release |
+| Phase 2 owner check: spot-check three awards' pages against memory, the accuracy page and the 2025 grid, sign off | 2026-10-23 | Phase 2 done |
+| Two Phase 2 choices to confirm or change: the awards index's bordered Oscars link (2.7, not in guide §5), and the year summary counting Oscar-shortlisted films as "with a nomination", as the grid does (2.10) | 2026-10-23 | nothing (easy to change) |
 
 ## Upkeep log
 

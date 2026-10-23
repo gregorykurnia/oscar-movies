@@ -26,6 +26,7 @@ describe("currentNav", () => {
     expect(currentNav("/race/2024")).toBe("race");
     expect(currentNav("/awards/bafta/2024")).toBe("awards");
     expect(currentNav("/grid/2025")).toBe("grid");
+    expect(currentNav("/years/2025")).toBe("grid");
     expect(currentNav("/watch-list")).toBe("watch-list");
     expect(currentNav("/movies/anora")).toBeNull();
     expect(currentNav("/data")).toBeNull();

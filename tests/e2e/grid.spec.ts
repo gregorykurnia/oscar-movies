@@ -115,6 +115,16 @@ test("the sort menu works by keyboard", async ({ page }) => {
   await expect(menu.getByRole("link", { name: "Title" })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
+  // Choosing a sort keeps the keyboard's place on the button, and Esc works from the button too.
+  const titleButton = page.getByRole("button", { name: "Sort: Title" });
+  await expect(titleButton).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(menu).toBeVisible();
+  await page.keyboard.press("Home");
+  await page.keyboard.press("Shift+Tab");
+  await expect(titleButton).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveCount(0);
 });
 
 test("at 390 the page never scrolls sideways: the grid scrolls in its frame and the film column stays", async ({ page }) => {

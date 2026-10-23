@@ -70,8 +70,9 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
   return (
     <section aria-label="Accuracy by award" className="mt-10 md:mt-12">
       <AccuracyTable
-        // The sort lives in the address; a new category starts from the default.
-        key={category}
+        // The sort lives in the address; a new category, or a link to another sort (the nav's
+        // Accuracy), starts from the address's sort.
+        key={`${category}:${params.sort ?? ""}:${params.dir ?? ""}`}
         rows={rows}
         initialSort={parseSort(params.sort, params.dir)}
         caption={`How well each award foretells ${oscar}`}
