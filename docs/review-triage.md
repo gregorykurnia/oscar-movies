@@ -159,3 +159,37 @@ Two fresh read-only reviews: data honesty (importer, editions, spot-checks of NB
 | 4-17 | Edition files shorten titles after a colon | Dropped: the files' titles are for reading them; pages show the film record's title (IMDb IDs are right) |
 | 4-18 | Race precursor line: with critics groups loaded, a film's wins fill the four places, so a major nomination (The Brutalist's BAFTA) no longer shows; `race.spec.ts` expected it | Dropped: 2.11's order (wins first, majors before critics groups); the spec now checks the wins. Showing majors' nominations before critics wins is a small change in `precursorLine` if the owner prefers it |
 | 4-19 | `phase-2.spec.ts` and `year-summary.spec.ts` held 2025 counts from Phase 2 (31 Picture films, 90 in all, Hamnet the most nominated), changed by 4.10's critics nominees | Fixed: each count is read from the page and checked against the grid it opens |
+
+## Phase 5 review (2026-10-23)
+
+**Checks:** full Playwright suite after the fixes 92 of 92 on the first run (nothing else testing on the server); screenshot spec: the two changed routes retaken, 2 of 2 (`festival-lineup-cannes-2025`, `movie-screenings`, 390 and 1280, light only, `screenshots/phase-5/`); unit 784; database: the loader's tests failed on 5-6's new rule (their fixture's screenings sat on a major with no section order), the fixture fixed and the 7 rerun (90 in all); `data:check --base origin/main` (1 warning: a San Diego critics film with no country, not a lineup film), `race:check` clean, typecheck, lint, build clean. Data fixes loaded on `test` (the six rows the new files replace deleted first: five retitled films, Viva Carmen's QID row; no marks or results); a second load plans nothing. Production untouched.
+
+Three fresh read-only reviews: data honesty (importer and data; spot-checks of Cannes 2025 Competition, Un Certain Regard, Critics' Week, Directors' Fortnight, Venice 2025 Competition and Orizzonti, Sundance 2025 U.S. Dramatic, Toronto 2025 Platform, Midnight Madness and prizes, Berlin 2025 Competition, Toronto and Cannes 2026 prizes against Wikipedia: all matched; 304 TMDB and 864 Wikidata matches agree on the director), pages and specs, design (guide §15 on `screenshots/phase-5/` against `design-preview.html`). No raw hex (grep clean). Differences already recorded in tasks 5.1–5.5 aren't repeated here.
+
+| # | Item | Where it went |
+|---|---|---|
+| 5-1 | 18 lineup films filed only by a QID (Wikidata has no IMDb ID), so OMDb can never score them; Viva Carmen filed twice (Cannes 2026 by QID, Toronto 2026 by tt29034109) | Fixed: a film with no IMDb ID on Wikidata is searched on TMDB with the row's director; 15 found and re-filed (slug and QID kept, `reviseMovies`), Viva Carmen merged; Sisters (Toronto 2026) stays under its QID |
+| 5-2 | Stale or disambiguated titles: Rose's Baby (now Up Against It), The Face of Terror (The Face of Horror), Notre Salut (A Man of His Time), "De Gaulle (2026 film)", "The Road Not Taken (2026 film)" | Fixed: `titles` and Wikidata labels lose "(… film)"; slugs follow (none released) |
+| 5-3 | Section names differ between years (Sundance World [Cinema] Documentary Competition, Venice Biennale College [-] Cinema) | Fixed: `sectionNames` |
+| 5-4 | Sundance prizes read "U.S. Dramatic (Grand Jury Prizes)", "Directing Award (Directing, Screenwriting and Editing)"; Venice Critics' Week prizes named the section in English beside its Italian name | Fixed: `dashPrizeText` ("Grand Jury Prize", "Directing Award"); Venice's heading maps to the section's name |
+| 5-5 | 12 lineup films with no country, so no flag (§3.9) | Fixed: the row's production countries when no source gives one |
+| 5-6 | `data:check` didn't check section order: two sections sharing a place would merge on the page | Fixed: screenings only on festivals; one `sectionOrder` per section, shared by no other |
+| 5-7 | A prize goes on every section a film appears in | Dropped: no film with a prize is in two sections; a prize line names the film, not the section |
+| 5-8 | The lineup showed only when the edition's prizes were loaded (status is about prizes); the index didn't link a `no_data` festival | Fixed: a lineup is its screenings; from 2025 the index links any festival with an edition. `data:check` still refuses screenings on a `no_data` edition, so a lineup loaded before its prizes needs the edition `partial` |
+| 5-9 | `phase-5.spec.ts`: the chip was clicked before hydration could take it | Fixed: pressed until `aria-pressed` holds |
+| 5-10 | The spec's comments claimed checks it didn't make (the chip filtering, the year switcher keeping both, the 2024 index) | Fixed: each is checked |
+| 5-11 | Expected orders came from Postgres's byte order, the page sorts with `localeCompare` (Berlin and Toronto differ); the average comparator was unstable for two films with none | Fixed: the spec sorts with the page's comparators |
+| 5-12 | Films left out of a lineup (the edition's "Lineup:" note) were never shown | Fixed: "Also left out: …" in the footnote |
+| 5-13 | `/festivals/bafta/2025` had the tab title "BAFTA 2025 lineup" on a 404 | Fixed |
+| 5-14 | Prize pills keyed by name, read run together; gold wash on any prize | Keys and a spoken "; " fixed. Gold dropped: a prize is a win (guide §2) |
+| 5-15 | Movie page: the Palme d'Or twice (its Won row and the screening's caption) | Fixed: the caption leaves out a prize the festival's Won row shows (Sundance's "U.S. Grand Jury Prize: Dramatic" is its section's "Grand Jury Prize"). Toronto's documentary prize keeps both (the source names it two ways) |
+| 5-16 | A pre-2025 film with no award result had no coverage line | Fixed |
+| 5-17 | Movie page read awards then screenings one after the other | Fixed: in parallel |
+| 5-18 | Loose spec assertions (unscoped prize text, `others[0]`); "Sort by" said twice; "Show all films" adds a history entry | Fixed, except the history entry: dropped, it's a link like every Show all |
+| 5-19 | Phone: "Prize" on one line and its pill on the next; a "Prize –" line on most rows | Fixed: pills inline; no Prize line on phone without a prize (`FilmRow` `phoneHidden`) |
+| 5-20 | "Selected" uses the Nominated look and isn't in guide §7, §11 | Dropped: AFI's top ten already reads "Selected" in that look (2.11); one word, one look. Owner to confirm (Waiting list) |
+| 5-21 | Pills repeat their section ("Jury Prize (Un Certain Regard)" under Un Certain Regard) | Fixed: `prizesOf` drops it inside that section |
+| 5-22 | Every row's meta line was just "2025" | Fixed: only a film from another year says its year |
+| 5-23 | `StagePill` wrap mode `py-[3px]`, `min-h-[22px]` off the scale | Dropped: pill internals keep the preview's 22px height |
+| 5-24 | Long lineups (14,000px) have no jump to a section | Dropped: not in guide §8.3; a follow-up for the owner (sections already have ids) |
+| 5-25 | Many lineup films read "No scores yet" | Dropped: the daily score job fills them (675 never checked after 5.2); 5-1's 15 films now have the IMDb ID it needs |

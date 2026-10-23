@@ -441,6 +441,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Approve the Phase 4 production load (63 critics groups, 2012–2026, then the recompute); Claude shows the dry run first | 2026-10-23 | Phase 4 release |
 | Phase 4 owner check: spot-check two critics groups' pages against memory, the accuracy page's critics rows and the open grid, sign off | 2026-10-23 | Phase 4 done |
 | Phase 4 choices to confirm or change (4.R): critics groups with no data in any year are left out of the accuracy rows (counted in a footnote) and the open grid; a nominees figure only from editions that name nominees; Boston Society and NYFCC stay winners only | 2026-10-23 | nothing (easy to change) |
+| Approve the Phase 5 production load (2025–26 lineups for the five festivals, ~1,000 new films, then the recompute); Claude shows the dry run first | 2026-10-23 | Phase 5 release |
+| Phase 5 owner check: Cannes 2025's lineup against memory, a film's screenings on its page, the lineups on a real phone, sign off | 2026-10-23 | Phase 5 done |
+| Phase 5 choices to confirm or change (5.3, 5.R): the lineup's sort (Title or Average score) and mark chips; "Selected" in the Nominated look, as AFI's top ten; possible follow-up: links that jump to a lineup's sections | 2026-10-23 | nothing (easy to change) |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log
