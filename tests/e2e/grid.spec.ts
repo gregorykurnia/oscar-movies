@@ -1,0 +1,129 @@
+// The year grid (task 2.9, guide §8.4): one row per film with a nomination, one column per award,
+// won and nominated cells labelled; the view in the address; the page never scrolls sideways on a
+// phone. Reads only; no writes. The expected rows come from the `test` branch's 2025 data.
+import { expect, test } from "@playwright/test";
+
+const OSCAR_NOMINEES_2025 = [
+  "Bugonia",
+  "F1",
+  "Frankenstein",
+  "Hamnet",
+  "Marty Supreme",
+  "One Battle After Another",
+  "Sentimental Value",
+  "Sinners",
+  "The Secret Agent",
+  "Train Dreams",
+];
+
+test("/grid/2025 shows every nominated Picture film with its won and nominated cells", async ({ page }) => {
+  await page.goto("/grid/2025");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("2025 year grid");
+  await expect(page.getByText("Best Picture · 31 films with a nomination")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Year summary" })).toHaveAttribute("href", "/years/2025");
+
+  const table = page.getByRole("table");
+  const rows = table.getByRole("rowheader");
+  await expect(rows).toHaveCount(31);
+  // Sorted by wins: the Best Picture winner first.
+  await expect(rows.first()).toContainText("One Battle After Another");
+
+  // Every Oscar nominee is a row, the winner's Oscar cell won, the others nominated.
+  for (const title of OSCAR_NOMINEES_2025) {
+    await expect(table.getByRole("rowheader", { name: title, exact: true })).toHaveCount(1);
+  }
+  await expect(table.getByRole("img", { name: "Won: Best Picture" })).toHaveCount(1);
+  await expect(table.getByRole("img", { name: "Nominated: Best Picture" })).toHaveCount(9);
+  const winner = table.getByRole("row").filter({ has: page.getByRole("rowheader", { name: "One Battle After Another" }) });
+  await expect(winner.getByRole("img", { name: "Won: Best Picture" })).toBeVisible();
+  await expect(winner.getByRole("img", { name: "Won: Best Film" })).toBeVisible();
+  await expect(winner.getByRole("cell").nth(0)).toHaveText("5");
+  await expect(winner.getByRole("cell").nth(1)).toHaveText("8");
+
+  // Columns: Oscars, then majors, then festivals; the legend under the grid.
+  await expect(table.getByRole("columnheader", { name: "Major awards" })).toBeVisible();
+  await expect(table.getByRole("columnheader", { name: "Festivals" })).toBeVisible();
+  await expect(table.getByRole("columnheader", { name: "BAFTA" })).toBeVisible();
+  await expect(page.getByRole("list", { name: "Legend" })).toContainText("Nominated or on the list");
+  await expect(page.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(31);
+});
+
+test("the category, sort and Unwatched filter are kept in the address and survive a reload", async ({ page }) => {
+  await page.goto("/grid/2025");
+  const rows = page.getByRole("table").getByRole("rowheader");
+
+  await page.getByRole("button", { name: "Sort: Wins" }).click();
+  await page.getByRole("group", { name: "Sort by" }).getByRole("link", { name: "Title" }).click();
+  await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
+  await expect(rows.first()).toContainText("Atropia");
+
+  await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "International" }).click();
+  await expect(page).toHaveURL(/\/grid\/2025\?category=international&sort=title$/);
+  await expect(page.getByText("Best International Feature · 20 films with a nomination")).toBeVisible();
+  await expect(page.getByRole("table").getByRole("img", { name: "Shortlisted: Best International Feature Film" })).toHaveCount(10);
+
+  await page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Unwatched" }).click();
+  await expect(page).toHaveURL(/\/grid\/2025\?category=international&sort=title&filter=unwatched$/);
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Sort: Title" })).toBeVisible();
+  await expect(page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Unwatched" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "International" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+
+  // The year switcher keeps the view.
+  await page.getByRole("button", { name: "Year: 2025" }).click();
+  await page.getByRole("dialog", { name: "Choose a year" }).getByRole("link", { name: "2024" }).click();
+  await expect(page).toHaveURL(/\/grid\/2024\?category=international&sort=title&filter=unwatched$/);
+});
+
+test("the sort menu works by keyboard", async ({ page }) => {
+  await page.goto("/grid/2025");
+  const button = page.getByRole("button", { name: "Sort: Wins" });
+  await button.focus();
+  await page.keyboard.press("Enter");
+  const menu = page.getByRole("group", { name: "Sort by" });
+  await expect(menu.getByRole("link", { name: "Wins" })).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await expect(menu.getByRole("link", { name: "Nominations" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveCount(0);
+  await expect(button).toBeFocused();
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("ArrowUp");
+  await expect(menu.getByRole("link", { name: "Title" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
+});
+
+test("at 390 the page never scrolls sideways: the grid scrolls in its frame and the film column stays", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/grid/2025");
+  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(31);
+
+  const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+  expect(widths.scroll).toBeLessThanOrEqual(widths.client);
+
+  const region = page.getByRole("region", { name: "Awards for each film" });
+  const inner = await region.evaluate((el) => ({ scroll: el.scrollWidth, client: el.clientWidth }));
+  expect(inner.scroll).toBeGreaterThan(inner.client);
+
+  const film = page.getByRole("table").getByRole("rowheader").first();
+  const before = await film.boundingBox();
+  await region.evaluate((el) => el.scrollTo({ left: 400 }));
+  await expect.poll(() => region.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+  const after = await film.boundingBox();
+  expect(after!.x).toBe(before!.x);
+});
+
+test("/grid opens the live season, and a year with nothing yet says so", async ({ page }) => {
+  await page.goto("/grid");
+  await expect(page).toHaveURL(/\/grid\/2026$/);
+  await page.goto("/grid/2026?category=animated");
+  await expect(page.getByRole("heading", { level: 2, name: "No nominations yet" })).toBeVisible();
+  await expect(page.getByText("Best Animated Feature · 0 films with a nomination")).toBeVisible();
+});

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, useSyncExternalStore, t
 import { saveMark } from "@/app/actions/marks";
 import { showToast } from "@/components/toast/Toaster";
 import { useOnline } from "@/lib/use-online";
-import { LabelledMark, Marks } from "./Marks";
+import { LabelledMark, Mark, Marks } from "./Marks";
 import {
   createMarksStore,
   failureMessage,
@@ -107,6 +107,22 @@ export function FilmMarks({
       size={size}
       disabled={disabled}
       onToggle={tap}
+      className={className}
+    />
+  );
+}
+
+/** The watched mark alone, 30px: the year grid's film column (guide §8.4). */
+export function FilmWatchedMark({ movieId, title, className }: { movieId: number; title: string; className?: string }) {
+  const { value, status, disabled, tap } = useFilmMarks(movieId, title);
+  return (
+    <Mark
+      kind="watched"
+      on={value.watched}
+      status={status.watched}
+      size="sm"
+      disabled={disabled}
+      onClick={() => tap("watched")}
       className={className}
     />
   );
