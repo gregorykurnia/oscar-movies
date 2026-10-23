@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { readEdition } from "./lib/writer";
 import { readLineupTables, readPrizeSections, readPrizeTable, titleCell } from "./lib/lineup-pages";
 import * as cheerio from "cheerio";
-import { lineupFilms, prizeLines, prizeText, rowsOfPrize, sectionName, sourcesLineupSchema, LINEUPS } from "./lineups";
+import { dashPrizeText, lineupFilms, prizeLines, prizeText, rowsOfPrize, sectionName, sourcesLineupSchema, LINEUPS } from "./lineups";
 
 const heading = (level: number, text: string) => `<div class="mw-heading mw-heading${level}"><h${level}>${text}</h${level}></div>`;
 const head = `<tr><th>English Title</th><th>Original Title</th><th>Director(s)</th><th>Production Country</th></tr>`;
@@ -138,6 +138,11 @@ describe("prizes", () => {
     expect(prizeText({ ...s.entries[0], heading: "Orizzonti", label: "Best Film" })).toBe("Best Film (Orizzonti)");
     expect(prizeText({ ...s.entries[0], heading: "Un Certain Regard", label: "Un Certain Regard Prize" })).toBe("Un Certain Regard Prize");
     expect(prizeText({ ...s.entries[0], heading: "Main Competition (Venezia 82)", label: "Golden Lion" })).toBe("Golden Lion");
+    // Sundance's "Label – Film" lines: a label naming a prize is the prize; a competition's name takes the heading's prize.
+    expect(dashPrizeText({ ...s.entries[0], heading: "Grand Jury Prizes", label: "U.S. Dramatic" })).toBe("Grand Jury Prize");
+    expect(dashPrizeText({ ...s.entries[0], heading: "Audience Awards", label: "NEXT" })).toBe("Audience Award");
+    expect(dashPrizeText({ ...s.entries[0], heading: "Directing, Screenwriting and Editing", label: "Directing Award" })).toBe("Directing Award");
+    expect(dashPrizeText({ ...s.entries[0], heading: "Other", label: "U.S. Dramatic" })).toBe("U.S. Dramatic (Other)");
   });
 });
 
@@ -175,7 +180,7 @@ describe("Sundance and Toronto pages (5.2)", () => {
 
   it("reads Sundance's dash lines as labels and leaves out the short film prizes", () => {
     const lines = prizeLines(sundance, LINEUPS.find((l) => l.slug === "sundance")!);
-    expect(lines.map((l) => `${l.text} → ${l.entry.film.text}`)).toEqual(["U.S. Documentary (Grand Jury Prizes) → Seeds"]);
+    expect(lines.map((l) => `${l.text} → ${l.entry.film.text}`)).toEqual(["Grand Jury Prize → Seeds"]);
   });
 
   it("reads Toronto's prize table, the film in its second column", () => {

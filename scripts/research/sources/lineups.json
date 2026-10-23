@@ -93,11 +93,17 @@
     "tt34819314": "Tired of Killing: Autobiography of an Assassin",
     "tt37673394": "Lamb of God",
     "tt37678610": "Cora",
-    "tt32263401": "Reflection in a Dead Diamond"
+    "tt32263401": "Reflection in a Dead Diamond",
+    "tt14102642": "The Face of Horror",
+    "tt41593304": "A Man of His Time",
+    "tt37439381": "Up Against It"
   },
   "sectionNames": {
     "Venice Open — Out of Competition": "Out of Competition",
-    "Berlinale Special — Out of Competition": "Berlinale Special"
+    "Berlinale Special — Out of Competition": "Berlinale Special",
+    "World Documentary Competition": "World Cinema Documentary Competition",
+    "Biennale College - Cinema": "Biennale College Cinema",
+    "Venice International Critics' Week": "Settimana Internazionale della Critica"
   },
   "published": {
     "cannes/2025/In Competition": {
@@ -171,10 +177,6 @@
       "films": 10,
       "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
     },
-    "sundance/2025/World Documentary Competition": {
-      "films": 10,
-      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
-    },
     "sundance/2025/Next": {
       "films": 8,
       "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
@@ -232,6 +234,10 @@
     "berlin/2026/Main Competition": {
       "films": 22,
       "source": "https://www.yahoo.com/entertainment/movies/articles/berlinale-unveils-2026-competition-perspectives-093617149.html"
+    },
+    "sundance/2025/World Cinema Documentary Competition": {
+      "films": 10,
+      "source": "https://www.sundance.org/blogs/2025-sundance-film-festival-reveals-93-projects-for-feature-film-and-episodic-programs/"
     }
   },
   "additions": {

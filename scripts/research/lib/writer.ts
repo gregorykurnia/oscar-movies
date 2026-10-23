@@ -196,3 +196,52 @@ function writeValidated<T>(
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, format(parsed.data));
 }
+
+/** What `reviseMovies` does to one filed film: the key to file it under, its fields, and whether its title changed (a new slug). */
+export type MovieRevision = { key: string; entry: MovieEntry; retitled?: boolean };
+
+/**
+ * Revises films already filed, for fixes a later import finds (a film filed under its QID that now
+ * has an IMDb ID, a country or title the sources had wrong). `revise` returns the revision, or
+ * undefined to leave the film. A film moved to a key another entry already has is that film twice:
+ * the other entry is kept (with this QID when it has none) and this one goes. A retitled film gets a
+ * slug from its new title; `data:check --base origin/main` still refuses a slug that was released.
+ * Returns one line per change.
+ */
+export function reviseMovies(dataDir: string, revise: (key: string, entry: MovieEntry, year: number) => MovieRevision | undefined): string[] {
+  const all = readMoviesFiles(dataDir);
+  const taken = new Set([...all.values()].flatMap((f) => Object.values(f).map((m) => m.slug)));
+  const report: string[] = [];
+  const changed = new Set<number>();
+  for (const [year, file] of all) {
+    for (const [key, entry] of Object.entries(file)) {
+      const r = revise(key, entry, year);
+      if (!r) continue;
+      if (r.key !== key) {
+        const owner = [...all.entries()].find(([, f]) => f[r.key] !== undefined);
+        if (owner) {
+          const [otherYear, other] = owner;
+          delete file[key];
+          if (!other[r.key].wd && r.entry.wd) other[r.key] = { ...other[r.key], wd: r.entry.wd };
+          changed.add(year).add(otherYear);
+          report.push(`${key} (${entry.title}) is ${r.key} (${other[r.key].title}): merged into it`);
+          continue;
+        }
+        delete file[key];
+        report.push(`${key} (${entry.title}) is now filed under ${r.key}`);
+      }
+      let next = r.entry;
+      if (r.retitled) {
+        taken.delete(entry.slug);
+        next = { ...next, slug: uniqueSlug(next.title, year, taken) };
+        taken.add(next.slug);
+        report.push(`${r.key}: "${entry.title}" is now "${next.title}" (slug ${entry.slug} → ${next.slug})`);
+      }
+      if (JSON.stringify(entry.countries) !== JSON.stringify(next.countries)) report.push(`${r.key} (${next.title}): countries ${next.countries.join(", ")}`);
+      file[r.key] = next;
+      changed.add(year);
+    }
+  }
+  for (const year of changed) writeValidated(moviesPath(dataDir, year), moviesFileSchema, all.get(year)!, formatMoviesFile);
+  return report;
+}

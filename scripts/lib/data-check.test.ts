@@ -98,6 +98,23 @@ describe("checkData", () => {
     ]);
   });
 
+  it("refuses screenings outside a festival, and sections that share or change their place", () => {
+    const e = {
+      ...finished(),
+      screenings: [
+        { imdb: "tt1", title: "A", section: "In Competition", sectionOrder: 1 },
+        { imdb: "tt2", title: "B", section: "In Competition", sectionOrder: 2 },
+        { imdb: "tt3", title: "C", section: "Un Certain Regard", sectionOrder: 1 },
+        { imdb: "tt4", title: "D", section: "Out of Competition" },
+      ],
+    };
+    const errors = errorsOf(dataSet(e));
+    expect(errors).toContain("editions/oscars/2024.json: screenings on oscars oscars; lineups are for festivals");
+    expect(errors).toContain("editions/oscars/2024.json: In Competition has sectionOrder 1 and 2");
+    expect(errors).toContain("editions/oscars/2024.json: In Competition and Un Certain Regard share sectionOrder 1");
+    expect(errors).toContain("editions/oscars/2024.json: D (Out of Competition): no sectionOrder");
+  });
+
   it("finds a film by its QID, and refuses one listed twice in a category", () => {
     const e = finished();
     const movies = moviesFor([...ids(10), ...ids(5, 20)]);

@@ -177,6 +177,23 @@ export function checkData(data: DataSet, { today, previousSlugs }: CheckOptions)
         errors.push(`${label}: country is only for International results`);
       }
     }
+    // Lineups: festivals only, and each section has one place in the programme that no other section shares
+    // (the lineup page groups its films by that place).
+    if (e.screenings.length > 0 && award.kind !== "festival") errors.push(`${where}: screenings on ${award.kind} ${e.award}; lineups are for festivals`);
+    const orderOf = new Map<string, number>();
+    const sectionAt = new Map<number, string>();
+    for (const s of e.screenings) {
+      if (s.sectionOrder === undefined) {
+        errors.push(`${where}: ${s.title} (${s.section}): no sectionOrder`);
+        continue;
+      }
+      const order = orderOf.get(s.section);
+      if (order !== undefined && order !== s.sectionOrder) errors.push(`${where}: ${s.section} has sectionOrder ${order} and ${s.sectionOrder}`);
+      const other = sectionAt.get(s.sectionOrder);
+      if (other !== undefined && other !== s.section) errors.push(`${where}: ${other} and ${s.section} share sectionOrder ${s.sectionOrder}`);
+      orderOf.set(s.section, order ?? s.sectionOrder);
+      sectionAt.set(s.sectionOrder, other ?? s.section);
+    }
     const screeningsSeen = new Set<string>();
     for (const s of e.screenings) {
       const key = refKey(s);

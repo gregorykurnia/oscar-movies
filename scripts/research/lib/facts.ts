@@ -20,7 +20,7 @@ export function plainTitle(title: string): string {
 }
 
 function englishTitle(entity: Entity, fallback: string): string {
-  return entity.labels?.en?.value ?? plainTitle(entity.sitelinks?.enwiki?.title ?? fallback);
+  return plainTitle(entity.labels?.en?.value ?? entity.sitelinks?.enwiki?.title ?? fallback);
 }
 
 /** Wikidata writes `pt-br`; BCP 47's usual form is `pt-BR` (a region subtag in capitals). */

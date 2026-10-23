@@ -28,7 +28,8 @@ import { readLineupTables, readPrizeSections, readPrizeTable, SELECTION_H2, type
 import type { FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
 import { fetchPage } from "./lib/wikipedia";
-import { addMovies, movieKey, readEdition, writeEdition } from "./lib/writer";
+import { plainTitle } from "./lib/facts";
+import { addMovies, movieKey, readEdition, reviseMovies, writeEdition } from "./lib/writer";
 import { FESTIVALS } from "./festivals";
 import { loose } from "./majors";
 
@@ -65,8 +66,8 @@ export const sourcesLineupSchema = z
           .strict(),
       ),
     ),
-    /** English titles that read better than Wikidata's, by IMDb ID. */
-    titles: z.record(z.string().regex(/^tt\d+$/), z.string().min(1)),
+    /** English titles that read better than Wikidata's (a working title, an old one), by IMDb ID or, for a film with none, QID. */
+    titles: z.record(z.string().regex(/^(?:tt|Q)\d+$/), z.string().min(1)),
     /** The page's heading → the section's name, where the festival calls it something else. */
     sectionNames: z.record(z.string(), z.string().min(1)),
     /** "<festival>/<year>/<section>" → the film count the festival published, and where. */
@@ -157,6 +158,17 @@ export function prizeText(entry: PrizeEntry, names: Record<string, string> = {})
   return `${entry.label} (${heading})`;
 }
 
+/**
+ * A "Label – Film" line's prize (Sundance): a label that names a prize is the prize ("Directing Award",
+ * not "Directing Award (Directing, Screenwriting and Editing)"); a label that only names the competition
+ * takes the heading's prize ("U.S. Dramatic" under "Grand Jury Prizes" is the section's "Grand Jury Prize").
+ */
+export function dashPrizeText(entry: PrizeEntry): string {
+  if (/\b(?:award|prize)\b/i.test(entry.label)) return entry.label;
+  if (/\b(?:awards?|prizes?)\b/i.test(entry.heading)) return entry.heading.replace(/\b(Award|Prize)s\b/gi, "$1");
+  return `${entry.label} (${entry.heading})`;
+}
+
 export type PrizeLine = { entry: PrizeEntry; text: string };
 
 /** The prize lines that count: the official awards, and the festival's own independent ones. */
@@ -174,7 +186,7 @@ export function prizeLines(html: string, spec: LineupSpec, names: Record<string,
       if (SKIP_PRIZE.test(entry.label)) continue;
       // An italic name inside the prize's own name ("French Touch Prize of the Jury") isn't a film.
       if (loose(entry.label).includes(loose(entry.film.text))) continue;
-      out.push({ entry, text: prizeText(entry, names) });
+      out.push({ entry, text: spec.dash ? dashPrizeText(entry) : prizeText(entry, names) });
     }
   }
   return out;
@@ -195,6 +207,20 @@ function parseYears(argv: string[]): number[] {
   if (!m) throw new Error(`--years takes 2025-2026 or 2025, not "${spec}"`);
   const [from, to] = [Number(m[1]), Number(m[2] ?? m[1])];
   return Array.from({ length: to - from + 1 }, (_, k) => from + k);
+}
+
+/** A row's production countries as ISO codes, main country first (names countries.ts doesn't know are left out). */
+function countryCodes(names: string[]): string[] {
+  const codes: string[] = [];
+  for (const n of names) {
+    try {
+      const code = countryCode(n);
+      if (!codes.includes(code)) codes.push(code);
+    } catch {
+      continue;
+    }
+  }
+  return codes;
 }
 
 /** The first ISO code among a row's production countries ("" when none is a name countries.ts knows). */
@@ -268,13 +294,15 @@ async function main() {
       });
       const linkOf = (f: LineupFilm) => fix(f.row.film);
 
-      // Wikipedia's links first; then TMDB for the rows with no usable article.
+      // Wikipedia's links first; then TMDB for the rows with no usable article, and for a film whose
+      // Wikidata item has no IMDb ID (scores are looked up by it), with the row's own director.
       const linked = await researchFilms(fetcher, kept.filter((f) => linkOf(f).article || linkOf(f).wd).map(linkOf), tmdb);
       const viaTmdb = new Map<string, ResearchedFilm>();
       for (const f of kept) {
         const link = linkOf(f);
         const known = link.article || link.wd ? researched(linked, link) : undefined;
-        if ((known?.ok && (known.imdb || known.wd)) || viaTmdb.has(link.text)) continue;
+        if ((known?.ok && known.imdb) || viaTmdb.has(link.text)) continue;
+        const wdOnly = known?.ok && known.wd ? known : undefined;
         const search = sources.tmdbSearch[`${label} ${link.text}`];
         const hit = tmdb
           ? await findOnTmdb(tmdb, {
@@ -285,18 +313,25 @@ async function main() {
               directors: search?.directors ?? [f.row.directors],
             })
           : null;
-        if (hit?.ok) viaTmdb.set(link.text, { ok: true, link, imdb: hit.imdb, facts: hit.facts, short: hit.short, released: hit.released });
-        else problems.push(`${label}: ${link.text} (${f.section}; ${f.row.directors}) wasn't found on TMDB (${hit ? hit.reason : "no TMDB token"})`);
+        if (hit?.ok && wdOnly) {
+          // Wikidata's facts and item stay; TMDB adds the IMDb ID and what Wikidata lacks.
+          const defined = Object.fromEntries(Object.entries(wdOnly.facts).filter(([, v]) => v !== undefined));
+          const facts = { ...hit.facts, ...defined, countries: wdOnly.facts.countries.length > 0 ? wdOnly.facts.countries : hit.facts.countries };
+          if (!wdOnly.facts.originalTitle) [facts.originalTitle, facts.originalLang] = [hit.facts.originalTitle, hit.facts.originalLang];
+          viaTmdb.set(link.text, { ...wdOnly, imdb: hit.imdb, facts, short: wdOnly.short || hit.short });
+        } else if (hit?.ok) viaTmdb.set(link.text, { ok: true, link, imdb: hit.imdb, facts: hit.facts, short: hit.short, released: hit.released });
+        else if (!wdOnly) problems.push(`${label}: ${link.text} (${f.section}; ${f.row.directors}) wasn't found on TMDB (${hit ? hit.reason : "no TMDB token"})`);
       }
       const filmOf = (f: LineupFilm): ResearchedFilm | undefined => {
         const link = linkOf(f);
         const known = link.article || link.wd ? researched(linked, link) : undefined;
-        if (known?.ok && (known.imdb || known.wd)) return known;
+        if (known?.ok && known.imdb) return known;
         return viaTmdb.get(link.text) ?? known;
       };
       for (const f of [...linked.values(), ...viaTmdb.values()]) {
-        const title = f.ok && f.imdb ? sources.titles[f.imdb] : undefined;
-        if (f.ok && title) f.facts.title = title;
+        if (!f.ok) continue;
+        const title = (f.imdb ? sources.titles[f.imdb] : undefined) ?? (f.wd ? sources.titles[f.wd] : undefined);
+        f.facts.title = title ?? plainTitle(f.facts.title);
       }
 
       // Features of the year only: a film that Wikidata or TMDB gives as a short, or released long before, is dropped.
@@ -339,6 +374,8 @@ async function main() {
       const screenings: ScreeningEntry[] = [];
       const unresolved = new Map<string, ResearchedFilm>();
       const used = new Map<string, ResearchedFilm>();
+      // The row's production countries, for a film no source gives one.
+      const rowCountries = new Map<string, string[]>();
       for (const f of features) {
         const film = filmOf(f);
         if (!film || !film.ok) {
@@ -346,6 +383,7 @@ async function main() {
           continue;
         }
         used.set(movieKey(film), film);
+        if (!rowCountries.has(movieKey(film))) rowCountries.set(movieKey(film), countryCodes(f.row.countries));
         const list = prizes.get(`${f.section}\u0000${f.row.film.article ?? f.row.film.text}`);
         screenings.push({ ...filmRef(film), section: f.section, sectionOrder: order.indexOf(f.section) + 1, ...(list ? { prize: list.join("; ") } : {}) });
       }
@@ -374,7 +412,35 @@ async function main() {
         if (!sources.published[`${spec.slug}/${year}/${section}`]) unverified.push(`${label}: ${section} (${counts.get(section)} films)`);
       }
 
+      for (const f of used.values()) if (f.ok && f.facts.countries.length === 0) f.facts.countries = rowCountries.get(movieKey(f)) ?? [];
       const movies = addMovies(DATA_DIR, year, newFilms(used));
+      // Films filed by an earlier run: moved to the IMDb ID TMDB found, with the title and countries fixed.
+      const byQid = new Map([...used.values()].flatMap((f) => (f.ok && f.imdb && f.wd ? [[f.wd, f] as const] : [])));
+      const usedKeys = new Set([...used.values()].flatMap((f) => (f.ok ? [movieKey(f), ...(f.wd ? [f.wd] : [])] : [])));
+      for (const line of reviseMovies(DATA_DIR, (key, entry) => {
+        if (!usedKeys.has(key)) return undefined;
+        const found = byQid.get(key);
+        const next = { ...entry };
+        if (found?.ok && found.imdb) {
+          next.wd = key;
+          if (next.originalTitle === undefined && found.facts.originalTitle && found.facts.originalLang) {
+            next.originalTitle = found.facts.originalTitle;
+            next.originalLang = found.facts.originalLang;
+          }
+          next.language ??= found.facts.language;
+          next.tmdb ??= found.facts.tmdb;
+          if (next.countries.length === 0) next.countries = found.facts.countries;
+        }
+        if (next.countries.length === 0) next.countries = rowCountries.get(key) ?? rowCountries.get(found?.ok && found.imdb ? found.imdb : key) ?? [];
+        const title = sources.titles[key] ?? (found?.ok && found.imdb ? sources.titles[found.imdb] : undefined) ?? plainTitle(entry.title);
+        const newKey = found?.ok && found.imdb ? found.imdb : key;
+        const retitled = title !== entry.title;
+        if (retitled) next.title = title;
+        for (const k of Object.keys(next) as (keyof typeof next)[]) if (next[k] === undefined) delete next[k];
+        return newKey === key && !retitled && JSON.stringify(next) === JSON.stringify(entry) ? undefined : { key: newKey, entry: next, retitled };
+      })) {
+        console.log(`${label}: ${line}`);
+      }
       for (const f of used.values()) {
         if (f.ok && !f.imdb) checks.push(`${label}: ${f.link.text} → ${f.wd} has no IMDb ID (filed under its QID)`);
         if (f.ok && movies.added.includes(movieKey(f)) && loose(f.facts.title) !== loose(f.link.text) && loose(f.facts.title) !== loose(f.link.article ?? "")) {

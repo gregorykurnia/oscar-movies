@@ -23,7 +23,7 @@
     { "imdb": "tt37020296", "title": "Gentle Monster", "section": "In Competition", "sectionOrder": 1 },
     { "imdb": "tt27369017", "title": "Hope", "section": "In Competition", "sectionOrder": 1 },
     { "imdb": "tt37522972", "title": "The Man I Love", "section": "In Competition", "sectionOrder": 1 },
-    { "imdb": "tt41593304", "title": "Notre Salut", "section": "In Competition", "sectionOrder": 1, "prize": "Best Screenplay" },
+    { "imdb": "tt41593304", "title": "A Man of His Time", "section": "In Competition", "sectionOrder": 1, "prize": "Best Screenplay" },
     { "imdb": "tt37118301", "title": "Minotaur", "section": "In Competition", "sectionOrder": 1, "prize": "Grand Prix" },
     { "imdb": "tt36899180", "title": "Moulin", "section": "In Competition", "sectionOrder": 1 },
     { "imdb": "tt28551050", "title": "Nagi Notes", "section": "In Competition", "sectionOrder": 1 },
@@ -33,7 +33,6 @@
     { "imdb": "tt32359586", "title": "The Unknown", "section": "In Competition", "sectionOrder": 1 },
     { "imdb": "tt39299437", "title": "A Woman's Life", "section": "In Competition", "sectionOrder": 1 },
     { "imdb": "tt37535559", "title": "Crescendo", "section": "Out of Competition", "sectionOrder": 2 },
-    { "wd": "Q137393022", "title": "De Gaulle (2026 film)", "section": "Out of Competition", "sectionOrder": 2 },
     { "imdb": "tt37748332", "title": "Diamond", "section": "Out of Competition", "sectionOrder": 2 },
     { "imdb": "tt40435390", "title": "Forsaken", "section": "Out of Competition", "sectionOrder": 2 },
     { "imdb": "tt36629665", "title": "Her Private Hell", "section": "Out of Competition", "sectionOrder": 2 },
@@ -78,7 +77,6 @@
     { "imdb": "tt41593519", "title": "Cantona", "section": "Special Screenings", "sectionOrder": 5 },
     { "imdb": "tt1864268", "title": "Che Guevara: The Last Companions", "section": "Special Screenings", "sectionOrder": 5 },
     { "imdb": "tt39462979", "title": "Madame", "section": "Special Screenings", "sectionOrder": 5 },
-    { "wd": "Q140263800", "title": "Groundswell", "section": "Special Screenings", "sectionOrder": 5 },
     { "imdb": "tt41593483", "title": "John Lennon: The Last Interview", "section": "Special Screenings", "sectionOrder": 5 },
     { "imdb": "tt35914028", "title": "Marvelous Mornings", "section": "Special Screenings", "sectionOrder": 5 },
     { "imdb": "tt37376862", "title": "Molière, Cyrano and the Young King", "section": "Special Screenings", "sectionOrder": 5 },
@@ -93,7 +91,6 @@
     { "imdb": "tt32459280", "title": "A Girl Unknown", "section": "Critics' Week", "sectionOrder": 7, "prize": "Award for Distribution (Critics' Week)" },
     { "imdb": "tt36107185", "title": "La Gradiva", "section": "Critics' Week", "sectionOrder": 7, "prize": "Grand Prize (Critics' Week)" },
     { "imdb": "tt41742035", "title": "Six Months in a Pink and Blue Building", "section": "Critics' Week", "sectionOrder": 7 },
-    { "wd": "Q141556218", "title": "The Station", "section": "Critics' Week", "sectionOrder": 7 },
     { "imdb": "tt40721682", "title": "Tin Castle", "section": "Critics' Week", "sectionOrder": 7 },
     { "imdb": "tt35495082", "title": "Flesh and Fuel", "section": "Critics' Week", "sectionOrder": 7 },
     { "imdb": "tt34427439", "title": "Goodbye Cruel World", "section": "Critics' Week", "sectionOrder": 7 },
@@ -116,7 +113,6 @@
     { "imdb": "tt41829928", "title": "Thanks for Coming", "section": "Directors' Fortnight", "sectionOrder": 8 },
     { "imdb": "tt38841455", "title": "Too Many Beasts", "section": "Directors' Fortnight", "sectionOrder": 8, "prize": "Europa Cinemas Label Award for Best European Film (Directors' Fortnight)" },
     { "imdb": "tt42575634", "title": "Vertiginous", "section": "Directors' Fortnight", "sectionOrder": 8 },
-    { "wd": "Q141781336", "title": "Viva Carmen", "section": "Directors' Fortnight", "sectionOrder": 8 },
     { "imdb": "tt41830798", "title": "We Are Aliens", "section": "Directors' Fortnight", "sectionOrder": 8 },
     { "imdb": "tt31383175", "title": "Red Rocks", "section": "Directors' Fortnight", "sectionOrder": 8 },
     { "imdb": "tt40424260", "title": "Blaise", "section": "ACID", "sectionOrder": 9 },
@@ -127,6 +123,10 @@
     { "imdb": "tt42575848", "title": "Rewind Barcelona", "section": "ACID", "sectionOrder": 9 },
     { "imdb": "tt42230625", "title": "A Secret Heart", "section": "ACID", "sectionOrder": 9 },
     { "imdb": "tt41855444", "title": "Summer Drift", "section": "ACID", "sectionOrder": 9 },
-    { "imdb": "tt42575764", "title": "Under a Bad Star", "section": "ACID", "sectionOrder": 9 }
+    { "imdb": "tt42575764", "title": "Under a Bad Star", "section": "ACID", "sectionOrder": 9 },
+    { "imdb": "tt28553375", "title": "De Gaulle", "section": "Out of Competition", "sectionOrder": 2 },
+    { "imdb": "tt31849590", "title": "Groundswell", "section": "Special Screenings", "sectionOrder": 5 },
+    { "imdb": "tt19516714", "title": "The Station", "section": "Critics' Week", "sectionOrder": 7 },
+    { "imdb": "tt29034109", "title": "Viva Carmen", "section": "Directors' Fortnight", "sectionOrder": 8 }
   ]
 }

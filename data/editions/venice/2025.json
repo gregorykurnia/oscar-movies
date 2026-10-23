@@ -87,17 +87,13 @@
     { "imdb": "tt2012616", "title": "Motor City", "section": "Venice Spotlight", "sectionOrder": 4 },
     { "imdb": "tt34973241", "title": "Silent Rebellion", "section": "Venice Spotlight", "sectionOrder": 4 },
     { "imdb": "tt34819314", "title": "Tired of Killing: Autobiography of an Assassin", "section": "Venice Spotlight", "sectionOrder": 4 },
-    { "imdb": "tt37651659", "title": "Becoming Human", "section": "Biennale College - Cinema", "sectionOrder": 5 },
-    { "imdb": "tt37673394", "title": "Lamb of God", "section": "Biennale College - Cinema", "sectionOrder": 5 },
-    { "wd": "Q140736408", "title": "One Woman One Bra", "section": "Biennale College - Cinema", "sectionOrder": 5 },
-    { "imdb": "tt37535266", "title": "Secret of a Mountain Serpent", "section": "Biennale College - Cinema", "sectionOrder": 5 },
-    { "imdb": "tt35890662", "title": "Agon", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "Luciano Sovena Award for Best Independent Producer (Venice International Critics' Week)" },
+    { "imdb": "tt35890662", "title": "Agon", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "Luciano Sovena Award for Best Independent Producer (Settimana Internazionale della Critica)" },
     { "imdb": "tt37645474", "title": "Cotton Queen", "section": "Settimana Internazionale della Critica", "sectionOrder": 6 },
     { "imdb": "tt37678610", "title": "Cora", "section": "Settimana Internazionale della Critica", "sectionOrder": 6 },
-    { "imdb": "tt33046039", "title": "Ish", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "People's Choice Award (Venice International Critics' Week)" },
+    { "imdb": "tt33046039", "title": "Ish", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "People's Choice Award (Settimana Internazionale della Critica)" },
     { "imdb": "tt37673712", "title": "Roqia", "section": "Settimana Internazionale della Critica", "sectionOrder": 6 },
-    { "imdb": "tt29630535", "title": "Straight Circle", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "IWONDERFULL Grand Prize (Venice International Critics' Week)" },
-    { "imdb": "tt37655085", "title": "Waking Hours", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "Mario Serandrei - Hotel Saturnia Award for Best Technical Contribution (Venice International Critics' Week)" },
+    { "imdb": "tt29630535", "title": "Straight Circle", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "IWONDERFULL Grand Prize (Settimana Internazionale della Critica)" },
+    { "imdb": "tt37655085", "title": "Waking Hours", "section": "Settimana Internazionale della Critica", "sectionOrder": 6, "prize": "Mario Serandrei - Hotel Saturnia Award for Best Technical Contribution (Settimana Internazionale della Critica)" },
     { "imdb": "tt35512802", "title": "Stereo Girls", "section": "Settimana Internazionale della Critica", "sectionOrder": 6 },
     { "imdb": "tt33350512", "title": "100 Nights of Hero", "section": "Settimana Internazionale della Critica", "sectionOrder": 6 },
     { "imdb": "tt33400312", "title": "Bearcave", "section": "Giornate degli Autori", "sectionOrder": 7, "prize": "Europa Cinemas Label Award (Giornate degli Autori)" },
@@ -120,6 +116,10 @@
     { "imdb": "tt38691210", "title": "Dom", "section": "Giornate degli Autori", "sectionOrder": 7 },
     { "imdb": "tt37678290", "title": "Life Beyond the Pine Curtain - America the Invisible", "section": "Giornate degli Autori", "sectionOrder": 7 },
     { "imdb": "tt38213366", "title": "A State Film", "section": "Giornate degli Autori", "sectionOrder": 7 },
-    { "imdb": "tt38068969", "title": "Toni, My Father", "section": "Giornate degli Autori", "sectionOrder": 7 }
+    { "imdb": "tt38068969", "title": "Toni, My Father", "section": "Giornate degli Autori", "sectionOrder": 7 },
+    { "imdb": "tt37651659", "title": "Becoming Human", "section": "Biennale College Cinema", "sectionOrder": 5 },
+    { "imdb": "tt37673394", "title": "Lamb of God", "section": "Biennale College Cinema", "sectionOrder": 5 },
+    { "imdb": "tt37673420", "title": "One Woman One Bra", "section": "Biennale College Cinema", "sectionOrder": 5 },
+    { "imdb": "tt37535266", "title": "Secret of a Mountain Serpent", "section": "Biennale College Cinema", "sectionOrder": 5 }
   ]
 }

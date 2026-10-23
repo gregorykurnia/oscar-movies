@@ -43,7 +43,6 @@
     { "imdb": "tt43635409", "title": "Eklipse", "section": "Orizzonti", "sectionOrder": 3 },
     { "imdb": "tt43704167", "title": "Falling House", "section": "Orizzonti", "sectionOrder": 3, "prize": "Best Actress (Orizzonti)" },
     { "imdb": "tt38024578", "title": "The Girl with the Leica", "section": "Orizzonti", "sectionOrder": 3 },
-    { "wd": "Q141781349", "title": "House of the Wind", "section": "Orizzonti", "sectionOrder": 3, "prize": "Special Jury Prize (Orizzonti); Luigi De Laurentiis Award (Lion of the Future)" },
     { "imdb": "tt42824418", "title": "Lovers in the Blue Night", "section": "Orizzonti", "sectionOrder": 3 },
     { "imdb": "tt43704178", "title": "La Moula", "section": "Orizzonti", "sectionOrder": 3 },
     { "imdb": "tt43704174", "title": "Oasis", "section": "Orizzonti", "sectionOrder": 3 },
@@ -77,7 +76,6 @@
     { "imdb": "tt42718428", "title": "The Indies", "section": "Giornate degli Autori", "sectionOrder": 7 },
     { "imdb": "tt43702349", "title": "I Plant My Hand in the Garden", "section": "Giornate degli Autori", "sectionOrder": 7 },
     { "imdb": "tt33295642", "title": "My Notes on Mars", "section": "Giornate degli Autori", "sectionOrder": 7 },
-    { "wd": "Q141497810", "title": "Sometimes Sadness, Sometimes Rebellion", "section": "Giornate degli Autori", "sectionOrder": 7, "prize": "GdA Director's Award (Giornate degli Autori)" },
     { "imdb": "tt43645716", "title": "A Woman Today", "section": "Giornate degli Autori", "sectionOrder": 7, "prize": "Europa Cinemas Label Award (Giornate degli Autori)" },
     { "imdb": "tt35659369", "title": "A Man's Skin", "section": "Giornate degli Autori", "sectionOrder": 7 },
     { "imdb": "tt38687928", "title": "Al Baraneya", "section": "Giornate degli Autori", "sectionOrder": 7 },
@@ -123,6 +121,8 @@
     { "imdb": "tt43704232", "title": "Joie de vivre", "section": "Out of Competition", "sectionOrder": 2 },
     { "imdb": "tt36747909", "title": "Nino – A Film About Nino Rota", "section": "Out of Competition", "sectionOrder": 2 },
     { "imdb": "tt43696767", "title": "The Pervert's Guide to Utopias", "section": "Out of Competition", "sectionOrder": 2 },
-    { "imdb": "tt38707938", "title": "Twist & Shoot: Mister Suzuki", "section": "Out of Competition", "sectionOrder": 2 }
+    { "imdb": "tt38707938", "title": "Twist & Shoot: Mister Suzuki", "section": "Out of Competition", "sectionOrder": 2 },
+    { "imdb": "tt20244858", "title": "House of the Wind", "section": "Orizzonti", "sectionOrder": 3, "prize": "Special Jury Prize (Orizzonti); Luigi De Laurentiis Award (Lion of the Future)" },
+    { "imdb": "tt43518701", "title": "Sometimes Sadness, Sometimes Rebellion", "section": "Giornate degli Autori", "sectionOrder": 7, "prize": "GdA Director's Award (Giornate degli Autori)" }
   ]
 }
