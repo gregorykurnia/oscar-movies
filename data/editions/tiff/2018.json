@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-09-16",
+  "winnersOn": "2018-09-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2018_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt6966692", "title": "Green Book", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt6155172", "title": "Roma", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt5795282", "title": "This Changes Everything", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt8969332", "title": "The Biggest Little Farm", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

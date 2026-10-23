@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2015,
+  "status": "loaded",
+  "winnersOn": "2015-02-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/65th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt4359416", "title": "Taxi", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt4375438", "title": "The Club", "outcome": "won" }
+  ],
+  "screenings": []
+}

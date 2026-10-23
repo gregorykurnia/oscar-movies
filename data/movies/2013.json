@@ -142,5 +142,13 @@
   "tt1693039": { "slug": "pinocchio", "title": "Pinocchio", "countries": ["FR", "BE", "IT", "LU"], "language": "it", "wd": "Q5317361", "tmdb": 136619 },
   "tt2901760": { "slug": "stop-over", "title": "Stop-Over", "originalTitle": "L'escale", "originalLang": "fa", "countries": ["FR", "CH"], "language": "fa", "tmdb": 191722 },
   "tt3043848": { "slug": "jasmine", "title": "Jasmine", "countries": ["FR"], "language": "fr", "tmdb": 234446 },
-  "tt2334649": { "slug": "fruitvale-station", "title": "Fruitvale Station", "countries": ["US"], "language": "en", "wd": "Q3788751", "tmdb": 157354 }
+  "tt2334649": { "slug": "fruitvale-station", "title": "Fruitvale Station", "countries": ["US"], "language": "en", "wd": "Q3788751", "tmdb": 157354 },
+  "tt2331143": { "slug": "like-father-like-son", "title": "Like Father, Like Son", "originalTitle": "そして父になる", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q13218260", "tmdb": 177945 },
+  "tt3119416": { "slug": "stray-dogs", "title": "Stray Dogs", "countries": ["FR", "TW"], "language": "cmn", "wd": "Q12144835", "tmdb": 209840 },
+  "tt2526138": { "slug": "jiseul", "title": "Jiseul", "originalTitle": "지슬: 끝나지 않은 세월 2", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q5280490", "tmdb": 133756 },
+  "tt0244264": { "slug": "a-river-changes-course", "title": "A River Changes Course", "countries": ["US"], "language": "km", "wd": "Q14487804", "tmdb": 159034 },
+  "tt2265179": { "slug": "blood-brother", "title": "Blood Brother", "countries": ["US"], "language": "en", "tmdb": 155556 },
+  "tt1392214": { "slug": "prisoners", "title": "Prisoners", "countries": ["US"], "language": "en", "wd": "Q3404003", "tmdb": 146233 },
+  "tt3091338": { "slug": "hi-ho-mistahey", "title": "Hi-Ho Mistahey!", "countries": ["CA"], "language": "cr", "wd": "Q15052309", "tmdb": 212847 },
+  "tt2468638": { "slug": "beyond-the-edge", "title": "Beyond the Edge", "countries": ["NZ"], "language": "en", "wd": "Q15109412", "tmdb": 211088 }
 }

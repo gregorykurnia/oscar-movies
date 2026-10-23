@@ -1,0 +1,15 @@
+{
+  "award": "cannes",
+  "year": 2022,
+  "status": "loaded",
+  "winnersOn": "2022-05-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt7322224", "title": "Triangle of Sadness", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt9660502", "title": "Close", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt10354106", "title": "Stars at Noon", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt14641542", "title": "The Eight Mountains", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt19652910", "title": "EO", "outcome": "won" }
+  ],
+  "screenings": []
+}

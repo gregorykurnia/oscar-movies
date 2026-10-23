@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2016,
+  "status": "loaded",
+  "winnersOn": "2016-05-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2016_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt4645368", "title": "It's Only the End of the World", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt3721936", "title": "American Honey", "outcome": "won" }
+  ],
+  "screenings": []
+}

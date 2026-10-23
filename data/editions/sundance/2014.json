@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2014,
+  "status": "loaded",
+  "winnersOn": "2014-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt2582802", "title": "Whiplash", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt2582802", "title": "Whiplash", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt3460152", "title": "To Kill a Man", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt2611390", "title": "Difret", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt2548738", "title": "Rich Hill", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt2593392", "title": "Alive Inside: A Story of Music and Memory", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt3199456", "title": "The Return to Homs", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt2304915", "title": "The Green Prince", "outcome": "won" }
+  ],
+  "screenings": []
+}

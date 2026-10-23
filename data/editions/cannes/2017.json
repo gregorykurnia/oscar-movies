@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2017,
+  "status": "loaded",
+  "winnersOn": "2017-05-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2017_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt6304162", "title": "Loveless", "outcome": "won" }
+  ],
+  "screenings": []
+}

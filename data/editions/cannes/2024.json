@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2024,
+  "status": "loaded",
+  "winnersOn": "2024-05-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2024_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2020,
+  "status": "loaded",
+  "winnersOn": "2020-02-29",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/70th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt11697844", "title": "There Is No Evil", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "won" }
+  ],
+  "screenings": []
+}

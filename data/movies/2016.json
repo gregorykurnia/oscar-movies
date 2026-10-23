@@ -165,5 +165,11 @@
   "tt3412684": { "slug": "mr-gaga", "title": "Mr. Gaga", "originalTitle": "מיסטר גאגא", "originalLang": "he", "countries": ["IL", "SE"], "language": "he", "tmdb": 361474 },
   "tt2338774": { "slug": "the-land-of-the-enlightened", "title": "The Land of the Enlightened", "countries": ["IE", "US", "BE", "AF", "NL", "DE"], "language": "en", "tmdb": 372711 },
   "tt0490215": { "slug": "silence", "title": "Silence", "countries": ["US", "MX", "TW", "IT", "JP", "GB"], "language": "en", "wd": "Q18811634", "tmdb": 68730 },
-  "tt3263904": { "slug": "sully", "title": "Sully", "countries": ["US", "GB", "AU"], "language": "en", "wd": "Q21062112", "tmdb": 363676 }
+  "tt3263904": { "slug": "sully", "title": "Sully", "countries": ["US", "GB", "AU"], "language": "en", "wd": "Q21062112", "tmdb": 363676 },
+  "tt5843990": { "slug": "the-woman-who-left", "title": "The Woman Who Left", "originalTitle": "Ang babaeng humayo", "originalLang": "tl", "countries": ["PH"], "language": "tl", "wd": "Q26158148", "tmdb": 408542 },
+  "tt4196450": { "slug": "the-birth-of-a-nation", "title": "The Birth of a Nation", "countries": ["US"], "language": "en", "wd": "Q20022670", "tmdb": 339408 },
+  "tt5278836": { "slug": "between-sea-and-land", "title": "Between Sea and Land", "originalTitle": "La ciénaga: Entre el mar y la tierra", "originalLang": "es", "countries": ["CO"], "language": "es", "wd": "Q22179822", "tmdb": 373353 },
+  "tt5278466": { "slug": "jim-the-james-foley-story", "title": "Jim: The James Foley Story", "countries": ["US"], "language": "en", "wd": "Q24593936", "tmdb": 373441 },
+  "tt4341582": { "slug": "queen-of-katwe", "title": "Queen of Katwe", "countries": ["US"], "language": "en", "wd": "Q20921603", "tmdb": 317557 },
+  "tt5929776": { "slug": "before-the-flood", "title": "Before the Flood", "countries": ["US"], "language": "en", "wd": "Q26869689", "tmdb": 410718 }
 }

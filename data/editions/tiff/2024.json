@@ -1,0 +1,15 @@
+{
+  "award": "tiff",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-09-15",
+  "winnersOn": "2024-09-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2024_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt12908150", "title": "The Life of Chuck", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt28607951", "title": "Anora", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt33312360", "title": "The Tragically Hip: No Dress Rehearsal", "outcome": "won" }
+  ],
+  "screenings": []
+}

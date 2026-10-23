@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2013,
+  "status": "loaded",
+  "winnersOn": "2013-05-26",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt2331143", "title": "Like Father, Like Son", "outcome": "won" }
+  ],
+  "screenings": []
+}

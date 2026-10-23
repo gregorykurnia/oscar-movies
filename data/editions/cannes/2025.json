@@ -1,0 +1,14 @@
+{
+  "award": "cannes",
+  "year": 2025,
+  "status": "loaded",
+  "winnersOn": "2025-05-24",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2025_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt32298285", "title": "Sirāt", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "won" }
+  ],
+  "screenings": []
+}

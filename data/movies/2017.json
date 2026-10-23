@@ -171,5 +171,12 @@
   "tt6253688": { "slug": "stranger-in-paradise", "title": "Stranger in Paradise", "countries": ["NL"], "language": "nl", "tmdb": 426110 },
   "tt6794398": { "slug": "hell-on-earth-the-fall-of-syria-and-the-rise-of-isis", "title": "Hell on Earth: The Fall of Syria and the Rise of ISIS", "countries": ["US"], "language": "en", "tmdb": 453008 },
   "tt6333088": { "slug": "legion-of-brothers", "title": "Legion of Brothers", "countries": ["US"], "language": "en", "tmdb": 433054 },
-  "tt6333078": { "slug": "motherland-2017", "title": "Motherland", "countries": ["US", "PH"], "language": "en", "tmdb": 433088 }
+  "tt6333078": { "slug": "motherland-2017", "title": "Motherland", "countries": ["US", "PH"], "language": "en", "tmdb": 433088 },
+  "tt5710514": { "slug": "i-dont-feel-at-home-in-this-world-anymore", "title": "I Don't Feel at Home in This World Anymore", "countries": ["US"], "language": "en", "wd": "Q28051209", "tmdb": 425591 },
+  "tt3268340": { "slug": "crown-heights", "title": "Crown Heights", "countries": ["US"], "language": "en", "wd": "Q21010884", "tmdb": 425507 },
+  "tt5540188": { "slug": "the-nile-hilton-incident", "title": "The Nile Hilton Incident", "countries": ["SE", "DK", "DE", "FR", "MA", "EG"], "language": "ar", "wd": "Q28532724", "tmdb": 428495 },
+  "tt3278224": { "slug": "i-dream-in-another-language", "title": "I Dream in Another Language", "originalTitle": "Sueño en otro idioma", "originalLang": "es", "countries": ["MX"], "language": "es", "wd": "Q28532726", "tmdb": 355196 },
+  "tt6333058": { "slug": "dina", "title": "Dina", "countries": ["US"], "language": "en", "wd": "Q30765975", "tmdb": 432607 },
+  "tt7043176": { "slug": "long-time-running", "title": "Long Time Running", "countries": ["CA"], "language": "en", "wd": "Q33520321", "tmdb": 470640 },
+  "tt7215262": { "slug": "super-size-me-2-holy-chicken", "title": "Super Size Me 2: Holy Chicken!", "countries": ["US"], "language": "en", "wd": "Q42048444", "tmdb": 468996 }
 }

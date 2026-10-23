@@ -168,5 +168,12 @@
   "tt29439114": { "slug": "the-room-next-door", "title": "The Room Next Door", "originalTitle": "La habitación de al lado", "originalLang": "es", "countries": ["ES"], "language": "en", "wd": "Q124359261", "tmdb": 1088514 },
   "tt32123132": { "slug": "in-limbo", "title": "In Limbo", "originalTitle": "W zawieszeniu", "originalLang": "pl", "countries": ["PL"], "language": "uk", "wd": "Q130909260", "tmdb": 1276897 },
   "tt10695672": { "slug": "savages", "title": "Savages", "originalTitle": "Sauvages", "originalLang": "fr", "countries": ["CH", "FR", "BE"], "language": "fr", "wd": "Q125919093", "tmdb": 589018 },
-  "tt26773767": { "slug": "hummingbirds", "title": "Hummingbirds", "countries": ["US"], "language": "en", "tmdb": 1076164 }
+  "tt26773767": { "slug": "hummingbirds", "title": "Hummingbirds", "countries": ["US"], "language": "en", "tmdb": 1076164 },
+  "tt31015344": { "slug": "a-travelers-needs", "title": "A Traveler’s Needs", "originalTitle": "여행자의 필요", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q124335954", "tmdb": 1146410 },
+  "tt24805832": { "slug": "in-the-summers", "title": "In the Summers", "countries": ["US"], "language": "en", "wd": "Q123784984", "tmdb": 1151082 },
+  "tt30319503": { "slug": "didi", "title": "Dìdi", "countries": ["US"], "language": "en", "wd": "Q123855936", "tmdb": 1158915 },
+  "tt18277182": { "slug": "girls-will-be-girls", "title": "Girls Will Be Girls", "originalTitle": "गर्ल्स विल बी गर्ल्स", "originalLang": "hi", "countries": ["IN", "FR"], "language": "hi", "wd": "Q123982001", "tmdb": 1108828 },
+  "tt30320576": { "slug": "a-new-kind-of-wilderness", "title": "A New Kind of Wilderness", "originalTitle": "Ukjent landskap", "originalLang": "no", "countries": ["NO"], "language": "no", "tmdb": 1208994 },
+  "tt12908150": { "slug": "the-life-of-chuck", "title": "The Life of Chuck", "countries": ["US"], "language": "en", "wd": "Q123169098", "tmdb": 842924 },
+  "tt33312360": { "slug": "the-tragically-hip-no-dress-rehearsal", "title": "The Tragically Hip: No Dress Rehearsal", "countries": ["CA"], "wd": "Q129677494" }
 }

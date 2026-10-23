@@ -145,5 +145,14 @@
   "tt3011816": { "slug": "adama", "title": "Adama", "countries": ["FR"], "language": "fr", "wd": "Q21104090", "tmdb": 348375 },
   "tt2234537": { "slug": "toto-and-his-sisters", "title": "Toto and his Sisters", "originalTitle": "Toto și surorile lui", "originalLang": "ro", "countries": ["CA", "RO", "CH", "HU"], "language": "ro", "tmdb": 314559 },
   "tt3233704": { "slug": "becoming-bulletproof", "title": "Becoming Bulletproof", "countries": ["US"], "language": "en", "tmdb": 354100 },
-  "tt2488496": { "slug": "star-wars-the-force-awakens", "title": "Star Wars: The Force Awakens", "countries": ["US"], "language": "en", "wd": "Q6074", "tmdb": 140607 }
+  "tt2488496": { "slug": "star-wars-the-force-awakens", "title": "Star Wars: The Force Awakens", "countries": ["US"], "language": "en", "wd": "Q6074", "tmdb": 140607 },
+  "tt4359416": { "slug": "taxi", "title": "Taxi", "originalTitle": "تاکسی", "originalLang": "fa", "countries": ["IR"], "language": "fa", "wd": "Q18844625", "tmdb": 320006 },
+  "tt2582496": { "slug": "me-and-earl-and-the-dying-girl", "title": "Me & Earl & the Dying Girl", "countries": ["US"], "language": "en", "wd": "Q18152566", "tmdb": 308369 },
+  "tt3205376": { "slug": "slow-west", "title": "Slow West", "countries": ["GB", "NZ"], "language": "en", "wd": "Q15427353", "tmdb": 223485 },
+  "tt2614722": { "slug": "umrika", "title": "Umrika", "countries": ["IN"], "language": "hi", "wd": "Q19264029", "tmdb": 310567 },
+  "tt2415458": { "slug": "the-wolfpack", "title": "The Wolfpack", "countries": ["US"], "language": "en", "wd": "Q20651374", "tmdb": 307931 },
+  "tt4137902": { "slug": "dark-horse-the-incredible-true-story-of-dream-alliance", "title": "Dark Horse: The Incredible True Story of Dream Alliance", "countries": ["GB"], "language": "en", "wd": "Q19824619", "tmdb": 297393 },
+  "tt3368222": { "slug": "angry-indian-goddesses", "title": "Angry Indian Goddesses", "countries": ["IN", "DE"], "language": "hi", "wd": "Q20814436", "tmdb": 358893 },
+  "tt1870548": { "slug": "this-changes-everything", "title": "This Changes Everything", "countries": ["CA", "US"], "language": "en", "wd": "Q21034405", "tmdb": 355389 },
+  "tt4196504": { "slug": "al-purdy-was-here", "title": "Al Purdy Was Here", "countries": ["CA"], "language": "en", "wd": "Q20992322", "tmdb": 356463 }
 }

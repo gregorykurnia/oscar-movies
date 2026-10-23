@@ -153,5 +153,15 @@
   "tt3263430": { "slug": "stray-dog", "title": "Stray Dog", "countries": ["US"], "language": "en", "tmdb": 277435 },
   "tt2381319": { "slug": "afternoon-of-a-faun-tanaquil-le-clercq", "title": "Afternoon of a Faun: Tanaquil Le Clercq", "countries": ["US"], "language": "en", "tmdb": 253807 },
   "tt0816692": { "slug": "interstellar", "title": "Interstellar", "countries": ["US", "GB"], "language": "en", "wd": "Q13417189", "tmdb": 157336 },
-  "tt1809398": { "slug": "unbroken", "title": "Unbroken", "countries": ["US"], "language": "en", "wd": "Q15146380", "tmdb": 227306 }
+  "tt1809398": { "slug": "unbroken", "title": "Unbroken", "countries": ["US"], "language": "en", "wd": "Q15146380", "tmdb": 227306 },
+  "tt3044244": { "slug": "the-wonders", "title": "The Wonders", "originalTitle": "Le meraviglie", "originalLang": "it", "countries": ["IT", "CH", "DE"], "language": "it", "wd": "Q16448753", "tmdb": 265226 },
+  "tt2400275": { "slug": "goodbye-to-language", "title": "Goodbye to Language", "originalTitle": "Adieu au langage", "originalLang": "fr", "countries": ["FR", "CH"], "language": "fr", "wd": "Q4682732", "tmdb": 114982 },
+  "tt3469910": { "slug": "black-coal-thin-ice", "title": "Black Coal, Thin Ice", "originalTitle": "白日焰火", "originalLang": "zh", "countries": ["CN", "HK"], "language": "cmn", "wd": "Q15731283", "tmdb": 255756 },
+  "tt2548738": { "slug": "rich-hill", "title": "Rich Hill", "countries": ["US"], "language": "en", "wd": "Q17086976", "tmdb": 250668 },
+  "tt2593392": { "slug": "alive-inside-a-story-of-music-and-memory", "title": "Alive Inside: A Story of Music and Memory", "countries": ["US"], "language": "en", "wd": "Q16960995", "tmdb": 250643 },
+  "tt3199456": { "slug": "the-return-to-homs", "title": "The Return to Homs", "countries": ["SY", "DE"], "language": "ar", "wd": "Q16886753", "tmdb": 238561 },
+  "tt3062976": { "slug": "learning-to-drive", "title": "Learning to Drive", "countries": ["US"], "language": "en", "wd": "Q18151617", "tmdb": 284286 },
+  "tt3904204": { "slug": "beats-of-the-antonov", "title": "Beats of the Antonov", "countries": ["SD", "ZA"], "language": "ar", "wd": "Q18110341", "tmdb": 292435 },
+  "tt3997238": { "slug": "do-i-sound-gay", "title": "Do I Sound Gay?", "countries": ["US"], "language": "en", "wd": "Q18149339", "tmdb": 288301 },
+  "tt2219650": { "slug": "seymour-an-introduction", "title": "Seymour: An Introduction", "countries": ["US"], "language": "en", "wd": "Q18153917", "tmdb": 291817 }
 }

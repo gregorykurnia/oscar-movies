@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2018,
+  "status": "loaded",
+  "winnersOn": "2018-02-24",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/68th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt4949112", "title": "Touch Me Not", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt6415416", "title": "Mug", "outcome": "won" }
+  ],
+  "screenings": []
+}

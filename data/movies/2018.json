@@ -155,5 +155,14 @@
   "tt7186092": { "slug": "nico-1988", "title": "Nico, 1988", "countries": ["IT", "BE"], "language": "en", "wd": "Q43303235", "tmdb": 473262 },
   "tt6109168": { "slug": "bergman-a-year-in-a-life", "title": "Bergman: A Year in a Life", "originalTitle": "Bergman - ett år, ett liv", "originalLang": "sv", "countries": ["SE"], "language": "sv", "wd": "Q60410288", "tmdb": 522868 },
   "tt7240516": { "slug": "a-woman-captured", "title": "A Woman Captured", "originalTitle": "Egy nő fogságban", "originalLang": "hu", "countries": ["HU", "DE"], "language": "hu", "wd": "Q56604343", "tmdb": 488756 },
-  "tt5222768": { "slug": "white-fang", "title": "White Fang", "originalTitle": "Croc-Blanc", "originalLang": "fr", "countries": ["FR", "LU"], "language": "fr", "wd": "Q51163619", "tmdb": 456154 }
+  "tt5222768": { "slug": "white-fang", "title": "White Fang", "originalTitle": "Croc-Blanc", "originalLang": "fr", "countries": ["FR", "LU"], "language": "fr", "wd": "Q51163619", "tmdb": 456154 },
+  "tt4949112": { "slug": "touch-me-not", "title": "Touch Me Not", "originalTitle": "Nu mă atinge-mă", "originalLang": "ro", "countries": ["RO", "DE", "CZ", "BG", "FR"], "language": "ro", "wd": "Q44869778", "tmdb": 499155 },
+  "tt6415416": { "slug": "mug", "title": "Mug", "originalTitle": "Twarz", "originalLang": "pl", "countries": ["PL"], "language": "pl", "wd": "Q47354316", "tmdb": 444400 },
+  "tt6257174": { "slug": "the-miseducation-of-cameron-post", "title": "The Miseducation of Cameron Post", "countries": ["US", "GB"], "language": "en", "wd": "Q27923828", "tmdb": 426613 },
+  "tt5314450": { "slug": "burden", "title": "Burden", "countries": ["US"], "language": "en", "wd": "Q27964433", "tmdb": 424201 },
+  "tt7318202": { "slug": "butterflies", "title": "Butterflies", "countries": ["TR"], "language": "tr", "wd": "Q47465720", "tmdb": 491303 },
+  "tt7689912": { "slug": "the-price-of-free", "title": "The Price of Free", "countries": ["US"], "language": "en", "wd": "Q58411506", "tmdb": 490792 },
+  "tt7689926": { "slug": "the-sentence", "title": "The Sentence", "countries": ["US"], "language": "en", "wd": "Q95991514", "tmdb": 492638 },
+  "tt7689946": { "slug": "this-is-home-a-refugee-story", "title": "This Is Home: A Refugee Story", "countries": ["SA", "SY", "US"], "language": "ar", "tmdb": 493114 },
+  "tt5795282": { "slug": "this-changes-everything-2018", "title": "This Changes Everything", "countries": ["US"], "language": "en", "wd": "Q56697342", "tmdb": 541577 }
 }

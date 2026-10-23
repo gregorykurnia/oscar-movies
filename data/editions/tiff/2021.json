@@ -1,0 +1,15 @@
+{
+  "award": "tiff",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2021-09-18",
+  "winnersOn": "2021-09-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2021_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt12789558", "title": "Belfast", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt12890988", "title": "Scarborough", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "won" }
+  ],
+  "screenings": []
+}

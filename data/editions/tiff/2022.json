@@ -1,0 +1,15 @@
+{
+  "award": "tiff",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-09-18",
+  "winnersOn": "2022-09-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt13669038", "title": "Women Talking", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt11564570", "title": "Glass Onion: A Knives Out Mystery", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt15144270", "title": "Black Ice", "outcome": "won" }
+  ],
+  "screenings": []
+}

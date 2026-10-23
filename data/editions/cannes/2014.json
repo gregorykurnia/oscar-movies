@@ -1,0 +1,14 @@
+{
+  "award": "cannes",
+  "year": 2014,
+  "status": "loaded",
+  "winnersOn": "2014-05-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt3044244", "title": "The Wonders", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt2400275", "title": "Goodbye to Language", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt3612616", "title": "Mommy", "outcome": "won" }
+  ],
+  "screenings": []
+}

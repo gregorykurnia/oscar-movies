@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2012,
+  "status": "loaded",
+  "winnersOn": "2012-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/62nd_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt2177511", "title": "Caesar Must Die", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt2180335", "title": "Just the Wind", "outcome": "won" }
+  ],
+  "screenings": []
+}

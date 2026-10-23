@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2026,
+  "status": "loaded",
+  "winnersOn": "2026-05-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2026_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt35410859", "title": "Fjord", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt37118301", "title": "Minotaur", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt21188986", "title": "The Dreamed Adventure", "outcome": "won" }
+  ],
+  "screenings": []
+}

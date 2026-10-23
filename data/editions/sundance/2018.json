@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2018,
+  "status": "loaded",
+  "winnersOn": "2018-01-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2018_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt6257174", "title": "The Miseducation of Cameron Post", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt5314450", "title": "Burden", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt7318202", "title": "Butterflies", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt6742252", "title": "The Guilty", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt7689912", "title": "The Price of Free", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt7689926", "title": "The Sentence", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt7519174", "title": "Of Fathers and Sons", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt7689946", "title": "This Is Home: A Refugee Story", "outcome": "won" }
+  ],
+  "screenings": []
+}

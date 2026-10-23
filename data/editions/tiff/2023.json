@@ -1,0 +1,15 @@
+{
+  "award": "tiff",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-09-17",
+  "winnersOn": "2023-09-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2023_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt23561236", "title": "American Fiction", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt12277540", "title": "Mr. Dressup: The Magic of Make-Believe", "outcome": "won" }
+  ],
+  "screenings": []
+}

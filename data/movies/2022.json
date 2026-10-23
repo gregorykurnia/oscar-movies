@@ -166,5 +166,12 @@
   "tt14683452": { "slug": "young-plato", "title": "Young Plato", "countries": ["BE", "FR", "IE"], "language": "en", "tmdb": 890402 },
   "tt10954984": { "slug": "nope", "title": "Nope", "countries": ["US", "JP", "CA"], "language": "en", "wd": "Q107176162", "tmdb": 762504 },
   "tt11198810": { "slug": "she-said", "title": "She Said", "countries": ["US"], "language": "en", "wd": "Q107969593", "tmdb": 837881 },
-  "tt8093700": { "slug": "the-woman-king", "title": "The Woman King", "countries": ["US"], "language": "en", "wd": "Q109905743", "tmdb": 724495 }
+  "tt8093700": { "slug": "the-woman-king", "title": "The Woman King", "countries": ["US"], "language": "en", "wd": "Q109905743", "tmdb": 724495 },
+  "tt10354106": { "slug": "stars-at-noon", "title": "Stars at Noon", "countries": ["FR"], "language": "en", "wd": "Q110982493", "tmdb": 603204 },
+  "tt14641542": { "slug": "the-eight-mountains", "title": "The Eight Mountains", "originalTitle": "Le otto montagne", "originalLang": "it", "countries": ["FR", "IT", "BE", "GB"], "language": "it", "wd": "Q111751446", "tmdb": 803700 },
+  "tt17146978": { "slug": "the-novelists-film", "title": "The Novelist's Film", "originalTitle": "소설가의 영화", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q110628573", "tmdb": 928713 },
+  "tt10931784": { "slug": "nanny", "title": "Nanny", "countries": ["US"], "language": "en", "wd": "Q107389143", "tmdb": 843932 },
+  "tt14376344": { "slug": "cha-cha-real-smooth", "title": "Cha Cha Real Smooth", "countries": ["US"], "language": "en", "wd": "Q110027782", "tmdb": 814340 },
+  "tt16227006": { "slug": "the-exiles", "title": "The Exiles", "countries": ["US"], "language": "en", "tmdb": 913827 },
+  "tt15144270": { "slug": "black-ice", "title": "Black Ice", "countries": ["CA"], "language": "en", "wd": "Q113504770", "tmdb": 1005727 }
 }

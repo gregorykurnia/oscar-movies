@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-09-14",
+  "winnersOn": "2014-09-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2014_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt3062976", "title": "Learning to Drive", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt2170593", "title": "St. Vincent", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt3904204", "title": "Beats of the Antonov", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt3997238", "title": "Do I Sound Gay?", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt2219650", "title": "Seymour: An Introduction", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

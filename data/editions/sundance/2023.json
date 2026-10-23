@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2023,
+  "status": "loaded",
+  "winnersOn": "2023-01-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2023_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt12427158", "title": "A Thousand and One", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt24076146", "title": "The Persian Version", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt8649252", "title": "Scrapper", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt13200006", "title": "Shayda", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt7196012", "title": "Going to Mars: The Nikki Giovanni Project", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt24082488", "title": "The Eternal Memory", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" }
+  ],
+  "screenings": []
+}

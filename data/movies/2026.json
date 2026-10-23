@@ -98,5 +98,17 @@
   "tt39131323": { "slug": "variations-on-a-theme", "title": "Variations on a Theme", "originalTitle": "Variasies op 'n tema", "originalLang": "af", "countries": ["NL", "QA", "ZA"], "language": "af", "tmdb": 1599249 },
   "tt39368563": { "slug": "the-other-side-of-the-sun", "title": "The Other Side of the Sun", "originalTitle": "الجانب الآخر من الشمس", "originalLang": "ar", "countries": ["BE", "FR", "SA"], "language": "ar", "tmdb": 1616141 },
   "tt43613737": { "slug": "like-a-limbless-tree", "title": "Like a Limbless Tree", "originalTitle": "Kesilmiş Bir Ağaç Gibi", "originalLang": "tr", "countries": ["TR"], "language": "tr", "tmdb": 1563676 },
-  "tt39368581": { "slug": "traces-2026", "title": "Traces", "originalTitle": "Сліди", "originalLang": "uk", "countries": ["UA", "PL"], "language": "uk", "wd": "Q138307560", "tmdb": 1600580 }
+  "tt39368581": { "slug": "traces-2026", "title": "Traces", "originalTitle": "Сліди", "originalLang": "uk", "countries": ["UA", "PL"], "language": "uk", "wd": "Q138307560", "tmdb": 1600580 },
+  "tt32888226": { "slug": "yellow-letters", "title": "Yellow Letters", "countries": ["DE", "TR", "FR"], "language": "tr", "wd": "Q136163095", "tmdb": 1315657 },
+  "tt36472181": { "slug": "salvation", "title": "Salvation", "countries": ["TR", "FR", "GR", "SE", "SA"], "language": "tr", "wd": "Q138031189", "tmdb": 1401106 },
+  "tt32321285": { "slug": "josephine", "title": "Josephine", "countries": ["US"], "language": "en", "wd": "Q128502486", "tmdb": 1299329 },
+  "tt39140264": { "slug": "shame-and-money", "title": "Shame and Money", "countries": ["MK", "DE", "BE", "AL", "XK", "SI"], "language": "sq", "wd": "Q137596774", "tmdb": 1553591 },
+  "tt39150922": { "slug": "nuisance-bear", "title": "Nuisance Bear", "countries": ["US", "CA"], "language": "en", "wd": "Q137384588", "tmdb": 1595210 },
+  "tt39150003": { "slug": "american-pachuco-the-legend-of-luis-valdez", "title": "American Pachuco: The Legend of Luis Valdez", "countries": ["US"], "language": "en", "wd": "Q137379672", "tmdb": 1596330 },
+  "tt38983842": { "slug": "one-in-a-million", "title": "One in a Million", "countries": ["GB"], "language": "en", "wd": "Q137592941", "tmdb": 1596295 },
+  "tt11995650": { "slug": "i-play-rocky", "title": "I Play Rocky", "countries": ["US"], "language": "en", "wd": "Q136524973", "tmdb": 1286656 },
+  "tt15095848": { "slug": "being-heumann", "title": "Being Heumann", "countries": ["US"], "language": "en", "wd": "Q135644103", "tmdb": 1050981 },
+  "tt42387153": { "slug": "darlene-love-i-know-where-ive-been", "title": "Darlene Love: I Know Where I've Been", "countries": ["CA", "US"], "language": "en", "wd": "Q140921106", "tmdb": 1688799 },
+  "tt37363222": { "slug": "elsinore", "title": "Elsinore", "countries": ["GB", "US"], "language": "en", "wd": "Q137722359", "tmdb": 1599230 },
+  "tt38708063": { "slug": "the-assassin-s", "title": "The Assassin(s)", "originalTitle": "암살자(들)", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q140594181", "tmdb": 1418428 }
 }

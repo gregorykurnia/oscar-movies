@@ -1,0 +1,12 @@
+{
+  "award": "venice",
+  "year": 2026,
+  "status": "loaded",
+  "winnersOn": "2026-09-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/83rd_Venice_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Lion", "https://en.wikipedia.org/wiki/Grand_Jury_Prize_(Venice_Film_Festival)"],
+  "results": [
+    { "category": "golden-lion", "imdb": "tt34888026", "title": "Woman Unknown", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt37803364", "title": "Possible Love", "outcome": "won" }
+  ],
+  "screenings": []
+}

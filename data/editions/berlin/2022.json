@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2022,
+  "status": "loaded",
+  "winnersOn": "2022-02-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/72nd_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt11930126", "title": "Alcarràs", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt17146978", "title": "The Novelist's Film", "outcome": "won" }
+  ],
+  "screenings": []
+}

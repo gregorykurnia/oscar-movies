@@ -141,5 +141,15 @@
   "tt1937419": { "slug": "london-the-modern-babylon", "title": "London: The Modern Babylon", "countries": ["GB"], "language": "en", "tmdb": 128129 },
   "tt1839662": { "slug": "tea-or-electricity", "title": "Tea or Electricity", "originalTitle": "Le Thé ou l'électricité", "originalLang": "fr", "countries": ["FR"], "language": "fr", "tmdb": 141318 },
   "tt2073029": { "slug": "marina-abramovic-the-artist-is-present", "title": "Marina Abramovic: The Artist Is Present", "countries": ["US"], "language": "en", "wd": "Q114041563", "tmdb": 84309 },
-  "tt1345836": { "slug": "the-dark-knight-rises", "title": "The Dark Knight Rises", "countries": ["US", "GB"], "language": "en", "wd": "Q189330", "tmdb": 49026 }
+  "tt1345836": { "slug": "the-dark-knight-rises", "title": "The Dark Knight Rises", "countries": ["US", "GB"], "language": "en", "wd": "Q189330", "tmdb": 49026 },
+  "tt1846487": { "slug": "reality", "title": "Reality", "countries": ["IT", "FR"], "language": "it", "wd": "Q670305", "tmdb": 103758 },
+  "tt1924394": { "slug": "the-angels-share", "title": "The Angels’ Share", "countries": ["GB", "FR", "BE", "IT"], "language": "en", "wd": "Q45318", "tmdb": 103747 },
+  "tt2371824": { "slug": "paradise-faith", "title": "Paradise: Faith", "originalTitle": "Paradies: Glaube", "originalLang": "de", "countries": ["AT", "DE", "FR"], "language": "de", "wd": "Q7134201", "tmdb": 129734 },
+  "tt2014392": { "slug": "violeta-went-to-heaven", "title": "Violeta Went to Heaven", "originalTitle": "Violeta se fue a los cielos", "originalLang": "es", "countries": ["CL", "AR", "BR"], "language": "es", "wd": "Q942581", "tmdb": 80717 },
+  "tt2088967": { "slug": "valley-of-saints", "title": "Valley of Saints", "countries": ["IN", "US"], "language": "ks", "wd": "Q2509374", "tmdb": 84349 },
+  "tt2069916": { "slug": "the-law-in-these-parts", "title": "The Law in These Parts", "originalTitle": "שלטון החוק", "originalLang": "he", "countries": ["IL"], "language": "he", "wd": "Q3700590", "tmdb": 84304 },
+  "tt2131698": { "slug": "zaytoun", "title": "Zaytoun", "originalTitle": "זייתון", "originalLang": "he", "countries": ["IL", "GB", "FR"], "language": "ar", "wd": "Q3574953", "tmdb": 121640 },
+  "tt2370718": { "slug": "artifact", "title": "Artifact", "countries": ["US"], "language": "en", "wd": "Q3624405", "tmdb": 127853 },
+  "tt1754546": { "slug": "storm-surfers-3d", "title": "Storm Surfers 3D", "countries": ["AU"], "language": "en", "wd": "Q50575626", "tmdb": 128217 },
+  "tt2350608": { "slug": "revolution", "title": "Revolution", "countries": ["CA"], "language": "en", "wd": "Q7318625", "tmdb": 128201 }
 }

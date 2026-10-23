@@ -165,5 +165,9 @@
   "tt9850492": { "slug": "babi-yar-context", "title": "Babi Yar. Context", "originalTitle": "Бабий Яр. Контекст", "originalLang": "ru", "countries": ["UA", "NL"], "language": "ru", "tmdb": 605546 },
   "tt14035048": { "slug": "mr-bachmann-and-his-class", "title": "Mr. Bachmann and His Class", "originalTitle": "Herr Bachmann und seine Klasse", "originalLang": "de", "countries": ["DE"], "language": "de", "tmdb": 795812 },
   "tt3804810": { "slug": "even-mice-belong-in-heaven", "title": "Even Mice Belong in Heaven", "originalTitle": "Myši patří do nebe", "originalLang": "cs", "countries": ["CZ", "FR", "PL", "SK"], "language": "cs", "tmdb": 588890 },
-  "tt10095582": { "slug": "the-tragedy-of-macbeth", "title": "The Tragedy of Macbeth", "countries": ["US"], "language": "en", "wd": "Q84693711", "tmdb": 591538 }
+  "tt10095582": { "slug": "the-tragedy-of-macbeth", "title": "The Tragedy of Macbeth", "countries": ["US"], "language": "en", "wd": "Q84693711", "tmdb": 591538 },
+  "tt12494638": { "slug": "aheds-knee", "title": "Ahed's Knee", "originalTitle": "הַדֶּרֶךְ‎‎", "originalLang": "he", "countries": ["FR", "IL", "DE"], "language": "he", "wd": "Q107089450", "tmdb": 662029 },
+  "tt13880104": { "slug": "happening", "title": "Happening", "originalTitle": "L'Événement", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q107675028", "tmdb": 793998 },
+  "tt14034966": { "slug": "wheel-of-fortune-and-fantasy", "title": "Wheel of Fortune and Fantasy", "originalTitle": "偶然と想像", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q105481082", "tmdb": 795811 },
+  "tt12890988": { "slug": "scarborough", "title": "Scarborough", "countries": ["CA"], "language": "en", "wd": "Q108083859", "tmdb": 855136 }
 }

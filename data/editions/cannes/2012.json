@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2012,
+  "status": "loaded",
+  "winnersOn": "2012-05-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt1846487", "title": "Reality", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt1924394", "title": "The Angels’ Share", "outcome": "won" }
+  ],
+  "screenings": []
+}

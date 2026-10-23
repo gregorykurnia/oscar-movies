@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2015,
+  "status": "loaded",
+  "winnersOn": "2015-01-31",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt2582496", "title": "Me & Earl & the Dying Girl", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt2582496", "title": "Me & Earl & the Dying Girl", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt3205376", "title": "Slow West", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt2614722", "title": "Umrika", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt2415458", "title": "The Wolfpack", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt2545428", "title": "Meru", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt4082596", "title": "The Russian Woodpecker", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt4137902", "title": "Dark Horse: The Incredible True Story of Dream Alliance", "outcome": "won" }
+  ],
+  "screenings": []
+}

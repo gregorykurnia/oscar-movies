@@ -165,5 +165,10 @@
   "tt17526454": { "slug": "a-greyhound-of-a-girl", "title": "A Greyhound of a Girl", "countries": ["EE", "DE", "IE", "IT", "LV", "LU", "GB"], "language": "en", "wd": "Q116971313", "tmdb": 588564 },
   "tt8096846": { "slug": "white-plastic-sky", "title": "White Plastic Sky", "originalTitle": "Műanyag égbolt", "originalLang": "hu", "countries": ["HU", "SK"], "language": "hu", "tmdb": 587384 },
   "tt26745680": { "slug": "motherland-2023", "title": "Motherland", "countries": ["SE", "NO", "UA"], "language": "sv", "tmdb": 961289 },
-  "tt26773666": { "slug": "close-to-vermeer", "title": "Close to Vermeer", "countries": ["NL"], "language": "nl", "tmdb": 1090031 }
+  "tt26773666": { "slug": "close-to-vermeer", "title": "Close to Vermeer", "countries": ["NL"], "language": "nl", "tmdb": 1090031 },
+  "tt28490044": { "slug": "evil-does-not-exist", "title": "Evil Does Not Exist", "originalTitle": "悪は存在しない", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q120897557", "tmdb": 1156125 },
+  "tt26440619": { "slug": "afire", "title": "Afire", "originalTitle": "Roter Himmel", "originalLang": "de", "countries": ["DE"], "language": "de", "wd": "Q116621601", "tmdb": 900379 },
+  "tt12427158": { "slug": "a-thousand-and-one", "title": "A Thousand and One", "countries": ["US"], "language": "en", "wd": "Q115687524", "tmdb": 855263 },
+  "tt24076146": { "slug": "the-persian-version", "title": "The Persian Version", "countries": ["US"], "language": "en", "wd": "Q115687604", "tmdb": 1058620 },
+  "tt12277540": { "slug": "mr-dressup-the-magic-of-make-believe", "title": "Mr. Dressup: The Magic of Make-Believe", "countries": ["CA"], "language": "en", "wd": "Q121161343", "tmdb": 1154686 }
 }

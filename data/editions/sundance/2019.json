@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2019,
+  "status": "loaded",
+  "winnersOn": "2019-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2019_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt5577494", "title": "Clemency", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt7671064", "title": "Brittany Runs a Marathon", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt6920356", "title": "The Souvenir", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt8378126", "title": "Queen of Hearts", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt9358052", "title": "Knock Down the House", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt9326056", "title": "Sea of Shadows", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2026,
+  "status": "loaded",
+  "winnersOn": "2026-02-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/76th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt32888226", "title": "Yellow Letters", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt36472181", "title": "Salvation", "outcome": "won" }
+  ],
+  "screenings": []
+}

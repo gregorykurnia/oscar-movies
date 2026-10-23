@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2016,
+  "status": "loaded",
+  "winnersOn": "2016-02-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/66th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt4466648", "title": "Death in Sarajevo", "outcome": "won" }
+  ],
+  "screenings": []
+}

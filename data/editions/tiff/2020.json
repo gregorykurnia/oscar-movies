@@ -1,0 +1,15 @@
+{
+  "award": "tiff",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-09-21",
+  "winnersOn": "2020-09-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2020_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt11735544", "title": "Beans", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt8891904", "title": "Inconvenient Indian", "outcome": "won" }
+  ],
+  "screenings": []
+}

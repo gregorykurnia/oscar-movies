@@ -1,0 +1,15 @@
+{
+  "award": "cannes",
+  "year": 2021,
+  "status": "loaded",
+  "winnersOn": "2021-07-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2021_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt10944760", "title": "Titane", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt10262648", "title": "Compartment No. 6", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt11777738", "title": "A Hero", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt12494638", "title": "Ahed's Knee", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt8399288", "title": "Memoria", "outcome": "won" }
+  ],
+  "screenings": []
+}

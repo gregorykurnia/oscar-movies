@@ -1,0 +1,12 @@
+{
+  "award": "venice",
+  "year": 2020,
+  "status": "loaded",
+  "winnersOn": "2020-09-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/77th_Venice_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Lion", "https://en.wikipedia.org/wiki/Grand_Jury_Prize_(Venice_Film_Festival)"],
+  "results": [
+    { "category": "golden-lion", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt12474056", "title": "New Order", "outcome": "won" }
+  ],
+  "screenings": []
+}

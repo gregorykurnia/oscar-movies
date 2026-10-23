@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2020,
+  "status": "loaded",
+  "winnersOn": "2020-02-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2020_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt9834492", "title": "Yalda, a Night for Forgiveness", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt11394282", "title": "Identifying Features", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt11095742", "title": "Boys State", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt11393948", "title": "Epicentro", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt9098928", "title": "The Reason I Jump", "outcome": "won" }
+  ],
+  "screenings": []
+}

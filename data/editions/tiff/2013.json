@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2013-09-15",
+  "winnersOn": "2013-09-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt2431286", "title": "Philomena", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt1392214", "title": "Prisoners", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt2486682", "title": "The Square", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt3091338", "title": "Hi-Ho Mistahey!", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt2468638", "title": "Beyond the Edge", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

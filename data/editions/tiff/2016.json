@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-09-18",
+  "winnersOn": "2016-09-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2016_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt3741834", "title": "Lion", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt4341582", "title": "Queen of Katwe", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt5952382", "title": "Abacus: Small Enough to Jail", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt5929776", "title": "Before the Flood", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

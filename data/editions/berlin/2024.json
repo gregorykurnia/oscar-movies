@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2024,
+  "status": "loaded",
+  "winnersOn": "2024-02-24",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/74th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt31015216", "title": "Dahomey", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt31015344", "title": "A Traveler’s Needs", "outcome": "won" }
+  ],
+  "screenings": []
+}

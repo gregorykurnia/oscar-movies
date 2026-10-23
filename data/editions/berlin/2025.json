@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2025,
+  "status": "loaded",
+  "winnersOn": "2025-02-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/75th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt30810787", "title": "Dreams (Sex Love)", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt35340614", "title": "The Blue Trail", "outcome": "won" }
+  ],
+  "screenings": []
+}

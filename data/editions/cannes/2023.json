@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2023,
+  "status": "loaded",
+  "winnersOn": "2023-05-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2023_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "won" }
+  ],
+  "screenings": []
+}

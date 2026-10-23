@@ -1,0 +1,18 @@
+{
+  "award": "sundance",
+  "year": 2012,
+  "status": "loaded",
+  "winnersOn": "2012-01-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_Sundance_Film_Festival", "https://en.wikipedia.org/wiki/List_of_Sundance_Film_Festival_award_winners"],
+  "results": [
+    { "category": "us-dramatic-jury", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "won" },
+    { "category": "us-dramatic-audience", "imdb": "tt1866249", "title": "The Sessions", "outcome": "won" },
+    { "category": "world-dramatic-jury", "imdb": "tt2014392", "title": "Violeta Went to Heaven", "outcome": "won" },
+    { "category": "world-dramatic-audience", "imdb": "tt2088967", "title": "Valley of Saints", "outcome": "won" },
+    { "category": "us-documentary-jury", "imdb": "tt2125653", "title": "The House I Live In", "outcome": "won" },
+    { "category": "us-documentary-audience", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "won" },
+    { "category": "world-documentary-jury", "imdb": "tt2069916", "title": "The Law in These Parts", "outcome": "won" },
+    { "category": "world-documentary-audience", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" }
+  ],
+  "screenings": []
+}

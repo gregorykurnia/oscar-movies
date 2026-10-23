@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-09-15",
+  "winnersOn": "2019-09-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2019_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt6751668", "title": "Parasite", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt10773380", "title": "I Am Not Alone", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt10883124", "title": "Dads", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

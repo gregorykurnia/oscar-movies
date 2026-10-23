@@ -1,0 +1,14 @@
+{
+  "award": "cannes",
+  "year": 2019,
+  "status": "loaded",
+  "winnersOn": "2019-05-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2019_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt10199586", "title": "Atlantique", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt2762506", "title": "Bacurau", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "won" }
+  ],
+  "screenings": []
+}

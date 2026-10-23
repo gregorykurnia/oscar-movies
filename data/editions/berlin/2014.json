@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2014,
+  "status": "loaded",
+  "winnersOn": "2014-02-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/64th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt3469910", "title": "Black Coal, Thin Ice", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "won" }
+  ],
+  "screenings": []
+}

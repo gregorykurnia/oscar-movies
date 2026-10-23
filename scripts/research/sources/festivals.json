@@ -1,0 +1,127 @@
+{
+  "nominationsOn": {},
+  "linkFixes": {
+    "Violeta Parra": {
+      "article": "Violeta Went to Heaven",
+      "why": "The page links the singer; the prize went to the film about her."
+    },
+    "The Surrogate": {
+      "article": "The Sessions (2012 film)",
+      "why": "Shown by its festival title; released as The Sessions."
+    },
+    "Fruitvale": {
+      "article": "Fruitvale Station",
+      "why": "Shown by its festival title; released as Fruitvale Station."
+    },
+    "The Green Prince": {
+      "article": "The Green Prince (film)",
+      "why": "The year page does not link the film."
+    },
+    "Me and Earl and the Dying Girl": {
+      "article": "Me and Earl and the Dying Girl (film)",
+      "why": "The year page does not link the film in this category."
+    },
+    "Kailash": {
+      "article": "The Price of Free",
+      "why": "Shown by its festival title; released as The Price of Free."
+    },
+    "The Sentence": {
+      "article": "The Sentence (2018 film)",
+      "why": "The year page does not link the film."
+    },
+    "Hive": {
+      "article": "Hive (2021 film)",
+      "why": "The year page does not link the film in this category."
+    },
+    "The Territory": {
+      "article": "The Territory (2022 film)",
+      "why": "The year page does not link the film."
+    },
+    "Beyond Utopia": {
+      "article": "Beyond Utopia",
+      "why": "The year page does not link the film."
+    },
+    "André is an Idiot": {
+      "article": "André Is an Idiot",
+      "why": "The year page does not link the film."
+    },
+    "Cutting Through Rocks": {
+      "article": "Cutting Through Rocks",
+      "why": "The year page does not link the film."
+    }
+  },
+  "tmdbSearch": {
+    "sundance 2013 Blood Brother": {
+      "directors": [
+        "Steve Hoover"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article for the film."
+    },
+    "sundance 2018 This is Home": {
+      "directors": [
+        "Alexandra Shiva"
+      ],
+      "country": "US",
+      "why": "No Wikipedia article for the film.",
+      "title": "This Is Home: A Refugee Story"
+    },
+    "sundance 2020 The Reason I Jump": {
+      "directors": [
+        "Jerry Rothwell"
+      ],
+      "country": "GB",
+      "why": "The page links the book, which has no IMDb ID."
+    },
+    "sundance 2024 A New Kind of Wilderness": {
+      "directors": [
+        "Silje Evensmo Jacobsen"
+      ],
+      "country": "NO",
+      "why": "No Wikipedia article for the film."
+    },
+    "sundance 2022 The Exiles": {
+      "directors": [
+        "Ben Klein",
+        "Violet Columbus"
+      ],
+      "country": "US",
+      "why": "The page does not link the film, and the Wikipedia article called The Exiles (2022 film) is a different, Indonesian film."
+    }
+  },
+  "leaveOut": {},
+  "titles": {
+    "tt30810787": "Dreams (Sex Love)",
+    "tt7215262": "Super Size Me 2: Holy Chicken!",
+    "tt2014392": "Violeta Went to Heaven"
+  },
+  "ties": {
+    "cannes/2014/jury-prize": 2,
+    "cannes/2019/jury-prize": 2,
+    "cannes/2021/grand-prix": 2,
+    "cannes/2021/jury-prize": 2,
+    "cannes/2022/grand-prix": 2,
+    "cannes/2022/jury-prize": 2,
+    "cannes/2025/jury-prize": 2
+  },
+  "winnersOn": {
+    "berlin": {
+      "2021": "2021-03-05"
+    }
+  },
+  "manualWinners": {},
+  "externalDates": {
+    "berlin/2012": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "berlin/2018": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "berlin/2025": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "berlin/2021": "Prizes announced Friday 5 March 2021, the last day of the online industry event (berlinale.de/en/2021/news-press-releases/70152.html; TheWrap, 5 March 2021).",
+    "sundance/2016": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "sundance/2023": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "sundance/2025": "The page names no prize day; the awards come on the Saturday before the closing day (checked: it is a Saturday).",
+    "sundance/2021": "The virtual awards ceremony was Tuesday 2 February 2021 (awardswatch.com, moviemaker.com).",
+    "tiff/2023": "The People's Choice Awards were announced on the closing Sunday, 17 September 2023 (screendaily.com, blogto.com)."
+  },
+  "notHeld": {
+    "cannes/2020": "The 2020 festival was cancelled because of the COVID-19 pandemic: 56 films were announced as official selections, but no prizes were given."
+  }
+}

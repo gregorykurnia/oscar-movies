@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2013,
+  "status": "loaded",
+  "winnersOn": "2013-02-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/63rd_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt2187115", "title": "Child's Pose", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt2507592", "title": "An Episode in the Life of an Iron Picker", "outcome": "won" }
+  ],
+  "screenings": []
+}

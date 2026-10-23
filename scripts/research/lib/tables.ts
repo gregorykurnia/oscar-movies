@@ -30,16 +30,16 @@ export type NomineeList = { category: string; nominees: Nominee[] };
 
 const WINNER_MARK = /[‡‡]/;
 
-const clean = (text: string) => text.replace(/\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
+export const clean = (text: string) => text.replace(/\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
 
-function linkOf($: cheerio.CheerioAPI, a: cheerio.Cheerio<Element>): FilmLink {
+export function linkOf($: cheerio.CheerioAPI, a: cheerio.Cheerio<Element>): FilmLink {
   const href = a.attr("href") ?? "";
   const red = a.hasClass("new") || href.includes("redlink=1");
   return { article: red ? null : titleFromHref(href), text: clean(a.text()) };
 }
 
 /** A list item's own content: the item without the lists nested inside it. */
-function ownContent($: cheerio.CheerioAPI, li: Element): cheerio.Cheerio<AnyNode> {
+export function ownContent($: cheerio.CheerioAPI, li: Element): cheerio.Cheerio<AnyNode> {
   const copy = $(li).clone();
   copy.find("ul, ol").remove();
   copy.find("sup.reference, .reference").remove();
@@ -47,7 +47,7 @@ function ownContent($: cheerio.CheerioAPI, li: Element): cheerio.Cheerio<AnyNode
 }
 
 /** The film a nominee line names: the first italic link, else the first italic text. */
-function filmOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): FilmLink | null {
+export function filmOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): FilmLink | null {
   const italic = own.find("i").first();
   if (italic.length === 0) return null;
   const a = italic.is("a") ? italic : italic.find("a").first();

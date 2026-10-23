@@ -1,0 +1,18 @@
+{
+  "award": "tiff",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-09-14",
+  "winnersOn": "2025-09-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2025_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt14905854", "title": "Hamnet", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt14364480", "title": "Wake Up Dead Man: A Knives Out Mystery", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt33350479", "title": "The Road Between Us: The Ultimate Rescue", "outcome": "won" },
+    { "category": "peoples-choice-international", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "won" },
+    { "category": "peoples-choice-international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "runner_up" },
+    { "category": "peoples-choice-international", "imdb": "tt26733325", "title": "Homebound", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

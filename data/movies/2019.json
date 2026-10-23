@@ -169,5 +169,11 @@
   "tt8647924": { "slug": "putins-witnesses", "title": "Putin's Witnesses", "originalTitle": "Свидетели Путина", "originalLang": "ru", "countries": ["CH", "CZ", "LV", "DE"], "language": "ru", "tmdb": 527251 },
   "tt9358250": { "slug": "the-disappearance-of-my-mother", "title": "The Disappearance of My Mother", "originalTitle": "Storia di B – La scomparsa di mia madre", "originalLang": "it", "countries": ["IT"], "language": "it", "tmdb": 566062 },
   "tt8929142": { "slug": "63-up", "title": "63 Up", "countries": ["GB"], "language": "en", "tmdb": 698102 },
-  "tt3513548": { "slug": "richard-jewell", "title": "Richard Jewell", "countries": ["US"], "language": "en", "wd": "Q65058737", "tmdb": 292011 }
+  "tt3513548": { "slug": "richard-jewell", "title": "Richard Jewell", "countries": ["US"], "language": "en", "wd": "Q65058737", "tmdb": 292011 },
+  "tt7016254": { "slug": "synonyms", "title": "Synonyms", "countries": ["FR", "IL", "DE"], "language": "fr", "wd": "Q61672685", "tmdb": 501590 },
+  "tt8095860": { "slug": "by-the-grace-of-god", "title": "By the Grace of God", "originalTitle": "Grâce à Dieu", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q60169300", "tmdb": 509364 },
+  "tt7671064": { "slug": "brittany-runs-a-marathon", "title": "Brittany Runs a Marathon", "countries": ["US"], "language": "en", "wd": "Q52151283", "tmdb": 529862 },
+  "tt9326056": { "slug": "sea-of-shadows", "title": "Sea of Shadows", "countries": ["AT", "AU", "US"], "language": "en", "wd": "Q84158729", "tmdb": 566219 },
+  "tt10773380": { "slug": "i-am-not-alone", "title": "I Am Not Alone", "countries": ["AM", "US"], "language": "hy", "wd": "Q73918180", "tmdb": 621759 },
+  "tt10883124": { "slug": "dads", "title": "Dads", "countries": ["US"], "language": "en", "wd": "Q74191437", "tmdb": 621757 }
 }

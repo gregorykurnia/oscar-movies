@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2012-09-16",
+  "winnersOn": "2012-09-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2012_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt1024648", "title": "Argo", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt2131698", "title": "Zaytoun", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt2370718", "title": "Artifact", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt1754546", "title": "Storm Surfers 3D", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt2350608", "title": "Revolution", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

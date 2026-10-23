@@ -1,0 +1,12 @@
+{
+  "award": "venice",
+  "year": 2013,
+  "status": "loaded",
+  "winnersOn": "2013-09-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/70th_Venice_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Lion", "https://en.wikipedia.org/wiki/Grand_Jury_Prize_(Venice_Film_Festival)"],
+  "results": [
+    { "category": "golden-lion", "imdb": "tt3172520", "title": "Sacro GRA", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt3119416", "title": "Stray Dogs", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2021,
+  "status": "loaded",
+  "winnersOn": "2021-03-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/71st_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt14033502", "title": "Bad Luck Banging or Loony Porn", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt14034966", "title": "Wheel of Fortune and Fantasy", "outcome": "won" }
+  ],
+  "screenings": []
+}

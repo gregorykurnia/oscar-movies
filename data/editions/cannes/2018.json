@@ -1,0 +1,13 @@
+{
+  "award": "cannes",
+  "year": 2018,
+  "status": "loaded",
+  "winnersOn": "2018-05-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2018_Cannes_Film_Festival", "https://en.wikipedia.org/wiki/Palme_d'Or", "https://en.wikipedia.org/wiki/Grand_Prix_(Cannes_Film_Festival)", "https://en.wikipedia.org/wiki/Jury_Prize_(Cannes_Film_Festival)"],
+  "results": [
+    { "category": "palme-dor", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "won" },
+    { "category": "grand-prix", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "won" },
+    { "category": "jury-prize", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" }
+  ],
+  "screenings": []
+}

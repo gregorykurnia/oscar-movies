@@ -170,5 +170,14 @@
   "tt27757752": { "slug": "olivia-and-the-invisible-earthquake", "title": "Olivia and the Invisible Earthquake", "originalTitle": "L'Olívia i el terratrèmol invisible", "originalLang": "ca", "countries": ["ES", "FR", "BE", "CL"], "language": "ca", "wd": "Q126680865", "tmdb": 676679 },
   "tt10312938": { "slug": "tales-from-the-magic-garden", "title": "Tales from the Magic Garden", "originalTitle": "Pohádky po babičce", "originalLang": "cs", "countries": ["CZ", "SK", "SI", "FR"], "language": "cs", "tmdb": 587370 },
   "tt30446847": { "slug": "jay-kelly", "title": "Jay Kelly", "countries": ["US", "GB"], "language": "en", "wd": "Q124829697", "tmdb": 1069905 },
-  "tt19847976": { "slug": "wicked-for-good", "title": "Wicked: For Good", "countries": ["US"], "language": "en", "wd": "Q114817050", "tmdb": 967941 }
+  "tt19847976": { "slug": "wicked-for-good", "title": "Wicked: For Good", "countries": ["US"], "language": "en", "wd": "Q114817050", "tmdb": 967941 },
+  "tt30810787": { "slug": "dreams-sex-love", "title": "Dreams (Sex Love)", "originalTitle": "Drømmer", "originalLang": "no", "countries": ["NO"], "language": "no", "wd": "Q129759798", "tmdb": 1228682 },
+  "tt35340614": { "slug": "the-blue-trail", "title": "The Blue Trail", "originalTitle": "O último azul", "originalLang": "pt-BR", "countries": ["BR", "MX", "CL"], "language": "pt", "wd": "Q131840191", "tmdb": 1172265 },
+  "tt31122579": { "slug": "atropia", "title": "Atropia", "countries": ["US"], "language": "en", "wd": "Q124450737", "tmdb": 1239288 },
+  "tt29310002": { "slug": "cactus-pears", "title": "Cactus Pears", "originalTitle": "Amar bajo las espinas", "originalLang": "es", "countries": ["IN", "CA", "GB"], "language": "mr", "wd": "Q131716628", "tmdb": 1288748 },
+  "tt34964187": { "slug": "dj-ahmet", "title": "DJ Ahmet", "countries": ["CZ", "MK", "RS", "HR"], "language": "tr", "wd": "Q131872923", "tmdb": 1400743 },
+  "tt34963034": { "slug": "andre-is-an-idiot", "title": "André is an Idiot", "countries": ["US"], "language": "en", "wd": "Q131893926", "tmdb": 1400731 },
+  "tt34965625": { "slug": "prime-minister", "title": "Prime Minister", "countries": ["US"], "language": "en", "wd": "Q131978272", "tmdb": 1400798 },
+  "tt14364480": { "slug": "wake-up-dead-man-a-knives-out-mystery", "title": "Wake Up Dead Man: A Knives Out Mystery", "countries": ["US"], "language": "en", "wd": "Q115931717", "tmdb": 812583 },
+  "tt33350479": { "slug": "the-road-between-us-the-ultimate-rescue", "title": "The Road Between Us: The Ultimate Rescue", "countries": ["CA"], "language": "en", "wd": "Q135781160", "tmdb": 1529481 }
 }

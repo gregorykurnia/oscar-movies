@@ -1,0 +1,12 @@
+{
+  "award": "berlin",
+  "year": 2019,
+  "status": "loaded",
+  "winnersOn": "2019-02-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/69th_Berlin_International_Film_Festival", "https://en.wikipedia.org/wiki/Golden_Bear", "https://en.wikipedia.org/wiki/Silver_Bear_Grand_Jury_Prize"],
+  "results": [
+    { "category": "golden-bear", "imdb": "tt7016254", "title": "Synonyms", "outcome": "won" },
+    { "category": "grand-jury", "imdb": "tt8095860", "title": "By the Grace of God", "outcome": "won" }
+  ],
+  "screenings": []
+}

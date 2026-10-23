@@ -1,0 +1,17 @@
+{
+  "award": "tiff",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-09-20",
+  "winnersOn": "2015-09-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_Toronto_International_Film_Festival"],
+  "results": [
+    { "category": "peoples-choice", "imdb": "tt3170832", "title": "Room", "outcome": "won" },
+    { "category": "peoples-choice", "imdb": "tt3368222", "title": "Angry Indian Goddesses", "outcome": "runner_up" },
+    { "category": "peoples-choice", "imdb": "tt1895587", "title": "Spotlight", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt4908644", "title": "Winter on Fire: Ukraine's Fight for Freedom", "outcome": "won" },
+    { "category": "peoples-choice-documentary", "imdb": "tt1870548", "title": "This Changes Everything", "outcome": "runner_up" },
+    { "category": "peoples-choice-documentary", "imdb": "tt4196504", "title": "Al Purdy Was Here", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}
