@@ -18,9 +18,10 @@ test("/awards/2025 lists the Oscars first, then the majors, festivals and critic
   // By that year's dates: Satellite's 2025 winners came out on 10 Mar 2026, after the Actor Awards.
   await expect(majors.nth(9)).toContainText("Actor Awards (formerly SAG Awards)");
   await expect(majors.last()).toContainText("Satellite Awards");
-  await expect(page.getByRole("region", { name: "Critics groups" }).getByRole("heading", { level: 3 })).toHaveText(
-    "No critics groups yet",
-  );
+  // The critics groups are in the registry (task 4.1); until their imports load, each is No data.
+  const critics = page.getByRole("region", { name: "Critics groups" }).getByRole("listitem");
+  await expect(critics.first()).toContainText("Critics Choice Documentary Awards");
+  await expect(critics.last()).toContainText("Peabody Awards");
 });
 
 test("/awards/2026 marks the majors No data and the Oscars Partly loaded", async ({ page }) => {
@@ -64,10 +65,10 @@ test("/awards and /festivals open the live season, and the festivals index lists
 
   await page.goto("/festivals/2025");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Festivals 2025");
-  const hrefs = await page
-    .getByRole("region", { name: "Festivals" })
-    .getByRole("link")
-    .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+  // evaluateAll doesn't wait for the streamed list, so wait for its five links first.
+  const links = page.getByRole("region", { name: "Festivals" }).getByRole("link");
+  await expect(links).toHaveCount(5);
+  const hrefs = await links.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
   expect(hrefs).toEqual([
     "/awards/sundance/2025",
     "/awards/berlin/2025",

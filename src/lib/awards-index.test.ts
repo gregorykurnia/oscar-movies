@@ -55,7 +55,9 @@ describe("awardsOfKind", () => {
       "pga",
       "actor-awards",
     ]);
-    expect(awardsOfKind("critics")).toEqual([]);
+    const critics = awardsOfKind("critics").map((a) => a.slug);
+    expect(critics.slice(0, 2)).toEqual(["critics-choice-documentary", "gotham"]);
+    expect(critics.at(-1)).toBe("peabody");
   });
 
   it("follows the year's own dates where it has them, and keeps an undated award in its place", () => {

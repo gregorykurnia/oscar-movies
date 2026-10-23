@@ -522,5 +522,2188 @@
         "sortOrder": 3
       }
     ]
+  },
+  {
+    "slug": "critics-choice-documentary",
+    "name": "Critics Choice Documentary Awards",
+    "shortName": "Critics Choice Doc",
+    "kind": "critics",
+    "calendarOrder": 200,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.criticschoice.com",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Best Documentary Feature",
+        "oscarCategory": "documentary",
+        "sortOrder": 1
+      },
+      {
+        "slug": "director",
+        "name": "Best Director",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A director prize, read as a vote for the film",
+        "sortOrder": 2
+      },
+      {
+        "slug": "political",
+        "name": "Best Political Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "gotham",
+    "name": "Gotham Awards",
+    "shortName": "Gotham",
+    "kind": "critics",
+    "calendarOrder": 205,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://thegotham.org",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Feature",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Feature",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary Feature",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "new-york-critics",
+    "name": "New York Film Critics Circle",
+    "shortName": "NYFCC",
+    "kind": "critics",
+    "calendarOrder": 210,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://www.nyfcc.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Non-Fiction Film",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "nbr",
+    "name": "National Board of Review",
+    "shortName": "NBR",
+    "kind": "critics",
+    "calendarOrder": 215,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://nationalboardofreview.org",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film (and Top Ten Films)",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Film (and Top Five)",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary (and Top Five)",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Feature",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "ida",
+    "name": "International Documentary Association Awards",
+    "shortName": "IDA",
+    "kind": "critics",
+    "calendarOrder": 220,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.documentary.org",
+    "categories": [
+      {
+        "slug": "feature",
+        "name": "Best Feature Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 1
+      },
+      {
+        "slug": "director",
+        "name": "Best Director",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A director prize, read as a vote for the film",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "british-independent",
+    "name": "British Independent Film Awards",
+    "shortName": "BIFA",
+    "kind": "critics",
+    "calendarOrder": 225,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.bifa.film",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best British Independent Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Independent Film",
+        "oscarCategory": "international",
+        "loose": true,
+        "mappingNote": "Any independent film made outside the UK, English-language films included",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "los-angeles-critics",
+    "name": "Los Angeles Film Critics Association",
+    "shortName": "LAFCA",
+    "kind": "critics",
+    "calendarOrder": 230,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.lafca.net",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary/Non-Fiction Film",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animation",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "boston-society",
+    "name": "Boston Society of Film Critics",
+    "shortName": "Boston Society",
+    "kind": "critics",
+    "calendarOrder": 235,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://bostonfilmcritics.org",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "boston-online",
+    "name": "Boston Online Film Critics Association",
+    "shortName": "Boston Online",
+    "kind": "critics",
+    "calendarOrder": 240,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "washington-dc-critics",
+    "name": "Washington D.C. Area Film Critics Association",
+    "shortName": "Washington DC",
+    "kind": "critics",
+    "calendarOrder": 245,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.wafca.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "new-york-online",
+    "name": "New York Film Critics Online",
+    "shortName": "NY Online",
+    "kind": "critics",
+    "calendarOrder": 250,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "chicago-critics",
+    "name": "Chicago Film Critics Association",
+    "shortName": "Chicago FCA",
+    "kind": "critics",
+    "calendarOrder": 255,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://chicagofilmcritics.org",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "san-diego-critics",
+    "name": "San Diego Film Critics Society",
+    "shortName": "San Diego",
+    "kind": "critics",
+    "calendarOrder": 260,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "atlanta-critics",
+    "name": "Atlanta Film Critics Circle",
+    "shortName": "Atlanta",
+    "kind": "critics",
+    "calendarOrder": 265,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "african-american-critics",
+    "name": "African-American Film Critics Association",
+    "shortName": "AAFCA",
+    "kind": "critics",
+    "calendarOrder": 270,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://aafca.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "black-critics",
+    "name": "Black Film Critics Circle",
+    "shortName": "Black FCC",
+    "kind": "critics",
+    "calendarOrder": 275,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "indiana-critics",
+    "name": "Indiana Film Journalists Association",
+    "shortName": "Indiana",
+    "kind": "critics",
+    "calendarOrder": 280,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "las-vegas-critics",
+    "name": "Las Vegas Film Critics Society",
+    "shortName": "Las Vegas",
+    "kind": "critics",
+    "calendarOrder": 285,
+    "winnersOnly": true,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "utah-critics",
+    "name": "Utah Film Critics Association",
+    "shortName": "Utah",
+    "kind": "critics",
+    "calendarOrder": 290,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "toronto-critics",
+    "name": "Toronto Film Critics Association",
+    "shortName": "Toronto FCA",
+    "kind": "critics",
+    "calendarOrder": 295,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://torontofilmcritics.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Feature",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Allan King Documentary Award",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Feature",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "st-louis-critics",
+    "name": "St. Louis Film Critics Association",
+    "shortName": "St. Louis",
+    "kind": "critics",
+    "calendarOrder": 300,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "san-francisco-critics",
+    "name": "San Francisco Bay Area Film Critics Circle",
+    "shortName": "SF Bay Area",
+    "kind": "critics",
+    "calendarOrder": 305,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "kansas-city-critics",
+    "name": "Kansas City Film Critics Circle",
+    "shortName": "Kansas City",
+    "kind": "critics",
+    "calendarOrder": 310,
+    "winnersOnly": true,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "seattle-critics",
+    "name": "Seattle Film Critics Society",
+    "shortName": "Seattle",
+    "kind": "critics",
+    "calendarOrder": 315,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "southeastern-critics",
+    "name": "Southeastern Film Critics Association",
+    "shortName": "Southeastern",
+    "kind": "critics",
+    "calendarOrder": 320,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "philadelphia-critics",
+    "name": "Philadelphia Film Critics Circle",
+    "shortName": "Philadelphia",
+    "kind": "critics",
+    "calendarOrder": 325,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "phoenix-critics-circle",
+    "name": "Phoenix Critics Circle",
+    "shortName": "Phoenix CC",
+    "kind": "critics",
+    "calendarOrder": 330,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "phoenix-critics-society",
+    "name": "Phoenix Film Critics Society",
+    "shortName": "Phoenix FCS",
+    "kind": "critics",
+    "calendarOrder": 335,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "pittsburgh-critics",
+    "name": "Pittsburgh Film Critics Association",
+    "shortName": "Pittsburgh",
+    "kind": "critics",
+    "calendarOrder": 340,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "michigan-critics",
+    "name": "Michigan Movie Critics Guild",
+    "shortName": "Michigan",
+    "kind": "critics",
+    "calendarOrder": 345,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "north-texas-critics",
+    "name": "North Texas Film Critics Association",
+    "shortName": "North Texas",
+    "kind": "critics",
+    "calendarOrder": 350,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "dallas-fort-worth-critics",
+    "name": "Dallas–Fort Worth Film Critics Association",
+    "shortName": "Dallas-Fort Worth",
+    "kind": "critics",
+    "calendarOrder": 355,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "new-jersey-critics",
+    "name": "New Jersey Film Critics Circle",
+    "shortName": "New Jersey",
+    "kind": "critics",
+    "calendarOrder": 360,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "florida-critics",
+    "name": "Florida Film Critics Circle",
+    "shortName": "Florida",
+    "kind": "critics",
+    "calendarOrder": 365,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "central-florida-critics",
+    "name": "Central Florida Film Critics Circle",
+    "shortName": "Central Florida",
+    "kind": "critics",
+    "calendarOrder": 370,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "online-female-critics",
+    "name": "Online Association of Female Film Critics",
+    "shortName": "Online Female",
+    "kind": "critics",
+    "calendarOrder": 375,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "women-film-journalists",
+    "name": "Alliance of Women Film Journalists (EDA Awards)",
+    "shortName": "AWFJ",
+    "kind": "critics",
+    "calendarOrder": 380,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://awfj.org",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Non-English-Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "columbus-critics",
+    "name": "Columbus Film Critics Association",
+    "shortName": "Columbus",
+    "kind": "critics",
+    "calendarOrder": 385,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "austin-critics",
+    "name": "Austin Film Critics Association",
+    "shortName": "Austin",
+    "kind": "critics",
+    "calendarOrder": 390,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "national-society",
+    "name": "National Society of Film Critics",
+    "shortName": "NSFC",
+    "kind": "critics",
+    "calendarOrder": 395,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Non-Fiction Film",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "online-critics",
+    "name": "Online Film Critics Society",
+    "shortName": "OFCS",
+    "kind": "critics",
+    "calendarOrder": 400,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Non-English Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "chicago-indie-critics",
+    "name": "Chicago Indie Critics",
+    "shortName": "Chicago IC",
+    "kind": "critics",
+    "calendarOrder": 405,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "georgia-critics",
+    "name": "Georgia Film Critics Association",
+    "shortName": "Georgia",
+    "kind": "critics",
+    "calendarOrder": 410,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "north-carolina-critics",
+    "name": "North Carolina Film Critics Association",
+    "shortName": "North Carolina",
+    "kind": "critics",
+    "calendarOrder": 415,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "oklahoma-critics",
+    "name": "Oklahoma Film Critics Circle",
+    "shortName": "Oklahoma",
+    "kind": "critics",
+    "calendarOrder": 420,
+    "winnersOnly": true,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "iowa-critics",
+    "name": "Iowa Film Critics Association",
+    "shortName": "Iowa",
+    "kind": "critics",
+    "calendarOrder": 425,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "houston-critics",
+    "name": "Houston Film Critics Society",
+    "shortName": "Houston",
+    "kind": "critics",
+    "calendarOrder": 430,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "hawaii-critics",
+    "name": "Hawaii Film Critics Society",
+    "shortName": "Hawaii",
+    "kind": "critics",
+    "calendarOrder": 435,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "music-city-critics",
+    "name": "Music City Film Critics' Association",
+    "shortName": "Music City",
+    "kind": "critics",
+    "calendarOrder": 440,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "north-dakota-critics",
+    "name": "North Dakota Film Society",
+    "shortName": "North Dakota",
+    "kind": "critics",
+    "calendarOrder": 445,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "portland-critics",
+    "name": "Portland Critics Association",
+    "shortName": "Portland",
+    "kind": "critics",
+    "calendarOrder": 450,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "puerto-rico-critics",
+    "name": "Puerto Rico Critics Association",
+    "shortName": "Puerto Rico",
+    "kind": "critics",
+    "calendarOrder": 455,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "greater-western-new-york-critics",
+    "name": "Greater Western New York Film Critics Association",
+    "shortName": "Greater Western NY",
+    "kind": "critics",
+    "calendarOrder": 460,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "vancouver-critics",
+    "name": "Vancouver Film Critics Circle",
+    "shortName": "Vancouver",
+    "kind": "critics",
+    "calendarOrder": 465,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "critics-choice",
+    "name": "Critics Choice Movie Awards",
+    "shortName": "Critics Choice",
+    "kind": "critics",
+    "calendarOrder": 470,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://www.criticschoice.com",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary Feature",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Feature",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "hollywood-critics",
+    "name": "Astra Film Awards (formerly Hollywood Critics Association)",
+    "shortName": "Astra",
+    "kind": "critics",
+    "calendarOrder": 475,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Feature",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Feature",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "minnesota-critics",
+    "name": "Minnesota Film Critics Alliance",
+    "shortName": "Minnesota",
+    "kind": "critics",
+    "calendarOrder": 480,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "london-critics",
+    "name": "London Film Critics' Circle",
+    "shortName": "London",
+    "kind": "critics",
+    "calendarOrder": 485,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://criticscircle.org.uk",
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Film of the Year",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Foreign Language Film of the Year",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Documentary of the Year",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "latino-entertainment-journalists",
+    "name": "Latino Entertainment Journalists Association",
+    "shortName": "LEJA",
+    "kind": "critics",
+    "calendarOrder": 490,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best International Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "online-ftv",
+    "name": "Online Film & Television Association",
+    "shortName": "OFTA",
+    "kind": "critics",
+    "calendarOrder": 495,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Film",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Best Foreign Language Film",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "international-cinephile-society",
+    "name": "International Cinephile Society",
+    "shortName": "ICS",
+    "kind": "critics",
+    "calendarOrder": 500,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Best Picture",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "documentary",
+        "name": "Best Documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 2
+      },
+      {
+        "slug": "animated",
+        "name": "Best Animated Film",
+        "oscarCategory": "animated",
+        "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "lgbtq-critics",
+    "name": "Society of LGBTQ Entertainment Critics (Dorian Awards)",
+    "shortName": "Dorians",
+    "kind": "critics",
+    "calendarOrder": 505,
+    "winnersOnly": false,
+    "isSelection": false,
+    "categories": [
+      {
+        "slug": "picture",
+        "name": "Film of the Year",
+        "oscarCategory": "picture",
+        "sortOrder": 1
+      },
+      {
+        "slug": "international",
+        "name": "Non-English Language Film of the Year",
+        "oscarCategory": "international",
+        "sortOrder": 2
+      },
+      {
+        "slug": "documentary",
+        "name": "Documentary of the Year",
+        "oscarCategory": "documentary",
+        "sortOrder": 3
+      },
+      {
+        "slug": "animated",
+        "name": "Animated Film of the Year",
+        "oscarCategory": "animated",
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "slug": "cinema-for-peace",
+    "name": "Cinema for Peace Awards",
+    "shortName": "Cinema for Peace",
+    "kind": "critics",
+    "calendarOrder": 510,
+    "winnersOnly": false,
+    "isSelection": false,
+    "url": "https://cinemaforpeace-foundation.org",
+    "categories": [
+      {
+        "slug": "most-valuable-film",
+        "name": "Most Valuable Film of the Year",
+        "oscarCategory": "picture",
+        "loose": true,
+        "mappingNote": "A prize for films on peace and human rights, read as a vote for the film",
+        "sortOrder": 1
+      },
+      {
+        "slug": "most-valuable-documentary",
+        "name": "Most Valuable Documentary of the Year",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A prize for films on peace and human rights, read as a vote for the film",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "slug": "peabody",
+    "name": "Peabody Awards (documentary winners)",
+    "shortName": "Peabody",
+    "kind": "critics",
+    "calendarOrder": 515,
+    "winnersOnly": true,
+    "isSelection": false,
+    "url": "https://peabodyawards.com",
+    "categories": [
+      {
+        "slug": "documentary",
+        "name": "Peabody Award, documentary",
+        "oscarCategory": "documentary",
+        "sortOrder": 1
+      }
+    ]
   }
 ]
