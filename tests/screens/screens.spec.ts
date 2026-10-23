@@ -112,7 +112,7 @@ const ROUTES: Route[] = [
   // Phase 3 (task 3.10). The 2026 race in its live states: Picture with chances from the precursors, the
   // "why" open on its leader, Documentary "Early" (two precursor awards with results), and Animated with
   // no contenders yet. `race-2024` (above) is a finished season. The shortlist and nomination states need
-  // 2026's Oscar lists (16 Dec 2026, 22 Jan 2027); until then the styleguide's race boards show them from
+  // 2026's Oscar lists (15 Dec 2026, 21 Jan 2027); until then the styleguide's race boards show them from
   // fixtures. `data` is the coverage page (task 3.5).
   { name: "race-2026", path: "/race/2026", status: 200, heading: "The 2026 race" },
   {
