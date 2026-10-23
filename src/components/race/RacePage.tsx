@@ -9,6 +9,7 @@ import { StagePill } from "@/components/stage-pill/StagePill";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getLastUpdate } from "@/data/loads";
+import { getRacePrecursors, type RacePrecursors } from "@/data/precursors";
 import { getOscarEdition, getOscarResults, type OscarEdition, type OscarEntry } from "@/data/oscars";
 import { formatDate } from "@/lib/format";
 import {
@@ -33,7 +34,7 @@ const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
 /**
  * Guide §8.1 The Oscar race, for `/` (the live season) and `/race/[year]`: PageHeader with the
  * year switcher, the race tabs, and per category the stage line and the contender rows. Results
- * only until the chances arrive (Phase 3): the Oscar stage, flags, scores and marks.
+ * only until the chances arrive (Phase 3): the Oscar stage, the precursor line, flags, scores and marks.
  */
 export function RacePage({ year }: { year: number }) {
   return (
@@ -75,9 +76,10 @@ async function Race({ year }: { year: number }) {
   // before its first migration), and "today" is the visit's day.
   await connection();
   const today = new Date().toISOString().slice(0, 10);
-  const [edition, ...results] = await Promise.all([
+  const [edition, results, precursors] = await Promise.all([
     getOscarEdition(year),
-    ...RACE_CATEGORIES.map((c) => getOscarResults(year, c.slug, "submitted")),
+    Promise.all(RACE_CATEGORIES.map((c) => getOscarResults(year, c.slug, "submitted"))),
+    Promise.all(RACE_CATEGORIES.map((c) => getRacePrecursors(year, c.slug))),
   ]);
   if (!edition) {
     return (
@@ -116,6 +118,7 @@ async function Race({ year }: { year: number }) {
         today={today}
         state={state}
         shown={shown}
+        precursors={precursors[i]}
         submissions={submissions}
       />
     );
@@ -131,6 +134,7 @@ function CategoryPanel({
   today,
   state,
   shown,
+  precursors,
   submissions,
 }: {
   year: number;
@@ -139,6 +143,7 @@ function CategoryPanel({
   today: string;
   state: ReturnType<typeof seasonState>;
   shown: OscarEntry[];
+  precursors: RacePrecursors;
   submissions: number;
 }) {
   const line = stageLine({
@@ -149,6 +154,7 @@ function CategoryPanel({
     today,
   });
   const pills = showsStagePills(state);
+  const lines = new Map(precursors.map((p) => [p.movieId, p]));
   return (
     <>
       {/* The tab names the panel on screen; the heading keeps the outline h1 → h2 → h3 (1.R). */}
@@ -164,6 +170,7 @@ function CategoryPanel({
               flags={e.flags}
               firstFlagLabel={e.country ? `${countryName(e.country)}, submitting country` : undefined}
               badge={pills ? <StagePill stage={oscarStage(e.outcome, category)} /> : undefined}
+              precursors={lines.get(e.film.id)}
               scores={e.film.scores}
               marks={<FilmMarks movieId={e.film.id} title={e.film.title} />}
             />

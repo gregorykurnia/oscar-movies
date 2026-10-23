@@ -34,6 +34,16 @@ test("/race/2024 shows the nominees and the winner in every tab", async ({ page 
   await expect(panel(page).getByRole("img", { name: "Brazil, submitting country" })).toBeVisible();
 });
 
+test("each 2024 Picture nominee shows the awards it won and was nominated for", async ({ page }) => {
+  await page.goto("/race/2024");
+  const anora = panel(page).locator("[data-precursors]").first();
+  await expect(anora).toContainText("Won: ");
+  const anoraRow = panel(page).getByRole("heading", { level: 3, name: "Anora Won" });
+  await expect(anoraRow.locator("xpath=..").locator("[data-precursors]")).toContainText(/Won: .*PGA/);
+  const brutalist = panel(page).getByRole("heading", { level: 3, name: "The Brutalist Nominated" });
+  await expect(brutalist.locator("xpath=..").locator("[data-precursors]")).toContainText(/Won: .*Globes.* · Nominated: .*BAFTA/);
+});
+
 test("the tab is kept in the address and survives a reload", async ({ page }) => {
   await page.goto("/race/2024");
   await page.getByRole("tab", { name: /^Animated/ }).click();

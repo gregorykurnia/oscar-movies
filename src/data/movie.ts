@@ -1,12 +1,13 @@
 // One film for its page (`/movies/[slug]`, guide §8.6): facts, scores with the day each was
 // fetched, and its Oscar result in every category. Cached under `awards` and `scores`; see
 // `films.ts` for the query/cached pairing.
-import { and, asc, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, ne, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
 import type { ScoreTilesData } from "@/components/score-tiles/ScoreTiles";
-import { compareOutcome, type Outcome } from "@/lib/stage";
+import { movieAwardRows, type AwardCandidate, type AwardResult, type MovieAwardRow } from "@/lib/movie-awards";
+import { compareOutcome, isShortlisted, type Outcome } from "@/lib/stage";
 import type { ReadDb } from "./films";
 import type { OscarCategory } from "./oscars";
 
@@ -39,6 +40,8 @@ export type MovieData = {
   scores: ScoreTilesData;
   /** Furthest first, then newest edition first. */
   oscars: OscarBox[];
+  /** Results at every other award, with "not nominated" rows; the page picks what to show by the day. */
+  awards: MovieAwardRow[];
 };
 
 const NOMINATED: Outcome[] = ["runner_up", "nominated", "won"];
@@ -120,7 +123,95 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
       count: m.scoreCount,
     },
     oscars,
+    awards: await queryAwardRows(
+      db,
+      m.id,
+      mine.filter((r) => isShortlisted(r.outcome)).map((r) => ({ year: r.year, oscarCategory: r.category })),
+    ),
   };
+}
+
+/**
+ * The film's rows at the other awards. A "not nominated" needs a category the film is in the
+ * running for in that film year: an Oscar shortlist place or better, or a result at another award
+ * mapped to it. It's only said by awards with a `loaded` edition that announced nominees, for a
+ * category that gave results, and never for festivals (the lineups come with Phase 5).
+ */
+async function queryAwardRows(
+  db: ReadDb,
+  movieId: number,
+  oscarPairs: Array<{ year: number; oscarCategory: OscarCategory }>,
+): Promise<MovieAwardRow[]> {
+  const rows = await db
+    .select({
+      awardSlug: awards.slug,
+      awardName: awards.name,
+      kind: awards.kind,
+      calendarOrder: awards.calendarOrder,
+      isSelection: awards.isSelection,
+      year: editions.year,
+      categoryName: awardCategories.name,
+      oscarCategory: awardCategories.oscarCategory,
+      outcome: results.outcome,
+    })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .where(and(eq(results.movieId, movieId), ne(awards.kind, "oscars")));
+  const mine = rows.map((r) => ({ ...r, kind: r.kind as AwardResult["kind"] }));
+
+  const pairKey = (p: { year: number; oscarCategory: string }) => `${p.year}:${p.oscarCategory}`;
+  const pairs = new Map([...oscarPairs, ...mine].map((p) => [pairKey(p), p]));
+  if (pairs.size === 0) return [];
+
+  const found = await db
+    .select({
+      awardSlug: awards.slug,
+      awardName: awards.name,
+      kind: awards.kind,
+      calendarOrder: awards.calendarOrder,
+      isSelection: awards.isSelection,
+      year: editions.year,
+      categoryName: awardCategories.name,
+      oscarCategory: awardCategories.oscarCategory,
+      nominationsOn: editions.nominationsOn,
+      winnersOn: editions.winnersOn,
+    })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .where(
+      and(
+        inArray(editions.year, [...new Set([...pairs.values()].map((p) => p.year))]),
+        inArray(awardCategories.oscarCategory, [...new Set([...pairs.values()].map((p) => p.oscarCategory))]),
+        eq(editions.status, "loaded"),
+        inArray(awards.kind, ["major", "critics"]),
+        eq(awards.winnersOnly, false),
+        eq(awardCategories.loose, false),
+      ),
+    )
+    .groupBy(
+      awards.slug,
+      awards.name,
+      awards.kind,
+      awards.calendarOrder,
+      awards.isSelection,
+      editions.year,
+      awardCategories.name,
+      awardCategories.oscarCategory,
+      editions.nominationsOn,
+      editions.winnersOn,
+    );
+  const candidates = found
+    .filter((c) => pairs.has(pairKey(c)))
+    .map(({ nominationsOn, winnersOn, ...c }): AwardCandidate => ({
+      ...c,
+      kind: c.kind as AwardCandidate["kind"],
+      since: nominationsOn ?? winnersOn,
+    }));
+  return movieAwardRows(mine, candidates);
 }
 
 /** The film at `/movies/<slug>`, or null when there is none. */

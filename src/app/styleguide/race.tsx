@@ -100,6 +100,7 @@ export function RaceBoards({ s }: { s: Sample }) {
               href="#"
               flags={s.films[0].flags}
               badge={<StagePill stage="won" />}
+              precursors={{ won: ["PGA", "DGA", "Satellite"], nominated: ["Globes"] }}
               scores={s.films[0].scores}
               marks={<Marks watched want={false} />}
             />
@@ -108,6 +109,7 @@ export function RaceBoards({ s }: { s: Sample }) {
               href="#"
               flags={s.films[1].flags}
               badge={<StagePill stage="nominated" />}
+              precursors={{ won: [], nominated: ["BAFTA", "PGA", "Actor Awards", "Globes"] }}
               scores={s.films[1].scores}
               marks={<Marks watched={false} want />}
             />
@@ -136,6 +138,7 @@ export function RaceBoards({ s }: { s: Sample }) {
               href="#"
               flags={s.coProduction}
               badge={<StagePill stage="nominated" />}
+              precursors={{ won: s.stress ? ["Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz"] : ["Globes"], nominated: ["BAFTA"] }}
               scores={s.scoreRows[1]}
               marks={<Marks watched={false} want={false} />}
             />

@@ -8,6 +8,7 @@ import { ScoreTiles } from "@/components/score-tiles/ScoreTiles";
 import { Skeleton, SkeletonRegion } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { getMovie, type MovieData, type OscarBox } from "@/data/movie";
+import { AwardsSection } from "@/components/movie/AwardsSection";
 import { cn } from "@/lib/cn";
 import { movieFacts, oscarBoxNote, oscarsHeading, shownOriginalTitle } from "@/lib/movie";
 import { RACE_CATEGORIES } from "@/lib/race";
@@ -19,8 +20,8 @@ const CATEGORY_NAMES = Object.fromEntries(RACE_CATEGORIES.map((c) => [c.slug, c.
 /**
  * Guide §8.6 Movie page (`/movies/[slug]`): back link (the browser's Back when the visit came
  * from this app), title, a sub line with large flags, original title, year, countries and
- * language, the labelled marks, the score tiles and the Oscar result boxes. The Awards sections
- * and festival screenings arrive with Phase 2 and 5.
+ * language, the labelled marks, the score tiles, the Oscar result boxes and the Awards sections
+ * (won, nominated, not nominated). Festival screenings arrive with Phase 5.
  */
 export function MoviePage({ slug }: { slug: string }) {
   return (
@@ -56,6 +57,7 @@ async function Movie({ slug }: { slug: string }) {
       <FilmLabelledMarks movieId={film.id} title={film.title} className="mt-6 flex flex-wrap gap-2" />
       <ScoreTiles scores={film.scores} className="mt-7 md:mt-10" />
       <OscarSection film={film} />
+      <AwardsSection rows={film.awards} today={new Date().toISOString().slice(0, 10)} />
     </>
   );
 }

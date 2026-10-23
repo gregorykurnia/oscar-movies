@@ -25,6 +25,23 @@ test("/movies/im-still-here shows the titles, flags, marks and Oscar results", a
   await expect(picture.getByText("One of 10 nominees")).toBeVisible();
 });
 
+test("a 2024 Best Picture nominee lists its won, nominated and not nominated awards", async ({ page }) => {
+  await page.goto("/movies/the-brutalist");
+  const awards = page.getByRole("region", { name: "Awards" });
+  const major = awards.getByRole("group", { name: "Major awards" });
+  const row = (slug: string) => major.locator(`li:has(a[href="/awards/${slug}/2024"])`);
+  await expect(row("golden-globes")).toHaveAttribute("data-result", "won");
+  await expect(row("golden-globes").getByText("Won", { exact: true })).toBeVisible();
+  await expect(row("bafta")).toHaveAttribute("data-result", "nominated");
+  await expect(row("bafta").getByText("Nominated", { exact: true })).toBeVisible();
+  await expect(row("spirit-awards")).toHaveAttribute("data-result", "not_nominated");
+  await expect(row("spirit-awards").getByText("Not nominated", { exact: true })).toBeVisible();
+  // Won first, not nominated last.
+  const order = await major.getByRole("listitem").evaluateAll((items) => items.map((i) => i.getAttribute("data-result")));
+  expect(order.indexOf("won")).toBeLessThan(order.indexOf("nominated"));
+  expect(order.lastIndexOf("nominated")).toBeLessThan(order.indexOf("not_nominated"));
+});
+
 test("a 2024 film with no scores shows – and No score yet in every tile", async ({ page }) => {
   await page.goto("/movies/baghdad-messi");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Baghdad Messi");

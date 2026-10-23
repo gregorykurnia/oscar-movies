@@ -3,6 +3,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryMovie } from "../../src/data/movie";
+import { queryRacePrecursors } from "../../src/data/precursors";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -42,5 +43,46 @@ describe("queryMovie", () => {
     expect(film!.scores.count).toBe(0);
     expect(film!.scores.average).toBeNull();
     expect(film!.scores.imdb).toEqual({ value: null, updatedAt: null });
+  });
+
+  // Task 2.11: a 2024 Best Picture nominee shows its won, nominated and not-nominated awards.
+  it("lists a Best Picture nominee's won, nominated and not nominated awards", async () => {
+    const film = await queryMovie(db, "the-brutalist");
+    const row = (slug: string) => film!.awards.find((r) => r.awardSlug === slug && r.oscarCategory === "picture");
+    expect(row("golden-globes")).toMatchObject({ result: "won", category: "Best Motion Picture – Drama", kind: "major" });
+    expect(row("bafta")).toMatchObject({ result: "nominated", category: "Best Film" });
+    expect(row("afi")).toMatchObject({ result: "nominated", isSelection: true });
+    // Passed over by the Spirit Awards, once its nominations (4 Dec 2024) were out.
+    expect(row("spirit-awards")).toMatchObject({ result: "not_nominated", since: "2024-12-04" });
+    // Director and cast prizes never make a "not nominated"; festivals neither.
+    expect(film!.awards.filter((r) => r.result === "not_nominated").map((r) => r.awardSlug)).toEqual(["spirit-awards"]);
+  });
+
+  it("says not nominated once, for an award with two categories, in the Oscar category the film is up for", async () => {
+    const film = await queryMovie(db, "im-still-here");
+    const picture = film!.awards.filter((r) => r.oscarCategory === "picture" && r.result === "not_nominated");
+    const globes = picture.filter((r) => r.awardSlug === "golden-globes");
+    expect(globes).toHaveLength(1);
+    expect(globes[0].category).toContain(" / ");
+    expect(picture.find((r) => r.awardSlug === "bafta")).toMatchObject({ category: "Best Film", since: "2025-01-07" });
+    // Its International results at the same awards are won and nominated rows, not passed over.
+    expect(film!.awards.find((r) => r.awardSlug === "bafta" && r.oscarCategory === "international")?.result).toBe("nominated");
+  });
+
+  it("has no award rows for a film only on a long list", async () => {
+    const film = await queryMovie(db, "baghdad-messi");
+    expect(film!.awards).toEqual([]);
+  });
+});
+
+describe("queryRacePrecursors", () => {
+  it("gives each 2024 Best Picture nominee the awards it won and was nominated for", async () => {
+    const anora = await queryMovie(db, "anora");
+    const brutalist = await queryMovie(db, "the-brutalist");
+    const lines = await queryRacePrecursors(db, 2024, "picture");
+    const of = (id: number) => lines.find((l) => l.movieId === id)!;
+    expect(of(anora!.id).won).toEqual(expect.arrayContaining(["PGA", "DGA"]));
+    expect(of(brutalist!.id)).toMatchObject({ won: expect.arrayContaining(["Globes"]), nominated: expect.arrayContaining(["BAFTA"]) });
+    for (const l of lines) expect(l.won.length + l.nominated.length).toBeLessThanOrEqual(4);
   });
 });
