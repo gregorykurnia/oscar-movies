@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-12",
+  "winnersOn": "2018-12-17",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2018"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

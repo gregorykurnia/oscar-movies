@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-14",
+  "winnersOn": "2015-12-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2015"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "won" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,31 @@
+{
+  "award": "st-louis-critics",
+  "year": 2013,
+  "status": "partial",
+  "nominationsOn": "2013-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2013_St._Louis_Film_Critics_Association_Awards"],
+  "note": "The announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2258858", "title": "Wadjda", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt2216240", "title": "A Hijacking", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2059255", "title": "No", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1453405", "title": "Monsters University", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2492916", "title": "Muscle Shoals", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

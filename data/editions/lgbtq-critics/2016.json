@@ -1,0 +1,13 @@
+{
+  "award": "lgbtq-critics",
+  "year": 2016,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" }
+  ],
+  "screenings": []
+}

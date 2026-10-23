@@ -4,7 +4,7 @@
 // headings each followed by a bullet list. All of them end up as `Block`s: a label and its lines.
 import * as cheerio from "cheerio";
 import type { Element } from "domhandler";
-import { clean, linkOf, nomineeOf, ownContent, readLabelledCells, readNomineeLists, type FilmLink, type Nominee } from "./tables";
+import { clean, linkOf, nomineeOf, ownContent, readLabelledCells, readNomineeLists, readWikitables, type FilmLink, type Nominee } from "./tables";
 
 export type Item = Nominee & {
   /** A "Runner-up: …" line. */
@@ -121,8 +121,89 @@ export function readPlainWinnerCells(html: string): Block[] {
   return blocks;
 }
 
+/** A `dl` holding one `dt` with the category, then the list of its nominees (the winner in bold): Vancouver's 2014–2018 pages. */
+export function readDtBlocks(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("dl").each((_, dl) => {
+    const dts = $(dl).children("dt");
+    const list = $(dl).next();
+    if (dts.length !== 1 || !list.is("ul, ol")) return;
+    blocks.push({ label: clean(dts.text()), items: list.children("li").toArray().map((li) => itemOf($, li)), winnersAreAll: false });
+  });
+  return blocks;
+}
+
+/**
+ * A heading with a list whose lines nest: the winner, under it "Runner-up: …" lines and the other nominees one level
+ * further down (St. Louis). Every line at any depth is an item; the bold top-level line is the winner.
+ */
+export function readNestedBlocks(html: string): Block[] {
+  const $ = cheerio.load(html);
+  const blocks: Block[] = [];
+  $("h2, h3, h4").each((_, h) => {
+    const label = clean($(h).text());
+    const start = $(h).closest(".mw-heading").length > 0 ? $(h).closest(".mw-heading") : $(h);
+    const next = start.next();
+    // The page may wrap the list in a definition list (St. Louis 2013 and 2015).
+    const list = next.is("dl") ? next.find("ul, ol").first() : next;
+    if (!label || !list.is("ul, ol")) return;
+    const items = list
+      .find("li")
+      .toArray()
+      .map((li) => itemOf($, li))
+      .filter((item) => item.line);
+    if (items.length > 0) blocks.push({ label, items, winnersAreAll: false });
+  });
+  return blocks;
+}
+
+/**
+ * A table with a "Category" column (rowspan: one cell for the category's rows) and a "Films" column: the first row of
+ * a category is its winner, the others its nominees (Toronto's 2013–2020 and Vancouver's pages).
+ */
+export function readCategoryTables(html: string): Block[] {
+  const blocks: Block[] = [];
+  for (const table of readWikitables(html)) {
+    const films = table.headers.findIndex((h) => /^films?$/i.test(h));
+    if (!/^category/i.test(table.headers[0] ?? "") || films < 0) continue;
+    const seen = new Map<object, Block>();
+    for (const row of table.rows) {
+      if (row.length <= films) continue;
+      const cell = row[0];
+      let block = seen.get(cell);
+      if (!block) {
+        block = { label: cell.text, items: [], winnersAreAll: false };
+        seen.set(cell, block);
+        blocks.push(block);
+      }
+      const filmCell = row[films];
+      const first = block.items.length === 0;
+      const link = filmCell.film ?? { article: null, text: filmCell.text };
+      block.items.push({ film: filmCell.film, films: filmCell.film ? [filmCell.film] : [], winner: first, line: filmCell.text, runnerUp: false, plain: link });
+    }
+  }
+  return blocks;
+}
+
+/** The page without the section a heading names and everything under it up to the next heading (Vancouver's Canadian categories). */
+export function withoutSection(html: string, heading: RegExp): string {
+  const $ = cheerio.load(html);
+  $(".mw-heading, h2, h3, h4").each((_, el) => {
+    const own = $(el).is(".mw-heading") ? $(el).find("h2, h3, h4").first() : $(el);
+    if (!heading.test(clean(own.text()))) return;
+    const start = $(el).is(".mw-heading") ? $(el) : $(el).parent(".mw-heading").length > 0 ? $(el).parent() : $(el);
+    for (let node = start.next(); node.length > 0 && !node.is(".mw-heading, h2, h3, h4"); ) {
+      const next = node.next();
+      node.remove();
+      node = next;
+    }
+  });
+  return $.html();
+}
+
 /** Every block on a page, whatever its layout. */
-export function readBlocks(html: string): Block[] {
+export function readBlocks(html: string, extra: Array<(html: string) => Block[]> = []): Block[] {
   const asItems = (lists: ReturnType<typeof readNomineeLists>): Block[] =>
     lists.map((l) => ({
       label: l.category,
@@ -139,6 +220,7 @@ export function readBlocks(html: string): Block[] {
     ...readLabelBlocks(html),
     ...readHeadingBlocks(html),
     ...readRankedLines(html),
+    ...extra.flatMap((read) => read(html)),
   ].filter((b) => b.items.length > 0);
 }
 

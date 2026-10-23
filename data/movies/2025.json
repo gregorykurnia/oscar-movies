@@ -211,5 +211,11 @@
   "tt36463894": { "slug": "predator-killer-of-killers", "title": "Predator: Killer of Killers", "countries": ["US"], "language": "en", "wd": "Q130639284", "tmdb": 1376434 },
   "tt36458116": { "slug": "billy-joel-and-so-it-goes", "title": "Billy Joel: And So It Goes", "countries": [], "wd": "Q135321376" },
   "tt26683420": { "slug": "john-candy-i-like-me", "title": "John Candy: I Like Me", "countries": ["US"], "language": "en", "wd": "Q135654160", "tmdb": 1492608 },
-  "tt38633124": { "slug": "thoughts-and-prayers", "title": "Thoughts & Prayers", "countries": ["US"], "language": "en", "wd": "Q136908292", "tmdb": 1559760 }
+  "tt38633124": { "slug": "thoughts-and-prayers", "title": "Thoughts & Prayers", "countries": ["US"], "language": "en", "wd": "Q136908292", "tmdb": 1559760 },
+  "tt29344903": { "slug": "the-ugly-stepsister", "title": "The Ugly Stepsister", "originalTitle": "Den stygge stesøsteren", "originalLang": "no", "countries": ["NO", "PL", "SE", "DK"], "language": "no", "wd": "Q131429164", "tmdb": 1284120 },
+  "tt35670909": { "slug": "wto-99", "title": "WTO/99", "countries": ["US"], "language": "en", "wd": "Q137599608", "tmdb": 1428753 },
+  "tt30253514": { "slug": "pavements", "title": "Pavements", "countries": ["US"], "language": "en", "wd": "Q115866950", "tmdb": 1063307 },
+  "tt26446095": { "slug": "space-cadet", "title": "Space Cadet", "countries": ["CA"], "language": "en", "wd": "Q131539324", "tmdb": 1404169 },
+  "tt30840798": { "slug": "the-phoenician-scheme", "title": "The Phoenician Scheme", "countries": ["US"], "language": "en", "wd": "Q124758337", "tmdb": 1137350 },
+  "tt5950044": { "slug": "superman", "title": "Superman", "countries": ["US"], "language": "en", "wd": "Q116547790", "tmdb": 1061474 }
 }

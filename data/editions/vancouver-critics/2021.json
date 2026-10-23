@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2022-03-07",
+  "winnersOn": "2022-03-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2021"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize. The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10366460", "title": "CODA", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "won" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11655202", "title": "Riders of Justice", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8610436", "title": "The Sparks Brothers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

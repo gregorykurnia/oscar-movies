@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-12-15",
+  "winnersOn": "2017-12-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2017"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5776858", "title": "Phantom Thread", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6209282", "title": "Ex Libris – The New York Public Library", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,13 @@
+{
+  "award": "lgbtq-critics",
+  "year": 2015,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "won" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -5,11 +5,12 @@
 // (Florida 2013) and "Runner-up: None"; task 4.5 adds LAFCA's runner-up one level under the winner and
 // NSFC's numbered lines ("1. A <br> 2. B"); task 4.6 adds "(Runner-up)" in bold (Online Film Critics Society 2017)
 // and the New York Film Critics Online article, which has no page for most years; task 4.7 adds Peabody's documentary
-// section of a decade list.
+// section of a decade list; task 4.8 adds the category tables (Toronto, Vancouver), a `dl` label over a list,
+// St. Louis's nested lists and the Dorian Awards' year headings.
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { aafcaLabelYear, GROUPS, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
-import { blockRows, daysIn, leadDates, readBlocks } from "./lib/critics-pages";
+import { aafcaLabelYear, dorianFilmYear, GROUPS, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
+import { blockRows, daysIn, leadDates, readBlocks, readCategoryTables, readDtBlocks, readNestedBlocks, withoutSection } from "./lib/critics-pages";
 import { readNomineeLists } from "./lib/tables";
 
 describe("readBlocks", () => {
@@ -347,5 +348,90 @@ describe("task 4.7 editions", () => {
       expect(e.status, slug).toBe("no_data");
       expect(e.note, slug).toBeTruthy();
     }
+  });
+});
+
+describe("task 4.8 readers", () => {
+  const row = (cat: string | null, rowspan: number, person: string, film: string) =>
+    `<tr>${cat ? `<td rowspan="${rowspan}">${cat}</td>` : ""}<td>${person}</td><td><i><a href="/wiki/${film.replace(/ /g, "_")}">${film}</a></i></td></tr>`;
+
+  it("reads a category table: the first row of a category is the winner, the others nominees", () => {
+    const html = `<table class="wikitable"><tr><th>Category</th><th>Winners and nominees</th><th>Films</th></tr>
+      ${row("Best Film", 3, "Bong Joon-ho", "Parasite")}${row(null, 0, "Noah Baumbach", "Marriage Story")}${row(null, 0, "Martin Scorsese", "The Irishman")}
+      ${row("Best Documentary", 2, "A", "Honeyland")}${row(null, 0, "B", "Apollo 11")}</table>`;
+    const blocks = readCategoryTables(html);
+    expect(blocks.map((b) => b.label)).toEqual(["Best Film", "Best Documentary"]);
+    expect(blockRows(blocks[0]).map((r) => [r.link.text, r.outcome])).toEqual([["Parasite", "won"], ["Marriage Story", "nominated"], ["The Irishman", "nominated"]]);
+    expect(blockRows(blocks[1]).map((r) => [r.link.text, r.outcome])).toEqual([["Honeyland", "won"], ["Apollo 11", "nominated"]]);
+  });
+
+  it("reads a definition-list label over its bullet list, the winner in bold (Vancouver 2014–2018)", () => {
+    const html = `<dl><dt>Best Film</dt></dl><ul><li><i><b><a href="/wiki/Moonlight_(film)">Moonlight</a></b></i></li><li><i><a href="/wiki/La_La_Land">La La Land</a></i></li></ul>`;
+    const [block] = readDtBlocks(html);
+    expect(blockRows(block).map((r) => [r.link.text, r.outcome])).toEqual([["Moonlight", "won"], ["La La Land", "nominated"]]);
+  });
+
+  it("leaves out a section by its heading (Vancouver's Canadian categories)", () => {
+    const html = `<div class="mw-heading mw-heading3"><h3>International</h3></div><p>keep</p><div class="mw-heading mw-heading3"><h3>Canadian</h3></div><p>drop</p><div class="mw-heading mw-heading2"><h2>Notes</h2></div><p>after</p>`;
+    const text = withoutSection(html, /^canadian/i);
+    expect(text).toContain("keep");
+    expect(text).toContain("after");
+    expect(text).not.toContain("drop");
+  });
+
+  it("reads nested lists: the winner, a runner-up under it and the other nominees under that (St. Louis), even inside a dl", () => {
+    const html = `<div class="mw-heading mw-heading3"><h3>Best Film</h3></div><dl><dd><ul><li><i><b><a href="/wiki/Argo">Argo</a></b></i>
+      <ul><li>Runner-up: <i><a href="/wiki/Lincoln_(film)">Lincoln</a></i><ul><li><i><a href="/wiki/Her_(film)">Her</a></i></li></ul></li></ul></li></ul></dd></dl>`;
+    const [block] = readNestedBlocks(html);
+    expect(blockRows(block).map((r) => [r.link.text, r.outcome])).toEqual([["Argo", "won"], ["Lincoln", "runner_up"], ["Her", "nominated"]]);
+  });
+
+  it("maps a Dorian Awards heading to its film year", () => {
+    expect([dorianFilmYear("2019"), dorianFilmYear("2020 (Film)"), dorianFilmYear("2022 (Film)"), dorianFilmYear("2025 (Film)"), dorianFilmYear("2024-25 (Television)")]).toEqual([2019, 2020, 2021, 2024, null]);
+  });
+});
+
+describe("task 4.8 editions", () => {
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
+
+  it("reads Toronto's category tables (2019) and its side-by-side lists (2022)", () => {
+    expect(of("toronto-critics/2019", "picture", "won")).toEqual(["Parasite"]);
+    expect(of("toronto-critics/2019", "picture", "nominated")).toEqual(["Marriage Story", "The Irishman"]);
+    expect(of("toronto-critics/2022", "picture", "won")).toEqual(["Aftersun"]);
+    expect(of("toronto-critics/2022", "international", "won")).toHaveLength(1);
+    expect(edition("toronto-critics/2012").status).toBe("no_data");
+  });
+
+  it("reads Vancouver's international tables and leaves its Canadian section out; no animated prize is noted", () => {
+    expect(of("vancouver-critics/2019", "picture", "won")).toEqual(["Parasite"]);
+    expect(of("vancouver-critics/2016", "picture", "won")).toEqual(["Manchester by the Sea"]);
+    expect(edition("vancouver-critics/2019").results.some((r) => r.title === "The Body Remembers When the World Broke Open")).toBe(false);
+    expect(edition("vancouver-critics/2019").results.some((r) => r.category === "animated")).toBe(false);
+    expect(edition("vancouver-critics/2022").note).toMatch(/no animated-feature prize/);
+  });
+
+  it("reads St. Louis, San Francisco and Seattle", () => {
+    expect(of("st-louis-critics/2022", "picture", "won")).toEqual(["Everything Everywhere All at Once"]);
+    expect(of("st-louis-critics/2022", "picture", "runner_up")).toEqual(["Women Talking"]);
+    expect(of("san-francisco-critics/2022", "international", "won")).toHaveLength(1);
+    expect(of("seattle-critics/2019", "picture", "won")).toEqual(["Parasite"]);
+    for (const year of [2012, 2013, 2014, 2015, 2016, 2017]) expect(edition(`san-francisco-critics/${year}`).status).toBe("no_data");
+  });
+
+  it("files the winners-only groups as partial: Southeastern's Best Film and the Dorian Awards by film year", () => {
+    expect(of("southeastern-critics/2025", "picture", "won")).toEqual(["One Battle After Another"]);
+    expect(edition("southeastern-critics/2025").status).toBe("partial");
+    expect(of("lgbtq-critics/2024", "picture", "won")).toEqual(["The Substance"]);
+    expect(of("lgbtq-critics/2021", "picture", "won")).toEqual(["The Power of the Dog"]);
+    expect(of("lgbtq-critics/2020", "documentary", "won")).toHaveLength(2);
+    expect(edition("lgbtq-critics/2024").status).toBe("partial");
+  });
+
+  it("notes Seattle 2020's left-out documentary winner and marks Utah as no_data with a note", () => {
+    expect(edition("seattle-critics/2020").status).toBe("partial");
+    expect(edition("seattle-critics/2020").note).toMatch(/Seattle Mariners/);
+    const utah = edition("utah-critics/2020");
+    expect([utah.status, Boolean(utah.note)]).toEqual(["no_data", true]);
   });
 });

@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-09",
+  "winnersOn": "2018-12-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2018"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8399690", "title": "Anthropocene: The Human Epoch", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

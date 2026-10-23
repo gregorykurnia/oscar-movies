@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2014-01-07",
+  "winnersOn": "2014-01-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2013"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2852400", "title": "A Touch of Sin", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2332522", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3089388", "title": "Tim's Vermeer", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

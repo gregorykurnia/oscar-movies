@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2024-01-22",
+  "winnersOn": "2024-02-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2023"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "international", "imdb": "tt16277242", "title": "Society of the Snow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21688772", "title": "To Kill a Tiger", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

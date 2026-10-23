@@ -1,0 +1,20 @@
+{
+  "award": "vancouver-critics",
+  "year": 2020,
+  "status": "partial",
+  "nominationsOn": "2021-02-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2020"],
+  "note": "The announcement date is not stated. The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10796286", "title": "Dear Comrades", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11905462", "title": "Athlete A", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13065386", "title": "Totally Under Control", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

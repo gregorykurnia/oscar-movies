@@ -1,0 +1,14 @@
+{
+  "award": "lgbtq-critics",
+  "year": 2024,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "won" },
+    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" }
+  ],
+  "screenings": []
+}

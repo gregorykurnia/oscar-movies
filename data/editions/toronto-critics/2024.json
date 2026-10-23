@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-15",
+  "winnersOn": "2024-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2024"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9573150", "title": "Occupied City", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt28490044", "title": "Evil Does Not Exist", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27722543", "title": "Green Border", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

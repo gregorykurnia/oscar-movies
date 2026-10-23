@@ -1,0 +1,32 @@
+{
+  "award": "st-louis-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2022-12-11",
+  "winnersOn": "2022-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2022_St._Louis_Film_Critics_Association_Awards"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt13669038", "title": "Women Talking", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3704428", "title": "Elvis", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11198810", "title": "She Said", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "won" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt1016150", "title": "All Quiet on the Western Front", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13880104", "title": "Happening", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21816824", "title": "\"Sr.\"", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt7978758", "title": "Apollo 10½", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,31 @@
+{
+  "award": "san-francisco-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-12-13",
+  "winnersOn": "2024-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Francisco_Bay_Area_Film_Critics_Circle_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11891850", "title": "Hard Truths", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "won" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27367464", "title": "Kneecap", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-14",
+  "winnersOn": "2015-12-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2015"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "won" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

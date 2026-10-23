@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-12-07",
+  "winnersOn": "2025-12-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2025"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660542", "title": "The Tale of Silyan", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt34965172", "title": "Endless Cookie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt26446095", "title": "Space Cadet", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32298285", "title": "Sirāt", "outcome": "won" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

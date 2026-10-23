@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-22",
+  "winnersOn": "2015-01-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2014"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2364975", "title": "We Are the Best!", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

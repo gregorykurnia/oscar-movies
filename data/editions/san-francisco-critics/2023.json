@@ -1,0 +1,31 @@
+{
+  "award": "san-francisco-critics",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2024-01-05",
+  "winnersOn": "2024-01-09",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Francisco_Bay_Area_Film_Critics_Circle_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28494786", "title": "Menus-Plaisirs - Les Troisgros", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15789038", "title": "Elemental", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27503384", "title": "Perfect Days", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19760052", "title": "The Taste of Things", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

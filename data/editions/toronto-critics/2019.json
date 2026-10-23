@@ -1,0 +1,25 @@
+{
+  "award": "toronto-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-08",
+  "winnersOn": "2019-12-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2019"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6348138", "title": "Missing Link", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4520988", "title": "Frozen 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

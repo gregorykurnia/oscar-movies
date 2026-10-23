@@ -32,7 +32,21 @@
     "gotham/2017/international": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
     "gotham/2018/international": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
     "gotham/2019/international": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
-    "hollywood-critics/2025/picture-split": "For the 2025 films the Astra Film Awards split Best Picture into Drama and Comedy or Musical; both winners are recorded as Best Picture winners."
+    "hollywood-critics/2025/picture-split": "For the 2025 films the Astra Film Awards split Best Picture into Drama and Comedy or Musical; both winners are recorded as Best Picture winners.",
+    "vancouver-critics/2012/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2013/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2014/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2015/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2016/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2017/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2018/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2019/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2020/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2021/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2022/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2023/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2024/animated": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+    "vancouver-critics/2025/animated": "The Vancouver Film Critics Circle gave no animated-feature prize."
   },
   "linkFixes": {
     "Nascondino": {
@@ -67,12 +81,35 @@
       "article": "Hard to Be a God (2013 film)",
       "why": "The page links Arkady and Boris Strugatsky's novel; the nominee is Aleksei German's 2013 film."
     },
+    "Muscle Shoals": {
+      "article": "Muscle Shoals (film)",
+      "why": "The page links the redirect to the Alabama city; the nominee is the 2013 documentary."
+    },
+    "Isle of Dogs": {
+      "article": "Isle of Dogs (film)",
+      "why": "The page links the island; the nominee is Wes Anderson's 2018 animated film."
+    },
     "Eric Clapton: Life in 12 Bars": {
       "article": "Eric Clapton: Life in 12 Bars",
       "why": "NBR's page names the 2017 documentary without a link; Wikipedia has its article."
     }
   },
   "tmdbSearch": {
+    "seattle-critics 2021 Woodlands Dark and Days Bewitched: A History of Folk Horror": {
+      "directors": ["Kier-La Janisse"],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
+    "seattle-critics 2022 Sweetheart Deal": {
+      "directors": ["Elisa Levine", "Gabriel Miller"],
+      "country": "US",
+      "why": "No Wikipedia article; the directors are named on the page, and TMDB lists the documentary."
+    },
+    "seattle-critics 2023 Even Hell Has Its Heroes": {
+      "directors": ["Clyde Petersen"],
+      "country": "US",
+      "why": "No Wikipedia article; TMDB lists the documentary."
+    },
     "african-american-critics 2021 Who We Are: A Chronicle of Racism in America": {
       "directors": [
         "Emily Kunstler",
@@ -451,6 +488,12 @@
     }
   },
   "leaveOut": {
+    "st-louis-critics 2017 Never Say Goodbye: The KSHE Documentary": {
+      "why": "A local radio-station documentary with no Wikipedia article; TMDB's search finds no film of that title."
+    },
+    "seattle-critics 2020 The History of the Seattle Mariners: Supercut Edition": {
+      "why": "Jon Bois's video essay has no Wikipedia article and no TMDB or IMDb record."
+    },
     "british-independent 2017 Half Way": {
       "why": "No Wikipedia article, and no film of that title from 2016 to 2018 on TMDB's search matches a British documentary."
     },

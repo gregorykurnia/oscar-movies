@@ -230,5 +230,7 @@
   "tt9601220": { "slug": "black-bear", "title": "Black Bear", "countries": ["US"], "language": "en", "wd": "Q73549778", "tmdb": 624788 },
   "tt8228288": { "slug": "the-platform", "title": "The Platform", "originalTitle": "El hoyo", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q67628998", "tmdb": 619264 },
   "tt11905962": { "slug": "sputnik", "title": "Sputnik", "originalTitle": "Спутник", "originalLang": "ru", "countries": ["RU"], "language": "ru", "wd": "Q86675345", "tmdb": 594718 },
-  "tt8750702": { "slug": "rewind", "title": "Rewind", "countries": ["US"], "language": "en", "wd": "Q104867409", "tmdb": 597615 }
+  "tt8750702": { "slug": "rewind", "title": "Rewind", "countries": ["US"], "language": "en", "wd": "Q104867409", "tmdb": 597615 },
+  "tt8637504": { "slug": "disclosure", "title": "Disclosure", "countries": ["US"], "language": "en", "wd": "Q84366473", "tmdb": 653610 },
+  "tt8681422": { "slug": "to-the-ends-of-the-earth", "title": "To the Ends of the Earth", "originalTitle": "旅のおわり世界のはじまり", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q56354014", "tmdb": 539524 }
 }

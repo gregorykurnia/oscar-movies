@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2025-01-20",
+  "winnersOn": "2025-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2024"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt21823606", "title": "A Real Pain", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

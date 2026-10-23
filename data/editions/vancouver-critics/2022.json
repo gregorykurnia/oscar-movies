@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2023-01-22",
+  "winnersOn": "2023-02-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2022"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1016150", "title": "All Quiet on the Western Front", "outcome": "won" },
+    { "category": "international", "imdb": "tt18550140", "title": "Holy Spider", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

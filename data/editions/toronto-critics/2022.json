@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2022,
+  "status": "loaded",
+  "nominationsOn": "2023-01-08",
+  "winnersOn": "2023-01-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2022"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13669038", "title": "Women Talking", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "won" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

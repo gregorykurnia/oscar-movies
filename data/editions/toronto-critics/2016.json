@@ -1,0 +1,24 @@
+{
+  "award": "toronto-critics",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-12-11",
+  "winnersOn": "2016-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2016"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5938238", "title": "The Stairs", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3666024", "title": "The Red Turtle", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

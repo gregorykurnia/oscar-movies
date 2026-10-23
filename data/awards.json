@@ -2387,12 +2387,6 @@
         "name": "Best Documentary",
         "oscarCategory": "documentary",
         "sortOrder": 3
-      },
-      {
-        "slug": "animated",
-        "name": "Best Animated Film",
-        "oscarCategory": "animated",
-        "sortOrder": 4
       }
     ]
   },

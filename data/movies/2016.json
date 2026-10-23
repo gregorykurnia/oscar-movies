@@ -196,5 +196,9 @@
   "tt6279726": { "slug": "4-1-miles", "title": "4.1 Miles", "originalTitle": "4,1 μίλια", "originalLang": "el", "countries": ["GR"], "language": "el", "wd": "Q28492440", "tmdb": 422960 },
   "tt5259692": { "slug": "trapped", "title": "Trapped", "countries": ["US"], "language": "en", "wd": "Q23044966", "tmdb": 376257 },
   "tt5333812": { "slug": "southwest-of-salem-the-story-of-the-san-antonio-four", "title": "Southwest of Salem: The Story of the San Antonio Four", "countries": ["US"], "language": "en", "wd": "Q26864076", "tmdb": 390766 },
-  "tt3740778": { "slug": "mountains-may-depart", "title": "Mountains May Depart", "originalTitle": "山河故人", "originalLang": "zh", "countries": ["CN", "FR", "JP"], "language": "zh", "wd": "Q19573090", "tmdb": 314388 }
+  "tt3740778": { "slug": "mountains-may-depart", "title": "Mountains May Depart", "originalTitle": "山河故人", "originalLang": "zh", "countries": ["CN", "FR", "JP"], "language": "zh", "wd": "Q19573090", "tmdb": 314388 },
+  "tt4370784": { "slug": "agnus-dei", "title": "Agnus Dei", "originalTitle": "Les Innocentes", "originalLang": "fr", "countries": ["FR", "PL", "BE"], "language": "fr", "wd": "Q19365645", "tmdb": 364051 },
+  "tt5215952": { "slug": "the-wailing", "title": "The Wailing", "originalTitle": "곡성", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q22972803", "tmdb": 293670 },
+  "tt3756788": { "slug": "our-little-sister", "title": "Our Little Sister", "originalTitle": "海街ｄｉａｒｙ", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q19806501", "tmdb": 315846 },
+  "tt5938238": { "slug": "the-stairs", "title": "The Stairs", "countries": ["CA"], "language": "en", "wd": "Q26831195", "tmdb": 410211 }
 }

@@ -220,5 +220,6 @@
   "tt5109784": { "slug": "mother-2017", "title": "Mother!", "countries": ["US"], "language": "en", "wd": "Q25339558", "tmdb": 381283 },
   "tt4795546": { "slug": "nocturama", "title": "Nocturama", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20971361", "tmdb": 380623 },
   "tt5634002": { "slug": "deej", "title": "Deej", "countries": ["US"], "language": "en", "wd": "Q55393439", "tmdb": 499069 },
-  "tt7414956": { "slug": "lorraine-hansberry-sighted-eyes-feeling-heart", "title": "Lorraine Hansberry: Sighted Eyes/Feeling Heart", "countries": ["US"], "language": "en", "wd": "Q97358132", "tmdb": 487262 }
+  "tt7414956": { "slug": "lorraine-hansberry-sighted-eyes-feeling-heart", "title": "Lorraine Hansberry: Sighted Eyes/Feeling Heart", "countries": ["US"], "language": "en", "wd": "Q97358132", "tmdb": 487262 },
+  "tt1856101": { "slug": "blade-runner-2049", "title": "Blade Runner 2049", "countries": ["US", "GB", "CA", "HU"], "language": "en", "wd": "Q21500755", "tmdb": 335984 }
 }

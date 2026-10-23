@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-16",
+  "winnersOn": "2020-01-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2019"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

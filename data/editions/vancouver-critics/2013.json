@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2013,
+  "status": "loaded",
+  "nominationsOn": "2014-01-08",
+  "winnersOn": "2014-01-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2013"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize. The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
+    { "category": "international", "imdb": "tt1854513", "title": "Blancanieves", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2130321", "title": "West of Memphis", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

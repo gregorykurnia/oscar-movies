@@ -193,5 +193,12 @@
   "tt6412452": { "slug": "the-ballad-of-buster-scruggs", "title": "The Ballad of Buster Scruggs", "countries": ["US"], "language": "en", "wd": "Q37342034", "tmdb": 537996 },
   "tt6002232": { "slug": "custody", "title": "Custody", "originalTitle": "Jusqu'à la garde", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q38189374", "tmdb": 451657 },
   "tt2798920": { "slug": "annihilation", "title": "Annihilation", "countries": ["US", "GB"], "language": "en", "wd": "Q25136228", "tmdb": 300668 },
-  "tt5424228": { "slug": "love-gilda", "title": "Love, Gilda", "countries": ["US"], "language": "en", "wd": "Q58313496", "tmdb": 511972 }
+  "tt5424228": { "slug": "love-gilda", "title": "Love, Gilda", "countries": ["US"], "language": "en", "wd": "Q58313496", "tmdb": 511972 },
+  "tt6423776": { "slug": "let-the-sunshine-in", "title": "Let the Sunshine In", "originalTitle": "Un beau soleil intérieur", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q28495869", "tmdb": 431017 },
+  "tt4912910": { "slug": "mission-impossible-fallout", "title": "Mission: Impossible – Fallout", "countries": ["US", "FR", "CN", "NO"], "language": "en", "wd": "Q29261993", "tmdb": 353081 },
+  "tt4468740": { "slug": "paddington-2", "title": "Paddington 2", "countries": ["GB", "FR"], "language": "en", "wd": "Q27590871", "tmdb": 346648 },
+  "tt6738136": { "slug": "revenge", "title": "Revenge", "countries": ["FR", "BE"], "language": "fr", "wd": "Q39073132", "tmdb": 467938 },
+  "tt6763252": { "slug": "the-captain", "title": "The Captain", "originalTitle": "Der Hauptmann", "originalLang": "de", "countries": ["DE", "FR"], "language": "de", "wd": "Q36998754", "tmdb": 475094 },
+  "tt7153434": { "slug": "science-fair", "title": "Science Fair", "countries": ["US"], "language": "en", "wd": "Q65091684", "tmdb": 493121 },
+  "tt8399690": { "slug": "anthropocene-the-human-epoch", "title": "Anthropocene: The Human Epoch", "countries": ["CA"], "language": "en", "wd": "Q56275853", "tmdb": 539757 }
 }

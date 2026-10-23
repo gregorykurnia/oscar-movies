@@ -1,0 +1,14 @@
+{
+  "award": "lgbtq-critics",
+  "year": 2022,
+  "status": "partial",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "results": [
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,25 @@
+{
+  "award": "toronto-critics",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2021-02-07",
+  "winnersOn": "2021-02-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2020"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "won" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11874226", "title": "American Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5206260", "title": "The Willoughbys", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

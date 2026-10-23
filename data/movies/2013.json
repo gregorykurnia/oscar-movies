@@ -181,5 +181,7 @@
   "tt2165735": { "slug": "drug-war", "title": "Drug War", "originalTitle": "毒战", "originalLang": "zh", "countries": ["CN", "HK"], "language": "cmn", "wd": "Q4249764", "tmdb": 110410 },
   "tt2268732": { "slug": "museum-hours", "title": "Museum Hours", "countries": ["AT", "US"], "language": "en", "wd": "Q16253440", "tmdb": 128133 },
   "tt2147134": { "slug": "56-up", "title": "56 Up", "countries": ["GB"], "language": "en", "tmdb": 116167 },
-  "tt2980764": { "slug": "get-a-horse", "title": "Get a Horse!", "countries": ["US"], "language": "en", "wd": "Q12124484", "tmdb": 234567 }
+  "tt2980764": { "slug": "get-a-horse", "title": "Get a Horse!", "countries": ["US"], "language": "en", "wd": "Q12124484", "tmdb": 234567 },
+  "tt2357788": { "slug": "bridegroom-a-love-story-unequaled", "title": "Bridegroom: A Love Story, Unequaled", "countries": ["US"], "language": "en", "wd": "Q4966120", "tmdb": 174366 },
+  "tt2492916": { "slug": "muscle-shoals", "title": "Muscle Shoals", "countries": ["US"], "language": "en", "wd": "Q15052333", "tmdb": 159151 }
 }

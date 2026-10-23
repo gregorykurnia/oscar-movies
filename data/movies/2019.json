@@ -201,5 +201,6 @@
   "tt9530198": { "slug": "varda-by-agnes", "title": "Varda by Agnès", "originalTitle": "Varda par Agnés", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q63993096", "tmdb": 554967 },
   "tt10289996": { "slug": "the-black-godfather", "title": "The Black Godfather", "countries": ["US"], "language": "en", "wd": "Q64450077", "tmdb": 606215 },
   "tt9577852": { "slug": "rolling-thunder-revue-a-bob-dylan-story-by-martin-scorsese", "title": "Rolling Thunder Revue: A Bob Dylan Story by Martin Scorsese", "countries": ["US"], "language": "en", "wd": "Q63565898", "tmdb": 574638 },
-  "tt8373280": { "slug": "wrestle", "title": "Wrestle", "countries": ["US"], "language": "en", "tmdb": 511807 }
+  "tt8373280": { "slug": "wrestle", "title": "Wrestle", "countries": ["US"], "language": "en", "tmdb": 511807 },
+  "tt9412098": { "slug": "fyre", "title": "Fyre", "countries": ["US"], "language": "en", "wd": "Q60683337", "tmdb": 567860 }
 }

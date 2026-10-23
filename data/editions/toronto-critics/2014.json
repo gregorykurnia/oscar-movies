@@ -1,0 +1,25 @@
+{
+  "award": "toronto-critics",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-12-15",
+  "winnersOn": "2014-12-15",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Toronto_Film_Critics_Association_Awards_2014"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1791528", "title": "Inherent Vice", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2802154", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3103326", "title": "Manakamana", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,32 @@
+{
+  "award": "san-francisco-critics",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-12-10",
+  "winnersOn": "2018-12-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Francisco_Bay_Area_Film_Critics_Circle_Awards_2018"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt7282468", "title": "Burning", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6423776", "title": "Let the Sunshine In", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7472352", "title": "Shirkers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6900448", "title": "Mirai of the Future", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

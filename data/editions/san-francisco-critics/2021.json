@@ -1,0 +1,31 @@
+{
+  "award": "san-francisco-critics",
+  "year": 2021,
+  "status": "loaded",
+  "nominationsOn": "2022-01-07",
+  "winnersOn": "2022-01-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Francisco_Bay_Area_Film_Critics_Circle_Awards_2021"],
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9243804", "title": "The Green Knight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11777738", "title": "A Hero", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12618926", "title": "Parallel Mothers", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14300912", "title": "Procession", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7230750", "title": "The Velvet Underground", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2953050", "title": "Encanto", "outcome": "won" },
+    { "category": "animated", "imdb": "tt13651628", "title": "Belle", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

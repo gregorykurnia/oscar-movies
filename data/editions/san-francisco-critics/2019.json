@@ -1,0 +1,32 @@
+{
+  "award": "san-francisco-critics",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-12-16",
+  "winnersOn": "2019-12-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/San_Francisco_Bay_Area_Film_Critics_Circle_Awards_2019"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6675244", "title": "Transit", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8879946", "title": "Maiden", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4729430", "title": "Klaus", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6348138", "title": "Missing Link", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

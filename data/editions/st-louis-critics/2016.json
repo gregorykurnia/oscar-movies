@@ -1,0 +1,32 @@
+{
+  "award": "st-louis-critics",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-12-11",
+  "winnersOn": "2016-12-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2016_St._Louis_Film_Critics_Association_Awards"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "won" },
+    { "category": "international", "imdb": "tt4080728", "title": "A Man Called Ove", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3756788", "title": "Our Little Sister", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1683048", "title": "De Palma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3882074", "title": "The Eagle Huntress", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4632316", "title": "Gleason", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3422078", "title": "April and the Twisted World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2277860", "title": "Finding Dory", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3521164", "title": "Moana", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "runner_up" }
+  ],
+  "screenings": []
+}

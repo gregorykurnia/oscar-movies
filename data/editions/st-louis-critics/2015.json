@@ -1,0 +1,32 @@
+{
+  "award": "st-louis-critics",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-12-13",
+  "winnersOn": "2015-12-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/2015_St._Louis_Film_Critics_Association_Awards"],
+  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2096673", "title": "Inside Out", "outcome": "runner_up" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "won" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "runner_up" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3011894", "title": "Wild Tales", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "runner_up" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4185572", "title": "The Hunting Ground", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "runner_up" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

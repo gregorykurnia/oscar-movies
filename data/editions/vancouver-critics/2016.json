@@ -1,0 +1,21 @@
+{
+  "award": "vancouver-critics",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-12-16",
+  "winnersOn": "2016-12-20",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Vancouver_Film_Critics_Circle_Awards_2016"],
+  "note": "The Vancouver Film Critics Circle gave no animated-feature prize.",
+  "results": [
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

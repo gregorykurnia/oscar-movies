@@ -19,7 +19,7 @@ import type { EditionFile, MoviesFile, ResultEntry } from "../../src/lib/data-fi
 import { checkArgs, readEnvFile } from "../lib/target";
 import { plainTitle } from "./lib/facts";
 import { createFetcher } from "./lib/fetcher";
-import { blockRows, daysIn, guessTitles, leadDates, readBlocks, type BlockRow } from "./lib/critics-pages";
+import { blockRows, daysIn, guessTitles, leadDates, readBlocks, readCategoryTables, readDtBlocks, readNestedBlocks, withoutSection, type Block, type BlockRow } from "./lib/critics-pages";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import { resolveArticles } from "./lib/resolve";
 import type { Fetcher } from "./lib/fetcher";
@@ -125,6 +125,12 @@ function pageRead(
     nomineesFrom?: number;
     /** Also read rows of wikitables with the category in the first cell and the film in the last (AAFCA's oldest pages). */
     tables?: boolean;
+    /** Read the page's blocks with this instead of every layout (St. Louis: the infobox's "Best Film" line would be a second, shorter list). */
+    blocks?: (html: string) => Block[];
+    /** More layouts to read (a `dl` with its list, a table with a Category column). */
+    extra?: Array<(html: string) => Block[]>;
+    /** A section of the page to leave out (Vancouver's Canadian categories). */
+    dropSection?: RegExp;
     winnersOnly: boolean;
   },
 ): Group["read"] {
@@ -137,8 +143,9 @@ function pageRead(
       if (!/doesn't exist/.test(String(error))) throw error;
       return null;
     }
-    const blocks = readBlocks(page.html);
-    const wikitables = spec.tables ? readWikitables(page.html) : [];
+    const html = spec.dropSection ? withoutSection(page.html, spec.dropSection) : page.html;
+    const blocks = spec.blocks ? spec.blocks(html) : readBlocks(html, spec.extra);
+    const wikitables = spec.tables ? readWikitables(html) : [];
     const local: string[] = [];
     const gaps: string[] = [];
     const rows: Row[] = [];
@@ -185,7 +192,7 @@ function pageRead(
     }
     if (spec.nomineesFrom && year < spec.nomineesFrom) gaps.push("only the winners are listed (and a top ten for Best Film)");
     // The opening sentences first (the day the results came out), then the infobox's date (BIFA 2020's ceremony).
-    const dates = leadDates(page.html);
+    const dates = leadDates(html);
     dates.winnersOn ??= infoboxDate(page.html) ?? undefined;
     return { rows, missing, ...dates, urls: [page.url], gaps, problems: local };
   };
@@ -459,6 +466,78 @@ async function readPhoenix(year: number, ctx: Ctx): Promise<Read | null> {
   };
 }
 
+/** The Southeastern Film Critics Association's "Best Film winners" table (year, winner) on its article: only the Best Film winner. */
+async function readSoutheastern(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Southeastern Film Critics Association");
+  const table = readWikitables(page.html).find((t) => t.headers.includes("Best Film") && t.headers.includes("Year"));
+  if (!table) throw new Error("Southeastern: the Best Film winners table is gone from the page");
+  const col = table.headers.indexOf("Best Film");
+  const row = table.rows.find((r) => parseInt(r[0].text, 10) === year);
+  if (!row) return null;
+  const cell = row[col];
+  return {
+    rows: [{ category: "picture", link: cell.film ?? { article: null, text: cell.text }, outcome: "won" }],
+    missing: ["international", "documentary", "animated"],
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date"],
+    problems: [],
+  };
+}
+
+/** The film year a Dorian Awards heading stands for: plain headings (to 2019) and "2020 (Film)" are the film year; later "(Film)" headings are the awards year, one after the films'. */
+export function dorianFilmYear(heading: string): number | null {
+  const m = heading.match(/^(\d{4})(?: \(Film\))?$/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return n <= 2020 ? n : n - 1;
+}
+
+const DORIAN_CATEGORIES: Cat[] = [
+  { slug: "picture", label: /^(best)?film(oftheyear)?$/ },
+  { slug: "international", label: /^(best)?(foreign|nonenglish)language(film)?(oftheyear)?$|^(foreign|nonenglish)languagefilmoftheyear$/ },
+  { slug: "documentary", label: /^(bestdocumentary|documentaryoftheyear)$/ },
+  { slug: "animated", label: /^bestanimated(film|feature)?$/ },
+];
+
+/** The Dorian Awards (GALECA) winners tables on the "Dorian Awards" article: a heading a year, a "Category | Winner" table; winners only. */
+async function readDorian(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Dorian Awards");
+  const $ = cheerio.load(page.html);
+  const heading = $("h3")
+    .toArray()
+    .find((h) => dorianFilmYear(clean($(h).text())) === year);
+  if (!heading) return null;
+  const start = $(heading).closest(".mw-heading").length > 0 ? $(heading).closest(".mw-heading") : $(heading);
+  let table = start.next();
+  while (table.length > 0 && !table.is("table.wikitable") && !table.is(".mw-heading")) table = table.next();
+  if (!table.is("table.wikitable")) return null;
+  const html = $.html(table);
+  const rows: Row[] = [];
+  const local: string[] = [];
+  const found = new Set<string>();
+  for (const t of readWikitables(`<div>${html}</div>`)) {
+    for (const row of t.rows) {
+      if (row.length < 2) continue;
+      const label = flat(row[0].text.replace(/\(.*$/, ""));
+      const cat = DORIAN_CATEGORIES.find((c) => c.label.test(label));
+      const cell = row[row.length - 1];
+      if (!cat || !cell.text) continue;
+      const tie = /\(tie\)/i.test(cell.text) ? cell.links : [];
+      const links = tie.length > 1 ? tie : [cell.film ?? { article: null, text: cell.text }];
+      if (tie.length > 1) local.push(`dorian ${year}: ${cat.slug} is a tie (${links.map((l) => l.text).join(", ")})`);
+      for (const link of links) rows.push({ category: cat.slug, link, outcome: "won" });
+      found.add(cat.slug);
+    }
+  }
+  return {
+    rows,
+    missing: DORIAN_CATEGORIES.map((c) => c.slug).filter((c) => !found.has(c)),
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date"],
+    problems: local,
+  };
+}
+
 /** The Peabody lists with a "Documentary" section (the 2014 honorees on), one page per decade. */
 const PEABODY_LISTS = (heading: number) => `List of Peabody Award winners (${heading >= 2020 ? "2020–2029" : "2010–2019"})`;
 
@@ -553,6 +632,17 @@ async function readPeabody(year: number, ctx: Ctx): Promise<Read | null> {
 }
 
 const ordinal = (n: number) => `${n}${[11, 12, 13].includes(n % 100) ? "th" : (["th", "st", "nd", "rd"][n % 10] ?? "th")}`;
+
+/** International-film labels the later pages use: "Best International Feature (Film)", "… Film in Non-English Language", "Best Film Not in the English Language". */
+const INTERNATIONAL_ANY = /^(best)?(foreign|nonenglish|international)(language)?(independent)?(film|feature)(film)?(inanonenglish(language)?|innonenglish(language)?)?$|^bestfilmnotintheenglishlanguage$/;
+
+/** The four film categories with `INTERNATIONAL_ANY` and, if the group labels it otherwise, its own picture and documentary labels. */
+const withAnyInternational = (picture: RegExp = /^best(film|picture)$/, documentary: RegExp = CATEGORIES.documentary): Cat[] => [
+  { slug: "picture", label: picture },
+  { slug: "international", label: INTERNATIONAL_ANY },
+  { slug: "documentary", label: documentary },
+  { slug: "animated", label: CATEGORIES.animated },
+];
 
 const FILM_CATEGORIES = [
   { slug: "picture", label: /^best(film|picture)$/ },
@@ -1069,6 +1159,74 @@ export const GROUPS: Group[] = [
     why: "the San Diego Film Critics Society's awards for these films are not on Wikipedia",
     winnersOnly: false,
     read: pageRead("san-diego-critics", { page: (y) => `San Diego Film Critics Society Awards ${y}`, categories: FILM_CATEGORIES, winnersOnly: false }),
+  },
+  noPage("utah-critics", "Utah", "the Utah Film Critics Association"),
+  {
+    slug: "lgbtq-critics",
+    name: "Dorian",
+    years: [2012, 2025],
+    why: "the Dorian Awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: readDorian,
+  },
+  {
+    slug: "southeastern-critics",
+    name: "Southeastern",
+    years: [2012, 2025],
+    why: "the Southeastern Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: readSoutheastern,
+  },
+  {
+    slug: "san-francisco-critics",
+    name: "San Francisco Bay Area",
+    years: [2018, 2025],
+    why: "the San Francisco Bay Area Film Critics Circle's awards for these films are not on Wikipedia (its pages start with the 2018 films)",
+    winnersOnly: false,
+    read: pageRead("san-francisco-critics", { page: (y) => `San Francisco Bay Area Film Critics Circle Awards ${y}`, categories: withAnyInternational(), winnersOnly: false }),
+  },
+  {
+    slug: "seattle-critics",
+    name: "Seattle",
+    years: [2016, 2025],
+    why: "the Seattle Film Critics Society's awards for these films are not on Wikipedia (its pages start with the 2016 films)",
+    winnersOnly: false,
+    read: pageRead("seattle-critics", { page: (y) => `${y} Seattle Film Critics Society Awards`, categories: withAnyInternational(/^best(film|picture)(oftheyear)?$/), winnersOnly: false }),
+  },
+  {
+    slug: "st-louis-critics",
+    name: "St. Louis",
+    years: [2012, 2025],
+    why: "the St. Louis Film Critics Association's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("st-louis-critics", { page: (y) => `${y} St. Louis Film Critics Association Awards`, categories: withAnyInternational(), blocks: readNestedBlocks, winnersOnly: false }),
+  },
+  {
+    slug: "toronto-critics",
+    name: "Toronto",
+    years: [2013, 2025],
+    why: "the Toronto Film Critics Association's awards for these films are not on Wikipedia (its 2012 page lists the winners as plain lines, which no reader here handles)",
+    winnersOnly: false,
+    read: pageRead("toronto-critics", {
+      page: (y) => `Toronto Film Critics Association Awards ${y}`,
+      categories: withAnyInternational(undefined, /^(bmo)?(allanking)?(best)?documentary(film|award)?$/),
+      extra: [readCategoryTables],
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "vancouver-critics",
+    name: "Vancouver",
+    years: [2012, 2025],
+    why: "the Vancouver Film Critics Circle's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("vancouver-critics", {
+      page: (y) => `Vancouver Film Critics Circle Awards ${y}`,
+      categories: withAnyInternational(/^best(film|picture)$/),
+      extra: [readCategoryTables, readDtBlocks],
+      dropSection: /^canadian/i,
+      winnersOnly: false,
+    }),
   },
 ];
 
