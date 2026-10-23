@@ -1,0 +1,111 @@
+{
+  "linkFixes": {},
+  "tmdbSearch": {},
+  "leaveOut": {
+    "venice 2025 Memory": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2025 I Want Her Dead": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2025 Full Speed Backward!": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "venice 2025 A Near Thing": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    },
+    "berlin 2025 Other People's Money": {
+      "why": "a four-episode series, no IMDb ID for the film",
+      "notCounted": true
+    },
+    "berlin 2025 Juanita": {
+      "why": "a 20-minute short, no IMDb ID",
+      "notCounted": true
+    },
+    "berlin 2025 Underage": {
+      "why": "no IMDb ID on Wikipedia, Wikidata or TMDB"
+    }
+  },
+  "titles": {
+    "tt34819314": "Tired of Killing: Autobiography of an Assassin",
+    "tt37673394": "Lamb of God",
+    "tt37678610": "Cora",
+    "tt32263401": "Reflection in a Dead Diamond"
+  },
+  "sectionNames": {},
+  "published": {
+    "cannes/2025/In Competition": {
+      "films": 22,
+      "source": "https://www.screendaily.com/news/cannes-unveils-2025-official-selection/5203836.article",
+      "note": "19 announced on 10 April, three more added afterwards"
+    },
+    "cannes/2025/Un Certain Regard": {
+      "films": 20,
+      "source": "https://www.dogandwolf.com/2025/05/cannes-2025-un-certain-regard-selection/"
+    },
+    "cannes/2025/Critics' Week": {
+      "films": 11,
+      "source": "https://thefilmstage.com/cannes-critics-week-unveils-2025-lineup",
+      "note": "7 in competition, 4 special screenings"
+    },
+    "cannes/2025/Directors' Fortnight": {
+      "films": 19,
+      "source": "https://www.thewrap.com/christian-petzold-sean-byrne-cannes-directors-fortnight-2025/",
+      "note": "18 features announced (opening and closing films included); Yes by Nadav Lapid was added afterwards"
+    },
+    "venice/2025/In Competition": {
+      "films": 21,
+      "source": "https://www.cinefilos.it/festival/mostra-del-cinema-di-venezia/venezia-82-programma-ufficiale-663846"
+    },
+    "venice/2025/Out of Competition": {
+      "films": 29,
+      "source": "https://thefilmstage.com/venice-film-festival-unveils-2025-lineup/",
+      "note": "fiction, non-fiction and film & music (10 + 15 + 4); the four series are not counted here"
+    },
+    "venice/2025/Giornate degli Autori": {
+      "films": 25,
+      "source": "https://www.cineuropa.org/en/newsdetail/481487",
+      "note": "10 competition, 6 special events, 9 Venetian Nights; the two Miu Miu Women's Tales shorts are not counted"
+    },
+    "berlin/2025/Main Competition": {
+      "films": 19,
+      "source": "https://berlinale.de/en/2025/news-press-releases/261707.html"
+    },
+    "berlin/2025/Berlinale Special": {
+      "films": 21,
+      "apart": 2,
+      "source": "https://berlinale.de/en/2025/news-press-releases/261717.html",
+      "note": "the festival counts one series (The Narrow Road to the Deep North) and the 1985 film Shoah in its 21; Friendship's Death, shown beside them, is not counted"
+    },
+    "berlin/2025/Perspectives": {
+      "films": 14,
+      "source": "https://berlinale.de/en/2025/news-press-releases/261716.html"
+    },
+    "berlin/2025/Panorama": {
+      "films": 35,
+      "apart": 2,
+      "source": "https://berlinale.de/en/2025/news-press-releases/261112.html",
+      "note": "35 films and a series; two of the 35 run under 40 minutes (Looking for Langston, Once Again... (Statues Never Die))"
+    },
+    "berlin/2025/Forum": {
+      "films": 39,
+      "apart": 4,
+      "source": "https://berlinale.de/en/2025/topics/forum-2025.html",
+      "note": "31 in the main programme and 8 in Forum Special; two shorts (Fruit Farm, Nudity) and two older films (Iracema, 1976; The Lie, 1987) are not in the screenings"
+    }
+  },
+  "additions": {
+    "berlin 2025": [
+      {
+        "section": "Forum",
+        "title": "Pride & Attitude",
+        "originalTitle": "Stolz & Eigensinn",
+        "directors": "Gerd Kroske",
+        "countries": [
+          "Germany"
+        ],
+        "why": "On the official Forum 2025 page (berlinale.de/en/2025/topics/forum-2025.html), missing from Wikipedia's table"
+      }
+    ]
+  }
+}

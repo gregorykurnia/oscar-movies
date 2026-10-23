@@ -5,12 +5,19 @@ import type { ResultEntry } from "../../../src/lib/data-files";
 import { fetchFacts, type Facts, type TmdbOptions } from "./facts";
 import type { Fetcher } from "./fetcher";
 import { resolveArticles, resolveItems } from "./resolve";
+import { isSeries, isShort, releaseYears } from "./wikidata-search";
 import type { FilmLink } from "./tables";
 import type { NewFilm } from "./writer";
 
 export type ResearchedFilm =
-  | { ok: true; link: FilmLink; imdb?: string; wd?: string; facts: Facts }
+  | { ok: true; link: FilmLink; imdb?: string; wd?: string; facts: Facts; short?: boolean; series?: boolean; /** The median of the release years the source gives (one wrong date doesn't move it). */ released?: number }
   | { ok: false; link: FilmLink; reason: string };
+
+function medianYear(years: number[]): number | undefined {
+  if (years.length === 0) return undefined;
+  const sorted = [...years].sort((a, b) => a - b);
+  return sorted[Math.floor(sorted.length / 2)];
+}
 
 const linkId = (link: FilmLink) => (link.wd ? `wd:${link.wd}` : (link.article ?? `text:${link.text}`));
 
@@ -38,7 +45,7 @@ export async function researchFilms(
     } else {
       const { film } = resolution;
       const facts = await fetchFacts(fetcher, film, link.text, tmdb);
-      out.set(id, { ok: true, link, imdb: film.imdb, wd: film.wd, facts });
+      out.set(id, { ok: true, link, imdb: film.imdb, wd: film.wd, facts, short: isShort(film.entity), series: isSeries(film.entity), released: medianYear(releaseYears(film.entity)) });
     }
   }
   return out;

@@ -14,13 +14,15 @@ type Details = {
   title?: string;
   original_title?: string;
   original_language?: string;
+  runtime?: number | null;
   release_date?: string;
   origin_country?: string[];
   production_countries?: Array<{ iso_3166_1: string }>;
   credits?: { crew?: Array<{ job?: string; name?: string }> };
 };
 
-export type TmdbFound = { ok: true; imdb: string; tmdb: number; why: string; facts: Facts } | { ok: false; reason: string };
+/** `short`: TMDB gives a running time under 40 minutes. */
+export type TmdbFound = { ok: true; imdb: string; tmdb: number; why: string; facts: Facts; short: boolean; released?: number } | { ok: false; reason: string };
 
 /** TMDB's own language codes that aren't ISO 639-1: `cn` is Cantonese, `xx` means none. */
 function languageOf(code: string | undefined): string | undefined {
@@ -80,5 +82,5 @@ export async function findOnTmdb(tmdb: TmdbOptions, query: FilmQuery): Promise<T
   }
   if (language) facts.language = language;
   facts.tmdb = d.id;
-  return { ok: true, imdb: d.imdb_id as string, tmdb: d.id, why: hit.why, facts };
+  return { ok: true, imdb: d.imdb_id as string, tmdb: d.id, why: hit.why, facts, short: typeof d.runtime === "number" && d.runtime > 0 && d.runtime < 40, released: d.release_date ? Number(d.release_date.slice(0, 4)) : undefined };
 }

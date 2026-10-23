@@ -177,10 +177,16 @@ export function checkData(data: DataSet, { today, previousSlugs }: CheckOptions)
         errors.push(`${label}: country is only for International results`);
       }
     }
+    const screeningsSeen = new Set<string>();
     for (const s of e.screenings) {
       const key = refKey(s);
       if (key === undefined) errors.push(`${where}: ${s.title} (${s.section}): unresolved`);
       else if (!movieOf.has(key)) errors.push(`${where}: ${s.title} (${s.section}): ${key} is in no movie file`);
+      else {
+        const row = `${s.section}\u0000${movieOf.get(key)}`;
+        if (screeningsSeen.has(row)) errors.push(`${where}: ${s.title} (${s.section}): listed twice in this section`);
+        screeningsSeen.add(row);
+      }
     }
 
     // The Oscars: nominee counts once nominations are out, one winner once the ceremony is.
@@ -219,5 +225,6 @@ export function checkData(data: DataSet, { today, previousSlugs }: CheckOptions)
 export function dataSummary(data: DataSet): string {
   const films = data.movies.reduce((n, m) => n + Object.keys(m.file).length, 0);
   const results = data.editions.reduce((n, e) => n + e.edition.results.length, 0);
-  return `${data.awards.length} awards, ${data.editions.length} editions, ${films} films, ${results} results`;
+  const screenings = data.editions.reduce((n, e) => n + e.edition.screenings.length, 0);
+  return `${data.awards.length} awards, ${data.editions.length} editions, ${films} films, ${results} results${screenings > 0 ? `, ${screenings} screenings` : ""}`;
 }

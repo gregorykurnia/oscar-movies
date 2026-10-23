@@ -48,6 +48,25 @@ export function releaseYears(entity: Entity): number[] {
 const imdbTitleId = (entity: Entity) =>
   claimValues(entity.claims?.[P.imdb]).some((d) => d.type === "string" && /^tt\d+$/.test(String(d.value)));
 
+/** A short film by its type (Q24862) or by a running time under 40 minutes (P2047, in minutes or seconds). */
+export function isShort(entity: Entity): boolean {
+  if (entityIds(entity, "P31").includes("Q24862")) return true;
+  return claimValues(entity.claims?.["P2047"]).some((d) => {
+    if (d.type !== "quantity") return false;
+    const { amount, unit } = d.value as { amount: string; unit: string };
+    const n = Number(amount);
+    if (!Number.isFinite(n) || n <= 0) return false;
+    if (unit.endsWith("/Q7727")) return n < 40;
+    if (unit.endsWith("/Q11574")) return n < 40 * 60;
+    return false;
+  });
+}
+
+/** A television series, miniseries or episode (Q5398426, Q1259759, Q21191270), which is no film of the lineup. */
+export function isSeries(entity: Entity): boolean {
+  return entityIds(entity, "P31").some((id) => id === "Q5398426" || id === "Q1259759" || id === "Q21191270");
+}
+
 export function isFilm(entity: Entity): boolean {
   return imdbTitleId(entity) || entityIds(entity, "P31").some((id) => FILM_TYPES.has(id));
 }

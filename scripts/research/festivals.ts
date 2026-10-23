@@ -31,7 +31,7 @@ import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type Re
 import type { FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
 import { fetchPage, pageUrl, type WikiPage } from "./lib/wikipedia";
-import { addMovies, movieKey, writeEdition } from "./lib/writer";
+import { addMovies, movieKey, readEdition, writeEdition } from "./lib/writer";
 import { fixLink, loose, ordinal, pageMentions, sourcesSchema } from "./majors";
 
 const DATA_DIR = "data";
@@ -277,7 +277,8 @@ async function main() {
         ],
         ...(local.length > 0 ? { note: `Not found on the source pages: ${local.map((l) => l.replace(`${label}: `, "")).join("; ")}.` } : {}),
         results: [...rows.values()],
-        screenings: [],
+        // The lineup (`lineups.ts`) is written to the same file: a new run of the prizes leaves it alone.
+        screenings: readEdition(DATA_DIR, spec.slug, year)?.screenings ?? [],
       };
       writeEdition(DATA_DIR, edition);
       const counts = [...found].map((category) => `${category} ${[...rows.values()].filter((r) => r.category === category).length}`).join(", ");
