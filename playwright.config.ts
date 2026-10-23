@@ -25,5 +25,10 @@ export default defineConfig({
       testDir: "tests/screens",
       use: { ...devices["Desktop Chrome"], colorScheme: "light" },
     },
+    {
+      name: "launch",
+      testDir: "tests/launch",
+      use: { ...devices["Desktop Chrome"], colorScheme: "light" },
+    },
   ],
 });
