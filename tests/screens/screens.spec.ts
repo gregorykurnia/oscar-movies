@@ -1,7 +1,7 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-3/
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-4/
 // (gitignored); the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phases 0 to 2 keep theirs. The Phase 3 review runs the
-// whole list into this one, so until then it holds only the new pages.
-const OUT_DIR = "screenshots/phase-3";
+// Each phase's review judges its own folder. Phases 0 to 3 keep theirs. The Phase 4 review runs the
+// whole list into this one, so until then it holds only the pages task 4.12 re-shot or added.
+const OUT_DIR = "screenshots/phase-4";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -99,14 +99,22 @@ const ROUTES: Route[] = [
   },
   { name: "search", path: "/", status: 200, heading: /^The \d{4} race$/, open: openSearch },
   // Phase 2 (task 2.13). The Brutalist is a 2024 Best Picture nominee with won, nominated and not
-  // nominated awards. Until Phase 4 loads critics groups the two grid pictures look the same: folding
-  // only changes the critics columns.
+  // nominated awards. Folding changes only the critics columns, which hold data from Phase 4 on.
   { name: "awards-bafta-2025", path: "/awards/bafta/2025", status: 200, heading: "BAFTA 2025" },
   { name: "awards-index-2025", path: "/awards/2025", status: 200, heading: "Awards 2025" },
   { name: "festivals-index-2025", path: "/festivals/2025", status: 200, heading: "Festivals 2025" },
   { name: "accuracy-picture", path: "/accuracy/picture", status: 200, heading: "Accuracy: Best Picture" },
   { name: "grid-2025-folded", path: "/grid/2025", status: 200, heading: "2025 year grid" },
-  { name: "grid-2025-open", path: "/grid/2025?critics=open", status: 200, heading: "2025 year grid" },
+  {
+    name: "grid-2025-open",
+    path: "/grid/2025?critics=open",
+    status: 200,
+    heading: "2025 year grid",
+    // Unfolded: the critics groups have their own column group (re-shot in Phase 4, task 4.12).
+    ready: async (page) => {
+      await expect(page.getByRole("table").locator('th[scope="colgroup"]', { hasText: "Critics groups" })).toBeVisible();
+    },
+  },
   { name: "year-summary-2025", path: "/years/2025", status: 200, heading: "2025 year summary" },
   { name: "movie-awards", path: "/movies/the-brutalist", status: 200, heading: "The Brutalist" },
   // Phase 3 (task 3.10). The 2026 race in its live states: Picture with chances from the precursors, the
@@ -146,6 +154,49 @@ const ROUTES: Route[] = [
     },
   },
   { name: "data", path: "/data", status: 200, heading: "Data and sources" },
+  // Phase 4 (task 4.12). The open grid and the accuracy page carry the critics groups.
+  // `grid-2018-open` shows the gaps: a group with no edition that year gets a "No data" cell, and the
+  // legend says "No data that year" (Astra's column says it began in 2019). `accuracy-picture` (above)
+  // shows the first eight critics rows; `accuracy-picture-critics` opens "Show all". `awards-nbr-2025` is
+  // a critics award page with data (Best Film with its top ten), and `awards-san-francisco-critics-2016`
+  // is the same page for a year with no data.
+  {
+    name: "grid-2018-open",
+    path: "/grid/2018?critics=open",
+    status: 200,
+    heading: "2018 year grid",
+    ready: async (page) => {
+      await expect(page.getByRole("list", { name: "Legend" })).toContainText("No data that year");
+    },
+  },
+  {
+    name: "accuracy-picture-critics",
+    path: "/accuracy/picture",
+    status: 200,
+    heading: "Accuracy: Best Picture",
+    open: async (page) => {
+      await page.getByRole("button", { name: /^Show all \d+ critics groups/ }).click();
+      await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toBeVisible();
+    },
+  },
+  {
+    name: "awards-nbr-2025",
+    path: "/awards/nbr/2025",
+    status: 200,
+    heading: "NBR 2025",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+    },
+  },
+  {
+    name: "awards-san-francisco-critics-2016",
+    path: "/awards/san-francisco-critics/2016",
+    status: 200,
+    heading: "SF Bay Area 2016",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { name: "No data for this year" })).toBeVisible();
+    },
+  },
 ];
 
 for (const route of ROUTES) {
