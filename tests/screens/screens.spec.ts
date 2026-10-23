@@ -60,6 +60,13 @@ async function openSearch(page: Page, phone: boolean) {
   await expect(option.getByRole("img")).toBeVisible();
 }
 
+// The open grid's frame scrolls sideways: bring the critics groups' columns into the picture (Phase 4 review).
+async function showCriticsColumns(page: Page) {
+  const head = page.getByRole("table").locator('th[scope="colgroup"]', { hasText: "Critics groups" });
+  await expect(head).toBeVisible();
+  await head.evaluate((el) => el.scrollIntoView({ block: "nearest", inline: "start" }));
+}
+
 // `name` is the file name and the `--grep` name. The error page has no address of its own, so
 // `?error=1` throws on purpose (src/app/styleguide/page.tsx). `prepare` sets up data the picture
 // needs and returns what puts it back; `open` opens a box over the page once its heading is checked.
@@ -111,14 +118,12 @@ const ROUTES: Route[] = [
     status: 200,
     heading: "2025 year grid",
     // Unfolded: the critics groups have their own column group (re-shot in Phase 4, task 4.12).
-    ready: async (page) => {
-      await expect(page.getByRole("table").locator('th[scope="colgroup"]', { hasText: "Critics groups" })).toBeVisible();
-    },
+    ready: showCriticsColumns,
   },
   { name: "year-summary-2025", path: "/years/2025", status: 200, heading: "2025 year summary" },
   { name: "movie-awards", path: "/movies/the-brutalist", status: 200, heading: "The Brutalist" },
   // Phase 3 (task 3.10). The 2026 race in its live states: Picture with chances from the precursors, the
-  // "why" open on its leader, Documentary "Early" (two precursor awards with results), and Animated with
+  // "why" open on its leader, International "Early" (two precursor awards with results), and Animated with
   // no contenders yet. `race-2024` (above) is a finished season. The shortlist and nomination states need
   // 2026's Oscar lists (15 Dec 2026, 21 Jan 2027); until then the styleguide's race boards show them from
   // fixtures. `data` is the coverage page (task 3.5).
@@ -144,12 +149,14 @@ const ROUTES: Route[] = [
   },
   {
     name: "race-2026-early",
-    path: "/race/2026?category=documentary",
+    // International: two precursor awards with results (Documentary left "Early" when Phase 4 loaded
+    // the Critics Choice Documentary nominees).
+    path: "/race/2026?category=international",
     status: 200,
     heading: "The 2026 race",
     ready: async (page) => {
       // Every category's panel is in the page, the others hidden: check the one on screen.
-      const panel = page.getByRole("tabpanel", { name: "Documentary" });
+      const panel = page.getByRole("tabpanel", { name: "International" });
       await expect(panel.getByText("Early: few results yet.", { exact: true })).toBeVisible();
     },
   },
@@ -167,6 +174,7 @@ const ROUTES: Route[] = [
     heading: "2018 year grid",
     ready: async (page) => {
       await expect(page.getByRole("list", { name: "Legend" })).toContainText("No data that year");
+      await showCriticsColumns(page);
     },
   },
   {
@@ -175,8 +183,12 @@ const ROUTES: Route[] = [
     status: 200,
     heading: "Accuracy: Best Picture",
     open: async (page) => {
-      await page.getByRole("button", { name: /^Show all \d+ critics groups/ }).click();
-      await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toBeVisible();
+      // A click before hydration does nothing: click again only while the button still says Show all.
+      const show = page.getByRole("button", { name: /^Show all \d+ critics groups/ });
+      await expect(async () => {
+        if (await show.count()) await show.click();
+        await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toBeVisible({ timeout: 1000 });
+      }).toPass();
     },
   },
   {
@@ -195,6 +207,21 @@ const ROUTES: Route[] = [
     heading: "SF Bay Area 2016",
     ready: async (page) => {
       await expect(page.getByRole("heading", { name: "No data for this year" })).toBeVisible();
+    },
+  },
+  // Phase 4 review (triage 2-9): `movie-awards` (above) shows the capped critics list; this one opens it.
+  {
+    name: "movie-awards-critics-open",
+    path: "/movies/the-brutalist",
+    status: 200,
+    heading: "The Brutalist",
+    open: async (page) => {
+      const group = page.getByRole("group", { name: "Critics groups" });
+      const show = group.getByRole("button", { name: /^Show all \d+ critics groups$/ });
+      await expect(async () => {
+        if (await show.count()) await show.click();
+        await expect(group.getByRole("button", { name: "Show fewer" })).toBeVisible({ timeout: 1000 });
+      }).toPass();
     },
   },
 ];

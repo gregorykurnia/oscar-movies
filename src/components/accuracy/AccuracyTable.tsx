@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ShowAllButton } from "@/components/show-all/ShowAllRow";
 import { DataFigure, DataName, DataTable, type DataColumn, type DataRow, type DataSort } from "@/components/data-table/DataTable";
 import {
   CRITICS_CAP,
@@ -22,7 +23,7 @@ const COLUMNS: DataColumn[] = [
   { key: "years", label: "Years", sortable: true, hidePhone: true },
 ];
 
-const NO_NOMINEES = "Not counted: the award announces winners only";
+const NO_NOMINEES = "Not counted: only the winners are known";
 const NO_WINNER = "Not counted: the award names no winner";
 
 function dashReason(row: AccuracyRow, key: "win" | "nomination" | "nominees"): string | undefined {
@@ -83,17 +84,17 @@ export function AccuracyTable({
     <>
       <DataTable caption={caption} columns={COLUMNS} rows={tableRows} sort={sort} onSort={onSort} />
       {folded.hidden > 0 ? (
-        <button
-          type="button"
+        <ShowAllButton
           aria-expanded={showAll}
-          onClick={() => setShowAll(!showAll)}
-          className="group block w-full border-t border-line py-[22px] text-left text-small text-ink-muted outline-none focus-visible:shadow-focus"
-        >
-          <strong className="font-medium text-ink underline-offset-[3px] group-hover:underline">
-            {showAll ? `Show the first ${CRITICS_CAP} critics groups` : `Show all ${folded.critics} critics groups`}
-          </strong>
-          {!showAll && oscar ? <> · with {oscar} results where they exist</> : null}
-        </button>
+          onClick={(e) => {
+            const button = e.currentTarget;
+            setShowAll(!showAll);
+            // Folding 50-odd rows away would leave the button far above the screen: bring it back.
+            if (showAll) requestAnimationFrame(() => button.scrollIntoView({ block: "nearest" }));
+          }}
+          label={showAll ? `Show the first ${CRITICS_CAP} critics groups` : `Show all ${folded.critics} critics groups`}
+          rest={!showAll && oscar ? `with ${oscar} results` : undefined}
+        />
       ) : null}
     </>
   );

@@ -63,6 +63,12 @@ describe("gridColumns", () => {
     expect(columns.map(hasNoData)).toEqual([true, true, false, true, false, true]);
   });
 
+  it("leaves out a critics group with no data in any year, never another kind", () => {
+    const columns = gridColumns(AWARDS, "picture", [], new Set(["bafta"]));
+    expect(columns.map((c) => c.slug)).toEqual(["oscars", "afi", "bafta", "sundance", "cannes"]);
+    expect(gridColumns(AWARDS, "picture", [], new Set(["nyfcc"])).map((c) => c.slug)).toContain("nyfcc");
+  });
+
   it("leaves out awards that don't give the category", () => {
     expect(gridColumns(AWARDS, "animated", []).map((c) => c.slug)).toEqual(["annie"]);
   });

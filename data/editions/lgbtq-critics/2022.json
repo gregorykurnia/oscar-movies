@@ -3,7 +3,7 @@
   "year": 2022,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
     { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "won" },

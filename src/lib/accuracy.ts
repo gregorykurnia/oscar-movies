@@ -75,7 +75,9 @@ export function oscarOutcomes(oscars: ReadonlyArray<OscarEdition>): Map<MovieKey
  * outcome in the mapped category in any Oscars edition (a festival film can reach the Oscars a
  * year later). Only finished seasons count, and only `loaded` or `partial` editions with results
  * in this category. The nominees figure counts `loaded` editions only: a `partial` edition may
- * hold just its winner, which would read as a nominee list of one.
+ * hold just its winner, which would read as a nominee list of one. For the same reason it skips a
+ * `loaded` edition that names only winners in this category (NBR's Animated), and is null when no
+ * edition names a nominee (Phase 4 review).
  */
 export function computeAccuracy(input: {
   winnersOnly: boolean;
@@ -111,7 +113,7 @@ export function computeAccuracy(input: {
       if (winners.some((r) => oscarNominated(r.movie))) nomination.hits += 1;
     }
 
-    if (edition.status === "loaded") {
+    if (edition.status === "loaded" && edition.results.some((r) => r.outcome !== "won" && isNomination(r.outcome))) {
       // Winners, runners-up and AFI's list: everything at nomination stage or further.
       for (const r of edition.results) {
         if (!isNomination(r.outcome)) continue;
@@ -121,7 +123,7 @@ export function computeAccuracy(input: {
     }
   }
 
-  return { win, nomination, nominees: input.winnersOnly ? null : nominees, years, noDataYears };
+  return { win, nomination, nominees: input.winnersOnly || nominees.count === 0 ? null : nominees, years, noDataYears };
 }
 
 /** "79%", or "–" when the figure doesn't apply or has nothing to count (guide §11). */

@@ -3,7 +3,7 @@
   "year": 2023,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "won" },
     { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },

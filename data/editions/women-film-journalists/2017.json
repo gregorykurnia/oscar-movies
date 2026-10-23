@@ -3,7 +3,7 @@
   "year": 2017,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "won" },
     { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },

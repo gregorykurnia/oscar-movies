@@ -258,8 +258,11 @@ export function daysIn(sentence: string): string[] {
 
 /**
  * The days a page's opening paragraphs give: a sentence that mentions nominations or nominees is
- * the nominations day; the first other sentence with a day and "announced", "given", "held",
- * "presented" or "took place" is the winners' day.
+ * the nominations day; "the winners were announced …" is the winners' day; otherwise the first other
+ * sentence with a day and "announced", "awarded", "given", "held", "presented" or "took place" is.
+ * When a winners sentence follows such a sentence with an earlier day and no nominees sentence,
+ * that earlier day is the nominations day ("… were announced on December 8. The winners were
+ * announced on December 15."). "St." doesn't end a sentence (St. Louis).
  */
 export function leadDates(html: string): { nominationsOn?: string; winnersOn?: string } {
   const $ = cheerio.load(html);
@@ -271,13 +274,21 @@ export function leadDates(html: string): { nominationsOn?: string; winnersOn?: s
     .filter((t) => t.length > 30)
     .slice(0, 3)
     .join(" ");
-  const out: { nominationsOn?: string; winnersOn?: string } = {};
-  for (const sentence of lead.split(/(?<=[a-z0-9)])\.\s+(?=[A-Z])/)) {
+  let nominationsOn: string | undefined;
+  let winnersSentence: string | undefined;
+  let announced: string | undefined;
+  for (const sentence of lead.split(/(?<!\b(?:St|Mt|Ft|Dr|Mr|Mrs|Jr|vs))(?<=[a-z0-9)])\.\s+(?=[A-Z])/)) {
     const day = daysIn(sentence)[0];
     if (!day) continue;
-    if (/nominat|nominee/i.test(sentence)) out.nominationsOn ??= day;
-    else if (/announced|given|held|presented|took place|revealed/i.test(sentence)) out.winnersOn ??= day;
+    if (/nominat|nominee/i.test(sentence)) nominationsOn ??= day;
+    else if (/\bwinners\b[^.]*\bannounced\b/i.test(sentence)) winnersSentence ??= day;
+    else if (/announced|awarded|given|held|presented|took place|revealed/i.test(sentence)) announced ??= day;
   }
+  const out: { nominationsOn?: string; winnersOn?: string } = {};
+  if (nominationsOn) out.nominationsOn = nominationsOn;
+  if (winnersSentence && announced && !nominationsOn && announced < winnersSentence) out.nominationsOn = announced;
+  const winnersOn = winnersSentence ?? announced;
+  if (winnersOn) out.winnersOn = winnersOn;
   return out;
 }
 

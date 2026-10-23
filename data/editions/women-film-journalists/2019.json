@@ -3,7 +3,7 @@
   "year": 2019,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
     { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },

@@ -438,6 +438,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Approve the Phase 3 production load and recompute (`npm run compute -- --target production` after the Phase 1–2 loads; predictions for every season); Claude shows the dry run first | 2026-10-23 | Phase 3 release |
 | Phase 3 owner check: compare the 2026 chances and past favourites with instinct, check the race on a real phone, sign off; release before the Oscar nominations (21 Jan 2027) | 2026-10-23 | Phase 3 done |
 | Phase 3 choices to confirm or change (3.R): no film above 97% after the nominations (was uncapped); a live-season edition not out yet shows gold on `/data`; the α list stays as §5.3 has it | 2026-10-23 | nothing (easy to change) |
+| Approve the Phase 4 production load (63 critics groups, 2012–2026, then the recompute); Claude shows the dry run first | 2026-10-23 | Phase 4 release |
+| Phase 4 owner check: spot-check two critics groups' pages against memory, the accuracy page's critics rows and the open grid, sign off | 2026-10-23 | Phase 4 done |
+| Phase 4 choices to confirm or change (4.R): critics groups with no data in any year are left out of the accuracy rows (counted in a footnote) and the open grid; a nominees figure only from editions that name nominees; Boston Society and NYFCC stay winners only | 2026-10-23 | nothing (easy to change) |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log

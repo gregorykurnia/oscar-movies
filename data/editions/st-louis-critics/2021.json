@@ -3,9 +3,8 @@
   "year": 2021,
   "status": "loaded",
   "nominationsOn": "2021-12-12",
-  "winnersOn": "2021-12-12",
+  "winnersOn": "2021-12-19",
   "sourceUrls": ["https://en.wikipedia.org/wiki/2021_St._Louis_Film_Critics_Association_Awards"],
-  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
   "results": [
     { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
     { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },

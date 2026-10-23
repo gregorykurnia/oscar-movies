@@ -3,7 +3,7 @@
   "year": 2025,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
     { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },

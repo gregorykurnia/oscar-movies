@@ -48,7 +48,8 @@ test("each 2024 Picture nominee shows the awards it won and was nominated for", 
   const anoraRow = panel(page).getByRole("heading", { level: 3, name: "Anora Won" });
   await expect(anoraRow.locator("xpath=..").locator("[data-precursors]")).toContainText(/Won: .*PGA/);
   const brutalist = panel(page).getByRole("heading", { level: 3, name: "The Brutalist Nominated" });
-  await expect(brutalist.locator("xpath=..").locator("[data-precursors]")).toContainText(/Won: .*Globes.* · Nominated: .*BAFTA/);
+  // Wins come first, so its critics groups' wins (Phase 4) fill the line before BAFTA's nomination (2.11's order).
+  await expect(brutalist.locator("xpath=..").locator("[data-precursors]")).toContainText(/^Won: .*Globes/);
 });
 
 test("the why behind a % opens and closes by keyboard", async ({ page }) => {

@@ -3,7 +3,7 @@
   "year": 2012,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
     { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },

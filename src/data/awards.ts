@@ -1,7 +1,7 @@
 // One award's results in one film year (plan §3.1, guide §8.2): per category the films with the
 // stage each reached, the Oscar result of the category it maps to, and the award's accuracy
 // figures. Cached under `awards` and `scores`; see `films.ts` for the query/cached pairing.
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, ne } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { accuracy, awardCategories, awards, editions, movies, results } from "@/db/schema";
@@ -204,6 +204,17 @@ export async function queryYearEditions(db: ReadDb, year: number): Promise<YearE
     .from(editions)
     .innerJoin(awards, eq(awards.id, editions.awardId))
     .where(eq(editions.year, year));
+}
+
+/** The awards with at least one edition that isn't "no data", in any year. */
+export async function queryAwardsWithData(db: ReadDb): Promise<Set<string>> {
+  const rows = await db
+    .select({ slug: awards.slug })
+    .from(editions)
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .where(ne(editions.status, "no_data"))
+    .groupBy(awards.slug);
+  return new Set(rows.map((r) => r.slug));
 }
 
 /** Cached `queryYearEditions`. */

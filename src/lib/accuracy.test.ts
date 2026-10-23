@@ -130,6 +130,15 @@ describe("computeAccuracy", () => {
     expect(figures.nominees).toEqual({ hits: 1, count: 2 });
   });
 
+  it("skips a loaded edition that names only winners in the nominees figure, and has none when no edition names a nominee", () => {
+    const mixed = run([edition(2020, [["a", "won"]]), edition(2021, [["d", "won"], ["x", "nominated"]])]);
+    expect(mixed.win).toEqual({ hits: 2, count: 2 });
+    expect(mixed.nominees).toEqual({ hits: 1, count: 2 });
+    const winnersOnly = run([edition(2020, [["a", "won"]]), edition(2021, [["d", "won"]])]);
+    expect(winnersOnly.nominees).toBeNull();
+    expect(winnersOnly.win).toEqual({ hits: 2, count: 2 });
+  });
+
   it("has no winner figures for a list with no winner (AFI)", () => {
     const figures = run([edition(2021, [["d", "nominated"], ["e", "nominated"], ["x", "nominated"]])]);
     expect(figures.win).toEqual({ hits: 0, count: 0 });

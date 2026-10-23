@@ -7,12 +7,13 @@ import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
 import { AWARDS } from "@/lib/awards";
 import { gridColumns, gridFilms, type GridCategory, type YearGrid } from "@/lib/year-grid";
-import { queryYearEditions } from "./awards";
+import { queryAwardsWithData, queryYearEditions } from "./awards";
 import { filmColumns, toFilmRow, type ReadDb } from "./films";
 
 export async function queryYearGrid(db: ReadDb, year: number, category: GridCategory): Promise<YearGrid> {
-  const [yearEditions, rows] = await Promise.all([
+  const [yearEditions, withData, rows] = await Promise.all([
     queryYearEditions(db, year),
+    queryAwardsWithData(db),
     db
       .select({
         ...filmColumns,
@@ -31,7 +32,7 @@ export async function queryYearGrid(db: ReadDb, year: number, category: GridCate
       .orderBy(asc(awardCategories.sortOrder), asc(awardCategories.id)),
   ]);
   return {
-    columns: gridColumns(AWARDS, category, yearEditions),
+    columns: gridColumns(AWARDS, category, yearEditions, withData),
     films: gridFilms(
       rows.map(({ awardSlug, category: name, outcome, country, ...film }) => ({
         film: toFilmRow(film),

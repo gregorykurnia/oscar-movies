@@ -3,7 +3,7 @@
   "year": 2020,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
     { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },

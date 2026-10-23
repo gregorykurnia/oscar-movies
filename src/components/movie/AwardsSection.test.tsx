@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import type { MovieAwardRow } from "@/lib/movie-awards";
 import { AwardsSection, CRITICS_CAP } from "./AwardsSection";
@@ -50,9 +50,26 @@ describe("AwardsSection", () => {
     render(<AwardsSection today="2025-03-01" rows={critics} />);
     const group = screen.getByRole("group", { name: "Critics groups" });
     expect(within(group).getByText("2 won · 7 not nominated")).toBeTruthy();
-    const summary = within(group).getByText(`Show all ${CRITICS_CAP + 3} critics groups`);
-    expect(summary.closest("details")?.hasAttribute("open")).toBe(false);
+    const button = within(group).getByRole("button", { name: `Show all ${CRITICS_CAP + 3} critics groups` });
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    expect(within(group).getAllByRole("listitem")).toHaveLength(CRITICS_CAP);
+    // One list, and only the Show all row's top rule under it (triage 2-9).
+    expect(within(group).getAllByRole("list")).toHaveLength(1);
+    expect(within(group).getByRole("list").className).not.toContain("border-b");
+    fireEvent.click(button);
     expect(within(group).getAllByRole("listitem")).toHaveLength(CRITICS_CAP + 3);
+    expect(within(group).getAllByRole("list")).toHaveLength(1);
+    expect(button.getAttribute("aria-expanded")).toBe("true");
+    expect(button.textContent).toBe("Show fewer");
+  });
+
+  // Rows are award × category, so one group with two categories counts once.
+  it("counts groups, not rows, in Show all", () => {
+    const critics = Array.from({ length: CRITICS_CAP + 2 }, (_, i) =>
+      row({ kind: "critics", awardSlug: `c${i % 4}`, awardName: `Group ${i % 4}`, category: `Cat ${i}`, result: "won", since: "2025-01-01" }),
+    );
+    render(<AwardsSection today="2025-03-01" rows={critics} />);
+    expect(screen.getByRole("button", { name: "Show all 4 critics groups" })).toBeTruthy();
   });
 
   it("names the year in the meta line, and says when no followed festival gave the film a prize", () => {

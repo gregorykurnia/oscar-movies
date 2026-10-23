@@ -3,7 +3,7 @@
   "year": 2017,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Georgia_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (nominees and the other categories are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (nominees and the other categories are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" }
   ],

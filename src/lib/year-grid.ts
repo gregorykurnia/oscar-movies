@@ -50,16 +50,19 @@ export function gridCategoryName(category: GridCategory): string {
 
 /**
  * The awards that give the category (every award for "all"), Oscars first, then majors, festivals and
- * critics groups, each in calendar order, with their edition's status that year.
+ * critics groups, each in calendar order, with their edition's status that year. A critics group
+ * with no data in any year (`withData` lacks it) has no column: it would read "No data" all down.
  */
 export function gridColumns(
   awards: AwardSummary[],
   category: GridCategory,
   editions: { slug: string; status: EditionStatus }[],
+  withData?: Set<string>,
 ): GridColumn[] {
   const status = new Map(editions.map((e) => [e.slug, e.status]));
   return awards
     .filter((a) => category === "all" || a.oscarCategories.includes(category))
+    .filter((a) => a.kind !== "critics" || !withData || withData.has(a.slug))
     .sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind) || a.calendarOrder - b.calendarOrder)
     .map((a) => ({
       slug: a.slug,

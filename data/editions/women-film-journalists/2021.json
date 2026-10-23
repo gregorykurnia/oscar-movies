@@ -3,7 +3,7 @@
   "year": 2021,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
     { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },

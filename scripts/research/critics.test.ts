@@ -109,6 +109,18 @@ describe("dates", () => {
     });
   });
 
+  it("reads past St., takes a winners sentence as the winners' day and 'awarded' as an awards day (Phase 4 review)", () => {
+    expect(
+      leadDates(`<p>The nominees for the 15th St. Louis Film Critics Association Awards were announced on December 9, 2018. The winners were announced on December 16, 2018.</p>`),
+    ).toEqual({ nominationsOn: "2018-12-09", winnersOn: "2018-12-16" });
+    expect(
+      leadDates(`<p>The 18th Online Film Critics Society, honoring the best in film for 2014, were announced on December 8, 2014. The winners were announced on December 15, 2014.</p>`),
+    ).toEqual({ nominationsOn: "2014-12-08", winnersOn: "2014-12-15" });
+    expect(
+      leadDates(`<p>The 17th Toronto Film Critics Association Awards, honoring the best in film for 2013, were awarded on December 17, 2013. The award for Best Canadian Film was announced on January 7, 2014.</p>`),
+    ).toEqual({ winnersOn: "2013-12-17" });
+  });
+
   it("gives no day for a page that has none", () => {
     expect(leadDates(`<p>Below are the winners for the 2013 African-American film Critics Associations.</p>`)).toEqual({});
   });

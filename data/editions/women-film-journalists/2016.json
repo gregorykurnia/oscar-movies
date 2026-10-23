@@ -3,7 +3,7 @@
   "year": 2016,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Alliance_of_Women_Film_Journalists"],
-  "note": "Wikipedia gives no announcement date; the announcement date is not stated.",
+  "note": "Wikipedia gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
     { "category": "picture", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },

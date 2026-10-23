@@ -40,14 +40,18 @@ test("the accuracy figures for a hand-checked award match", async ({ page }) => 
   // A winners-only award has no nominee figure, so the dash is explained.
   await page.goto("/accuracy/picture");
   await expect(
-    page.getByRole("row", { name: /Cannes/ }).getByTitle("Not counted: the award announces winners only").first(),
+    page.getByRole("row", { name: /Cannes/ }).getByTitle("Not counted: only the winners are known").first(),
   ).toBeVisible();
 });
 
 test("the 2025 grid shows every nominated movie with its awards coloured", async ({ page }) => {
   await page.goto("/grid/2025");
   const table = page.getByRole("table");
-  await expect(table.getByRole("rowheader")).toHaveCount(31);
+  // One row per film the sub line counts (31 from the majors and festivals, more since Phase 4's critics groups).
+  const sub = await page.getByText(/^Best Picture · \d+ films with a nomination$/).textContent();
+  const films = Number(sub!.match(/(\d+) films/)![1]);
+  expect(films).toBeGreaterThanOrEqual(31);
+  await expect(table.getByRole("rowheader")).toHaveCount(films);
 
   // The ten Best Picture nominees are all rows, one cell won and nine nominated.
   const oscarNominees = [

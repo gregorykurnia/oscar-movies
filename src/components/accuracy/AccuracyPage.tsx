@@ -69,10 +69,14 @@ async function BacktestSection({ category, oscar }: { category: RaceCategory; os
 
 async function Table({ category, oscar, query }: { category: RaceCategory; oscar: string; query: Promise<Query> }) {
   await connection();
-  const [{ rows }, params] = await Promise.all([
+  const [{ rows: all }, params] = await Promise.all([
     getAccuracy(category, new Date().toISOString().slice(0, 10)),
     query,
   ]);
+  // A critics group with no finished season of results would read "– – – 0": it is left out and
+  // counted in the footnote (`/data` shows which groups have no data).
+  const rows = all.filter((r) => r.kind !== "critics" || r.years > 0);
+  const noData = new Set(all.filter((r) => r.kind === "critics" && r.years === 0).map((r) => r.award)).size;
   if (rows.length === 0) {
     return (
       <EmptyState title="No awards to compare yet" className="mt-10 md:mt-12">
@@ -95,8 +99,15 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
       <footer className="mt-4 space-y-1.5 text-caption text-ink-muted">
         {hasDash ? (
           <p>
-            &ldquo;–&rdquo; means the figure doesn&apos;t apply: awards that announce winners only have no nominees, and a list such
+            &ldquo;–&rdquo; means the figure doesn&apos;t apply: awards that announce winners only, or whose nominees aren&apos;t known, have no nominees figure, and a list such
             as AFI&apos;s has no winner.
+          </p>
+        ) : null}
+        {noData > 0 ? (
+          <p>
+            {noData} critics {noData === 1 ? "group has" : "groups have"} no {oscar} results for a finished season yet, so{" "}
+            {noData === 1 ? "it isn't" : "they aren't"} listed. <TextLink href="/data">Data and sources</TextLink> shows what
+            each award has.
           </p>
         ) : null}
         <p>

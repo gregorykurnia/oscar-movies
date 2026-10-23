@@ -3,7 +3,7 @@
   "year": 2024,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" }
   ],

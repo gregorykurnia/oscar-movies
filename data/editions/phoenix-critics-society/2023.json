@@ -3,7 +3,7 @@
   "year": 2023,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "won" }
   ],

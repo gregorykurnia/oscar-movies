@@ -11,6 +11,7 @@ import {
   type AwardsSection as Section,
   type MovieAwardRow,
 } from "@/lib/movie-awards";
+import { CappedList } from "./CappedList";
 
 /** Critics groups show this many rows, the rest behind "Show all" (guide §8.6). */
 export const CRITICS_CAP = 6;
@@ -86,22 +87,15 @@ function AwardsGroup({ section, showYear, showOscar }: { section: Section; showY
         </h3>
         {section.kind === "critics" ? <span className="text-small text-ink-muted">{resultSummary(section.rows)}</span> : null}
       </div>
-      <ul className="border-b border-line">{visible.map(row)}</ul>
       {capped ? (
-        <details className="group/all border-b border-line">
-          <summary
-            className={cn(
-              "flex cursor-pointer list-none py-[22px] text-small text-ink-muted outline-none focus-visible:shadow-focus [&::-webkit-details-marker]:hidden",
-              "group-open/all:hidden",
-            )}
-          >
-            <strong className="font-medium text-ink underline-offset-[3px] hover:underline">
-              Show all {section.rows.length} critics groups
-            </strong>
-          </summary>
-          <ul>{rest.map(row)}</ul>
-        </details>
-      ) : null}
+        <CappedList
+          head={visible.map(row)}
+          rest={rest.map(row)}
+          label={`Show all ${new Set(section.rows.map((r) => r.awardSlug)).size} critics groups`}
+        />
+      ) : (
+        <ul className="border-b border-line">{visible.map(row)}</ul>
+      )}
     </div>
   );
 }

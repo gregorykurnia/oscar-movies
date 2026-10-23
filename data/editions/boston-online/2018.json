@@ -3,7 +3,7 @@
   "year": 2018,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt5742374", "title": "You Were Never Really Here", "outcome": "won" }
   ],

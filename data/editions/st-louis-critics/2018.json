@@ -3,9 +3,8 @@
   "year": 2018,
   "status": "loaded",
   "nominationsOn": "2018-12-09",
-  "winnersOn": "2018-12-09",
+  "winnersOn": "2018-12-16",
   "sourceUrls": ["https://en.wikipedia.org/wiki/2018_St._Louis_Film_Critics_Association_Awards"],
-  "note": "The day the nominees were announced is not stated; the awards day stands in for it.",
   "results": [
     { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
     { "category": "international", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },

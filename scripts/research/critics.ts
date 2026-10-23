@@ -50,7 +50,7 @@ export const sourcesSchema = z
       z.object({ directors: z.array(z.string()).min(1), country: z.string().regex(/^[A-Z]{2}$/), why: z.string() }).strict(),
     ),
     /** Films with no IMDb ID and no Wikidata item, left out (§11), by "<award> <year> <text on the page>". */
-    leaveOut: z.record(z.string(), z.object({ why: z.string() }).strict()),
+    leaveOut: z.record(z.string(), z.object({ why: z.string(), note: z.string().optional() }).strict()),
     /** A film's year when no record, release date or title gives it (Peabody honorees), by the article it is on, with where it came from. */
     filmYears: z.record(z.string(), z.object({ year: z.number().int().min(2012), why: z.string().min(1) }).strict()),
     /** English titles that read better than Wikidata's, by IMDb ID. */
@@ -1322,7 +1322,7 @@ async function main() {
       const gaps = [...read.gaps];
       if (winnersOn && nominationsOn && nominationsOn > winnersOn) local.push(`${label}: nominations ${nominationsOn} are after the winners ${winnersOn}`);
       const hasNominees = read.rows.some((r) => r.outcome === "nominated");
-      if (!winnersOn) gaps.push("the announcement date is not stated");
+      if (!winnersOn && !gaps.some((g) => g.includes("announcement date"))) gaps.push("the announcement date is not stated");
       else if (!group.winnersOnly && (hasNominees || group.nomineesSameDay) && !nominationsOn) nominationsOn = winnersOn;
       const standIn = !group.winnersOnly && !group.nomineesSameDay && hasNominees && winnersOn && !read.nominationsOn && !manual?.nominationsOn;
       if (winnersOn && winnersOn > today) {
@@ -1333,16 +1333,20 @@ async function main() {
 
       const links = read.rows.map((r) => ({ ...r, link: fixLink(r.link, sources) }));
       const leftOut = (e: { link: FilmLink }) => sources.leaveOut[`${group.slug} ${year} ${e.link.text}`];
-      const leftNames = new Set<string>();
+      // The note's reason per film left out: its own `note`, else that no film record matched.
+      const leftNames = new Map<string, Set<string>>();
       const kept = links.filter((e) => {
         const out = leftOut(e);
         if (out) {
           problems.push(`${label}: left out ${e.link.text} (${out.why})`);
-          leftNames.add(e.link.text);
+          const reason = out.note ?? "no film record could be matched";
+          leftNames.set(reason, (leftNames.get(reason) ?? new Set()).add(e.link.text));
         }
         return !out;
       });
-      if (leftNames.size > 0) gaps.push(`${[...leftNames].map((n) => `"${n}"`).join(", ")} ${leftNames.size > 1 ? "are" : "is"} left out (no film record could be matched)`);
+      for (const [reason, names] of leftNames) {
+        gaps.push(`${[...names].map((n) => `"${n}"`).join(", ")} ${names.size > 1 ? "are" : "is"} left out (${reason})`);
+      }
 
       // A film the page names without a working link: the Wikipedia article "<title> (<year> film)" and the like,
       // taken only when its Wikidata item is a film released within a year of this one.

@@ -75,7 +75,7 @@ describe("AccuracyTable", () => {
     render(<AccuracyTable rows={rows} caption="Accuracy" initialSort={{ key: "award", direction: "ascending" }} />);
     expect(order()).toEqual(["AFI Top 10", "BAFTA", "PGA", "Cannes"]);
     expect(screen.getByRole("columnheader", { name: "Award" }).getAttribute("aria-sort")).toBe("ascending");
-    expect(screen.getAllByTitle("Not counted: the award announces winners only")).toHaveLength(1);
+    expect(screen.getAllByTitle("Not counted: only the winners are known")).toHaveLength(1);
     expect(screen.getAllByTitle("Not counted: the award names no winner")).toHaveLength(2);
   });
 });
@@ -97,7 +97,7 @@ describe("AccuracyTable critics groups", () => {
     expect(order().filter((n) => n?.startsWith("Group"))).toHaveLength(8);
     expect(order().slice(0, 4)).toEqual(["PGA", "BAFTA", "AFI Top 10", "Cannes"]);
     const button = screen.getByRole("button", { name: /Show all 12 critics groups/ });
-    expect(button.textContent).toContain("with Best Picture results where they exist");
+    expect(button.textContent).toContain("with Best Picture results");
     expect(button.getAttribute("aria-expanded")).toBe("false");
     fireEvent.click(button);
     expect(order().filter((n) => n?.startsWith("Group"))).toHaveLength(12);

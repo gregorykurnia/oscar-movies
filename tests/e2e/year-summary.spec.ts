@@ -6,25 +6,22 @@ import { expect, test } from "@playwright/test";
 
 const TABLE = "Films and watched by category";
 
-// The four categories' films for 2025 (the same rows the grid pages show), with the address each
-// count opens.
+// The four categories of 2025, with the address each count opens. The counts themselves grew with
+// each phase's awards (Phase 4's critics groups), so the spec checks each against the grid it opens.
 const CATEGORIES = [
-  { name: "Best Picture", films: 31, href: "/grid/2025", watchedHref: "/grid/2025?filter=watched" },
+  { name: "Best Picture", href: "/grid/2025", watchedHref: "/grid/2025?filter=watched" },
   {
     name: "Best Documentary Feature",
-    films: 32,
     href: "/grid/2025?category=documentary",
     watchedHref: "/grid/2025?category=documentary&filter=watched",
   },
   {
     name: "Best International Feature",
-    films: 20,
     href: "/grid/2025?category=international",
     watchedHref: "/grid/2025?category=international&filter=watched",
   },
   {
     name: "Best Animated Feature",
-    films: 14,
     href: "/grid/2025?category=animated",
     watchedHref: "/grid/2025?category=animated&filter=watched",
   },
@@ -37,16 +34,17 @@ test("/years/2025 shows the season in numbers: films, watched and the most nomin
 
   const films = page.locator('a[href="/grid/2025?category=all"]');
   await expect(films).toContainText("Films with a nomination");
-  await expect(films).toContainText("90");
-  await expect(films).not.toContainText("of 90");
+  const total = Number.parseInt((await films.locator("p").first().textContent()) ?? "", 10);
+  expect(total).toBeGreaterThanOrEqual(90);
+  await expect(films).not.toContainText(`of ${total}`);
 
   const watched = page.locator('a[href="/grid/2025?category=all&filter=watched"]');
-  await expect(watched).toContainText("of 90");
+  await expect(watched).toContainText(`of ${total}`);
   await expect(watched).toContainText("Watched");
 
   const most = page.locator('a[href="/grid/2025?category=all&sort=noms"]');
-  await expect(most).toContainText("Nominations for Hamnet, the most");
-  await expect(most).toContainText("3 wins at Globes, Satellite and TIFF");
+  await expect(most).toContainText(/Nominations for .+, the most/);
+  await expect(most).toContainText(/\d+ wins? at /);
 
   const table = page.getByRole("table", { name: TABLE });
   await expect(table.getByRole("columnheader", { name: "Films" })).toBeVisible();
@@ -54,7 +52,7 @@ test("/years/2025 shows the season in numbers: films, watched and the most nomin
   for (const category of CATEGORIES) {
     const row = table.getByRole("row").filter({ hasText: category.name });
     const counts = row.getByRole("link");
-    await expect(counts.nth(0)).toHaveText(String(category.films));
+    await expect(counts.nth(0)).toHaveText(/^\d+$/);
     await expect(counts.nth(0)).toHaveAttribute("href", category.href);
     await expect(counts.nth(1)).toHaveAttribute("href", category.watchedHref);
   }
@@ -63,15 +61,19 @@ test("/years/2025 shows the season in numbers: films, watched and the most nomin
 test("a count opens the grid view it counts, and the grid lists as many films as the count says", async ({ page }) => {
   await page.goto("/years/2025");
   const table = page.getByRole("table", { name: TABLE });
-  await table.getByRole("row").filter({ hasText: "Best Picture" }).getByRole("link").nth(0).click();
+  const picture = table.getByRole("row").filter({ hasText: "Best Picture" }).getByRole("link").nth(0);
+  const pictureCount = await picture.textContent();
+  await picture.click();
   await expect(page).toHaveURL(/\/grid\/2025$/);
-  await expect(page.getByText("Best Picture · 31 films with a nomination")).toBeVisible();
+  await expect(page.getByText(`Best Picture · ${pictureCount} films with a nomination`)).toBeVisible();
 
   await page.goto("/years/2025");
-  await page.locator('a[href="/grid/2025?category=all"]').click();
+  const all = page.locator('a[href="/grid/2025?category=all"]');
+  const allCount = Number.parseInt((await all.locator("p").first().textContent()) ?? "", 10);
+  await all.click();
   await expect(page).toHaveURL(/\/grid\/2025\?category=all$/);
-  await expect(page.getByText("All categories · 90 films with a nomination")).toBeVisible();
-  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(90);
+  await expect(page.getByText(`All categories · ${allCount} films with a nomination`)).toBeVisible();
+  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(allCount);
 
   // The watched figure is the number of films its list shows, and the Watched chip says so.
   await page.goto("/years/2025");

@@ -57,7 +57,7 @@ test("/accuracy opens Best Picture: grouped table, winner-won first, years count
   expect(isSorted(await majorsColumn(page, "win"), "descending")).toBe(true);
 
   // A winners-only festival has no nominee figure, and the footnote says why.
-  await expect(table.getByRole("row", { name: /Cannes/ }).getByTitle("Not counted: the award announces winners only").first()).toBeVisible();
+  await expect(table.getByRole("row", { name: /Cannes/ }).getByTitle("Not counted: only the winners are known").first()).toBeVisible();
   await expect(page.getByText(/means the figure doesn't apply/)).toBeVisible();
   await expect(page.getByRole("link", { name: "How the % chance works" })).toHaveAttribute("href", "/accuracy/picture#method");
 });
@@ -187,8 +187,15 @@ test("Best Picture lists the first eight critics groups below the majors, and Sh
   await expect(show).toHaveAttribute("aria-expanded", "false");
   const total = Number((await show.textContent())!.match(/Show all (\d+) critics groups/)![1]);
   expect(total).toBeGreaterThan(8);
-  await show.focus();
-  await page.keyboard.press("Enter");
+  // A press before hydration does nothing: press again only while the button still says Show all (3-18).
+  const less = page.getByRole("button", { name: "Show the first 8 critics groups" });
+  await expect(async () => {
+    if (await show.count()) {
+      await show.focus();
+      await page.keyboard.press("Enter");
+    }
+    await expect(less).toBeVisible({ timeout: 1000 });
+  }).toPass();
+  await expect(less).toHaveAttribute("aria-expanded", "true");
   expect(await criticsRows()).toBeGreaterThanOrEqual(total);
-  await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toHaveAttribute("aria-expanded", "true");
 });

@@ -3,7 +3,7 @@
   "year": 2012,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: international, animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date; the announcement date is not stated.",
+  "note": "Not found on the source: international, animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
     { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "won" }
