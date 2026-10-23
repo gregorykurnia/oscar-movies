@@ -15,9 +15,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  // `/submissions` opens the live season's submissions (plan §4).
+  // `/submissions`, `/awards` and `/festivals` open the live season's pages (plan §4).
   async redirects() {
-    return [{ source: "/submissions", destination: `/submissions/${LIVE_YEAR}`, permanent: false }];
+    return [
+      { source: "/submissions", destination: `/submissions/${LIVE_YEAR}`, permanent: false },
+      { source: "/awards", destination: `/awards/${LIVE_YEAR}`, permanent: false },
+      { source: "/festivals", destination: `/festivals/${LIVE_YEAR}`, permanent: false },
+    ];
   },
   // Search engines stay out: every response says noindex, nofollow (plan §10).
   async headers() {

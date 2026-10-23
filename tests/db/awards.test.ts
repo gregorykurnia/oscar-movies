@@ -1,8 +1,9 @@
-// The award page's query (task 2.6) against the seeded `test` data: BAFTA 2025's lists with
-// their Oscar results, the accuracy figures, and the editions with nothing to list.
+// The award page's query (task 2.6) and the awards index's editions (task 2.7) against the seeded
+// `test` data: BAFTA 2025's lists with their Oscar results, the accuracy figures, and the editions
+// with nothing to list.
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
-import { queryAwardYear } from "../../src/data/awards";
+import { queryAwardYear, queryYearEditions } from "../../src/data/awards";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -56,5 +57,22 @@ describe("queryAwardYear", () => {
     const data = await queryAwardYear(db, "bafta", 2026);
     expect(data!.edition!.status).toBe("no_data");
     expect(data!.categories).toEqual([]);
+  });
+});
+
+describe("queryYearEditions", () => {
+  it("lists every award's edition in a year, the Oscars included, with their statuses", async () => {
+    const rows = await queryYearEditions(db, 2026);
+    expect(rows.find((r) => r.slug === "oscars")).toMatchObject({
+      year: 2026,
+      ordinal: "99th",
+      status: "partial",
+      winnersOn: "2027-03-14",
+    });
+    expect(rows.find((r) => r.slug === "bafta")).toMatchObject({ status: "no_data", winnersOn: null });
+    expect(rows.find((r) => r.slug === "cannes")).toMatchObject({ status: "loaded", winnersOn: "2026-05-23" });
+    // A partly loaded award keeps its row (the index links to it).
+    const rows2012 = await queryYearEditions(db, 2012);
+    expect(rows2012.find((r) => r.slug === "cinema-eye")).toMatchObject({ status: "partial" });
   });
 });

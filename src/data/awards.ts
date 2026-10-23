@@ -186,3 +186,30 @@ export async function getAwardYear(awardSlug: string, year: number): Promise<Awa
   cacheLife("max");
   return queryAwardYear(getDb(), awardSlug, year);
 }
+
+/** One award's edition in a film year, with the award's slug (the awards index's rows, guide §8.7). */
+export type YearEdition = AwardEdition & { slug: string };
+
+/** Every award's edition in a film year, the Oscars included: one row per award that has the year. */
+export async function queryYearEditions(db: ReadDb, year: number): Promise<YearEdition[]> {
+  return db
+    .select({
+      slug: awards.slug,
+      year: editions.year,
+      ordinal: editions.ordinal,
+      status: editions.status,
+      note: editions.note,
+      winnersOn: editions.winnersOn,
+    })
+    .from(editions)
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .where(eq(editions.year, year));
+}
+
+/** Cached `queryYearEditions`. */
+export async function getYearEditions(year: number): Promise<YearEdition[]> {
+  "use cache";
+  cacheTag("awards");
+  cacheLife("max");
+  return queryYearEditions(getDb(), year);
+}

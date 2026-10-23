@@ -21,3 +21,8 @@ export function formatDate(date: Date, withYear = false): string {
   const day = `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]}`;
   return withYear ? `${day} ${date.getUTCFullYear()}` : day;
 }
+
+/** "Oct 2025": the month and year, for a date only as exact as its month. */
+export function formatMonthYear(date: Date): string {
+  return `${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+}

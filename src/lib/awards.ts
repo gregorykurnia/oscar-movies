@@ -2,6 +2,7 @@
 // database): names and kinds for headers, links and the build's list of award pages. Results,
 // categories' Oscar mapping and accuracy come from the database (`src/data/awards.ts`).
 import registry from "../../data/awards.json";
+import type { OscarCategory } from "@/data/oscars";
 
 export type AwardKind = "oscars" | "major" | "festival" | "critics";
 
@@ -10,8 +11,12 @@ export type AwardSummary = {
   name: string;
   shortName: string;
   kind: AwardKind;
+  /** The season's order; the awards index lists each section by it (guide §8.7). */
+  calendarOrder: number;
   winnersOnly: boolean;
   isSelection: boolean;
+  /** The Oscar categories its prizes count towards, each once. */
+  oscarCategories: OscarCategory[];
 };
 
 export const AWARDS: AwardSummary[] = registry.map((a) => ({
@@ -19,8 +24,10 @@ export const AWARDS: AwardSummary[] = registry.map((a) => ({
   name: a.name,
   shortName: a.shortName,
   kind: a.kind as AwardKind,
+  calendarOrder: a.calendarOrder,
   winnersOnly: a.winnersOnly,
   isSelection: a.isSelection,
+  oscarCategories: [...new Set(a.categories.map((c) => c.oscarCategory as OscarCategory))],
 }));
 
 /** An award by its address segment, or undefined when there is none. */
