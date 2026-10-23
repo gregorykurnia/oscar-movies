@@ -167,3 +167,28 @@ test("at 390 the page never scrolls sideways and the Years column is left out", 
   await expect(page.getByRole("table", { name: /eve-of-ceremony favourite/ })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test("Best Picture lists the first eight critics groups below the majors, and Show all opens the rest", async ({ page }) => {
+  await page.goto("/accuracy/picture");
+  const table = page.getByRole("table", { name: "How well each award foretells Best Picture" });
+  const groups = table.getByRole("columnheader", { name: /^(Major awards|Festivals|Critics groups)$/ });
+  await expect(groups).toHaveText(["Major awards", "Festivals", "Critics groups"]);
+
+  // The critics groups' rows are the ones after the Critics groups heading.
+  const criticsRows = () =>
+    page.evaluate(() => {
+      const rows = [...document.querySelector("tbody")!.querySelectorAll("tr")];
+      const start = rows.findIndex((tr) => tr.querySelector('th[scope="colgroup"]')?.textContent === "Critics groups");
+      return start < 0 ? 0 : rows.length - start - 1;
+    });
+  expect(await criticsRows()).toBe(8);
+
+  const show = page.getByRole("button", { name: /^Show all \d+ critics groups/ });
+  await expect(show).toHaveAttribute("aria-expanded", "false");
+  const total = Number((await show.textContent())!.match(/Show all (\d+) critics groups/)![1]);
+  expect(total).toBeGreaterThan(8);
+  await show.focus();
+  await page.keyboard.press("Enter");
+  expect(await criticsRows()).toBeGreaterThanOrEqual(total);
+  await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toHaveAttribute("aria-expanded", "true");
+});

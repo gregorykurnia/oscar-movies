@@ -90,6 +90,7 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
         rows={rows}
         initialSort={parseSort(params.sort, params.dir)}
         caption={`How well each award foretells ${oscar}`}
+        oscar={oscar}
       />
       <footer className="mt-4 space-y-1.5 text-caption text-ink-muted">
         {hasDash ? (

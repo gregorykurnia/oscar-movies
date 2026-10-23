@@ -18,10 +18,14 @@ test("/awards/2025 lists the Oscars first, then the majors, festivals and critic
   // By that year's dates: Satellite's 2025 winners came out on 10 Mar 2026, after the Actor Awards.
   await expect(majors.nth(9)).toContainText("Actor Awards (formerly SAG Awards)");
   await expect(majors.last()).toContainText("Satellite Awards");
-  // The critics groups are in the registry (task 4.1); until their imports load, each is No data.
-  const critics = page.getByRole("region", { name: "Critics groups" }).getByRole("listitem");
+  // The critics groups (tasks 4.1–4.10): all 64 entries below the majors, a group with an edition that year
+  // a link to its page, the others No data.
+  const criticsRegion = page.getByRole("region", { name: "Critics groups" });
+  const critics = criticsRegion.getByRole("listitem");
+  await expect(critics).toHaveCount(64);
   await expect(critics.first()).toContainText("Critics Choice Documentary Awards");
   await expect(critics.last()).toContainText("Peabody Awards");
+  expect(await criticsRegion.getByRole("link").count()).toBeGreaterThan(10);
 });
 
 test("/awards/2026 marks the majors No data and the Oscars Partly loaded", async ({ page }) => {

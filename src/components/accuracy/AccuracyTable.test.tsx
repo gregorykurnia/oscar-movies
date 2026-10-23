@@ -80,6 +80,37 @@ describe("AccuracyTable", () => {
   });
 });
 
+describe("AccuracyTable critics groups", () => {
+  const critics: AccuracyRow[] = Array.from({ length: 12 }, (_, i) => ({
+    key: `c${i}`,
+    award: `Group ${String(i).padStart(2, "0")}`,
+    kind: "critics" as const,
+    note: "Best Picture · winners only",
+    win: { hits: 12 - i, count: 14 },
+    nomination: { hits: 14, count: 14 },
+    nominees: null,
+    years: 14,
+  }));
+
+  it("shows the first eight by the sort, then every group below Show all N", () => {
+    render(<AccuracyTable rows={[...rows, ...critics]} caption="Accuracy" oscar="Best Picture" />);
+    expect(order().filter((n) => n?.startsWith("Group"))).toHaveLength(8);
+    expect(order().slice(0, 4)).toEqual(["PGA", "BAFTA", "AFI Top 10", "Cannes"]);
+    const button = screen.getByRole("button", { name: /Show all 12 critics groups/ });
+    expect(button.textContent).toContain("with Best Picture results where they exist");
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.click(button);
+    expect(order().filter((n) => n?.startsWith("Group"))).toHaveLength(12);
+    expect(screen.getByRole("button", { name: "Show the first 8 critics groups" }).getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("has no Show all row when the critics groups fit", () => {
+    render(<AccuracyTable rows={[...rows, ...critics.slice(0, 8)]} caption="Accuracy" />);
+    expect(screen.queryByRole("button", { name: /critics groups/ })).toBeNull();
+    expect(order().filter((n) => n?.startsWith("Group"))).toHaveLength(8);
+  });
+});
+
 function sortOf(name: string) {
   return screen.getByRole("columnheader", { name }).getAttribute("aria-sort");
 }

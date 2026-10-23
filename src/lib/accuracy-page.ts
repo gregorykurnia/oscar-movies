@@ -86,6 +86,26 @@ export function groupRows(rows: AccuracyRow[], sort: SortState): { kind: AwardKi
   );
 }
 
+/** The critics groups the table shows before "Show all" (guide §8.5; the sort decides which). */
+export const CRITICS_CAP = 8;
+
+/**
+ * Folds the critics group's rows to the first `CRITICS_CAP` of its sort, unless `all`. `critics` is how many
+ * critics groups (awards) the group holds, the N in "Show all N critics groups"; `hidden` how many rows the fold hides.
+ */
+export function foldCritics<G extends { kind: AwardKind; rows: AccuracyRow[] }>(
+  groups: G[],
+  all: boolean,
+): { groups: G[]; critics: number; hidden: number } {
+  const critics = groups.find((g) => g.kind === "critics");
+  const hidden = critics ? Math.max(0, critics.rows.length - CRITICS_CAP) : 0;
+  return {
+    groups: all || hidden === 0 ? groups : groups.map((g) => (g === critics ? { ...g, rows: g.rows.slice(0, CRITICS_CAP) } : g)),
+    critics: critics ? new Set(critics.rows.map((r) => r.award)).size : 0,
+    hidden,
+  };
+}
+
 /** The figure's pieces for a table cell: the percentage and the "11 of 14" count. */
 export function figureCell(figure: Figure | null): { pct: number | null; count?: string } {
   const s = share(figure);

@@ -19,12 +19,13 @@ const OSCAR_NOMINEES_2025 = [
 test("/grid/2025 shows every nominated Picture film with its won and nominated cells", async ({ page }) => {
   await page.goto("/grid/2025");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("2025 year grid");
-  await expect(page.getByText("Best Picture · 31 films with a nomination")).toBeVisible();
+  // Critics groups' nominees are rows too (task 4.10), so the count is more than the Oscars' and BAFTA's.
+  await expect(page.getByText(/^Best Picture · \d+ films with a nomination$/)).toBeVisible();
   await expect(page.getByRole("link", { name: "Year summary" })).toHaveAttribute("href", "/years/2025");
 
   const table = page.getByRole("table");
   const rows = table.getByRole("rowheader");
-  await expect(rows).toHaveCount(31);
+  expect(await rows.count()).toBeGreaterThanOrEqual(31);
   // Sorted by wins: the Best Picture winner first.
   await expect(rows.first()).toContainText("One Battle After Another");
 
@@ -37,8 +38,12 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
   const winner = table.getByRole("row").filter({ has: page.getByRole("rowheader", { name: "One Battle After Another" }) });
   await expect(winner.getByRole("img", { name: "Won: Best Picture" })).toBeVisible();
   await expect(winner.getByRole("img", { name: "Won: Best Film" })).toBeVisible();
-  await expect(winner.getByRole("cell").nth(0)).toHaveText("5");
-  await expect(winner.getByRole("cell").nth(1)).toHaveText("8");
+  // Wins and Noms count every award, critics groups included (task 4.10): at least the Oscar,
+  // BAFTA and the other majors' five wins and eight nominations.
+  const wins = Number(await winner.getByRole("cell").nth(0).textContent());
+  const noms = Number(await winner.getByRole("cell").nth(1).textContent());
+  expect(wins).toBeGreaterThanOrEqual(5);
+  expect(noms).toBeGreaterThanOrEqual(8);
 
   // Columns: Oscars, then majors, then festivals; the legend under the grid.
   await expect(table.getByRole("columnheader", { name: "Major awards" })).toBeVisible();
@@ -46,7 +51,7 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
   await expect(table.getByRole("columnheader", { name: "BAFTA" })).toBeVisible();
   await expect(page.getByRole("list", { name: "Legend" })).toContainText("Nominated or on the list");
   // The marks are the table's buttons; the Watched chip above it is not one of them.
-  await expect(table.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(31);
+  await expect(table.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(await rows.count());
 });
 
 test("the category, sort and Unwatched filter are kept in the address and survive a reload", async ({ page }) => {
@@ -60,7 +65,7 @@ test("the category, sort and Unwatched filter are kept in the address and surviv
 
   await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "International" }).click();
   await expect(page).toHaveURL(/\/grid\/2025\?category=international&sort=title$/);
-  await expect(page.getByText("Best International Feature · 20 films with a nomination")).toBeVisible();
+  await expect(page.getByText(/^Best International Feature · \d+ films with a nomination$/)).toBeVisible();
   await expect(page.getByRole("table").getByRole("img", { name: "Shortlisted: Best International Feature Film" })).toHaveCount(10);
 
   await page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Unwatched" }).click();
@@ -84,7 +89,7 @@ test("the category, sort and Unwatched filter are kept in the address and surviv
 
 test("Watched and Unwatched are one choice, and All categories lists every category's films", async ({ page }) => {
   await page.goto("/grid/2025?category=all&filter=unwatched");
-  await expect(page.getByText("All categories · 90 films with a nomination")).toBeVisible();
+  await expect(page.getByText(/^All categories · \d+ films with a nomination$/)).toBeVisible();
   const filter = page.getByRole("group", { name: "Filter" });
   await expect(filter.getByRole("button", { name: "Unwatched", exact: true })).toHaveAttribute("aria-pressed", "true");
 
@@ -130,7 +135,7 @@ test("the sort menu works by keyboard", async ({ page }) => {
 test("at 390 the page never scrolls sideways: the grid scrolls in its frame and the film column stays", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/grid/2025");
-  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(31);
+  await expect(page.getByRole("table").getByRole("rowheader").first()).toBeVisible();
 
   const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(widths.scroll).toBeLessThanOrEqual(widths.client);
@@ -153,4 +158,18 @@ test("/grid opens the live season, and a year with nothing yet says so", async (
   await page.goto("/grid/2026?category=animated");
   await expect(page.getByRole("heading", { level: 2, name: "No nominations yet" })).toBeVisible();
   await expect(page.getByText("Best Animated Feature · 0 films with a nomination")).toBeVisible();
+});
+
+test("critics=open gives each critics group with data its own column, after the festivals", async ({ page }) => {
+  await page.goto("/grid/2025?critics=open");
+  const table = page.getByRole("table");
+  const heads = table.getByRole("columnheader");
+  const names = await heads.allTextContents();
+  const group = (label: string) => names.findIndex((n) => n.startsWith(label));
+  expect(group("Major awards")).toBeGreaterThan(-1);
+  expect(group("Critics groups")).toBeGreaterThan(group("Major awards"));
+  // One column per group after the Critics groups head, far more than the folded count column.
+  expect(names.length - group("Critics groups")).toBeGreaterThan(10);
+  await expect(page.getByRole("button", { name: /Critics groups folded/ })).toHaveAttribute("aria-pressed", "false");
+  await expect(page.getByRole("img", { name: /^Won: Best Picture/ }).first()).toBeVisible();
 });

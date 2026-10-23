@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { DataFigure, DataName, DataTable, type DataColumn, type DataRow, type DataSort } from "@/components/data-table/DataTable";
 import {
+  CRITICS_CAP,
   DEFAULT_SORT,
   figureCell,
+  foldCritics,
   groupRows,
   sortQuery,
   type AccuracyRow,
@@ -38,12 +40,16 @@ export function AccuracyTable({
   rows,
   initialSort = DEFAULT_SORT,
   caption,
+  oscar,
 }: {
   rows: AccuracyRow[];
   initialSort?: SortState;
   caption: string;
+  /** The Oscar category's name, for the Show all row's words ("Best Picture"). */
+  oscar?: string;
 }) {
   const [sort, setSort] = useState<SortState>(initialSort);
+  const [showAll, setShowAll] = useState(false);
 
   const onSort = (next: DataSort) => {
     const state: SortState = { key: next.key as SortKey, direction: next.direction };
@@ -52,7 +58,8 @@ export function AccuracyTable({
   };
 
   const meterKey = sort.key === "win" || sort.key === "nomination" || sort.key === "nominees" ? sort.key : "win";
-  const tableRows: DataRow[] = groupRows(rows, sort).flatMap((group) => [
+  const folded = foldCritics(groupRows(rows, sort), showAll);
+  const tableRows: DataRow[] = folded.groups.flatMap((group) => [
     { type: "group" as const, key: group.kind, label: group.label },
     ...group.rows.map((row) => {
       const figure = (key: "win" | "nomination" | "nominees") => {
@@ -72,5 +79,22 @@ export function AccuracyTable({
     }),
   ]);
 
-  return <DataTable caption={caption} columns={COLUMNS} rows={tableRows} sort={sort} onSort={onSort} />;
+  return (
+    <>
+      <DataTable caption={caption} columns={COLUMNS} rows={tableRows} sort={sort} onSort={onSort} />
+      {folded.hidden > 0 ? (
+        <button
+          type="button"
+          aria-expanded={showAll}
+          onClick={() => setShowAll(!showAll)}
+          className="group block w-full border-t border-line py-[22px] text-left text-small text-ink-muted outline-none focus-visible:shadow-focus"
+        >
+          <strong className="font-medium text-ink underline-offset-[3px] group-hover:underline">
+            {showAll ? `Show the first ${CRITICS_CAP} critics groups` : `Show all ${folded.critics} critics groups`}
+          </strong>
+          {!showAll && oscar ? <> · with {oscar} results where they exist</> : null}
+        </button>
+      ) : null}
+    </>
+  );
 }
