@@ -183,5 +183,10 @@
   "tt3801730": { "slug": "drone", "title": "Drone", "countries": ["NO"], "language": "en", "wd": "Q19363582", "tmdb": 297859 },
   "tt3456090": { "slug": "e-team", "title": "E-Team", "countries": ["US"], "language": "en", "wd": "Q16250059", "tmdb": 250653 },
   "tt2305051": { "slug": "wild", "title": "Wild", "countries": ["US"], "language": "en", "wd": "Q17065888", "tmdb": 228970 },
-  "tt3567200": { "slug": "the-great-invisible", "title": "The Great Invisible", "countries": ["US"], "language": "en", "tmdb": 253262 }
+  "tt3567200": { "slug": "the-great-invisible", "title": "The Great Invisible", "countries": ["US"], "language": "en", "tmdb": 253262 },
+  "tt3212392": { "slug": "actress", "title": "Actress", "countries": ["US"], "language": "en", "wd": "Q19961243", "tmdb": 257407 },
+  "tt3103326": { "slug": "manakamana", "title": "Manakamana", "countries": ["US"], "language": "en", "wd": "Q19961504", "tmdb": 213684 },
+  "tt3576060": { "slug": "point-and-shoot", "title": "Point and Shoot", "countries": ["US"], "language": "en", "wd": "Q19580745", "tmdb": 264166 },
+  "tt2015381": { "slug": "guardians-of-the-galaxy", "title": "Guardians of the Galaxy", "countries": ["US"], "language": "en", "wd": "Q5887360", "tmdb": 118340 },
+  "tt2937898": { "slug": "a-most-violent-year", "title": "A Most Violent Year", "countries": ["US"], "language": "en", "wd": "Q15915435", "tmdb": 241239 }
 }

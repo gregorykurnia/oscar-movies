@@ -1,0 +1,27 @@
+{
+  "award": "gotham",
+  "year": 2020,
+  "status": "loaded",
+  "nominationsOn": "2020-11-12",
+  "winnersOn": "2021-01-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2020"],
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9000224", "title": "The Assistant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7772582", "title": "Never Rarely Sometimes Always", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9072352", "title": "Relic", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394166", "title": "A Thousand Cuts", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12801326", "title": "76 Days", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12094720", "title": "City Hall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11394282", "title": "Identifying Features", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9196192", "title": "Cuties", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4516162", "title": "Martin Eden", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9099176", "title": "Our Time Machine", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

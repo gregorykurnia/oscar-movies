@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2019,
+  "status": "loaded",
+  "nominationsOn": "2019-10-24",
+  "winnersOn": "2019-12-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2019"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5503686", "title": "Hustlers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5727208", "title": "Uncut Gems", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8652728", "title": "Waves", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6016744", "title": "The Edge of Democracy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923500", "title": "Midnight Traveler", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

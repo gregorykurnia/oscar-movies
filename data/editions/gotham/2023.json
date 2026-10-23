@@ -1,0 +1,26 @@
+{
+  "award": "gotham",
+  "year": 2023,
+  "status": "loaded",
+  "nominationsOn": "2023-10-24",
+  "winnersOn": "2023-11-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2023"],
+  "results": [
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "won" },
+    { "category": "picture", "imdb": "tt16252698", "title": "Passages", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt24068064", "title": "Reality", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13923216", "title": "Showing Up", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12427158", "title": "A Thousand and One", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27502426", "title": "Four Daughters", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082466", "title": "Against the Tide", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22768450", "title": "Apolonia, Apolonia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26347358", "title": "Our Body", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt26315142", "title": "Tótem", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

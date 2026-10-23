@@ -1,0 +1,27 @@
+{
+  "award": "gotham",
+  "year": 2021,
+  "status": "partial",
+  "nominationsOn": "2021-10-21",
+  "winnersOn": "2021-11-29",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2021"],
+  "note": "\"President\" is left out (no film record could be matched).",
+  "results": [
+    { "category": "picture", "imdb": "tt9100054", "title": "The Lost Daughter", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9243804", "title": "The Green Knight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8893974", "title": "Passing", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11003218", "title": "Pig", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10121508", "title": "Test Pattern", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13648216", "title": "Faya Dayi", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt11136276", "title": "Azor", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6992978", "title": "The Souvenir Part II", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14035154", "title": "What Do We See When We Look at the Sky ?", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

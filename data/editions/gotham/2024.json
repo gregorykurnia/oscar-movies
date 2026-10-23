@@ -1,0 +1,27 @@
+{
+  "award": "gotham",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-10-29",
+  "winnersOn": "2024-12-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2024"],
+  "results": [
+    { "category": "picture", "imdb": "tt21097228", "title": "A Different Man", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt30057084", "title": "Babygirl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30956212", "title": "Intercepted", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319916", "title": "Union", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt27722543", "title": "Green Border", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11891850", "title": "Hard Truths", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10399622", "title": "Inside the Yellow Cocoon Shell", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28618488", "title": "Vermiglio", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

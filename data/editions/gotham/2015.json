@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-10-22",
+  "winnersOn": "2015-11-30",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2015"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3172532", "title": "The Diary of a Teenage Girl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3687186", "title": "Heaven Knows What", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3824458", "title": "Tangerine", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4935446", "title": "Heart of a Dog", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2379679", "title": "Approaching the Elephant", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

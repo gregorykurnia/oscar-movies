@@ -164,5 +164,7 @@
   "tt2079571": { "slug": "roman-polanski-a-film-memoir", "title": "Roman Polanski: A Film Memoir", "countries": ["IT", "GB", "DE"], "language": "en", "wd": "Q3940522", "tmdb": 119415 },
   "tt1819513": { "slug": "dreams-of-a-life", "title": "Dreams of a Life", "countries": ["GB"], "language": "en", "wd": "Q5306747", "tmdb": 83540 },
   "tt1568921": { "slug": "arrietty", "title": "Arrietty", "originalTitle": "借りぐらしのアリエッティ", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q699835", "tmdb": 51739 },
-  "tt1827512": { "slug": "the-kid-with-a-bike", "title": "The Kid with a Bike", "originalTitle": "Le gamin au vélo", "originalLang": "fr", "countries": ["FR", "BE", "IT"], "language": "fr", "wd": "Q2072055", "tmdb": 63831 }
+  "tt1827512": { "slug": "the-kid-with-a-bike", "title": "The Kid with a Bike", "originalTitle": "Le gamin au vélo", "originalLang": "fr", "countries": ["FR", "BE", "IT"], "language": "fr", "wd": "Q2072055", "tmdb": 63831 },
+  "tt1695405": { "slug": "the-loneliest-planet", "title": "The Loneliest Planet", "countries": ["US", "DE"], "language": "en", "wd": "Q5394937", "tmdb": 82321 },
+  "tt2085910": { "slug": "room-237", "title": "Room 237", "countries": ["US"], "language": "en", "wd": "Q4020673", "tmdb": 84330 }
 }

@@ -192,5 +192,8 @@
   "tt5105734": { "slug": "the-kingmaker", "title": "The Kingmaker", "countries": ["US", "DK"], "language": "en", "wd": "Q78216512", "tmdb": 618265 },
   "tt9573980": { "slug": "leaving-neverland", "title": "Leaving Neverland", "countries": ["US", "GB"], "language": "en", "wd": "Q60795735" },
   "tt2935510": { "slug": "ad-astra", "title": "Ad Astra", "countries": ["US"], "language": "en", "wd": "Q38774788", "tmdb": 419704 },
-  "tt8185182": { "slug": "long-days-journey-into-night", "title": "Long Day's Journey into Night", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51879925", "tmdb": 486898 }
+  "tt8185182": { "slug": "long-days-journey-into-night", "title": "Long Day's Journey into Night", "countries": ["CN", "FR"], "language": "cmn", "wd": "Q51879925", "tmdb": 486898 },
+  "tt8923500": { "slug": "midnight-traveler", "title": "Midnight Traveler", "countries": ["CA", "QA", "US", "GB"], "language": "ps", "wd": "Q108941544", "tmdb": 566216 },
+  "tt1489887": { "slug": "booksmart", "title": "Booksmart", "countries": ["US"], "language": "en", "wd": "Q55605752", "tmdb": 505600 },
+  "tt9351746": { "slug": "love-antosha", "title": "Love, Antosha", "countries": ["US"], "language": "en", "wd": "Q61450781", "tmdb": 565276 }
 }

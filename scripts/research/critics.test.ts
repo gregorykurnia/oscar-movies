@@ -140,3 +140,31 @@ describe("the sources file and the groups", () => {
     }
   });
 });
+
+describe("task 4.4 editions", () => {
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const winners = (path: string, category: string) => edition(path).results.filter((r) => r.category === category && r.outcome === "won");
+
+  it("lists Gotham's International Feature only from the 2020 films, and says why before", () => {
+    expect(edition("gotham/2019").results.some((r) => r.category === "international")).toBe(false);
+    expect(winners("gotham/2020", "international")).toHaveLength(1);
+  });
+
+  it("records both Best Picture winners of Astra 2025 (Drama and Comedy or Musical) and says so", () => {
+    expect(winners("hollywood-critics/2025", "picture").map((r) => r.title).sort()).toEqual(["One Battle After Another", "Sinners"]);
+    expect(edition("hollywood-critics/2025").note).toMatch(/split Best Picture/);
+  });
+
+  it("keeps a Kansas City tie as two winners, and marks the group's editions partial (Best Film only)", () => {
+    expect(winners("kansas-city-critics/2018", "picture")).toHaveLength(2);
+    expect(edition("kansas-city-critics/2018").status).toBe("partial");
+  });
+
+  it("marks groups with no page as no_data, with a note", () => {
+    for (const slug of ["greater-western-new-york-critics", "hawaii-critics", "indiana-critics", "iowa-critics", "international-cinephile-society", "ida"]) {
+      const e = edition(`${slug}/2020`);
+      expect(e.status, slug).toBe("no_data");
+      expect(e.note, slug).toBeTruthy();
+    }
+  });
+});

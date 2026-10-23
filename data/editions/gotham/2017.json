@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-10-19",
+  "winnersOn": "2017-11-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2017"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4846232", "title": "Good Time", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580036", "title": "I, Tonya", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5873150", "title": "Strong Island", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6209282", "title": "Ex Libris – The New York Public Library", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5840448", "title": "Rat Film", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6176928", "title": "Whose Streets?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5836866", "title": "The Work", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

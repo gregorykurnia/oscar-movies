@@ -211,5 +211,12 @@
   "tt11290556": { "slug": "the-way-i-see-it", "title": "The Way I See It", "countries": ["US"], "language": "en", "wd": "Q97610038", "tmdb": 729779 },
   "tt9187214": { "slug": "the-strong-ones", "title": "The Strong Ones", "originalTitle": "Los fuertes", "originalLang": "es", "countries": ["CL"], "language": "es", "wd": "Q98558834", "tmdb": 637860 },
   "tt11719648": { "slug": "dry-wind", "title": "Dry Wind", "originalTitle": "Vento Seco", "originalLang": "pt", "countries": ["BR"], "language": "pt", "wd": "Q100506077", "tmdb": 665783 },
-  "tt10011412": { "slug": "you-dont-nomi", "title": "You Don't Nomi", "countries": ["US"], "language": "en", "wd": "Q96415864", "tmdb": 592997 }
+  "tt10011412": { "slug": "you-dont-nomi", "title": "You Don't Nomi", "countries": ["US"], "language": "en", "wd": "Q96415864", "tmdb": 592997 },
+  "tt9000224": { "slug": "the-assistant", "title": "The Assistant", "countries": ["US"], "language": "en", "wd": "Q65064146", "tmdb": 627463 },
+  "tt9072352": { "slug": "relic", "title": "Relic", "countries": ["AU", "US"], "language": "en", "wd": "Q87519760", "tmdb": 539181 },
+  "tt12094720": { "slug": "city-hall", "title": "City Hall", "countries": ["US"], "language": "en", "wd": "Q97940517", "tmdb": 726041 },
+  "Q1866923": { "slug": "la-llorona-2020", "title": "La Llorona", "countries": ["MX"], "wd": "Q1866923" },
+  "tt11015214": { "slug": "class-action-park", "title": "Class Action Park", "countries": ["US"], "language": "en", "wd": "Q99519749", "tmdb": 634233 },
+  "tt9196192": { "slug": "cuties", "title": "Cuties", "originalTitle": "Mignonnes", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q84349632", "tmdb": 582885 },
+  "tt9099176": { "slug": "our-time-machine", "title": "Our Time Machine", "countries": ["US", "CN"], "language": "en", "tmdb": 597614 }
 }

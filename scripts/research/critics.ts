@@ -70,7 +70,7 @@ export type Read = {
   problems: string[];
 };
 
-type Cat = { slug: string; label: RegExp };
+type Cat = { slug: string; label: RegExp; /** Several lists match (Astra 2025's Best Picture in two genres): all are read, each with its own winner. */ multi?: boolean };
 
 type Group = {
   slug: string;
@@ -93,6 +93,8 @@ const CATEGORIES = {
   international: /^(best)?(foreign|nonenglish|international)(language)?(independent)?film$/,
   documentary: /^bestdocumentary(feature|film)?$/,
   animated: /^bestanimat(ed|ion)(film|feature)?$/,
+  // Gotham, Astra and Houston call it a "feature" (Houston: "Foreign Language Feature").
+  internationalFeature: /^(best)?(foreign|nonenglish|international)(language)?(independent)?(film|feature)$/,
 };
 
 function pageRead(
@@ -141,6 +143,10 @@ function pageRead(
       if (filled.length === 0) {
         missing.push(cat.slug);
         local.push(`${label}: ${cat.slug} not found on the page`);
+        continue;
+      }
+      if (!same && cat.multi) {
+        for (const list of filled) rows.push(...list.map((r) => ({ category: cat.slug, link: r.link, outcome: r.outcome })));
         continue;
       }
       if (!same) {
@@ -307,6 +313,25 @@ async function readGeorgia(year: number, ctx: Ctx): Promise<Read | null> {
   };
 }
 
+/** Kansas City's "Selected past winners" table: the Best Film winner of each year (a tie names two films). */
+async function readKansasCity(year: number, ctx: Ctx): Promise<Read | null> {
+  const page = await ctx.page("Kansas City Film Critics Circle");
+  const table = readWikitables(page.html).find((t) => t.headers.includes("Best Film") && t.headers.includes("Year"));
+  if (!table) throw new Error("Kansas City: the Selected past winners table is gone from the page");
+  const col = table.headers.indexOf("Best Film");
+  const row = table.rows.find((r) => parseInt(r[0].text, 10) === year);
+  if (!row) return null;
+  const cell = row[col];
+  const films = cell.links.length > 0 ? cell.links : [{ article: null, text: cell.text }];
+  return {
+    rows: films.map((link) => ({ category: "picture", link, outcome: "won" as const })),
+    missing: ["international", "documentary", "animated"],
+    urls: [page.url],
+    gaps: ["Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date"],
+    problems: [],
+  };
+}
+
 /**
  * Cinema for Peace: one heading per ceremony year (Berlin, February: the year after the films), each
  * with a bullet per prize, "The Cinema for Peace Dove for The Most Valuable Film of the Year: A by X; B by Y".
@@ -363,6 +388,18 @@ const FILM_CATEGORIES = [
   { slug: "documentary", label: CATEGORIES.documentary },
   { slug: "animated", label: CATEGORIES.animated },
 ];
+
+/** A group with no Wikipedia page of its awards and no other source found: every year is `no_data`. */
+function noPage(slug: string, name: string, full: string): Group {
+  return {
+    slug,
+    name,
+    years: [2100, 2100],
+    why: `Wikipedia has no page for ${full}'s awards and no other source was found for them`,
+    winnersOnly: false,
+    read: async () => null,
+  };
+}
 
 export const GROUPS: Group[] = [
   {
@@ -549,6 +586,85 @@ export const GROUPS: Group[] = [
     why: "the Georgia Film Critics Association's awards for these films are not on Wikipedia",
     winnersOnly: false,
     read: readGeorgia,
+  },
+  {
+    slug: "gotham",
+    name: "Gotham",
+    years: [2012, 2025],
+    why: "the Gotham Awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("gotham", {
+      page: (y) => `Gotham Independent Film Awards ${y}`,
+      categories: [
+        { slug: "picture", label: /^bestfeature$/ },
+        { slug: "international", label: CATEGORIES.internationalFeature },
+        { slug: "documentary", label: CATEGORIES.documentary },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  noPage("greater-western-new-york-critics", "Greater Western New York", "the Greater Western New York Film Critics Association"),
+  noPage("hawaii-critics", "Hawaii", "the Hawaii Film Critics Society"),
+  {
+    slug: "hollywood-critics",
+    name: "Astra (Hollywood Critics Association)",
+    years: [2019, 2025],
+    why: "Wikipedia has a page for the Hollywood Critics Association's (now Astra) film awards only from the 3rd, for the 2019 films",
+    winnersOnly: false,
+    read: pageRead("hollywood-critics", {
+      // The 3rd to 6th were the Hollywood Critics Association Film Awards, the 7th on the Astra Film Awards.
+      page: (y) => (y <= 2022 ? `${ordinal(y - 2016)} Hollywood Critics Association Film Awards` : `${ordinal(y - 2016)} Astra Film Awards`),
+      categories: [
+        { slug: "picture", label: /^bestpicture(drama|comedyormusical)?$/, multi: true },
+        { slug: "international", label: CATEGORIES.internationalFeature },
+        { slug: "documentary", label: CATEGORIES.documentary },
+        { slug: "animated", label: CATEGORIES.animated },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  {
+    slug: "houston-critics",
+    name: "Houston",
+    years: [2012, 2025],
+    why: "the Houston Film Critics Society's awards for these films are not on Wikipedia",
+    winnersOnly: false,
+    read: pageRead("houston-critics", {
+      page: (y) => `Houston Film Critics Society Awards ${y}`,
+      categories: [
+        ...FILM_CATEGORIES.filter((c) => c.slug !== "international" && c.slug !== "animated"),
+        { slug: "international", label: CATEGORIES.internationalFeature },
+        // 2020's page says "Best Animated Feature Film".
+        { slug: "animated", label: /^bestanimat(ed|ion)(feature)?(film)?$/ },
+      ],
+      winnersOnly: false,
+    }),
+  },
+  noPage("indiana-critics", "Indiana", "the Indiana Film Journalists Association"),
+  {
+    slug: "international-cinephile-society",
+    name: "International Cinephile Society",
+    years: [2100, 2100],
+    why: "Wikipedia gives the International Cinephile Society's results only for its first years (the 2000s films) and no other source was found for these films",
+    winnersOnly: false,
+    read: async () => null,
+  },
+  {
+    slug: "ida",
+    name: "IDA",
+    years: [2100, 2100],
+    why: "Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees",
+    winnersOnly: false,
+    read: async () => null,
+  },
+  noPage("iowa-critics", "Iowa", "the Iowa Film Critics Association"),
+  {
+    slug: "kansas-city-critics",
+    name: "Kansas City",
+    years: [2012, 2025],
+    why: "the Kansas City Film Critics Circle's awards for these films are not on Wikipedia",
+    winnersOnly: true,
+    read: readKansasCity,
   },
 ];
 

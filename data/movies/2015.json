@@ -166,5 +166,9 @@
   "tt2884018": { "slug": "macbeth", "title": "Macbeth", "countries": ["GB", "FR"], "language": "en", "wd": "Q15934383", "tmdb": 225728 },
   "tt3669520": { "slug": "palio", "title": "Palio", "countries": ["GB"], "language": "it", "wd": "Q22200721", "tmdb": 332741 },
   "tt4144504": { "slug": "how-to-change-the-world", "title": "How to Change the World", "countries": ["CA", "GB", "US"], "language": "en", "tmdb": 319073 },
-  "tt1135989": { "slug": "a-tale-of-love-and-darkness", "title": "A Tale of Love and Darkness", "originalTitle": "סיפור על אהבה וחושך", "originalLang": "he", "countries": ["IL", "US"], "language": "he", "wd": "Q19881205", "tmdb": 336029 }
+  "tt1135989": { "slug": "a-tale-of-love-and-darkness", "title": "A Tale of Love and Darkness", "originalTitle": "סיפור על אהבה וחושך", "originalLang": "he", "countries": ["IL", "US"], "language": "he", "wd": "Q19881205", "tmdb": 336029 },
+  "tt3172532": { "slug": "the-diary-of-a-teenage-girl", "title": "The Diary of a Teenage Girl", "countries": ["US"], "language": "en", "wd": "Q16973734", "tmdb": 250124 },
+  "tt3687186": { "slug": "heaven-knows-what", "title": "Heaven Knows What", "countries": ["US"], "language": "en", "wd": "Q20022624", "tmdb": 285024 },
+  "tt2080374": { "slug": "steve-jobs", "title": "Steve Jobs", "countries": ["US", "GB"], "language": "en", "wd": "Q18754959", "tmdb": 321697 },
+  "tt2379679": { "slug": "approaching-the-elephant", "title": "Approaching the Elephant", "countries": ["US"], "language": "en", "tmdb": 258100 }
 }

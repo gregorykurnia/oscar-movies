@@ -194,5 +194,13 @@
   "tt21158388": { "slug": "deadlocked-how-america-shaped-the-supreme-court", "title": "Deadlocked: How America Shaped the Supreme Court", "countries": ["US"], "wd": "Q121494243" },
   "tt27074938": { "slug": "every-body", "title": "Every Body", "countries": ["US"], "language": "en", "wd": "Q120135476", "tmdb": 1114972 },
   "tt28503626": { "slug": "silver-dollar-road", "title": "Silver Dollar Road", "countries": ["US"], "language": "en", "wd": "Q121842893", "tmdb": 1156596 },
-  "tt28486633": { "slug": "the-pigeon-tunnel", "title": "The Pigeon Tunnel", "countries": ["GB"], "language": "en", "wd": "Q122109560", "tmdb": 1155770 }
+  "tt28486633": { "slug": "the-pigeon-tunnel", "title": "The Pigeon Tunnel", "countries": ["GB"], "language": "en", "wd": "Q122109560", "tmdb": 1155770 },
+  "tt24068064": { "slug": "reality-2023", "title": "Reality", "countries": ["US"], "language": "en", "wd": "Q115707569", "tmdb": 985617 },
+  "tt13923216": { "slug": "showing-up", "title": "Showing Up", "countries": ["US"], "language": "en", "wd": "Q107610545", "tmdb": 790416 },
+  "tt24082466": { "slug": "against-the-tide", "title": "Against the Tide", "countries": ["IN", "FR"], "language": "mr", "wd": "Q122034458", "tmdb": 1058621 },
+  "tt26347358": { "slug": "our-body", "title": "Our Body", "originalTitle": "Notre corps", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q121297988", "tmdb": 1000495 },
+  "tt28814949": { "slug": "taylor-swift-the-eras-tour", "title": "Taylor Swift: The Eras Tour", "countries": ["US"], "language": "en", "wd": "Q122160859", "tmdb": 1160164 },
+  "tt9185206": { "slug": "are-you-there-god-its-me-margaret", "title": "Are You There God? It's Me, Margaret", "countries": ["US"], "language": "en", "wd": "Q106448550", "tmdb": 555285 },
+  "tt15354916": { "slug": "jawan", "title": "Jawan", "originalTitle": "जवान", "originalLang": "hi", "countries": ["IN"], "language": "hi", "wd": "Q113493289", "tmdb": 872906 },
+  "tt14570440": { "slug": "radical", "title": "Radical", "countries": ["MX"], "language": "es", "wd": "Q115686450", "tmdb": 1058694 }
 }

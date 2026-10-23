@@ -196,5 +196,12 @@
   "tt29002950": { "slug": "resurrection", "title": "Resurrection", "originalTitle": "狂野时代", "originalLang": "zh-hans", "countries": ["CN"], "language": "cmn", "wd": "Q122329458", "tmdb": 878608 },
   "tt17497960": { "slug": "blknws-terms-and-conditions", "title": "BLKNWS: Terms & Conditions", "countries": ["US"], "language": "en", "wd": "Q131842275", "tmdb": 931942 },
   "tt32145808": { "slug": "sabbath-queen", "title": "Sabbath Queen", "countries": ["US"], "language": "en", "tmdb": 1275983 },
-  "tt35672369": { "slug": "river-of-grass", "title": "River of Grass", "countries": ["US"], "language": "en", "tmdb": 1430055 }
+  "tt35672369": { "slug": "river-of-grass", "title": "River of Grass", "countries": ["US"], "language": "en", "tmdb": 1430055 },
+  "tt21349688": { "slug": "east-of-wall", "title": "East of Wall", "countries": ["US"], "language": "en", "wd": "Q131963509", "tmdb": 1398911 },
+  "tt32928666": { "slug": "familiar-touch", "title": "Familiar Touch", "countries": ["US"], "language": "en", "wd": "Q130164694", "tmdb": 1265717 },
+  "tt18382850": { "slug": "if-i-had-legs-id-kick-you", "title": "If I Had Legs I'd Kick You", "countries": ["US"], "language": "en", "wd": "Q124450734", "tmdb": 1160360 },
+  "tt13651462": { "slug": "lurker", "title": "Lurker", "countries": ["US"], "language": "en", "wd": "Q131428108", "tmdb": 1264573 },
+  "tt34966650": { "slug": "its-never-over-jeff-buckley", "title": "It’s Never Over, Jeff Buckley", "countries": ["US"], "language": "en", "wd": "Q131430522", "tmdb": 1400381 },
+  "tt34965959": { "slug": "zodiac-killer-project", "title": "Zodiac Killer Project", "countries": ["US", "GB"], "language": "en", "wd": "Q131985790", "tmdb": 1400744 },
+  "tt34956443": { "slug": "ne-zha-2", "title": "Ne Zha 2", "originalTitle": "哪吒之魔童闹海", "originalLang": "zh-CN", "countries": ["CN"], "language": "cmn", "wd": "Q131937861", "tmdb": 980477 }
 }

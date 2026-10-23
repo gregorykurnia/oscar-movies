@@ -202,5 +202,9 @@
   "tt31189901": { "slug": "the-truth-vs-alex-jones", "title": "The Truth vs. Alex Jones", "countries": ["US"], "language": "en", "wd": "Q124850707", "tmdb": 1242397 },
   "tt31080737": { "slug": "bad-river", "title": "Bad River", "countries": ["US"], "language": "en", "tmdb": 1248426 },
   "tt33336815": { "slug": "stopping-the-steal", "title": "Stopping the Steal", "countries": ["US", "GB"], "language": "en", "tmdb": 1352173 },
-  "tt14407336": { "slug": "the-beast", "title": "The Beast", "originalTitle": "La Bête", "originalLang": "fr", "countries": ["FR", "CA"], "language": "fr", "wd": "Q112054817", "tmdb": 914206 }
+  "tt14407336": { "slug": "the-beast", "title": "The Beast", "originalTitle": "La Bête", "originalLang": "fr", "countries": ["FR", "CA"], "language": "fr", "wd": "Q112054817", "tmdb": 914206 },
+  "tt21097228": { "slug": "a-different-man", "title": "A Different Man", "countries": ["US"], "language": "en", "wd": "Q117272474", "tmdb": 989662 },
+  "tt30057084": { "slug": "babygirl", "title": "Babygirl", "countries": ["US"], "language": "en", "wd": "Q123861757", "tmdb": 1097549 },
+  "tt30956212": { "slug": "intercepted", "title": "Intercepted", "originalTitle": "Мирні люди", "originalLang": "uk", "countries": ["CA", "FR", "UA"], "language": "ru", "wd": "Q124459713", "tmdb": 1229477 },
+  "tt10399622": { "slug": "inside-the-yellow-cocoon-shell", "title": "Inside the Yellow Cocoon Shell", "originalTitle": "Bên trong vỏ kén vàng", "originalLang": "vi", "countries": ["VN", "SG", "FR", "ES"], "language": "vi", "wd": "Q118744849", "tmdb": 1114816 }
 }

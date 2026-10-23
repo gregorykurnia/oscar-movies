@@ -1,0 +1,31 @@
+{
+  "award": "gotham",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-10-28",
+  "winnersOn": "2025-12-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2025"],
+  "results": [
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "picture", "imdb": "tt12300742", "title": "Bugonia", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt21349688", "title": "East of Wall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32928666", "title": "Familiar Touch", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt18382850", "title": "If I Had Legs I'd Kick You", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13651462", "title": "Lurker", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32843349", "title": "Sorry, Baby", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt34819091", "title": "The Testament of Ann Lee", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt29768334", "title": "Train Dreams", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt33075192", "title": "My Undesirable Friends: Part I — Last Air in Moscow", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt17497960", "title": "BLKNWS: Terms & Conditions", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "won" },
+    { "category": "international", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt31688586", "title": "Nouvelle Vague", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt29002950", "title": "Resurrection", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

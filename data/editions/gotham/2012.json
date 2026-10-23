@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2012,
+  "status": "loaded",
+  "nominationsOn": "2012-10-18",
+  "winnersOn": "2012-11-26",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2012"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1704573", "title": "Bernie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1695405", "title": "The Loneliest Planet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1211890", "title": "Middle of Nowhere", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2125490", "title": "Detropia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2085910", "title": "Room 237", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1618399", "title": "The Waiting Room", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2073029", "title": "Marina Abramovic: The Artist Is Present", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

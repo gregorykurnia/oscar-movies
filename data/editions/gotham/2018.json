@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-10-18",
+  "winnersOn": "2018-11-26",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2018"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt6217608", "title": "The Rider", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6101602", "title": "Madeline's Madeline", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7520286", "title": "Bisbee '17", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7472352", "title": "Shirkers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

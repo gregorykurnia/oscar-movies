@@ -165,5 +165,10 @@
   "tt2332801": { "slug": "the-spirit-of-45", "title": "The Spirit of '45", "countries": ["GB"], "language": "en", "wd": "Q14783948", "tmdb": 164580 },
   "tt2126403": { "slug": "the-stone-roses-made-of-stone", "title": "The Stone Roses: Made of Stone", "countries": ["GB"], "language": "en", "wd": "Q16168469", "tmdb": 193524 },
   "tt2094890": { "slug": "mother-of-george", "title": "Mother of George", "countries": ["US"], "language": "en", "wd": "Q16253364", "tmdb": 157384 },
-  "tt3401232": { "slug": "syria-children-on-the-frontline", "title": "Syria: Children on the Frontline", "countries": ["US"], "language": "en", "tmdb": 397421 }
+  "tt3401232": { "slug": "syria-children-on-the-frontline", "title": "Syria: Children on the Frontline", "countries": ["US"], "language": "en", "tmdb": 397421 },
+  "tt2388637": { "slug": "aint-them-bodies-saints", "title": "Ain't Them Bodies Saints", "countries": ["US"], "language": "en", "wd": "Q2828123", "tmdb": 152748 },
+  "tt2084989": { "slug": "upstream-color", "title": "Upstream Color", "countries": ["US"], "language": "en", "wd": "Q7899323", "tmdb": 145197 },
+  "tt2119463": { "slug": "let-the-fire-burn", "title": "Let the Fire Burn", "countries": ["US"], "language": "en", "wd": "Q16252460", "tmdb": 174352 },
+  "tt2282662": { "slug": "our-nixon", "title": "Our Nixon", "countries": ["US"], "language": "en", "wd": "Q16164772", "tmdb": 157016 },
+  "tt2215151": { "slug": "inequality-for-all", "title": "Inequality for All", "countries": ["US"], "language": "en", "wd": "Q4516353", "tmdb": 159008 }
 }

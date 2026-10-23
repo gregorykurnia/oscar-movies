@@ -181,5 +181,9 @@
   "tt4789160": { "slug": "keep-quiet", "title": "Keep Quiet", "countries": ["GB", "HU"], "language": "en", "wd": "Q24660056", "tmdb": 385808 },
   "tt5278506": { "slug": "tickled", "title": "Tickled", "countries": ["NZ"], "language": "en", "wd": "Q24042656", "tmdb": 373072 },
   "tt5278460": { "slug": "audrie-and-daisy", "title": "Audrie & Daisy", "countries": ["US"], "language": "en", "wd": "Q22343547", "tmdb": 376228 },
-  "tt5278578": { "slug": "newtown", "title": "Newtown", "countries": ["US"], "language": "en", "tmdb": 376234 }
+  "tt5278578": { "slug": "newtown", "title": "Newtown", "countries": ["US"], "language": "en", "tmdb": 376234 },
+  "tt4468634": { "slug": "certain-women", "title": "Certain Women", "countries": ["US"], "language": "en", "wd": "Q21527818", "tmdb": 340487 },
+  "tt2937696": { "slug": "thats-what-im-talking-about", "title": "That's What I'm Talking About", "countries": ["US"], "language": "en", "wd": "Q18324869", "tmdb": 295699 },
+  "tt5247022": { "slug": "paterson", "title": "Paterson", "countries": ["US"], "language": "en", "wd": "Q23817035", "tmdb": 370755 },
+  "tt3799694": { "slug": "the-nice-guys", "title": "The Nice Guys", "countries": ["US"], "language": "en", "wd": "Q18415459", "tmdb": 290250 }
 }

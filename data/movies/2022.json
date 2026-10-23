@@ -189,5 +189,11 @@
   "tt4554690": { "slug": "the-automat", "title": "The Automat", "countries": ["US"], "language": "en", "wd": "Q110001785", "tmdb": 729830 },
   "tt17490116": { "slug": "gabby-giffords-wont-back-down", "title": "Gabby Giffords Won't Back Down", "countries": ["US"], "language": "en", "wd": "Q111942295", "tmdb": 933963 },
   "tt12899886": { "slug": "george-carlins-american-dream", "title": "George Carlin's American Dream", "countries": ["US"], "language": "en", "wd": "Q112108191" },
-  "tt21376776": { "slug": "freedom-on-fire-ukraines-fight-for-freedom", "title": "Freedom on Fire: Ukraine’s Fight for Freedom", "countries": ["UA", "GB", "US"], "language": "uk", "wd": "Q116753821", "tmdb": 1004670 }
+  "tt21376776": { "slug": "freedom-on-fire-ukraines-fight-for-freedom", "title": "Freedom on Fire: Ukraine’s Fight for Freedom", "countries": ["UA", "GB", "US"], "language": "uk", "wd": "Q116753821", "tmdb": 1004670 },
+  "tt13658076": { "slug": "the-cathedral", "title": "The Cathedral", "countries": ["US"], "language": "en", "wd": "Q110877129", "tmdb": 854546 },
+  "tt16279390": { "slug": "dos-estaciones", "title": "Dos Estaciones", "countries": ["MX"], "language": "es", "wd": "Q113339200", "tmdb": 865584 },
+  "tt16358560": { "slug": "i-didnt-see-you-there", "title": "I Didn't See You There", "countries": ["US"], "language": "en", "wd": "Q112980164", "tmdb": 913825 },
+  "tt15727294": { "slug": "what-we-leave-behind", "title": "What We Leave Behind", "countries": ["US"], "language": "en", "wd": "Q115816201", "tmdb": 889080 },
+  "tt21819250": { "slug": "selena-gomez-my-mind-and-me", "title": "Selena Gomez: My Mind & Me", "countries": ["US"], "language": "en", "wd": "Q114315603", "tmdb": 1022256 },
+  "tt15445056": { "slug": "athena", "title": "Athena", "countries": ["FR"], "language": "fr", "wd": "Q111293909", "tmdb": 852046 }
 }

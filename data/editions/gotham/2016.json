@@ -1,0 +1,22 @@
+{
+  "award": "gotham",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-10-20",
+  "winnersOn": "2016-11-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Gotham_Independent_Film_Awards_2016"],
+  "note": "The Gotham Awards gave no international prize until the 2020 films (Best International Feature).",
+  "results": [
+    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4468634", "title": "Certain Women", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2937696", "title": "That's What I'm Talking About", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5247022", "title": "Paterson", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5116410", "title": "Tower", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" }
+  ],
+  "screenings": []
+}
