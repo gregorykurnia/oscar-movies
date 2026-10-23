@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2018,
+  "ordinal": "72nd",
+  "status": "loaded",
+  "nominationsOn": "2019-01-09",
+  "winnersOn": "2019-02-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/72nd_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "film", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6768578", "title": "Dogman", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6510332", "title": "McQueen", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7905466", "title": "They Shall Not Grow Old", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

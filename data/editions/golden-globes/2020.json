@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2020,
+  "ordinal": "78th",
+  "status": "loaded",
+  "nominationsOn": "2021-02-03",
+  "winnersOn": "2021-02-28",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/78th_Golden_Globes"],
+  "results": [
+    { "category": "drama", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "drama", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt13143964", "title": "Borat Subsequent Moviefilm", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt8503618", "title": "Hamilton", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt7541720", "title": "Music", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt9484998", "title": "Palm Springs", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt10161886", "title": "The Prom", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt10288566", "title": "Another Round", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10767168", "title": "La Llorona", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10627584", "title": "The Life Ahead", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt9845110", "title": "Two of Us", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2850386", "title": "The Croods: A New Age", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7488208", "title": "Over the Moon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2021,
+  "ordinal": "74th",
+  "status": "loaded",
+  "nominationsOn": "2022-01-27",
+  "winnersOn": "2022-03-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/74th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "feature", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12482898", "title": "Attica", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8396314", "title": "Exterminate All the Brutes", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

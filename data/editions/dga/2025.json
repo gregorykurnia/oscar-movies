@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2025,
+  "ordinal": "78th",
+  "status": "loaded",
+  "nominationsOn": "2026-01-08",
+  "winnersOn": "2026-02-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/78th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "feature", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10196414", "title": "Cutting Through Rocks", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22060498", "title": "Mistress Dispeller 2024", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

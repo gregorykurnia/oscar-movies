@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2017,
+  "ordinal": "70th",
+  "status": "loaded",
+  "nominationsOn": "2018-01-11",
+  "winnersOn": "2018-02-03",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/70th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "won" },
+    { "category": "feature", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333056", "title": "City of Ghosts", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1877514", "title": "The Vietnam War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333060", "title": "Icarus", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5952382", "title": "Abacus: Small Enough to Jail", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7306056", "title": "Wormwood", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

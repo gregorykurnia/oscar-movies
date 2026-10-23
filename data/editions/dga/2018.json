@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2018,
+  "ordinal": "71st",
+  "status": "loaded",
+  "nominationsOn": "2019-01-08",
+  "winnersOn": "2019-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/71st_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6266538", "title": "Vice", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

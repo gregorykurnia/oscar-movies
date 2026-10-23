@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2024,
+  "ordinal": "31st",
+  "status": "loaded",
+  "nominationsOn": "2025-01-08",
+  "winnersOn": "2025-02-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/31st_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt20215234", "title": "Conclave", "outcome": "won" },
+    { "category": "cast", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt11563598", "title": "A Complete Unknown", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1262426", "title": "Wicked", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

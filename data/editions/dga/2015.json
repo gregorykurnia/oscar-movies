@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2015,
+  "ordinal": "68th",
+  "status": "loaded",
+  "nominationsOn": "2016-01-12",
+  "winnersOn": "2016-02-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/68th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1663202", "title": "The Revenant", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2545428", "title": "Meru", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology, Hollywood, and the Prison of Belief", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

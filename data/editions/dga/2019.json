@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2019,
+  "ordinal": "72nd",
+  "status": "loaded",
+  "nominationsOn": "2020-01-07",
+  "winnersOn": "2020-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/72nd_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt8579674", "title": "1917", "outcome": "won" },
+    { "category": "feature", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8879946", "title": "Maiden", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

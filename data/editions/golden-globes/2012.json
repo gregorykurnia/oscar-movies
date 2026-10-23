@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2012,
+  "ordinal": "70th",
+  "status": "loaded",
+  "nominationsOn": "2012-12-13",
+  "winnersOn": "2013-01-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/70th_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "drama", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt1412386", "title": "The Best Exotic Marigold Hotel", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1441952", "title": "Salmon Fishing in the Yemen", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt1276419", "title": "A Royal Affair", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1613750", "title": "Kon-Tiki", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0837562", "title": "Hotel Transylvania", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1446192", "title": "Rise of the Guardians", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

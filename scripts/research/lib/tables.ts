@@ -71,13 +71,74 @@ export function readNomineeLists(html: string): NomineeList[] {
     if (header.length === 0 || items.length === 0) return;
     const category = clean(header.text());
     if (!category) return;
-    const nominees = items.toArray().map((li): Nominee => {
-      const own = ownContent($, li);
-      const line = clean(own.text());
-      const bold = own.children("b").length > 0 && clean(own.children("b").text()).length >= line.length / 2;
-      return { film: filmOf($, own), winner: bold || WINNER_MARK.test(line), line };
-    });
+    const nominees = items.toArray().map((li): Nominee => nomineeOf($, ownContent($, li)));
     lists.push({ category, nominees });
+  });
+  return lists;
+}
+
+/** One nominee line; a bold film name (even inside the italics), or a mark ‡, makes it a winner. */
+function nomineeOf($: cheerio.CheerioAPI, own: cheerio.Cheerio<AnyNode>): Nominee {
+  const line = clean(own.text());
+  const film = filmOf($, own);
+  const boldText = clean(own.find("b").text());
+  // Bold covers the film's name, or half the line (a winner's line may name the producers too).
+  const bold = boldText.length > 0 && (boldText.length >= line.length / 2 || (film !== null && boldText.includes(film.text)));
+  return { film, winner: bold || WINNER_MARK.test(line), line };
+}
+
+/**
+ * The older award pages (and the guilds' pages) lay each category out as a table cell under
+ * a header row: `th` rows name the category (one wide header) or a group and then its columns
+ * (a header row of several `th`, such as Drama | Musical or Comedy), and the `td` below holds
+ * the winner (a bold paragraph or list item) and the nominees. The label is the group and the
+ * column header joined, or the single header.
+ */
+export function readLabelledCells(html: string): NomineeList[] {
+  const $ = cheerio.load(html);
+  const lists: NomineeList[] = [];
+  $("table.wikitable").each((_, table) => {
+    let group = "";
+    let groupFresh = false;
+    let columns: string[] = [];
+    $(table)
+      .find("> tbody > tr, > tr")
+      .each((_, tr) => {
+        const ths = $(tr).children("th");
+        const tds = $(tr).children("td");
+        if (tds.length === 0) {
+          if (ths.length === 1) {
+            group = clean(ths.text());
+            groupFresh = true;
+            columns = [];
+          } else if (ths.length > 1) {
+            // Headers that follow a row of cells, with no group header of their own, stand alone.
+            if (!groupFresh) group = "";
+            columns = ths.toArray().map((th) => clean($(th).text()));
+          }
+          return;
+        }
+        tds.each((i, td) => {
+          const label = [group, columns[i]].filter(Boolean).join(" ");
+          const lines: Nominee[] = [];
+          $(td)
+            .children("p")
+            .each((_, p) => {
+              const own = $(p).clone();
+              own.find("sup.reference, .reference").remove();
+              if (clean(own.text())) lines.push(nomineeOf($, own));
+            });
+          $(td)
+            .find("li")
+            .each((_, li) => {
+              lines.push(nomineeOf($, ownContent($, li)));
+            });
+          if (lines.length > 0) lists.push({ category: label, nominees: lines });
+        });
+        // A row of cells uses up the headers above it; the next header row starts afresh.
+        columns = [];
+        groupFresh = false;
+      });
   });
   return lists;
 }

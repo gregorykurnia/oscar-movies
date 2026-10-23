@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2013,
+  "ordinal": "66th",
+  "status": "loaded",
+  "nominationsOn": "2014-01-07",
+  "winnersOn": "2014-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/66th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1454468", "title": "Gravity", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2486682", "title": "The Square", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2355540", "title": "Cutie and the Boxer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2499076", "title": "The Crash Reel", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2022,
+  "ordinal": "29th",
+  "status": "loaded",
+  "nominationsOn": "2023-01-11",
+  "winnersOn": "2023-02-26",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/29th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "cast", "imdb": "tt10640346", "title": "Babylon", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt13669038", "title": "Women Talking", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,32 @@
+{
+  "award": "pga",
+  "year": 2012,
+  "ordinal": "24th",
+  "status": "loaded",
+  "nominationsOn": "2013-01-02",
+  "winnersOn": "2013-01-26",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/24th_Producers_Guild_of_America_Awards"],
+  "results": [
+    { "category": "theatrical", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "theatrical", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1074638", "title": "Skyfall", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1848767", "title": "A People Uncounted", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2309788", "title": "The Gatekeepers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1990352", "title": "The Island President", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1606829", "title": "The Other Dream Team", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1446192", "title": "Rise of the Guardians", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

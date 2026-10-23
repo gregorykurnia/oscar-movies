@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2013,
+  "ordinal": "67th",
+  "status": "loaded",
+  "nominationsOn": "2014-01-08",
+  "winnersOn": "2014-02-16",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/67th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "film", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1845838", "title": "Metro Manila", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2258858", "title": "Wadjda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1638364", "title": "The Armstrong Lie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3089388", "title": "Tim's Vermeer", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1824254", "title": "We Steal Secrets: The Story of WikiLeaks", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1453405", "title": "Monsters University", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2014,
+  "ordinal": "67th",
+  "status": "loaded",
+  "nominationsOn": "2015-01-13",
+  "winnersOn": "2015-02-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/67th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2179136", "title": "American Sniper", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2732932", "title": "The Kill Team", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2714900", "title": "Finding Vivian Maier", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

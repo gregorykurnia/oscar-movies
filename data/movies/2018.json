@@ -133,5 +133,14 @@
   "tt6792282": { "slug": "a-twelve-year-night", "title": "A Twelve-Year Night", "originalTitle": "La noche de 12 años", "originalLang": "es", "countries": ["UY", "AR", "ES", "FR"], "language": "es", "wd": "Q56319427", "tmdb": 514575 },
   "tt6107516": { "slug": "the-family", "title": "The Family", "originalTitle": "La familia", "originalLang": "es", "countries": ["VE"], "language": "es", "wd": "Q29914081", "tmdb": 417432 },
   "tt7514020": { "slug": "the-tailor", "title": "The Tailor", "countries": ["VN"], "language": "vi", "wd": "Q42011019", "tmdb": 486912 },
-  "tt8866064": { "slug": "10-days-before-the-wedding", "title": "10 Days Before the Wedding", "originalTitle": "10 أيام قبل الزفة", "originalLang": "ar", "countries": ["YE"], "language": "ar", "wd": "Q57157757", "tmdb": 553082 }
+  "tt8866064": { "slug": "10-days-before-the-wedding", "title": "10 Days Before the Wedding", "originalTitle": "10 أيام قبل الزفة", "originalLang": "ar", "countries": ["YE"], "language": "ar", "wd": "Q57157757", "tmdb": 553082 },
+  "tt7125860": { "slug": "if-beale-street-could-talk", "title": "If Beale Street Could Talk", "countries": ["US"], "language": "en", "wd": "Q38685547", "tmdb": 465914 },
+  "tt3104988": { "slug": "crazy-rich-asians", "title": "Crazy Rich Asians", "countries": ["US"], "language": "en", "wd": "Q29588623", "tmdb": 455207 },
+  "tt5028340": { "slug": "mary-poppins-returns", "title": "Mary Poppins Returns", "countries": ["US", "GB"], "language": "en", "wd": "Q24272881", "tmdb": 400650 },
+  "tt6510332": { "slug": "mcqueen", "title": "McQueen", "countries": ["GB"], "language": "en", "wd": "Q54026955", "tmdb": 508003 },
+  "tt7905466": { "slug": "they-shall-not-grow-old", "title": "They Shall Not Grow Old", "countries": ["GB", "NZ"], "language": "en", "wd": "Q57414487", "tmdb": 543580 },
+  "tt6644200": { "slug": "a-quiet-place", "title": "A Quiet Place", "countries": ["US"], "language": "en", "wd": "Q39070473", "tmdb": 447332 },
+  "tt7286916": { "slug": "the-dawn-wall", "title": "The Dawn Wall", "countries": ["US", "AT"], "language": "en", "wd": "Q56604528", "tmdb": 489471 },
+  "tt5844196": { "slug": "hal", "title": "Hal", "countries": ["US"], "language": "en", "wd": "Q60737777", "tmdb": 322520 },
+  "tt7573844": { "slug": "into-the-okavango", "title": "Into the Okavango", "countries": ["US"], "language": "en", "wd": "Q72398929", "tmdb": 520446 }
 }

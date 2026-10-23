@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2012,
+  "ordinal": "65th",
+  "status": "loaded",
+  "nominationsOn": "2013-01-08",
+  "winnersOn": "2013-02-02",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/65th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1845773", "title": "Ai Weiwei: Never Sorry", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

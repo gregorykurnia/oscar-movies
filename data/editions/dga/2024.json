@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2024,
+  "ordinal": "77th",
+  "status": "loaded",
+  "nominationsOn": "2025-01-08",
+  "winnersOn": "2025-02-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/77th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "feature", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11563598", "title": "A Complete Unknown", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30294282", "title": "Porcelain War", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28494712", "title": "Hollywoodgate", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

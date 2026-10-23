@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2018,
+  "ordinal": "76th",
+  "status": "loaded",
+  "nominationsOn": "2018-12-06",
+  "winnersOn": "2019-01-06",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/76th_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt1727824", "title": "Bohemian Rhapsody", "outcome": "won" },
+    { "category": "drama", "imdb": "tt1825683", "title": "Black Panther", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt6966692", "title": "Green Book", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt3104988", "title": "Crazy Rich Asians", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt5028340", "title": "Mary Poppins Returns", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt6266538", "title": "Vice", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt8267604", "title": "Capernaum", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8254556", "title": "Girl", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt5311542", "title": "Never Look Away", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6900448", "title": "Mirai of the Future", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

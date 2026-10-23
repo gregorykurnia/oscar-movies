@@ -123,5 +123,17 @@
   "tt3037582": { "slug": "the-guide", "title": "The Guide", "countries": ["UA"], "language": "en", "wd": "Q12141247", "tmdb": 293122 },
   "tt2717162": { "slug": "little-happiness", "title": "Little Happiness", "countries": ["GB", "TR"], "language": "tr", "wd": "Q18349893", "tmdb": 295619 },
   "tt2642524": { "slug": "mr-kaplan", "title": "Mr. Kaplan", "originalTitle": "Esperando a Míster Kaplan", "originalLang": "es", "countries": ["UY"], "language": "es", "wd": "Q18170211", "tmdb": 284050 },
-  "tt2387513": { "slug": "the-liberator", "title": "The Liberator", "originalTitle": "Libertador,", "originalLang": "es", "countries": ["VE", "ES"], "language": "es", "wd": "Q11159161", "tmdb": 132342 }
+  "tt2387513": { "slug": "the-liberator", "title": "The Liberator", "originalTitle": "Libertador,", "originalLang": "es", "countries": ["VE", "ES"], "language": "es", "wd": "Q11159161", "tmdb": 132342 },
+  "tt1100089": { "slug": "foxcatcher", "title": "Foxcatcher", "countries": ["US"], "language": "en", "wd": "Q5477105", "tmdb": 87492 },
+  "tt2180411": { "slug": "into-the-woods", "title": "Into the Woods", "countries": ["US"], "language": "en", "wd": "Q14847067", "tmdb": 224141 },
+  "tt3169706": { "slug": "pride", "title": "Pride", "countries": ["GB", "FR"], "language": "en", "wd": "Q16937096", "tmdb": 234200 },
+  "tt2170593": { "slug": "st-vincent", "title": "St. Vincent", "countries": ["US"], "language": "en", "wd": "Q15039869", "tmdb": 239563 },
+  "tt2350496": { "slug": "the-lunchbox", "title": "The Lunchbox", "originalTitle": "द लंच बॉक्स", "originalLang": "hi", "countries": ["IN", "FR", "DE", "US"], "language": "hi", "wd": "Q13423399", "tmdb": 191714 },
+  "tt1921149": { "slug": "trash", "title": "Trash", "countries": ["GB"], "language": "en", "wd": "Q14774997", "tmdb": 206563 },
+  "tt2920540": { "slug": "20-000-days-on-earth", "title": "20,000 Days on Earth", "countries": ["GB"], "language": "en", "wd": "Q16829243", "tmdb": 246400 },
+  "tt2267998": { "slug": "gone-girl", "title": "Gone Girl", "countries": ["US"], "language": "en", "wd": "Q14920425", "tmdb": 210577 },
+  "tt2872718": { "slug": "nightcrawler", "title": "Nightcrawler", "countries": ["US"], "language": "en", "wd": "Q15154975", "tmdb": 242582 },
+  "tt2304915": { "slug": "the-green-prince", "title": "The Green Prince", "countries": ["DE"], "language": "en", "wd": "Q18028465", "tmdb": 250798 },
+  "tt3675568": { "slug": "merchants-of-doubt", "title": "Merchants of Doubt", "countries": ["US"], "language": "en", "wd": "Q19605630", "tmdb": 288789 },
+  "tt1385956": { "slug": "particle-fever", "title": "Particle Fever", "countries": ["US"], "language": "en", "wd": "Q17041761", "tmdb": 202141 }
 }

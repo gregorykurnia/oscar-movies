@@ -119,5 +119,16 @@
   "tt3623668": { "slug": "under-milk-wood", "title": "Under Milk Wood", "countries": ["GB"], "language": "cy", "wd": "Q21085258", "tmdb": 314406 },
   "tt3577686": { "slug": "a-moonless-night", "title": "A Moonless Night", "originalTitle": "Una noche sin luna", "originalLang": "es", "countries": ["UY", "AR"], "language": "es", "wd": "Q18416997", "tmdb": 295473 },
   "tt3899872": { "slug": "gone-with-the-river", "title": "Gone with the River", "originalTitle": "Dauna. Lo que lleva el río", "originalLang": "es", "countries": ["VE"], "language": "wba", "wd": "Q20899451", "tmdb": 324480 },
-  "tt4320966": { "slug": "jackpot", "title": "Jackpot", "countries": ["VN"], "language": "vi", "wd": "Q21065370", "tmdb": 362071 }
+  "tt4320966": { "slug": "jackpot", "title": "Jackpot", "countries": ["VN"], "language": "vi", "wd": "Q21065370", "tmdb": 362071 },
+  "tt2402927": { "slug": "carol", "title": "Carol", "countries": ["GB", "US"], "language": "en", "wd": "Q15963780", "tmdb": 258480 },
+  "tt2446980": { "slug": "joy-2015", "title": "Joy", "countries": ["US"], "language": "en", "wd": "Q19320969", "tmdb": 274479 },
+  "tt3079380": { "slug": "spy", "title": "Spy", "countries": ["US"], "language": "en", "wd": "Q16389838", "tmdb": 238713 },
+  "tt3152624": { "slug": "trainwreck", "title": "Trainwreck", "countries": ["US"], "language": "en", "wd": "Q17062774", "tmdb": 271718 },
+  "tt3746250": { "slug": "sherpa", "title": "Sherpa", "countries": ["AU", "NP"], "language": "en", "wd": "Q25136340", "tmdb": 341366 },
+  "tt1365050": { "slug": "beasts-of-no-nation", "title": "Beasts of No Nation", "countries": ["US"], "language": "en", "wd": "Q17508302", "tmdb": 283587 },
+  "tt1398426": { "slug": "straight-outta-compton", "title": "Straight Outta Compton", "countries": ["US"], "language": "en", "wd": "Q18154625", "tmdb": 277216 },
+  "tt3203606": { "slug": "trumbo", "title": "Trumbo", "countries": ["US"], "language": "en", "wd": "Q18692630", "tmdb": 294016 },
+  "tt0470752": { "slug": "ex-machina", "title": "Ex Machina", "countries": ["GB"], "language": "en", "wd": "Q16635326", "tmdb": 264660 },
+  "tt3397884": { "slug": "sicario", "title": "Sicario", "countries": ["US"], "language": "en", "wd": "Q17337292", "tmdb": 273481 },
+  "tt4188338": { "slug": "something-better-to-come", "title": "Something Better to Come", "countries": ["DK", "PL", "RU"], "language": "ru", "wd": "Q20496483", "tmdb": 322142 }
 }

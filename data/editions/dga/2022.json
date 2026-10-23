@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2022,
+  "ordinal": "75th",
+  "status": "loaded",
+  "nominationsOn": "2023-01-11",
+  "winnersOn": "2023-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/75th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "feature", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1745960", "title": "Top Gun: Maverick", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21959422", "title": "Retrograde", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt17041964", "title": "Navalny", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2017,
+  "ordinal": "71st",
+  "status": "loaded",
+  "nominationsOn": "2018-01-09",
+  "winnersOn": "2018-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/71st_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "won" },
+    { "category": "film", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4555426", "title": "Darkest Hour", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt5186714", "title": "The Salesman", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6333056", "title": "City of Ghosts", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333060", "title": "Icarus", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6322922", "title": "An Inconvenient Sequel: Truth to Power", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2321405", "title": "My Life as a Zucchini", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

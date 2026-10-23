@@ -136,5 +136,14 @@
   "tt15476398": { "slug": "the-broken-glass-theory", "title": "The Broken Glass Theory", "countries": ["UY"], "language": "es", "wd": "Q109239205", "tmdb": 852113 },
   "tt13815678": { "slug": "the-inner-glow", "title": "The Inner Glow", "countries": ["VE"], "language": "es", "wd": "Q109535565", "tmdb": 814616 },
   "tt13925862": { "slug": "dad-im-sorry", "title": "Dad, I'm Sorry", "countries": ["VN"], "language": "vi", "wd": "Q106103792", "tmdb": 787459 },
-  "tt14797968": { "slug": "shambala", "title": "Shambala", "originalTitle": "Шамбала", "originalLang": "ky", "countries": ["KG"], "language": "ky", "tmdb": 760941 }
+  "tt14797968": { "slug": "shambala", "title": "Shambala", "originalTitle": "Шамбала", "originalLang": "ky", "countries": ["KG"], "language": "ky", "tmdb": 760941 },
+  "tt12889404": { "slug": "cyrano", "title": "Cyrano", "countries": ["US", "GB"], "language": "en", "wd": "Q104845839", "tmdb": 730047 },
+  "tt8721424": { "slug": "tick-tick-boom", "title": "Tick, Tick... Boom!", "countries": ["US"], "language": "en", "wd": "Q85323361", "tmdb": 537116 },
+  "tt12618926": { "slug": "parallel-mothers", "title": "Parallel Mothers", "originalTitle": "Madres paralelas", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q106103421", "tmdb": 766798 },
+  "tt13204490": { "slug": "petite-maman", "title": "Petite Maman", "countries": ["FR"], "language": "fr", "wd": "Q105438136", "tmdb": 749004 },
+  "tt10334438": { "slug": "becoming-cousteau", "title": "Becoming Cousteau", "countries": ["US"], "language": "en", "wd": "Q108470917", "tmdb": 774823 },
+  "tt11548822": { "slug": "cow", "title": "Cow", "countries": ["GB"], "language": "en", "wd": "Q107174808", "tmdb": 661348 },
+  "tt11214590": { "slug": "house-of-gucci", "title": "House of Gucci", "countries": ["US"], "language": "en", "wd": "Q105549749", "tmdb": 644495 },
+  "tt4995540": { "slug": "being-the-ricardos", "title": "Being the Ricardos", "countries": ["US"], "language": "en", "wd": "Q105907125", "tmdb": 517088 },
+  "tt8396314": { "slug": "exterminate-all-the-brutes", "title": "Exterminate All the Brutes", "countries": ["US"], "language": "en", "wd": "Q106446016" }
 }

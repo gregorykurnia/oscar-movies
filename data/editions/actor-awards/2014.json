@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2014,
+  "ordinal": "21st",
+  "status": "loaded",
+  "nominationsOn": "2014-12-10",
+  "winnersOn": "2015-01-25",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/21st_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "cast", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

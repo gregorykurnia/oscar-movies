@@ -1,0 +1,31 @@
+{
+  "award": "bafta",
+  "year": 2022,
+  "ordinal": "76th",
+  "status": "loaded",
+  "nominationsOn": "2023-01-19",
+  "winnersOn": "2023-02-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/76th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt1016150", "title": "All Quiet on the Western Front", "outcome": "won" },
+    { "category": "film", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt3704428", "title": "Elvis", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1016150", "title": "All Quiet on the Western Front", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt15301048", "title": "Argentina, 1985", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt11992694", "title": "Corsage", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt15109082", "title": "The Quiet Girl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt17041964", "title": "Navalny", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Pinocchio", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3915174", "title": "Puss in Boots: The Last Wish", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

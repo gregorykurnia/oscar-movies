@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2017,
+  "ordinal": "24th",
+  "status": "loaded",
+  "nominationsOn": "2017-12-13",
+  "winnersOn": "2018-01-21",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/24th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "won" },
+    { "category": "cast", "imdb": "tt5462602", "title": "The Big Sick", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2396589", "title": "Mudbound", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

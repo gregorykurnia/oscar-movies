@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2017,
+  "ordinal": "75th",
+  "status": "loaded",
+  "nominationsOn": "2017-12-11",
+  "winnersOn": "2018-01-07",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/75th_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "won" },
+    { "category": "drama", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt6294822", "title": "The Post", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt3521126", "title": "The Disaster Artist", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1485796", "title": "The Greatest Showman", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt5580036", "title": "I, Tonya", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt5723272", "title": "In the Fade", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6304162", "title": "Loveless", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3874544", "title": "The Boss Baby", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3901826", "title": "The Breadwinner", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3411444", "title": "Ferdinand", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

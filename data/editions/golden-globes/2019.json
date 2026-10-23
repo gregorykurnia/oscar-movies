@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2019,
+  "ordinal": "77th",
+  "status": "loaded",
+  "nominationsOn": "2019-12-09",
+  "winnersOn": "2020-01-05",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/77th_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt8579674", "title": "1917", "outcome": "won" },
+    { "category": "drama", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt7286456", "title": "Joker", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt8404614", "title": "The Two Popes", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt8526872", "title": "Dolemite Is My Name", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt8946378", "title": "Knives Out", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2066051", "title": "Rocketman", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6348138", "title": "Missing Link", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4520988", "title": "Frozen 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6105098", "title": "The Lion King", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

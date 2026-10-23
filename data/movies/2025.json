@@ -143,5 +143,10 @@
   "tt31318108": { "slug": "dont-you-let-me-go", "title": "Don't You Let Me Go", "originalTitle": "Agárrame fuerte", "originalLang": "es", "countries": ["UY"], "language": "es", "wd": "Q136198381", "tmdb": 1275987 },
   "tt37997249": { "slug": "red-rain", "title": "Red Rain", "countries": ["VN"], "language": "vi", "wd": "Q133863621", "tmdb": 1468704 },
   "tt36166805": { "slug": "kimote", "title": "Kimote", "countries": ["UG"], "language": "lg", "wd": "Q141625403", "tmdb": 1558840 },
-  "tt36867445": { "slug": "ali-primera", "title": "Alí Primera", "countries": ["VE"], "language": "es", "wd": "Q136503673", "tmdb": 1381185 }
+  "tt36867445": { "slug": "ali-primera", "title": "Alí Primera", "countries": ["VE"], "language": "es", "wd": "Q136503673", "tmdb": 1381185 },
+  "tt32536315": { "slug": "blue-moon", "title": "Blue Moon", "countries": ["US"], "language": "en", "wd": "Q127118129", "tmdb": 1299655 },
+  "tt31688586": { "slug": "nouvelle-vague", "title": "Nouvelle Vague", "countries": ["FR"], "language": "fr", "wd": "Q125867250", "tmdb": 1254808 },
+  "tt26581740": { "slug": "weapons", "title": "Weapons", "countries": ["US"], "language": "en", "wd": "Q126487478", "tmdb": 1078605 },
+  "tt36464353": { "slug": "my-mom-jayne", "title": "My Mom Jayne", "countries": ["US"], "language": "en", "wd": "Q134392003", "tmdb": 1461714 },
+  "tt33022710": { "slug": "ocean-with-david-attenborough", "title": "Ocean with David Attenborough", "originalTitle": "Ozean mit David Attenborough", "originalLang": "de", "countries": ["GB"], "language": "en", "wd": "Q134028131", "tmdb": 1448497 }
 }

@@ -140,5 +140,11 @@
   "tt17827194": { "slug": "raven-song", "title": "Raven Song", "countries": ["SA"], "language": "ar", "wd": "Q114916264", "tmdb": 1042075 },
   "tt10047904": { "slug": "darkling", "title": "Darkling", "countries": ["RS"], "language": "sr", "wd": "Q97198397", "tmdb": 734081 },
   "tt21429844": { "slug": "a-ballad", "title": "A Ballad", "originalTitle": "Balada", "originalLang": "bs", "countries": ["BA", "FR"], "language": "bs", "tmdb": 1003403 },
-  "tt11703266": { "slug": "orchestra", "title": "Orchestra", "originalTitle": "Orkester", "originalLang": "sl", "countries": ["SI"], "language": "sl", "tmdb": 930149 }
+  "tt11703266": { "slug": "orchestra", "title": "Orchestra", "originalTitle": "Orkester", "originalLang": "sl", "countries": ["SI"], "language": "sl", "tmdb": 930149 },
+  "tt10640346": { "slug": "babylon", "title": "Babylon", "countries": ["US"], "language": "en", "wd": "Q107119206", "tmdb": 615777 },
+  "tt11564570": { "slug": "glass-onion-a-knives-out-mystery", "title": "Glass Onion: A Knives Out Mystery", "countries": ["US"], "language": "en", "wd": "Q84712797", "tmdb": 661374 },
+  "tt8178634": { "slug": "rrr", "title": "RRR", "countries": ["IN"], "language": "te", "wd": "Q60424165", "tmdb": 579974 },
+  "tt9114286": { "slug": "black-panther-wakanda-forever", "title": "Black Panther: Wakanda Forever", "countries": ["US"], "language": "en", "wd": "Q54860489", "tmdb": 505642 },
+  "tt13833688": { "slug": "the-whale", "title": "The Whale", "countries": ["US"], "language": "en", "wd": "Q105883400", "tmdb": 785084 },
+  "tt10196368": { "slug": "nothing-compares", "title": "Nothing Compares", "countries": ["GB", "IE"], "language": "en", "wd": "Q115328330", "tmdb": 913845 }
 }

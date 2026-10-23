@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2025,
+  "ordinal": "79th",
+  "status": "loaded",
+  "nominationsOn": "2026-01-27",
+  "winnersOn": "2026-02-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/79th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "film", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt32298285", "title": "Sirāt", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt36943034", "title": "The Voice of Hind Rajab", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34965515", "title": "Mr. Nobody Against Putin", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30012657", "title": "Apocalypse in the Tropics", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4900148", "title": "Elio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

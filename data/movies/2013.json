@@ -116,5 +116,16 @@
   "tt2671390": { "slug": "paradjanov", "title": "Paradjanov", "countries": ["UA", "FR", "GE", "AM"], "language": "ru", "wd": "Q14936719", "tmdb": 205114 },
   "tt1845838": { "slug": "metro-manila", "title": "Metro Manila", "countries": ["GB"], "language": "fil", "wd": "Q14640617", "tmdb": 158091 },
   "tt1947964": { "slug": "anina", "title": "Anina", "countries": ["CO", "UY"], "language": "es", "wd": "Q16828640", "tmdb": 180644 },
-  "tt3155542": { "slug": "breach-in-the-silence", "title": "Breach in the Silence", "originalTitle": "Brecha en el silencio", "originalLang": "es", "countries": ["VE"], "language": "es", "wd": "Q5733589", "tmdb": 142349 }
+  "tt3155542": { "slug": "breach-in-the-silence", "title": "Breach in the Silence", "originalTitle": "Brecha en el silencio", "originalLang": "es", "countries": ["VE"], "language": "es", "wd": "Q5733589", "tmdb": 142349 },
+  "tt1979320": { "slug": "rush", "title": "Rush", "countries": ["DE", "US", "GB"], "language": "en", "wd": "Q1768437", "tmdb": 96721 },
+  "tt2042568": { "slug": "inside-llewyn-davis", "title": "Inside Llewyn Davis", "countries": ["US", "FR"], "language": "en", "wd": "Q2340655", "tmdb": 86829 },
+  "tt2278871": { "slug": "blue-is-the-warmest-colour", "title": "Blue Is the Warmest Colour", "originalTitle": "La Vie d'Adèle : Chapitres 1 et 2", "originalLang": "fr", "countries": ["FR", "BE", "ES"], "language": "fr", "wd": "Q11648811", "tmdb": 152584 },
+  "tt1824254": { "slug": "we-steal-secrets-the-story-of-wikileaks", "title": "We Steal Secrets: The Story of WikiLeaks", "countries": ["US"], "language": "en", "wd": "Q7977781", "tmdb": 159154 },
+  "tt1322269": { "slug": "august-osage-county", "title": "August: Osage County", "countries": ["US"], "language": "en", "wd": "Q4055443", "tmdb": 152737 },
+  "tt1327773": { "slug": "lee-daniels-the-butler", "title": "Lee Daniels' The Butler", "countries": ["US"], "language": "en", "wd": "Q3520173", "tmdb": 132363 },
+  "tt2334873": { "slug": "blue-jasmine", "title": "Blue Jasmine", "countries": ["US"], "language": "en", "wd": "Q2907178", "tmdb": 160588 },
+  "tt2140373": { "slug": "saving-mr-banks", "title": "Saving Mr. Banks", "countries": ["GB", "AU", "US"], "language": "en", "wd": "Q3474574", "tmdb": 140823 },
+  "tt1974254": { "slug": "far-out-isnt-far-enough-the-tomi-ungerer-story", "title": "Far Out Isn't Far Enough: The Tomi Ungerer Story", "countries": ["US"], "language": "en", "wd": "Q5434597", "tmdb": 124069 },
+  "tt1736049": { "slug": "a-place-at-the-table", "title": "A Place at the Table", "countries": ["US"], "language": "en", "wd": "Q4658861", "tmdb": 84198 },
+  "tt2480784": { "slug": "which-way-is-the-front-line-from-here-the-life-and-time-of-tim-hetherington", "title": "Which Way Is The Front Line From Here? The Life and Time of Tim Hetherington", "countries": ["GB", "US"], "language": "en", "tmdb": 159166 }
 }

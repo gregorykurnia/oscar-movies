@@ -1,0 +1,31 @@
+{
+  "award": "bafta",
+  "year": 2021,
+  "ordinal": "75th",
+  "status": "loaded",
+  "nominationsOn": "2022-02-03",
+  "winnersOn": "2022-03-13",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/75th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "film", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt11286314", "title": "Don’t Look Up", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt12618926", "title": "Parallel Mothers", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt13204490", "title": "Petite Maman", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt10334438", "title": "Becoming Cousteau", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11548822", "title": "Cow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2953050", "title": "Encanto", "outcome": "won" },
+    { "category": "animated", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

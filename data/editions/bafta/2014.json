@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2014,
+  "ordinal": "68th",
+  "status": "loaded",
+  "nominationsOn": "2015-01-09",
+  "winnersOn": "2015-02-08",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/68th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "film", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt2802154", "title": "Leviathan", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2350496", "title": "The Lunchbox", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1921149", "title": "Trash", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2920540", "title": "20,000 Days on Earth", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2714900", "title": "Finding Vivian Maier", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

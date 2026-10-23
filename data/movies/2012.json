@@ -115,5 +115,18 @@
   "tt1666318": { "slug": "the-delay", "title": "The Delay", "originalTitle": "La demora", "originalLang": "es", "countries": ["FR", "MX", "UY"], "language": "es", "wd": "Q7729646", "tmdb": 133491 },
   "tt1935870": { "slug": "rock-paper-scissors", "title": "Rock, Paper, Scissors", "originalTitle": "Piedra, papel o tijera", "originalLang": "es", "countries": ["VE"], "language": "es", "wd": "Q7354136", "tmdb": 136752 },
   "tt2424534": { "slug": "the-scent-of-burning-grass", "title": "The Scent of Burning Grass", "countries": ["VN"], "language": "vi", "wd": "Q7762488", "tmdb": 136753 },
-  "tt3109410": { "slug": "insurgents", "title": "Insurgents", "originalTitle": "Insurgentes", "originalLang": "es", "countries": ["BO"], "language": "es", "tmdb": 501725 }
+  "tt3109410": { "slug": "insurgents", "title": "Insurgents", "originalTitle": "Insurgentes", "originalLang": "es", "countries": ["BO"], "language": "es", "tmdb": 501725 },
+  "tt1412386": { "slug": "the-best-exotic-marigold-hotel", "title": "The Best Exotic Marigold Hotel", "countries": ["GB"], "language": "en", "wd": "Q830295", "tmdb": 74534 },
+  "tt1748122": { "slug": "moonrise-kingdom", "title": "Moonrise Kingdom", "countries": ["US"], "language": "en", "wd": "Q217112", "tmdb": 83666 },
+  "tt1441952": { "slug": "salmon-fishing-in-the-yemen", "title": "Salmon Fishing in the Yemen", "countries": ["GB", "FR"], "language": "en", "wd": "Q602256", "tmdb": 81025 },
+  "tt1614989": { "slug": "headhunters", "title": "Headhunters", "originalTitle": "Hodejegerne", "originalLang": "nb", "countries": ["NO", "DE"], "language": "no", "wd": "Q1592308", "tmdb": 70670 },
+  "tt2053425": { "slug": "rust-and-bone", "title": "Rust and Bone", "originalTitle": "De rouille et d'os", "originalLang": "fr", "countries": ["FR", "BE", "SG"], "language": "fr", "wd": "Q73803", "tmdb": 97365 },
+  "tt1183919": { "slug": "marley", "title": "Marley", "countries": ["GB", "US", "JM"], "language": "en", "wd": "Q1189617", "tmdb": 90125 },
+  "tt2354205": { "slug": "mccullin", "title": "McCullin", "countries": ["GB"], "language": "en", "wd": "Q20926342", "tmdb": 151044 },
+  "tt2130321": { "slug": "west-of-memphis", "title": "West of Memphis", "countries": ["US"], "language": "en", "wd": "Q3567456", "tmdb": 84351 },
+  "tt1074638": { "slug": "skyfall", "title": "Skyfall", "countries": ["GB", "US"], "language": "en", "wd": "Q4941", "tmdb": 37724 },
+  "tt1848767": { "slug": "a-people-uncounted", "title": "A People Uncounted", "countries": ["CA"], "language": "en", "wd": "Q4658755", "tmdb": 211110 },
+  "tt1990352": { "slug": "the-island-president", "title": "The Island President", "countries": ["US"], "language": "en", "wd": "Q7742680", "tmdb": 86850 },
+  "tt1606829": { "slug": "the-other-dream-team", "title": "The Other Dream Team", "countries": ["US"], "language": "lt", "wd": "Q3700492", "tmdb": 84318 },
+  "tt2125666": { "slug": "the-queen-of-versailles", "title": "The Queen of Versailles", "countries": ["US"], "language": "en", "wd": "Q2889288", "tmdb": 84327 }
 }

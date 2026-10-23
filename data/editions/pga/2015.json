@@ -1,0 +1,32 @@
+{
+  "award": "pga",
+  "year": 2015,
+  "ordinal": "27th",
+  "status": "loaded",
+  "nominationsOn": "2016-01-05",
+  "winnersOn": "2016-01-23",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/27th_Producers_Guild_of_America_Awards"],
+  "results": [
+    { "category": "theatrical", "imdb": "tt1596363", "title": "The Big Short", "outcome": "won" },
+    { "category": "theatrical", "imdb": "tt3682448", "title": "Bridge of Spies", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt3397884", "title": "Sicario", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "theatrical", "imdb": "tt1398426", "title": "Straight Outta Compton", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4185572", "title": "The Hunting Ground", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545428", "title": "Meru", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4188338", "title": "Something Better to Come", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2293640", "title": "Minions", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

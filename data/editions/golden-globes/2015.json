@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2015,
+  "ordinal": "73rd",
+  "status": "loaded",
+  "nominationsOn": "2015-12-10",
+  "winnersOn": "2016-01-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/73rd_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt1663202", "title": "The Revenant", "outcome": "won" },
+    { "category": "drama", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt3659388", "title": "The Martian", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2446980", "title": "Joy", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt3079380", "title": "Spy", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt3152624", "title": "Trainwreck", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt3792960", "title": "The Brand New Testament", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4375438", "title": "The Club", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2534634", "title": "The Fencer", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1979388", "title": "The Good Dinosaur", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2023,
+  "ordinal": "76th",
+  "status": "loaded",
+  "nominationsOn": "2024-01-10",
+  "winnersOn": "2024-02-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/76th_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "feature", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21376900", "title": "Bobi Wine: The People's President", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

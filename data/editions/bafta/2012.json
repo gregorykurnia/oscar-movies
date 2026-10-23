@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2012,
+  "ordinal": "66th",
+  "status": "loaded",
+  "nominationsOn": "2013-01-09",
+  "winnersOn": "2013-02-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/66th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "film", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt1614989", "title": "Headhunters", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2053425", "title": "Rust and Bone", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1966604", "title": "The Imposter", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1183919", "title": "Marley", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2354205", "title": "McCullin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2130321", "title": "West of Memphis", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,30 @@
+{
+  "award": "golden-globes",
+  "year": 2013,
+  "ordinal": "71st",
+  "status": "loaded",
+  "nominationsOn": "2013-12-12",
+  "winnersOn": "2014-01-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/71st_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "drama", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1979320", "title": "Rush", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1800241", "title": "American Hustle", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2404461", "title": "The Past", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0481499", "title": "The Croods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

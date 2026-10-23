@@ -143,5 +143,12 @@
   "tt29057340": { "slug": "thunders", "title": "Thunders", "originalTitle": "Tunete", "originalLang": "ro", "countries": ["MD"], "language": "ro", "tmdb": 1089507 },
   "tt11646964": { "slug": "sirin", "title": "Sirin", "countries": ["AL", "BA", "HR", "FR", "ME", "XK"], "language": "sr", "tmdb": 1166857 },
   "tt25366998": { "slug": "alhamour-h-a", "title": "Alhamour H.A.", "originalTitle": "الهامور ح. ع", "originalLang": "ar", "countries": ["SA"], "language": "ar", "tmdb": 1076270 },
-  "tt28760144": { "slug": "the-duke-and-the-poet", "title": "The Duke and the Poet", "originalTitle": "Што се боре мисли моје", "originalLang": "sr", "countries": ["RS"], "language": "sr", "tmdb": 1170727 }
+  "tt28760144": { "slug": "the-duke-and-the-poet", "title": "The Duke and the Poet", "originalTitle": "Што се боре мисли моје", "originalLang": "sr", "countries": ["RS"], "language": "sr", "tmdb": 1170727 },
+  "tt16419074": { "slug": "air", "title": "Air", "countries": ["US"], "language": "en", "wd": "Q115625646", "tmdb": 964980 },
+  "tt13651794": { "slug": "may-december", "title": "May December", "countries": ["US"], "language": "en", "wd": "Q115367024", "tmdb": 839369 },
+  "tt27726927": { "slug": "wham", "title": "Wham!", "countries": ["GB"], "language": "en", "wd": "Q119997722", "tmdb": 1134865 },
+  "tt1200263": { "slug": "the-color-purple", "title": "The Color Purple", "countries": ["US"], "language": "en", "wd": "Q111270010", "tmdb": 558915 },
+  "tt24078380": { "slug": "the-disappearance-of-shere-hite", "title": "The Disappearance of Shere Hite", "countries": ["US"], "language": "en", "wd": "Q117443220", "tmdb": 1058648 },
+  "tt10850264": { "slug": "squaring-the-circle-the-story-of-hipgnosis", "title": "Squaring the Circle (The Story of Hipgnosis)", "countries": ["GB"], "language": "en", "wd": "Q118414983", "tmdb": 949808 },
+  "tt22528178": { "slug": "kokomo-city", "title": "Kokomo City", "countries": ["US"], "language": "en", "wd": "Q116478792", "tmdb": 1058678 }
 }

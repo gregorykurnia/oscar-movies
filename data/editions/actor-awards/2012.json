@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2012,
+  "ordinal": "19th",
+  "status": "loaded",
+  "nominationsOn": "2012-12-12",
+  "winnersOn": "2013-01-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/19th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "cast", "imdb": "tt1412386", "title": "The Best Exotic Marigold Hotel", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

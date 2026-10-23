@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2016,
+  "ordinal": "23rd",
+  "status": "loaded",
+  "nominationsOn": "2016-12-14",
+  "winnersOn": "2017-01-29",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/23rd_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt4846340", "title": "Hidden Figures", "outcome": "won" },
+    { "category": "cast", "imdb": "tt3553976", "title": "Captain Fantastic", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2671706", "title": "Fences", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

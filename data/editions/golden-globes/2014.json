@@ -1,0 +1,32 @@
+{
+  "award": "golden-globes",
+  "year": 2014,
+  "ordinal": "72nd",
+  "status": "loaded",
+  "nominationsOn": "2014-12-11",
+  "winnersOn": "2015-01-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/72nd_Golden_Globe_Awards"],
+  "results": [
+    { "category": "drama", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "drama", "imdb": "tt1100089", "title": "Foxcatcher", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "drama", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "won" },
+    { "category": "musical-comedy", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2180411", "title": "Into the Woods", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt3169706", "title": "Pride", "outcome": "nominated" },
+    { "category": "musical-comedy", "imdb": "tt2170593", "title": "St. Vincent", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2802154", "title": "Leviathan", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3062880", "title": "Gett: The Trial of Viviane Amsalem", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2991224", "title": "Tangerines", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2262227", "title": "The Book of Life", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,31 @@
+{
+  "award": "bafta",
+  "year": 2023,
+  "ordinal": "77th",
+  "status": "loaded",
+  "nominationsOn": "2024-01-18",
+  "winnersOn": "2024-02-18",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/77th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "film", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt16277242", "title": "Society of the Snow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27726927", "title": "Wham!", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8337264", "title": "Chicken Run: Dawn of the Nugget", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15789038", "title": "Elemental", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2021,
+  "ordinal": "28th",
+  "status": "loaded",
+  "nominationsOn": "2022-01-12",
+  "winnersOn": "2022-02-27",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/28th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt10366460", "title": "CODA", "outcome": "won" },
+    { "category": "cast", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt11286314", "title": "Don’t Look Up", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt11214590", "title": "House of Gucci", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt9620288", "title": "King Richard", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

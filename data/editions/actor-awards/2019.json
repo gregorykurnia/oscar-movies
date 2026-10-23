@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2019,
+  "ordinal": "26th",
+  "status": "loaded",
+  "nominationsOn": "2019-12-11",
+  "winnersOn": "2020-01-19",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/26th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "cast", "imdb": "tt6394270", "title": "Bombshell", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

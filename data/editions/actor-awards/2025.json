@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2025,
+  "ordinal": "32nd",
+  "status": "loaded",
+  "nominationsOn": "2026-01-07",
+  "winnersOn": "2026-03-01",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/32nd_Actor_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
+    { "category": "cast", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

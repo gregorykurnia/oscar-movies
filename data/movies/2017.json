@@ -140,5 +140,19 @@
   "tt4489562": { "slug": "my-pure-land", "title": "My Pure Land", "countries": ["GB"], "language": "ur", "wd": "Q39926630", "tmdb": 460066 },
   "tt7069148": { "slug": "another-story-of-the-world", "title": "Another Story of the World", "originalTitle": "Otra historia del mundo", "originalLang": "es", "countries": ["UY"], "language": "es", "wd": "Q35695819", "tmdb": 466645 },
   "tt4581310": { "slug": "el-inca", "title": "El Inca", "countries": ["VE"], "language": "es", "wd": "Q38419769", "tmdb": 427997 },
-  "tt6531206": { "slug": "father-and-son", "title": "Father and Son", "countries": ["VN"], "language": "vi", "wd": "Q39968731", "tmdb": 475594 }
+  "tt6531206": { "slug": "father-and-son", "title": "Father and Son", "countries": ["VN"], "language": "vi", "wd": "Q39968731", "tmdb": 475594 },
+  "tt3521126": { "slug": "the-disaster-artist", "title": "The Disaster Artist", "countries": ["US"], "language": "en", "wd": "Q22078002", "tmdb": 371638 },
+  "tt1485796": { "slug": "the-greatest-showman", "title": "The Greatest Showman", "countries": ["US"], "language": "en", "wd": "Q27942936", "tmdb": 316029 },
+  "tt5580036": { "slug": "i-tonya", "title": "I, Tonya", "countries": ["US", "FR"], "language": "en", "wd": "Q28369564", "tmdb": 389015 },
+  "tt4016934": { "slug": "the-handmaiden", "title": "The Handmaiden", "originalTitle": "아가씨", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q20444585", "tmdb": 290098 },
+  "tt5462602": { "slug": "the-big-sick", "title": "The Big Sick", "countries": ["US"], "language": "en", "wd": "Q24901880", "tmdb": 416477 },
+  "tt2396589": { "slug": "mudbound", "title": "Mudbound", "countries": ["US"], "language": "en", "wd": "Q25339938", "tmdb": 414425 },
+  "tt4209788": { "slug": "mollys-game", "title": "Molly's Game", "countries": ["US"], "language": "en", "wd": "Q27888445", "tmdb": 396371 },
+  "tt0451279": { "slug": "wonder-woman", "title": "Wonder Woman", "countries": ["US"], "language": "en", "wd": "Q20502242", "tmdb": 297762 },
+  "tt6319654": { "slug": "cries-from-syria", "title": "Cries from Syria", "countries": ["US", "SY", "CZ"], "language": "en", "wd": "Q28841958", "tmdb": 433051 },
+  "tt6333072": { "slug": "joshua-teenager-vs-superpower", "title": "Joshua: Teenager vs. Superpower", "countries": ["US"], "language": "en", "wd": "Q28753344", "tmdb": 433084 },
+  "tt7657972": { "slug": "the-newspaperman", "title": "The Newspaperman", "countries": ["US"], "language": "en", "wd": "Q51756448", "tmdb": 479119 },
+  "tt1877514": { "slug": "the-vietnam-war", "title": "The Vietnam War", "countries": ["US"], "language": "en", "wd": "Q30607886" },
+  "tt7306056": { "slug": "wormwood", "title": "Wormwood", "countries": ["US"], "language": "en", "wd": "Q44830804", "tmdb": 482806 },
+  "tt6238896": { "slug": "earth-one-amazing-day", "title": "Earth: One Amazing Day", "countries": ["GB"], "language": "en", "wd": "Q47538945", "tmdb": 464593 }
 }

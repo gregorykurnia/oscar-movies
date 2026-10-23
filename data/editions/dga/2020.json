@@ -1,0 +1,22 @@
+{
+  "award": "dga",
+  "year": 2020,
+  "ordinal": "73rd",
+  "status": "loaded",
+  "nominationsOn": "2021-03-09",
+  "winnersOn": "2021-04-10",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/73rd_Directors_Guild_of_America_Awards"],
+  "results": [
+    { "category": "feature", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "feature", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394318", "title": "The Truffle Hunters", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12888462", "title": "My Octopus Teacher", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11095742", "title": "Boys State", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11296058", "title": "The Painter and the Thief", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

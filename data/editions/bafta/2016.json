@@ -1,0 +1,31 @@
+{
+  "award": "bafta",
+  "year": 2016,
+  "ordinal": "70th",
+  "status": "loaded",
+  "nominationsOn": "2017-01-10",
+  "winnersOn": "2017-02-12",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/70th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "film", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt4082068", "title": "Dheepan", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4326444", "title": "Julieta", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "The 13th", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2531318", "title": "The Beatles: Eight Days a Week", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3882074", "title": "The Eagle Huntress", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5117222", "title": "Notes on Blindness", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2277860", "title": "Finding Dory", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3521164", "title": "Moana", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

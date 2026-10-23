@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2015,
+  "ordinal": "69th",
+  "status": "loaded",
+  "nominationsOn": "2016-01-08",
+  "winnersOn": "2016-02-14",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/69th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt1663202", "title": "The Revenant", "outcome": "won" },
+    { "category": "film", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt3682448", "title": "Bridge of Spies", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3011894", "title": "Wild Tales", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3170902", "title": "Theeb", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt3409392", "title": "Timbuktu", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3065132", "title": "He Named Me Malala", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3746250", "title": "Sherpa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2293640", "title": "Minions", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

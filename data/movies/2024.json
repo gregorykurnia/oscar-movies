@@ -136,5 +136,14 @@
   "tt31438076": { "slug": "peach-blossom-pho-and-piano", "title": "Peach Blossom, Pho and Piano", "countries": ["VN"], "language": "vi", "wd": "Q124620657", "tmdb": 1247240 },
   "tt33091976": { "slug": "kismet", "title": "Kismet", "countries": ["CM"], "language": "en", "tmdb": 1365744 },
   "tt28517189": { "slug": "bauryna-salu", "title": "Bauryna Salu", "originalTitle": "Баурына салу", "originalLang": "kk", "countries": ["KZ"], "language": "kk", "tmdb": 1162472 },
-  "tt28317945": { "slug": "castillo", "title": "Castillo", "countries": ["MT"], "language": "mt", "tmdb": 1359119 }
+  "tt28317945": { "slug": "castillo", "title": "Castillo", "countries": ["MT"], "language": "mt", "tmdb": 1359119 },
+  "tt28082769": { "slug": "september-5", "title": "September 5", "countries": ["DE", "US"], "language": "en", "wd": "Q127688495", "tmdb": 1211472 },
+  "tt16426418": { "slug": "challengers", "title": "Challengers", "countries": ["US"], "language": "en", "wd": "Q111458251", "tmdb": 937287 },
+  "tt21823606": { "slug": "a-real-pain", "title": "A Real Pain", "countries": ["US", "PL"], "language": "en", "wd": "Q123690368", "tmdb": 1013850 },
+  "tt32086077": { "slug": "all-we-imagine-as-light", "title": "All We Imagine as Light", "countries": ["IN"], "language": "hi", "wd": "Q125422662", "tmdb": 927547 },
+  "tt27902121": { "slug": "super-man-the-christopher-reeve-story", "title": "Super/Man: The Christopher Reeve Story", "countries": ["US"], "language": "en", "wd": "Q124460441", "tmdb": 1128559 },
+  "tt30319823": { "slug": "gaucho-gaucho", "title": "Gaucho Gaucho", "countries": ["AR"], "language": "es", "wd": "Q124365198", "tmdb": 1214457 },
+  "tt27561780": { "slug": "mediha", "title": "Mediha", "countries": ["US"], "language": "ku", "wd": "Q124819523", "tmdb": 1201460 },
+  "tt28448182": { "slug": "mountain-queen-the-summits-of-lhakpa-sherpa", "title": "Mountain Queen: The Summits of Lhakpa Sherpa", "countries": ["US"], "language": "ne", "wd": "Q122442182", "tmdb": 1156649 },
+  "tt31556612": { "slug": "we-will-dance-again", "title": "We Will Dance Again", "countries": ["IL", "GB", "US"], "language": "en", "wd": "Q130459580", "tmdb": 1254258 }
 }

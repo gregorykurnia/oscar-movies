@@ -141,5 +141,20 @@
   "tt10984818": { "slug": "aleli", "title": "Alelí", "countries": ["UY"], "language": "es", "wd": "Q100255759", "tmdb": 632318 },
   "tt13346298": { "slug": "2000-songs-of-farida", "title": "2000 Songs of Farida", "originalTitle": "Faridaning ikki ming qoʻshigʻi", "originalLang": "uz", "countries": ["UZ"], "language": "uz", "wd": "Q104872482", "tmdb": 743133 },
   "tt11391604": { "slug": "once-upon-a-time-in-venezuela", "title": "Once Upon a Time in Venezuela", "countries": ["VE"], "language": "es", "wd": "Q101245411", "tmdb": 653757 },
-  "tt10622410": { "slug": "dreamy-eyes", "title": "Dreamy Eyes", "countries": ["VN"], "language": "vi", "wd": "Q86010138", "tmdb": 618010 }
+  "tt10622410": { "slug": "dreamy-eyes", "title": "Dreamy Eyes", "countries": ["VN"], "language": "vi", "wd": "Q86010138", "tmdb": 618010 },
+  "tt13143964": { "slug": "borat-subsequent-moviefilm", "title": "Borat Subsequent Moviefilm", "originalTitle": "Borat: Siguiente película documental", "originalLang": "es-419", "countries": ["US"], "language": "en", "wd": "Q99671372", "tmdb": 740985 },
+  "tt8503618": { "slug": "hamilton", "title": "Hamilton", "countries": ["US"], "language": "en", "wd": "Q84323848", "tmdb": 556574 },
+  "tt7541720": { "slug": "music", "title": "Music", "countries": ["US"], "language": "en", "wd": "Q21010876", "tmdb": 586101 },
+  "tt9484998": { "slug": "palm-springs", "title": "Palm Springs", "countries": ["US"], "language": "en", "wd": "Q65084655", "tmdb": 587792 },
+  "tt10161886": { "slug": "the-prom", "title": "The Prom", "countries": ["US"], "language": "en", "wd": "Q80177730", "tmdb": 611213 },
+  "tt10627584": { "slug": "the-life-ahead", "title": "The Life Ahead", "countries": ["IT", "US"], "language": "it", "wd": "Q85807735", "tmdb": 667869 },
+  "tt4761112": { "slug": "the-mauritanian", "title": "The Mauritanian", "countries": ["US", "GB"], "language": "en", "wd": "Q83726435", "tmdb": 644583 },
+  "tt11989890": { "slug": "david-attenborough-a-life-on-our-planet", "title": "David Attenborough: A Life on Our Planet", "countries": ["GB"], "language": "en", "wd": "Q100613366", "tmdb": 664280 },
+  "tt11382384": { "slug": "the-dissident", "title": "The Dissident", "countries": ["US"], "language": "ar", "wd": "Q86460768", "tmdb": 653746 },
+  "tt11464826": { "slug": "the-social-dilemma", "title": "The Social Dilemma", "countries": ["US"], "language": "en", "wd": "Q99191029", "tmdb": 656690 },
+  "tt9777644": { "slug": "da-5-bloods", "title": "Da 5 Bloods", "countries": ["US"], "language": "en", "wd": "Q62277203", "tmdb": 581859 },
+  "tt10514222": { "slug": "ma-raineys-black-bottom", "title": "Ma Rainey's Black Bottom", "countries": ["US"], "language": "en", "wd": "Q65049470", "tmdb": 615667 },
+  "tt10612922": { "slug": "one-night-in-miami", "title": "One Night in Miami...", "countries": ["US"], "language": "en", "wd": "Q83973479", "tmdb": 661914 },
+  "tt11394314": { "slug": "softie", "title": "Softie", "countries": ["KE"], "language": "en", "wd": "Q101201502", "tmdb": 653761 },
+  "tt11394166": { "slug": "a-thousand-cuts", "title": "A Thousand Cuts", "countries": ["US"], "language": "en", "wd": "Q96371338", "tmdb": 653731 }
 }

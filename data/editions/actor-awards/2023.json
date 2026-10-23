@@ -1,0 +1,17 @@
+{
+  "award": "actor-awards",
+  "year": 2023,
+  "ordinal": "30th",
+  "status": "loaded",
+  "nominationsOn": "2024-01-10",
+  "winnersOn": "2024-02-24",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/30th_Screen_Actors_Guild_Awards"],
+  "results": [
+    { "category": "cast", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "cast", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt1200263", "title": "The Color Purple", "outcome": "nominated" },
+    { "category": "cast", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

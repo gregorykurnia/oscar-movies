@@ -1,0 +1,30 @@
+{
+  "award": "bafta",
+  "year": 2020,
+  "ordinal": "74th",
+  "status": "loaded",
+  "nominationsOn": "2021-03-09",
+  "winnersOn": "2021-04-11",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/74th_British_Academy_Film_Awards"],
+  "results": [
+    { "category": "film", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "film", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt4761112", "title": "The Mauritanian", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "film", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "non-english", "imdb": "tt10796286", "title": "Dear Comrades", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "non-english", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12888462", "title": "My Octopus Teacher", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11989890", "title": "David Attenborough: A Life on Our Planet", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11382384", "title": "The Dissident", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11464826", "title": "The Social Dilemma", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

@@ -144,5 +144,14 @@
   "tt10298454": { "slug": "the-moneychanger", "title": "The Moneychanger", "originalTitle": "Así habló el cambista", "originalLang": "es", "countries": ["UY", "AR"], "language": "es", "wd": "Q66426745", "tmdb": 621268 },
   "tt11011540": { "slug": "hot-bread", "title": "Hot Bread", "countries": ["UZ"], "language": "uz", "wd": "Q77892779", "tmdb": 634151 },
   "tt9321408": { "slug": "being-impossible", "title": "Being Impossible", "originalTitle": "Yo, imposible", "originalLang": "es", "countries": ["VE"], "language": "es", "wd": "Q64783745", "tmdb": 576721 },
-  "tt9412268": { "slug": "furie", "title": "Furie", "originalTitle": "Hai Phượng", "originalLang": "vi", "countries": ["VN"], "language": "vi", "wd": "Q61863735", "tmdb": 567973 }
+  "tt9412268": { "slug": "furie", "title": "Furie", "originalTitle": "Hai Phượng", "originalLang": "vi", "countries": ["VN"], "language": "vi", "wd": "Q61863735", "tmdb": 567973 },
+  "tt8404614": { "slug": "the-two-popes", "title": "The Two Popes", "countries": ["GB", "IT", "AR", "US"], "language": "en", "wd": "Q58894738", "tmdb": 551332 },
+  "tt8526872": { "slug": "dolemite-is-my-name", "title": "Dolemite Is My Name", "countries": ["US"], "language": "en", "wd": "Q54959170", "tmdb": 528888 },
+  "tt8946378": { "slug": "knives-out", "title": "Knives Out", "countries": ["US"], "language": "en", "wd": "Q57982486", "tmdb": 546554 },
+  "tt2066051": { "slug": "rocketman", "title": "Rocketman", "countries": ["GB", "CA", "US"], "language": "en", "wd": "Q55934795", "tmdb": 504608 },
+  "tt8637428": { "slug": "the-farewell", "title": "The Farewell", "countries": ["US"], "language": "en", "wd": "Q60611804", "tmdb": 565310 },
+  "tt8613070": { "slug": "portrait-of-a-lady-on-fire", "title": "Portrait of a Lady on Fire", "originalTitle": "Portrait de la jeune fille en feu", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q63246568", "tmdb": 531428 },
+  "tt6105098": { "slug": "the-lion-king", "title": "The Lion King", "countries": ["US"], "language": "en", "wd": "Q27044293", "tmdb": 420818 },
+  "tt5433114": { "slug": "diego-maradona", "title": "Diego Maradona", "countries": ["GB"], "language": "en", "wd": "Q63457407", "tmdb": 536841 },
+  "tt6394270": { "slug": "bombshell", "title": "Bombshell", "countries": ["US"], "language": "en", "wd": "Q58814589", "tmdb": 525661 }
 }
