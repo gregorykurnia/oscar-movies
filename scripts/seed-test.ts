@@ -7,7 +7,7 @@ import { inArray, sql } from "drizzle-orm";
 import { createScriptDb, type ScriptDb } from "../src/db";
 import { readDbBranch } from "../src/db/meta";
 import { marks, movies } from "../src/db/schema";
-import { recomputeAccuracy } from "./lib/compute";
+import { recomputeAccuracy, recomputePredictions } from "./lib/compute";
 import { readDataSet } from "./lib/data-check";
 import { revalidateAwards, runLoad } from "./lib/load";
 import { loadTargetEnv } from "./lib/target";
@@ -47,7 +47,11 @@ async function main() {
     await runLoad(db, data, {
       target: "test",
       dryRun: false,
-      afterWrites: async (tx) => console.log(await recomputeAccuracy(tx, new Date().toISOString().slice(0, 10))),
+      afterWrites: async (tx) => {
+        const today = new Date().toISOString().slice(0, 10);
+        console.log(await recomputeAccuracy(tx, today));
+        console.log(await recomputePredictions(tx, today));
+      },
       revalidate: revalidateAwards,
     });
     const fixtures = await db.transaction(resetMarks);

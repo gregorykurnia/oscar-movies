@@ -495,7 +495,7 @@ export type LoadOptions = {
   backupMarks?: () => Promise<string>;
   /**
    * Runs inside the load's transaction after the writes: recomputing accuracy and predictions
-   * for the affected seasons (tasks 2.5 and 3.2 add them). A throw undoes the whole load.
+   * (every season: each is history for the others). A throw undoes the whole load.
    */
   afterWrites?: (tx: Tx, plan: LoadPlan) => Promise<void>;
   /** Expires the app's cache after the commit (`APP_URL/api/revalidate`). Returns a line to print. */

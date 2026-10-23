@@ -1,7 +1,7 @@
-// The computed tables (IMPLEMENTATION_PLAN.md §5.2–5.3): accuracy now, predictions in task 3.2.
-// Run by the loader inside its transaction (`afterWrites`) and by `npm run compute`.
+// The computed tables (IMPLEMENTATION_PLAN.md §5.2–5.3): accuracy and predictions. Run by the
+// loader inside its transaction (`afterWrites`) and by `npm run compute`.
 import type { ScriptDb } from "../../src/db";
-import { accuracy, awardCategories, awards, editions, results } from "../../src/db/schema";
+import { accuracy, awardCategories, awards, editions, predictions, results } from "../../src/db/schema";
 import {
   computeAccuracy,
   finishedYears,
@@ -9,7 +9,17 @@ import {
   type AccuracyEdition,
   type OscarEdition,
 } from "../../src/lib/accuracy";
-import type { Outcome } from "../../src/lib/stage";
+import {
+  eve,
+  nominationSlots,
+  predictCategory,
+  type OscarCategory,
+  type PrecursorResult,
+  type Season,
+  type SeasonFilm,
+  type Snapshot,
+} from "../../src/lib/predict";
+import { isNomination, type Outcome } from "../../src/lib/stage";
 
 type Tx = Parameters<Parameters<ScriptDb["transaction"]>[0]>[0];
 type Db = Pick<ScriptDb, "select" | "insert" | "delete"> | Tx;
@@ -81,3 +91,135 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
   return `Accuracy: ${rows.length} categories recomputed.`;
 }
 
+
+const OSCAR_CATEGORIES: OscarCategory[] = ["picture", "documentary", "international", "animated"];
+
+type Tables = {
+  awardRows: Array<typeof awards.$inferSelect>;
+  categoryRows: Array<typeof awardCategories.$inferSelect>;
+  editionRows: Array<typeof editions.$inferSelect>;
+  resultRows: ResultRow[];
+};
+
+/**
+ * Every season of one Oscar category, as the engine reads it: per Oscars edition, each film with
+ * a result at an award category mapped to it that film year (with its edition's dates), and its
+ * Oscar outcome. `today` decides which seasons are finished (history).
+ */
+export function buildSeasons(t: Tables, category: OscarCategory, today: string): Season[] {
+  const oscarsAward = t.awardRows.find((a) => a.kind === "oscars");
+  if (!oscarsAward) throw new Error("No Oscars award in the database, so no predictions can be worked out.");
+  const oscarCategory = t.categoryRows.find((c) => c.awardId === oscarsAward.id && c.oscarCategory === category);
+  const awardSlug = new Map(t.awardRows.map((a) => [a.id, a.slug]));
+  const mapped = new Map(
+    t.categoryRows
+      .filter((c) => c.awardId !== oscarsAward.id && c.oscarCategory === category)
+      .map((c) => [c.id, `${awardSlug.get(c.awardId)}/${c.slug}`]),
+  );
+  const editionById = new Map(t.editionRows.map((e) => [e.id, e]));
+  const oscarEditions = t.editionRows.filter((e) => e.awardId === oscarsAward.id);
+  const finished = finishedYears(
+    oscarEditions.map((e) => ({
+      year: e.year,
+      status: e.status,
+      winnersOn: e.winnersOn,
+      results: t.resultRows
+        .filter((r) => r.editionId === e.id && r.categoryId === oscarCategory?.id)
+        .map((r) => ({ movie: r.movieId, outcome: r.outcome })),
+    })),
+    today,
+  );
+
+  return oscarEditions
+    .map((oscars) => {
+      const films = new Map<number, { results: PrecursorResult[]; oscar: Outcome | null }>();
+      const film = (movie: number) => {
+        let f = films.get(movie);
+        if (!f) films.set(movie, (f = { results: [], oscar: null }));
+        return f;
+      };
+      for (const r of t.resultRows) {
+        const edition = editionById.get(r.editionId);
+        if (!edition || edition.year !== oscars.year) continue;
+        if (edition.id === oscars.id) {
+          if (r.categoryId === oscarCategory?.id) film(r.movieId).oscar = r.outcome;
+          continue;
+        }
+        const key = mapped.get(r.categoryId);
+        if (key === undefined) continue;
+        film(r.movieId).results.push({
+          award: awardSlug.get(edition.awardId)!,
+          category: key,
+          outcome: r.outcome,
+          nominationsOn: edition.nominationsOn,
+          winnersOn: edition.winnersOn,
+        });
+      }
+      const seasonFilms: SeasonFilm[] = [...films].map(([movie, f]) => ({ movie, ...f }));
+      const nominees = seasonFilms.filter((f) => f.oscar !== null && isNomination(f.oscar)).length;
+      return {
+        year: oscars.year,
+        finished: finished.has(oscars.year),
+        slots: nominationSlots(category, oscars.year, nominees),
+        oscar: { shortlistOn: oscars.shortlistOn, nominationsOn: oscars.nominationsOn, winnersOn: oscars.winnersOn },
+        films: seasonFilms,
+      };
+    })
+    .sort((a, b) => a.year - b.year);
+}
+
+/**
+ * The snapshots stored for a season: `live` always; each eve once its day has come (before it,
+ * the eve would only repeat `live`), and only when the Oscar date is known.
+ */
+export function snapshotsFor(season: Season, today: string): Snapshot[] {
+  const out: Snapshot[] = [{ kind: "live", today }];
+  const { nominationsOn, winnersOn } = season.oscar;
+  if (nominationsOn !== null && eve(nominationsOn) <= today) out.push({ kind: "eve_nominations" });
+  if (winnersOn !== null && eve(winnersOn) <= today) out.push({ kind: "eve_ceremony" });
+  return out;
+}
+
+/**
+ * Recomputes the predictions of every season and Oscar category and replaces the `predictions`
+ * table. Every season, not just the loaded ones: each season is history for all the others
+ * (leave one season out), so one new result can move any of them. Returns a line to print.
+ */
+export async function recomputePredictions(db: Db, today: string): Promise<string> {
+  const tables: Tables = {
+    awardRows: await db.select().from(awards),
+    categoryRows: await db.select().from(awardCategories),
+    editionRows: await db.select().from(editions),
+    resultRows: await db
+      .select({ editionId: results.editionId, categoryId: results.categoryId, movieId: results.movieId, outcome: results.outcome })
+      .from(results),
+  };
+  const computedAt = new Date();
+  const rows: Array<typeof predictions.$inferInsert> = [];
+  for (const category of OSCAR_CATEGORIES) {
+    const seasons = buildSeasons(tables, category, today);
+    for (const season of seasons) {
+      for (const snapshot of snapshotsFor(season, today)) {
+        const p = predictCategory({ category, year: season.year, seasons, snapshot });
+        if (!p) continue;
+        for (const c of p.contenders) {
+          rows.push({
+            year: season.year,
+            oscarCategory: category,
+            snapshot: snapshot.kind,
+            movieId: Number(c.movie),
+            pWin: c.pWin,
+            pNominate: c.pNominate,
+            rank: c.rank,
+            why: c.why,
+            computedAt,
+          });
+        }
+      }
+    }
+  }
+
+  await db.delete(predictions);
+  for (let i = 0; i < rows.length; i += 500) await db.insert(predictions).values(rows.slice(i, i + 500));
+  return `Predictions: ${rows.length} rows recomputed.`;
+}
