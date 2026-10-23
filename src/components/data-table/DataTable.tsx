@@ -12,6 +12,8 @@ export type DataColumn = {
   key: string;
   label: string;
   sortable?: boolean;
+  /** The direction a first press sorts in: figures start descending (the default), names ascending. */
+  firstDirection?: SortDirection;
   /** Left out on phone (the "Years" column). */
   hidePhone?: boolean;
 };
@@ -36,7 +38,7 @@ export function DataTable({
   columns: DataColumn[];
   rows: DataRow[];
   sort?: DataSort;
-  /** Called with the column and its next direction: a new column starts descending, the same one flips. */
+  /** Called with the column and its next direction: a new column starts in its `firstDirection` (descending), the same one flips. */
   onSort?: (next: DataSort) => void;
   /** The table's name for screen readers. */
   caption?: string;
@@ -72,7 +74,11 @@ export function DataTable({
                       onClick={() =>
                         onSort({
                           key: col.key,
-                          direction: sorted === "descending" ? "ascending" : "descending",
+                          direction: sorted
+                            ? sorted === "descending"
+                              ? "ascending"
+                              : "descending"
+                            : (col.firstDirection ?? "descending"),
                         })
                       }
                       className={cn(

@@ -65,4 +65,15 @@ describe("DataTable", () => {
     fireEvent.click(nominated);
     expect(onSort).toHaveBeenLastCalledWith({ key: "nominated", direction: "descending" });
   });
+
+  it("a column with a firstDirection starts that way, then flips like the rest", () => {
+    const onSort = vi.fn();
+    const named: DataColumn[] = [{ key: "award", label: "Award", sortable: true, firstDirection: "ascending" }, ...columns.slice(1)];
+    const { rerender } = render(<DataTable columns={named} rows={rows} sort={{ key: "won", direction: "descending" }} onSort={onSort} />);
+    fireEvent.click(screen.getByRole("button", { name: "Award" }));
+    expect(onSort).toHaveBeenLastCalledWith({ key: "award", direction: "ascending" });
+    rerender(<DataTable columns={named} rows={rows} sort={{ key: "award", direction: "ascending" }} onSort={onSort} />);
+    fireEvent.click(screen.getByRole("button", { name: "Award" }));
+    expect(onSort).toHaveBeenLastCalledWith({ key: "award", direction: "descending" });
+  });
 });
