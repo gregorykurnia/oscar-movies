@@ -14,6 +14,7 @@ import { movies, predictions } from "../../src/db/schema";
 import { recomputeAccuracy, recomputePredictions } from "../../scripts/lib/compute";
 import { readDataSet } from "../../scripts/lib/data-check";
 import { revalidateAwards, runLoad } from "../../scripts/lib/load";
+import { formatChance } from "../../src/lib/race-chances";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -24,6 +25,15 @@ const TABS = { picture: "Picture", documentary: "Documentary", international: "I
 type Category = keyof typeof TABS;
 
 const panel = (page: Page) => page.getByRole("tabpanel");
+
+/** Opens "Show all" if the category has one (retried until the page has hydrated), until `ready` holds. */
+async function showAll(page: Page, ready: () => Promise<void>) {
+  const button = panel(page).getByRole("button", { name: /^Show all \d+ contenders/ });
+  await expect(async () => {
+    if (await button.count()) await button.click({ timeout: 1000 });
+    await ready();
+  }).toPass();
+}
 
 /** One category's live chances for the season, best first, with the film's title. */
 async function chances(category: Category, year: number, snapshot: "live" | "eve_ceremony") {
@@ -68,14 +78,7 @@ test("each 2026 category shows chances that add to 100%", async ({ page }) => {
     await page.goto(category === "picture" ? "/" : `/?category=${category}`);
     await expect(page.getByRole("tab", { name: new RegExp(`^${TABS[category]}`) })).toHaveAttribute("aria-selected", "true");
     const buttons = panel(page).getByRole("button", { name: /^(<1|\d+)% chance to win, show why$/ });
-    const showAll = panel(page).getByRole("button", { name: /^Show all \d+ contenders/ });
-    if (await showAll.count()) {
-      await expect(async () => {
-        await showAll.click({ timeout: 1000 });
-        await expect(buttons).toHaveCount(rows.length, { timeout: 1000 });
-      }).toPass();
-    }
-    await expect(buttons).toHaveCount(rows.length);
+    await showAll(page, () => expect(buttons).toHaveCount(rows.length, { timeout: 1000 }));
     const first = (await buttons.first().getAttribute("aria-label"))!;
     expect(first.startsWith(`${Math.round(rows[0].pWin * 100)}%`)).toBe(true);
   }
@@ -115,37 +118,48 @@ test("an update that adds an award result changes the chances", async ({ page })
   const share = (title: string, rows: { title: string; pWin: number }[]) => rows.find((r) => r.title === title)!.pWin;
   const fjordRow = (page: Page) =>
     panel(page).getByRole("heading", { level: 3, name: /^Fjord/ }).locator("xpath=../../..");
-  const fjordChance = (page: Page, pct: number) =>
+  const fjordChance = (page: Page, pct: string) =>
     fjordRow(page).getByRole("button", { name: `${pct}% chance to win, show why` });
+  // Fjord may wait behind "Show all" (under 3%), so it is opened first when it's there.
+  const openRace = async (page: Page, pct: string) => {
+    await page.goto("/");
+    await showAll(page, () => expect(fjordChance(page, pct)).toBeVisible({ timeout: 1000 }));
+  };
 
+  let before: Awaited<ReturnType<typeof chances>> = [];
   try {
     // Start from the real files, so the "before" is the state the owner would see.
     await loadTest("data");
-    const before = await chances("picture", SEASON, "live");
-    const fjordBefore = Math.round(share("Fjord", before) * 100);
-    await page.goto("/");
-    await expect(fjordChance(page, fjordBefore)).toBeVisible();
+    before = await chances("picture", SEASON, "live");
+    const fjordBefore = formatChance(share("Fjord", before));
+    await openRace(page, fjordBefore);
 
     // The update: the sample's results go in, and the chances are recomputed.
     await loadTest(`${SAMPLE_DIR}/data`);
     const after = await chances("picture", SEASON, "live");
-    const fjordAfter = Math.round(share("Fjord", after) * 100);
-    expect(fjordAfter).toBeGreaterThan(fjordBefore);
+    expect(Math.round(share("Fjord", after) * 100)).toBeGreaterThan(Math.round(share("Fjord", before) * 100));
+    const fjordAfter = formatChance(share("Fjord", after));
     expect(after.reduce((sum, r) => sum + r.pWin, 0)).toBeCloseTo(1, 4);
-    await page.goto("/");
-    await expect(fjordChance(page, fjordAfter)).toBeVisible();
+    await openRace(page, fjordAfter);
     await expect(fjordChance(page, fjordBefore)).toHaveCount(0);
 
-    // Its "why" now counts the new result.
-    await fjordChance(page, fjordAfter).click();
-    await expect(fjordRow(page)).toContainText(/TIFF/);
+    // Its "why" now counts the new result (the row's own precursor line names TIFF too, so the
+    // check is inside the opened "why").
+    const button = fjordChance(page, fjordAfter);
+    await expect(async () => {
+      if ((await button.getAttribute("aria-expanded")) !== "true") await button.click({ timeout: 1000 });
+      await expect(button).toHaveAttribute("aria-expanded", "true", { timeout: 1000 });
+    }).toPass();
+    await expect(page.locator(`#${await button.getAttribute("aria-controls")}`)).toContainText(/TIFF/);
   } finally {
     // Take the sample out: the real files go back in and the chances return to where they were.
     await loadTest("data");
     rmSync(SAMPLE_DIR, { recursive: true, force: true });
   }
 
+  // The chances are back where they started, in the database and on the page.
   const restored = await chances("picture", SEASON, "live");
-  await page.goto("/");
-  await expect(fjordChance(page, Math.round(share("Fjord", restored) * 100))).toBeVisible();
+  expect(restored.map((r) => r.title).sort()).toEqual(before.map((r) => r.title).sort());
+  for (const r of before) expect(share(r.title, restored), r.title).toBeCloseTo(r.pWin, 6);
+  await openRace(page, formatChance(share("Fjord", restored)));
 });

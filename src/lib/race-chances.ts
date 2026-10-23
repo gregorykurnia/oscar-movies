@@ -81,27 +81,45 @@ export function splitRows<R extends { chance: Chance | null }>(rows: R[], state:
 }
 
 /** The "Show all" row's words: "Show all 38 contenders" · "Bugonia, Train Dreams, The Secret Agent and 33 more under 3%". */
-export function showAllText(total: number, more: Array<{ title: string }>): { label: string; rest: string } {
+export function showAllText(total: number, more: Array<{ title: string; noChance?: boolean }>): { label: string; rest: string } {
   const named = more.slice(0, 3).map((m) => m.title);
   const others = more.length - named.length;
   const list = others > 0 ? `${named.join(", ")} and ${others.toLocaleString("en-US")} more` : joinAnd(named);
-  return { label: `Show all ${total.toLocaleString("en-US")} contenders`, rest: `${list} under 3%` };
+  // "under 3%" only when it's true of every row kept back (a row with no stored chance waits there too).
+  const under = more.some((m) => m.noChance) ? "" : " under 3%";
+  return { label: `Show all ${total.toLocaleString("en-US")} contenders`, rest: `${list}${under}` };
 }
 
 function joinAnd(items: string[]): string {
   return items.length <= 1 ? (items[0] ?? "") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-/** The race's column labels on the stage line (desktop), by the columns the rows show. */
-export function chanceColumns(state: SeasonState, rows: Array<{ chance: Chance | null }>): { nominate: boolean; win: string } | null {
+/**
+ * The race's column labels on the stage line (desktop), by the columns the rows show and the
+ * snapshot they come from (a finished season with no eve stored shows live chances: "To win").
+ */
+export function chanceColumns(snapshot: RaceSnapshot, rows: Array<{ chance: Chance | null }>): { nominate: boolean; win: string } | null {
   if (!rows.some((r) => r.chance !== null)) return null;
   return {
     nominate: rows.some((r) => r.chance?.pNominate != null),
-    win: state === "finished" ? "Final prediction" : "To win",
+    win: snapshot === "eve_ceremony" ? "Final prediction" : "To win",
   };
 }
 
 /** The favourite: the best-ranked row shown (`raceRows` puts it first). */
 export function leaderOf<R extends { chance: Chance | null }>(rows: R[]): R | null {
   return rows.find((r) => r.chance !== null) ?? null;
+}
+
+/**
+ * Every row whose % reads the same as the favourite's: a tie at the top is gold on each row (guide
+ * §2: "the leader"). When every row ties there is no favourite, so none is gold.
+ */
+export function leadersOf<R extends { chance: Chance | null }>(rows: R[]): Set<R> {
+  const top = leaderOf(rows);
+  if (!top) return new Set();
+  const shown = formatChance(top.chance!.pWin);
+  const withChance = rows.filter((r) => r.chance !== null);
+  const tied = withChance.filter((r) => formatChance(r.chance!.pWin) === shown);
+  return tied.length > 1 && tied.length === withChance.length ? new Set() : new Set(tied);
 }

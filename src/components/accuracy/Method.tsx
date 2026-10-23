@@ -22,12 +22,12 @@ export function Method() {
         <p>
           <b className="font-medium">% to win.</b> A film&apos;s weights add up to a score, and the scores in a category become chances
           that add to 100%. Before the Oscar nominations, no film is shown above 90%, because the awards tend to agree with each other
-          and the rest spread in proportion.
+          and the rest spread in proportion; after them, none above 97%.
         </p>
         <p>
           <b className="font-medium">% to be nominated.</b> Shown until the nominations: the same kind of weights, plus a film&apos;s
           place on the Oscar shortlist or eligible list, give each film a chance, scaled so the chances add up to the number of
-          nominees: 10 for Best Picture from 2021 (that year&apos;s number before), 5 for the others, none above 99%.
+          nominees: 10 for Best Picture from 2021, and before that as many as it had that year; 5 for the others. None is above 99%.
         </p>
         <p>
           <b className="font-medium">Contenders.</b> Before the nominations, every film with a nomination or win at a followed award or

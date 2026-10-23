@@ -21,7 +21,9 @@ export function AppShell({
   return (
     <div className="flex min-h-dvh flex-col">
       <TopBar season={season} toWatch={toWatch} />
-      <main className="mx-auto w-full max-w-[var(--content-max)] flex-1 px-4 pt-7 pb-16 text-body-phone md:px-8 md:pt-14 md:pb-24 md:text-body">
+      {/* At least a screen under the top bar, so the footer starts below the fold and doesn't jump
+          when streamed content arrives (launch check P1, layout shift). */}
+      <main className="mx-auto min-h-[calc(100dvh-var(--topbar-h-phone))] w-full max-w-[var(--content-max)] flex-1 px-4 pt-7 pb-16 text-body-phone md:px-8 md:pt-14 md:min-h-[calc(100dvh-var(--topbar-h))] md:pb-24 md:text-body">
         {children}
       </main>
       <Footer />

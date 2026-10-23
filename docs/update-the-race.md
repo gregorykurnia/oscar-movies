@@ -12,7 +12,7 @@ The routine for when the owner says **"update the race"** (product plan §3.12; 
 
 ## 2. Find and add what's new
 
-1. List the season's editions whose day has come and whose results aren't in yet: in `data/editions/<award>/<season>.json`, `status` `no_data` or `partial`, with `nominationsOn` or `winnersOn` today or earlier (or a date announced since the last update). The Oscars' own dates (shortlists in December, nominations in January) are in `data/editions/oscars/<season>.json`; if the Academy moves them, change them there.
+1. List the season's editions whose day has come and whose results aren't in yet: in `data/editions/<award>/<season>.json`, `status` `no_data` or `partial`, with `nominationsOn` or `winnersOn` today or earlier (or a date announced since the last update). The Oscars' own dates (shortlists in December, nominations in January) are in `data/editions/oscars/<season>.json`; if the Academy moves them, change them there. Load an Oscar shortlist on the day it comes out: until it is loaded, the live race still counts every submission while past seasons, lined up by date, already count only their shortlists.
 2. Fetch the results with the award's research script, for the season only. Each writes the edition file and the facts of any new film, and prints what it couldn't resolve:
 
    | Awards | Command |

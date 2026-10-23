@@ -435,6 +435,10 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Approve the Phase 2 production data load (12 majors and 5 festivals, 2012–2026, then `npm run compute`); Claude shows the dry run first | 2026-10-23 | Phase 2 release |
 | Phase 2 owner check: spot-check three awards' pages against memory, the accuracy page and the 2025 grid, sign off | 2026-10-23 | Phase 2 done |
 | Two Phase 2 choices to confirm or change: the awards index's bordered Oscars link (2.7, not in guide §5), and the year summary counting Oscar-shortlisted films as "with a nomination", as the grid does (2.10) | 2026-10-23 | nothing (easy to change) |
+| Approve the Phase 3 production load and recompute (`npm run compute -- --target production` after the Phase 1–2 loads; predictions for every season); Claude shows the dry run first | 2026-10-23 | Phase 3 release |
+| Phase 3 owner check: compare the 2026 chances and past favourites with instinct, check the race on a real phone, sign off; release before the Oscar nominations (21 Jan 2027) | 2026-10-23 | Phase 3 done |
+| Phase 3 choices to confirm or change (3.R): no film above 97% after the nominations (was uncapped); a live-season edition not out yet shows gold on `/data`; the α list stays as §5.3 has it | 2026-10-23 | nothing (easy to change) |
+| Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log
 

@@ -26,7 +26,8 @@ const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR).reverse();
 const COLUMNS: DataColumn[] = [
   { key: "award", label: "Award" },
   { key: "years", label: `${YEARS[0]} to ${YEARS[YEARS.length - 1]}`, alignLeft: true },
-  { key: "status", label: "Status", alignLeft: true },
+  // On phone the status goes under the award's name, so the strip has the room and nothing scrolls.
+  { key: "status", label: "Status", alignLeft: true, hidePhone: true },
 ];
 
 /**
@@ -90,13 +91,17 @@ function tableRows(rows: CoverageRow[]): DataRow[] {
   for (const group of COVERAGE_GROUPS) {
     const own = rows.filter((r) => r.kind === group.kind);
     if (own.length === 0) continue;
-    out.push({ type: "group", key: `group-${group.kind}`, label: group.label });
+    // A group of one row named like the group (the Academy Awards) needs no heading over it.
+    if (!(own.length === 1 && own[0].name === group.label)) out.push({ type: "group", key: `group-${group.kind}`, label: group.label });
     for (const row of own) {
       out.push({
         key: row.slug,
         cells: [
-          row.name,
-          <CoverageStrip key="strip" cells={row.cells} label={`${row.name}: ${row.loaded} of ${row.cells.length} years loaded`} />,
+          <span key="name">
+            {row.name}
+            <span className="mt-0.5 block text-micro text-ink-muted md:hidden">{row.status}</span>
+          </span>,
+          <CoverageStrip key="strip" cells={row.cells} label={stripLabel(row)} />,
           <span key="status" className="text-ink-muted">
             {row.status}
           </span>,
@@ -105,4 +110,19 @@ function tableRows(rows: CoverageRow[]): DataRow[] {
     }
   }
   return out;
+}
+
+/** "BAFTA: 13 of 15 years loaded; partly loaded: 2025; no data: 2012; live season: 2026". */
+function stripLabel(row: CoverageRow): string {
+  const years = (kind: string) => row.cells.filter((c) => c.kind === kind).map((c) => c.year);
+  const parts = [`${row.name}: ${row.loaded} of ${row.cells.length} years loaded`];
+  for (const [kind, word] of [
+    ["partial", "partly loaded"],
+    ["none", "no data"],
+    ["live", "live season"],
+  ] as const) {
+    const list = years(kind);
+    if (list.length > 0) parts.push(`${word}: ${list.join(", ")}`);
+  }
+  return parts.join("; ");
 }

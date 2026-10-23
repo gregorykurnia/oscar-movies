@@ -30,6 +30,7 @@ import {
   chanceColumns,
   formatChance,
   leaderOf,
+  leadersOf,
   raceRows,
   raceSnapshot,
   showAllText,
@@ -81,13 +82,21 @@ export function RacePage({ year }: { year: number }) {
   );
 }
 
-/** After the ceremony: when the final prediction was made (its eve). Before it, the live season's last update. */
+/**
+ * After the ceremony: when the final prediction was made (its eve). Before it, the live season's
+ * last update. "After" is the rows' own rule (the winners are loaded and the eve's prediction is
+ * stored), read from Best Picture, so the sub line never says "final" over live chances.
+ */
 async function SubNote({ year }: { year: number }) {
   // Wait for the request, so `next build` never reads the database.
   await connection();
-  const today = new Date().toISOString().slice(0, 10);
-  const edition = await getOscarEdition(year);
-  if (edition?.winnersOn && edition.winnersOn <= today) {
+  const [edition, picture, final] = await Promise.all([
+    getOscarEdition(year),
+    getOscarResults(year, "picture", "submitted"),
+    getRacePredictions(year, "picture", "eve_ceremony"),
+  ]);
+  const finished = seasonState(picture.map((e) => e.outcome)) === "finished";
+  if (edition?.winnersOn && finished && final.length > 0) {
     return ` Final prediction, made ${formatDate(new Date(`${eve(edition.winnersOn)}T00:00:00Z`), true)}.`;
   }
   if (year !== LIVE_YEAR) return null;
@@ -219,13 +228,13 @@ function CategoryPanel({
     entries: rows.flatMap((r) => (r.entry ? [{ outcome: r.entry.outcome, title: r.film.title }] : [])),
     today,
   });
-  const labels = chanceColumns(state, rows);
+  const labels = chanceColumns(snapshot, rows);
   const columns: ChanceColumns = labels === null ? "none" : labels.nominate ? "both" : "win";
   const pills = state === "before" ? stagePillsBefore(rows.map((r) => r.entry?.outcome ?? null)) : showsStagePills(state);
   const lines = new Map(precursors.map((p) => [p.movieId, p]));
-  const leader = leaderOf(rows);
+  const leaders = leadersOf(rows);
   const { shown, more } = splitRows(rows, state);
-  const showAll = more.length > 0 ? showAllText(rows.length, more.map((r) => ({ title: r.film.title }))) : null;
+  const showAll = more.length > 0 ? showAllText(rows.length, more.map((r) => ({ title: r.film.title, noChance: r.chance === null }))) : null;
 
   const render = (r: Row) => (
     <ContenderRow
@@ -245,7 +254,7 @@ function CategoryPanel({
               id: `${category}-${r.film.id}`,
               pWin: r.chance.pWin,
               pNominate: r.chance.pNominate,
-              leader: r === leader,
+              leader: leaders.has(r),
               final: snapshot === "eve_ceremony",
               why: <WhyPanel pct={formatChance(r.chance.pWin)} why={r.chance.why} oscar={oscar} methodHref={`/accuracy/${category}#method`} />,
             }

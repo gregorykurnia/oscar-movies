@@ -93,8 +93,16 @@ export function whySentence(why: Why, oscar: string): string {
   return `${head} ${tail}`;
 }
 
-/** "Similar seasons: 2014, 2016, 2019" (each year once), or null when there are none. */
+/** Up to this many similar seasons are listed by year; more are counted. */
+const LISTED_SEASONS = 6;
+
+/**
+ * "Similar seasons: 2014, 2016, 2019" (each year once), "Similar seasons: 14, from 2012 to 2025"
+ * when there are too many to list (a long list of every year says nothing), or null when none.
+ */
 export function similarSeasons(why: Why): string | null {
   const years = [...new Set(why.similar?.films.map((f) => f.year) ?? [])].sort((a, b) => a - b);
-  return years.length > 0 ? `Similar seasons: ${years.join(", ")}` : null;
+  if (years.length === 0) return null;
+  if (years.length <= LISTED_SEASONS) return `Similar seasons: ${years.join(", ")}`;
+  return `Similar seasons: ${years.length}, from ${years[0]} to ${years[years.length - 1]}`;
 }

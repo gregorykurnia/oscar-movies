@@ -122,8 +122,18 @@ export function ContenderRow({
       {columns === "both" ? (
         // Phone: "99% to be nominated" under the %; desktop: the column, labelled on the stage line.
         <p className="self-start pl-3 text-right text-micro text-ink-muted [grid-area:nom] md:self-auto md:pl-0 md:text-[18px]">
-          {chance?.pNominate != null ? `${formatChance(chance.pNominate)}%` : "–"}
-          <span className="md:sr-only"> to be nominated</span>
+          {chance?.pNominate != null ? (
+            <>
+              {formatChance(chance.pNominate)}%<span className="md:sr-only"> to be nominated</span>
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">
+                –<span className="md:hidden"> to be nominated</span>
+              </span>
+              <span className="sr-only">No chance to be nominated worked out</span>
+            </>
+          )}
         </p>
       ) : null}
       {columns !== "none" ? (

@@ -35,17 +35,21 @@ export const COVERAGE_GROUPS: { kind: AwardKind; label: string }[] = [
 
 const STATUS_WORD: Record<EditionStatus, string> = { loaded: "Loaded", partial: "Partly loaded", no_data: "No data" };
 
-/** "Loaded", "No data", or "Partly, 8 years no data" (a year with no edition counts as no data). */
+/**
+ * "Loaded", "No data", "Partly loaded" or "Partly, 8 years no data" (a year with no edition counts
+ * as no data; the live season's edition that isn't out yet counts as neither).
+ */
 export function statusText(loaded: number, partial: number, none: number): string {
-  if (partial === 0 && none === 0) return "Loaded";
   if (loaded === 0 && partial === 0) return "No data";
-  if (none === 0) return "Partly";
+  if (partial === 0 && none === 0) return "Loaded";
+  if (none === 0) return STATUS_WORD.partial;
   return `Partly, ${none} ${none === 1 ? "year" : "years"} no data`;
 }
 
 /**
  * A row per award, in the season's order within its kind. `years` runs oldest to newest. A year the
- * award has no edition for is "No data"; the live season, once loaded or partly loaded, is gold.
+ * award has no edition for is "No data"; the live season is gold once loaded, partly loaded, or on
+ * file and not out yet.
  */
 export function coverageRows(
   awards: AwardSummary[],
@@ -68,6 +72,10 @@ export function coverageRows(
       let none = 0;
       const cells = years.map((year): CoverageCell => {
         const status = own?.get(year) ?? "no_data";
+        // The live season's edition is on file but not out yet: gold, and not a gap (preview §8.9).
+        if (year === liveYear && status === "no_data" && own?.has(year)) {
+          return { year, kind: "live", label: `${year}: Not out yet (live season)` };
+        }
         if (status === "loaded") loaded++;
         else if (status === "partial") partial++;
         else none++;

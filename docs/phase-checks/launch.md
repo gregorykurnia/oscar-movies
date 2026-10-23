@@ -56,3 +56,7 @@ What was checked and holds:
 ## 4. What this task changed
 
 `tests/launch/launch.spec.ts` (the scan and the timings; writes `test-results/launch/`, which Playwright empties at the start of every run), the `launch` Playwright project, `npm run launch:check`, and `axe-core` 4.14.0 as a direct dev dependency (it was already installed through `eslint-config-next`). No app code was changed.
+
+## 5. After the Phase 3 review (2026-10-23)
+
+A1, A2, P1 and S1 were fixed in 3.R (`docs/review-triage.md` 3-1 to 3-4). Rerun of `npm run launch:check`: axe 0 violations in 28 views; layout shift 0 in every run of `/` and `/grid/2025` at 390 and 1280.

@@ -25,12 +25,19 @@ const nextConfig: NextConfig = {
       { source: "/accuracy", destination: "/accuracy/picture", permanent: false },
     ];
   },
-  // Search engines stay out: every response says noindex, nofollow (plan §10).
+  // Search engines stay out: every response says noindex, nofollow (plan §10). The rest are the
+  // basic security headers (launch check S1); a full CSP is left out (Next's inline scripts need nonces).
   async headers() {
     return [
       {
         source: "/:path*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+        ],
       },
     ];
   },

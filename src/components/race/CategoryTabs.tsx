@@ -99,7 +99,10 @@ export function CategoryTabs({
               <span
                 className={cn(
                   "block text-section-phone leading-tight font-medium tracking-heading transition-colors duration-[var(--dur-fast)] ease-app md:text-section",
-                  current ? "text-ink" : "text-ink-subtle group-hover:text-ink-muted",
+                  // ink-subtle is for text of 24px and up (guide §3), so the 20px phone size uses ink-muted.
+                  current
+                    ? "text-ink"
+                    : "text-ink-muted group-hover:text-ink md:text-ink-subtle md:group-hover:text-ink-muted",
                 )}
               >
                 {name}

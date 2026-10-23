@@ -70,7 +70,7 @@ test("the why behind a % opens and closes by keyboard", async ({ page }) => {
   await expect(why.getByRole("heading", { level: 4 })).toHaveText(`Why ${shown}%`);
   await expect(why).toContainText(/won Best Picture\./);
   await expect(why).toContainText("Won PGA");
-  await expect(why).toContainText(/Similar seasons: \d{4}/);
+  await expect(why).toContainText(/Similar seasons: \d/);
   const method = why.getByRole("link", { name: "How the % chance works" });
   await expect(method).toHaveAttribute("href", "/accuracy/picture#method");
 
@@ -129,7 +129,7 @@ test("the live season shows its contenders with their chances", async ({ page })
   const before = await chances.count();
   expect(before).toBeLessThan(total);
   await expect(async () => {
-    await showAll.click({ timeout: 1000 });
+    if (await showAll.count()) await showAll.click({ timeout: 1000 });
     await expect(chances).toHaveCount(total, { timeout: 1000 });
   }).toPass();
   await expect(showAll).toHaveCount(0);

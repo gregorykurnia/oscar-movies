@@ -65,5 +65,7 @@ describe("similarSeasons", () => {
   it("lists each year once, in order", () => {
     expect(similarSeasons(ANORA)).toBe("Similar seasons: 2012, 2013, 2014, 2016, 2025");
     expect(similarSeasons({ top: [], similar: null })).toBeNull();
+    const many = { ...ANORA, similar: { ...ANORA.similar!, films: [2012, 2013, 2014, 2015, 2016, 2017, 2025].map((year) => ({ ...ANORA.similar!.films[0], year })) } };
+    expect(similarSeasons(many)).toBe("Similar seasons: 7, from 2012 to 2025");
   });
 });

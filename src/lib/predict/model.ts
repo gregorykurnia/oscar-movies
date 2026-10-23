@@ -78,10 +78,16 @@ export function softmax(scores: readonly number[], temperature: number): number[
 }
 
 export const EARLY_CAP = 0.9;
+/**
+ * After the nominations no film is above 97% either: a sharp fitted temperature could otherwise
+ * show a favourite at "100%" that went on to lose (International 2024, 3.R). Easy to change.
+ */
+export const LATE_CAP = 0.97;
 
 /**
- * Before the Oscar nominations no film is above 90%: the favourite is cut to 90% and the rest
- * share the other 10% in proportion. A lone contender keeps 100% (the chances must add up).
+ * No film above the cap (90% before the Oscar nominations, `EARLY_CAP`; 97% after, `LATE_CAP`):
+ * the favourite is cut to the cap and the rest share what's left in proportion. A lone contender
+ * keeps 100% (the chances must add up).
  */
 export function capEarly(p: readonly number[], cap = EARLY_CAP): number[] {
   if (p.length < 2) return [...p];
@@ -108,8 +114,9 @@ export function fillSlots(scores: readonly number[], a: number, b: number, slots
   if (scores.length === 0) return [];
   const at = (shift: number) => scores.map((s) => Math.min(NOMINATE_CAP, sigmoid(a * s + b + shift)));
   if (NOMINATE_CAP * scores.length <= slots) return scores.map(() => NOMINATE_CAP);
-  let low = -100;
-  let high = 100;
+  // Wide enough for any fitted `a` and score (a front-runner's score can reach about 30).
+  let low = -1000;
+  let high = 1000;
   for (let i = 0; i < 200; i += 1) {
     const mid = (low + high) / 2;
     if (at(mid).reduce((x, y) => x + y, 0) < slots) low = mid;

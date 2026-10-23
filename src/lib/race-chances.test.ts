@@ -4,6 +4,7 @@ import {
   chanceColumns,
   formatChance,
   leaderOf,
+  leadersOf,
   MIN_SHOWN,
   raceRows,
   raceSnapshot,
@@ -94,21 +95,30 @@ describe("splitRows and showAllText", () => {
       label: "Show all 38 contenders",
       rest: "Bugonia, Train Dreams, The Secret Agent and 33 more under 3%",
     });
+    expect(showAllText(7, [{ title: "A" }, { title: "B", noChance: true }]).rest).toBe("A and B");
     expect(showAllText(7, [{ title: "A" }, { title: "B" }]).rest).toBe("A and B under 3%");
   });
 });
 
 describe("chanceColumns, leaderOf and stagePillsBefore", () => {
   it("labels the columns by what the rows carry", () => {
-    expect(chanceColumns("before", [{ chance: chance(1, 1, 0.99) }])).toEqual({ nominate: true, win: "To win" });
-    expect(chanceColumns("nominations", [{ chance: chance(1, 1) }])).toEqual({ nominate: false, win: "To win" });
-    expect(chanceColumns("finished", [{ chance: chance(1, 1) }])).toEqual({ nominate: false, win: "Final prediction" });
-    expect(chanceColumns("before", [{ chance: null }])).toBeNull();
+    expect(chanceColumns("live", [{ chance: chance(1, 1, 0.99) }])).toEqual({ nominate: true, win: "To win" });
+    expect(chanceColumns("live", [{ chance: chance(1, 1) }])).toEqual({ nominate: false, win: "To win" });
+    expect(chanceColumns("eve_ceremony", [{ chance: chance(1, 1) }])).toEqual({ nominate: false, win: "Final prediction" });
+    expect(chanceColumns("live", [{ chance: null }])).toBeNull();
   });
 
   it("leads with the first row that has a chance", () => {
     expect(leaderOf([{ chance: null }])).toBeNull();
     expect(leaderOf([{ chance: chance(2, 0.3) }, { chance: chance(3, 0.2) }])?.chance?.rank).toBe(2);
+  });
+
+  it("marks every row whose % reads the same as the favourite's", () => {
+    const rows = [{ chance: chance(1, 0.221) }, { chance: chance(2, 0.219) }, { chance: chance(3, 0.2) }, { chance: null }];
+    expect([...leadersOf(rows)]).toEqual([rows[0], rows[1]]);
+    expect(leadersOf([{ chance: null }]).size).toBe(0);
+    expect(leadersOf([{ chance: chance(1, 0.5) }, { chance: chance(2, 0.5) }]).size).toBe(0);
+    expect(leadersOf([{ chance: chance(1, 1) }]).size).toBe(1);
   });
 
   it("shows pills before the shortlist only when the stages differ", () => {

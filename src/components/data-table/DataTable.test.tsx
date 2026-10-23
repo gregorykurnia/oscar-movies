@@ -76,4 +76,19 @@ describe("DataTable", () => {
     fireEvent.click(screen.getByRole("button", { name: "Award" }));
     expect(onSort).toHaveBeenLastCalledWith({ key: "award", direction: "descending" });
   });
+
+  it("a frame that scrolls sideways is a named region in the tab order; one that fits is not", () => {
+    const fits = render(<DataTable columns={columns} rows={rows} caption="Which award years are loaded" />);
+    expect(fits.queryByRole("region")).toBeNull();
+    fits.unmount();
+
+    const scroll = vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockReturnValue(600);
+    const client = vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(358);
+    render(<DataTable columns={columns} rows={rows} caption="Which award years are loaded" />);
+    const frame = screen.getByRole("region", { name: "Which award years are loaded" });
+    expect(frame.getAttribute("tabindex")).toBe("0");
+    expect(frame.className).toContain("focus-visible:shadow-focus");
+    scroll.mockRestore();
+    client.mockRestore();
+  });
 });

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Outcome } from "../stage";
 import { outOfSeason, type HistorySeason } from "./fit";
 import { predictCategory, type OscarCategory, type PrecursorResult, type Season, type SeasonFilm, type Snapshot } from "./index";
-import { capEarly, fillSlots, score, softmax, tally, weights, EARLY_CAP } from "./model";
+import { capEarly, fillSlots, score, softmax, tally, weights, EARLY_CAP, LATE_CAP } from "./model";
 import { historyCutoff, nominationSlots, oscarStatusAsOf, resultAsOf, seasonAsOf } from "./season";
 
 // A seeded random history: each film has a hidden strength; precursors and the Oscars favour the
@@ -214,10 +214,12 @@ describe("the early cap", () => {
     expect(sum(p.contenders.map((c) => c.pWin))).toBeCloseTo(1, 10);
   });
 
-  it("is lifted after the nominations", () => {
+  it("is raised to 97% after the nominations", () => {
     const p = predictCategory({ category: "picture", year: 2016, seasons, snapshot: { kind: "eve_ceremony" } })!;
     expect(p.phase).toBe("after");
     expect(p.contenders[0].pWin).toBeGreaterThan(EARLY_CAP);
+    for (const c of p.contenders) expect(c.pWin).toBeLessThanOrEqual(LATE_CAP + 1e-12);
+    expect(sum(p.contenders.map((c) => c.pWin))).toBeCloseTo(1, 10);
   });
 
   it("cuts the favourite to 90% and the rest keep their proportions", () => {
@@ -338,6 +340,13 @@ describe("a season as of a date", () => {
     expect(resultAsOf({ ...bafta, outcome: "shortlisted" }, null)).toBeNull();
   });
 
+  it("counts an undated result only once the season says so (from the eve of its nominations)", () => {
+    const undated: PrecursorResult = { award: "cinema-eye", category: "cinema-eye/feature", outcome: "won", nominationsOn: null, winnersOn: null };
+    expect(resultAsOf(undated, "2024-10-23", false)).toBeNull();
+    expect(resultAsOf(undated, "2024-10-23", true)).toBe("won");
+    expect(resultAsOf(undated, null, false)).toBe("won");
+  });
+
   it("reads Oscar lists as of the date: International's submissions from the start, the shortlist on its day", () => {
     const dates = oscarDates(2024);
     expect(oscarStatusAsOf("international", "won", dates, "2024-11-01")).toBe("submitted");
@@ -374,11 +383,12 @@ describe("a season as of a date", () => {
   });
 
   it("lines live history up with the same point of the season", () => {
+    // Cutoffs are exclusive and the live target counts today, so the matching day is one day on.
     const target = oscarDates(2025);
-    expect(historyCutoff({ kind: "live", today: "2025-12-01" }, "before", target, oscarDates(2015))).toBe("2015-12-01");
+    expect(historyCutoff({ kind: "live", today: "2025-12-01" }, "before", target, oscarDates(2015))).toBe("2015-12-02");
     expect(historyCutoff({ kind: "live", today: "2026-01-19" }, "before", target, oscarDates(2015))).toBe("2016-01-19");
-    expect(historyCutoff({ kind: "live", today: "2026-02-10" }, "after", target, oscarDates(2015))).toBe("2016-02-11");
-    expect(historyCutoff({ kind: "live", today: "2026-01-21" }, "after", target, oscarDates(2015))).toBe("2016-01-22");
+    expect(historyCutoff({ kind: "live", today: "2026-02-10" }, "after", target, oscarDates(2015))).toBe("2016-02-12");
+    expect(historyCutoff({ kind: "live", today: "2026-01-21" }, "after", target, oscarDates(2015))).toBe("2016-01-23");
     expect(historyCutoff({ kind: "live", today: "2026-06-01" }, "after", target, oscarDates(2015))).toBe("2016-02-29");
     expect(historyCutoff({ kind: "eve_nominations" }, "before", target, oscarDates(2015))).toBe("2016-01-19");
     expect(historyCutoff({ kind: "eve_ceremony" }, "after", target, { ...oscarDates(2015), winnersOn: null })).toBeUndefined();

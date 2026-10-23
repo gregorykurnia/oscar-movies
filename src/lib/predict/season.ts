@@ -42,18 +42,22 @@ function oscarAnnounced(date: string | null, cutoff: string | null): boolean {
   return cutoff === null || (date !== null && date < cutoff);
 }
 
-/** A precursor date: an unknown one counts as announced (a gap in the research, not a future result). */
-function precursorAnnounced(date: string | null, cutoff: string | null): boolean {
-  return cutoff === null || date === null || date < cutoff;
+/**
+ * A precursor date by the cutoff. An unknown one (a gap in the research, not a future result)
+ * counts as announced when `undatedOut` says so: see `seasonAsOf`.
+ */
+function precursorAnnounced(date: string | null, cutoff: string | null, undatedOut: boolean): boolean {
+  return cutoff === null || (date === null ? undatedOut : date < cutoff);
 }
 
 /** What a precursor result showed by the cutoff: a winner is a nominee until its winners day. */
-export function resultAsOf(r: PrecursorResult, cutoff: string | null): ResultState | null {
+export function resultAsOf(r: PrecursorResult, cutoff: string | null, undatedOut = true): ResultState | null {
   if (!isNomination(r.outcome)) return null;
-  if (r.outcome === "won" && precursorAnnounced(r.winnersOn, cutoff)) return "won";
+  const announced = (date: string | null) => precursorAnnounced(date, cutoff, undatedOut);
+  if (r.outcome === "won" && announced(r.winnersOn)) return "won";
   // Awards that name only winners (festivals) have no nominations day: a runner-up comes out with the winners.
-  if (r.nominationsOn === null) return r.outcome !== "won" && precursorAnnounced(r.winnersOn, cutoff) ? "nominated" : null;
-  return precursorAnnounced(r.nominationsOn, cutoff) ? "nominated" : null;
+  if (r.nominationsOn === null) return r.outcome !== "won" && announced(r.winnersOn) ? "nominated" : null;
+  return announced(r.nominationsOn) ? "nominated" : null;
 }
 
 /**
@@ -111,10 +115,14 @@ export function parseFeature(key: string): { category: string; state: string } {
 export function seasonAsOf(season: Season, category: OscarCategory, cutoff: string | null): SeasonAsOf {
   const lists = OSCAR_LISTS[category];
   const awards = new Set<string>();
+  // A result with no date (Cinema Eye 2012–2020, AFI 2017) counts from the eve of the season's
+  // nominations, when every followed precursor has announced; before that it would put a January
+  // result into a season lined up with October (3.R). Live, a loaded result is out.
+  const undatedOut = cutoff === null || season.oscar.nominationsOn === null || cutoff >= eve(season.oscar.nominationsOn);
   const rows = season.films.map((film) => {
     const winFeatures: string[] = [];
     for (const r of film.results) {
-      const state = resultAsOf(r, cutoff);
+      const state = resultAsOf(r, cutoff, undatedOut);
       if (state === null) continue;
       awards.add(r.award);
       winFeatures.push(featureKey(r.category, state));
@@ -175,10 +183,11 @@ export function historyCutoff(snapshot: Snapshot, phase: Phase, target: OscarDat
   const clamp = (date: string, low: string | null, high: string) => (date > high ? high : low !== null && date < low ? low : date);
   if (phase === "after") {
     if (target.winnersOn === null) return eve(winnersOn);
-    return clamp(addDays(winnersOn, -daysBetween(snapshot.today, target.winnersOn)), addDays(nominationsOn, 1), eve(winnersOn));
+    return clamp(addDays(winnersOn, 1 - daysBetween(snapshot.today, target.winnersOn)), addDays(nominationsOn, 1), eve(winnersOn));
   }
   if (target.nominationsOn === null) return eve(nominationsOn);
-  return clamp(addDays(nominationsOn, -daysBetween(snapshot.today, target.nominationsOn)), null, eve(nominationsOn));
+  // The live target counts results through today, so the matching day counts too (cutoffs are exclusive: one day on).
+  return clamp(addDays(nominationsOn, 1 - daysBetween(snapshot.today, target.nominationsOn)), null, eve(nominationsOn));
 }
 
 /**

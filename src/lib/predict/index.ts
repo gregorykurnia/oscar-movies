@@ -3,7 +3,7 @@
 // the result in `predictions`; pages never compute.
 import { isNomination } from "../stage";
 import { fitNominate, fitWin, type HistorySeason } from "./fit";
-import { capEarly, fillSlots, score, softmax, tally, weights } from "./model";
+import { capEarly, EARLY_CAP, fillSlots, LATE_CAP, score, softmax, tally, weights } from "./model";
 import { historyCutoff, seasonAsOf, targetCutoff } from "./season";
 import type { CategoryPrediction, ContenderPrediction, OscarCategory, Season, Snapshot } from "./types";
 import { buildWhy, type PastContender } from "./why";
@@ -54,7 +54,7 @@ export function predictCategory(input: {
   const winWeights = weights(winTally, winFit.alpha);
   const scores = now.contenders.map((c) => score(c.winFeatures, winWeights));
   const raw = softmax(scores, winFit.temperature);
-  const pWin = now.phase === "before" ? capEarly(raw) : raw;
+  const pWin = capEarly(raw, now.phase === "before" ? EARLY_CAP : LATE_CAP);
 
   let pNominate: Array<number | null> = now.contenders.map(() => null);
   let nominate: CategoryPrediction["params"]["nominate"] = null;

@@ -90,3 +90,43 @@ Three fresh read-only reviews: logic and data (accuracy, grid, movie awards, com
 | 2-25 | Movie page left out Festivals when no festival gave a prize | Fixed: the section shows "No followed festival prize." |
 | 2-26 | Race precursor line: awards not in calendar order within a group | Dropped: the order is 2.11's rule (wins first, majors before critics groups before festivals, later in the season first) |
 | 2-27 | Year summary: zero Watched counts in ink | Fixed: `--ink-muted` (`TextLink` tone `muted`) |
+
+## Phase 3 review (2026-10-23)
+
+**Checks:** full Playwright suite after the fixes 83 of 83 on the first run (another project's Playwright run was on the server at the time); screenshot spec 24 of 24 (390 and 1280, light only, every route into `screenshots/phase-3/`), the tie state retaken after 3-13; launch checks rerun: axe 0 violations in 28 views, layout shift 0 on `/` and the grid at both widths; unit 683; database tests for predictions, coverage and accuracy 11; predictions recomputed on `test` (1919 rows); typecheck, lint, build clean.
+
+Three fresh read-only reviews: logic and data (engine, compute, race:check, backtest, coverage), pages and specs, design (guide §15 on `screenshots/phase-3/` against `design-preview.html`); plus the launch findings (`docs/phase-checks/launch.md`). No data-loss or wrong-write bugs found: `predictions` is replaced inside the load's transaction, `race:check` only reads, cache tags hold. No raw hex (grep clean). Differences already recorded in tasks 3.1–3.10 aren't repeated here.
+
+| # | Item | Where it went |
+|---|---|---|
+| 3-1 | Launch A1: inactive race tab names `ink-subtle` at the 20px phone size (3.45:1; guide §3 allows it from 24px) | Fixed: `ink-muted` below `md`, `ink-subtle` from `md` |
+| 3-2 | Launch A2: `/data`'s table frame scrolls sideways on a phone with nothing focusable | Fixed: a frame that overflows becomes a named, focusable region (`DataTable`, checked on resize); `/data` no longer scrolls on a phone (3-9) |
+| 3-3 | Launch P1: layout shift 0.136 on a phone, the footer jumping when streamed content arrives | Fixed: `main` is at least a screen under the top bar, so the footer starts below the fold (short pages scroll a little to reach it). Re-measured: 0 at both widths on `/` and the grid |
+| 3-4 | Launch S1: no security headers beyond `X-Robots-Tag` | Fixed: `nosniff`, `Referrer-Policy`, `X-Frame-Options: DENY`, `Permissions-Policy` (no CSP: Next's inline scripts need nonces); the smoke test checks two |
+| 3-5 | Launch P2, P3, S3 (293 KB home HTML, phone main-thread time, dev-only audit findings) | Dropped: accepted in `launch.md`; look again if the owner's phone feels slow |
+| 3-6 | Launch S2, S4 (rate limit on `/api/search`, a read-only database role) | Owner, optional: production settings; on the Waiting list |
+| 3-7 | A "Final prediction" of 99.98% ("100%") for a film that lost (International 2024): after the nominations the fitted softmax had no cap | Fixed: no film above 97% after the nominations (`LATE_CAP`, plan §5.3 and the Method text); owner to confirm the number |
+| 3-8 | Undated precursor results (Cinema Eye 2012–2020, AFI 2017) counted as announced in October of those seasons, sharpening 2026 Documentary's live chances | Fixed: an undated result counts from the eve of its season's nominations (plan §5.3) |
+| 3-9 | `/data` at 390: the strip cut off at the right, the Status column off-screen and wrapping | Fixed: the status goes under the award's name on phone, the strip takes the room left (2px gaps); the strip's label names partly loaded, no-data and live years |
+| 3-10 | `/data`: "Partly" without "loaded"; every major award read "Partly, 1 year no data" because its 2026 edition is still ahead | Fixed: "Partly loaded"; a live-season edition on file but not out yet is gold (live), not a gap |
+| 3-11 | Backtest at 390: the Result column off-screen, titles one word per line | Fixed: on phone the result goes under the title, flags hidden, Result column left out |
+| 3-12 | Backtest strip with no stored predictions read "0%", "0 of 0" | Fixed: "–" (guide §11); the dashes in rows say "No prediction stored for this season" to screen readers |
+| 3-13 | Tied favourites (Documentary 2026, 22% and 22%): only the first was gold | Fixed: every row whose % reads the same as the favourite's is gold (`leadersOf`); when every row ties (Documentary 2026 after 3-8: five at 20%) none is |
+| 3-14 | The "why": "Similar seasons" listed all 14 years | Fixed: up to six are listed; more read "Similar seasons: 14, from 2012 to 2025" |
+| 3-15 | Stage line "Nominations 21 Jan · Ceremony 14 Mar 2027" (one date with its year, one without) | Fixed: once one date in a line needs its year, every date in that calendar year carries it |
+| 3-16 | Sub line said "Final prediction, made …" from the ceremony day (UTC) before the winners were loaded; a finished season with no eve stored labelled live chances "Final prediction" | Fixed: the sub line follows the rows' rule (winners loaded and the eve stored); the column label follows the snapshot shown |
+| 3-17 | `phase-3.spec.ts`: the "why" check passed without the why opening (the row's own line names TIFF); the restore wasn't proven; Fjord's label broke under 1% or behind Show all | Fixed: waits for `aria-expanded`, reads the panel; compares every restored chance with the start; builds the label with `formatChance` and opens Show all |
+| 3-18 | `race.spec.ts` / `phase-3.spec.ts`: the Show all retry clicked again after a slow first success | Fixed: clicks only while the button is there |
+| 3-19 | Method: "10 for Best Picture from 2021 (that year's number before)" hard to read | Fixed: "10 for Best Picture from 2021, and before that as many as it had that year; 5 for the others" |
+| 3-20 | Race rows: "– to be nominated" silent to screen readers; the % button under 44px wide for "8%" | Fixed: spoken text for the dash; a 44×44 hit area without moving the underline |
+| 3-21 | "Show all … under 3%" also covered rows with no stored chance | Fixed: "under 3%" only when true of every row kept back |
+| 3-22 | Live history lined up one day short (cutoffs are exclusive; the live target counts today) | Fixed: the history cutoff is one day on |
+| 3-23 | `fillSlots` searched shifts in [−100, 100] only | Fixed: [−1000, 1000] |
+| 3-24 | International: between the shortlist day and its load, history counts shortlists while the live race counts every submission | Fixed in the routine: `docs/update-the-race.md` says to load a shortlist on its day |
+| 3-25 | Picture's nomination slots before 2021 use the final count, unknown on the eve | Dropped: plan §5.3 asks for that year's number |
+| 3-26 | α often lands on 21, the largest in the list | Dropped: §5.3's list; widening it is a model change for the owner's instinct check (on the Waiting list with 3-7) |
+| 3-27 | Animated "nothing yet" stage line: the preview says "Eligible list in Dec" | Dropped: no eligible-list date is stored (1.8); the line names the next dated step |
+| 3-28 | Accuracy at 390: long category captions wrap to four or five lines | Dropped: a caption clamped to two lines hides the award's name; the table scrolls in its frame |
+| 3-29 | `/data`: "Academy Awards" group heading over its one row | Fixed: a group of one row named like the group has no heading |
+| 3-30 | `/data`: "2012 to 2026" head at the left (preview: the years at the strip's ends); the scores stat on two lines | Dropped: column heads are text (`DataTable`); both read correctly |
+| 3-31 | `/data` strip label gave only the loaded count | Fixed with 3-9 |

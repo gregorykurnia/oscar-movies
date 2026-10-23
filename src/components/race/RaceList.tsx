@@ -105,7 +105,8 @@ export function WhyButton({ id, label, children }: { id: string; /** "41% chance
       aria-controls={`${id}-why`}
       onClick={() => setOpen(expanded ? null : id)}
       className={cn(
-        "inline-block border-b-2 pb-1 outline-none transition-colors duration-[var(--dur-fast)] ease-app focus-visible:shadow-focus",
+        // The hit area is at least 44×44 (guide §13) even for a short "8%", without moving the underline.
+        "relative inline-block border-b-2 pb-1 outline-none after:absolute after:top-1/2 after:left-1/2 after:size-11 after:min-h-full after:min-w-full after:-translate-x-1/2 after:-translate-y-1/2 transition-colors duration-[var(--dur-fast)] ease-app focus-visible:shadow-focus",
         expanded ? "border-gold" : "border-line hover:border-gold-soft",
       )}
     >

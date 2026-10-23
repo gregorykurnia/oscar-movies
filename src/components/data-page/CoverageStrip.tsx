@@ -8,13 +8,14 @@ const CELL: Record<CellKind, string> = {
   live: "bg-gold",
 };
 
-/** Guide §8.9 coverage strip: one 14px cell per film year, oldest to newest, 15 across. */
+/** Guide §8.9 coverage strip: one 14px-high cell per film year, oldest to newest, 15 across. */
 export function CoverageStrip({ cells, label }: { cells: CoverageCell[]; label: string }) {
   return (
     <div
       role="img"
       aria-label={label}
-      className="grid min-w-[300px] gap-[3px]"
+      // Phone: the strip takes the room left beside the name (2px gaps); 300px and up from md.
+      className="grid gap-[2px] md:min-w-[300px] md:gap-[3px]"
       style={{ gridTemplateColumns: `repeat(${cells.length}, 1fr)` }}
     >
       {cells.map((cell) => (

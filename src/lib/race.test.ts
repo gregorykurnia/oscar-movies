@@ -121,6 +121,17 @@ describe("stageLine", () => {
     });
   });
 
+  it("gives every date in a far calendar year its year, so one line never mixes the two", () => {
+    // 21 Jan 2027 is 90 days off on 23 Oct (near), 14 Mar 2027 is far: both carry 2027.
+    expect(stageLine({ category: "picture", state: "before", dates: DATES_2026, entries: [], today: "2026-10-23" })).toEqual({
+      done: false,
+      lead: "Nominations 21 Jan 2027",
+      rest: "Ceremony 14 Mar 2027",
+    });
+    // Once both are near, neither does.
+    expect(stageLine({ category: "picture", state: "before", dates: DATES_2026, entries: [], today: "2026-12-20" }).rest).toBe("Ceremony 14 Mar");
+  });
+
   it("drops a date that isn't known", () => {
     const dates = { shortlistOn: null, nominationsOn: null, winnersOn: null };
     expect(stageLine({ category: "picture", state: "before", dates, entries: [], today })).toEqual({

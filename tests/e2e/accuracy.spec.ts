@@ -81,7 +81,8 @@ test("the Backtest lists every finished season with its favourite and result, an
   for (const result of await rows.locator("td:last-child").allTextContents()) expect(result).toMatch(/^(Won|Lost to .+)$/);
 
   // The strip's first figure counts the same rows.
-  const won = (await table.locator("[data-stage='won']").count()).toString();
+  // (Counted in the Result column: the phone copy under each title is hidden at this width.)
+  const won = (await rows.locator("td:last-child [data-stage='won']").count()).toString();
   await expect(backtest.getByText(new RegExp(`^${won} of ${finished}$`))).toBeVisible();
   await expect(backtest.getByText("Nominees in the top slots, eve of nominations")).toBeVisible();
 

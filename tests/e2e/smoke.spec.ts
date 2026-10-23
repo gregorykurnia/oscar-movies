@@ -7,6 +7,8 @@ test("the home page renders the race and reads the database", async ({ page }) =
   const response = await page.goto("/");
   expect(response?.status()).toBe(200);
   expect(response?.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+  expect(response?.headers()["x-content-type-options"]).toBe("nosniff");
+  expect(response?.headers()["x-frame-options"]).toBe("DENY");
   await expect(page.getByRole("link", { name: "Oscar Movies", exact: true })).toBeVisible();
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/^The \d{4} race$/);

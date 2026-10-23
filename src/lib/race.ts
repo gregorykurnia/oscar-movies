@@ -68,10 +68,14 @@ const DAY = 24 * 60 * 60 * 1000;
  * 90 days off, and always with the year once the season is over.
  */
 export function seasonDate(iso: string, today: string, withYear = false): string {
+  return formatDate(new Date(`${iso}T00:00:00Z`), withYear || farDate(iso, today));
+}
+
+/** In another calendar year than today and more than 90 days off. */
+function farDate(iso: string, today: string): boolean {
   const date = new Date(`${iso}T00:00:00Z`);
   const now = new Date(`${today}T00:00:00Z`);
-  const far = date.getUTCFullYear() !== now.getUTCFullYear() && Math.abs(date.getTime() - now.getTime()) > 90 * DAY;
-  return formatDate(date, withYear || far);
+  return date.getUTCFullYear() !== now.getUTCFullYear() && Math.abs(date.getTime() - now.getTime()) > 90 * DAY;
 }
 
 /** "Anora", "A and B", "A, B and C". */
@@ -104,7 +108,13 @@ export function stageLine({
   entries: { outcome: Outcome; title: string }[];
   today: string;
 }): StageLineText {
-  const d = (iso: string | null, withYear = false) => (iso ? seasonDate(iso, today, withYear) : null);
+  // One rule per line: once a season date needs its year, every date in that other calendar year
+  // carries it too ("Nominations 21 Jan 2027 · Ceremony 14 Mar 2027", not one with and one without).
+  const yearOf = (iso: string) => iso.slice(0, 4);
+  const farYears = new Set(
+    [dates.shortlistOn, dates.nominationsOn, dates.winnersOn].flatMap((iso) => (iso && farDate(iso, today) ? [yearOf(iso)] : [])),
+  );
+  const d = (iso: string | null, withYear = false) => (iso ? seasonDate(iso, today, withYear || farYears.has(yearOf(iso))) : null);
   const step = (label: string, iso: string | null, withYear = false) => {
     const date = d(iso, withYear);
     return date ? `${label} ${date}` : label;

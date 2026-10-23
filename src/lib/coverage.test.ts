@@ -39,8 +39,16 @@ describe("coverageRows", () => {
 
   it("marks each year loaded, partly loaded or no data, and the live season gold once it has data", () => {
     expect(of("oscars").cells.map((c) => c.kind)).toEqual(["loaded", "loaded", "loaded", "live"]);
-    expect(of("bafta").cells.map((c) => c.kind)).toEqual(["none", "loaded", "partial", "none"]);
+    expect(of("bafta").cells.map((c) => c.kind)).toEqual(["none", "loaded", "partial", "live"]);
     expect(of("oscars").cells[3].label).toBe("2026: Partly loaded (live season)");
+  });
+
+  it("shows the live season's edition that isn't out yet as live, not as a gap", () => {
+    expect(of("bafta").cells[3].label).toBe("2026: Not out yet (live season)");
+    expect(of("bafta").status).toBe("Partly, 1 year no data");
+    expect(of("bafta").none).toBe(1);
+    // With no edition on file at all, the live year is a gap like any other.
+    expect(of("late").cells[3].kind).toBe("none");
   });
 
   it("counts a year with no edition as no data", () => {
@@ -59,7 +67,7 @@ describe("statusText", () => {
     expect(statusText(0, 0, 15)).toBe("No data");
     expect(statusText(5, 2, 8)).toBe("Partly, 8 years no data");
     expect(statusText(14, 0, 1)).toBe("Partly, 1 year no data");
-    expect(statusText(10, 5, 0)).toBe("Partly");
+    expect(statusText(10, 5, 0)).toBe("Partly loaded");
   });
 });
 

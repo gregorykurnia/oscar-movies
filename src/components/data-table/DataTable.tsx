@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDown, ArrowUp } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { DASH } from "@/lib/format";
 
@@ -48,9 +48,19 @@ export function DataTable({
 }) {
   const hide = (col: DataColumn) => (col.hidePhone ? "max-md:hidden" : undefined);
   const cellPad = "px-2 py-3 first:pl-0 md:px-3";
+  const frame = useRef<HTMLDivElement>(null);
+  const scrolls = useScrolls(frame);
 
   return (
-    <div className={cn("-mx-2 overflow-x-auto px-2", className)}>
+    // A frame that scrolls sideways is a named, focusable region, so a keyboard can scroll it
+    // even when the table holds no buttons or links (launch check A2).
+    <div
+      ref={frame}
+      tabIndex={scrolls ? 0 : undefined}
+      role={scrolls ? "region" : undefined}
+      aria-label={scrolls ? caption : undefined}
+      className={cn("-mx-2 overflow-x-auto rounded-xs px-2 outline-none focus-visible:shadow-focus", className)}
+    >
       <table className="w-full border-collapse text-caption md:text-small">
         {caption ? <caption className="sr-only">{caption}</caption> : null}
         <thead>
@@ -134,6 +144,23 @@ export function DataTable({
       </table>
     </div>
   );
+}
+
+/** Whether the frame is narrower than its table, checked on every resize. */
+function useScrolls(ref: RefObject<HTMLDivElement | null>) {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const check = () => setOn(el.scrollWidth > el.clientWidth);
+    check();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(check);
+    observer.observe(el);
+    if (el.firstElementChild) observer.observe(el.firstElementChild);
+    return () => observer.disconnect();
+  }, [ref]);
+  return on;
 }
 
 /**
