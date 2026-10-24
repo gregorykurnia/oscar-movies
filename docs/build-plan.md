@@ -405,7 +405,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | GitHub repo | https://github.com/gregorykurnia/oscar-movies |
 | Neon project ID | (region `aws-ap-southeast-1`; ID not recorded yet) |
 | Vercel project | `oscar-movies` (gregorykurnia-8729s-projects), region `sin1` |
-| Live URL | |
+| Live URL | https://oscar-movies.vercel.app |
 | Extra services | OMDb API (free key), TMDB API (free key); IMDb datasets, Wikipedia, Wikidata (no key) |
 
 ## Checklist (tick in the project's copy)
@@ -426,10 +426,9 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| Approve the first `production` migration (`npm run db:migrate`, then `db:mark-branch -- --target production --yes-production`) | 2026-10-22 | the first release |
-| Say "release" for the first deploy; check the live URL loads and reads the database | 2026-10-22 | Phase 0 done, `APP_URL` |
+| First release done 2026-10-24 (migrations 0000–0002 on production); set `APP_URL` to https://oscar-movies.vercel.app in Vercel Production if it isn't | 2026-10-22 | `APP_URL` |
 | Check `/styleguide` against `design-preview.html` in a local preview and sign it off | 2026-10-22 | Phase 0 done |
-| Approve the Phase 1 production migrations (now including `0002_tmdb_zero_votes`, which clears TMDB 0.0 scores) and data load; Claude shows the dry run first | 2026-10-22 | Phase 1 release |
+| Approve the Phase 1 production data load (migrations ran 2026-10-24); Claude shows the dry run first | 2026-10-22 | Phase 1 release |
 | Set `CRON_SECRET` in Vercel Production, then release, so the daily score cron runs | 2026-10-22 | daily scores live |
 | Phase 1 owner check: mark the films seen for 2024–2026, check a handful of Oscar years against memory, sign off | 2026-10-22 | Phase 1 done |
 | Approve the Phase 2 production data load (12 majors and 5 festivals, 2012–2026, then `npm run compute`); Claude shows the dry run first | 2026-10-23 | Phase 2 release |
