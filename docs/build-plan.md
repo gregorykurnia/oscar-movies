@@ -427,7 +427,6 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | What | Since | Blocks |
 |---|---|---|
 | Check `/styleguide` against `design-preview.html` in a local preview and sign it off | 2026-10-22 | Phase 0 done |
-| Set `CRON_SECRET` in Vercel Production, then release, so the daily score cron runs | 2026-10-22 | daily scores live |
 | Phase 1 owner check: mark the films seen for 2024–2026, check a handful of Oscar years against memory, sign off | 2026-10-22 | Phase 1 done |
 | Phase 2 owner check: spot-check three awards' pages against memory, the accuracy page and the 2025 grid, sign off | 2026-10-23 | Phase 2 done |
 | Two Phase 2 choices to confirm or change: the awards index's bordered Oscars link (2.7, not in guide §5), and the year summary counting Oscar-shortlisted films as "with a nomination", as the grid does (2.10) | 2026-10-23 | nothing (easy to change) |
