@@ -1,0 +1,32 @@
+{
+  "award": "doc-nyc",
+  "year": 2025,
+  "status": "loaded",
+  "nominationsOn": "2025-10-14",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/", "https://www.docnyc.net/festival-section/winners-circle/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30012657", "title": "Apocalypse in the Tropics", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34964219", "title": "Coexistence, My Ass!", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt10196414", "title": "Cutting Through Rocks", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34966548", "title": "Heightened Scrutiny", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt22060498", "title": "Mistress Dispeller", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34965515", "title": "Mr. Nobody Against Putin", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt36464353", "title": "My Mom Jayne", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34963732", "title": "Predators", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt37660542", "title": "The Tale of Silyan", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt36874833", "title": "Below the Clouds", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt35439895", "title": "Holding Liat", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt28718656", "title": "Life After", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt21221386", "title": "Secret Mall Apartment", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt34963731", "title": "Seeds", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt34966678", "title": "The Librarians", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

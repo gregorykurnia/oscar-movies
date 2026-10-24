@@ -239,5 +239,10 @@
   "tt15082232": { "slug": "haruhara-sans-recorder", "title": "Haruhara-san's Recorder", "originalTitle": "春原さんのうた", "originalLang": "ja", "countries": ["JP"], "language": "es", "wd": "Q117452960", "tmdb": 852380 },
   "tt14134130": { "slug": "a-river-runs-turns-erases-replaces", "title": "A River Runs, Turns, Erases, Replaces", "countries": ["CN", "US"], "language": "zh", "wd": "Q105443786", "tmdb": 795397 },
   "tt11701838": { "slug": "wojnarowicz-f-k-you-f-ggot-f-ker", "title": "Wojnarowicz: F--k You F-ggot F--ker", "countries": ["US"], "language": "en", "wd": "Q106152882", "tmdb": 685263 },
-  "tt10196480": { "slug": "north-by-current", "title": "North By Current", "countries": ["US"], "language": "en", "wd": "Q105699238", "tmdb": 737277 }
+  "tt10196480": { "slug": "north-by-current", "title": "North By Current", "countries": ["US"], "language": "en", "wd": "Q105699238", "tmdb": 737277 },
+  "tt13646976": { "slug": "bring-your-own-brigade", "title": "Bring Your Own Brigade", "countries": ["US"], "language": "en", "wd": "Q104875494", "tmdb": 776596 },
+  "tt13463924": { "slug": "option-zero", "title": "Option Zero", "originalTitle": "La opción cero", "originalLang": "es", "countries": ["BR", "CO", "CU"], "language": "es", "tmdb": 765038 },
+  "tt14456778": { "slug": "children-of-the-enemy", "title": "Children of the Enemy", "countries": ["SE"], "language": "sv", "wd": "Q106765105", "tmdb": 816334 },
+  "tt13622074": { "slug": "all-light-everywhere", "title": "All Light, Everywhere", "countries": ["US"], "language": "en", "wd": "Q105319043", "tmdb": 574086 },
+  "tt14035242": { "slug": "a-cop-movie", "title": "A Cop Movie", "originalTitle": "Una película de policías", "originalLang": "es", "countries": ["MX"], "language": "es", "wd": "Q105443513", "tmdb": 701524 }
 }

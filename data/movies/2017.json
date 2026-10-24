@@ -245,5 +245,8 @@
   "tt5362988": { "slug": "wind-river", "title": "Wind River", "countries": ["US", "GB"], "language": "en", "wd": "Q25339940", "tmdb": 395834 },
   "tt6333086": { "slug": "menashe", "title": "Menashe", "countries": ["US"], "language": "yi", "wd": "Q29017579", "tmdb": 428584 },
   "tt6333090": { "slug": "oklahoma-city", "title": "Oklahoma City", "countries": ["US"], "language": "en", "wd": "Q57833032", "tmdb": 433056 },
-  "tt5233558": { "slug": "the-death-and-life-of-marsha-p-johnson", "title": "The Death and Life of Marsha P. Johnson", "countries": ["US"], "language": "en", "wd": "Q47458793", "tmdb": 448444 }
+  "tt5233558": { "slug": "the-death-and-life-of-marsha-p-johnson", "title": "The Death and Life of Marsha P. Johnson", "countries": ["US"], "language": "en", "wd": "Q47458793", "tmdb": 448444 },
+  "tt5952468": { "slug": "the-b-side-elsa-dorfmans-portrait-photography", "title": "The B-Side: Elsa Dorfman's Portrait Photography", "countries": ["US"], "language": "en", "wd": "Q26824857", "tmdb": 411011 },
+  "tt7215444": { "slug": "the-final-year", "title": "The Final Year", "countries": ["US"], "language": "en", "wd": "Q50289705", "tmdb": 472608 },
+  "tt6159518": { "slug": "the-force", "title": "The Force", "countries": ["US"], "language": "en", "wd": "Q28148404", "tmdb": 432972 }
 }

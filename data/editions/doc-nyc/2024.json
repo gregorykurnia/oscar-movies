@@ -1,0 +1,31 @@
+{
+  "award": "doc-nyc",
+  "year": 2024,
+  "status": "loaded",
+  "nominationsOn": "2024-10-17",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/", "https://www.docnyc.net/festival-section/winners-circle/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt30227076", "title": "Black Box Diaries", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt27760132", "title": "Ernest Cole: Lost And Found", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30319555", "title": "Frida", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt28448182", "title": "Mountain Queen: The Summits of Lhakpa Sherpa", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30294282", "title": "Porcelain War", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt26083700", "title": "Queendom", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt33338697", "title": "The Bibi Files", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30319916", "title": "Union", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt30320576", "title": "A New Kind of Wilderness", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt28494712", "title": "Hollywoodgate", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt30320605", "title": "Nocturnes", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt30342963", "title": "Patrice: The Movie", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt14093994", "title": "The Last of the Sea Women", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

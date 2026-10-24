@@ -1,0 +1,26 @@
+{
+  "award": "doc-nyc",
+  "year": 2018,
+  "status": "loaded",
+  "nominationsOn": "2018-09-27",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt7689908", "title": "Crime + Punishment", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt8632862", "title": "Fahrenheit 11/9", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7689958", "title": "Jane Fonda in Five Acts", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7689484", "title": "On Her Shoulders", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6915100", "title": "Pope Francis: A Man of His Word", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7440432", "title": "Quincy", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt8948614", "title": "Reversing Roe", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7472352", "title": "Shirkers", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7689926", "title": "The Sentence", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

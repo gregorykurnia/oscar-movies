@@ -1,0 +1,26 @@
+{
+  "award": "doc-nyc",
+  "year": 2014,
+  "status": "loaded",
+  "nominationsOn": "2014-11-10",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3456090", "title": "E-Team", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2714900", "title": "Finding Vivian Maier", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2171902", "title": "Happy Valley", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2674040", "title": "Keep on Keepin' On", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3279124", "title": "Last Days in Vietnam", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2382298", "title": "Life Itself", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3675568", "title": "Merchants of Doubt", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3264102", "title": "Red Army", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2548738", "title": "Rich Hill", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3904186", "title": "Tales of the Grim Sleeper", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2107850", "title": "The Case Against 8", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3567200", "title": "The Great Invisible", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3674140", "title": "The Salt of the Earth", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

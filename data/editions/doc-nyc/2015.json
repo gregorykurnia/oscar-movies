@@ -1,0 +1,26 @@
+{
+  "award": "doc-nyc",
+  "year": 2015,
+  "status": "loaded",
+  "nominationsOn": "2015-10-13",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3215846", "title": "Dreamcatcher", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4257858", "title": "Going Clear: Scientology and the Prison of Belief", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3065132", "title": "He Named Me Malala", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4229236", "title": "Kurt Cobain: Montage of Heck", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2219650", "title": "Seymour: An Introduction", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4316236", "title": "The Black Panthers: Vanguard of the Revolution", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4185572", "title": "The Hunting Ground", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2415458", "title": "The Wolfpack", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4897822", "title": "Where to Invade Next", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4908644", "title": "Winter on Fire: Ukraine's Fight for Freedom", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

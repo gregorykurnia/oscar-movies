@@ -1,0 +1,26 @@
+{
+  "award": "doc-nyc",
+  "year": 2017,
+  "status": "loaded",
+  "nominationsOn": "2017-10-08",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt5952382", "title": "Abacus: Small Enough to Jail", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6333054", "title": "Chasing Coral", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6333056", "title": "City of Ghosts", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6333058", "title": "Dina", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6333060", "title": "Icarus", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4420704", "title": "Kedi", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7214842", "title": "One of Us", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4964772", "title": "Risk", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5758404", "title": "STEP", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5873150", "title": "Strong Island", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5952468", "title": "The B-Side: Elsa Dorfman's Portrait Photography", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7215444", "title": "The Final Year", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt6159518", "title": "The Force", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

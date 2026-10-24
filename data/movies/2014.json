@@ -213,5 +213,6 @@
   "tt1951181": { "slug": "the-immigrant", "title": "The Immigrant", "countries": ["US"], "language": "en", "wd": "Q3341412", "tmdb": 152599 },
   "tt3675486": { "slug": "maidan", "title": "Maidan", "originalTitle": "Майдан", "originalLang": "uk", "countries": ["UA"], "language": "uk", "wd": "Q18711323", "tmdb": 270926 },
   "tt2027140": { "slug": "mood-indigo", "title": "Mood Indigo", "originalTitle": "L'Écume des jours", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3005861", "tmdb": 157820 },
-  "tt3576072": { "slug": "regarding-susan-sontag", "title": "Regarding Susan Sontag", "countries": ["US"], "language": "en", "wd": "Q18153468", "tmdb": 264763 }
+  "tt3576072": { "slug": "regarding-susan-sontag", "title": "Regarding Susan Sontag", "countries": ["US"], "language": "en", "wd": "Q18153468", "tmdb": 264763 },
+  "tt2171902": { "slug": "happy-valley", "title": "Happy Valley", "countries": ["US"], "language": "en", "wd": "Q16972771", "tmdb": 250745 }
 }

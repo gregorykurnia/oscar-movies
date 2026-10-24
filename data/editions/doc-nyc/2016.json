@@ -1,0 +1,26 @@
+{
+  "award": "doc-nyc",
+  "year": 2016,
+  "status": "loaded",
+  "nominationsOn": "2016-09-28",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated.",
+  "results": [
+    { "category": "short-list", "imdb": "tt5895028", "title": "13th", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5952332", "title": "Amanda Knox", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4632316", "title": "Gleason", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4846318", "title": "Into the Inferno", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5278466", "title": "Jim: The James Foley Story", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt3917210", "title": "Life, Animated", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5275838", "title": "Mapplethorpe: Look at the Pictures", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt4935480", "title": "Miss Sharon Jones!", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5952266", "title": "The Ivory Game", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5259692", "title": "Trapped", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

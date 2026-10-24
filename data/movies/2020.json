@@ -276,5 +276,10 @@
   "tt8759834": { "slug": "selah-and-the-spades", "title": "Selah and the Spades", "countries": ["US"], "language": "en", "wd": "Q63450284", "tmdb": 543727 },
   "tt14452802": { "slug": "neighbours", "title": "Neighbours", "originalTitle": "Nachbarn", "originalLang": "de", "countries": ["CH", "FR"], "language": "ar", "wd": "Q117305800", "tmdb": 783459 },
   "tt6818118": { "slug": "jumbo", "title": "Jumbo", "countries": ["BE", "FR", "LU"], "language": "fr", "wd": "Q95753983", "tmdb": 510631 },
-  "tt11454066": { "slug": "you-cannot-kill-david-arquette", "title": "You Cannot Kill David Arquette", "countries": ["US"], "language": "en", "wd": "Q101245030", "tmdb": 672035 }
+  "tt11454066": { "slug": "you-cannot-kill-david-arquette", "title": "You Cannot Kill David Arquette", "countries": ["US"], "language": "en", "wd": "Q101245030", "tmdb": 672035 },
+  "tt11394650": { "slug": "on-the-record", "title": "On the Record", "countries": ["US"], "language": "en", "wd": "Q85790665", "tmdb": 653612 },
+  "tt12286048": { "slug": "the-walrus-and-the-whistleblower", "title": "The Walrus and the Whistleblower", "countries": ["CA"], "language": "en", "wd": "Q96409698", "tmdb": 710218 },
+  "tt11905922": { "slug": "stray", "title": "Stray", "countries": ["US"], "language": "tr", "wd": "Q106493882", "tmdb": 684697 },
+  "tt12095032": { "slug": "songs-of-repression", "title": "Songs of Repression", "countries": ["DK"], "language": "de", "wd": "Q76450214", "tmdb": 679683 },
+  "tt9078338": { "slug": "beautiful-something-left-behind", "title": "Beautiful Something Left Behind", "countries": ["DK", "US"], "language": "en", "tmdb": 674884 }
 }

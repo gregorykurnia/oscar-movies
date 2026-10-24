@@ -645,5 +645,11 @@
   "tt43696895": { "slug": "pretenders", "title": "Pretenders", "countries": ["GB"], "language": "en", "wd": "Q141620446", "tmdb": 1737837 },
   "tt35486511": { "slug": "the-age-of-goodbyes", "title": "The Age of Goodbyes", "originalTitle": "告別的年代", "originalLang": "zh", "countries": ["MY", "TW"], "language": "zh", "wd": "Q141434892", "tmdb": 1613284 },
   "tt43441520": { "slug": "the-fortunate-isles", "title": "The Fortunate Isles", "originalTitle": "Las islas afortunadas", "originalLang": "es", "countries": ["ES", "GR"], "language": "es", "wd": "Q141500345", "tmdb": 1736324 },
-  "tt36594684": { "slug": "the-smell-of-apples", "title": "The Smell of Apples", "originalTitle": "Die Reuk van Appels", "originalLang": "af", "countries": ["ZA", "NL", "CL", "FR"], "language": "af", "wd": "Q140921109", "tmdb": 1484181 }
+  "tt36594684": { "slug": "the-smell-of-apples", "title": "The Smell of Apples", "originalTitle": "Die Reuk van Appels", "originalLang": "af", "countries": ["ZA", "NL", "CL", "FR"], "language": "af", "wd": "Q140921109", "tmdb": 1484181 },
+  "tt36000564": { "slug": "wild-inside", "title": "Wild Inside", "countries": ["US"], "language": "en", "wd": "Q140698379", "tmdb": 1501564 },
+  "tt37969239": { "slug": "the-bend-in-the-river", "title": "The Bend in the River", "countries": ["US"], "language": "en", "wd": "Q136198379", "tmdb": 1532787 },
+  "tt18163224": { "slug": "a-fox-under-a-pink-moon", "title": "A Fox Under a Pink Moon", "countries": ["DK", "FR", "IR", "GB", "US"], "language": "fa", "wd": "Q140935557", "tmdb": 951018 },
+  "tt39640011": { "slug": "the-great-experiment", "title": "The Great Experiment", "countries": ["US"], "language": "en", "tmdb": 1620936 },
+  "tt36748956": { "slug": "steal-this-story-please", "title": "Steal This Story, Please!", "countries": ["US"], "language": "en", "wd": "Q136785187", "tmdb": 1492865 },
+  "tt36590561": { "slug": "an-eye-for-an-eye", "title": "An Eye for an Eye", "countries": ["US", "DK", "IR"], "language": "en", "wd": "Q134913377", "tmdb": 1497947 }
 }

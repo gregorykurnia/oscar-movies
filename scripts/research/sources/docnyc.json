@@ -1,0 +1,55 @@
+{
+  "announced": {
+    "2014": "2014-11-10",
+    "2015": "2015-10-13",
+    "2016": "2016-09-28",
+    "2017": "2017-10-08",
+    "2018": "2018-09-27",
+    "2019": "2019-10-10",
+    "2020": "2020-11-09",
+    "2024": "2024-10-17",
+    "2025": "2025-10-14",
+    "2026": "2026-10-14"
+  },
+  "years": {
+    "mr-nobody-against-putin": {
+      "year": 2025,
+      "why": "The site tags it 2024 and 2025; it is the 2025 Short List's film (Cinema Eye, Oscars 2025)."
+    },
+    "the-great-hack": {
+      "year": 2019,
+      "why": "No year tag; the 2019 Short List post names it (a second page, the-great-hack-2, is tagged 2019: the same IMDb film, listed once)."
+    }
+  },
+  "ids": {
+    "2014 red-army": {
+      "imdb": "tt3264102",
+      "why": "The site misspells the director (GABE POLKSY); IMDb's Red Army (2014) is by Gabe Polsky."
+    },
+    "2017 chasing-coral": {
+      "imdb": "tt6333054",
+      "why": "IMDb credits the director as Jeff Orlowski-Yang, the site as Jeff Orlowski."
+    },
+    "2018 free-solo": {
+      "imdb": "tt7775622",
+      "why": "Two titles fit; tt9271172 is the video Free Solo 360, a companion piece."
+    },
+    "2020 the-social-dilemma": {
+      "imdb": "tt11464826",
+      "why": "IMDb credits the director as Jeff Orlowski-Yang, the site as Jeff Orlowski."
+    },
+    "2021 summer-of-soul": {
+      "imdb": "tt7378922",
+      "why": "The site names the director Ahmir Thompson, IMDb credits Questlove."
+    },
+    "2021 julia": {
+      "imdb": "tt13782428",
+      "why": "Two titles fit because the same directors made My Name Is Pauli Murray (tt11092594); the film is Julia."
+    },
+    "2021 attica": {
+      "imdb": "tt12482898",
+      "why": "The site's director line is Stanley Nelson plus a Co-Director label that the page reader doesn't split off; IMDb's Attica (2021) is by Stanley Nelson and Traci Curry."
+    }
+  },
+  "leaveOut": {}
+}

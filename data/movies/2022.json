@@ -246,5 +246,8 @@
   "tt14447458": { "slug": "louis-armstrongs-black-and-blues", "title": "Louis Armstrong's Black & Blues", "countries": ["US"], "language": "en", "wd": "Q125716890", "tmdb": 1014890 },
   "tt18925334": { "slug": "pearl", "title": "Pearl", "countries": ["US"], "language": "en", "wd": "Q111669794", "tmdb": 949423 },
   "tt14145426": { "slug": "beavis-and-butt-head-do-the-universe", "title": "Beavis and Butt-Head Do the Universe", "countries": ["US"], "language": "en", "wd": "Q111947995", "tmdb": 828947 },
-  "tt3387266": { "slug": "a-united-kingdom", "title": "A United Kingdom", "countries": ["GB", "FR", "CZ", "US"], "language": "en", "wd": "Q21528200", "tmdb": 347026 }
+  "tt3387266": { "slug": "a-united-kingdom", "title": "A United Kingdom", "countries": ["GB", "FR", "CZ", "US"], "language": "en", "wd": "Q21528200", "tmdb": 347026 },
+  "tt17161664": { "slug": "kash-kash-without-feathers-we-cant-live", "title": "KASH KASH – WITHOUT FEATHERS WE CAN’T LIVE", "originalTitle": "Kash Kash", "originalLang": "de", "countries": ["DE", "QA"], "language": "de", "wd": "Q123561795", "tmdb": 928641 },
+  "tt16226986": { "slug": "after-sherman", "title": "After Sherman", "countries": ["US"], "language": "en", "tmdb": 946102 },
+  "tt16282914": { "slug": "2nd-chance", "title": "2nd Chance", "countries": ["US"], "language": "en", "wd": "Q112123858", "tmdb": 901511 }
 }

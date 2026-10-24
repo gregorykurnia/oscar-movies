@@ -1,0 +1,20 @@
+{
+  "award": "doc-nyc",
+  "year": 2012,
+  "status": "loaded",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated. DOC NYC's site has no dated post announcing this year's Short List.",
+  "results": [
+    { "category": "short-list", "imdb": "tt2125423", "title": "5 Broken Cameras", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt1845773", "title": "Ai Weiwei: Never Sorry", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2076844", "title": "Ethel", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2008513", "title": "First Position", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2111478", "title": "Mea Maxima Culpa: Silence in the House of God", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2112868", "title": "Paul Simon: Under African Skies", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt1966604", "title": "The Imposter", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2130321", "title": "West of Memphis", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

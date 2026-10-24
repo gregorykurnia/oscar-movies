@@ -1,0 +1,32 @@
+{
+  "award": "doc-nyc",
+  "year": 2021,
+  "status": "loaded",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/", "https://www.docnyc.net/festival-section/winners-circle/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated. DOC NYC's site has no dated post announcing this year's Short List.",
+  "results": [
+    { "category": "short-list", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt12482898", "title": "Attica", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt10334438", "title": "Becoming Cousteau", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt13646976", "title": "Bring Your Own Brigade", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt13648216", "title": "Faya Dayi", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt13622168", "title": "Homeroom", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt13648230", "title": "In the Same Breath", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt14030526", "title": "Introducing, Selma Blair", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt13782428", "title": "Julia", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt14300912", "title": "Procession", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt14512538", "title": "Roadrunner: A Film About Anthony Bourdain", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt7230750", "title": "The Velvet Underground", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt14035242", "title": "A Cop Movie", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt14812784", "title": "A Night of Knowing Nothing", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt13622074", "title": "All Light, Everywhere", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt14456778", "title": "Children of the Enemy", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt14035048", "title": "Mr. Bachmann and His Class", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt13463924", "title": "Option Zero", "outcome": "nominated" },
+    { "category": "winners-circle", "imdb": "tt13630174", "title": "Writing with Fire", "outcome": "nominated" }
+  ],
+  "screenings": []
+}

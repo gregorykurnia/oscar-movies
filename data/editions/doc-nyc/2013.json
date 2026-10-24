@@ -1,0 +1,20 @@
+{
+  "award": "doc-nyc",
+  "year": 2013,
+  "status": "loaded",
+  "sourceUrls": ["https://www.docnyc.net/festival-section/short-list/"],
+  "note": "DOC NYC's Short List and Winner's Circle are selections: every film is listed as nominated. DOC NYC's site has no dated post announcing this year's Short List.",
+  "results": [
+    { "category": "short-list", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2532528", "title": "Dirty Wars", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2615134", "title": "First Cousin Once Removed", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2179053", "title": "Gideon's Army", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt1874513", "title": "God Loves Uganda", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2499076", "title": "The Crash Reel", "outcome": "nominated" },
+    { "category": "short-list", "imdb": "tt2486682", "title": "The Square", "outcome": "nominated" }
+  ],
+  "screenings": []
+}
