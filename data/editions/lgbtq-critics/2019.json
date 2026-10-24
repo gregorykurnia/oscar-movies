@@ -2,12 +2,25 @@
   "award": "lgbtq-critics",
   "year": 2019,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2020/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
     { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3281548", "title": "Little Women", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5503686", "title": "Hustlers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199586", "title": "Atlantics", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" }
   ],
   "screenings": []
 }

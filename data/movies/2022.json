@@ -242,5 +242,9 @@
   "tt15306876": { "slug": "katrina-babies", "title": "Katrina Babies", "countries": ["US"], "language": "en", "wd": "Q113659484", "tmdb": 866074 },
   "tt19757058": { "slug": "the-pawnshop", "title": "The Pawnshop", "originalTitle": "Lombard", "originalLang": "mul", "countries": ["PL"], "language": "pl", "wd": "Q117716112", "tmdb": 949623 },
   "tt17079296": { "slug": "no-simple-way-home", "title": "No Simple Way Home", "countries": ["KE", "ZA", "FR"], "language": "en", "wd": "Q110935550", "tmdb": 928364 },
-  "tt11466222": { "slug": "jackass-forever", "title": "Jackass Forever", "countries": ["US"], "language": "en", "wd": "Q104528612", "tmdb": 656663 }
+  "tt11466222": { "slug": "jackass-forever", "title": "Jackass Forever", "countries": ["US"], "language": "en", "wd": "Q104528612", "tmdb": 656663 },
+  "tt14447458": { "slug": "louis-armstrongs-black-and-blues", "title": "Louis Armstrong's Black & Blues", "countries": ["US"], "language": "en", "wd": "Q125716890", "tmdb": 1014890 },
+  "tt18925334": { "slug": "pearl", "title": "Pearl", "countries": ["US"], "language": "en", "wd": "Q111669794", "tmdb": 949423 },
+  "tt14145426": { "slug": "beavis-and-butt-head-do-the-universe", "title": "Beavis and Butt-Head Do the Universe", "countries": ["US"], "language": "en", "wd": "Q111947995", "tmdb": 828947 },
+  "tt3387266": { "slug": "a-united-kingdom", "title": "A United Kingdom", "countries": ["GB", "FR", "CZ", "US"], "language": "en", "wd": "Q21528200", "tmdb": 347026 }
 }

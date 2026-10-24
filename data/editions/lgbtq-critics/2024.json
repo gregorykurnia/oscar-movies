@@ -2,13 +2,29 @@
   "award": "lgbtq-critics",
   "year": 2024,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2025/1/"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year; Animated Film of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "won" },
     { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "won" },
     { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "won" },
-    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" }
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15574270", "title": "I Saw the TV Glow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" }
   ],
   "screenings": []
 }

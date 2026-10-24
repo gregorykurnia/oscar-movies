@@ -220,5 +220,6 @@
   "tt4881016": { "slug": "no-home-movie", "title": "No Home Movie", "countries": ["FR", "BE"], "language": "en", "wd": "Q21074321", "tmdb": 354388 },
   "tt3451720": { "slug": "francofonia", "title": "Francofonia", "countries": ["DE", "FR"], "language": "fr", "wd": "Q20900281", "tmdb": 296449 },
   "tt4034354": { "slug": "swiss-army-man", "title": "Swiss Army Man", "countries": ["US"], "language": "en", "wd": "Q21528092", "tmdb": 347031 },
-  "tt3416532": { "slug": "a-monster-calls", "title": "A Monster Calls", "countries": ["ES", "US", "GB"], "language": "en", "wd": "Q18200409", "tmdb": 258230 }
+  "tt3416532": { "slug": "a-monster-calls", "title": "A Monster Calls", "countries": ["ES", "US", "GB"], "language": "en", "wd": "Q18200409", "tmdb": 258230 },
+  "tt5213534": { "slug": "supersonic", "title": "Supersonic", "countries": ["GB"], "language": "en", "wd": "Q27644140", "tmdb": 412924 }
 }

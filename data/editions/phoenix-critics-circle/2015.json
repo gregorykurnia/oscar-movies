@@ -1,9 +1,27 @@
 {
   "award": "phoenix-critics-circle",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Phoenix CC has no data for 2015 films: Wikipedia has no page for the Phoenix Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003546/2015/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3312830", "title": "Youth", "outcome": "won" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2844798", "title": "White God", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4126304", "title": "Cartel Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3065132", "title": "He Named Me Malala", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" }
+  ],
   "screenings": []
 }

@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2012,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2012/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "won" }
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1345836", "title": "The Dark Knight Rises", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1682181", "title": "Bully", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" }
   ],
   "screenings": []
 }

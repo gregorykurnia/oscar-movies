@@ -2,13 +2,29 @@
   "award": "lgbtq-critics",
   "year": 2023,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2024/1/"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year; Animated Film of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt21192142", "title": "All of Us Strangers", "outcome": "won" },
     { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
     { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "won" },
-    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" }
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13651794", "title": "May December", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt23289160", "title": "Godzilla Minus One", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15789038", "title": "Elemental", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem", "outcome": "nominated" }
   ],
   "screenings": []
 }

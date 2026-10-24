@@ -200,5 +200,10 @@
   "tt3391782": { "slug": "everyday-rebellion", "title": "Everyday Rebellion", "countries": ["CH", "AT", "BE", "GR", "DE"], "language": "es", "wd": "Q28841809", "tmdb": 253139 },
   "tt1864253": { "slug": "alias-ruby-blade", "title": "Alias Ruby Blade", "countries": ["US", "TL"], "language": "en", "tmdb": 174346 },
   "tt2608452": { "slug": "recycling-medea", "title": "Recycling Medea", "countries": ["DE"], "language": "de", "wd": "Q62033295", "tmdb": 1244473 },
-  "tt1650048": { "slug": "laurence-anyways", "title": "Laurence Anyways", "countries": ["CA", "FR"], "language": "fr", "wd": "Q2615443", "tmdb": 110160 }
+  "tt1650048": { "slug": "laurence-anyways", "title": "Laurence Anyways", "countries": ["CA", "FR"], "language": "fr", "wd": "Q2615443", "tmdb": 110160 },
+  "tt1230215": { "slug": "not-fade-away", "title": "Not Fade Away", "countries": ["US"], "language": "en", "wd": "Q3878657", "tmdb": 128270 },
+  "tt2070776": { "slug": "populaire", "title": "Populaire", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3398002", "tmdb": 136403 },
+  "tt2318625": { "slug": "out-in-the-dark", "title": "Out in the Dark", "originalTitle": "עלטה", "originalLang": "he", "countries": ["US", "IL"], "language": "he", "wd": "Q7067489", "tmdb": 128154 },
+  "tt2243389": { "slug": "im-so-excited", "title": "I'm So Excited", "originalTitle": "Los Amantes Pasajeros", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q2656108", "tmdb": 144789 },
+  "tt1356790": { "slug": "i-am-divine", "title": "I Am Divine", "countries": ["US"], "language": "en", "wd": "Q15052313", "tmdb": 171910 }
 }

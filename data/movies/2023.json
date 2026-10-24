@@ -238,5 +238,10 @@
   "tt21882016": { "slug": "foremost-by-night", "title": "Foremost by Night", "originalTitle": "Sobre todo de noche", "originalLang": "es", "countries": ["ES", "PT", "FR"], "language": "es", "wd": "Q121071213", "tmdb": 1108329 },
   "tt28293875": { "slug": "the-human-surge-3", "title": "The Human Surge 3", "countries": ["AR", "PT", "TW", "BR", "PE", "HK", "LK"], "language": "es", "wd": "Q121391717", "tmdb": 951048 },
   "tt27544261": { "slug": "q", "title": "Q", "countries": ["US"], "language": "en", "tmdb": 1115657 },
-  "tt24082622": { "slug": "milisuthando", "title": "Milisuthando", "countries": ["CO", "ZA"], "language": "en", "tmdb": 1058682 }
+  "tt24082622": { "slug": "milisuthando", "title": "Milisuthando", "countries": ["CO", "ZA"], "language": "en", "tmdb": 1058682 },
+  "tt28254460": { "slug": "sly", "title": "Sly", "countries": ["US"], "language": "en", "wd": "Q120197569", "tmdb": 1146302 },
+  "tt13021790": { "slug": "a-disturbance-in-the-force", "title": "A Disturbance in the Force", "countries": ["US"], "language": "en", "wd": "Q118146748", "tmdb": 765673 },
+  "tt29923816": { "slug": "may-the-lord-watch-the-little-brother-story", "title": "May The Lord Watch: The Little Brother Story", "countries": ["US"], "language": "en", "tmdb": 957053 },
+  "tt9603212": { "slug": "mission-impossible-dead-reckoning", "title": "Mission: Impossible - Dead Reckoning", "countries": ["US"], "language": "en", "wd": "Q61876370", "tmdb": 575264 },
+  "tt14064326": { "slug": "scala-2023", "title": "Scala", "countries": ["TH"], "language": "th", "wd": "Q110898130", "tmdb": 928008 }
 }

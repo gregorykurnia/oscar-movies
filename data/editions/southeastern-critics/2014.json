@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2014,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2014/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "won" }
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2267998", "title": "Gone Girl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1706620", "title": "Snowpiercer", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1100089", "title": "Foxcatcher", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" }
   ],
   "screenings": []
 }

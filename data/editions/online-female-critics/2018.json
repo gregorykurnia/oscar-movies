@@ -1,9 +1,22 @@
 {
   "award": "online-female-critics",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Online Female has no data for 2018 films: Wikipedia has no page for the Online Association of Female Film Critics's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0007222/2018/2/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4218572", "title": "Widows", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7472352", "title": "Shirkers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7424200", "title": "Teen Titans Go! to the Movies", "outcome": "nominated" }
+  ],
   "screenings": []
 }

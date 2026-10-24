@@ -1,9 +1,18 @@
 {
   "award": "utah-critics",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2014 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2014/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2364975", "title": "We Are the Best!", "outcome": "won" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3263996", "title": "The Overnighters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" }
+  ],
   "screenings": []
 }

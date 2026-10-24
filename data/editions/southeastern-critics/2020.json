@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2020,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2021/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" }
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10514222", "title": "Ma Rainey's Black Bottom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" }
   ],
   "screenings": []
 }

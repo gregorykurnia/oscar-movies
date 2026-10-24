@@ -1,9 +1,13 @@
 {
   "award": "online-female-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Online Female has no data for 2017 films: Wikipedia has no page for the Online Association of Female Film Critics's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0007222/2018/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" }
+  ],
   "screenings": []
 }

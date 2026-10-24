@@ -1,9 +1,18 @@
 {
   "award": "utah-critics",
   "year": 2021,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2021 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2021/2/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt10366460", "title": "CODA", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "international", "imdb": "tt11777738", "title": "A Hero", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13391444", "title": "The First Wave", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "nominated" }
+  ],
   "screenings": []
 }

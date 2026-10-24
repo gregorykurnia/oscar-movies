@@ -1,9 +1,18 @@
 {
   "award": "utah-critics",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2020 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2021/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" }
+  ],
   "screenings": []
 }

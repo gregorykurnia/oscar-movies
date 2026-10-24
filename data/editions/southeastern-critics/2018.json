@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2018,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2018/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" }
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6266538", "title": "Vice", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7014006", "title": "Eighth Grade", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3892172", "title": "Leave No Trace", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "nominated" }
   ],
   "screenings": []
 }

@@ -1,9 +1,14 @@
 {
   "award": "north-texas-critics",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "North Texas has no data for 2015 films: Wikipedia has no page for the North Texas Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001982/2016/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "won" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" }
+  ],
   "screenings": []
 }

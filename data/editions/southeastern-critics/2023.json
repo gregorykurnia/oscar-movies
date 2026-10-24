@@ -2,10 +2,22 @@
   "award": "southeastern-critics",
   "year": 2023,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2023/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only); nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" }
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" }
   ],
   "screenings": []
 }

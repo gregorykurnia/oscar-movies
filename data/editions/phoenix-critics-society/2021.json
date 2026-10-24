@@ -2,10 +2,13 @@
   "award": "phoenix-critics-society",
   "year": 2021,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society", "https://www.imdb.com/event/ev0001104/2021/2/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "won" }
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "won" },
+    { "category": "international", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" }
   ],
   "screenings": []
 }

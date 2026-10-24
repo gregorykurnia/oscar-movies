@@ -2,10 +2,28 @@
   "award": "phoenix-critics-society",
   "year": 2015,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society", "https://www.imdb.com/event/ev0001104/2015/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" }
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3682448", "title": "Bridge of Spies", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0810819", "title": "The Danish Girl", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3065132", "title": "He Named Me Malala", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4897822", "title": "Where to Invade Next", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" }
   ],
   "screenings": []
 }

@@ -1,9 +1,26 @@
 {
   "award": "oklahoma-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Oklahoma has no data for 2017 films: Wikipedia has no page for the Oklahoma Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002542/2018/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4846232", "title": "Good Time", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0451279", "title": "Wonder Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5462602", "title": "The Big Sick", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
+    { "category": "international", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333090", "title": "Oklahoma City", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7214842", "title": "One of Us", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4116284", "title": "The Lego Batman Movie", "outcome": "nominated" }
+  ],
   "screenings": []
 }

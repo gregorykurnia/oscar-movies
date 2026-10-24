@@ -441,6 +441,196 @@
       "Best Documentary": "documentary",
       "Best Documentary Film": "documentary",
       "Best Animated Film": "animated"
+    },
+    "nbr": {
+      "Best Film": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international"
+    },
+    "new-york-online": {
+      "Best Film": "picture",
+      "Best Documentary": "documentary",
+      "Best Non-Fiction Film": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated",
+      "Best International Film": "international",
+      "Best Foreign Language Film": "international"
+    },
+    "utah-critics": {
+      "Best Picture": "picture",
+      "Best Non-English Language Film": "international",
+      "Best Non-English Feature": "international",
+      "Best Animated Feature Film": "animated",
+      "Best Animated Feature": "animated",
+      "Best Documentary Feature Film": "documentary",
+      "Best Documentary Feature": "documentary"
+    },
+    "toronto-critics": {
+      "Best Picture": "picture",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated",
+      "Best Foreign Language Film": "international",
+      "Best International Feature": "international",
+      "Best Documentary": "documentary"
+    },
+    "st-louis-critics": {
+      "Best Film": "picture",
+      "Best Animated Film": "animated",
+      "Best Documentary Film": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international"
+    },
+    "san-francisco-critics": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best International Feature Film": "international",
+      "Best Foreign-Language Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best Foreign Language Picture": "international"
+    },
+    "seattle-critics": {
+      "Best Picture": "picture",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated",
+      "Best Documentary Feature": "documentary",
+      "Best Documentary Film": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international",
+      "Best Film Not in the English Language": "international"
+    },
+    "southeastern-critics": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated",
+      "Best Foreign Language Film": "international"
+    },
+    "philadelphia-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Animated Film": "animated",
+      "Best Documentary Film": "documentary"
+    },
+    "phoenix-critics-circle": {
+      "Best Picture": "picture",
+      "Best Animated Film": "animated",
+      "Best Documentary Film": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international"
+    },
+    "phoenix-critics-society": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best Animated Film": "animated"
+    },
+    "pittsburgh-critics": {
+      "Best Picture": "picture",
+      "Best Film Not in the English Language": "international",
+      "Best Animated Feature": "animated"
+    },
+    "michigan-critics": {
+      "Best Picture": "picture",
+      "Best Animated Film": "animated",
+      "Best Documentary": "documentary"
+    },
+    "north-texas-critics": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best Animated Film": "animated"
+    },
+    "online-female-critics": {
+      "Best Film": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best International Feature": "international"
+    },
+    "national-society": {
+      "Best Film": "picture",
+      "Best Non-Fiction Film": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best Film Not in the English Language": "international"
+    },
+    "online-critics": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Film Not in the English Language": "international",
+      "Best Foreign Language Film": "international"
+    },
+    "north-carolina-critics": {
+      "Best Narrative Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Animated Film": "animated",
+      "Best Documentary Film": "documentary"
+    },
+    "oklahoma-critics": {
+      "Best Film": "picture",
+      "Best Animated Film": "animated",
+      "Best Documentary": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international"
+    },
+    "music-city-critics": {
+      "Best Film": "picture",
+      "Best Animated Film": "animated",
+      "Best Documentary Film": "documentary",
+      "Best International Film": "international",
+      "Best Foreign Language Film": "international"
+    },
+    "north-dakota-critics": {
+      "Best Documentary Feature": "documentary",
+      "Best Picture": "picture",
+      "Best International Feature": "international",
+      "Best Animated Feature": "animated"
+    },
+    "portland-critics": {
+      "Best Picture": "picture",
+      "Best Film Not in the English Language": "international",
+      "Best Animated Feature": "animated",
+      "Best Documentary Feature": "documentary"
+    },
+    "vancouver-critics": {
+      "Best Film": "picture",
+      "Best Documentary": "documentary",
+      "Best Foreign Language Film": "international",
+      "Best International Film in a Non-English Language": "international"
+    },
+    "minnesota-critics": {
+      "Best Picture": "picture",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated",
+      "Best International Feature": "international"
+    },
+    "london-critics": {
+      "Film of the Year": "picture",
+      "Foreign Language Film of the Year": "international",
+      "Documentary of the Year": "documentary"
+    },
+    "latino-entertainment-journalists": {
+      "Best Picture": "picture",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated",
+      "Best Non-English Language Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best International Feature": "international"
+    },
+    "online-ftv": {
+      "Best Picture": "picture",
+      "Best Animated Picture": "animated",
+      "Best Foreign Language Film": "international",
+      "Best Documentary Picture": "documentary",
+      "Best Documentary": "documentary"
+    },
+    "lgbtq-critics": {
+      "Film of the Year": "picture",
+      "Documentary of the Year": "documentary",
+      "Foreign Language Film of the Year": "international",
+      "Non-English Language Film of the Year": "international",
+      "Animated Film of the Year": "animated"
     }
   },
   "honorees": {
@@ -488,6 +678,18 @@
     "iowa-critics 2023 tt28607951": {
       "why": "IMDb files Anora (a 2024 film) as a Best Picture winner in the 2024 edition beside The Holdovers (a 2023 film); the group's edition for 2024 films is not on IMDb, so the row is a season off",
       "note": "Anora is filed by IMDb in the edition for 2023 films, a season off"
+    },
+    "st-louis-critics 2017 tt7735516": {
+      "why": "Never Say Goodbye: The KSHE Documentary has no film record with that IMDb ID on TMDB or Wikidata (4.8 left it out too)",
+      "note": "no film record could be matched"
+    },
+    "st-louis-critics 2025 tt42504844": {
+      "why": "Chong Ju Zhi Lu: no film record with that IMDb ID on TMDB or Wikidata",
+      "note": "no film record could be matched"
+    },
+    "seattle-critics 2020 tt13859232": {
+      "why": "The History of the Seattle Mariners is a video essay with no film record on TMDB or Wikidata (4.8 left it out too)",
+      "note": "no film record could be matched"
     }
   }
 }

@@ -2,10 +2,26 @@
   "award": "southeastern-critics",
   "year": 2013,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2013/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" }
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0790636", "title": "Dallas Buyers Club", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2492916", "title": "Muscle Shoals", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "nominated" }
   ],
   "screenings": []
 }

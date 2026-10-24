@@ -1,9 +1,18 @@
 {
   "award": "philadelphia-critics",
   "year": 2021,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Philadelphia has no data for 2021 films: Wikipedia has no page for the Philadelphia Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005219/2021/2/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7740496", "title": "Nightmare Alley", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10944760", "title": "Titane", "outcome": "won" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5109280", "title": "Raya and the Last Dragon", "outcome": "nominated" }
+  ],
   "screenings": []
 }

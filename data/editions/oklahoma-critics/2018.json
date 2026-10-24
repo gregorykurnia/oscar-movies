@@ -1,9 +1,26 @@
 {
   "award": "oklahoma-critics",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Oklahoma has no data for 2018 films: Wikipedia has no page for the Oklahoma Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002542/2018/2/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1825683", "title": "Black Panther", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6412452", "title": "The Ballad of Buster Scruggs", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4218572", "title": "Widows", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" }
+  ],
   "screenings": []
 }

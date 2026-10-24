@@ -2,12 +2,27 @@
   "award": "lgbtq-critics",
   "year": 2013,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2014/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
     { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt2357788", "title": "Bridegroom: A Love Story, Unequaled", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt2357788", "title": "Bridegroom: A Love Story, Unequaled", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0790636", "title": "Dallas Buyers Club", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1650048", "title": "Laurence Anyways", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2358891", "title": "The Great Beauty", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2318625", "title": "Out in the Dark", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1650048", "title": "Laurence Anyways", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2243389", "title": "I'm So Excited", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1356790", "title": "I Am Divine", "outcome": "nominated" }
   ],
   "screenings": []
 }

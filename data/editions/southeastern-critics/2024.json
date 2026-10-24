@@ -2,10 +2,26 @@
   "award": "southeastern-critics",
   "year": 2024,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2024/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" }
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1262426", "title": "Wicked", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11563598", "title": "A Complete Unknown", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15574270", "title": "I Saw the TV Glow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" }
   ],
   "screenings": []
 }

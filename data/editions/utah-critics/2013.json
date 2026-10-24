@@ -1,9 +1,19 @@
 {
   "award": "utah-critics",
   "year": 2013,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2013 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2013/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt2404461", "title": "The Past", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2013293", "title": "The Wind Rises", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1798188", "title": "From Up on Poppy Hill", "outcome": "nominated" }
+  ],
   "screenings": []
 }

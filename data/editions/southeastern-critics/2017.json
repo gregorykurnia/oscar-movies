@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2017,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2017/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" }
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6294822", "title": "The Post", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4555426", "title": "Darkest Hour", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3521126", "title": "The Disaster Artist", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "won" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" }
   ],
   "screenings": []
 }

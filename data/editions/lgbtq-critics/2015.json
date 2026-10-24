@@ -2,12 +2,23 @@
   "award": "lgbtq-critics",
   "year": 2015,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2016/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "won" },
     { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3966404", "title": "Mustang", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4334482", "title": "Viva", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4257858", "title": "Going Clear: Scientology and the Prison of Belief", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" }
   ],
   "screenings": []
 }

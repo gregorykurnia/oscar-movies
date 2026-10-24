@@ -2,12 +2,24 @@
   "award": "lgbtq-critics",
   "year": 2017,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2018/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "won" },
     { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4995790", "title": "The Square", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304046", "title": "Thelma", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4882376", "title": "First They Killed My Father", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5233558", "title": "The Death and Life of Marsha P. Johnson", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4420704", "title": "Kedi", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6752848", "title": "Bombshell: The Hedy Lamarr Story", "outcome": "nominated" }
   ],
   "screenings": []
 }

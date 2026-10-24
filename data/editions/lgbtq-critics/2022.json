@@ -2,13 +2,29 @@
   "award": "lgbtq-critics",
   "year": 2022,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2023/1/"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year; Animated Film of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
     { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "won" },
     { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
-    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" }
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" },
+    { "category": "picture", "imdb": "tt19770238", "title": "Aftersun", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14208870", "title": "The Fabelmans", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1016150", "title": "All Quiet on the Western Front", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt19652910", "title": "EO", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt17041964", "title": "Navalny", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9883832", "title": "Moonage Daydream", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3915174", "title": "Puss in Boots: The Last Wish", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Guillermo del Toro's Pinocchio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "nominated" }
   ],
   "screenings": []
 }

@@ -2,13 +2,17 @@
   "award": "lgbtq-critics",
   "year": 2025,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2026/1/"],
+  "note": "Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Animated Film of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
     { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
     { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
-    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" }
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4900148", "title": "Elio", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14883538", "title": "Arco", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" }
   ],
   "screenings": []
 }

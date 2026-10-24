@@ -240,5 +240,8 @@
   "tt29360967": { "slug": "soul-of-the-desert", "title": "Soul of the Desert", "countries": ["CO", "BR"], "language": "es", "wd": "Q130248730", "tmdb": 1320275 },
   "tt21224854": { "slug": "agent-of-happiness", "title": "Agent of Happiness", "countries": ["BT", "HU"], "language": "ne", "wd": "Q125568729", "tmdb": 1164862 },
   "tt18322912": { "slug": "seeking-mavis-beacon", "title": "Seeking Mavis Beacon", "countries": ["US"], "language": "en", "wd": "Q124365257", "tmdb": 943122 },
-  "tt33270192": { "slug": "brisa", "title": "Brisa", "countries": ["US"], "language": "es", "tmdb": 1377252 }
+  "tt33270192": { "slug": "brisa", "title": "Brisa", "countries": ["US"], "language": "es", "tmdb": 1377252 },
+  "tt14682800": { "slug": "tuesday", "title": "Tuesday", "countries": ["US", "GB"], "language": "en", "wd": "Q107299023", "tmdb": 831395 },
+  "tt18559464": { "slug": "my-old-ass", "title": "My Old Ass", "countries": ["US"], "language": "en", "wd": "Q119206819", "tmdb": 947891 },
+  "tt31123288": { "slug": "the-casagrandes-movie", "title": "The Casagrandes Movie", "countries": ["US"], "language": "en", "wd": "Q124423359", "tmdb": 1216512 }
 }

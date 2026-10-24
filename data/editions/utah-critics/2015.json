@@ -1,9 +1,18 @@
 {
   "award": "utah-critics",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2015 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2015/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3409392", "title": "Timbuktu", "outcome": "won" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4185572", "title": "The Hunting Ground", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" }
+  ],
   "screenings": []
 }

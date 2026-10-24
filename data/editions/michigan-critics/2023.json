@@ -1,9 +1,24 @@
 {
   "award": "michigan-critics",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Michigan has no data for 2023 films: Wikipedia has no page for the Michigan Movie Critics Guild's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0073146/2023/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28254460", "title": "Sly", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6718170", "title": "The Super Mario Bros. Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem", "outcome": "nominated" }
+  ],
   "screenings": []
 }

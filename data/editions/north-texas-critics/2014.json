@@ -1,9 +1,14 @@
 {
   "award": "north-texas-critics",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "North Texas has no data for 2014 films: Wikipedia has no page for the North Texas Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001982/2015/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
+  ],
   "screenings": []
 }

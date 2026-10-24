@@ -1,9 +1,14 @@
 {
   "award": "oklahoma-critics",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Oklahoma has no data for 2020 films: Wikipedia has no page for the Oklahoma Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002542/2021/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
+    { "category": "international", "imdb": "tt4516162", "title": "Martin Eden", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11095742", "title": "Boys State", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" }
+  ],
   "screenings": []
 }

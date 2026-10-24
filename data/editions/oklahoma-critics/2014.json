@@ -1,9 +1,23 @@
 {
   "award": "oklahoma-critics",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Oklahoma has no data for 2014 films: Wikipedia has no page for the Oklahoma Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002542/2015/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2267998", "title": "Gone Girl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2015381", "title": "Guardians of the Galaxy", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2937898", "title": "A Most Violent Year", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
+  ],
   "screenings": []
 }

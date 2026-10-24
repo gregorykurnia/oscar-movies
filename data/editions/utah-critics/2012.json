@@ -1,9 +1,19 @@
 {
   "award": "utah-critics",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2012 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2012/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1276104", "title": "Looper", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1614989", "title": "Headhunters", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1942884", "title": "Indie Game: The Movie", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "nominated" }
+  ],
   "screenings": []
 }

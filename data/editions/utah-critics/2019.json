@@ -1,9 +1,19 @@
 {
   "award": "utah-critics",
   "year": 2019,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2019 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2019/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9358044", "title": "Hail Satan?", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" }
+  ],
   "screenings": []
 }

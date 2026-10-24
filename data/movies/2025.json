@@ -698,5 +698,8 @@
   "tt32889968": { "slug": "just-one-man", "title": "Just One Man", "countries": ["US"], "language": "en", "tmdb": 1548196 },
   "tt14493924": { "slug": "hacking-at-leaves", "title": "Hacking at Leaves", "countries": ["AT"], "language": "en", "wd": "Q125380047", "tmdb": 1059304 },
   "tt31923069": { "slug": "springsteen-deliver-me-from-nowhere", "title": "Springsteen: Deliver Me from Nowhere", "countries": ["US"], "language": "en", "wd": "Q125401070", "tmdb": 1230368 },
-  "tt35669835": { "slug": "we-beat-the-dream-team", "title": "We Beat the Dream Team", "countries": ["US"], "language": "en", "tmdb": 1429886 }
+  "tt35669835": { "slug": "we-beat-the-dream-team", "title": "We Beat the Dream Team", "countries": ["US"], "language": "en", "tmdb": 1429886 },
+  "tt21469794": { "slug": "space-cadet-2025", "title": "Space Cadet", "countries": ["US"], "language": "en", "wd": "Q125883403", "tmdb": 1019411 },
+  "tt34621966": { "slug": "megadoc", "title": "Megadoc", "countries": ["US"], "language": "en", "wd": "Q136006863", "tmdb": 1290369 },
+  "tt31015444": { "slug": "direct-action", "title": "Direct Action", "countries": ["DE", "FR"], "language": "fr", "wd": "Q124544671", "tmdb": 1234601 }
 }

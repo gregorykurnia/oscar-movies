@@ -1,9 +1,25 @@
 {
   "award": "michigan-critics",
   "year": 2025,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Michigan has no data for 2025 films: Wikipedia has no page for the Michigan Movie Critics Guild's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0073146/2025/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660542", "title": "The Tale of Silyan", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14419140", "title": "Pee-wee as Himself", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt10954718", "title": "Dog Man", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14883538", "title": "Arco", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29313285", "title": "Little Amélie or the Character of Rain", "outcome": "nominated" }
+  ],
   "screenings": []
 }

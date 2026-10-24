@@ -1,9 +1,22 @@
 {
   "award": "phoenix-critics-circle",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Phoenix CC has no data for 2014 films: Wikipedia has no page for the Phoenix Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003546/2014/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary.",
+  "results": [
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1020072", "title": "Selma", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "international", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "nominated" }
+  ],
   "screenings": []
 }

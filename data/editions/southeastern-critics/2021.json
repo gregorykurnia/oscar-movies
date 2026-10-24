@@ -2,10 +2,25 @@
   "award": "southeastern-critics",
   "year": 2021,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Southeastern_Film_Critics_Association", "https://www.imdb.com/event/ev0000620/2021/2/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the group's other awards are on its own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" }
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9243804", "title": "The Green Knight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8721424", "title": "Tick, Tick... Boom!", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8847712", "title": "The French Dispatch", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" }
   ],
   "screenings": []
 }

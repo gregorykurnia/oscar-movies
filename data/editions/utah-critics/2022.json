@@ -1,9 +1,19 @@
 {
   "award": "utah-critics",
   "year": 2022,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2022 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2022/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1745960", "title": "Top Gun: Maverick", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "won" },
+    { "category": "international", "imdb": "tt14176542", "title": "Bardo, False Chronicle of a Handful of Truths", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13622204", "title": "Wildcat", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Guillermo del Toro's Pinocchio", "outcome": "nominated" }
+  ],
   "screenings": []
 }

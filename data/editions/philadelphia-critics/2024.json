@@ -1,9 +1,18 @@
 {
   "award": "philadelphia-critics",
   "year": 2024,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Philadelphia has no data for 2024 films: Wikipedia has no page for the Philadelphia Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005219/2024/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" }
+  ],
   "screenings": []
 }

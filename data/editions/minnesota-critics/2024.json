@@ -1,9 +1,25 @@
 {
   "award": "minnesota-critics",
   "year": 2024,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Minnesota has no data for 2024 films: Wikipedia has no page for the Minnesota Film Critics Alliance's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0038052/2025/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary.",
+  "results": [
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "won" },
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14407336", "title": "The Beast", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt28490044", "title": "Evil Does Not Exist", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8864596", "title": "Transformers One", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" }
+  ],
   "screenings": []
 }

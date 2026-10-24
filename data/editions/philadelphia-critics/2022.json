@@ -1,9 +1,18 @@
 {
   "award": "philadelphia-critics",
   "year": 2022,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Philadelphia has no data for 2022 films: Wikipedia has no page for the Philadelphia Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005219/2022/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14444726", "title": "Tár", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "won" },
+    { "category": "international", "imdb": "tt18550140", "title": "Holy Spider", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Guillermo del Toro's Pinocchio", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" }
+  ],
   "screenings": []
 }

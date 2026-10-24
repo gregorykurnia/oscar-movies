@@ -1,9 +1,15 @@
 {
   "award": "north-texas-critics",
   "year": 2013,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "North Texas has no data for 2013 films: Wikipedia has no page for the North Texas Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001982/2014/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "international", "imdb": "tt1462900", "title": "The Grandmaster", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" }
+  ],
   "screenings": []
 }

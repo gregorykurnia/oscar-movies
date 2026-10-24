@@ -1,9 +1,18 @@
 {
   "award": "philadelphia-critics",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Philadelphia has no data for 2023 films: Wikipedia has no page for the Philadelphia Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005219/2023/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "won" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "won" },
+    { "category": "animated", "imdb": "tt13429870", "title": "Robot Dreams", "outcome": "nominated" }
+  ],
   "screenings": []
 }

@@ -199,5 +199,9 @@
   "tt1899353": { "slug": "the-raid", "title": "The Raid", "originalTitle": "Serbuan Maut", "originalLang": "id", "countries": ["ID"], "language": "id", "wd": "Q1573662", "tmdb": 94329 },
   "tt1862079": { "slug": "safety-not-guaranteed", "title": "Safety Not Guaranteed", "countries": ["US"], "language": "en", "wd": "Q2110480", "tmdb": 84332 },
   "tt1922736": { "slug": "tatsumi", "title": "Tatsumi", "originalTitle": "TATSUMI", "originalLang": "ja", "countries": ["SG"], "language": "ja", "wd": "Q939997", "tmdb": 83114 },
-  "tt1808231": { "slug": "kokvinnorna", "title": "Kokvinnorna", "countries": ["SE"], "language": "sv", "wd": "Q14955239", "tmdb": 76135 }
+  "tt1808231": { "slug": "kokvinnorna", "title": "Kokvinnorna", "countries": ["SE"], "language": "sv", "wd": "Q14955239", "tmdb": 76135 },
+  "tt1942884": { "slug": "indie-game-the-movie", "title": "Indie Game: The Movie", "countries": ["CA"], "language": "en", "wd": "Q1096935", "tmdb": 80215 },
+  "tt0848228": { "slug": "the-avengers", "title": "The Avengers", "countries": ["US"], "language": "en", "wd": "Q182218", "tmdb": 24428 },
+  "tt2112868": { "slug": "paul-simon-under-african-skies", "title": "Paul Simon: Under African Skies", "countries": ["US", "ZA"], "language": "en", "tmdb": 84347 },
+  "tt2053352": { "slug": "diana-vreeland-the-eye-has-to-travel", "title": "Diana Vreeland: The Eye Has to Travel", "countries": ["US"], "language": "en", "wd": "Q5271334", "tmdb": 82639 }
 }

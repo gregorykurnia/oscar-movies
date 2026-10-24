@@ -1,9 +1,26 @@
 {
   "award": "michigan-critics",
   "year": 2024,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Michigan has no data for 2024 films: Wikipedia has no page for the Michigan Movie Critics Guild's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0073146/2024/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1262426", "title": "Wicked", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30953759", "title": "No Other Land", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt31064841", "title": "Piece by Piece", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26420234", "title": "Music by John Williams", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8864596", "title": "Transformers One", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt31064841", "title": "Piece by Piece", "outcome": "nominated" }
+  ],
   "screenings": []
 }

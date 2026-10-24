@@ -2,13 +2,26 @@
   "award": "lgbtq-critics",
   "year": 2020,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2021/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
     { "category": "international", "imdb": "tt10633456", "title": "Minari", "outcome": "won" },
     { "category": "documentary", "imdb": "tt8637504", "title": "Disclosure", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10767168", "title": "La Llorona", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11388990", "title": "I Carry You with Me", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9845110", "title": "Two of Us", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" }
   ],
   "screenings": []
 }

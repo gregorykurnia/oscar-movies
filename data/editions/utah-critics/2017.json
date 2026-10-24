@@ -1,9 +1,19 @@
 {
   "award": "utah-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Utah has no data for 2017 films: Wikipedia has no page for the Utah Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002541/2017/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt6265828", "title": "A Ghost Story", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6304046", "title": "Thelma", "outcome": "won" },
+    { "category": "international", "imdb": "tt4954522", "title": "Raw", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6333054", "title": "Chasing Coral", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4116284", "title": "The Lego Batman Movie", "outcome": "nominated" }
+  ],
   "screenings": []
 }

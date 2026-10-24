@@ -1,9 +1,22 @@
 {
   "award": "minnesota-critics",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Minnesota has no data for 2020 films: Wikipedia has no page for the Minnesota Film Critics Alliance's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0038052/2021/1/"],
+  "note": "From IMDb's award records: Best Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film; Best Documentary.",
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1051906", "title": "The Invisible Man", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9784798", "title": "Judas and the Black Messiah", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6193408", "title": "A Shaun the Sheep Movie: Farmageddon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7488208", "title": "Over the Moon", "outcome": "nominated" }
+  ],
   "screenings": []
 }

@@ -2,12 +2,24 @@
   "award": "lgbtq-critics",
   "year": 2016,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2017/1/"],
+  "note": "Not found on the source: animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Non-English Language Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "won" },
     { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1619029", "title": "Jackie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4385888", "title": "20th Century Women", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4698584", "title": "Neruda", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4120176", "title": "Things to Come", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278506", "title": "Tickled", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "13th", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" }
   ],
   "screenings": []
 }

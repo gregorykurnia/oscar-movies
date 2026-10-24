@@ -1,9 +1,14 @@
 {
   "award": "north-texas-critics",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "North Texas has no data for 2012 films: Wikipedia has no page for the North Texas Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001982/2013/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "won" },
+    { "category": "international", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1682181", "title": "Bully", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "won" }
+  ],
   "screenings": []
 }

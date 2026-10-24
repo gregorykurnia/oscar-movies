@@ -2,11 +2,21 @@
   "award": "lgbtq-critics",
   "year": 2012,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards"],
-  "note": "Not found on the source: international, animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Dorian_Awards", "https://www.imdb.com/event/ev0002507/2013/1/"],
+  "note": "Not found on the source: international, animated. Wikipedia lists only the winners (the nominees are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: nominees for Film of the Year; Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Non-English Language Film of the Year; Animated Film of the Year.",
   "results": [
     { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "won" }
+    { "category": "documentary", "imdb": "tt2124803", "title": "How to Survive a Plague", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2011953", "title": "Keep the Lights On", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1682181", "title": "Bully", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt1845773", "title": "Ai Weiwei: Never Sorry", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2053352", "title": "Diana Vreeland: The Eye Has to Travel", "outcome": "nominated" }
   ],
   "screenings": []
 }

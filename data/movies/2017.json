@@ -242,5 +242,8 @@
   "tt2392830": { "slug": "a-quiet-passion", "title": "A Quiet Passion", "countries": ["GB"], "language": "en", "wd": "Q20649524", "tmdb": 368942 },
   "tt6412864": { "slug": "on-the-beach-at-night-alone", "title": "On the Beach at Night Alone", "originalTitle": "밤의 해변에서 혼자", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q28193328", "tmdb": 434773 },
   "tt6217664": { "slug": "chavela-vargas", "title": "Chavela Vargas", "originalTitle": "Chavela", "originalLang": "es", "countries": ["US"], "language": "en", "wd": "Q34585722", "tmdb": 441188 },
-  "tt5362988": { "slug": "wind-river", "title": "Wind River", "countries": ["US", "GB"], "language": "en", "wd": "Q25339940", "tmdb": 395834 }
+  "tt5362988": { "slug": "wind-river", "title": "Wind River", "countries": ["US", "GB"], "language": "en", "wd": "Q25339940", "tmdb": 395834 },
+  "tt6333086": { "slug": "menashe", "title": "Menashe", "countries": ["US"], "language": "yi", "wd": "Q29017579", "tmdb": 428584 },
+  "tt6333090": { "slug": "oklahoma-city", "title": "Oklahoma City", "countries": ["US"], "language": "en", "wd": "Q57833032", "tmdb": 433056 },
+  "tt5233558": { "slug": "the-death-and-life-of-marsha-p-johnson", "title": "The Death and Life of Marsha P. Johnson", "countries": ["US"], "language": "en", "wd": "Q47458793", "tmdb": 448444 }
 }
