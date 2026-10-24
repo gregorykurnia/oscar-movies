@@ -41,7 +41,7 @@ describe("editionState", () => {
 
 describe("awardsOfKind", () => {
   it("lists each section in calendar order", () => {
-    expect(awardsOfKind("festival").map((a) => a.slug)).toEqual(["sundance", "berlin", "cannes", "venice", "tiff"]);
+    expect(awardsOfKind("festival").map((a) => a.slug)).toEqual(["sundance", "berlin", "cannes", "venice", "tiff", "doc-nyc"]);
     expect(awardsOfKind("major").map((a) => a.slug)).toEqual([
       "afi",
       "cinema-eye",

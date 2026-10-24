@@ -197,5 +197,10 @@
   "tt3645982": { "slug": "the-newburgh-sting", "title": "The Newburgh Sting", "countries": ["US"], "language": "en", "wd": "Q18152894", "tmdb": 261038 },
   "tt2406252": { "slug": "venus-in-fur", "title": "Venus in Fur", "originalTitle": "La Vénus à la fourrure", "originalLang": "fr", "countries": ["FR", "PL"], "language": "fr", "wd": "Q11390744", "tmdb": 197082 },
   "tt2405792": { "slug": "elaine-stritch-shoot-me", "title": "Elaine Stritch: Shoot Me", "countries": ["US"], "language": "en", "wd": "Q16250107", "tmdb": 174319 },
-  "tt1821658": { "slug": "the-nut-job", "title": "The Nut Job", "countries": ["CA", "US", "KR"], "language": "en", "wd": "Q7754519", "tmdb": 227783 }
+  "tt1821658": { "slug": "the-nut-job", "title": "The Nut Job", "countries": ["CA", "US", "KR"], "language": "en", "wd": "Q7754519", "tmdb": 227783 },
+  "tt2737310": { "slug": "mistaken-for-strangers", "title": "Mistaken for Strangers", "countries": ["US"], "language": "en", "wd": "Q23000024", "tmdb": 173455 },
+  "tt3074780": { "slug": "supermensch-the-legend-of-shep-gordon", "title": "Supermensch: The Legend of Shep Gordon", "countries": ["US"], "language": "en", "wd": "Q14931559", "tmdb": 209416 },
+  "tt2244889": { "slug": "heaven-adores-you", "title": "Heaven Adores You", "countries": ["US"], "language": "en", "wd": "Q18150574", "tmdb": 276729 },
+  "tt3091304": { "slug": "the-dog", "title": "The Dog", "countries": ["US"], "language": "en", "wd": "Q28136699", "tmdb": 212849 },
+  "tt3149484": { "slug": "ne-me-quitte-pas", "title": "Ne me quitte pas", "countries": ["FR", "NL", "BE"], "language": "fr", "tmdb": 238434 }
 }

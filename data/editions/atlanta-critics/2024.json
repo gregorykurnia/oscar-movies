@@ -1,9 +1,23 @@
 {
   "award": "atlanta-critics",
   "year": 2024,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Atlanta has no data for 2024 films: Wikipedia has no page for the Atlanta Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005289/2024/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
+    { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1262426", "title": "Wicked", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt20215234", "title": "Conclave", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt15574270", "title": "I Saw the TV Glow", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27367464", "title": "Kneecap", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "won" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" }
+  ],
   "screenings": []
 }

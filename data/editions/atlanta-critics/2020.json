@@ -1,9 +1,23 @@
 {
   "award": "atlanta-critics",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Atlanta has no data for 2020 films: Wikipedia has no page for the Atlanta Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005289/2021/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10618286", "title": "Mank", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9231040", "title": "First Cow", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" }
+  ],
   "screenings": []
 }

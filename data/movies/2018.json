@@ -200,5 +200,14 @@
   "tt6738136": { "slug": "revenge", "title": "Revenge", "countries": ["FR", "BE"], "language": "fr", "wd": "Q39073132", "tmdb": 467938 },
   "tt6763252": { "slug": "the-captain", "title": "The Captain", "originalTitle": "Der Hauptmann", "originalLang": "de", "countries": ["DE", "FR"], "language": "de", "wd": "Q36998754", "tmdb": 475094 },
   "tt7153434": { "slug": "science-fair", "title": "Science Fair", "countries": ["US"], "language": "en", "wd": "Q65091684", "tmdb": 493121 },
-  "tt8399690": { "slug": "anthropocene-the-human-epoch", "title": "Anthropocene: The Human Epoch", "countries": ["CA"], "language": "en", "wd": "Q56275853", "tmdb": 539757 }
+  "tt8399690": { "slug": "anthropocene-the-human-epoch", "title": "Anthropocene: The Human Epoch", "countries": ["CA"], "language": "en", "wd": "Q56275853", "tmdb": 539757 },
+  "tt7225942": { "slug": "caniba", "title": "Caniba", "countries": ["FR"], "language": "en", "wd": "Q123677839", "tmdb": 471998 },
+  "tt2773246": { "slug": "scotty-and-the-secret-history-of-hollywood", "title": "Scotty and the Secret History of Hollywood", "countries": ["US"], "language": "en", "wd": "Q41760998", "tmdb": 469062 },
+  "tt7115920": { "slug": "lots-of-kids-a-monkey-and-a-castle", "title": "Lots of Kids, a Monkey and a Castle", "originalTitle": "Muchos hijos, un mono y un castillo", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q51880327", "tmdb": 473176 },
+  "tt6029778": { "slug": "bathtubs-over-broadway", "title": "Bathtubs Over Broadway", "countries": ["US"], "language": "en", "wd": "Q57779964", "tmdb": 514729 },
+  "tt2095768": { "slug": "this-is-congo", "title": "This Is Congo", "countries": ["US"], "language": "en", "wd": "Q73536215", "tmdb": 473749 },
+  "tt6296764": { "slug": "306-hollywood", "title": "306 Hollywood", "countries": ["US"], "language": "en", "wd": "Q62631161", "tmdb": 489995 },
+  "tt3041550": { "slug": "matangi-maya-m-i-a", "title": "Matangi/Maya/M.I.A.", "countries": ["GB", "US", "LK"], "language": "en", "wd": "Q55227056", "tmdb": 493106 },
+  "tt7206654": { "slug": "love-means-zero", "title": "Love Means Zero", "countries": ["US"], "language": "en", "wd": "Q42947787", "tmdb": 469071 },
+  "tt8119782": { "slug": "america", "title": "América", "countries": ["US", "MX"], "language": "en", "tmdb": 509402 }
 }

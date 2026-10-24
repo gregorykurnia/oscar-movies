@@ -232,5 +232,8 @@
   "tt11905962": { "slug": "sputnik", "title": "Sputnik", "originalTitle": "Спутник", "originalLang": "ru", "countries": ["RU"], "language": "ru", "wd": "Q86675345", "tmdb": 594718 },
   "tt8750702": { "slug": "rewind", "title": "Rewind", "countries": ["US"], "language": "en", "wd": "Q104867409", "tmdb": 597615 },
   "tt8637504": { "slug": "disclosure", "title": "Disclosure", "countries": ["US"], "language": "en", "wd": "Q84366473", "tmdb": 653610 },
-  "tt8681422": { "slug": "to-the-ends-of-the-earth", "title": "To the Ends of the Earth", "originalTitle": "旅のおわり世界のはじまり", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q56354014", "tmdb": 539524 }
+  "tt8681422": { "slug": "to-the-ends-of-the-earth", "title": "To the Ends of the Earth", "originalTitle": "旅のおわり世界のはじまり", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q56354014", "tmdb": 539524 },
+  "tt11378264": { "slug": "mucho-mucho-amor-the-legend-of-walter-mercado", "title": "Mucho Mucho Amor: The Legend of Walter Mercado", "countries": ["US"], "language": "en", "wd": "Q97358509", "tmdb": 653735 },
+  "tt10394738": { "slug": "i-am-greta", "title": "I Am Greta", "originalTitle": "Greta", "originalLang": "sv", "countries": ["SE", "DE"], "language": "en", "wd": "Q98078619", "tmdb": 728123 },
+  "tt11685538": { "slug": "through-the-night", "title": "Through the Night", "countries": ["US"], "language": "en", "wd": "Q106968378", "tmdb": 695907 }
 }

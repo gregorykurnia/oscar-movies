@@ -179,5 +179,12 @@
   "tt1772925": { "slug": "jiro-dreams-of-sushi", "title": "Jiro Dreams of Sushi", "countries": ["US"], "language": "ja", "wd": "Q1279290", "tmdb": 80767 },
   "tt0770802": { "slug": "samsara", "title": "Samsara", "countries": ["US"], "language": "en", "wd": "Q3150366", "tmdb": 89708 },
   "tt1922645": { "slug": "the-fairy", "title": "The Fairy", "originalTitle": "La Fée", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3013017", "tmdb": 89287 },
-  "tt1650453": { "slug": "i-wish", "title": "I Wish", "originalTitle": "奇跡", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q1053293", "tmdb": 79382 }
+  "tt1650453": { "slug": "i-wish", "title": "I Wish", "originalTitle": "奇跡", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q1053293", "tmdb": 79382 },
+  "tt1865425": { "slug": "kumare", "title": "Kumaré", "countries": ["US"], "language": "en", "wd": "Q2855028", "tmdb": 98886 },
+  "tt2040281": { "slug": "beauty-is-embarrassing", "title": "Beauty Is Embarrassing", "countries": ["US"], "language": "en", "wd": "Q137823997", "tmdb": 90603 },
+  "tt2090463": { "slug": "big-boys-gone-bananas", "title": "Big Boys Gone Bananas!*", "countries": ["SE"], "language": "en", "wd": "Q3736205", "tmdb": 84177 },
+  "tt2057455": { "slug": "planet-of-snail", "title": "Planet of Snail", "originalTitle": "달팽이의 별", "originalLang": "ko", "countries": ["KR", "JP", "FI"], "language": "ko", "wd": "Q93739475", "tmdb": 114994 },
+  "tt1757939": { "slug": "vivan-las-antipodas", "title": "¡Vivan las Antipodas!", "originalTitle": "¡Vivan las antípodas!", "originalLang": "es", "countries": ["DE"], "language": "es", "wd": "Q4153501", "tmdb": 102873 },
+  "tt2011265": { "slug": "tchoupitoulas", "title": "Tchoupitoulas", "countries": ["US"], "language": "en", "tmdb": 105121 },
+  "tt2048910": { "slug": "trash-dance", "title": "Trash Dance", "countries": ["US"], "language": "en", "tmdb": 96915 }
 }

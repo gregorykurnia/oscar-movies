@@ -1,9 +1,23 @@
 {
   "award": "atlanta-critics",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Atlanta has no data for 2023 films: Wikipedia has no page for the Atlanta Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005289/2023/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13238346", "title": "Past Lives", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt13651794", "title": "May December", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" }
+  ],
   "screenings": []
 }

@@ -202,5 +202,12 @@
   "tt10289996": { "slug": "the-black-godfather", "title": "The Black Godfather", "countries": ["US"], "language": "en", "wd": "Q64450077", "tmdb": 606215 },
   "tt9577852": { "slug": "rolling-thunder-revue-a-bob-dylan-story-by-martin-scorsese", "title": "Rolling Thunder Revue: A Bob Dylan Story by Martin Scorsese", "countries": ["US"], "language": "en", "wd": "Q63565898", "tmdb": 574638 },
   "tt8373280": { "slug": "wrestle", "title": "Wrestle", "countries": ["US"], "language": "en", "tmdb": 511807 },
-  "tt9412098": { "slug": "fyre", "title": "Fyre", "countries": ["US"], "language": "en", "wd": "Q60683337", "tmdb": 567860 }
+  "tt9412098": { "slug": "fyre", "title": "Fyre", "countries": ["US"], "language": "en", "wd": "Q60683337", "tmdb": 567860 },
+  "tt9352780": { "slug": "cold-case-hammarskjold", "title": "Cold Case Hammarskjöld", "countries": ["DK", "NO", "GB", "BE", "ZA"], "language": "en", "wd": "Q60632060", "tmdb": 566061 },
+  "tt9358084": { "slug": "the-amazing-johnathan-documentary", "title": "The Amazing Johnathan Documentary", "countries": ["US"], "language": "en", "wd": "Q96408390", "tmdb": 568693 },
+  "tt9761064": { "slug": "the-hottest-august", "title": "The Hottest August", "countries": ["US", "CA"], "language": "en", "wd": "Q124414990", "tmdb": 580563 },
+  "tt9353586": { "slug": "ask-dr-ruth", "title": "Ask Dr. Ruth", "countries": ["US"], "language": "en", "wd": "Q67679510", "tmdb": 566063 },
+  "tt10011226": { "slug": "17-blocks", "title": "17 Blocks", "countries": ["US"], "language": "en", "wd": "Q105773103", "tmdb": 597612 },
+  "tt6905676": { "slug": "xy-chelsea", "title": "XY Chelsea", "countries": ["GB"], "language": "en", "wd": "Q64768696", "tmdb": 496863 },
+  "tt8747596": { "slug": "what-you-gonna-do-when-the-worlds-on-fire", "title": "What You Gonna Do When the World's on Fire?", "countries": ["IT", "US", "FR"], "language": "en", "wd": "Q56274948", "tmdb": 537488 }
 }

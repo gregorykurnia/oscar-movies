@@ -182,5 +182,14 @@
   "tt4058426": { "slug": "indias-daughter", "title": "India's Daughter", "countries": ["GB", "IN"], "language": "en", "wd": "Q19409509", "tmdb": 328233 },
   "tt4823702": { "slug": "dont-tell-anyone", "title": "Don't Tell Anyone", "countries": ["US"], "language": "en", "wd": "Q21427360", "tmdb": 347758 },
   "tt4224328": { "slug": "mavis", "title": "Mavis!", "countries": ["US"], "language": "en", "wd": "Q42947719", "tmdb": 320589 },
-  "tt1185418": { "slug": "the-wrecking-crew", "title": "The Wrecking Crew", "countries": ["US"], "language": "en", "wd": "Q7776296", "tmdb": 70027 }
+  "tt1185418": { "slug": "the-wrecking-crew", "title": "The Wrecking Crew", "countries": ["US"], "language": "en", "wd": "Q7776296", "tmdb": 70027 },
+  "tt4229236": { "slug": "kurt-cobain-montage-of-heck", "title": "Kurt Cobain: Montage of Heck", "countries": ["US"], "language": "en", "wd": "Q18603034", "tmdb": 319075 },
+  "tt3462002": { "slug": "finders-keepers", "title": "Finders Keepers", "countries": ["US"], "language": "en", "wd": "Q27958430", "tmdb": 319152 },
+  "tt4157220": { "slug": "iris", "title": "Iris", "countries": ["US"], "language": "en", "wd": "Q50414134", "tmdb": 295799 },
+  "tt3735302": { "slug": "a-brave-heart-the-lizzie-velasquez-story", "title": "A Brave Heart: The Lizzie Velasquez Story", "countries": ["US", "MX", "ES"], "language": "en", "tmdb": 320587 },
+  "tt3215846": { "slug": "dreamcatcher", "title": "Dreamcatcher", "countries": ["GB", "US"], "language": "en", "wd": "Q19007211", "tmdb": 318033 },
+  "tt4143306": { "slug": "democrats", "title": "Democrats", "countries": ["DK"], "language": "en", "wd": "Q20756073", "tmdb": 306342 },
+  "tt4079142": { "slug": "peace-officer", "title": "Peace Officer", "countries": ["US"], "language": "en", "wd": "Q19824825", "tmdb": 324293 },
+  "tt4257062": { "slug": "in-transit", "title": "In Transit", "countries": ["US"], "language": "en", "tmdb": 332739 },
+  "tt3121712": { "slug": "almost-there", "title": "Almost There", "countries": ["US"], "language": "en", "wd": "Q23022996", "tmdb": 325511 }
 }

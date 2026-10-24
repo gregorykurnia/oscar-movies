@@ -200,5 +200,10 @@
   "tt4370784": { "slug": "agnus-dei", "title": "Agnus Dei", "originalTitle": "Les Innocentes", "originalLang": "fr", "countries": ["FR", "PL", "BE"], "language": "fr", "wd": "Q19365645", "tmdb": 364051 },
   "tt5215952": { "slug": "the-wailing", "title": "The Wailing", "originalTitle": "곡성", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q22972803", "tmdb": 293670 },
   "tt3756788": { "slug": "our-little-sister", "title": "Our Little Sister", "originalTitle": "海街ｄｉａｒｙ", "originalLang": "ja", "countries": ["JP"], "language": "ja", "wd": "Q19806501", "tmdb": 315846 },
-  "tt5938238": { "slug": "the-stairs", "title": "The Stairs", "countries": ["CA"], "language": "en", "wd": "Q26831195", "tmdb": 410211 }
+  "tt5938238": { "slug": "the-stairs", "title": "The Stairs", "countries": ["CA"], "language": "en", "wd": "Q26831195", "tmdb": 410211 },
+  "tt5278592": { "slug": "kate-plays-christine", "title": "Kate Plays Christine", "countries": ["US"], "language": "en", "wd": "Q24577532", "tmdb": 340484 },
+  "tt5146068": { "slug": "all-these-sleepless-nights", "title": "All These Sleepless Nights", "originalTitle": "Wszystkie nieprzespane noce", "originalLang": "pl", "countries": ["PL"], "language": "pl", "wd": "Q24605688", "tmdb": 376386 },
+  "tt5278462": { "slug": "author-the-jt-leroy-story", "title": "Author: The JT LeRoy Story", "countries": ["US"], "language": "en", "wd": "Q24593625", "tmdb": 373348 },
+  "tt5535814": { "slug": "peter-and-the-farm", "title": "Peter and the Farm", "countries": ["US"], "language": "en", "wd": "Q26883704", "tmdb": 384289 },
+  "tt4161074": { "slug": "presenting-princess-shaw", "title": "Presenting Princess Shaw", "countries": ["IL"], "language": "he", "wd": "Q50409051", "tmdb": 357799 }
 }

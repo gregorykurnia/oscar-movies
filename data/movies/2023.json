@@ -209,5 +209,11 @@
   "tt27599265": { "slug": "bread-and-roses", "title": "Bread and Roses", "countries": ["US"], "language": "en", "wd": "Q126198715", "tmdb": 1117465 },
   "tt28490634": { "slug": "swan-song", "title": "Swan Song", "countries": ["CA"], "language": "en", "wd": "Q121339607", "tmdb": 1157092 },
   "tt26915017": { "slug": "even-hell-has-its-heroes", "title": "Even Hell Has Its Heroes", "countries": ["US"], "language": "en", "tmdb": 1034122 },
-  "tt13840536": { "slug": "it-aint-over", "title": "It Ain't Over", "countries": ["US"], "language": "en", "wd": "Q118402577", "tmdb": 965397 }
+  "tt13840536": { "slug": "it-aint-over", "title": "It Ain't Over", "countries": ["US"], "language": "en", "wd": "Q118402577", "tmdb": 965397 },
+  "tt27502250": { "slug": "anselm", "title": "Anselm", "originalTitle": "Anselm – Das Rauschen der Zeit", "originalLang": "de", "countries": ["DE"], "language": "de", "wd": "Q117803943", "tmdb": 1112547 },
+  "tt14797706": { "slug": "confessions-of-a-good-samaritan", "title": "Confessions of a Good Samaritan", "countries": ["US"], "language": "en", "tmdb": 1010124 },
+  "tt26594061": { "slug": "joan-baez-i-am-a-noise", "title": "Joan Baez: I Am a Noise", "countries": ["US"], "language": "en", "wd": "Q122854704", "tmdb": 1075815 },
+  "tt24132808": { "slug": "invisible-beauty", "title": "Invisible Beauty", "countries": ["US"], "language": "en", "wd": "Q122038726", "tmdb": 1058664 },
+  "tt20521138": { "slug": "twice-colonized", "title": "Twice Colonized", "countries": ["DK", "GL", "CA"], "language": "en", "wd": "Q115739625", "tmdb": 1058690 },
+  "tt12214676": { "slug": "between-the-rains", "title": "Between the Rains", "countries": ["KE"], "language": "sw", "tmdb": 950660 }
 }

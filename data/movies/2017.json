@@ -221,5 +221,11 @@
   "tt4795546": { "slug": "nocturama", "title": "Nocturama", "countries": ["FR", "DE"], "language": "fr", "wd": "Q20971361", "tmdb": 380623 },
   "tt5634002": { "slug": "deej", "title": "Deej", "countries": ["US"], "language": "en", "wd": "Q55393439", "tmdb": 499069 },
   "tt7414956": { "slug": "lorraine-hansberry-sighted-eyes-feeling-heart", "title": "Lorraine Hansberry: Sighted Eyes/Feeling Heart", "countries": ["US"], "language": "en", "wd": "Q97358132", "tmdb": 487262 },
-  "tt1856101": { "slug": "blade-runner-2049", "title": "Blade Runner 2049", "countries": ["US", "GB", "CA", "HU"], "language": "en", "wd": "Q21500755", "tmdb": 335984 }
+  "tt1856101": { "slug": "blade-runner-2049", "title": "Blade Runner 2049", "countries": ["US", "GB", "CA", "HU"], "language": "en", "wd": "Q21500755", "tmdb": 335984 },
+  "tt7214762": { "slug": "jim-and-andy", "title": "Jim & Andy", "countries": ["US"], "language": "en", "wd": "Q43294135", "tmdb": 469019 },
+  "tt6333052": { "slug": "casting-jonbenet", "title": "Casting JonBenet", "countries": ["US"], "language": "en", "wd": "Q28753439", "tmdb": 430826 },
+  "tt4964772": { "slug": "risk", "title": "Risk", "countries": ["US"], "language": "en", "wd": "Q24203335", "tmdb": 393561 },
+  "tt6082630": { "slug": "bobbi-jene", "title": "Bobbi Jene", "countries": ["DK", "SE", "IL", "US"], "language": "en", "wd": "Q33527772", "tmdb": 442943 },
+  "tt5943708": { "slug": "the-challenge", "title": "The Challenge", "countries": ["FR"], "language": "ar", "wd": "Q26899149", "tmdb": 408396 },
+  "tt5119268": { "slug": "for-ahkeem", "title": "For Ahkeem", "countries": ["US"], "language": "en", "wd": "Q63119060", "tmdb": 440094 }
 }

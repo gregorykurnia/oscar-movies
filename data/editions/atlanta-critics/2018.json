@@ -1,9 +1,23 @@
 {
   "award": "atlanta-critics",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Atlanta has no data for 2018 films: Wikipedia has no page for the Atlanta Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0005289/2018/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt6644200", "title": "A Quiet Place", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1825683", "title": "Black Panther", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1213641", "title": "First Man", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7014006", "title": "Eighth Grade", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "won" }
+  ],
   "screenings": []
 }

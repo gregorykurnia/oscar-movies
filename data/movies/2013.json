@@ -183,5 +183,13 @@
   "tt2147134": { "slug": "56-up", "title": "56 Up", "countries": ["GB"], "language": "en", "tmdb": 116167 },
   "tt2980764": { "slug": "get-a-horse", "title": "Get a Horse!", "countries": ["US"], "language": "en", "wd": "Q12124484", "tmdb": 234567 },
   "tt2357788": { "slug": "bridegroom-a-love-story-unequaled", "title": "Bridegroom: A Love Story, Unequaled", "countries": ["US"], "language": "en", "wd": "Q4966120", "tmdb": 174366 },
-  "tt2492916": { "slug": "muscle-shoals", "title": "Muscle Shoals", "countries": ["US"], "language": "en", "wd": "Q15052333", "tmdb": 159151 }
+  "tt2492916": { "slug": "muscle-shoals", "title": "Muscle Shoals", "countries": ["US"], "language": "en", "wd": "Q15052333", "tmdb": 159151 },
+  "tt2420006": { "slug": "12-oclock-boys", "title": "12 O'Clock Boys", "countries": ["US"], "language": "en", "wd": "Q15052275", "tmdb": 169853 },
+  "tt2181837": { "slug": "bending-steel", "title": "Bending Steel", "countries": ["US"], "language": "en", "tmdb": 174362 },
+  "tt2505938": { "slug": "good-ol-freda", "title": "Good Ol’ Freda", "countries": ["GB"], "language": "en", "wd": "Q13107958", "tmdb": 173301 },
+  "tt2461216": { "slug": "william-and-the-windmill", "title": "William and the Windmill", "countries": ["US", "MW", "ZA"], "language": "en", "tmdb": 173161 },
+  "tt2379442": { "slug": "rafea-solar-mama", "title": "Rafea: Solar Mama", "countries": ["US", "DK", "EG"], "language": "ar", "wd": "Q17010035", "tmdb": 131509 },
+  "tt2530936": { "slug": "expedition-to-the-end-of-the-world", "title": "Expedition to the End of the World", "originalTitle": "Ekspeditionen til verdens ende", "originalLang": "da", "countries": ["DK"], "language": "da", "wd": "Q20728542", "tmdb": 168164 },
+  "tt2551618": { "slug": "the-machine-which-makes-everything-disappear", "title": "The Machine Which Makes Everything Disappear", "countries": ["GE", "DE"], "language": "ka", "wd": "Q22669549", "tmdb": 159026 },
+  "tt2392634": { "slug": "i-am-breathing", "title": "I am Breathing", "countries": ["DK", "GB"], "language": "en", "wd": "Q20728918", "tmdb": 207413 }
 }

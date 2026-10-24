@@ -48,6 +48,21 @@ For each award in `sources/imdb.json` and each film year:
 6. Title types: `FEATURE_TYPES` only (no shorts, series, episodes), plus any IMDb ID already in
    `data/movies/`. New films get facts from `researchImdbFilms` (Wikidata by P345, else TMDB).
 
+Built in 6.1 (`scripts/research/imdb.ts`; run `--survey` first, `--dry-run` to see agreement without
+writing). `sources/imdb.json` holds, besides `events`: `labels` (per award, IMDb label → category; a
+label not listed is not read, so map every spelling a group used over the years), `honorees`
+(categories where every film named wins, such as Cinema Eye's Unforgettables: no tie warning, not
+"winners only"), `seasons` (an IMDb edition the season rule gets wrong) and `leaveOut`
+("<award> <film year> <tt>", with why). IMDb's part of a note is one sentence at its end,
+"From IMDb's award records: <filled categories>; nominees for <categories>.", plus "IMDb gives no
+announcement date.", "Not on IMDb: …" and "Left out: …"; a rerun reads it back, so running twice
+changes nothing. Agreement measured in 6.1 (2012–2025, categories both list): winners 328 of 334,
+nominee lists 242 of 251 over NYFCC, LAFCA, Boston Society, WAFCA, San Diego and Chicago. IMDb's
+slips are mostly a film filed one season off (San Diego 2022 lists 2023's *Still* as a winner,
+Chicago 2017 lists 2018's *Capernaum*). Cinema Eye 2021–2025: IMDb filled Direction, Production,
+Audience and Unforgettables, which the 15th–19th Wikipedia pages also list but `majors.ts` doesn't
+read yet (6.2 may teach it, then rerun `imdb.ts`).
+
 ## 4. Event map (`scripts/research/sources/imdb.json`)
 One or more IMDb events per award slug. Not on IMDb: New Jersey and Puerto Rico (stay `no_data`).
 Two events: San Francisco (Bay Area + its older name), Astra (Hollywood Critics Association + Astra

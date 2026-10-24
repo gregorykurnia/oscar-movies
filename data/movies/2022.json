@@ -203,5 +203,8 @@
   "tt13622204": { "slug": "wildcat", "title": "Wildcat", "countries": ["US"], "language": "en", "wd": "Q117272670", "tmdb": 1019446 },
   "tt16452546": { "slug": "batata", "title": "Batata", "countries": ["CA", "LB"], "language": "ar", "wd": "Q117039273", "tmdb": 929143 },
   "tt21818816": { "slug": "while-we-watched", "title": "While We Watched", "countries": ["GB"], "language": "hi", "wd": "Q115519176", "tmdb": 1016217 },
-  "tt2551628": { "slug": "sweetheart-deal", "title": "Sweetheart Deal", "countries": ["US"], "language": "en", "tmdb": 956471 }
+  "tt2551628": { "slug": "sweetheart-deal", "title": "Sweetheart Deal", "countries": ["US"], "language": "en", "tmdb": 956471 },
+  "tt21945344": { "slug": "in-her-hands", "title": "In Her Hands", "countries": ["US"], "language": "prs", "wd": "Q123159176", "tmdb": 1014884 },
+  "tt14965578": { "slug": "beba", "title": "Beba", "countries": ["US"], "language": "en", "wd": "Q131549784", "tmdb": 859324 },
+  "tt16378028": { "slug": "mija", "title": "Mija", "countries": ["US"], "language": "en", "wd": "Q136513180", "tmdb": 913745 }
 }

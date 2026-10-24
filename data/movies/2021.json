@@ -209,5 +209,10 @@
   "tt6823148": { "slug": "benedetta", "title": "Benedetta", "countries": ["FR", "BE"], "language": "fr", "wd": "Q55595776", "tmdb": 454527 },
   "tt14512538": { "slug": "roadrunner-a-film-about-anthony-bourdain", "title": "Roadrunner: A Film About Anthony Bourdain", "countries": ["US"], "language": "en", "wd": "Q106763973", "tmdb": 642732 },
   "tt13938338": { "slug": "woodlands-dark-and-days-bewitched-a-history-of-folk-horror", "title": "Woodlands Dark and Days Bewitched: A History of Folk Horror", "countries": ["US"], "language": "en", "tmdb": 614637 },
-  "tt8399720": { "slug": "tina", "title": "Tina", "countries": ["US", "GB"], "language": "en", "wd": "Q105697084", "tmdb": 773736 }
+  "tt8399720": { "slug": "tina", "title": "Tina", "countries": ["US", "GB"], "language": "en", "wd": "Q105697084", "tmdb": 773736 },
+  "tt11514252": { "slug": "jacinta", "title": "Jacinta", "countries": ["US"], "language": "en", "wd": "Q130640096", "tmdb": 696901 },
+  "tt10741846": { "slug": "rita-moreno-just-a-girl-who-decided-to-go-for-it", "title": "Rita Moreno: Just a Girl Who Decided to Go for It", "countries": ["US"], "language": "en", "wd": "Q104881084", "tmdb": 776526 },
+  "tt13648160": { "slug": "try-harder", "title": "Try Harder!", "countries": ["US"], "language": "en", "wd": "Q106359094", "tmdb": 776528 },
+  "tt13622168": { "slug": "homeroom", "title": "Homeroom", "countries": ["US"], "language": "en", "wd": "Q105742630", "tmdb": 776523 },
+  "tt13963956": { "slug": "lily-topples-the-world", "title": "Lily Topples the World", "countries": ["US"], "language": "en", "wd": "Q105481713", "tmdb": 795625 }
 }
