@@ -22,8 +22,11 @@ The routine for when the owner says **"update the race"** (product plan §3.12; 
    | Cannes, Venice, Berlin, Sundance, TIFF | `npx tsx scripts/research/festivals.ts --award <slug> --years <season> --refresh` |
    | Oscars: Picture, Documentary, Animated (shortlists, nominations, winners) | `npx tsx scripts/research/oscars.ts --years <season> --refresh` |
    | Oscars: International submissions and shortlist | `npx tsx scripts/research/international.ts --years <season> --refresh`, then `oscars.ts --years <season> --offline` |
+   | The 63 critics groups (Critics Choice, Gotham, IDA, Peabody and the rest) | `npx tsx scripts/research/critics.ts --award <slug> --years <season> --refresh` |
+   | Gaps Wikipedia leaves: Cinema Eye's Direction, Production, Audience Choice and Unforgettables, and every critics group | `npx tsx scripts/research/imdb.ts --award <slug>[,<slug>…] --years <season> --refresh`, **always after** `majors.ts` or `critics.ts` for the same award (they drop IMDb's rows) |
+   | DOC NYC (Short List: Features in October or November, Winner's Circle) | `npx tsx scripts/research/docnyc.ts --years <season> --refresh` |
 
-   A nominations date the script can't read off the page is typed into `scripts/research/sources/majors.json` (or `oscars.json`) from the award's own announcement; the scripts' headers say which. If Wikipedia doesn't have the results yet, wait for the next update: don't type them from news reports unless the owner asks, and then put the source URL in `sourceUrls`.
+   Small critics groups have no Wikipedia page, so `imdb.ts` is their only source, and IMDb can lag an announcement by weeks: each update reruns it for every season edition still `no_data` or `partial`. A nominations date the script can't read off the page is typed into `scripts/research/sources/majors.json` (or `oscars.json`) from the award's own announcement; the scripts' headers say which. If Wikipedia doesn't have the results yet, wait for the next update: don't type them from news reports unless the owner asks, and then put the source URL in `sourceUrls`.
 3. Settle what the script printed: an unresolved film is found by a Wikidata search (title, year, director) or left out and named in the commit; a half-announced edition (nominees in, winners not) stays `partial` with a `note`.
 4. `npm run data:check` must pass. For majors and festivals, the second-source checks (`npx tsx scripts/research/majors-check.ts`, `festivals-check.ts`) should agree too, once Wikipedia's category articles have caught up; a lag there is a note, not a blocker.
 
