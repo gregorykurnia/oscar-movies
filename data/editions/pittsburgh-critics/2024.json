@@ -3,7 +3,7 @@
   "year": 2024,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0074235/2025/1/"],
-  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary.",
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary. IMDb names more than one winner (a tie) in: Best Foreign Language Film.",
   "results": [
     { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "won" },
     { "category": "picture", "imdb": "tt16426418", "title": "Challengers", "outcome": "nominated" },

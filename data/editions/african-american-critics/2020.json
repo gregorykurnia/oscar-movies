@@ -6,15 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt9784798", "title": "Judas and the Black Messiah", "outcome": "won" },
-    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10633456", "title": "Minari", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt9777644", "title": "Da 5 Bloods", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10195452", "title": "American Skin", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10514222", "title": "Ma Rainey's Black Bottom", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10612922", "title": "One Night in Miami...", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8521718", "title": "The United States vs. Billie Holiday", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt11394158", "title": "Miss Juneteenth", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8132778", "title": "Night of the Kings", "outcome": "nominated" },
     { "category": "international", "imdb": "tt8132778", "title": "Night of the Kings", "outcome": "won" },
     { "category": "documentary", "imdb": "tt12538822", "title": "All In: The Fight for Democracy", "outcome": "won" },
     { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" }

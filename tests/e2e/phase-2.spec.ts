@@ -30,7 +30,8 @@ test("the accuracy figures for a hand-checked award match", async ({ page }) => 
   await expect(page).toHaveURL(/\/accuracy\/documentary$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Accuracy: Best Documentary Feature");
 
-  const row = page.getByRole("table").getByRole("row", { name: /Cinema Eye/ });
+  // Cinema Eye has five Documentary categories since Phase 6: the fixture is its feature prize.
+  const row = page.getByRole("table").getByRole("row", { name: /Cinema Eye/ }).filter({ hasText: "Nonfiction Feature Filmmaking" });
   const cells = row.getByRole("cell");
   await expect(cells.nth(1)).toHaveText("21% 3 of 14");
   await expect(cells.nth(2)).toHaveText("86% 12 of 14");

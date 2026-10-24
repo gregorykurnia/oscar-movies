@@ -75,4 +75,10 @@ describe("queryYearEditions", () => {
     const rows2012 = await queryYearEditions(db, 2012);
     expect(rows2012.find((r) => r.slug === "cinema-eye")).toMatchObject({ status: "partial" });
   });
+
+  it("gives a list with no winner its announcement day (Phase 6 review)", async () => {
+    const rows = await queryYearEditions(db, 2025);
+    expect(rows.find((r) => r.slug === "doc-nyc")).toMatchObject({ status: "loaded", winnersOn: "2025-10-14" });
+    expect(rows.find((r) => r.slug === "afi")).toMatchObject({ status: "loaded", winnersOn: "2025-12-04" });
+  });
 });

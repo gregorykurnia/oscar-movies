@@ -6,15 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
-    { "category": "picture", "imdb": "tt3397884", "title": "Sicario", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1663202", "title": "The Revenant", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt3460252", "title": "The Hateful Eight", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2381111", "title": "Brooklyn", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
     { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
     { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
     { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" }

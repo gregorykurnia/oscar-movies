@@ -3,7 +3,7 @@
   "year": 2024,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0001982/2024/1/"],
-  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. IMDb names more than one winner (a tie) in: Best Foreign Language Film.",
   "results": [
     { "category": "picture", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
     { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "nominated" },

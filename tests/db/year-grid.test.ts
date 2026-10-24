@@ -3,6 +3,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryYearGrid } from "../../src/data/year-grid";
+import { AWARDS } from "../../src/lib/awards";
 import { gridTotals } from "../../src/lib/year-grid";
 import { majorsOnly } from "./majors-only";
 
@@ -72,7 +73,8 @@ describe("queryYearGrid", () => {
       for (const f of majorsOnly(await queryYearGrid(db, 2025, category)).films) union.add(f.film.id);
     }
     expect(films.map((f) => f.film.id).sort((a, b) => a - b)).toEqual([...union].sort((a, b) => a - b));
-    expect(columns).toHaveLength(17);
+    // The Oscars, every major award and every festival (DOC NYC joined in Phase 6); critics groups are left out by majorsOnly.
+    expect(columns).toHaveLength(AWARDS.filter((a) => a.kind !== "critics").length);
     expect(columns.map((c) => c.slug)).toEqual(expect.arrayContaining(["oscars", "annie", "sundance"]));
   });
 

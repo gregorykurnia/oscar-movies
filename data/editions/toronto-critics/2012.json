@@ -3,7 +3,7 @@
   "year": 2012,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0000657/2012/1/"],
-  "note": "From IMDb's award records: Best Picture; Best International Feature; Best Animated Feature. IMDb gives no announcement date. Not on IMDb: Allan King Documentary Award.",
+  "note": "From IMDb's award records: Best Picture; Best International Feature; Allan King Documentary Award; Best Animated Feature. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "won" },
     { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
@@ -13,7 +13,10 @@
     { "category": "international", "imdb": "tt2153963", "title": "Tabu", "outcome": "nominated" },
     { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "won" },
     { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "nominated" }
   ],
   "screenings": []
 }

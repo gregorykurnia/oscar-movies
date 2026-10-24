@@ -6,21 +6,9 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt7131622", "title": "Once Upon a Time in Hollywood", "outcome": "won" },
-    { "category": "picture", "imdb": "tt4154796", "title": "Avengers: Endgame", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8772262", "title": "Midsommar", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8946378", "title": "Knives Out", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt3281548", "title": "Little Women", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt5727208", "title": "Uncut Gems", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
     { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
-    { "category": "international", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "won" },
-    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "won" }
   ],
   "screenings": []
 }

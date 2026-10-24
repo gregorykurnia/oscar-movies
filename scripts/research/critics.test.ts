@@ -14,6 +14,10 @@ import { aafcaLabelYear, dorianFilmYear, GROUPS, readAafcaTopTen, readPeabodyDoc
 import { blockRows, daysIn, leadDates, readBlocks, readCategoryTables, readDtBlocks, readNestedBlocks, withoutSection } from "./lib/critics-pages";
 import { readNomineeLists } from "./lib/tables";
 
+/** No Wikipedia data: `no_data`, or (Phase 6) filled from IMDb's award records alone. */
+const noWikipedia = (e: { status: string; note?: string; sourceUrls?: string[] }) =>
+  e.status === "no_data" || (e.status === "partial" && (e.sourceUrls ?? []).every((u) => u.startsWith("https://www.imdb.com/")) && /From IMDb's award records/.test(e.note ?? ""));
+
 describe("readBlocks", () => {
   it("reads a bold label with a winner and a runner-up line under it (Boston Society)", () => {
     const html = `<ul>
@@ -159,7 +163,7 @@ describe("the sources file and the groups", () => {
 });
 
 describe("task 4.4 editions", () => {
-  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; sourceUrls?: string[]; results: Array<{ category: string; outcome: string; title: string }> };
   const winners = (path: string, category: string) => edition(path).results.filter((r) => r.category === category && r.outcome === "won");
 
   it("lists Gotham's International Feature only from the 2020 films, and says why before", () => {
@@ -180,7 +184,7 @@ describe("task 4.4 editions", () => {
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["greater-western-new-york-critics", "hawaii-critics", "indiana-critics", "iowa-critics", "international-cinephile-society", "ida"]) {
       const e = edition(`${slug}/2020`);
-      expect(e.status, slug).toBe("no_data");
+      expect(noWikipedia(e), slug).toBe(true);
       expect(e.note, slug).toBeTruthy();
     }
   });
@@ -219,7 +223,7 @@ describe("layouts of task 4.5", () => {
 });
 
 describe("task 4.5 editions", () => {
-  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; sourceUrls?: string[]; results: Array<{ category: string; outcome: string; title: string }> };
   const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
 
   it("keeps LAFCA's ties as two winners (2022 Best Film) and its runner-up", () => {
@@ -243,7 +247,7 @@ describe("task 4.5 editions", () => {
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["latino-entertainment-journalists", "michigan-critics", "minnesota-critics", "music-city-critics", "new-jersey-critics"]) {
       const e = edition(`${slug}/2020`);
-      expect(e.status, slug).toBe("no_data");
+      expect(noWikipedia(e), slug).toBe(true);
       expect(e.note, slug).toBeTruthy();
     }
   });
@@ -265,7 +269,7 @@ describe("layouts of task 4.6", () => {
 });
 
 describe("task 4.6 editions", () => {
-  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; sourceUrls?: string[]; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
   const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
 
   it("reads the New York Circle's winners with their runners-up (2012) and its Non-Fiction prize as the documentary", () => {
@@ -302,7 +306,7 @@ describe("task 4.6 editions", () => {
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["north-carolina-critics", "north-dakota-critics", "north-texas-critics", "oklahoma-critics", "online-female-critics", "online-ftv"]) {
       const e = edition(`${slug}/2020`);
-      expect(e.status, slug).toBe("no_data");
+      expect(noWikipedia(e), slug).toBe(true);
       expect(e.note, slug).toBeTruthy();
     }
   });
@@ -326,7 +330,7 @@ describe("layouts of task 4.7", () => {
 });
 
 describe("task 4.7 editions", () => {
-  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; sourceUrls?: string[]; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
   const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
 
   it("files each Peabody documentary under its film year, not the year of the honours (Writing with Fire: 2021 film, 2022 list)", () => {
@@ -358,7 +362,7 @@ describe("task 4.7 editions", () => {
   it("marks groups with no page as no_data, with a note", () => {
     for (const slug of ["philadelphia-critics", "phoenix-critics-circle", "pittsburgh-critics", "portland-critics", "puerto-rico-critics"]) {
       const e = edition(`${slug}/2020`);
-      expect(e.status, slug).toBe("no_data");
+      expect(noWikipedia(e), slug).toBe(true);
       expect(e.note, slug).toBeTruthy();
     }
   });
@@ -405,7 +409,7 @@ describe("task 4.8 readers", () => {
 });
 
 describe("task 4.8 editions", () => {
-  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
+  const edition = (path: string) => JSON.parse(readFileSync(`data/editions/${path}.json`, "utf8")) as { status: string; note?: string; sourceUrls?: string[]; winnersOn?: string; nominationsOn?: string; results: Array<{ category: string; outcome: string; title: string }> };
   const of = (path: string, category: string, outcome: string) => edition(path).results.filter((r) => r.category === category && r.outcome === outcome).map((r) => r.title).sort();
 
   it("reads Toronto's category tables (2019) and its side-by-side lists (2022)", () => {
@@ -413,7 +417,7 @@ describe("task 4.8 editions", () => {
     expect(of("toronto-critics/2019", "picture", "nominated")).toEqual(["Marriage Story", "The Irishman"]);
     expect(of("toronto-critics/2022", "picture", "won")).toEqual(["Aftersun"]);
     expect(of("toronto-critics/2022", "international", "won")).toHaveLength(1);
-    expect(edition("toronto-critics/2012").status).toBe("no_data");
+    expect(noWikipedia(edition("toronto-critics/2012"))).toBe(true);
   });
 
   it("reads Vancouver's international tables and leaves its Canadian section out; no animated prize is noted", () => {
@@ -429,7 +433,7 @@ describe("task 4.8 editions", () => {
     expect(of("st-louis-critics/2022", "picture", "runner_up")).toEqual(["Women Talking"]);
     expect(of("san-francisco-critics/2022", "international", "won")).toHaveLength(1);
     expect(of("seattle-critics/2019", "picture", "won")).toEqual(["Parasite"]);
-    for (const year of [2012, 2013, 2014, 2015, 2016, 2017]) expect(edition(`san-francisco-critics/${year}`).status).toBe("no_data");
+    for (const year of [2012, 2013, 2014, 2015, 2016, 2017]) expect(noWikipedia(edition(`san-francisco-critics/${year}`)), `${year}`).toBe(true);
   });
 
   it("files the winners-only groups as partial: Southeastern's Best Film and the Dorian Awards by film year", () => {
@@ -445,7 +449,7 @@ describe("task 4.8 editions", () => {
     expect(edition("seattle-critics/2020").status).toBe("partial");
     expect(edition("seattle-critics/2020").note).toMatch(/Seattle Mariners/);
     const utah = edition("utah-critics/2020");
-    expect([utah.status, Boolean(utah.note)]).toEqual(["no_data", true]);
+    expect([noWikipedia(utah), Boolean(utah.note)]).toEqual([true, true]);
   });
 });
 

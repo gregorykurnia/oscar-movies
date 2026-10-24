@@ -56,12 +56,16 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
 
 test("the category, sort and Unwatched filter are kept in the address and survive a reload", async ({ page }) => {
   await page.goto("/grid/2025");
-  const rows = page.getByRole("table").getByRole("rowheader");
 
   await page.getByRole("button", { name: "Sort: Wins" }).click();
   await page.getByRole("group", { name: "Sort by" }).getByRole("link", { name: "Title" }).click();
   await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
-  await expect(rows.first()).toContainText("Atropia");
+  // In title order, as the page sorts (`localeCompare`); the first title changes as precursors add films.
+  await expect(async () => {
+    const titles = await page.locator('tbody th[scope="row"]').evaluateAll((els) => els.map((el) => el.getAttribute("aria-label") ?? ""));
+    expect(titles.length).toBeGreaterThan(10);
+    expect(titles).toEqual([...titles].sort((a, b) => a.localeCompare(b, "en")));
+  }).toPass();
 
   await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "International" }).click();
   await expect(page).toHaveURL(/\/grid\/2025\?category=international&sort=title$/);

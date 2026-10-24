@@ -6,15 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "won" },
-    { "category": "picture", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1276104", "title": "Looper", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
     { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
     { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
     { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "won" }

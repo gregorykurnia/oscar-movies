@@ -3,7 +3,7 @@
   "year": 2014,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0003546/2014/1/"],
-  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary.",
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Documentary. IMDb names more than one winner (a tie) in: Best Foreign Language Film.",
   "results": [
     { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
     { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },

@@ -1,7 +1,7 @@
 // One award's results in one film year (plan §3.1, guide §8.2): per category the films with the
 // stage each reached, the Oscar result of the category it maps to, and the award's accuracy
 // figures. Cached under `awards` and `scores`; see `films.ts` for the query/cached pairing.
-import { and, asc, eq, ne } from "drizzle-orm";
+import { and, asc, eq, ne, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { accuracy, awardCategories, awards, editions, movies, results } from "@/db/schema";
@@ -36,9 +36,12 @@ export type AwardEdition = {
   ordinal: string | null;
   status: "loaded" | "partial" | "no_data";
   note: string | null;
-  /** ISO date ("2026-02-22"). */
+  /** ISO date ("2026-02-22"). A list with no winner (AFI, DOC NYC) gives its announcement day instead. */
   winnersOn: string | null;
 };
+
+// A list's results are out on its announcement day: the day pages show where a prize shows its winners' day.
+const resultsDay = sql<string | null>`coalesce(${editions.winnersOn}, case when ${awards.isSelection} then ${editions.nominationsOn} end)::text`;
 
 /** The film's result in the Oscar category this category maps to, in the same film year. */
 export type OscarOutcome = { outcome: Outcome; country: string | null } | null;
@@ -116,7 +119,7 @@ export async function queryAwardEdition(db: ReadDb, awardSlug: string, year: num
       ordinal: editions.ordinal,
       status: editions.status,
       note: editions.note,
-      winnersOn: editions.winnersOn,
+      winnersOn: resultsDay,
     })
     .from(editions)
     .innerJoin(awards, eq(awards.id, editions.awardId))
@@ -199,7 +202,7 @@ export async function queryYearEditions(db: ReadDb, year: number): Promise<YearE
       ordinal: editions.ordinal,
       status: editions.status,
       note: editions.note,
-      winnersOn: editions.winnersOn,
+      winnersOn: resultsDay,
     })
     .from(editions)
     .innerJoin(awards, eq(awards.id, editions.awardId))

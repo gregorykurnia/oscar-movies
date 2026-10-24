@@ -6,17 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt11271038", "title": "Licorice Pizza", "outcome": "won" },
-    { "category": "picture", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt7740496", "title": "Nightmare Alley", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt9243804", "title": "The Green Knight", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt11003218", "title": "Pig", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8721424", "title": "Tick, Tick... Boom!", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt8847712", "title": "The French Dispatch", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt13453006", "title": "Red Rocket", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt10986222", "title": "C'mon C'mon", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
     { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
     { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
     { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" }

@@ -473,7 +473,8 @@
       "Best Animated Film": "animated",
       "Best Foreign Language Film": "international",
       "Best International Feature": "international",
-      "Best Documentary": "documentary"
+      "Best Documentary": "documentary",
+      "Allan King Documentary Award": "documentary"
     },
     "st-louis-critics": {
       "Best Film": "picture",
@@ -623,7 +624,8 @@
       "Best Animated Picture": "animated",
       "Best Foreign Language Film": "international",
       "Best Documentary Picture": "documentary",
-      "Best Documentary": "documentary"
+      "Best Documentary": "documentary",
+      "Best Documentary Feature Film": "documentary"
     },
     "lgbtq-critics": {
       "Film of the Year": "picture",
@@ -634,7 +636,7 @@
     }
   },
   "honorees": {
-    "cinema-eye/unforgettables": "Honours a year's memorable film subjects: every film named is an honoree, none a nominee"
+    "cinema-eye/unforgettables": "Honours a year's memorable film subjects: every film named is an honoree, none a winner or nominee, so the films are written as a list (nominated), like a selection"
   },
   "seasons": {
     "ev0001568/2010/1": {
@@ -691,5 +693,9 @@
       "why": "The History of the Seattle Mariners is a video essay with no film record on TMDB or Wikidata (4.8 left it out too)",
       "note": "no film record could be matched"
     }
+  },
+  "notWinners": {
+    "ida 2023 director tt24082622": "IDA's Best Director went to Asmae El Moudir (The Mother of All Lies) alone; Milisuthando was a nominee (IDA's winners, Dec 2023)",
+    "online-ftv 2017 animated tt3262342": "OFTA's 2017 Animated winner was Coco; Loving Vincent was the runner-up (oftaawards.com, 22nd awards)"
   }
 }

@@ -3,9 +3,8 @@
   "year": 2025,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0036704/2026/1/"],
-  "note": "From IMDb's award records: Best Film; Best Animated Film (winners only). IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film; Best Documentary.",
+  "note": "From IMDb's award records: Best Animated Film (winners only). IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film; Best Documentary. IMDb names more than one winner (a tie) in: Best Animated Film. IMDb lists no winner in: Best Film (not loaded).",
   "results": [
-    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" },
     { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "won" },
     { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" }
   ],

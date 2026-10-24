@@ -3,7 +3,7 @@
   "year": 2017,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0005190/2018/1/"],
-  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. IMDb names more than one winner (a tie) in: Best Film; Best Animated Film.",
   "results": [
     { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "won" },
     { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "won" },

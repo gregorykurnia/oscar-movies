@@ -15,7 +15,8 @@ section next to Wikipedia. **Wikipedia stays wherever it has data;** IMDb fills 
   (`lib/imdb.ts` sets both). GET and the project's research user agent get 403; the web pages
   (`imdb.com/event/...`) answer 202 (bot check). No key, no introspection.
 - No query lists an edition's nominees. Two steps instead: `eventTitles(ev)` (advanced title search
-  by award event, released from 2010), then `titleNominations(tt)` (all of a title's nominations,
+  by award event, released from 2010; a title with no IMDb release date is missed, so a nominee list
+  can be one short: Kansas City 2015's Documentary and Animated, found in the 6.R spot-check), then `titleNominations(tt)` (all of a title's nominations,
   every event, one cached answer per title; filter by `event` locally).
 - `searchTitles(text)` gives hits with their directors; `chooseTitle` takes the one feature within
   two years sharing a director.
@@ -45,8 +46,17 @@ For each award in `sources/imdb.json` and each film year:
 4. Where both have a category, differences are reported (agreement per group), never written.
 5. Rerunning a Wikipedia script (`majors.ts`, `critics.ts`) rewrites its editions, dropping IMDb's
    additions: rerun `imdb.ts` for that award after it.
-6. Title types: `FEATURE_TYPES` only (no shorts, series, episodes), plus any IMDb ID already in
-   `data/movies/`. New films get facts from `researchImdbFilms` (Wikidata by P345, else TMDB).
+6. Title types: `FEATURE_TYPES` only (no shorts, series, miniseries, episodes), plus any IMDb ID
+   already in `data/movies/`. New films get facts from `researchImdbFilms` (Wikidata by P345, else
+   TMDB), and only films the merge writes: a row only compared, or in a category the group didn't
+   give, adds no film.
+7. Added in the Phase 6 review: a category IMDb lists with no winner (late 2025 editions) isn't
+   filled ("IMDb lists no winner in: …"); two or more winners are written as a tie and named ("IMDb
+   names more than one winner (a tie) in: …"); a `winnersOnly` group gets its winners only; an honoree
+   list (`honorees`, Cinema Eye's Unforgettables) is written as `nominated`, a list with no winner, so
+   it never counts as a win; a series or short left out doesn't make an edition `partial`; the
+   Wikipedia script's "Not found on the source" reads "Not on Wikipedia" once IMDb fills those
+   categories. A status an earlier run lowered stays lowered: rerun the Wikipedia script first to reset it.
 
 Built in 6.1 (`scripts/research/imdb.ts`; run `--survey` first, `--dry-run` to see agreement without
 writing). `sources/imdb.json` holds, besides `events`: `labels` (per award, IMDb label → category; a

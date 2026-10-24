@@ -165,7 +165,7 @@ export async function searchTitles(fetcher: Fetcher, text: string): Promise<Imdb
 }
 
 /** Title types that can be a feature in the app: no shorts, series, episodes or games. */
-export const FEATURE_TYPES = new Set(["movie", "tvMovie", "tvSpecial", "video", "tvMiniSeries"]);
+export const FEATURE_TYPES = new Set(["movie", "tvMovie", "tvSpecial", "video"]);
 
 const person = (name: string) => name.normalize("NFKD").replace(/[^\p{L}\s]/gu, "").toLowerCase().split(/\s+/).filter(Boolean);
 

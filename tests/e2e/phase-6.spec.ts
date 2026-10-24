@@ -4,28 +4,47 @@
 // grid. One walk through the pages by their links; the expected rows come from the `test`
 // database. Reads only; no writes.
 import { expect, test, type Page } from "@playwright/test";
-import { and, asc, eq, inArray, ne, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, lte, ne, sql } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { awardCategories, awards, editions, movies, results } from "../../src/db/schema";
+import { AWARDS } from "../../src/lib/awards";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
 
-/** The newest finished season: the Oscars' Documentary results are in for every year up to it. */
-const LAST_FINISHED = 2025;
 const GRID_YEAR = 2024;
+
+/** The newest finished season: the newest Oscars held by today with a Documentary winner (the page counts seasons up to it). */
+async function lastFinished(): Promise<number> {
+  const [row] = await db
+    .select({ year: sql<number>`max(${editions.year})` })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .where(
+      and(
+        eq(awards.slug, "oscars"),
+        eq(awardCategories.oscarCategory, "documentary"),
+        eq(results.outcome, "won"),
+        lte(editions.winnersOn, sql`current_date`),
+      ),
+    );
+  return Number(row.year);
+}
 
 type Category = { slug: string; shortName: string; kind: string; category: string; years: number };
 
 /** Every non-Oscar category mapped to Documentary, with the finished seasons that have results in it (the accuracy page's Years). */
 async function documentaryCategories(): Promise<Category[]> {
+  const last = await lastFinished();
   const rows = await db
     .select({
       slug: awards.slug,
       shortName: awards.shortName,
       kind: awards.kind,
       category: awardCategories.name,
-      years: sql<number>`count(distinct ${editions.year}) filter (where ${editions.status} <> 'no_data' and ${editions.year} <= ${LAST_FINISHED})`,
+      years: sql<number>`count(distinct ${editions.year}) filter (where ${editions.status} <> 'no_data' and ${editions.year} <= ${last})`,
     })
     .from(awardCategories)
     .innerJoin(awards, eq(awards.id, awardCategories.awardId))
@@ -158,13 +177,19 @@ test("the 2024 Documentary grid has a column for Cinema Eye and DOC NYC with eac
   await page.goto(`/grid/${GRID_YEAR}`);
   await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "Documentary" }).click();
   await expect(page).toHaveURL(/category=documentary/);
-  await page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Critics groups folded" }).click();
-  await expect(page).toHaveURL(/critics=open/);
+  // A press before hydration does nothing: press until the address says the critics groups are open.
+  const fold = page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Critics groups folded" });
+  await expect(async () => {
+    if (await fold.count()) await fold.click();
+    await expect(page).toHaveURL(/critics=open/, { timeout: 1000 });
+  }).toPass();
 
   const table = page.getByRole("table");
-  const heads = await table.locator('th[scope="col"]').evaluateAll((els) =>
-    els.map((el) => ({ text: el.textContent ?? "", title: el.getAttribute("title") ?? "" })),
-  );
+  const readHeads = () =>
+    table.locator('th[scope="col"]').evaluateAll((els) => els.map((el) => ({ text: el.textContent ?? "", title: el.getAttribute("title") ?? "" })));
+  // Wait for the opened table: the critics groups' columns follow DOC NYC's.
+  await expect.poll(async () => (await readHeads()).length).toBeGreaterThan(50);
+  const heads = await readHeads();
   const index = (name: string) => heads.findIndex((h) => h.text === name);
   const [eye, nyc] = [index("Cinema Eye"), index("DOC NYC")];
   expect(eye).toBeGreaterThan(0);
@@ -172,7 +197,8 @@ test("the 2024 Documentary grid has a column for Cinema Eye and DOC NYC with eac
   // DOC NYC is the last festival column: every column after it is a critics group.
   const after = heads.slice(nyc + 1).map((h) => h.text);
   expect(after.length).toBeGreaterThan(40);
-  expect(after).not.toContain("Cannes");
+  const critics = new Set(AWARDS.filter((a) => a.kind === "critics").map((a) => a.shortName));
+  expect(after.filter((name) => !critics.has(name))).toEqual([]);
 
   // Every film's cells by award column: the head row has Film, Wins, Noms, then the awards; a row has Wins and Noms as its first two cells.
   const cells = await page.evaluate(
@@ -218,6 +244,7 @@ test("the festivals index opens DOC NYC's award page, which lists both lists fro
     await expect(region.getByRole("heading", { level: 3 })).toHaveCount(Number(r.n));
   }
 
+  // The 404 page streams in with a 200 status (a prerendered shell), as on the award pages.
   await page.goto("/festivals/doc-nyc/2025");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("This page isn't here");
 });

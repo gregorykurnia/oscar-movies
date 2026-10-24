@@ -3,7 +3,7 @@
   "year": 2020,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association", "https://www.imdb.com/event/ev0002286/2020/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
     { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "won" },

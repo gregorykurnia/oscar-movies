@@ -3,26 +3,12 @@
   "year": 2024,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2025/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt17526714", "title": "The Substance", "outcome": "won" },
     { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "won" },
-    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt27367464", "title": "Kneecap", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt20316748", "title": "Twilight of the Warriors: Walled In", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt19121796", "title": "Look Into My Eyes", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt18322912", "title": "Seeking Mavis Beacon", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
-    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" }
   ],
   "screenings": []
 }

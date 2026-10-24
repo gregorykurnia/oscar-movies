@@ -6,15 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt1798709", "title": "Her", "outcome": "won" },
-    { "category": "picture", "imdb": "tt1392214", "title": "Prisoners", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt0790636", "title": "Dallas Buyers Club", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1535109", "title": "Captain Phillips", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2017038", "title": "All Is Lost", "outcome": "nominated" },
     { "category": "international", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
     { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
     { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" }

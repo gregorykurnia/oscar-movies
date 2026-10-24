@@ -3,9 +3,8 @@
   "year": 2025,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0003272/2026/1/"],
-  "note": "From IMDb's award records: Best Foreign Language Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film; Best Documentary.",
+  "note": "From IMDb's award records: Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film; Best Documentary. IMDb lists no winner in: Best Foreign Language Film (not loaded).",
   "results": [
-    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
     { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
     { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" }
   ],

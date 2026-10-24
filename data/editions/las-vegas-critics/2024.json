@@ -3,24 +3,12 @@
   "year": 2024,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2024/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt15239678", "title": "Dune: Part Two", "outcome": "won" },
     { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" },
-    { "category": "international", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt27367464", "title": "Kneecap", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt30321133", "title": "Will & Harper", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt26420234", "title": "Music by John Williams", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt27902121", "title": "Super/Man: The Christopher Reeve Story", "outcome": "nominated" },
-    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" },
-    { "category": "animated", "imdb": "tt22022452", "title": "Inside Out 2", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt4772188", "title": "Flow", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt23770030", "title": "Memoir of a Snail", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt17163970", "title": "Wallace & Gromit: Vengeance Most Fowl", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" }
   ],
   "screenings": []
 }

@@ -111,14 +111,16 @@ export type Match = { ok: true; imdb: string } | { ok: false; reason: string };
 /** A film's IMDb title: the hand-matched ID, else the search hit that shares a director within two years. */
 export async function matchFilm(
   search: (text: string) => Promise<ImdbCandidate[]>,
-  film: { title: string; slug: string; year: number; directors: string[] },
+  /** `year` is the festival year (the key of `ids`, like `leaveOut`); `filmYear` the page's "Year:", when it gives one. */
+  film: { title: string; slug: string; year: number; filmYear?: number; directors: string[] },
   sources: Pick<Sources, "ids">,
 ): Promise<Match> {
   const hand = sources.ids[`${film.year} ${film.slug}`];
   if (hand) return { ok: true, imdb: hand.imdb };
+  const filmYear = film.filmYear ?? film.year;
   let last = "no search text";
-  for (const text of searchTexts(film.title, film.year)) {
-    const chosen = chooseTitle(await search(text), film.year, film.directors);
+  for (const text of searchTexts(film.title, filmYear)) {
+    const chosen = chooseTitle(await search(text), filmYear, film.directors);
     if (chosen.ok) return { ok: true, imdb: chosen.id };
     last = chosen.reason;
   }
@@ -239,9 +241,11 @@ async function main() {
         continue;
       }
       const page = pages.get(e.wp.link)!;
-      const result = await matchFilm((text) => searchTitles(imdb, text), { title: name, slug: e.slug, year: page.year ?? year, directors: page.directors }, sources);
+      const result = await matchFilm((text) => searchTitles(imdb, text), { title: name, slug: e.slug, year, filmYear: page.year, directors: page.directors }, sources);
       if (!result.ok) {
         problems.push(`${year} ${e.slug} (${name}; ${page.directors.join(", ") || "no director"}): ${result.reason}; add to ids or leaveOut`);
+        // Never a full list with a film missing: the edition says so and stays partial.
+        leftOut.push({ title: name, reason: "no IMDb match" });
         continue;
       }
       matched.push({ ...e, imdb: result.imdb, name });

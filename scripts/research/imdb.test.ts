@@ -147,6 +147,15 @@ describe("mapNominations", () => {
       for (const category of Object.values(labels)) expect(entry!.categories.map((c) => c.slug), `${award} ${category}`).toContain(category);
     }
   });
+
+  it("each false-tie correction (`notWinners`) names an award and category the registry has", () => {
+    const sources = sourcesSchema.parse(JSON.parse(readFileSync(SOURCES, "utf8")));
+    const registry = awardsFileSchema.parse(JSON.parse(readFileSync("data/awards.json", "utf8")));
+    for (const key of Object.keys(sources.notWinners)) {
+      const [award, , category] = key.split(" ");
+      expect(registry.find((a) => a.slug === award)?.categories.map((c) => c.slug), key).toContain(category);
+    }
+  });
 });
 
 const AWARD: MergeInput["award"] = {
@@ -262,6 +271,42 @@ describe("mergeImdb", () => {
     const fromNothing = merge(noData, rows).edition;
     expect(merge(fromNothing, rows).edition).toEqual(fromNothing);
     expect(wikipediaPart(fromNothing, AWARD)).toBeNull();
+  });
+
+  // Phase 6 review.
+  it("writes an honoree list as named films, not winners, with no tie", () => {
+    const out = merge(noData, [row("documentary", "tt3", true), row("documentary", "tt4", true)], { honorees: new Set(["documentary"]) });
+    expect(out.edition.results.map((r) => r.outcome)).toEqual(["nominated", "nominated"]);
+    expect(out.problems).toEqual([]);
+    expect(out.edition.note).not.toContain("tie");
+  });
+
+  it("writes only the winners of a winners-only group", () => {
+    const out = mergeImdb({ award: { ...AWARD, winnersOnly: true }, year: 2024, existing: noData, rows: [row("picture", "tt1", true), row("picture", "tt2")], absent: new Set(), leftOut: [] });
+    expect(out.edition.results).toEqual([{ category: "picture", imdb: "tt1", title: "TT1", outcome: "won" }]);
+  });
+
+  it("leaves out a category with no winner and says so; names a tie", () => {
+    const out = merge(noData, [row("picture", "tt1", true), row("picture", "tt2", true), row("documentary", "tt3"), row("documentary", "tt4")]);
+    expect(out.edition.results.map((r) => r.imdb)).toEqual(["tt1", "tt2"]);
+    expect(out.edition.note).toContain("IMDb names more than one winner (a tie) in: Best Film.");
+    expect(out.edition.note).toContain("IMDb lists no winner in: Best Documentary (not loaded).");
+    expect(readImdbPart(splitNote(out.edition.note).imdb).filled).toEqual(["Best Film"]);
+    expect(merge(out.edition, [row("picture", "tt1", true), row("picture", "tt2", true), row("documentary", "tt3"), row("documentary", "tt4")]).edition).toEqual(out.edition);
+  });
+
+  it("keeps a loaded edition loaded when only a series or short is left out, and names each film once", () => {
+    const wiki: EditionFile = { ...noData, status: "loaded", winnersOn: "2024-12-10", nominationsOn: "2024-12-01", sourceUrls: ["https://en.wikipedia.org/wiki/X"], note: undefined, results: [{ category: "picture", imdb: "tt1", title: "TT1", outcome: "won" }, { category: "picture", imdb: "tt2", title: "TT2", outcome: "nominated" }] };
+    const series = { title: "Box", reason: "a series" };
+    const out = merge(wiki, [row("documentary", "tt3", true), row("documentary", "tt4")], { leftOut: [series, series] });
+    expect(out.edition.status).toBe("loaded");
+    expect(out.edition.note).toContain('Left out: "Box" (a series).');
+    expect(merge(wiki, [row("documentary", "tt3", true), row("documentary", "tt4")], { leftOut: [{ title: "Gone", reason: "no film record could be matched" }] }).edition.status).toBe("partial");
+  });
+
+  it("says Wikipedia, not 'the source', lacked the categories IMDb filled", () => {
+    const wiki: EditionFile = { ...noData, status: "partial", sourceUrls: ["https://en.wikipedia.org/wiki/X"], note: "Not found on the source: documentary.", results: [{ category: "picture", imdb: "tt1", title: "TT1", outcome: "won" }] };
+    expect(merge(wiki, [row("documentary", "tt3", true)]).edition.note).toMatch(/^Not on Wikipedia: documentary\. From IMDb's award records: Best Documentary/);
   });
 
   it("reads its own sentence back", () => {

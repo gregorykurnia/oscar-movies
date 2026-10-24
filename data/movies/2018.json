@@ -210,8 +210,6 @@
   "tt3041550": { "slug": "matangi-maya-m-i-a", "title": "Matangi/Maya/M.I.A.", "countries": ["GB", "US", "LK"], "language": "en", "wd": "Q55227056", "tmdb": 493106 },
   "tt7206654": { "slug": "love-means-zero", "title": "Love Means Zero", "countries": ["US"], "language": "en", "wd": "Q42947787", "tmdb": 469071 },
   "tt8119782": { "slug": "america", "title": "América", "countries": ["US", "MX"], "language": "en", "tmdb": 509402 },
-  "tt6859352": { "slug": "support-the-girls", "title": "Support the Girls", "countries": ["US"], "language": "en", "wd": "Q38463153", "tmdb": 456086 },
-  "tt7321266": { "slug": "island", "title": "Island", "countries": ["GB"], "language": "en", "wd": "Q61672500", "tmdb": 510839 },
   "tt7545524": { "slug": "ben-is-back", "title": "Ben is Back", "countries": ["US"], "language": "en", "wd": "Q47009294", "tmdb": 492452 },
   "tt7280898": { "slug": "22-july", "title": "22 July", "countries": ["US", "NO", "IS"], "language": "en", "wd": "Q48818107", "tmdb": 474354 },
   "tt7008872": { "slug": "boy-erased", "title": "Boy Erased", "countries": ["US", "AU"], "language": "en", "wd": "Q39659543", "tmdb": 472451 },
@@ -229,7 +227,6 @@
   "tt6887540": { "slug": "a-bread-factory-part-two", "title": "A Bread Factory: Part Two", "countries": ["US"], "language": "en", "wd": "Q60851461", "tmdb": 549672 },
   "tt4009728": { "slug": "united-skates", "title": "United Skates", "countries": ["US"], "language": "en", "wd": "Q64822396", "tmdb": 511014 },
   "tt7697870": { "slug": "sky-and-ground", "title": "Sky and Ground", "countries": ["US"], "language": "en", "wd": "Q130582266", "tmdb": 565072 },
-  "tt5929754": { "slug": "wildlife", "title": "Wildlife", "countries": ["US"], "language": "en", "wd": "Q27964345", "tmdb": 417812 },
   "tt6915100": { "slug": "pope-francis-a-man-of-his-word", "title": "Pope Francis: A Man of His Word", "countries": ["DE", "FR", "IT", "CH", "VA"], "language": "de", "wd": "Q54554847", "tmdb": 505205 },
   "tt8948614": { "slug": "reversing-roe", "title": "Reversing Roe", "countries": ["US"], "language": "en", "wd": "Q56706475", "tmdb": 545634 },
   "tt7689958": { "slug": "jane-fonda-in-five-acts", "title": "Jane Fonda in Five Acts", "countries": ["US"], "language": "en", "wd": "Q66828119", "tmdb": 490082 }

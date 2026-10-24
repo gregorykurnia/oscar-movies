@@ -3,7 +3,7 @@
   "year": 2017,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Phoenix_Film_Critics_Society", "https://www.imdb.com/event/ev0001104/2017/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film; nominees for Best Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "won" },
     { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "nominated" },

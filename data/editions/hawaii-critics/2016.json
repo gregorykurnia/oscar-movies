@@ -3,7 +3,7 @@
   "year": 2016,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0005190/2017/1/"],
-  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. IMDb names more than one winner (a tie) in: Best Foreign Language Film; Best Animated Film.",
   "results": [
     { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
     { "category": "picture", "imdb": "tt4550098", "title": "Nocturnal Animals", "outcome": "nominated" },

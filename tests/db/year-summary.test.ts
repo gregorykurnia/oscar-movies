@@ -20,16 +20,16 @@ async function summaryOf(year: number) {
 }
 
 describe("the year summary for 2025", () => {
-  it("counts each film on the grids once: 90 films, with 31, 32, 20 and 14 in the four categories", async () => {
-    const { all, summary } = await summaryOf(2025);
+  it("counts each film on the grids once, in all and in each of the four categories", async () => {
+    const { all, categories, summary } = await summaryOf(2025);
     expect(summary.films).toBe(all.films.length);
-    expect(summary.films).toBe(90);
-    expect(summary.rows.map((r) => [r.slug, r.films])).toEqual([
-      ["picture", 31],
-      ["documentary", 32],
-      ["international", 20],
-      ["animated", 14],
-    ]);
+    // Counts read from each category's grid, since every new precursor adds films (DOC NYC added 9 Documentary films in Phase 6).
+    expect(summary.rows.map((r) => [r.slug, r.films])).toEqual(categories.map((c) => [c.slug, c.grid.films.length]));
+    expect(summary.rows.map((r) => r.slug)).toEqual(["picture", "documentary", "international", "animated"]);
+    // Picture: the ten Oscar nominees and the precursors' other films.
+    expect(summary.rows[0].films).toBeGreaterThanOrEqual(10);
+    expect(summary.films).toBeGreaterThanOrEqual(Math.max(...summary.rows.map((r) => r.films)));
+    expect(summary.films).toBeLessThanOrEqual(summary.rows.reduce((n, r) => n + r.films, 0));
   });
 
   it("counts the watched films among them, in all and in each category, from the marks table", async () => {
@@ -51,8 +51,9 @@ describe("the year summary for 2025", () => {
 
 describe("the year summary for 2026, the live season", () => {
   it("counts the films so far, and an empty category as 0 films", async () => {
-    const { summary } = await summaryOf(2026);
-    expect(summary.films).toBe(20);
+    const { all, summary } = await summaryOf(2026);
+    expect(summary.films).toBe(all.films.length);
+    expect(summary.films).toBeGreaterThan(0);
     expect(summary.rows.find((r) => r.slug === "animated")).toMatchObject({ films: 0, watched: 0 });
   });
 });

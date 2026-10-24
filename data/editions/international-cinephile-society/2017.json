@@ -3,7 +3,7 @@
   "year": 2017,
   "status": "partial",
   "sourceUrls": ["https://www.imdb.com/event/ev0001892/2018/1/"],
-  "note": "From IMDb's award records: Best Picture; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "From IMDb's award records: Best Picture; Best Documentary; Best Animated Film. IMDb gives no announcement date. IMDb names more than one winner (a tie) in: Best Documentary.",
   "results": [
     { "category": "picture", "imdb": "tt5726616", "title": "Call Me by Your Name", "outcome": "won" },
     { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "nominated" },

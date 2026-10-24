@@ -3,15 +3,13 @@
   "year": 2019,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2019/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. IMDb names more than one winner (a tie) in: Best Documentary.",
   "results": [
     { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "won" },
     { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
-    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
     { "category": "documentary", "imdb": "tt4935462", "title": "Amazing Grace", "outcome": "won" },
-    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "won" },
-    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "won" }
   ],
   "screenings": []
 }

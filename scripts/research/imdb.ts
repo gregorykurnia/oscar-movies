@@ -37,6 +37,8 @@ export const sourcesSchema = z
     seasons: z.record(z.string().regex(/^ev\d{7}\/\d{4}\/\d+$/), z.object({ year: z.number().int(), why: z.string().min(1) }).strict()),
     /** "<award> <film year> <IMDb ID>" → why IMDb's entry is left out (and, optionally, the reason the note gives). */
     leaveOut: z.record(z.string().regex(/^[a-z0-9-]+ \d{4} tt\d+$/), z.object({ why: z.string().min(1), note: z.string().optional() }).strict()),
+    /** "<award> <film year> <category> <IMDb ID>" → why IMDb's winner was a nominee (a false tie, checked against the group). */
+    notWinners: z.record(z.string().regex(/^[a-z0-9-]+ \d{4} [a-z0-9-]+ tt\d+$/), z.string().min(1)).default({}),
   })
   .strict();
 export type Sources = z.infer<typeof sourcesSchema>;
@@ -87,12 +89,14 @@ export function splitNote(note: string | undefined): { base?: string; imdb?: str
 }
 
 const NOMINEES = "nominees for ";
+/** Leave-out reasons for titles the app never holds (`leaveOut` notes). */
+const OUT_OF_SCOPE = new Set(["a series", "a short"]);
 const listOf = (names: string[]) => names.join("; ");
 const namesIn = (text: string | undefined) => (text ? text.split("; ").map((s) => s.trim()).filter(Boolean) : []);
 
 /** The categories an earlier run filled, and those it added nominees to, read back from its sentence. */
 export function readImdbPart(part: string | undefined): { filled: string[]; nomineesAdded: string[] } {
-  const segment = part?.match(/^From IMDb's award records: (.*?)\.(?= IMDb gives | Not on IMDb: | Left out: |$)/)?.[1];
+  const segment = part?.match(/^From IMDb's award records: (.*?)\.(?= IMDb | Not on IMDb: | Left out: |$)/)?.[1];
   if (!segment) return { filled: [], nomineesAdded: [] };
   const [fills, added] = segment.startsWith(NOMINEES) ? ["", segment.slice(NOMINEES.length)] : segment.split(`; ${NOMINEES}`);
   return {
@@ -151,6 +155,8 @@ export function mergeImdb({ award, year, existing, rows, absent, honorees = new 
   const winnersOnlyCats: string[] = [];
   const nomineesAdded: string[] = [];
   const notOnImdb: string[] = [];
+  const noWinner: string[] = [];
+  const ties: string[] = [];
   const label = `${award.slug} ${year}`;
   for (const c of award.categories) {
     const ours = results.filter((r) => r.category === c.slug);
@@ -182,8 +188,17 @@ export function mergeImdb({ award, year, existing, rows, absent, honorees = new 
       }
       continue;
     }
-    for (const r of [...theirs].sort((a, b) => Number(b.won) - Number(a.won))) {
-      results.push({ category: c.slug, imdb: r.imdb, title: r.title, outcome: r.won ? "won" : "nominated" });
+    const honoree = honorees.has(c.slug);
+    // A category with no winner yet (IMDb marks winners late) or only a stray nominee isn't a result: say so, write nothing.
+    if (!honoree && theirWinners.size === 0) {
+      noWinner.push(c.name);
+      continue;
+    }
+    if (!honoree && theirWinners.size > 1) ties.push(c.name);
+    // An honoree list names films and no winner, like a selection; a winners-only group's other films aren't its nominees.
+    const written = honoree ? theirs : award.winnersOnly ? theirs.filter((r) => r.won) : theirs;
+    for (const r of [...written].sort((a, b) => Number(b.won) - Number(a.won))) {
+      results.push({ category: c.slug, imdb: r.imdb, title: r.title, outcome: r.won && !honoree ? "won" : "nominated" });
     }
     filled.push(c.name);
     if (!award.winnersOnly && !honorees.has(c.slug) && !theirs.some((r) => !r.won)) winnersOnlyCats.push(c.name);
@@ -200,7 +215,7 @@ export function mergeImdb({ award, year, existing, rows, absent, honorees = new 
       year,
       status: "no_data",
       sourceUrls: [],
-      note: `${award.shortName} has no data for ${year} films: Wikipedia has no page for these awards and IMDb's award records list none.`,
+      note: `${award.shortName} has no data for ${year} films: Wikipedia has no page for these awards and IMDb's award records list ${noWinner.length > 0 ? "nominees but no winner" : "none"}.`,
       results: [],
       screenings: [],
     };
@@ -212,9 +227,16 @@ export function mergeImdb({ award, year, existing, rows, absent, honorees = new 
   parts.push(`${MARKER}: ${listOf([...fills, ...(nomineesAdded.length > 0 ? [`${NOMINEES}${listOf(nomineesAdded)}`] : [])])}.`);
   if (!base || !base.winnersOn) parts.push("IMDb gives no announcement date.");
   if (notOnImdb.length > 0) parts.push(`Not on IMDb: ${listOf(notOnImdb)}.`);
-  if (leftOut.length > 0) parts.push(`Left out: ${leftOut.map((f) => `"${f.title}" (${f.reason})`).join(", ")}.`);
-  const status = base?.status === "loaded" && winnersOnlyCats.length === 0 && leftOut.length === 0 ? "loaded" : "partial";
-  const note = [base?.note, ...parts].filter(Boolean).join(" ");
+  if (ties.length > 0) parts.push(`IMDb names more than one winner (a tie) in: ${listOf(ties)}.`);
+  if (noWinner.length > 0) parts.push(`IMDb lists no winner in: ${listOf(noWinner)} (not loaded).`);
+  const outs = [...new Map(leftOut.map((f) => [`${f.title}|${f.reason}`, f])).values()];
+  if (outs.length > 0) parts.push(`Left out: ${outs.map((f) => `"${f.title}" (${f.reason})`).join(", ")}.`);
+  // A series or a short is out of the app's scope, so leaving it out doesn't make the edition partial.
+  const missing = outs.filter((f) => !OUT_OF_SCOPE.has(f.reason));
+  const status = base?.status === "loaded" && winnersOnlyCats.length === 0 && missing.length === 0 ? "loaded" : "partial";
+  // The Wikipedia script's "Not found on the source" meant its page; IMDb may have filled those categories since.
+  const baseNote = base?.note?.replace(/^Not found on the source( pages?)?:/, "Not on Wikipedia:");
+  const note = [baseNote, ...parts].filter(Boolean).join(" ");
   const edition: EditionFile = {
     ...(base ?? { award: award.slug, year, screenings: [] }),
     status,
@@ -353,8 +375,13 @@ async function main() {
           return false;
         }
         return true;
-      });
-      const unknown = new Map(rows.filter((r) => !appYear.has(r.imdb)).map((r) => [r.imdb, r.title]));
+      }).map((r) => (r.won && sources.notWinners[`${slug} ${year} ${r.category} ${r.imdb}`] ? { ...r, won: false } : r));
+      const absent = new Set(Object.keys(absentKeys).filter((k) => k.startsWith(`${slug}/${year}/`)).map((k) => k.split("/")[2]));
+      const existing = readEdition(DATA_DIR, slug, year);
+      const honorees = new Set(Object.keys(sources.honorees).filter((k) => k.startsWith(`${slug}/`)).map((k) => k.split("/")[1]));
+      // Research only the films the merge will write: rows it only compares, or leaves out, add no film.
+      const writes = new Set(mergeImdb({ award, year, existing, rows, absent, honorees, leftOut: [] }).edition.results.map((r) => r.imdb));
+      const unknown = new Map(rows.filter((r) => !appYear.has(r.imdb) && writes.has(r.imdb)).map((r) => [r.imdb, r.title]));
       if (unknown.size > 0) {
         const films = await researchImdbFilms(wiki, unknown, tmdb);
         const usable = [...films.values()].filter((f) => {
@@ -378,9 +405,6 @@ async function main() {
         }
         rows = rows.map((r) => ({ ...r, title: appTitle.get(r.imdb) ?? titleIn(usable, r.imdb) ?? r.title }));
       }
-      const absent = new Set(Object.keys(absentKeys).filter((k) => k.startsWith(`${slug}/${year}/`)).map((k) => k.split("/")[2]));
-      const existing = readEdition(DATA_DIR, slug, year);
-      const honorees = new Set(Object.keys(sources.honorees).filter((k) => k.startsWith(`${slug}/`)).map((k) => k.split("/")[1]));
       const out = mergeImdb({ award, year, existing, rows, absent, honorees, leftOut });
       problems.push(...out.problems);
       for (const c of out.compared) {

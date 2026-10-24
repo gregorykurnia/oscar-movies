@@ -28,7 +28,7 @@ export function Sources() {
         </Card>
         <Card name="IMDb">
           Information courtesy of IMDb (imdb.com). Used with permission. IMDb ratings from IMDb&apos;s non-commercial datasets.
-          Award nominations and winners for many critics groups and festivals come from IMDb&apos;s event pages.
+          Award nominations and winners for many critics groups and for Cinema Eye come from IMDb&apos;s award records.
         </Card>
         <Card name="DOC NYC">
           Short List and Winner&apos;s Circle films from{" "}

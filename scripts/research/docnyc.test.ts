@@ -120,6 +120,8 @@ describe("matchFilm", () => {
       throw new Error("searched");
     };
     expect(await matchFilm(never, film, { ids: { "2025 seeds": { imdb: "tt9", why: "by hand" } } })).toEqual({ ok: true, imdb: "tt9" });
+    // Keyed on the festival year even when the page gives another film year (Phase 6 review).
+    expect(await matchFilm(never, { ...film, filmYear: 2024 }, { ids: { "2025 seeds": { imdb: "tt9", why: "by hand" } } })).toEqual({ ok: true, imdb: "tt9" });
     const none = await matchFilm(async () => [hit("tt1", 1999, ["Brittany Shyne"])], film, { ids: {} });
     expect(none).toEqual({ ok: false, reason: "no IMDb title within two years shares a director" });
   });

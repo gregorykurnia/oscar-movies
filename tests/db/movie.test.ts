@@ -4,6 +4,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryMovie } from "../../src/data/movie";
 import { queryRacePrecursors } from "../../src/data/precursors";
+import { AWARDS } from "../../src/lib/awards";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -86,7 +87,10 @@ describe("queryRacePrecursors", () => {
     // The line holds four awards, wins first, majors before critics groups: with critics groups loaded a
     // nominated major (BAFTA) can fall off it behind critics wins (open for 4.10).
     expect(of(brutalist!.id).won).toEqual(expect.arrayContaining(["Globes"]));
-    expect(of(brutalist!.id).won.indexOf("Globes")).toBeLessThan(of(brutalist!.id).won.indexOf("AWFJ"));
+    // Which critics groups fill the rest depends on the data loaded (Phase 6 added many), so check the order by kind.
+    const kindOf = (short: string) => AWARDS.find((a) => a.shortName === short)?.kind;
+    const won = of(brutalist!.id).won;
+    expect(won.findIndex((s) => kindOf(s) === "critics")).toBeGreaterThan(won.indexOf("Globes"));
     for (const l of lines) expect(l.won.length + l.nominated.length).toBeLessThanOrEqual(4);
   });
 });

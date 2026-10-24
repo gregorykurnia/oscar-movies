@@ -83,6 +83,7 @@ test("/awards and /festivals open the live season, and the festivals index lists
     "/awards/doc-nyc/2025",
   ]);
   // DOC NYC has no lineup page.
+  // Like an unlisted year, the 404 page streams in with a 200 status (a prerendered shell).
   await page.goto("/festivals/doc-nyc/2025");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("This page isn't here");
 });

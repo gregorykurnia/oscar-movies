@@ -6,7 +6,7 @@
   "nominationsOn": "2025-11-13",
   "winnersOn": "2026-01-08",
   "sourceUrls": ["https://en.wikipedia.org/wiki/19th_Cinema_Eye_Honors", "https://www.imdb.com/event/ev0001823/2026/1/"],
-  "note": "From IMDb's award records: Outstanding Achievement in Direction; Outstanding Achievement in Production; Audience Choice Prize; The Unforgettables.",
+  "note": "From IMDb's award records: Outstanding Achievement in Direction; Outstanding Achievement in Production; Audience Choice Prize; The Unforgettables. IMDb names more than one winner (a tie) in: Outstanding Achievement in Production.",
   "results": [
     { "category": "feature", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "won" },
     { "category": "feature", "imdb": "tt34964205", "title": "2000 Meters to Andriivka", "outcome": "nominated" },
@@ -38,13 +38,13 @@
     { "category": "audience", "imdb": "tt34965625", "title": "Prime Minister", "outcome": "nominated" },
     { "category": "audience", "imdb": "tt34964219", "title": "Coexistence, My Ass!", "outcome": "nominated" },
     { "category": "audience", "imdb": "tt33322301", "title": "Marlee Matlin: Not Alone Anymore", "outcome": "nominated" },
-    { "category": "unforgettables", "imdb": "tt34965515", "title": "Mr. Nobody Against Putin", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt10196414", "title": "Cutting Through Rocks", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt34965625", "title": "Prime Minister", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "won" },
-    { "category": "unforgettables", "imdb": "tt34964219", "title": "Coexistence, My Ass!", "outcome": "won" }
+    { "category": "unforgettables", "imdb": "tt34965515", "title": "Mr. Nobody Against Putin", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt10196414", "title": "Cutting Through Rocks", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt34965625", "title": "Prime Minister", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt36598711", "title": "Put Your Soul on Your Hand and Walk", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt34964219", "title": "Coexistence, My Ass!", "outcome": "nominated" }
   ],
   "screenings": []
 }

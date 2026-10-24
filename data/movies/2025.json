@@ -681,8 +681,6 @@
   "tt37848736": { "slug": "levers", "title": "Levers", "countries": ["CA"], "language": "fr", "wd": "Q135901976", "tmdb": 1507507 },
   "tt37537649": { "slug": "mares-nest", "title": "Mare's Nest", "countries": ["GB", "FR"], "language": "en", "wd": "Q135272584", "tmdb": 1510310 },
   "tt21257788": { "slug": "the-seasons", "title": "The Seasons", "countries": ["PT", "FR", "ES", "AT"], "language": "pt", "wd": "Q135509079", "tmdb": 1042910 },
-  "tt32221196": { "slug": "one-of-them-days", "title": "One of Them Days", "countries": ["US"], "language": "en", "wd": "Q130341202", "tmdb": 1280672 },
-  "tt16233642": { "slug": "the-knife", "title": "The Knife", "countries": ["US"], "language": "en", "wd": "Q126326956", "tmdb": 1275978 },
   "tt36270205": { "slug": "cant-look-away-the-case-against-social-media", "title": "Can't Look Away: The Case Against Social Media", "countries": ["US"], "language": "en", "wd": "Q134309021", "tmdb": 1452058 },
   "tt37171214": { "slug": "the-last-twins", "title": "The Last Twins", "countries": ["US"], "language": "en", "tmdb": 1483986 },
   "tt35877505": { "slug": "children-in-the-fire", "title": "Children in the Fire", "originalTitle": "Діти у вогні", "originalLang": "uk", "countries": ["UA"], "language": "uk", "wd": "Q137735719", "tmdb": 1502155 },
@@ -697,9 +695,6 @@
   "tt7336082": { "slug": "disposable-humanity", "title": "Disposable Humanity", "countries": [], "language": "en", "tmdb": 1376929 },
   "tt32889968": { "slug": "just-one-man", "title": "Just One Man", "countries": ["US"], "language": "en", "tmdb": 1548196 },
   "tt14493924": { "slug": "hacking-at-leaves", "title": "Hacking at Leaves", "countries": ["AT"], "language": "en", "wd": "Q125380047", "tmdb": 1059304 },
-  "tt31923069": { "slug": "springsteen-deliver-me-from-nowhere", "title": "Springsteen: Deliver Me from Nowhere", "countries": ["US"], "language": "en", "wd": "Q125401070", "tmdb": 1230368 },
-  "tt35669835": { "slug": "we-beat-the-dream-team", "title": "We Beat the Dream Team", "countries": ["US"], "language": "en", "tmdb": 1429886 },
-  "tt21469794": { "slug": "space-cadet-2025", "title": "Space Cadet", "countries": ["US"], "language": "en", "wd": "Q125883403", "tmdb": 1019411 },
   "tt34621966": { "slug": "megadoc", "title": "Megadoc", "countries": ["US"], "language": "en", "wd": "Q136006863", "tmdb": 1290369 },
   "tt31015444": { "slug": "direct-action", "title": "Direct Action", "countries": ["DE", "FR"], "language": "fr", "wd": "Q124544671", "tmdb": 1234601 }
 }

@@ -3,18 +3,13 @@
   "year": 2020,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2021/1/"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
     { "category": "picture", "imdb": "tt9620292", "title": "Promising Young Woman", "outcome": "won" },
     { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
-    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt10627584", "title": "The Life Ahead", "outcome": "nominated" },
-    { "category": "international", "imdb": "tt12801326", "title": "76 Days", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt11382384", "title": "The Dissident", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" },
-    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "won" }
   ],
   "screenings": []
 }

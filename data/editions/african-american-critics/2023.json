@@ -3,7 +3,7 @@
   "year": 2023,
   "status": "partial",
   "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://www.imdb.com/event/ev0002165/2024/1/"],
-  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "note": "Not on Wikipedia: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "won" },
     { "category": "picture", "imdb": "tt13321244", "title": "Origin", "outcome": "nominated" },

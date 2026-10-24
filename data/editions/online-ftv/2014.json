@@ -28,7 +28,8 @@
     { "category": "animated", "imdb": "tt2245084", "title": "Big Hero 6", "outcome": "nominated" },
     { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" },
     { "category": "animated", "imdb": "tt1646971", "title": "How to Train Your Dragon 2", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt2576852", "title": "The Tale of the Princess Kaguya", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3455224", "title": "Virunga", "outcome": "nominated" }
   ],
   "screenings": []
 }

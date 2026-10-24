@@ -5,7 +5,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { and, eq, lte, ne } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
-import { awardCategories, awards, editions } from "../../src/db/schema";
+import { awardCategories, awards, editions, results } from "../../src/db/schema";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -38,6 +38,18 @@ async function criticsEverLoaded(upTo?: number) {
     .from(awards)
     .innerJoin(editions, eq(editions.awardId, awards.id))
     .where(and(eq(awards.kind, "critics"), ne(editions.status, "no_data"), upTo ? lte(editions.year, upTo) : undefined));
+  return new Set(rows.map((r) => r.name));
+}
+
+/** The names of the critics groups with Best Picture results in an edition up to `upTo` (a group can have editions in other categories only, as Chicago Indie Critics). */
+async function criticsWithPictureResults(upTo: number) {
+  const rows = await db
+    .selectDistinct({ name: awards.name })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .where(and(eq(awards.kind, "critics"), eq(awardCategories.oscarCategory, "picture"), ne(editions.status, "no_data"), lte(editions.year, upTo)));
   return new Set(rows.map((r) => r.name));
 }
 
@@ -80,8 +92,8 @@ test("every critics group with data has its own grid column after the majors, an
 test("the accuracy page lists every critics group with data below the majors and festivals, and counts the rest", async ({ page }) => {
   const onPage = await criticsOnPicture(YEAR);
   // Finished seasons only: the accuracy figures count those (YEAR's season is over).
-  const everLoaded = await criticsEverLoaded(YEAR);
-  const expected = onPage.filter((g) => everLoaded.has(g.name));
+  const withResults = await criticsWithPictureResults(YEAR);
+  const expected = onPage.filter((g) => withResults.has(g.name));
   expect(expected.length).toBeGreaterThan(30);
 
   await page.goto("/accuracy/picture");
@@ -114,37 +126,41 @@ test("the accuracy page lists every critics group with data below the majors and
 });
 
 test("a group with no years loaded and a group with a gap are marked No data in the awards index, the award page and /data", async ({ page }) => {
-  // San Francisco Bay Area Film Critics Circle: 2018 to 2025 only.
+  // Seattle Film Critics Society: loaded from its first year with data on, nothing before (Phase 6 filled San Francisco's gap from IMDb).
   const sf = await db
     .select({ year: editions.year, status: editions.status })
     .from(editions)
     .innerJoin(awards, eq(awards.id, editions.awardId))
-    .where(eq(awards.slug, "san-francisco-critics"));
+    .where(eq(awards.slug, "seattle-critics"));
   const loaded = sf.filter((e) => e.status !== "no_data").map((e) => e.year).sort();
-  expect(loaded[0]).toBe(2018);
+  const [first, gap] = [loaded[0], loaded[0] - 1];
+  expect(gap).toBeGreaterThanOrEqual(2012);
+  expect(loaded).not.toContain(gap);
 
   // The index of a year with data links to the group's page; the index of an earlier year has no link.
-  await page.goto("/awards/2018");
+  await page.goto(`/awards/${first}`);
   const critics = (p: typeof page) => p.getByRole("region", { name: "Critics groups" });
-  const sfLink = critics(page).getByRole("link", { name: /San Francisco Bay Area/ });
-  await expect(sfLink).toHaveAttribute("href", "/awards/san-francisco-critics/2018");
+  const sfLink = critics(page).getByRole("link", { name: /Seattle Film Critics Society/ });
+  await expect(sfLink).toHaveAttribute("href", `/awards/seattle-critics/${first}`);
 
-  await page.goto("/awards/2016");
-  const sfItem = critics(page).getByRole("listitem").filter({ hasText: "San Francisco Bay Area" });
+  await page.goto(`/awards/${gap}`);
+  const sfItem = critics(page).getByRole("listitem").filter({ hasText: "Seattle Film Critics Society" });
   await expect(sfItem.getByText("No data", { exact: true })).toBeVisible();
   await expect(sfItem.getByRole("link")).toHaveCount(0);
 
-  // IDA has nothing loaded in any year, so every year's index marks it.
-  await expect(critics(page).getByRole("listitem").filter({ hasText: "International Documentary Association" }).getByText("No data", { exact: true })).toBeVisible();
+  // New Jersey has nothing loaded in any year (not on Wikipedia or IMDb), so every year's index marks it.
+  await expect(critics(page).getByRole("listitem").filter({ hasText: "New Jersey Film Critics Circle" }).getByText("No data", { exact: true })).toBeVisible();
 
   // The group's own page for a year without an edition says so.
-  await page.goto("/awards/san-francisco-critics/2016");
+  await page.goto(`/awards/seattle-critics/${gap}`);
   await expect(page.getByRole("heading", { name: "No data for this year" })).toBeVisible();
 
   // /data: its coverage strip counts the loaded years out of the fifteen.
   await page.goto("/data");
-  const row = page.getByRole("table", { name: "Which award years are loaded" }).getByRole("row", { name: /San Francisco Bay Area/ });
-  await expect(row.getByRole("img")).toHaveAttribute("aria-label", new RegExp(`: ${loaded.length} of 15 years loaded`));
+  const row = page.getByRole("table", { name: "Which award years are loaded" }).getByRole("row", { name: /Seattle Film Critics Society/ });
+  // "Loaded" counts fully loaded years only (Seattle 2020 is partly loaded).
+  const full = sf.filter((e) => e.status === "loaded").length;
+  await expect(row.getByRole("img")).toHaveAttribute("aria-label", new RegExp(`: ${full} of 15 years loaded`));
   // The film years before the live season that have no edition are the "none" cells; the live season's own cell is "live".
   await expect(row.locator('i[data-cell="none"]')).toHaveCount(14 - loaded.filter((y) => y < 2026).length);
 });

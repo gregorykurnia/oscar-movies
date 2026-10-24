@@ -6,21 +6,9 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
-    { "category": "picture", "imdb": "tt2543164", "title": "Arrival", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt4034228", "title": "Manchester by the Sea", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt2582782", "title": "Hell or High Water", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt4975722", "title": "Moonlight", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt4062536", "title": "Green Room", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt3544112", "title": "Sing Street", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1619029", "title": "Jackie", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "nominated" },
     { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
-    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" },
-    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "won" }
   ],
   "screenings": []
 }

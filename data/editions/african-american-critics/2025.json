@@ -6,15 +6,6 @@
   "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
   "results": [
     { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "won" },
-    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1312221", "title": "Frankenstein", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt16311594", "title": "F1", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt19847976", "title": "Wicked: For Good", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt11214558", "title": "The Smashing Machine", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt32221196", "title": "One of Them Days", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt27953589", "title": "Hedda", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt16233642", "title": "The Knife", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
     { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" }
   ],

@@ -6,21 +6,9 @@
   "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
-    { "category": "picture", "imdb": "tt26581740", "title": "Weapons", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt31193180", "title": "Sinners", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt14364480", "title": "Wake Up Dead Man: A Knives Out Mystery", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt32916440", "title": "Marty Supreme", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt29768334", "title": "Train Dreams", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt31176520", "title": "Eddington", "outcome": "nominated" },
     { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
-    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
     { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
-    { "category": "documentary", "imdb": "tt27052428", "title": "Orwell: 2+2=5", "outcome": "nominated" },
-    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" },
-    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "nominated" }
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "won" }
   ],
   "screenings": []
 }
