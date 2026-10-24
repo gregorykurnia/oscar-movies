@@ -6,11 +6,14 @@ import {
   filmCount,
   FIRST_LINEUP_YEAR,
   hasLineups,
+  isLineupFestival,
+  LINEUP_FESTIVALS,
   LINEUPS_START,
   lineupHref,
   lineupNote,
   lineupPath,
   lineupQuery,
+  opensLineup,
   orderScreenings,
   parseLineupQuery,
   prizesOf,
@@ -167,5 +170,22 @@ describe("lineupNote", () => {
     expect(lineupNote(null)).toBeNull();
     expect(lineupNote("Dates are approximate.")).toBeNull();
     expect(lineupNote("Dates are approximate. Lineup: Memory left out (no IMDb ID).")).toBe("Memory left out (no IMDb ID).");
+  });
+});
+
+describe("opensLineup", () => {
+  it("opens a lineup for the five lineup festivals from 2025", () => {
+    expect(LINEUP_FESTIVALS).toEqual(["sundance", "berlin", "cannes", "venice", "tiff"]);
+    for (const slug of LINEUP_FESTIVALS) {
+      expect(isLineupFestival(slug)).toBe(true);
+      expect(opensLineup(slug, FIRST_LINEUP_YEAR)).toBe(true);
+      expect(opensLineup(slug, FIRST_LINEUP_YEAR - 1)).toBe(false);
+    }
+  });
+
+  it("never opens one for DOC NYC or a non-festival", () => {
+    expect(isLineupFestival("doc-nyc")).toBe(false);
+    expect(opensLineup("doc-nyc", 2025)).toBe(false);
+    expect(opensLineup("oscars", 2025)).toBe(false);
   });
 });

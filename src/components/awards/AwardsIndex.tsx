@@ -10,7 +10,7 @@ import { getYearEditions, type YearEdition } from "@/data/awards";
 import { getOscarResults } from "@/data/oscars";
 import type { AwardSummary } from "@/lib/awards";
 import { awardsOfKind, editionState, givesLabel, oscarsLine, rowDate, type IndexState } from "@/lib/awards-index";
-import { FIRST_LINEUP_YEAR, hasLineups, lineupPath } from "@/lib/lineup";
+import { FIRST_LINEUP_YEAR, hasLineups, lineupPath, opensLineup } from "@/lib/lineup";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 
 const YEARS = yearRange(LIVE_YEAR, OLDEST_YEAR);
@@ -38,7 +38,7 @@ export function AwardsIndexPage({ year }: { year: number }) {
 
 /**
  * Guide §8.7 festivals index (`/festivals/[year]`): the festivals for a year, on the same template.
- * From 2025 a festival opens its lineup; before, its prizes.
+ * From 2025 a lineup festival opens its lineup; before, and for DOC NYC, its prizes.
  */
 export function FestivalsIndexPage({ year }: { year: number }) {
   return (
@@ -122,7 +122,7 @@ function AwardRows({
   awards: AwardSummary[];
   year: number;
   byAward: Map<string, YearEdition>;
-  /** The festivals index: a festival opens its lineup from 2025, its prizes before. */
+  /** The festivals index: a lineup festival opens its lineup from 2025, its prizes before; DOC NYC always its prizes. */
   lineups?: boolean;
 }) {
   return (
@@ -131,7 +131,7 @@ function AwardRows({
         const edition = byAward.get(award.slug);
         const state = editionState(edition);
         // A lineup can be loaded before its festival's prizes, so from 2025 a festival with an edition opens it.
-        const lineup = lineups && hasLineups(year);
+        const lineup = lineups && opensLineup(award.slug, year);
         const opens = lineup ? lineupPath(award.slug, year) : `/awards/${award.slug}/${year}`;
         const linked = lineup ? edition !== undefined : state !== "no-data";
         return (

@@ -10,7 +10,15 @@ export const FIRST_LINEUP_YEAR = 2025;
 
 export const hasLineups = (year: number): boolean => year >= FIRST_LINEUP_YEAR;
 
-/** A festival's lineup page for a film year (it exists for every year; `hasLineups` says whether it has films). */
+/** The five festivals with lineups. DOC NYC is a festival with a prize list only: it opens its award page. */
+export const LINEUP_FESTIVALS: readonly string[] = ["sundance", "berlin", "cannes", "venice", "tiff"];
+
+export const isLineupFestival = (slug: string): boolean => LINEUP_FESTIVALS.includes(slug);
+
+/** Whether a festival's row for a film year opens its lineup: one of the five, from 2025 on. */
+export const opensLineup = (slug: string, year: number): boolean => isLineupFestival(slug) && hasLineups(year);
+
+/** A lineup festival's lineup page for a film year (it exists for every year; `hasLineups` says whether it has films). */
 export const lineupPath = (slug: string, year: number): string => `/festivals/${slug}/${year}`;
 
 /** The coverage line: on a film from before the lineups, with no screening, and on the festivals' earlier years. */

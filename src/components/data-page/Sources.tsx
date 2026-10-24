@@ -28,6 +28,14 @@ export function Sources() {
         </Card>
         <Card name="IMDb">
           Information courtesy of IMDb (imdb.com). Used with permission. IMDb ratings from IMDb&apos;s non-commercial datasets.
+          Award nominations and winners for many critics groups and festivals come from IMDb&apos;s event pages.
+        </Card>
+        <Card name="DOC NYC">
+          Short List and Winner&apos;s Circle films from{" "}
+          <TextLink href="https://www.docnyc.net" rel="noreferrer" className="text-ink">
+            docnyc.net
+          </TextLink>
+          .
         </Card>
         <Card name="OMDb API">Rotten Tomatoes (Tomatometer) and Metacritic scores.</Card>
         <Card name="Wikidata">Links between Wikipedia, IMDb and TMDB, under CC0.</Card>

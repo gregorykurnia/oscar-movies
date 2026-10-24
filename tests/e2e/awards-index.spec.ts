@@ -59,7 +59,7 @@ test("a row opens the award's page for that year, which links back to the index"
   await expect(page.getByRole("link", { name: "Awards 2025" })).toHaveAttribute("href", "/awards/2025");
 });
 
-test("/awards and /festivals open the live season, and the festivals index lists five festivals in calendar order", async ({
+test("/awards and /festivals open the live season, and the festivals index lists six festivals in calendar order", async ({
   page,
 }) => {
   await page.goto("/awards");
@@ -69,18 +69,22 @@ test("/awards and /festivals open the live season, and the festivals index lists
 
   await page.goto("/festivals/2025");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Festivals 2025");
-  // evaluateAll doesn't wait for the streamed list, so wait for its five links first.
+  // evaluateAll doesn't wait for the streamed list, so wait for its six links first.
   const links = page.getByRole("region", { name: "Festivals" }).getByRole("link");
-  await expect(links).toHaveCount(5);
+  await expect(links).toHaveCount(6);
   const hrefs = await links.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
-  // From 2025 a festival row opens its lineup (task 5.3).
+  // From 2025 a lineup festival's row opens its lineup (task 5.3); DOC NYC opens its award page (task 6.5).
   expect(hrefs).toEqual([
     "/festivals/sundance/2025",
     "/festivals/berlin/2025",
     "/festivals/cannes/2025",
     "/festivals/venice/2025",
     "/festivals/tiff/2025",
+    "/awards/doc-nyc/2025",
   ]);
+  // DOC NYC has no lineup page.
+  await page.goto("/festivals/doc-nyc/2025");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("This page isn't here");
 });
 
 test("an unknown year is not found on either index", async ({ page }) => {
