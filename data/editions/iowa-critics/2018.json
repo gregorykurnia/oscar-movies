@@ -1,9 +1,19 @@
 {
   "award": "iowa-critics",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2018 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2019/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7689964", "title": "RBG", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5848272", "title": "Ralph Breaks the Internet", "outcome": "nominated" }
+  ],
   "screenings": []
 }

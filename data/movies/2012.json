@@ -186,5 +186,18 @@
   "tt2057455": { "slug": "planet-of-snail", "title": "Planet of Snail", "originalTitle": "달팽이의 별", "originalLang": "ko", "countries": ["KR", "JP", "FI"], "language": "ko", "wd": "Q93739475", "tmdb": 114994 },
   "tt1757939": { "slug": "vivan-las-antipodas", "title": "¡Vivan las Antipodas!", "originalTitle": "¡Vivan las antípodas!", "originalLang": "es", "countries": ["DE"], "language": "es", "wd": "Q4153501", "tmdb": 102873 },
   "tt2011265": { "slug": "tchoupitoulas", "title": "Tchoupitoulas", "countries": ["US"], "language": "en", "tmdb": 105121 },
-  "tt2048910": { "slug": "trash-dance", "title": "Trash Dance", "countries": ["US"], "language": "en", "tmdb": 96915 }
+  "tt2048910": { "slug": "trash-dance", "title": "Trash Dance", "countries": ["US"], "language": "en", "tmdb": 96915 },
+  "tt2283061": { "slug": "versailles-73-american-runway-revolution", "title": "Versailles '73: American Runway Revolution", "countries": ["US"], "language": "en", "wd": "Q112157546", "tmdb": 132391 },
+  "tt1907668": { "slug": "flight", "title": "Flight", "countries": ["US"], "language": "en", "wd": "Q564298", "tmdb": 87502 },
+  "tt1736633": { "slug": "oslo-august-31st", "title": "Oslo, August 31st", "originalTitle": "Oslo, 31. august", "originalLang": "nb", "countries": ["NO"], "language": "no", "wd": "Q401566", "tmdb": 75233 },
+  "tt1649419": { "slug": "the-impossible", "title": "The Impossible", "countries": ["ES"], "language": "en", "wd": "Q277038", "tmdb": 80278 },
+  "tt1764183": { "slug": "arbitrage", "title": "Arbitrage", "countries": ["US"], "language": "en", "wd": "Q2698322", "tmdb": 60599 },
+  "tt1543807": { "slug": "shadows-of-liberty", "title": "Shadows of Liberty", "countries": ["GB"], "language": "en", "wd": "Q18788522", "tmdb": 104880 },
+  "tt1259521": { "slug": "the-cabin-in-the-woods", "title": "The Cabin in the Woods", "countries": ["US", "CA"], "language": "en", "wd": "Q45394", "tmdb": 22970 },
+  "tt1533117": { "slug": "let-the-bullets-fly", "title": "Let the Bullets Fly", "countries": ["CN"], "language": "cmn", "wd": "Q2633399", "tmdb": 51533 },
+  "tt1787663": { "slug": "restoration", "title": "Restoration", "originalTitle": "בוקר טוב אדון פידלמן", "originalLang": "he", "countries": ["IL"], "language": "he", "wd": "Q2895535", "tmdb": 77954 },
+  "tt1899353": { "slug": "the-raid", "title": "The Raid", "originalTitle": "Serbuan Maut", "originalLang": "id", "countries": ["ID"], "language": "id", "wd": "Q1573662", "tmdb": 94329 },
+  "tt1862079": { "slug": "safety-not-guaranteed", "title": "Safety Not Guaranteed", "countries": ["US"], "language": "en", "wd": "Q2110480", "tmdb": 84332 },
+  "tt1922736": { "slug": "tatsumi", "title": "Tatsumi", "originalTitle": "TATSUMI", "originalLang": "ja", "countries": ["SG"], "language": "ja", "wd": "Q939997", "tmdb": 83114 },
+  "tt1808231": { "slug": "kokvinnorna", "title": "Kokvinnorna", "countries": ["SE"], "language": "sv", "wd": "Q14955239", "tmdb": 76135 }
 }

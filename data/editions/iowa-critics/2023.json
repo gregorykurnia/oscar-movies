@@ -1,9 +1,12 @@
 {
   "award": "iowa-critics",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2023 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2024/1/"],
+  "note": "From IMDb's award records: Best Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film; Best Documentary; Best Animated Film. Left out: \"Anora\" (Anora is filed by IMDb in the edition for 2023 films, a season off).",
+  "results": [
+    { "category": "picture", "imdb": "tt14849194", "title": "The Holdovers", "outcome": "won" },
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "nominated" }
+  ],
   "screenings": []
 }

@@ -1,9 +1,13 @@
 {
   "award": "cinema-for-peace",
   "year": 2025,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Cinema for Peace has no data for 2025 films: the Cinema for Peace Awards for these films are not on Wikipedia (its list stops at the 2025 gala, for 2024 films).",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001568/2026/1/"],
+  "note": "From IMDb's award records: Most Valuable Documentary of the Year. IMDb gives no announcement date. Not on IMDb: Most Valuable Film of the Year.",
+  "results": [
+    { "category": "most-valuable-documentary", "imdb": "tt35877505", "title": "Children in the Fire", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt36270205", "title": "Can't Look Away: The Case Against Social Media", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt37171214", "title": "The Last Twins", "outcome": "nominated" }
+  ],
   "screenings": []
 }

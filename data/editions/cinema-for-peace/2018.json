@@ -2,10 +2,27 @@
   "award": "cinema-for-peace",
   "year": 2018,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated; \"The Heart of Nuba\" is left out (no film record could be matched).",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2019/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated; \"The Heart of Nuba\" is left out (no film record could be matched). From IMDb's award records: Most Valuable Documentary of the Year; nominees for Most Valuable Film of the Year. IMDb gives no announcement date.",
   "results": [
-    { "category": "most-valuable-film", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" }
+    { "category": "most-valuable-film", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt6966692", "title": "Green Book", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7545524", "title": "Ben is Back", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7125860", "title": "If Beale Street Could Talk", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7280898", "title": "22 July", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt5311542", "title": "Never Look Away", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7008872", "title": "Boy Erased", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2368254", "title": "A Private War", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt6255478", "title": "The Heart of Nuba", "outcome": "won" },
+    { "category": "most-valuable-documentary", "imdb": "tt7905466", "title": "They Shall Not Grow Old", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt7664504", "title": "Three Identical Strangers", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt7689936", "title": "The Cleaners", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8811382", "title": "Meeting Gorbachev", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8804436", "title": "Why Are We Creative? – The Centipede's Dilemma", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt5119342", "title": "Freedom for the Wolf", "outcome": "nominated" }
   ],
   "screenings": []
 }

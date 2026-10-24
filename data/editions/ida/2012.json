@@ -1,9 +1,15 @@
 {
   "award": "ida",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2012 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2012/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2125666", "title": "The Queen of Versailles", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2380247", "title": "The Central Park Five", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2120152", "title": "The Invisible War", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt1808231", "title": "Kokvinnorna", "outcome": "nominated" }
+  ],
   "screenings": []
 }

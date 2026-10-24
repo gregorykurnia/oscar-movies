@@ -2,13 +2,28 @@
   "award": "cinema-for-peace",
   "year": 2024,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2025/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated. From IMDb's award records: nominees for Most Valuable Film of the Year; Most Valuable Documentary of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "most-valuable-film", "imdb": "tt14961016", "title": "I'm Still Here", "outcome": "won" },
     { "category": "most-valuable-film", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "won" },
     { "category": "most-valuable-documentary", "imdb": "tt32046411", "title": "The Click Trap", "outcome": "won" },
-    { "category": "most-valuable-documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "won" }
+    { "category": "most-valuable-documentary", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt8999762", "title": "The Brutalist", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt26625693", "title": "The Order", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt28082769", "title": "September 5", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt5012320", "title": "Out of My Mind", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt26674818", "title": "Tatami", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt18398986", "title": "Without Blood", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt30796448", "title": "The Greatest Night in Pop", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt28494712", "title": "Hollywoodgate", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt29259074", "title": "Blink", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt27760132", "title": "Ernest Cole: Lost And Found", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt33055004", "title": "Wisdom of Happiness", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt30294282", "title": "Porcelain War", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt30956212", "title": "Intercepted", "outcome": "nominated" }
   ],
   "screenings": []
 }

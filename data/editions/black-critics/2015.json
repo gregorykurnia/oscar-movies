@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2015 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2015/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt3076658", "title": "Creed", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0470752", "title": "Ex Machina", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3460252", "title": "The Hateful Eight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1398426", "title": "Straight Outta Compton", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1365050", "title": "Beasts of No Nation", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" }
+  ],
   "screenings": []
 }

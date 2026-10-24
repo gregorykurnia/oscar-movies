@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2021,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2021 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2021/2/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt9620288", "title": "King Richard", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1160419", "title": "Dune", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3581652", "title": "West Side Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10095582", "title": "The Tragedy of Macbeth", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt10696784", "title": "The Harder They Fall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2452150", "title": "Respect", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8893974", "title": "Passing", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt12889404", "title": "Cyrano", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt12680684", "title": "The Hand of God", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" }
+  ],
   "screenings": []
 }

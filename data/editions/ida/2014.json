@@ -1,9 +1,15 @@
 {
   "award": "ida",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2014 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2014/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "feature", "imdb": "tt3674140", "title": "The Salt of the Earth", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2714900", "title": "Finding Vivian Maier", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3904186", "title": "Tales of the Grim Sleeper", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3576060", "title": "Point and Shoot", "outcome": "nominated" }
+  ],
   "screenings": []
 }

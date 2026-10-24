@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2019,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2019 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2019/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt8526872", "title": "Dolemite Is My Name", "outcome": "won" },
+    { "category": "picture", "imdb": "tt8772262", "title": "Midsommar", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8579674", "title": "1917", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7286456", "title": "Joker", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1302006", "title": "The Irishman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6857112", "title": "Us", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4648786", "title": "Harriet", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt8722346", "title": "Queen & Slim", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9358206", "title": "Toni Morrison: The Pieces I Am", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" }
+  ],
   "screenings": []
 }

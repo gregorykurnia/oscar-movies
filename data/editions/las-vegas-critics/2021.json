@@ -2,10 +2,25 @@
   "award": "las-vegas-critics",
   "year": 2021,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2021/2/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "won" }
+    { "category": "picture", "imdb": "tt12789558", "title": "Belfast", "outcome": "won" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "international", "imdb": "tt10370710", "title": "The Worst Person in the World", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10944760", "title": "Titane", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6823148", "title": "Benedetta", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11777738", "title": "A Hero", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14512538", "title": "Roadrunner: A Film About Anthony Bourdain", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8610436", "title": "The Sparks Brothers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2953050", "title": "Encanto", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5109280", "title": "Raya and the Last Dragon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" }
   ],
   "screenings": []
 }

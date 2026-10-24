@@ -1,9 +1,16 @@
 {
   "award": "ida",
   "year": 2016,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2016 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2016/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "feature", "imdb": "tt5895028", "title": "13th", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5804038", "title": "I Am Not Your Negro", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt3652526", "title": "Fire at Sea", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5375040", "title": "Cameraperson", "outcome": "nominated" }
+  ],
   "screenings": []
 }

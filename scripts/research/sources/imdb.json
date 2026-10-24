@@ -255,11 +255,239 @@
       "Best Documentary": "documentary",
       "Best Animated Feature": "animated",
       "Best Animated Film": "animated"
+    },
+    "african-american-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Film": "international",
+      "Best International Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Animation": "animated"
+    },
+    "women-film-journalists": {
+      "Best Picture": "picture",
+      "Best Non-English Language Film": "international",
+      "Best International Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best Documentary Feature Film": "documentary",
+      "Best Documentary": "documentary",
+      "Best Animated Feature Film": "animated",
+      "Best Animated Film": "animated"
+    },
+    "austin-critics": {
+      "Best Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "black-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "boston-online": {
+      "Best Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "british-independent": {
+      "Best British Independent Film": "picture",
+      "Best International Independent Film": "international",
+      "Best International Independent Film, Sponsored by Champagne Taittinger": "international",
+      "Best Foreign Independent Film": "international",
+      "Best Documentary": "documentary",
+      "Best Feature Documentary": "documentary",
+      "Best Feature Documentary, Sponsored by Intermission Film": "documentary"
+    },
+    "central-florida-critics": {
+      "Best Picture": "picture",
+      "Best International Film": "international",
+      "Best Documentary Film": "documentary",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "chicago-indie-critics": {
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international",
+      "Best Foreign Film": "international",
+      "Best Documentary Film": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "cinema-for-peace": {
+      "Cinema for Peace Award for the Most Valuable Film of the Year": "most-valuable-film",
+      "Cinema for Peace Award for The Most Valuable Film of the Year": "most-valuable-film",
+      "Cinema for Peace Dove for The Most Valuable Film of the Year": "most-valuable-film",
+      "Cinema for Peace Dove for the Most Valuable Film of the Year": "most-valuable-film",
+      "Cinema for Peace Award for the Most Valuable Documentary of the Year": "most-valuable-documentary",
+      "Cinema for Peace Award for The Most Valuable Documentary of the Year": "most-valuable-documentary",
+      "Cinema for Peace Dove for The Most Valuable Documentary of the Year": "most-valuable-documentary",
+      "Cinema for Peace Dove for the Most Valuable Documentary of the Year": "most-valuable-documentary",
+      "Most Valuable Documentary of the Year": "most-valuable-documentary"
+    },
+    "columbus-critics": {
+      "Best Film": "picture",
+      "Best Picture": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "critics-choice": {
+      "Best Picture": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary Feature": "documentary",
+      "Best Animated Feature": "animated"
+    },
+    "critics-choice-documentary": {
+      "Best Documentary Feature": "feature",
+      "Best Director": "director",
+      "Best Director (Theatrical Feature)": "director",
+      "Best Political Documentary": "political"
+    },
+    "dallas-fort-worth-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "florida-critics": {
+      "Best Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best International Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "georgia-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Film": "international",
+      "Best International Film": "international",
+      "Best Documentary Film": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "gotham": {
+      "Best Feature": "picture",
+      "Best International Feature": "international",
+      "Best Documentary": "documentary",
+      "Best Documentary Feature": "documentary"
+    },
+    "greater-western-new-york-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Film": "international",
+      "Best Documentary Film": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "hawaii-critics": {
+      "Best Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "hollywood-critics": {
+      "Best Picture": "picture",
+      "Best International Feature": "international",
+      "Best International Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best Documentary Film": "documentary",
+      "Best Documentary Feature": "documentary",
+      "Best Animated Film": "animated",
+      "Best Animated Feature": "animated"
+    },
+    "houston-critics": {
+      "Best Picture": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary Feature": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "indiana-critics": {
+      "Best Picture": "picture",
+      "Best Film": "picture",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Animated Film": "animated"
+    },
+    "international-cinephile-society": {
+      "Best Picture": "picture",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "ida": {
+      "Best Feature": "feature",
+      "Best Feature Documentary": "feature",
+      "Best Director": "director"
+    },
+    "iowa-critics": {
+      "Best Picture": "picture",
+      "Best International Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Feature": "animated",
+      "Best Animated Movie": "animated"
+    },
+    "kansas-city-critics": {
+      "Best Film": "picture",
+      "Best Foreign Film": "international",
+      "Best Documentary": "documentary",
+      "Best Animated Film": "animated"
+    },
+    "las-vegas-critics": {
+      "Best Picture": "picture",
+      "Best International Film": "international",
+      "Best Foreign Film": "international",
+      "Best Foreign Language Film": "international",
+      "Best Documentary": "documentary",
+      "Best Documentary Film": "documentary",
+      "Best Animated Film": "animated"
     }
   },
   "honorees": {
     "cinema-eye/unforgettables": "Honours a year's memorable film subjects: every film named is an honoree, none a nominee"
   },
-  "seasons": {},
-  "leaveOut": {}
+  "seasons": {
+    "ev0001568/2010/1": {
+      "year": 2009,
+      "why": "Cinema for Peace's February 2010 gala honours 2009 films; the search starts at 2010 releases, so only films released in early 2010 are left, which the season rule files under 2010."
+    }
+  },
+  "leaveOut": {
+    "british-independent 2019 tt8979144": {
+      "why": "Monos is typed as a short on IMDb (it is a feature); Wikipedia's nominee list already has it",
+      "note": "a feature typed as a short on IMDb"
+    },
+    "cinema-for-peace 2015 tt6438986": {
+      "why": "Háwar: no film record with that IMDb ID on TMDB or Wikidata",
+      "note": "no film record could be matched"
+    },
+    "cinema-for-peace 2023 tt29306658": {
+      "why": "JFK: One Day in America is a documentary series, not a feature",
+      "note": "a series"
+    },
+    "cinema-for-peace 2016 tt6073176": {
+      "why": "The White Helmets is a short documentary",
+      "note": "a short"
+    },
+    "greater-western-new-york-critics 2020 tt12837488": {
+      "why": "World of Tomorrow Episode Three is a short film",
+      "note": "a short"
+    },
+    "international-cinephile-society 2015 tt4171032": {
+      "why": "World of Tomorrow is a short film",
+      "note": "a short"
+    },
+    "international-cinephile-society 2015 tt3053694": {
+      "why": "P'tit Quinquin is a television miniseries",
+      "note": "a series"
+    },
+    "cinema-eye 2021 tt11859366": {
+      "why": "Music Box is a television series, not a feature",
+      "note": "a series"
+    },
+    "iowa-critics 2023 tt28607951": {
+      "why": "IMDb files Anora (a 2024 film) as a Best Picture winner in the 2024 edition beside The Holdovers (a 2023 film); the group's edition for 2024 films is not on IMDb, so the row is a season off",
+      "note": "Anora is filed by IMDb in the edition for 2023 films, a season off"
+    }
+  }
 }

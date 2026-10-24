@@ -2,10 +2,16 @@
   "award": "kansas-city-critics",
   "year": 2023,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2024/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" }
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt28814949", "title": "Taylor Swift: The Eras Tour", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem", "outcome": "nominated" }
   ],
   "screenings": []
 }

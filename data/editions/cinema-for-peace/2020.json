@@ -2,12 +2,28 @@
   "award": "cinema-for-peace",
   "year": 2020,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2021/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated. From IMDb's award records: nominees for Most Valuable Film of the Year; Most Valuable Documentary of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "most-valuable-film", "imdb": "tt8633462", "title": "Quo Vadis, Aida?", "outcome": "won" },
     { "category": "most-valuable-documentary", "imdb": "tt13243898", "title": "The Mole – Undercover in North Korea", "outcome": "won" },
-    { "category": "most-valuable-documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "won" }
+    { "category": "most-valuable-documentary", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt10272386", "title": "The Father", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt1070874", "title": "The Trial of the Chicago 7", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt5363618", "title": "Sound of Metal", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt9770150", "title": "Nomadland", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt13143964", "title": "Borat Subsequent Moviefilm", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt4761112", "title": "The Mauritanian", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt9784798", "title": "Judas and the Black Messiah", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt10796286", "title": "Dear Comrades", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt11105790", "title": "Broken Keys", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt11464826", "title": "The Social Dilemma", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt12575636", "title": "The New Corporation: The Unfortunately Necessary Sequel", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt13032926", "title": "Love It Was Not", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt13359582", "title": "Radiograph of a Family", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt12899382", "title": "Apocalypse '45", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt7131470", "title": "Television Event", "outcome": "nominated" }
   ],
   "screenings": []
 }

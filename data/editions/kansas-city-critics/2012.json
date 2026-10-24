@@ -2,10 +2,13 @@
   "award": "kansas-city-critics",
   "year": 2012,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2012/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "won" }
+    { "category": "picture", "imdb": "tt1560747", "title": "The Master", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt1966604", "title": "The Imposter", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1142977", "title": "Frankenweenie", "outcome": "won" }
   ],
   "screenings": []
 }

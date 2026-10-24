@@ -1,9 +1,26 @@
 {
   "award": "indiana-critics",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Indiana has no data for 2012 films: Wikipedia has no page for the Indiana Film Journalists Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001987/2012/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1862079", "title": "Safety Not Guaranteed", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1707386", "title": "Les Misérables", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1659337", "title": "The Perks of Being a Wallflower", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1748122", "title": "Moonrise Kingdom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1866249", "title": "The Sessions", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1899353", "title": "The Raid", "outcome": "won" },
+    { "category": "international", "imdb": "tt1602620", "title": "Amour", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2125608", "title": "Searching for Sugar Man", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2085910", "title": "Room 237", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1446192", "title": "Rise of the Guardians", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "nominated" }
+  ],
   "screenings": []
 }

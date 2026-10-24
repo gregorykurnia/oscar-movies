@@ -1,9 +1,25 @@
 {
   "award": "ida",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2023 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2023/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt21376900", "title": "Bobi Wine: The People's President", "outcome": "won" },
+    { "category": "feature", "imdb": "tt15307068", "title": "The Mother of All Lies", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt22768450", "title": "Apolonia, Apolonia", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt21818816", "title": "While We Watched", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt27531514", "title": "In the Rearview", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7196012", "title": "Going to Mars: The Nikki Giovanni Project", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt24082466", "title": "Against the Tide", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt21364460", "title": "Anhell69", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt27544261", "title": "Q", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt24082622", "title": "Milisuthando", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt15307068", "title": "The Mother of All Lies", "outcome": "won" },
+    { "category": "director", "imdb": "tt24082622", "title": "Milisuthando", "outcome": "won" },
+    { "category": "director", "imdb": "tt22768450", "title": "Apolonia, Apolonia", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt24082466", "title": "Against the Tide", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt21364460", "title": "Anhell69", "outcome": "nominated" }
+  ],
   "screenings": []
 }

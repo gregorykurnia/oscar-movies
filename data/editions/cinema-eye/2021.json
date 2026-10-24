@@ -2,11 +2,11 @@
   "award": "cinema-eye",
   "year": 2021,
   "ordinal": "15th",
-  "status": "loaded",
+  "status": "partial",
   "nominationsOn": "2021-11-10",
   "winnersOn": "2022-03-01",
   "sourceUrls": ["https://en.wikipedia.org/wiki/15th_Cinema_Eye_Honors", "https://www.imdb.com/event/ev0001823/2022/1/"],
-  "note": "From IMDb's award records: Outstanding Achievement in Direction; Outstanding Achievement in Production; Audience Choice Prize; The Unforgettables.",
+  "note": "From IMDb's award records: Outstanding Achievement in Direction; Outstanding Achievement in Production; Audience Choice Prize; The Unforgettables. Left out: \"Music Box\" (a series), \"Music Box\" (a series).",
   "results": [
     { "category": "feature", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
     { "category": "feature", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },

@@ -2,10 +2,25 @@
   "award": "las-vegas-critics",
   "year": 2016,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2016/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" }
+    { "category": "picture", "imdb": "tt3783958", "title": "La La Land", "outcome": "won" },
+    { "category": "international", "imdb": "tt4016934", "title": "The Handmaiden", "outcome": "won" },
+    { "category": "international", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3716530", "title": "Elle", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5186714", "title": "The Salesman", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt4698584", "title": "Neruda", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5275892", "title": "O.J.: Made in America", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5895028", "title": "13th", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2531318", "title": "The Beatles: Eight Days a Week", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5278596", "title": "Weiner", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3882074", "title": "The Eagle Huntress", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4302938", "title": "Kubo and the Two Strings", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948356", "title": "Zootopia", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3521164", "title": "Moana", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2277860", "title": "Finding Dory", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1700841", "title": "Sausage Party", "outcome": "nominated" }
   ],
   "screenings": []
 }

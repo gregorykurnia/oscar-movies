@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2013,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2013 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2013/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "picture", "imdb": "tt0993846", "title": "The Wolf of Wall Street", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1454468", "title": "Gravity", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1800241", "title": "American Hustle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2334649", "title": "Fruitvale Station", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1821549", "title": "Nebraska", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2370248", "title": "Short Term 12", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1327773", "title": "Lee Daniels' The Butler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2304771", "title": "Mandela: Long Walk to Freedom", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2247432", "title": "Go for Sisters", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2396566", "title": "20 Feet from Stardom", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" }
+  ],
   "screenings": []
 }

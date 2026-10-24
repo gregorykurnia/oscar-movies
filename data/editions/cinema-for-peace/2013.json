@@ -2,11 +2,18 @@
   "award": "cinema-for-peace",
   "year": 2013,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2014/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated. From IMDb's award records: nominees for Most Valuable Film of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "most-valuable-film", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
-    { "category": "most-valuable-documentary", "imdb": "tt3401232", "title": "Syria: Children on the Frontline", "outcome": "won" }
+    { "category": "most-valuable-documentary", "imdb": "tt3401232", "title": "Syria: Children on the Frontline", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt0790636", "title": "Dallas Buyers Club", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt1327773", "title": "Lee Daniels' The Butler", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2431286", "title": "Philomena", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2304771", "title": "Mandela: Long Walk to Freedom", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2258858", "title": "Wadjda", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2113820", "title": "Walesa. Man of Hope", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2507592", "title": "An Episode in the Life of an Iron Picker", "outcome": "nominated" }
   ],
   "screenings": []
 }

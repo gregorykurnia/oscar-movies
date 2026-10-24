@@ -2,10 +2,13 @@
   "award": "boston-online",
   "year": 2019,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association", "https://www.imdb.com/event/ev0002286/2019/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" }
+    { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "won" }
   ],
   "screenings": []
 }

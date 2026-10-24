@@ -2,10 +2,13 @@
   "award": "boston-online",
   "year": 2014,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association", "https://www.imdb.com/event/ev0002286/2014/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt1706620", "title": "Snowpiercer", "outcome": "won" }
+    { "category": "picture", "imdb": "tt1706620", "title": "Snowpiercer", "outcome": "won" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
   ],
   "screenings": []
 }

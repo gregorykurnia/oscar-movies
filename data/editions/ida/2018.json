@@ -1,9 +1,20 @@
 {
   "award": "ida",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2018 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2018/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "won" },
+    { "category": "feature", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7519174", "title": "Of Fathers and Sons", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8099236", "title": "The Silence of Others", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6634646", "title": "Hale County This Morning, This Evening", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6633182", "title": "Dark Money", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7689908", "title": "Crime + Punishment", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4009728", "title": "United Skates", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt7697870", "title": "Sky and Ground", "outcome": "nominated" }
+  ],
   "screenings": []
 }

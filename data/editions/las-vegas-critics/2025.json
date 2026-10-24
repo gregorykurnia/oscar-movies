@@ -2,10 +2,25 @@
   "award": "las-vegas-critics",
   "year": 2025,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2025/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" }
+    { "category": "picture", "imdb": "tt30144839", "title": "One Battle After Another", "outcome": "won" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "international", "imdb": "tt1527793", "title": "No Other Choice", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt27722618", "title": "Left-Handed Girl", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34962891", "title": "The Perfect Neighbor", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt35307139", "title": "The Alabama Solution", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt26683420", "title": "John Candy: I Like Me", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt37660887", "title": "Cover-Up", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt34966013", "title": "Come See Me in the Good Light", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "won" },
+    { "category": "animated", "imdb": "tt32820897", "title": "Demon Slayer: Kimetsu no Yaiba – Infinity Castle", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14205554", "title": "KPop Demon Hunters", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt27604215", "title": "In Your Dreams", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt14883538", "title": "Arco", "outcome": "nominated" }
   ],
   "screenings": []
 }

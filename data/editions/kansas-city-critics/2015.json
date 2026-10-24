@@ -2,10 +2,24 @@
   "award": "kansas-city-critics",
   "year": 2015,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2015/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" }
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "won" },
+    { "category": "international", "imdb": "tt2764784", "title": "Phoenix", "outcome": "won" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1745787", "title": "The Tribe", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3508840", "title": "The Assassin", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2844798", "title": "White God", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4897822", "title": "Where to Invade Next", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt3518012", "title": "Best of Enemies", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2293640", "title": "Minions", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2452042", "title": "The Peanuts Movie", "outcome": "nominated" }
   ],
   "screenings": []
 }

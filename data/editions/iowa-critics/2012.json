@@ -1,9 +1,16 @@
 {
   "award": "iowa-critics",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2012 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2013/1/"],
+  "note": "From IMDb's award records: Best Film; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film; Best Documentary.",
+  "results": [
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1217209", "title": "Brave", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1623288", "title": "ParaNorman", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1772341", "title": "Wreck-It Ralph", "outcome": "nominated" }
+  ],
   "screenings": []
 }

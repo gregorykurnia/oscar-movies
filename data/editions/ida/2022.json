@@ -1,9 +1,25 @@
 {
   "award": "ida",
   "year": 2022,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2022 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2022/2/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "won" },
+    { "category": "feature", "imdb": "tt17041964", "title": "Navalny", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16377920", "title": "A House Made of Splinters", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14683452", "title": "Young Plato", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt15306876", "title": "Katrina Babies", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt19757058", "title": "The Pawnshop", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt16378028", "title": "Mija", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt17079296", "title": "No Simple Way Home", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt16377862", "title": "All That Breathes", "outcome": "won" },
+    { "category": "director", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt16377920", "title": "A House Made of Splinters", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt19757058", "title": "The Pawnshop", "outcome": "nominated" }
+  ],
   "screenings": []
 }

@@ -1,9 +1,26 @@
 {
   "award": "indiana-critics",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Indiana has no data for 2014 films: Wikipedia has no page for the Indiana Film Journalists Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001987/2014/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2015381", "title": "Guardians of the Galaxy", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2278388", "title": "The Grand Budapest Hotel", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2084970", "title": "The Imitation Game", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2692904", "title": "Locke", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2103281", "title": "Dawn of the Planet of the Apes", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2170593", "title": "St. Vincent", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2937898", "title": "A Most Violent Year", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2382298", "title": "Life Itself", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2737050", "title": "Two Days, One Night", "outcome": "won" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2382298", "title": "Life Itself", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2246565", "title": "An Honest Liar", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" },
+    { "category": "animated", "imdb": "tt0787474", "title": "The Boxtrolls", "outcome": "nominated" }
+  ],
   "screenings": []
 }

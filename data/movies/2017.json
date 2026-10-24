@@ -227,5 +227,20 @@
   "tt4964772": { "slug": "risk", "title": "Risk", "countries": ["US"], "language": "en", "wd": "Q24203335", "tmdb": 393561 },
   "tt6082630": { "slug": "bobbi-jene", "title": "Bobbi Jene", "countries": ["DK", "SE", "IL", "US"], "language": "en", "wd": "Q33527772", "tmdb": 442943 },
   "tt5943708": { "slug": "the-challenge", "title": "The Challenge", "countries": ["FR"], "language": "ar", "wd": "Q26899149", "tmdb": 408396 },
-  "tt5119268": { "slug": "for-ahkeem", "title": "For Ahkeem", "countries": ["US"], "language": "en", "wd": "Q63119060", "tmdb": 440094 }
+  "tt5119268": { "slug": "for-ahkeem", "title": "For Ahkeem", "countries": ["US"], "language": "en", "wd": "Q63119060", "tmdb": 440094 },
+  "tt6219624": { "slug": "half-way", "title": "Half Way", "countries": ["GB"], "language": "en", "tmdb": 434750 },
+  "tt4622512": { "slug": "battle-of-the-sexes", "title": "Battle of the Sexes", "countries": ["US", "GB"], "language": "en", "wd": "Q24067722", "tmdb": 369192 },
+  "tt5541848": { "slug": "what-the-health", "title": "What the Health", "countries": ["US"], "language": "en", "wd": "Q24686978", "tmdb": 415086 },
+  "tt5715874": { "slug": "the-killing-of-a-sacred-deer", "title": "The Killing of a Sacred Deer", "countries": ["GB", "IE"], "language": "en", "wd": "Q27492140", "tmdb": 399057 },
+  "tt5563330": { "slug": "whitney-can-i-be-me", "title": "Whitney: Can I Be Me", "countries": ["GB", "US"], "language": "en", "wd": "Q30059175", "tmdb": 448449 },
+  "tt2753778": { "slug": "the-death-of-superman-lives-what-happened", "title": "The Death of \"Superman Lives\": What Happened?", "countries": ["US"], "language": "en", "wd": "Q20538704", "tmdb": 279144 },
+  "tt2527336": { "slug": "star-wars-the-last-jedi", "title": "Star Wars: The Last Jedi", "countries": ["US"], "language": "en", "wd": "Q18486021", "tmdb": 181808 },
+  "tt5805752": { "slug": "brigsby-bear", "title": "Brigsby Bear", "countries": ["US"], "language": "en", "wd": "Q28369571", "tmdb": 403431 },
+  "tt6379314": { "slug": "let-it-fall-los-angeles-1982-1992", "title": "Let It Fall: Los Angeles 1982–1992", "countries": ["US"], "language": "en", "wd": "Q30639071", "tmdb": 451974 },
+  "tt1212428": { "slug": "the-lost-city-of-z", "title": "The Lost City of Z", "countries": ["US"], "language": "en", "wd": "Q20814623", "tmdb": 314095 },
+  "tt4714782": { "slug": "personal-shopper", "title": "Personal Shopper", "countries": ["FR", "BE", "CZ", "DE", "US"], "language": "en", "wd": "Q23823461", "tmdb": 340676 },
+  "tt2392830": { "slug": "a-quiet-passion", "title": "A Quiet Passion", "countries": ["GB"], "language": "en", "wd": "Q20649524", "tmdb": 368942 },
+  "tt6412864": { "slug": "on-the-beach-at-night-alone", "title": "On the Beach at Night Alone", "originalTitle": "밤의 해변에서 혼자", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q28193328", "tmdb": 434773 },
+  "tt6217664": { "slug": "chavela-vargas", "title": "Chavela Vargas", "originalTitle": "Chavela", "originalLang": "es", "countries": ["US"], "language": "en", "wd": "Q34585722", "tmdb": 441188 },
+  "tt5362988": { "slug": "wind-river", "title": "Wind River", "countries": ["US", "GB"], "language": "en", "wd": "Q25339940", "tmdb": 395834 }
 }

@@ -2,11 +2,29 @@
   "award": "cinema-for-peace",
   "year": 2019,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2020/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated. From IMDb's award records: nominees for Most Valuable Film of the Year; Most Valuable Documentary of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "most-valuable-film", "imdb": "tt8579674", "title": "1917", "outcome": "won" },
-    { "category": "most-valuable-documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "won" }
+    { "category": "most-valuable-documentary", "imdb": "tt7178226", "title": "The Cave", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt3281548", "title": "Little Women", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt2584384", "title": "Jojo Rabbit", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7653254", "title": "Marriage Story", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt6394270", "title": "Bombshell", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt5827916", "title": "A Hidden Life", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt5865326", "title": "The Laundromat", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt4648786", "title": "Harriet", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt4736550", "title": "The Great Hack", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt10773380", "title": "I Am Not Alone", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt10011342", "title": "The Rest", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt7844518", "title": "Bellingcat: Truth in a Post-Truth World", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt9624638", "title": "Dark Suns", "outcome": "nominated" }
   ],
   "screenings": []
 }

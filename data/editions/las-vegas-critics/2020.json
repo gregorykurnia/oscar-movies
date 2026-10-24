@@ -2,10 +2,13 @@
   "award": "las-vegas-critics",
   "year": 2020,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2021/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" }
+    { "category": "picture", "imdb": "tt9770150", "title": "Nomadland", "outcome": "won" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11095742", "title": "Boys State", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" }
   ],
   "screenings": []
 }

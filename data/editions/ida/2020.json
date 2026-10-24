@@ -1,9 +1,25 @@
 {
   "award": "ida",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2020 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2021/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "won" },
+    { "category": "feature", "imdb": "tt10706602", "title": "Collective", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11394318", "title": "The Truffle Hunters", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11394200", "title": "Welcome to Chechnya", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11464016", "title": "Gunda", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9098928", "title": "The Reason I Jump", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt12801356", "title": "MLK/FBI", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11394314", "title": "Softie", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13529022", "title": "Reunited", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt11416746", "title": "Time", "outcome": "won" },
+    { "category": "director", "imdb": "tt11394318", "title": "The Truffle Hunters", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt8923484", "title": "Crip Camp", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt9098928", "title": "The Reason I Jump", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt12801356", "title": "MLK/FBI", "outcome": "nominated" }
+  ],
   "screenings": []
 }

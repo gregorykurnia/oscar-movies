@@ -1,9 +1,16 @@
 {
   "award": "ida",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2015 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2015/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt3521134", "title": "The Look of Silence", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2870648", "title": "Amy", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4284010", "title": "What Happened, Miss Simone?", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4082596", "title": "The Russian Woodpecker", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt4316236", "title": "The Black Panthers: Vanguard of the Revolution", "outcome": "nominated" }
+  ],
   "screenings": []
 }

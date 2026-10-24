@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2014,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2014 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2014/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1020072", "title": "Selma", "outcome": "won" },
+    { "category": "picture", "imdb": "tt2582802", "title": "Whiplash", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2267998", "title": "Gone Girl", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2872718", "title": "Nightcrawler", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1065073", "title": "Boyhood", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2980516", "title": "The Theory of Everything", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2404181", "title": "Belle", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2784678", "title": "Top Five", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2473602", "title": "Get on Up", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2718492", "title": "Ida", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2674040", "title": "Keep on Keepin' On", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
+  ],
   "screenings": []
 }

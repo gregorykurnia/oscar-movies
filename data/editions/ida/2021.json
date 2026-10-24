@@ -1,9 +1,25 @@
 {
   "award": "ida",
   "year": 2021,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2021 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2022/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "feature", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11514252", "title": "Jacinta", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13648230", "title": "In the Same Breath", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13630174", "title": "Writing with Fire", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt13648216", "title": "Faya Dayi", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11905538", "title": "Not Going Quietly", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt11701838", "title": "Wojnarowicz: F--k You F-ggot F--ker", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10196480", "title": "North By Current", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt10215134", "title": "Nothing but the Sun", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "director", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt11514252", "title": "Jacinta", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt13648216", "title": "Faya Dayi", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt11905538", "title": "Not Going Quietly", "outcome": "nominated" }
+  ],
   "screenings": []
 }

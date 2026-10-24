@@ -2,10 +2,25 @@
   "award": "las-vegas-critics",
   "year": 2023,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Las_Vegas_Film_Critics_Society", "https://www.imdb.com/event/ev0000392/2023/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" }
+    { "category": "picture", "imdb": "tt15398776", "title": "Oppenheimer", "outcome": "won" },
+    { "category": "international", "imdb": "tt23289160", "title": "Godzilla Minus One", "outcome": "won" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt16300962", "title": "When Evil Lurks", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt16277242", "title": "Society of the Snow", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt25470468", "title": "Beyond Utopia", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt22528178", "title": "Kokomo City", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt13885492", "title": "Little Richard: I Am Everything", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6718170", "title": "The Super Mario Bros. Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15789038", "title": "Elemental", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem", "outcome": "nominated" }
   ],
   "screenings": []
 }

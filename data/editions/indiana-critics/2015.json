@@ -1,9 +1,26 @@
 {
   "award": "indiana-critics",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Indiana has no data for 2015 films: Wikipedia has no page for the Indiana Film Journalists Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001987/2015/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt3659388", "title": "The Martian", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1596363", "title": "The Big Short", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3170832", "title": "Room", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2402927", "title": "Carol", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2080374", "title": "Steve Jobs", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1398426", "title": "Straight Outta Compton", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt3416744", "title": "The End of the Tour", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "international", "imdb": "tt3086442", "title": "Goodnight Mommy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2545428", "title": "Meru", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "nominated" }
+  ],
   "screenings": []
 }

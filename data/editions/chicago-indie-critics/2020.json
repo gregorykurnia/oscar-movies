@@ -1,9 +1,25 @@
 {
   "award": "chicago-indie-critics",
   "year": 2020,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Chicago Indie Critics has no data for 2020 films: Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0025345/2021/1/"],
+  "note": "From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film.",
+  "results": [
+    { "category": "international", "imdb": "tt8508734", "title": "His House", "outcome": "won" },
+    { "category": "international", "imdb": "tt10288566", "title": "Another Round", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt2762506", "title": "Bacurau", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10199640", "title": "Beanpole", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt10627584", "title": "The Life Ahead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11095742", "title": "Boys State", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt11464826", "title": "The Social Dilemma", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11394180", "title": "Dick Johnson Is Dead", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt11416746", "title": "Time", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt10851618", "title": "Rising Phoenix", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2948372", "title": "Soul", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5198068", "title": "Wolfwalkers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7146812", "title": "Onward", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7488208", "title": "Over the Moon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5206260", "title": "The Willoughbys", "outcome": "nominated" }
+  ],
   "screenings": []
 }

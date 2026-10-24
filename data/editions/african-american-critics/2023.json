@@ -2,8 +2,8 @@
   "award": "african-american-critics",
   "year": 2023,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://www.imdb.com/event/ev0002165/2024/1/"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt23561236", "title": "American Fiction", "outcome": "won" },
     { "category": "picture", "imdb": "tt13321244", "title": "Origin", "outcome": "nominated" },
@@ -14,7 +14,10 @@
     { "category": "picture", "imdb": "tt14230458", "title": "Poor Things", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt5537002", "title": "Killers of the Flower Moon", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" }
+    { "category": "picture", "imdb": "tt1517268", "title": "Barbie", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt14225838", "title": "Io capitano", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt13871094", "title": "Stamped from the Beginning", "outcome": "won" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" }
   ],
   "screenings": []
 }

@@ -2,10 +2,14 @@
   "award": "kansas-city-critics",
   "year": 2013,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2013/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" }
+    { "category": "picture", "imdb": "tt2024544", "title": "12 Years a Slave", "outcome": "won" },
+    { "category": "international", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2294629", "title": "Frozen", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1690953", "title": "Despicable Me 2", "outcome": "won" }
   ],
   "screenings": []
 }

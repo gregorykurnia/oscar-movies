@@ -1,9 +1,23 @@
 {
   "award": "black-critics",
   "year": 2012,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2012 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2012/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt1790885", "title": "Zero Dark Thirty", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1853728", "title": "Django Unchained", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1024648", "title": "Argo", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1045658", "title": "Silver Linings Playbook", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1074638", "title": "Skyfall", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0454876", "title": "Life of Pi", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0443272", "title": "Lincoln", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1907668", "title": "Flight", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1211890", "title": "Middle of Nowhere", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt1675434", "title": "The Intouchables", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt2380247", "title": "The Central Park Five", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1446192", "title": "Rise of the Guardians", "outcome": "won" }
+  ],
   "screenings": []
 }

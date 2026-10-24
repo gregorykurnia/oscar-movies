@@ -1,9 +1,22 @@
 {
   "award": "black-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Black FCC has no data for 2017 films: Wikipedia has no page for the Black Film Critics Circle's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0003273/2017/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film (winners only); Best Documentary (winners only); Best Animated Film (winners only). IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6294822", "title": "The Post", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt0451279", "title": "Wonder Woman", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580036", "title": "I, Tonya", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5301662", "title": "Marshall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5639354", "title": "A Fantastic Woman", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5873150", "title": "Strong Island", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" }
+  ],
   "screenings": []
 }

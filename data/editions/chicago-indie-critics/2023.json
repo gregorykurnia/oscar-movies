@@ -1,9 +1,25 @@
 {
   "award": "chicago-indie-critics",
   "year": 2023,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Chicago Indie Critics has no data for 2023 films: Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0025345/2024/1/"],
+  "note": "From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film.",
+  "results": [
+    { "category": "international", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "international", "imdb": "tt23289160", "title": "Godzilla Minus One", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt16300962", "title": "When Evil Lurks", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt19853258", "title": "Still: A Michael J. Fox Movie", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt24082438", "title": "20 Days in Mariupol", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28865980", "title": "American Symphony", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt24078380", "title": "The Disappearance of Shere Hite", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt28503626", "title": "Silver Dollar Road", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9362722", "title": "Spider-Man: Across the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt15789038", "title": "Elemental", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6587046", "title": "The Boy and the Heron", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt19500164", "title": "Nimona", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8589698", "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem", "outcome": "nominated" }
+  ],
   "screenings": []
 }

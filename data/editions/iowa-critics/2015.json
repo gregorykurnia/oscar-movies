@@ -1,9 +1,19 @@
 {
   "award": "iowa-critics",
   "year": 2015,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2015 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2016/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt1895587", "title": "Spotlight", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1392190", "title": "Mad Max: Fury Road", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2080374", "title": "Steve Jobs", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt2870648", "title": "Amy", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4897822", "title": "Where to Invade Next", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt4145178", "title": "Listen To Me Marlon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2096673", "title": "Inside Out", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2872750", "title": "Shaun the Sheep Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2401878", "title": "Anomalisa", "outcome": "nominated" }
+  ],
   "screenings": []
 }

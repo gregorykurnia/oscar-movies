@@ -1,9 +1,25 @@
 {
   "award": "chicago-indie-critics",
   "year": 2019,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Chicago Indie Critics has no data for 2019 films: Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0025345/2020/1/"],
+  "note": "From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film.",
+  "results": [
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "international", "imdb": "tt8613070", "title": "Portrait of a Lady on Fire", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8291806", "title": "Pain and Glory", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6386748", "title": "Birds of Passage", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6062774", "title": "Monos", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt5105734", "title": "The Kingmaker", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt9358044", "title": "Hail Satan?", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1979376", "title": "Toy Story 4", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2386490", "title": "How to Train Your Dragon: The Hidden World", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3513498", "title": "The Lego Movie 2: The Second Part", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt6348138", "title": "Missing Link", "outcome": "nominated" }
+  ],
   "screenings": []
 }

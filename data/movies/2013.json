@@ -191,5 +191,14 @@
   "tt2379442": { "slug": "rafea-solar-mama", "title": "Rafea: Solar Mama", "countries": ["US", "DK", "EG"], "language": "ar", "wd": "Q17010035", "tmdb": 131509 },
   "tt2530936": { "slug": "expedition-to-the-end-of-the-world", "title": "Expedition to the End of the World", "originalTitle": "Ekspeditionen til verdens ende", "originalLang": "da", "countries": ["DK"], "language": "da", "wd": "Q20728542", "tmdb": 168164 },
   "tt2551618": { "slug": "the-machine-which-makes-everything-disappear", "title": "The Machine Which Makes Everything Disappear", "countries": ["GE", "DE"], "language": "ka", "wd": "Q22669549", "tmdb": 159026 },
-  "tt2392634": { "slug": "i-am-breathing", "title": "I am Breathing", "countries": ["DK", "GB"], "language": "en", "wd": "Q20728918", "tmdb": 207413 }
+  "tt2392634": { "slug": "i-am-breathing", "title": "I am Breathing", "countries": ["DK", "GB"], "language": "en", "wd": "Q20728918", "tmdb": 207413 },
+  "tt2247432": { "slug": "go-for-sisters", "title": "Go for Sisters", "countries": ["US"], "language": "en", "wd": "Q16948216", "tmdb": 172542 },
+  "tt1213663": { "slug": "the-worlds-end", "title": "The World's End", "countries": ["GB", "JP", "US"], "language": "en", "wd": "Q722379", "tmdb": 107985 },
+  "tt1714206": { "slug": "the-spectacular-now", "title": "The Spectacular Now", "countries": ["US"], "language": "en", "wd": "Q3522804", "tmdb": 157386 },
+  "tt2101441": { "slug": "spring-breakers", "title": "Spring Breakers", "countries": ["US"], "language": "en", "wd": "Q1781285", "tmdb": 122081 },
+  "tt2404311": { "slug": "the-family-2013", "title": "The Family", "countries": ["FR", "US"], "language": "en", "wd": "Q3061609", "tmdb": 112205 },
+  "tt3391782": { "slug": "everyday-rebellion", "title": "Everyday Rebellion", "countries": ["CH", "AT", "BE", "GR", "DE"], "language": "es", "wd": "Q28841809", "tmdb": 253139 },
+  "tt1864253": { "slug": "alias-ruby-blade", "title": "Alias Ruby Blade", "countries": ["US", "TL"], "language": "en", "tmdb": 174346 },
+  "tt2608452": { "slug": "recycling-medea", "title": "Recycling Medea", "countries": ["DE"], "language": "de", "wd": "Q62033295", "tmdb": 1244473 },
+  "tt1650048": { "slug": "laurence-anyways", "title": "Laurence Anyways", "countries": ["CA", "FR"], "language": "fr", "wd": "Q2615443", "tmdb": 110160 }
 }

@@ -1,9 +1,25 @@
 {
   "award": "chicago-indie-critics",
   "year": 2022,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Chicago Indie Critics has no data for 2022 films: Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0025345/2023/1/"],
+  "note": "From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film.",
+  "results": [
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "won" },
+    { "category": "international", "imdb": "tt8178634", "title": "RRR", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt9660502", "title": "Close", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11700260", "title": "Official Competition", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt13056052", "title": "Broker", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16227014", "title": "Fire of Love", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt17041964", "title": "Navalny", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14179942", "title": "Good Night Oppy", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt16377356", "title": "The Janes", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Guillermo del Toro's Pinocchio", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3915174", "title": "Puss in Boots: The Last Wish", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8097030", "title": "Turning Red", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt15339456", "title": "Marcel the Shell with Shoes On", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7978758", "title": "Apollo 10½: A Space Age Childhood", "outcome": "nominated" }
+  ],
   "screenings": []
 }

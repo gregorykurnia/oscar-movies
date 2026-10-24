@@ -1,9 +1,19 @@
 {
   "award": "iowa-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2017 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2018/1/"],
+  "note": "From IMDb's award records: Best Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7207238", "title": "Jane", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6333056", "title": "City of Ghosts", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt4116284", "title": "The Lego Batman Movie", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3411444", "title": "Ferdinand", "outcome": "nominated" }
+  ],
   "screenings": []
 }

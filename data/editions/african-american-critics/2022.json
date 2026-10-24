@@ -2,8 +2,8 @@
   "award": "african-american-critics",
   "year": 2022,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://www.imdb.com/event/ev0002165/2023/1/"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt8093700", "title": "The Woman King", "outcome": "won" },
     { "category": "picture", "imdb": "tt9114286", "title": "Black Panther: Wakanda Forever", "outcome": "nominated" },
@@ -14,7 +14,10 @@
     { "category": "picture", "imdb": "tt13495458", "title": "The Inspection", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt10192406", "title": "Causeway", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt6710474", "title": "Everything Everywhere All at Once", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "nominated" }
+    { "category": "picture", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt15376894", "title": "Saint Omer", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt16977750", "title": "Sidney", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5181830", "title": "Wendell and Wild", "outcome": "won" }
   ],
   "screenings": []
 }

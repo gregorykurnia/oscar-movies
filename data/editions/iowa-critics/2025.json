@@ -1,9 +1,13 @@
 {
   "award": "iowa-critics",
   "year": 2025,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Iowa has no data for 2025 films: Wikipedia has no page for the Iowa Film Critics Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0002155/2025/1/"],
+  "note": "From IMDb's award records: Best Film (winners only); Best Foreign Language Film (winners only); Best Animated Film (winners only). IMDb gives no announcement date. Not on IMDb: Best Documentary.",
+  "results": [
+    { "category": "picture", "imdb": "tt14905854", "title": "Hamnet", "outcome": "won" },
+    { "category": "international", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
+    { "category": "animated", "imdb": "tt26443597", "title": "Zootopia 2", "outcome": "won" }
+  ],
   "screenings": []
 }

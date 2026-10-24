@@ -1,9 +1,25 @@
 {
   "award": "ida",
   "year": 2019,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2019 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2019/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt9617456", "title": "For Sama", "outcome": "won" },
+    { "category": "feature", "imdb": "tt9351980", "title": "American Factory", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8969332", "title": "The Biggest Little Farm", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8760684", "title": "Apollo 11", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt8923482", "title": "One Child Nation", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6016744", "title": "The Edge of Democracy", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9326056", "title": "Sea of Shadows", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6010976", "title": "Midnight Family", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt9358246", "title": "Advocate", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt9351980", "title": "American Factory", "outcome": "won" },
+    { "category": "director", "imdb": "tt8991268", "title": "Honeyland", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt9617456", "title": "For Sama", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt6016744", "title": "The Edge of Democracy", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt9358246", "title": "Advocate", "outcome": "nominated" }
+  ],
   "screenings": []
 }

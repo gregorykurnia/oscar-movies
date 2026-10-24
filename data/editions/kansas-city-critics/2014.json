@@ -2,10 +2,12 @@
   "award": "kansas-city-critics",
   "year": 2014,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2014/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Foreign Language Film.",
   "results": [
-    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" }
+    { "category": "picture", "imdb": "tt2562232", "title": "Birdman", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt4044364", "title": "Citizenfour", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1490017", "title": "The Lego Movie", "outcome": "won" }
   ],
   "screenings": []
 }

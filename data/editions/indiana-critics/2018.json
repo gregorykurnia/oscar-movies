@@ -1,9 +1,26 @@
 {
   "award": "indiana-critics",
   "year": 2018,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Indiana has no data for 2018 films: Wikipedia has no page for the Indiana Film Journalists Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001987/2018/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt5580266", "title": "The Hate U Give", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1825683", "title": "Black Panther", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt1517451", "title": "A Star Is Born", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5688932", "title": "Sorry to Bother You", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt7014006", "title": "Eighth Grade", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt4468740", "title": "Paddington 2", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6053438", "title": "First Reformed", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5742374", "title": "You Were Never Really Here", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6217608", "title": "The Rider", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7476236", "title": "Minding the Gap", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" }
+  ],
   "screenings": []
 }

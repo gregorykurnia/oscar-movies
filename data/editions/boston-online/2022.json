@@ -2,10 +2,13 @@
   "award": "boston-online",
   "year": 2022,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Boston_Online_Film_Critics_Association", "https://www.imdb.com/event/ev0002286/2022/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Picture winner (full lists are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
-    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "won" }
+    { "category": "picture", "imdb": "tt11813216", "title": "The Banshees of Inisherin", "outcome": "won" },
+    { "category": "international", "imdb": "tt12477480", "title": "Decision to Leave", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt21374850", "title": "All the Beauty and the Bloodshed", "outcome": "won" },
+    { "category": "animated", "imdb": "tt1488589", "title": "Guillermo del Toro's Pinocchio", "outcome": "won" }
   ],
   "screenings": []
 }

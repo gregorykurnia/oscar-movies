@@ -2,11 +2,25 @@
   "award": "cinema-for-peace",
   "year": 2021,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards"],
-  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Cinema_for_Peace_awards", "https://www.imdb.com/event/ev0001568/2022/1/"],
+  "note": "Wikipedia lists only the winners of each prize and gives no ceremony date; the announcement date is not stated. From IMDb's award records: nominees for Most Valuable Film of the Year; Most Valuable Documentary of the Year. IMDb gives no announcement date.",
   "results": [
     { "category": "most-valuable-film", "imdb": "tt10366460", "title": "CODA", "outcome": "won" },
-    { "category": "most-valuable-documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" }
+    { "category": "most-valuable-documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "won" },
+    { "category": "most-valuable-film", "imdb": "tt10293406", "title": "The Power of the Dog", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt12789558", "title": "Belfast", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt7475578", "title": "Munich: The Edge of War", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt11777738", "title": "A Hero", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt14810692", "title": "Escape from Mogadishu", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt11121664", "title": "Blue Bayou", "outcome": "nominated" },
+    { "category": "most-valuable-film", "imdb": "tt9242528", "title": "The Survivor", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt14505430", "title": "Ascension", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt13567374", "title": "Sabaya", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt9850492", "title": "Babi Yar. Context", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt14488886", "title": "Paper & Glue", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt8998888", "title": "The Devil's Drivers", "outcome": "nominated" },
+    { "category": "most-valuable-documentary", "imdb": "tt15102210", "title": "Memory Box: Echoes of 9/11", "outcome": "nominated" }
   ],
   "screenings": []
 }

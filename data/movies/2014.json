@@ -202,5 +202,14 @@
   "tt3074780": { "slug": "supermensch-the-legend-of-shep-gordon", "title": "Supermensch: The Legend of Shep Gordon", "countries": ["US"], "language": "en", "wd": "Q14931559", "tmdb": 209416 },
   "tt2244889": { "slug": "heaven-adores-you", "title": "Heaven Adores You", "countries": ["US"], "language": "en", "wd": "Q18150574", "tmdb": 276729 },
   "tt3091304": { "slug": "the-dog", "title": "The Dog", "countries": ["US"], "language": "en", "wd": "Q28136699", "tmdb": 212849 },
-  "tt3149484": { "slug": "ne-me-quitte-pas", "title": "Ne me quitte pas", "countries": ["FR", "NL", "BE"], "language": "fr", "tmdb": 238434 }
+  "tt3149484": { "slug": "ne-me-quitte-pas", "title": "Ne me quitte pas", "countries": ["FR", "NL", "BE"], "language": "fr", "tmdb": 238434 },
+  "tt2326554": { "slug": "a-girl-walks-home-alone-at-night", "title": "A Girl Walks Home Alone at Night", "countries": ["US"], "language": "fa", "wd": "Q17061299", "tmdb": 252171 },
+  "tt3090252": { "slug": "dinosaur-13", "title": "Dinosaur 13", "countries": ["US"], "language": "en", "wd": "Q16249901", "tmdb": 249170 },
+  "tt2994634": { "slug": "sepideh", "title": "Sepideh", "countries": ["DK", "IR", "DE", "NO", "SE"], "language": "en", "wd": "Q17111206", "tmdb": 252937 },
+  "tt2692904": { "slug": "locke", "title": "Locke", "countries": ["US", "GB"], "language": "en", "wd": "Q14339915", "tmdb": 210479 },
+  "tt2103281": { "slug": "dawn-of-the-planet-of-the-apes", "title": "Dawn of the Planet of the Apes", "countries": ["US"], "language": "en", "wd": "Q11220194", "tmdb": 119450 },
+  "tt2246565": { "slug": "an-honest-liar", "title": "An Honest Liar", "countries": ["US"], "language": "en", "wd": "Q17985526", "tmdb": 262481 },
+  "tt2852458": { "slug": "stranger-by-the-lake", "title": "Stranger by the Lake", "originalTitle": "L'Inconnu du lac", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q12902822", "tmdb": 186992 },
+  "tt1951181": { "slug": "the-immigrant", "title": "The Immigrant", "countries": ["US"], "language": "en", "wd": "Q3341412", "tmdb": 152599 },
+  "tt3675486": { "slug": "maidan", "title": "Maidan", "originalTitle": "Майдан", "originalLang": "uk", "countries": ["UA"], "language": "uk", "wd": "Q18711323", "tmdb": 270926 }
 }

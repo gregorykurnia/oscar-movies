@@ -1,9 +1,15 @@
 {
   "award": "ida",
   "year": 2013,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2013 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2013/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt2486682", "title": "The Square", "outcome": "won" },
+    { "category": "feature", "imdb": "tt2375605", "title": "The Act of Killing", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2545118", "title": "Blackfish", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2366450", "title": "Stories We Tell", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt2119463", "title": "Let the Fire Burn", "outcome": "nominated" }
+  ],
   "screenings": []
 }

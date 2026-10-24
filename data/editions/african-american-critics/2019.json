@@ -2,8 +2,8 @@
   "award": "african-american-critics",
   "year": 2019,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://www.imdb.com/event/ev0002165/2019/1/"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt6857112", "title": "Us", "outcome": "won" },
     { "category": "picture", "imdb": "tt8526872", "title": "Dolemite Is My Name", "outcome": "nominated" },
@@ -15,7 +15,10 @@
     { "category": "picture", "imdb": "tt6751668", "title": "Parasite", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt10199586", "title": "Atlantique", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt8637428", "title": "The Farewell", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt4648786", "title": "Harriet", "outcome": "nominated" }
+    { "category": "picture", "imdb": "tt4648786", "title": "Harriet", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt10289996", "title": "The Black Godfather", "outcome": "won" },
+    { "category": "animated", "imdb": "tt6324278", "title": "Abominable", "outcome": "won" }
   ],
   "screenings": []
 }

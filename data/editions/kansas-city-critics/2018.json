@@ -2,11 +2,18 @@
   "award": "kansas-city-critics",
   "year": 2018,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle"],
-  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/Kansas_City_Film_Critics_Circle", "https://www.imdb.com/event/ev0000383/2018/1/"],
+  "note": "Not found on the source: international, documentary, animated. Wikipedia lists only the Best Film winner (the other categories are on the group's own site, not loaded) and gives no announcement date. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
-    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" }
+    { "category": "picture", "imdb": "tt5083738", "title": "The Favourite", "outcome": "won" },
+    { "category": "international", "imdb": "tt6155172", "title": "Roma", "outcome": "won" },
+    { "category": "international", "imdb": "tt6543652", "title": "Cold War", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7681902", "title": "Won't You be My Neighbor?", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt7775622", "title": "Free Solo", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt4633694", "title": "Spider-Man: Into the Spider-Verse", "outcome": "won" },
+    { "category": "animated", "imdb": "tt5104604", "title": "Isle of Dogs", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt3606756", "title": "Incredibles 2", "outcome": "nominated" }
   ],
   "screenings": []
 }

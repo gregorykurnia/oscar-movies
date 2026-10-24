@@ -1,9 +1,25 @@
 {
   "award": "chicago-indie-critics",
   "year": 2021,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Chicago Indie Critics has no data for 2021 films: Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0025345/2022/1/"],
+  "note": "From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date. Not on IMDb: Best Film.",
+  "results": [
+    { "category": "international", "imdb": "tt12618926", "title": "Parallel Mothers", "outcome": "won" },
+    { "category": "international", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt6823148", "title": "Benedetta", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt11777738", "title": "A Hero", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt7378922", "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt9098872", "title": "The Rescue", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt14512538", "title": "Roadrunner: A Film About Anthony Bourdain", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt8610436", "title": "The Sparks Brothers", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt7979580", "title": "The Mitchells vs. The Machines", "outcome": "won" },
+    { "category": "animated", "imdb": "tt2953050", "title": "Encanto", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt12801262", "title": "Luca", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt5109280", "title": "Raya and the Last Dragon", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt8430054", "title": "Flee", "outcome": "nominated" }
+  ],
   "screenings": []
 }

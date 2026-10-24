@@ -1,9 +1,26 @@
 {
   "award": "indiana-critics",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "Indiana has no data for 2017 films: Wikipedia has no page for the Indiana Film Journalists Association's awards and no other source was found for them.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0001987/2017/1/"],
+  "note": "From IMDb's award records: Best Film; Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
+  "results": [
+    { "category": "picture", "imdb": "tt4925292", "title": "Lady Bird", "outcome": "won" },
+    { "category": "picture", "imdb": "tt1856101", "title": "Blade Runner 2049", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5052448", "title": "Get Out", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5027774", "title": "Three Billboards Outside Ebbing, Missouri", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5013056", "title": "Dunkirk", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5580390", "title": "The Shape of Water", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt6294822", "title": "The Post", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt2527336", "title": "Star Wars: The Last Jedi", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5649144", "title": "The Florida Project", "outcome": "nominated" },
+    { "category": "picture", "imdb": "tt5805752", "title": "Brigsby Bear", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt5598102", "title": "Faces Places", "outcome": "won" },
+    { "category": "international", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "nominated" },
+    { "category": "documentary", "imdb": "tt6379314", "title": "Let It Fall: Los Angeles 1982–1992", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt6977442", "title": "Liyana", "outcome": "nominated" },
+    { "category": "animated", "imdb": "tt2380307", "title": "Coco", "outcome": "won" },
+    { "category": "animated", "imdb": "tt3262342", "title": "Loving Vincent", "outcome": "nominated" }
+  ],
   "screenings": []
 }

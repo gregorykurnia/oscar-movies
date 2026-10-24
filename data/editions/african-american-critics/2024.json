@@ -2,8 +2,8 @@
   "award": "african-american-critics",
   "year": 2024,
   "status": "partial",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association"],
-  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated.",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/African-American_Film_Critics_Association", "https://www.imdb.com/event/ev0002165/2025/1/"],
+  "note": "Not found on the source: international, documentary, animated. Only Best Picture and the top ten are listed, from the group's article (no page for this year); the announcement date is not stated. From IMDb's award records: Best Foreign Language Film; Best Documentary; Best Animated Film. IMDb gives no announcement date.",
   "results": [
     { "category": "picture", "imdb": "tt23055660", "title": "Nickel Boys", "outcome": "won" },
     { "category": "picture", "imdb": "tt28479262", "title": "Sing Sing", "outcome": "nominated" },
@@ -14,7 +14,11 @@
     { "category": "picture", "imdb": "tt31839336", "title": "Albany Road", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt6133444", "title": "The Fire Inside", "outcome": "nominated" },
     { "category": "picture", "imdb": "tt28523838", "title": "Exhibiting Forgiveness", "outcome": "nominated" },
-    { "category": "picture", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" }
+    { "category": "picture", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "international", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt31015216", "title": "Dahomey", "outcome": "won" },
+    { "category": "documentary", "imdb": "tt12336480", "title": "Daughters", "outcome": "won" },
+    { "category": "animated", "imdb": "tt29623480", "title": "The Wild Robot", "outcome": "won" }
   ],
   "screenings": []
 }

@@ -1,9 +1,26 @@
 {
   "award": "ida",
   "year": 2024,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2024 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2024/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary; Best Director. IMDb gives no announcement date.",
+  "results": [
+    { "category": "feature", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "feature", "imdb": "tt19811010", "title": "The Remarkable Life of Ibelin", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30227076", "title": "Black Box Diaries", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt31015216", "title": "Dahomey", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt27760132", "title": "Ernest Cole: Lost And Found", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt21224854", "title": "Agent of Happiness", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt26083700", "title": "Queendom", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt18322912", "title": "Seeking Mavis Beacon", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt33270192", "title": "Brisa", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt30953759", "title": "No Other Land", "outcome": "won" },
+    { "category": "director", "imdb": "tt30227076", "title": "Black Box Diaries", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt14452174", "title": "Soundtrack to a Coup d'Etat", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt30319854", "title": "Sugarcane", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt26083700", "title": "Queendom", "outcome": "nominated" }
+  ],
   "screenings": []
 }

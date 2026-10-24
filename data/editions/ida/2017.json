@@ -1,9 +1,15 @@
 {
   "award": "ida",
   "year": 2017,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "IDA has no data for 2017 films: Wikipedia names only a few of the International Documentary Association's Best Feature winners in a sentence, with no full list of winners and nominees.",
-  "results": [],
+  "status": "partial",
+  "sourceUrls": ["https://www.imdb.com/event/ev0000351/2017/1/"],
+  "note": "From IMDb's award records: Best Feature Documentary. IMDb gives no announcement date. Not on IMDb: Best Director.",
+  "results": [
+    { "category": "feature", "imdb": "tt6333058", "title": "Dina", "outcome": "won" },
+    { "category": "feature", "imdb": "tt6794424", "title": "LA 92", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5598102", "title": "Faces Places", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt6333056", "title": "City of Ghosts", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt5873150", "title": "Strong Island", "outcome": "nominated" }
+  ],
   "screenings": []
 }
