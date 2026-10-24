@@ -426,7 +426,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 
 | What | Since | Blocks |
 |---|---|---|
-| First release done 2026-10-24 (migrations 0000–0002 on production); production data loaded 2026-10-24 (all of `data/`, Phases 1–5, with the recompute). Set `APP_URL` (https://oscar-movies.vercel.app) and `REVALIDATE_SECRET` in Vercel Production and in `.env.local`, so loads can expire the app's cache | 2026-10-22 | cache expiry after loads |
+| First release done 2026-10-24 (migrations 0000–0002 on production); production data loaded 2026-10-24 (all of `data/`, Phases 1–5, with the recompute). Loads now expire the live cache (`APP_URL` set in `.env.local` 2026-10-24). Still to do: add `APP_URL` = https://oscar-movies.vercel.app in Vercel Production (`vercel env add APP_URL production`); it takes effect with the next release | 2026-10-22 | link previews' image address |
 | Check `/styleguide` against `design-preview.html` in a local preview and sign it off | 2026-10-22 | Phase 0 done |
 | Set `CRON_SECRET` in Vercel Production, then release, so the daily score cron runs | 2026-10-22 | daily scores live |
 | Phase 1 owner check: mark the films seen for 2024–2026, check a handful of Oscar years against memory, sign off | 2026-10-22 | Phase 1 done |
