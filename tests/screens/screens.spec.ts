@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phases 0 to 4 keep theirs. The Phase 5 review runs the
-// whole list into this one, so until then it holds only the pages task 5.5 re-shot or added.
-const OUT_DIR = "screenshots/phase-5";
+// Each phase's review judges its own folder. Phases 0 to 5 keep theirs. The Phase 6 review runs the
+// whole list into this one, so until then it holds only the pages task 6.7 re-shot or added.
+const OUT_DIR = "screenshots/phase-6";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -65,6 +65,24 @@ async function showCriticsColumns(page: Page) {
   const head = page.getByRole("table").locator('th[scope="colgroup"]', { hasText: "Critics groups" });
   await expect(head).toBeVisible();
   await head.evaluate((el) => el.scrollIntoView({ block: "nearest", inline: "start" }));
+}
+
+// The accuracy page's "Show all N critics groups" (task 4.12). A click before hydration does nothing:
+// click again only while the button still says Show all.
+async function showAllCritics(page: Page) {
+  const show = page.getByRole("button", { name: /^Show all \d+ critics groups/ });
+  await expect(async () => {
+    if (await show.count()) await show.click();
+    await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toBeVisible({ timeout: 1000 });
+  }).toPass();
+}
+
+// The Documentary grid with critics open: center DOC NYC's column (the last festival; the critics groups
+// follow it). `inline: "start"` would put it under the sticky Film column (task 6.7).
+async function showDocNycColumn(page: Page) {
+  const head = page.getByRole("table").getByRole("columnheader", { name: "DOC NYC", exact: true });
+  await expect(head).toBeVisible();
+  await head.evaluate((el) => el.scrollIntoView({ block: "nearest", inline: "center" }));
 }
 
 // `name` is the file name and the `--grep` name. The error page has no address of its own, so
@@ -194,14 +212,7 @@ const ROUTES: Route[] = [
     path: "/accuracy/picture",
     status: 200,
     heading: "Accuracy: Best Picture",
-    open: async (page) => {
-      // A click before hydration does nothing: click again only while the button still says Show all.
-      const show = page.getByRole("button", { name: /^Show all \d+ critics groups/ });
-      await expect(async () => {
-        if (await show.count()) await show.click();
-        await expect(page.getByRole("button", { name: "Show the first 8 critics groups" })).toBeVisible({ timeout: 1000 });
-      }).toPass();
-    },
+    open: showAllCritics,
   },
   {
     name: "awards-nbr-2025",
@@ -267,6 +278,36 @@ const ROUTES: Route[] = [
       const festivals = page.getByRole("group", { name: "Festivals" });
       await expect(festivals).toContainText("Palme d'Or");
       await expect(festivals).toContainText("Special Presentations");
+    },
+  },
+  // Phase 6 (task 6.7). The Documentary accuracy page with every critics group open; DOC NYC's award page
+  // with its two lists; and the 2024 year grid on the Documentary tab with critics open, centered on DOC NYC's
+  // column (task 6.5) so the critics groups after it show too.
+  {
+    name: "accuracy-documentary-critics",
+    path: "/accuracy/documentary",
+    status: 200,
+    heading: "Accuracy: Best Documentary Feature",
+    open: showAllCritics,
+  },
+  {
+    name: "awards-doc-nyc-2025",
+    path: "/awards/doc-nyc/2025",
+    status: 200,
+    heading: "DOC NYC 2025",
+    ready: async (page) => {
+      await expect(page.getByRole("region", { name: "Short List: Features", exact: true })).toBeVisible();
+      await expect(page.getByRole("region", { name: "Winner's Circle", exact: true })).toBeVisible();
+    },
+  },
+  {
+    name: "grid-2024-documentary-open",
+    path: "/grid/2024?category=documentary&critics=open",
+    status: 200,
+    heading: "2024 year grid",
+    ready: async (page) => {
+      await expect(page.getByRole("table").getByRole("columnheader", { name: "Cinema Eye", exact: true })).toBeVisible();
+      await showDocNycColumn(page);
     },
   },
 ];
