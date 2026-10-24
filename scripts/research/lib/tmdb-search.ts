@@ -77,15 +77,34 @@ export async function findOnTmdb(tmdb: TmdbOptions, query: FilmQuery): Promise<T
   }));
   const hit = choose(query, candidates);
   if (!hit.ok) return hit;
-  const d = details.get(hit.id) as Details;
+  return found(details.get(hit.id) as Details, hit.why, query.title);
+}
+
+function found(d: Details, why: string, fallbackTitle: string): TmdbFound & { ok: true } {
   const language = languageOf(d.original_language);
   const original = d.original_title && d.original_title !== d.title ? d.original_title : undefined;
-  const facts: Facts = { title: d.title ?? query.title, countries: codes(d) };
+  const facts: Facts = { title: d.title ?? fallbackTitle, countries: codes(d) };
   if (original && language && language !== "en") {
     facts.originalTitle = original;
     facts.originalLang = bcp47(language);
   }
   if (language) facts.language = language;
   facts.tmdb = d.id;
-  return { ok: true, imdb: d.imdb_id as string, tmdb: d.id, why: hit.why, facts, short: typeof d.runtime === "number" && d.runtime > 0 && d.runtime < 40, released: d.release_date ? Number(d.release_date.slice(0, 4)) : undefined };
+  return { ok: true, imdb: d.imdb_id as string, tmdb: d.id, why, facts, short: typeof d.runtime === "number" && d.runtime > 0 && d.runtime < 40, released: d.release_date ? Number(d.release_date.slice(0, 4)) : undefined };
+}
+
+/** A film named by its IMDb ID (an IMDb award list) with no Wikidata item: TMDB's record of that ID. */
+export async function findOnTmdbByImdb(tmdb: TmdbOptions, imdb: string, fallbackTitle: string): Promise<TmdbFound> {
+  const headers = { Authorization: `Bearer ${tmdb.token}` };
+  const hit = await tmdb.fetcher.getJson<{ movie_results?: Array<{ id: number }> }>(
+    `https://api.themoviedb.org/3/find/${imdb}?external_source=imdb_id`,
+    { headers, label: `tmdb-find-${imdb}` },
+  );
+  const id = hit.movie_results?.[0]?.id;
+  if (id === undefined) return { ok: false, reason: `TMDB has no film with IMDb ID ${imdb}` };
+  const d = await tmdb.fetcher.getJson<Details>(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`, {
+    headers,
+    label: `tmdb-movie-credits-${id}`,
+  });
+  return found({ ...d, imdb_id: imdb }, `TMDB ${id} by IMDb ID`, fallbackTitle);
 }

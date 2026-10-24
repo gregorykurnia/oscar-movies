@@ -112,11 +112,15 @@ describe("the awards", () => {
     expect(ordinal(112)).toBe("112th");
   });
   it("only use categories the registry has", () => {
-    // data/awards.json is the registry: every category here must be one of its slugs.
+    // data/awards.json is the registry: every category here must be one of its slugs, and every
+    // registry category is read here unless IMDb fills it (`sources/imdb.json`, Cinema Eye's newer ones).
     const registry = JSON.parse(readFileSync("data/awards.json", "utf8")) as Array<{ slug: string; categories: Array<{ slug: string }> }>;
+    const imdb = JSON.parse(readFileSync("scripts/research/sources/imdb.json", "utf8")) as { events: Record<string, string[]> };
     for (const a of AWARDS) {
       const known = registry.find((r) => r.slug === a.slug)?.categories.map((c) => c.slug) ?? [];
-      expect(Object.keys(a.categories).sort(), a.slug).toEqual([...known].sort());
+      const read = Object.keys(a.categories).sort();
+      if (imdb.events[a.slug]) expect(known, a.slug).toEqual(expect.arrayContaining(read));
+      else expect(read, a.slug).toEqual([...known].sort());
     }
   });
 });

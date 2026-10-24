@@ -68,6 +68,36 @@
         "name": "Outstanding Achievement in Nonfiction Feature Filmmaking",
         "oscarCategory": "documentary",
         "sortOrder": 1
+      },
+      {
+        "slug": "direction",
+        "name": "Outstanding Achievement in Direction",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A director prize, read as a vote for the film",
+        "sortOrder": 2
+      },
+      {
+        "slug": "production",
+        "name": "Outstanding Achievement in Production",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A producing prize, read as a vote for the film",
+        "sortOrder": 3
+      },
+      {
+        "slug": "audience",
+        "name": "Audience Choice Prize",
+        "oscarCategory": "documentary",
+        "sortOrder": 4
+      },
+      {
+        "slug": "unforgettables",
+        "name": "The Unforgettables",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "Honours a film's subjects, read as a vote for the film",
+        "sortOrder": 5
       }
     ]
   },
@@ -520,6 +550,32 @@
         "name": "International People's Choice Award",
         "oscarCategory": "international",
         "sortOrder": 3
+      }
+    ]
+  },
+  {
+    "slug": "doc-nyc",
+    "name": "DOC NYC",
+    "shortName": "DOC NYC",
+    "kind": "festival",
+    "calendarOrder": 60,
+    "winnersOnly": false,
+    "isSelection": true,
+    "url": "https://www.docnyc.net",
+    "categories": [
+      {
+        "slug": "short-list",
+        "name": "Short List: Features",
+        "oscarCategory": "documentary",
+        "sortOrder": 1
+      },
+      {
+        "slug": "winners-circle",
+        "name": "Winner's Circle",
+        "oscarCategory": "documentary",
+        "loose": true,
+        "mappingNote": "A showcase of documentaries that already won a major festival prize; a place in it reads as a nomination",
+        "sortOrder": 2
       }
     ]
   },

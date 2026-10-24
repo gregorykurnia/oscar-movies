@@ -78,7 +78,7 @@ export async function resolveArticles(fetcher: Fetcher, articles: string[]): Pro
   return out;
 }
 
-function filmOf(article: string, page: string, entity: Entity): ResolvedFilm {
+export function filmOf(article: string, page: string, entity: Entity): ResolvedFilm {
   const imdb = firstString(entity, P.imdb);
   const tmdb = Number(firstString(entity, P.tmdbMovie));
   return {

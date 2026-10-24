@@ -31,6 +31,10 @@ export type GetOptions = {
 
 export type Fetcher = {
   getJson<T = unknown>(url: string, options?: GetOptions): Promise<T>;
+  /** A web page's HTML (a site with no API, such as DOC NYC's film pages), cached like JSON. */
+  getText(url: string, options?: GetOptions): Promise<string>;
+  /** A JSON POST (IMDb's GraphQL API, which refuses GET), cached by URL and body. */
+  postJson<T = unknown>(url: string, body: unknown, options?: GetOptions): Promise<T>;
   /** Network requests made so far (cache hits don't count). */
   readonly requests: number;
 };
@@ -56,16 +60,23 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   let lastRequestAt = 0;
   let requests = 0;
 
-  async function fromNetwork(url: string, headers: Record<string, string>): Promise<unknown> {
+  async function fromNetwork(url: string, headers: Record<string, string>, body?: string, text = false): Promise<unknown> {
     for (let attempt = 1; ; attempt++) {
       const wait = lastRequestAt + minIntervalMs - Date.now();
       if (wait > 0) await sleep(wait);
       lastRequestAt = Date.now();
       requests++;
       const response = await fetchImpl(url, {
-        headers: { "User-Agent": USER_AGENT, "Api-User-Agent": USER_AGENT, Accept: "application/json", ...headers },
+        headers: {
+          "User-Agent": USER_AGENT,
+          "Api-User-Agent": USER_AGENT,
+          Accept: "application/json",
+          ...(body === undefined ? {} : { "Content-Type": "application/json" }),
+          ...headers,
+        },
+        ...(body === undefined ? {} : { method: "POST", body }),
       });
-      if (response.ok) return response.json();
+      if (response.ok) return text ? { text: await response.text() } : response.json();
       const retryable = response.status === 429 || response.status >= 500;
       if (!retryable || attempt >= RETRIES) {
         throw new Error(`GET ${url} failed: ${response.status} ${response.statusText}`);
@@ -75,8 +86,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     }
   }
 
-  async function get(url: string, { headers = {}, label }: GetOptions): Promise<unknown> {
-    const file = cacheDir === null ? null : join(cacheDir, cacheFileName(url, label));
+  async function get(url: string, { headers = {}, label }: GetOptions, body?: string, text = false): Promise<unknown> {
+    const key = body !== undefined ? `${url}\u0000${body}` : text ? `text\u0000${url}` : url;
+    const file = cacheDir === null ? null : join(cacheDir, cacheFileName(key, label));
     if (file !== null && !refresh) {
       try {
         return JSON.parse(readFileSync(file, "utf8"));
@@ -84,19 +96,29 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
       }
     }
-    if (offline) throw new Error(`Offline and not cached: ${url}`);
-    const body = await fromNetwork(url, headers);
+    if (offline) throw new Error(`Offline and not cached: ${url}${body === undefined ? "" : ` (POST ${label ?? ""})`}`);
+    const json = await fromNetwork(url, headers, body, text);
     if (file !== null && cacheDir !== null) {
       mkdirSync(cacheDir, { recursive: true });
-      writeFileSync(file, JSON.stringify(body));
+      writeFileSync(file, JSON.stringify(json));
     }
-    return body;
+    return json;
   }
 
   return {
     // Chained on one promise, so requests never overlap even when callers don't await.
     getJson<T>(url: string, getOptions: GetOptions = {}) {
       const next = queue.then(() => get(url, getOptions));
+      queue = next.catch(() => undefined);
+      return next as Promise<T>;
+    },
+    getText(url: string, getOptions: GetOptions = {}) {
+      const next = queue.then(() => get(url, getOptions, undefined, true)).then((page) => (page as { text: string }).text);
+      queue = next.catch(() => undefined);
+      return next;
+    },
+    postJson<T>(url: string, body: unknown, getOptions: GetOptions = {}) {
+      const next = queue.then(() => get(url, getOptions, JSON.stringify(body)));
       queue = next.catch(() => undefined);
       return next as Promise<T>;
     },

@@ -36,9 +36,10 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Requirements**
 - **Oscars** (Academy Awards): the four categories, with their stages: **submitted** (International Feature only), **shortlisted** (Documentary, International, Animated; Animated uses the eligible list where there is no shortlist), **nominated**, **won**.
 - **Major awards (12):** Academy Awards, Actor Awards (formerly SAG), AFI Top 10, Annie Awards, BAFTA, Cinema Eye Honors, DGA, European Film Awards, Golden Globes, Independent Spirit Awards, PGA, Satellite Awards.
-- **Festivals (5), major prizes:** Cannes (Palme d'Or, Grand Prix, Jury Prize), Venice (Golden Lion, Grand Jury Prize), Berlin (Golden Bear, Silver Bear Grand Jury Prize), Sundance (Grand Jury and Audience awards: US and World Cinema, Dramatic and Documentary), Toronto (People's Choice: Film, Documentary, International, and runners-up).
+- **Festivals (6), major prizes:** Cannes (Palme d'Or, Grand Prix, Jury Prize), Venice (Golden Lion, Grand Jury Prize), Berlin (Golden Bear, Silver Bear Grand Jury Prize), Sundance (Grand Jury and Audience awards: US and World Cinema, Dramatic and Documentary), Toronto (People's Choice: Film, Documentary, International, and runners-up), DOC NYC (Short List: Features from 2012 and Winner's Circle from 2019, both selections like AFI's; no lineup).
 - **Critics groups (63, "minor"):** African American, Alliance of Women, Atlanta, Austin, Black, Boston Online, Boston Society, British Independent, Central Florida, Chicago FCA, Chicago IC, Cinema for Peace, Columbus, Critics Choice (including the Critics Choice Documentary Awards, with their Director and Political categories), Dallas Fort Worth, Florida, Georgia, Gotham, Greater Western New York, Hawaii, Hollywood, Houston, Indiana, International Cinephile Society, International Documentary Association (including its Director category), Iowa, Kansas City, Las Vegas, Latino Entertainment, London, Los Angeles, Michigan, Minnesota, Music City, National Society, NBR, New Jersey, New York Circle, New York Online, North Carolina, North Dakota, North Texas, Oklahoma, Online FCS, Online Female, Online FTV, Peabody, Philadelphia, Phoenix CC, Phoenix FCS, Pittsburgh, Portland, Puerto Rico, San Diego, San Francisco Bay Area, Seattle, Society of LGBTQ, Southeastern, St. Louis, Toronto, Utah, Vancouver, Washington DC.
 - Each award's own categories are **mapped to one of the four Oscar categories** (e.g. BAFTA "Film Not in the English Language" → International; both Golden Globe best-film categories → Picture; Actor Awards "Outstanding Cast" → Picture; Critics Choice "Best Political Documentary" → Documentary). An award only appears in the categories it actually gives. A category can map to an Oscar category more loosely (a director prize, a cast prize); the mapping is visible on the award page.
+- **Cinema Eye Honors** counts its Nonfiction Feature, Direction, Production, Audience Choice and Unforgettables categories, all mapped to Documentary.
 - **AFI Top 10** is a selection, not a prize: being on the list counts as a nomination, and it has no winner.
 - A year an award didn't run, or whose results couldn't be found, is shown as **"no data"**, never as "no winner", and is left out of its accuracy figures.
 
@@ -277,6 +278,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: Watched is just watched or not.
 - 2026-10-22: Plan approved as v1.0.
 - 2026-10-22: Every movie shows its country flag, not only International entries.
+- 2026-10-24: Gaps in critics groups (and Cinema Eye 2012–2020) are filled from IMDb's award records (credited on the sources page); Wikipedia stays where it has data. DOC NYC (Short List, Winner's Circle) and four more Cinema Eye categories added. DC Dox Fest left out.
 
 ## 10. Open questions
 

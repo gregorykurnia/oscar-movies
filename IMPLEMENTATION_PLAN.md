@@ -88,6 +88,7 @@ Every file has a Zod schema in `src/lib/data-files.ts`; `npm run data:check` val
 - One script per award (`scripts/research/<award>.ts [--years 2012-2026]`) writes `data/editions/<award>/<year>.json`. **Films are matched by IMDb ID, never by title.** An unresolved film is written with its Wikipedia title and `unresolved: true`; `data:check` lists them, and the task resolves them (by a Wikidata search by title plus year plus director) or records them.
 - Editions with no findable source are written with `status: no_data`; partial ones `partial` with a `note`. Never invent a result.
 - Sources that aren't Wikipedia (small critics groups) are read from the group's own pages; the URL goes in `source_urls`.
+- IMDb's award records fill what Wikipedia lacks (Phase 6, owner's decision of 2026-10-24); its API, the season rule and the merge rules are in `docs/imdb-import.md`.
 
 ### 3.5 Loader (`npm run load -- --target test|production [--dry-run] [--only <award>]`)
 1. Check `app_meta` against the target (§2). On `production`: export the marks to `data/marks.json` first and stop if that fails.
@@ -272,6 +273,19 @@ Every phase ends with its end-to-end task, a screenshot task, and its review row
 - [x] 5.R Phase 5 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10) · Opus 5.5 High: new page kind and about 1,000 new films Done 2026-10-23: 25 items, 20 fixed (two in part), 5 dropped (`docs/review-triage.md`); 15 lineup films re-filed under their IMDb ID and one duplicate merged, on `test`
 - *Owner:* approve the production load; sign off; release
 - **Done when:** Cannes 2025's page lists every section's films with flags and scores.
+
+### Phase 6: Missing precursors (IMDb, DOC NYC)
+Owner's request of 2026-10-24 (product plan §9). Findings, rules and IDs: `docs/imdb-import.md`, read first. Already done (2026-10-24): registry (Cinema Eye's five categories, `doc-nyc`), `scripts/research/lib/imdb.ts`, the fetcher's `postJson` and `getText`, `findOnTmdbByImdb`, `researchImdbFilms`, `scripts/research/sources/imdb.json`. Production is untouched until the owner's line below.
+- [ ] 6.1 IMDb importer `scripts/research/imdb.ts` (`--award`, `--years`, `--survey` to print each award's labels, `--offline`) on `lib/imdb.ts`, with the merge rules of `docs/imdb-import.md` §3 and each award's label → category map in `sources/imdb.json` (from `--survey`); unit tests in `scripts/research/imdb.test.ts` (fetcher `postJson`/`getText` cache keys, `editionSeasons`, `chooseTitle`, `samePerson`, label mapping, merge). Done when: tests pass, `--award atlanta-critics,cinema-eye` writes editions that pass `data:check`, and IMDb's agreement with five Wikipedia-loaded groups is in the commit body · Opus 5.5 Medium: first import of a kind; a wrong season or film match skews every figure silently
+- [ ] 6.2 IMDb imports, first half: Cinema Eye, IDA and the critics groups from African American to Las Vegas (product plan §3.1 order), 2012–2026; settle the script's problem list (map fixes, `leaveOut` with reasons); load on `test`. Done when: `data:check` passes, a second load plans nothing, `race:check` clean, editions filled per group in the commit body · Sonnet 5.5 High: runs the 6.1 tool, same pattern as 4.2–4.9
+- [ ] 6.3 IMDb imports, second half: Latino Entertainment to Washington DC, as 6.2; then `npm run compute -- --target test`. Done when: as 6.2 · Sonnet 5.5 High: as 6.2
+- [ ] 6.4 DOC NYC import `scripts/research/docnyc.ts`: Short List: Features 2012–2026 and Winner's Circle 2019–2026 from docnyc.net (`docs/imdb-import.md` §5), films matched on IMDb by title and director; unit tests for the page reader and year fixes; load on `test`. Done when: 15 Short List films a year from 2014 (10 before), every film matched or left out with a reason, `data:check` passes · Sonnet 5.5 High: small source, matching helpers exist
+- [ ] 6.5 Pages: the festivals index opens a lineup only for the five lineup festivals (DOC NYC opens its award page; `/festivals/doc-nyc/<year>` is a 404); the sources section (`src/components/data-page/Sources.tsx`) credits IMDb and DOC NYC; recompute on `test`. Done when: unit tests for the link rule pass and `/festivals/2025`'s DOC NYC row opens `/awards/doc-nyc/2025` · Sonnet 5.5 High: small changes to existing pages
+- [ ] 6.6 End-to-end test of the Done-when scenario (`tests/e2e/phase-6.spec.ts`), reads only, expected rows from the database · Sonnet 5.5 High: flows across pages
+- [ ] 6.7 Screenshots: `/accuracy/documentary` with critics shown, `/awards/doc-nyc/2025`, the 2024 grid's Documentary tab with critics open; capture at 390 and 1280; `OUT_DIR` `screenshots/phase-6` · Haiku 5.5 Max: extending the script
+- [ ] 6.R Phase 6 review: end-of-phase review and its fixes (`docs/build-plan.md` Step 10), plus a spot-check of ten IMDb-filled editions against the groups' own sites or press · Opus 5.5 High: a new source; the review checks data honesty
+- *Owner:* approve the production load (dry run shown first); spot-check two groups; release
+- **Done when:** `/accuracy/documentary` lists Cinema Eye's five categories, DOC NYC's two lists and every critics group IMDb covers (New Jersey and Puerto Rico stay "no data"), and their films show in the Documentary grid.
 
 ## 7. Who builds it, and how
 
