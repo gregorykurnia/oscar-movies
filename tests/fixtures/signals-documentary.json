@@ -1,0 +1,79 @@
+{
+  "_note": "Strong signals (task 7.5), made-up awards and films for Oscar Documentary 2025, today 2026-01-10. The expected views were worked out by hand from the rule in the plan's Phase 7 notes; see _workings.",
+  "_workings": [
+    "Strong = years >= 5 and (caught >= 50% or Winner -> Oscar nomination >= 80%).",
+    "critics-choice: caught 20/50 = 40%, nomination 13/15 = 86.7%, 14 years -> winner only. Its edition has a tie for winner (Night Harbour, Paper Lanterns): both listed, Salt Roads (nominated) is not.",
+    "cinema-eye: caught 16/30 = 53.3%, nomination 12/14 = 85.7%, 14 years -> both. Lists its winner and its nominees.",
+    "dga: caught 30/50 = 60% but 4 years -> under the floor, not strong.",
+    "ida: caught 10/20 = exactly 50%, nomination 7/10 = 70%, exactly 5 years -> caught only. Dust Season (submitted) is not listed.",
+    "bafta: caught 45/70 = 64.3%, nomination 11/14 = 78.6% -> caught only. Edition not out yet: no results, so its next date is the nominations (27 Jan).",
+    "pga: caught 2/5 = 40%, nomination 4/5 = exactly 80%, 5 years -> winner only. Nominees are out but no winner yet, so nothing to list; next date is the winner (28 Feb).",
+    "gotham: caught 3/5 = 60%, 5 years -> caught only; no edition this year, so no date.",
+    "sundance: winners only (no caught figure), nomination 2/10 -> not strong. nbr: caught 41.7%, nomination 77.8% -> not strong.",
+    "By award: announced by their higher strong figure: critics-choice 86.7%, cinema-eye 85.7%, ida 50%. Then pending by date: bafta 2026-01-27, pga 2026-02-28, gotham (none).",
+    "By film: Night Harbour 2 picks, 2 wins (critics-choice winner figure, cinema-eye winner figure); Salt Roads 2 picks, 1 win (ida won -> caught figure since ida is caught only; cinema-eye nominated -> caught); Paper Lanterns 1 pick, 1 win; Iron Bloom and The Quiet Archive 1 pick, 0 wins, by title."
+  ],
+  "today": "2026-01-10",
+  "films": [
+    { "id": 1, "title": "Night Harbour" },
+    { "id": 2, "title": "Salt Roads" },
+    { "id": 3, "title": "The Quiet Archive" },
+    { "id": 4, "title": "Paper Lanterns" },
+    { "id": 5, "title": "Iron Bloom" },
+    { "id": 6, "title": "Dust Season" }
+  ],
+  "oscar": { "1": "nominated", "2": "won", "3": "shortlisted", "4": "nominated" },
+  "rows": [
+    { "key": "bafta/documentary", "award": "BAFTA", "kind": "major", "note": "Documentary", "win": { "hits": 6, "count": 14 }, "nomination": { "hits": 11, "count": 14 }, "nominees": { "hits": 40, "count": 70 }, "caught": { "hits": 45, "count": 70 }, "years": 14 },
+    { "key": "critics-choice/documentary", "award": "Critics Choice", "kind": "major", "note": "Best Documentary Feature", "win": { "hits": 7, "count": 15 }, "nomination": { "hits": 13, "count": 15 }, "nominees": { "hits": 20, "count": 60 }, "caught": { "hits": 20, "count": 50 }, "years": 14 },
+    { "key": "dga/documentary", "award": "DGA", "kind": "major", "note": "Documentary", "win": { "hits": 2, "count": 4 }, "nomination": { "hits": 3, "count": 4 }, "nominees": { "hits": 12, "count": 20 }, "caught": { "hits": 30, "count": 50 }, "years": 4 },
+    { "key": "pga/documentary", "award": "PGA", "kind": "major", "note": "Documentary", "win": { "hits": 1, "count": 5 }, "nomination": { "hits": 4, "count": 5 }, "nominees": { "hits": 2, "count": 25 }, "caught": { "hits": 2, "count": 5 }, "years": 5 },
+    { "key": "cinema-eye/feature", "award": "Cinema Eye", "kind": "critics", "note": "Outstanding Nonfiction Feature", "win": { "hits": 3, "count": 14 }, "nomination": { "hits": 12, "count": 14 }, "nominees": { "hits": 16, "count": 33 }, "caught": { "hits": 16, "count": 30 }, "years": 14 },
+    { "key": "ida/feature", "award": "IDA", "kind": "critics", "note": "Best Feature", "win": { "hits": 2, "count": 10 }, "nomination": { "hits": 7, "count": 10 }, "nominees": { "hits": 10, "count": 40 }, "caught": { "hits": 10, "count": 20 }, "years": 5 },
+    { "key": "gotham/documentary", "award": "Gotham", "kind": "critics", "note": "Best Documentary Feature", "win": { "hits": 1, "count": 5 }, "nomination": { "hits": 3, "count": 5 }, "nominees": { "hits": 3, "count": 25 }, "caught": { "hits": 3, "count": 5 }, "years": 5 },
+    { "key": "nbr/documentary", "award": "NBR", "kind": "critics", "note": "Best Documentary", "win": { "hits": 2, "count": 9 }, "nomination": { "hits": 7, "count": 9 }, "nominees": null, "caught": { "hits": 5, "count": 12 }, "years": 9 },
+    { "key": "sundance/grand-jury", "award": "Sundance", "kind": "festival", "note": "Grand Jury Prize · winners only", "win": { "hits": 0, "count": 10 }, "nomination": { "hits": 2, "count": 10 }, "nominees": null, "caught": null, "years": 10 }
+  ],
+  "editions": {
+    "bafta/documentary": { "status": "loaded", "nominationsOn": "2026-01-27", "winnersOn": "2026-02-22", "results": [] },
+    "critics-choice/documentary": { "status": "loaded", "nominationsOn": "2025-12-05", "winnersOn": "2026-01-04", "results": [
+      { "movieId": 1, "outcome": "won" }, { "movieId": 4, "outcome": "won" }, { "movieId": 2, "outcome": "nominated" }
+    ] },
+    "dga/documentary": { "status": "loaded", "nominationsOn": "2026-01-07", "winnersOn": "2026-02-07", "results": [
+      { "movieId": 3, "outcome": "nominated" }
+    ] },
+    "pga/documentary": { "status": "loaded", "nominationsOn": "2026-01-08", "winnersOn": "2026-02-28", "results": [
+      { "movieId": 2, "outcome": "nominated" }, { "movieId": 3, "outcome": "nominated" }
+    ] },
+    "cinema-eye/feature": { "status": "loaded", "nominationsOn": "2025-11-06", "winnersOn": "2026-01-08", "results": [
+      { "movieId": 3, "outcome": "nominated" }, { "movieId": 1, "outcome": "won" }, { "movieId": 2, "outcome": "nominated" }
+    ] },
+    "ida/feature": { "status": "loaded", "nominationsOn": "2025-11-01", "winnersOn": "2025-12-07", "results": [
+      { "movieId": 2, "outcome": "won" }, { "movieId": 5, "outcome": "nominated" }, { "movieId": 6, "outcome": "submitted" }
+    ] },
+    "nbr/documentary": { "status": "loaded", "nominationsOn": null, "winnersOn": "2025-12-03", "results": [
+      { "movieId": 4, "outcome": "won" }
+    ] },
+    "sundance/grand-jury": { "status": "loaded", "nominationsOn": null, "winnersOn": "2025-02-01", "results": [
+      { "movieId": 5, "outcome": "won" }
+    ] }
+  },
+  "expected": {
+    "byAward": [
+      { "key": "critics-choice/documentary", "kinds": ["winner 13/15"], "films": ["Night Harbour won (oscar nominated)", "Paper Lanterns won (oscar nominated)"], "next": null },
+      { "key": "cinema-eye/feature", "kinds": ["caught 16/30", "winner 12/14"], "films": ["Night Harbour won (oscar nominated)", "Salt Roads nominated (oscar won)", "The Quiet Archive nominated (oscar shortlisted)"], "next": null },
+      { "key": "ida/feature", "kinds": ["caught 10/20"], "films": ["Salt Roads won (oscar won)", "Iron Bloom nominated (oscar none)"], "next": null },
+      { "key": "bafta/documentary", "kinds": ["caught 45/70"], "films": null, "next": "nominations 2026-01-27" },
+      { "key": "pga/documentary", "kinds": ["winner 4/5"], "films": null, "next": "winner 2026-02-28" },
+      { "key": "gotham/documentary", "kinds": ["caught 3/5"], "films": null, "next": null }
+    ],
+    "byFilm": [
+      { "film": "Night Harbour", "oscar": "nominated", "picks": ["critics-choice/documentary won winner 13/15", "cinema-eye/feature won winner 12/14"] },
+      { "film": "Salt Roads", "oscar": "won", "picks": ["ida/feature won caught 10/20", "cinema-eye/feature nominated caught 16/30"] },
+      { "film": "Paper Lanterns", "oscar": "nominated", "picks": ["critics-choice/documentary won winner 13/15"] },
+      { "film": "Iron Bloom", "oscar": null, "picks": ["ida/feature nominated caught 10/20"] },
+      { "film": "The Quiet Archive", "oscar": "shortlisted", "picks": ["cinema-eye/feature nominated caught 16/30"] }
+    ],
+    "pending": ["bafta/documentary", "pga/documentary", "gotham/documentary"]
+  }
+}
