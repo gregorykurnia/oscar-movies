@@ -129,7 +129,8 @@ test("the accuracy page's link opens the 2025 Documentary signals with a strong 
   await expect(page).toHaveURL(/\/signals\/2025\?category=documentary$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("2025 strong signals");
 
-  const feature = page.locator('[data-award="cinema-eye/feature"]');
+  // By role, not `[data-award]`: while 2025 streams in, the live year's sections stay in the DOM hidden.
+  const feature = section(page, "Cinema Eye · Outstanding");
   await expect(feature.locator('[data-figure="caught"]')).toHaveText(/^Caught \d+% of Oscar nominees · \d+ of \d+ over \d+ years$/);
   await expect(feature.locator('[data-figure="winner"]')).toHaveText(/^Its winner was Oscar-nominated \d+% of years · \d+ of \d+$/);
   await expect(feature.locator("[data-winner]")).toHaveCount(1);
