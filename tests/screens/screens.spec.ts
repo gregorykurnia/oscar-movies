@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phases 0 to 6 keep theirs. The Phase 7 review runs the
-// whole list into this one, so until then it holds only the pages task 7.14 added (`--grep` them).
-const OUT_DIR = "screenshots/phase-7";
+// Each phase's review judges its own folder. Phases 0 to 7 keep theirs. The Phase 8 review runs the
+// whole list into this one, so until then it holds only the pages task 8.9 added (`--grep` them).
+const OUT_DIR = "screenshots/phase-8";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -500,6 +500,59 @@ const ROUTES: Route[] = [
     heading: "The Secret Agent",
     ready: async (page) => {
       await expect(page.getByText("Brazil, France, Germany")).toBeVisible();
+    },
+  },
+  // Phase 8 (task 8.9). The 2024 patterns page in Documentary and in International: the five next to the nominees,
+  // the misses with their reasons, the backtest. The live year's page before the shortlist (Documentary, the default).
+  // The Documentary shortlist on the Oscars page with its flags, and a flagged film's page with its panel. No "Why
+  // they missed" row opens (each shows its reasons already), so no route expands one.
+  {
+    name: "patterns-2024-documentary",
+    path: "/patterns/2024",
+    status: 200,
+    heading: "2024 nomination patterns",
+    ready: async (page) => {
+      await expect(page.locator("#missed").getByRole("heading", { level: 2 })).toHaveText("Why they missed");
+    },
+  },
+  {
+    name: "patterns-2024-international",
+    path: "/patterns/2024?category=international",
+    status: 200,
+    heading: "2024 nomination patterns",
+    ready: async (page) => {
+      await expect(page.getByRole("link", { name: "International" })).toHaveAttribute("aria-current", "page");
+      await expect(page.locator("#missed").getByRole("heading", { level: 2 })).toHaveText("Why they missed");
+    },
+  },
+  {
+    name: "patterns-live",
+    path: "/patterns/2026",
+    status: 200,
+    heading: "2026 nomination patterns",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { level: 2, name: "The contenders so far" })).toBeVisible();
+    },
+  },
+  {
+    name: "oscars-2025-shortlist",
+    path: "/awards/oscars/2025",
+    status: 200,
+    heading: "Oscars 2025",
+    ready: async (page) => {
+      const documentary = page.getByRole("region", { name: "Best Documentary Feature" });
+      await expect(documentary.getByRole("heading", { level: 3, name: /^Shortlisted, not nominated \(\d+\)$/ })).toBeVisible();
+      await expect(documentary.locator("[data-snub-risk]").first()).toBeVisible();
+    },
+  },
+  {
+    name: "movie-undesirable-friends",
+    path: "/movies/my-undesirable-friends-part-i-last-air-in-moscow",
+    status: 200,
+    heading: "My Undesirable Friends: Part I — Last Air in Moscow",
+    ready: async (page) => {
+      const panel = page.getByRole("region", { name: "Nomination patterns" });
+      await expect(panel.getByText("Snub risk", { exact: false }).first()).toContainText(/flagged, and missed/i);
     },
   },
 ];
