@@ -77,6 +77,10 @@ The typical snub is a US film with many critics-group nominations and crowd wins
 
 This sign is part of the method (see "The snub rule" under the backtest).
 
+**A critics' sweep with no filmmakers' group:** shortlisted films nominated by two or more of the New York, Los Angeles and National Society critics got in 16 of 19 times with a DGA, Cinema Eye Best Feature or IDA Best Feature nomination, and 1 of 5 without (The Gatekeepers got in; This Is Not a Film, Shirkers, Procession and My Undesirable Friends missed).
+
+**Snub risk flag (Phase 8):** a film matching either sign above, judged each season from earlier seasons only. Over 2015–2025 it flagged 27 films and 7 got in (26%). As they stood for 2025: the busy sign 4 of 23, the critics' sweep 1 of 4. Flagged in 2024: Will & Harper, Daughters (both missed); in 2025: Cover-Up, 2000 Meters to Andriivka, My Undesirable Friends (missed) and The Alabama Solution (got in). A third sign, busy with no strong award, flagged no extra film and was left out.
+
 ### Underdogs: what lifts them
 Every year has 1–3 nominees from outside the busy five. Of the 137 less-nominated shortlisted films (23% get in):
 
