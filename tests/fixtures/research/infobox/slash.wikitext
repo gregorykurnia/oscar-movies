@@ -1,0 +1,22 @@
+{{Infobox film
+| name           = Alois Nebel
+| image          = Alois Nebel film poster.jpg
+| alt            = 
+| caption        = Theatrical release poster
+| director       = [[Tomáš Luňák]]
+| producer       = {{ubl|Pavel Strnad|Milan Kuchynka}}
+| screenplay     = {{ubl|[[Jaroslav Rudiš]]|Jaromír 99}}
+| based_on       = {{Based on|''White Brook'', ''Main Station'' and ''Golden Hills''|Jaroslav Rudiš and Jaromír 99}}
+| starring       = {{ubl|[[Miroslav Krobot]]|Marie Ludvíková|[[Karel Roden]]}}
+| music          = [[Petr Kružík]]
+| cinematography = Jan Baset Střítežský
+| editing        = Petr Říha
+| studio         = Negativ
+| distributor    = Aerofilms
+| released       = {{Film date|2011|9|4|[[68th Venice International Film Festival|Venice Film Festival]]|2011|9|29|df=y}}
+| runtime        = 84 minutes
+| country        = Czech Republic / Germany
+| language       = Czech
+| budget         = €2.5 million<ref name="screen2009" />
+| gross          = $664,185<ref>{{cite web|url=https://www.boxofficemojo.com/title/tt1374985/?ref_=bo_se_r_1|title=Alois Nebel|website=Box Office Mojo|access-date=14 September 2020}}</ref>
+}}

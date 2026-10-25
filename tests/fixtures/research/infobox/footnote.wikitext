@@ -1,0 +1,19 @@
+{{Infobox film
+| name           = Chico and Rita
+| image          = Chico Rita.jpg
+| caption        = British theatrical release poster
+| director       = [[Fernando Trueba]]<br />[[Javier Mariscal]]<br />Tono Errando
+| writer         = Fernando Trueba<br>Ignacio Martínez de Pisón
+| music          = [[Bebo Valdés]]
+| editing        = Arnau Quiles
+| producer       = Santi Errando<br>Cristina Huete<br />Michael Rose<br />[[Martin Pope (film producer)|Martin Pope]]
+| studio         = Fernando Trueba PC<br>Estudio Mariscal<br />[[Magic Light Pictures]]
+| starring       = Limara Meneses <br> Eman Xor Oña <br> Mario Guerra <br> Jon Adams <br> Renny Arozarena
+| distributor    = [[Walt Disney Studios Motion Pictures|Buena Vista International]] (Spain)<br>CinemaNX (United Kingdom)<br>Rézo Films (France)
+| released       = {{Film date|df =y|2010|11|19|United Kingdom|2011|2|25|Spain}}
+| runtime        = 94 minutes
+| budget         = €10&nbsp;million<ref name="varietybud" />
+| gross          = $2.2 million<ref>{{cite web | url=https://www.boxofficemojo.com/movies/?id=chicoandrita.htm | title=Chico & Rita (2012) | website=Box Office Mojo | publisher=Internet Movie Database | accessdate=March 21, 2016 | archive-date=23 September 2024 | archive-url=https://web.archive.org/web/20240923032103/https://www.boxofficemojo.com/release/rl1665893889/ | url-status=live }}</ref>
+| country        = Spain<ref name="iomguide" /><ref name="BBC">{{cite news|title=Animation Chico and Rita wins European film award|work=BBC News|date=6 December 2011|url=https://www.bbc.com/news/world-europe-isle-of-man-16050743|accessdate=8 May 2015}}</ref><br>[[Isle of Man]]<ref name="iomguide">{{cite web|title=Chico and Rita wins 2011 European Film Award, earns Best Animated Feature Nomination at Annies 2012|url=http://www.iomguide.com/news/general-news.php?story=108053|website=Isle of Man Guide|accessdate=8 May 2015}}</ref><ref name="BBC" /><ref>{{cite web|title=Chico and Rita (Animated Feature)|url=http://www.gov.im/ded/iomfilm/PastProductions/2009/chicoandrita.xml|website=Isle of Man Film|publisher=Isle of Man Government|accessdate=8 May 2015|archive-date=18 May 2015|archive-url=https://web.archive.org/web/20150518072434/http://www.gov.im/ded/iomfilm/PastProductions/2009/chicoandrita.xml|url-status=dead}}</ref><br />[[Hungary]]<ref name="iomguide" /><ref name="BBC" /><br />[[Philippines]]<ref name="iomguide" /><ref name="BBC" />
+| language       = Spanish<br />English<br />French
+}}

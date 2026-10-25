@@ -136,9 +136,88 @@ const CODES: Record<string, string> = {
   Yemen: "YE",
 };
 
+// Other names a Wikipedia infobox gives a country (task 7.2): short forms, the UK's nations, and
+// countries that produce films but never submit one.
+const ALIASES: Record<string, string> = {
+  "United States": "US",
+  "United States of America": "US",
+  "U.S.": "US",
+  US: "US",
+  USA: "US",
+  "U.K.": "GB",
+  UK: "GB",
+  "Great Britain": "GB",
+  England: "GB",
+  Scotland: "GB",
+  Wales: "GB",
+  "Northern Ireland": "GB",
+  Czechia: "CZ",
+  "Republic of Ireland": "IE",
+  "Mainland China": "CN",
+  "People's Republic of China": "CN",
+  "Korea": "KR",
+  "Republic of Korea": "KR",
+  "Republic of Macedonia": "MK",
+  Türkiye: "TR",
+  "Côte d'Ivoire": "CI",
+  Burma: "MM",
+  Myanmar: "MM",
+  "State of Palestine": "PS",
+  "Palestinian territories": "PS",
+  "Russian Federation": "RU",
+  "Republic of China": "TW",
+  "Hong Kong SAR": "HK",
+  Macau: "MO",
+  Macao: "MO",
+  Bahamas: "BS",
+  Bahrain: "BH",
+  Barbados: "BB",
+  Benin: "BJ",
+  Botswana: "BW",
+  "Central African Republic": "CF",
+  Eswatini: "SZ",
+  "South Sudan": "SS",
+  Brunei: "BN",
+  Burundi: "BI",
+  "Cape Verde": "CV",
+  "Republic of the Congo": "CG",
+  Djibouti: "DJ",
+  Eritrea: "ER",
+  Fiji: "FJ",
+  Gabon: "GA",
+  Gambia: "GM",
+  Guinea: "GN",
+  "Guinea-Bissau": "GW",
+  Jamaica: "JM",
+  Kuwait: "KW",
+  Liberia: "LR",
+  Libya: "LY",
+  Liechtenstein: "LI",
+  Maldives: "MV",
+  Mali: "ML",
+  Mauritius: "MU",
+  Monaco: "MC",
+  Nicaragua: "NI",
+  "North Korea": "KP",
+  Oman: "OM",
+  Qatar: "QA",
+  "San Marino": "SM",
+  "Sierra Leone": "SL",
+  "Trinidad and Tobago": "TT",
+  "United Arab Emirates": "AE",
+  Zambia: "ZM",
+  Zimbabwe: "ZW",
+};
+
+/** The ISO code of a country name, or undefined for a name the tables don't know. */
+export function findCountryCode(name: string): string | undefined {
+  const key = name.trim();
+  return CODES[key] ?? ALIASES[key];
+}
+
 /** The ISO code of a submitting country as a list names it; throws on a name it doesn't know. */
 export function countryCode(name: string): string {
-  const code = CODES[name.trim()];
+  const code = findCountryCode(name);
   if (!code) throw new Error(`Unknown submitting country "${name}": add it to scripts/research/lib/countries.ts.`);
   return code;
 }

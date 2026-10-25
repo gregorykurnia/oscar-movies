@@ -1,0 +1,6 @@
+{{Infobox film
+| name = Hand-made sample (no real article uses a flag template in its country line)
+| director = Someone
+| country = {{flagicon|France}} {{flag|France}}<br />{{flag|Belgium}}<!-- co-production -->
+| language = French
+}}

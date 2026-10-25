@@ -1,0 +1,53 @@
+{{Infobox film
+| name           = Les Misérables
+| image          = Les-miserables-movie-poster1.jpg
+| alt            =
+| caption        = Theatrical release poster
+| director       = [[Tom Hooper]]
+| producer       = {{plainlist|
+* [[Tim Bevan]]
+* [[Eric Fellner]]
+* [[Debra Hayward]]
+* [[Cameron Mackintosh]]
+}}
+| screenplay     = {{plainlist|
+* [[William Nicholson (writer)|William Nicholson]]
+* [[Alain Boublil]]
+* [[Claude-Michel Schönberg]]
+* [[Herbert Kretzmer]]
+}}
+| based_on       = {{Plainlist|
+* {{Based on|''[[Les Misérables (musical)|Les Misérables]]''|Claude-Michel Schönberg|Alain Boublil|Jean-Marc Natel}}
+* {{Based on|''[[Les Misérables]]''|[[Victor Hugo]]}}
+}}
+| starring       = {{plainlist|
+* [[Hugh Jackman]]
+* [[Russell Crowe]]
+* [[Anne Hathaway]]
+* [[Amanda Seyfried]]
+* [[Eddie Redmayne]]
+* [[Helena Bonham Carter]]
+* [[Sacha Baron Cohen]]
+}}
+| music          = Claude-Michel Schönberg
+| cinematography = [[Danny Cohen (cinematographer)|Danny Cohen]]
+| editing        = {{plainlist|
+* [[Melanie Oliver]]
+* [[Chris Dickens]]
+}}
+| studio         = {{plainlist|
+* [[Relativity Media]]<ref name="Notes">{{Cite web |title=Production Notes |url=http://www.universalpicturesawards.com/assets/lesmis/pdf/LESMISProductionNotes.pdf |access-date=10 January 2013 |publisher=Universal Pictures |archive-date=15 October 2013 |archive-url=https://web.archive.org/web/20131015071611/http://www.universalpicturesawards.com/assets/lesmis/pdf/LESMISProductionNotes.pdf |url-status=dead }}</ref>
+* [[Working Title Films]]<ref name="Notes" />
+* Camack International<ref>{{Cite web |title=''Les Misérables'' |url=http://catalog.afi.com/Film/69101-LES-MISRABLES?sid=e480438b-2742-440b-a13a-2213ed90daf0&sr=8.319737&cp=2&pos=1 |website=[[AFI Catalog of Feature Films]]}}</ref>
+}}
+| distributor    = [[Universal Pictures]]<ref name="Notes" />
+| released       = {{Film date|df=yes|2012|12|5|[[Odeon Luxe Leicester Square]]|ref1=<ref name="premiere">{{Cite news |date=6 December 2012 |title=Les Miserables film gets world premiere in London |url=https://www.telegraph.co.uk/culture/film/film-news/9726703/Les-Miserables-film-gets-world-premiere-in-London.html |archive-url=https://web.archive.org/web/20121206175308/http://www.telegraph.co.uk/culture/film/film-news/9726703/Les-Miserables-film-gets-world-premiere-in-London.html |archive-date=6 December 2012 |access-date=7 December 2012 |work=[[The Daily Telegraph|The Telegraph]]}}</ref>|2012|12|25|United States|2013|1|11|United Kingdom}}<!-- FIRST AND COUNTRY OF ORIGIN RELEASES ONLY WP:FILMRELEASE -->
+| runtime        = 157 minutes<!--Theatrical runtime: 157:49--><ref>{{Cite web |date=28 November 2012 |title=Les Miserables |url=https://www.bbfc.co.uk/releases/les-miserables-2012 |archive-url=https://archive.today/20130419194558/http://www.bbfc.co.uk/releases/les-miserables-2012 |url-status=dead |archive-date=19 April 2013 |access-date=29 December 2012 |publisher=[[British Board of Film Classification]]}}</ref><ref name="BFI">{{Cite web |title=Les Miserables (2012) |url=http://www.bfi.org.uk/films-tv-people/50c30d28e480c |url-status=dead |archive-url=https://web.archive.org/web/20160506074445/http://www.bfi.org.uk/films-tv-people/50c30d28e480c |archive-date=6 May 2016 |access-date=8 April 2016 |publisher=[[British Film Institute]]}}</ref>
+| country        = {{plainlist|
+* United Kingdom<ref>{{Cite news |last=Bradshaw |first=Peter |date=10 January 2013 |title=''Les Miserables'' |url=https://www.theguardian.com/film/2013/jan/10/miserables-review |access-date=14 January 2013 |work=[[The Guardian]] |location=London}}</ref><ref>{{Cite web |title=Les Miserables |url=http://www.odeon.co.uk/fanatic/film_info/m14202/Les_Miserables |access-date=14 January 2013 |publisher=Odeon}}</ref>
+* United States<ref name="BFI">{{Cite web |title=Les Miserables (2012) |url=http://www.bfi.org.uk/films-tv-people/50c30d28e480c |url-status=dead |archive-url=https://web.archive.org/web/20160506074445/http://www.bfi.org.uk/films-tv-people/50c30d28e480c |archive-date=6 May 2016 |access-date=8 April 2016 |publisher=[[British Film Institute]]}}</ref>
+}}
+| language       = English
+| budget         = $61{{nbsp}}million<ref name="BOM" />
+| gross          = $442.8{{nbsp}}million<ref name="BOM" /><!-- Please do not change this total unless it says so on Box Office Mojo! Furthermore, if you update the numbers, please update every parameter in the citation, including the access date. -->
+}}

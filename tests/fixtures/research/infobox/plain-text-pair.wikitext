@@ -1,0 +1,5 @@
+{{Infobox film
+| director = Radu Ciorniciuc
+| released = {{Film date|2020}}
+| country = Romania, Germany, Finland
+}}
