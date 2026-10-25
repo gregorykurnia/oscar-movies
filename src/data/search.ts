@@ -67,6 +67,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
   const summary = oscarSummary(db);
   const rows = await db
     .select({
+      id: movies.id,
       slug: movies.slug,
       title: movies.title,
       originalTitle: movies.originalTitle,
@@ -90,6 +91,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
     )
     .limit(MAX_FILMS);
   return rows.map((row) => ({
+    id: row.id,
     slug: row.slug,
     title: row.title,
     originalTitle: row.originalTitle,

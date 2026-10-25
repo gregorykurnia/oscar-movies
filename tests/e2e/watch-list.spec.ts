@@ -151,3 +151,50 @@ test("a season film marked watched stays until the next visit, then leaves the l
     await setMark(id, saved);
   }
 });
+
+test("adds a film by typing part of its original title, and it is at the top after a reload", async ({ page }) => {
+  const id = await movieId("the-secret-agent");
+  const saved = await db.select().from(marks);
+  try {
+    // Start from a list without the film (an earlier run may have left it wanted).
+    await setMark(id, null);
+    await page.goto("/watch-list");
+    const box = page.getByRole("combobox", { name: "Add a film" });
+    await expect(box).toBeVisible();
+    await box.fill("agente secre");
+
+    // Found by its original title (shown with the match), not yet on the list.
+    const result = page.getByRole("option", { name: /The Secret Agent/ });
+    await expect(result).toBeVisible();
+    await expect(result).toContainText("O Agente Secreto");
+    await expect(result).not.toContainText("On your list");
+    await box.press("Enter");
+
+    // A toast confirms, the box clears and the film heads Want to watch without a reload.
+    await expect(page.getByRole("status").filter({ hasText: "The Secret Agent added." })).toBeVisible();
+    await expect(box).toHaveValue("");
+    const want = section(page, "Want to watch");
+    await expect.poll(async () => (await titlesIn(want))[0]).toBe("The Secret Agent");
+    await expect.poll(() => readMark(id)).toEqual({ watched: false, want: true });
+
+    await page.reload();
+    await expect.poll(async () => (await titlesIn(section(page, "Want to watch")))[0]).toBe("The Secret Agent");
+
+    // Typing it again says it is on the list.
+    await page.getByRole("combobox", { name: "Add a film" }).fill("agente secre");
+    await expect(page.getByRole("option", { name: /The Secret Agent/ })).toContainText("On your list");
+
+    // No match: the line says so, and nothing is added.
+    await page.getByRole("combobox", { name: "Add a film" }).fill("zzzxq");
+    await expect(page.getByText("No film called “zzzxq” yet.")).toBeVisible();
+  } finally {
+    // Put every mark back, including the places the add moved the other films to.
+    await setMark(id, null);
+    for (const row of saved) {
+      await db
+        .insert(marks)
+        .values(row)
+        .onConflictDoUpdate({ target: marks.movieId, set: row });
+    }
+  }
+});

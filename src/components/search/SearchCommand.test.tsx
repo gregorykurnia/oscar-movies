@@ -10,6 +10,7 @@ const push = vi.hoisted(() => vi.fn());
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
 
 const stillHere = {
+  id: 1,
   slug: "im-still-here",
   title: "I'm Still Here",
   originalTitle: "Ainda Estou Aqui",
@@ -21,6 +22,7 @@ const stillHere = {
   href: "/movies/im-still-here",
 };
 const anora = {
+  id: 2,
   slug: "anora",
   title: "Anora",
   originalTitle: null,

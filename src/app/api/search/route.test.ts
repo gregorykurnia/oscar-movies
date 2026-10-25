@@ -13,6 +13,7 @@ const { GET } = await import("./route");
 const get = (q?: string) => GET(new Request(`http://localhost/api/search${q === undefined ? "" : `?q=${encodeURIComponent(q)}`}`));
 
 const film: SearchFilm = {
+  id: 1,
   slug: "im-still-here",
   title: "I'm Still Here",
   originalTitle: "Ainda Estou Aqui",

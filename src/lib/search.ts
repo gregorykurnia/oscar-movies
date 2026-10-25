@@ -11,6 +11,8 @@ export const MAX_AWARDS = 5;
 
 /** One film in the results: what the row shows and where it goes. */
 export type SearchFilm = {
+  /** The film's ID, for writes that take one (Add a film on the Watch list). */
+  id: number;
   slug: string;
   title: string;
   originalTitle: string | null;

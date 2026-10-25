@@ -3,17 +3,18 @@
 import type { StagedFilm } from "@/data/watch-list";
 import { compareOutcome } from "@/lib/stage";
 
-export const WATCH_SORTS = ["stage", "chance", "nominations", "average"] as const;
+export const WATCH_SORTS = ["mine", "stage", "chance", "nominations", "average"] as const;
 export type WatchSort = (typeof WATCH_SORTS)[number];
 
 export const WATCH_SORT_LABELS: Record<WatchSort, string> = {
+  mine: "My order",
   stage: "Oscar stage",
   chance: "% chance",
   nominations: "Nominations",
   average: "Average score",
 };
 
-const DEFAULT_SORT: WatchSort = "stage";
+const DEFAULT_SORT: WatchSort = "mine";
 
 /** The season section shows this many films until "Show all". */
 export const SEASON_LIMIT = 20;
@@ -42,6 +43,9 @@ const stageRank = (f: StagedFilm) => (f.stage === null ? -1 : compareOutcome(f.s
 const byTitle = (a: StagedFilm, b: StagedFilm) => a.film.title.localeCompare(b.film.title, "en") || a.film.id - b.film.id;
 
 const COMPARE: Record<WatchSort, (a: StagedFilm, b: StagedFilm) => number> = {
+  // The owner's order is the order the data comes in (Want to watch); the season section, which has
+  // no order of its own, follows the Oscar stage under it.
+  mine: (a, b) => stageRank(b) - stageRank(a) || b.nominations - a.nominations || byTitle(a, b),
   // Furthest first (won, nominated, shortlisted, …), then most nominations.
   stage: (a, b) => stageRank(b) - stageRank(a) || b.nominations - a.nominations || byTitle(a, b),
   // Best chance to win first (the live season's prediction, best category); a film with none last.
@@ -67,6 +71,11 @@ const COMPARE: Record<WatchSort, (a: StagedFilm, b: StagedFilm) => number> = {
 };
 
 /** A new list in the sort's order. */
-export function sortWatchList(films: StagedFilm[], sort: WatchSort): StagedFilm[] {
+export function sortWatchList<F extends StagedFilm>(films: F[], sort: WatchSort): F[] {
   return [...films].sort(COMPARE[sort]);
+}
+
+/** Want to watch keeps the owner's order (as it comes) under "My order", and follows the sort otherwise. */
+export function sortWanted<F extends StagedFilm>(films: F[], sort: WatchSort): F[] {
+  return sort === "mine" ? [...films] : sortWatchList(films, sort);
 }

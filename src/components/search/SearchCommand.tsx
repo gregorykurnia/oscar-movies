@@ -51,7 +51,7 @@ const getWide = () => window.matchMedia?.(WIDE).matches ?? false;
 // The flags' artwork is large and only results need it, so it loads the first time search opens.
 const LazyFlag = lazy(() => import("@/components/flag/Flag").then((m) => ({ default: m.Flag })));
 
-function ResultFlag({ code }: { code: string | null }) {
+export function ResultFlag({ code }: { code: string | null }) {
   // `--line`, not `--track`: the highlighted row is `--track`, and the placeholder must show on it.
   const blank = <span aria-hidden="true" className="block h-3.5 w-[21px] rounded-xs bg-line" />;
   if (!code) return blank;
@@ -63,7 +63,7 @@ function ResultFlag({ code }: { code: string | null }) {
 }
 
 /** The text with the part that matched the query underlined in gold. */
-function Highlight({ text, query }: { text: string; query: string }) {
+export function Highlight({ text, query }: { text: string; query: string }) {
   return (
     <>
       {highlightParts(text, query).map((part, i) =>
@@ -79,7 +79,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
   );
 }
 
-const optionClasses =
+export const optionClasses =
   "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-[8px] p-2.5 text-small outline-none hover:bg-track";
 
 function FilmOption({

@@ -70,7 +70,7 @@ const annie: SearchAward = { slug: "annie", name: "Annie Awards", shortName: "An
 function searchSample(stress: boolean) {
   if (stress) {
     const film = (over: Partial<SearchFilm>): SearchFilm => ({
-      slug: "x", title: "", originalTitle: null, originalLang: null, year: 2025, flag: null, categories: [], stage: null, href: "#", ...over,
+      id: 0, slug: "x", title: "", originalTitle: null, originalLang: null, year: 2025, flag: null, categories: [], stage: null, href: "#", ...over,
     });
     return {
       query: "Rindfleisch",
@@ -87,13 +87,13 @@ function searchSample(stress: boolean) {
   return {
     query: "an",
     films: [
-      { slug: "anora", title: "Anora", originalTitle: null, originalLang: null, year: 2024, flag: "US", categories: ["Best Picture"], stage: "won", href: "#" },
-      { slug: "anatomy", title: "Anatomy of a Fall", originalTitle: "Anatomie d'une chute", originalLang: "fr", year: 2023, flag: "FR", categories: ["Best Picture"], stage: "nominated", href: "#" },
+      { id: 1, slug: "anora", title: "Anora", originalTitle: null, originalLang: null, year: 2024, flag: "US", categories: ["Best Picture"], stage: "won", href: "#" },
+      { id: 2, slug: "anatomy", title: "Anatomy of a Fall", originalTitle: "Anatomie d'une chute", originalLang: "fr", year: 2023, flag: "FR", categories: ["Best Picture"], stage: "nominated", href: "#" },
     ] satisfies SearchFilm[],
     awards: [annie],
     originalQuery: "ainda",
     originalFilms: [
-      { slug: "im-still-here", title: "I'm Still Here", originalTitle: "Ainda Estou Aqui", originalLang: "pt-BR", year: 2024, flag: "BR", categories: ["Best Picture", "International"], stage: "nominated", href: "#" },
+      { id: 3, slug: "im-still-here", title: "I'm Still Here", originalTitle: "Ainda Estou Aqui", originalLang: "pt-BR", year: 2024, flag: "BR", categories: ["Best Picture", "International"], stage: "nominated", href: "#" },
     ] satisfies SearchFilm[],
     noMatch: "zzzz",
   };

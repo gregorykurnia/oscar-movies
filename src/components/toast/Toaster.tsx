@@ -19,8 +19,8 @@ export function Toaster() {
   );
 }
 
-/** Shows a toast that stays until closed or retried. Returns its id. */
-export function showToast({ onRetry, ...props }: Omit<ToastProps, "onClose">): string | number {
+/** Shows a toast that stays until closed or retried (or for `duration` ms). Returns its id. */
+export function showToast({ onRetry, duration = Infinity, ...props }: Omit<ToastProps, "onClose"> & { duration?: number }): string | number {
   return toast.custom(
     (id) => (
       <Toast
@@ -36,6 +36,6 @@ export function showToast({ onRetry, ...props }: Omit<ToastProps, "onClose">): s
         onClose={() => toast.dismiss(id)}
       />
     ),
-    { duration: Infinity },
+    { duration },
   );
 }

@@ -1,4 +1,4 @@
-import { AlertCircle, Info, X } from "lucide-react";
+import { AlertCircle, Info, X, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/button/Button";
 import { cn } from "@/lib/cn";
 
@@ -10,6 +10,8 @@ export type ToastProps = {
   title: string;
   /** "Hamnet is back to not watched. Check the connection and try again." */
   description?: string;
+  /** Replaces the tone's icon (the info toast for an added film shows a check). */
+  icon?: LucideIcon;
   /** Shows the ghost "Try again" button. */
   onRetry?: () => void;
   onClose?: () => void;
@@ -20,8 +22,8 @@ export type ToastProps = {
  * Guide §7 Toast: only for failures (and the odd neutral note); successes need none.
  * Stays until closed or retried. Placement is the Toaster's job.
  */
-export function Toast({ tone = "error", title, description, onRetry, onClose, className }: ToastProps) {
-  const Icon = tone === "error" ? AlertCircle : Info;
+export function Toast({ tone = "error", title, description, icon, onRetry, onClose, className }: ToastProps) {
+  const Icon = icon ?? (tone === "error" ? AlertCircle : Info);
   return (
     <div
       role="status"

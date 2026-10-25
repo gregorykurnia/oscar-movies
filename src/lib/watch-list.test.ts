@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { StagedFilm } from "@/data/watch-list";
 import type { Outcome } from "@/lib/stage";
-import { parseWatchQuery, sortWatchList, watchHref } from "./watch-list";
+import { parseWatchQuery, sortWanted, sortWatchList, watchHref } from "./watch-list";
 
 let nextId = 1;
 function film(title: string, stage: Outcome | null, nominations: number, average: number | null, chance: number | null = null): StagedFilm {
@@ -29,15 +29,17 @@ const titles = (films: StagedFilm[]) => films.map((f) => f.film.title);
 
 describe("the address", () => {
   it("reads the sort and show all, and ignores anything else", () => {
-    expect(parseWatchQuery({})).toEqual({ sort: "stage", all: false });
+    expect(parseWatchQuery({})).toEqual({ sort: "mine", all: false });
+    expect(parseWatchQuery({ sort: "stage" })).toEqual({ sort: "stage", all: false });
     expect(parseWatchQuery({ sort: "nominations", all: "1" })).toEqual({ sort: "nominations", all: true });
     expect(parseWatchQuery({ sort: ["average", "stage"] })).toEqual({ sort: "average", all: false });
     expect(parseWatchQuery({ sort: "chance" })).toEqual({ sort: "chance", all: false });
-    expect(parseWatchQuery({ sort: "popular", all: "yes" })).toEqual({ sort: "stage", all: false });
+    expect(parseWatchQuery({ sort: "popular", all: "yes" })).toEqual({ sort: "mine", all: false });
   });
 
   it("writes only what differs from the defaults", () => {
-    expect(watchHref({ sort: "stage", all: false })).toBe("/watch-list");
+    expect(watchHref({ sort: "mine", all: false })).toBe("/watch-list");
+    expect(watchHref({ sort: "stage", all: false })).toBe("/watch-list?sort=stage");
     expect(watchHref({ sort: "average", all: false })).toBe("/watch-list?sort=average");
     expect(watchHref({ sort: "nominations", all: true })).toBe("/watch-list?sort=nominations&all=1");
   });
@@ -55,6 +57,12 @@ describe("sorting", () => {
 
   it("by stage: furthest first, then nominations, then title; no result last", () => {
     expect(titles(sortWatchList(films, "stage"))).toEqual(["Zed", "Alpha", "Bold", "Short", "Quiet", "Loose"]);
+  });
+
+  it("by my order: the season follows the stage, Want to watch keeps the order it came in", () => {
+    expect(titles(sortWatchList(films, "mine"))).toEqual(["Zed", "Alpha", "Bold", "Short", "Quiet", "Loose"]);
+    expect(titles(sortWanted(films, "mine"))).toEqual(titles(films));
+    expect(titles(sortWanted(films, "stage"))).toEqual(["Zed", "Alpha", "Bold", "Short", "Quiet", "Loose"]);
   });
 
   it("by nominations: most first, then stage, then title", () => {

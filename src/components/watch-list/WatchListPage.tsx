@@ -13,6 +13,7 @@ import { getWatchList, type StagedFilm } from "@/data/watch-list";
 import {
   parseWatchQuery,
   SEASON_LIMIT,
+  sortWanted,
   sortWatchList,
   WATCH_SORT_LABELS,
   WATCH_SORTS,
@@ -20,6 +21,7 @@ import {
   type WatchQuery,
 } from "@/lib/watch-list";
 import { LIVE_YEAR } from "@/lib/years";
+import { AddFilm } from "./AddFilm";
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -28,7 +30,7 @@ const COLUMNS = ["minmax(0,1fr)", "132px", "104px", "84px"];
 const CHANCE_COLUMNS = ["minmax(0,1fr)", "132px", "88px", "104px", "84px"];
 
 // The "Show all" row's tail ("sorted by Oscar stage"); Oscar keeps its capital.
-const SORTED_BY: Record<WatchQuery["sort"], string> = { stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score" };
+const SORTED_BY: Record<WatchQuery["sort"], string> = { mine: "Oscar stage", stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score" };
 
 const filmCount = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "film" : "films"}`;
 
@@ -46,6 +48,7 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
         title="Watch list"
         sub={<p>Films you want to watch, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
       />
+      <AddFilm />
       <Suspense fallback={<RaceRowsSkeleton label="Loading the watch list" />}>
         <Lists query={query} />
       </Suspense>
@@ -58,7 +61,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
   await connection();
   const [list, params] = await Promise.all([getWatchList(LIVE_YEAR), query]);
   const state = parseWatchQuery(params);
-  const want = sortWatchList(list.want, state.sort);
+  const want = sortWanted(list.want, state.sort);
   const unwatched = sortWatchList(list.unwatched, state.sort);
   const shown = state.all ? unwatched : unwatched.slice(0, SEASON_LIMIT);
 

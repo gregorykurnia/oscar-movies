@@ -85,6 +85,16 @@ function useFilmMarks(movieId: number, title: string) {
   return { ...snapshot, disabled, tap: (kind: "watched" | "want") => store.tap(movieId, kind, title) };
 }
 
+/** One film's marks as the page shows them (none before the marks are read). */
+export function useFilmMarkValue(movieId: number): MarkValue {
+  const store = useMarksStore();
+  return useSyncExternalStore(
+    store.subscribe,
+    () => store.get(movieId),
+    () => SERVER_SNAPSHOT.film,
+  ).value;
+}
+
 /** The round pair for a film row (36px, 40 on phone; `sm` is the year grid's 30px). */
 export function FilmMarks({
   movieId,
