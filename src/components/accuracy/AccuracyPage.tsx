@@ -7,6 +7,7 @@ import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { TextLink } from "@/components/text-link/TextLink";
 import { getAccuracy } from "@/data/accuracy";
 import { getBacktest } from "@/data/backtest";
+import { SHORTLIST_RULE_CATEGORIES, SHORTLIST_RULE_NOTE } from "@/lib/accuracy";
 import { parseSort, seasonsSpan } from "@/lib/accuracy-page";
 import { RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { signalsHref } from "@/lib/signals";
@@ -118,6 +119,13 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
           Oscars, in any year. Oscar nominees it caught counts the Oscar nominees of the years the award named its nominees, and how
           many of them it had nominated.
         </p>
+        {SHORTLIST_RULE_CATEGORIES.has(category) ? (
+          <p>
+            {SHORTLIST_RULE_NOTE} A winner or nominee that didn&apos;t make that season&apos;s shortlist (for a festival, that
+            season&apos;s or the next) is left out of the first three figures, and a year whose winners all missed it isn&apos;t
+            counted for the winner figures. Oscar nominees it caught counts every Oscar nominee as before.
+          </p>
+        ) : null}
       </footer>
     </section>
   );

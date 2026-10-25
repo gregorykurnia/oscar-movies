@@ -7,23 +7,31 @@ import {
   formatFigureCount,
   oscarNomineesByYear,
   oscarOutcomes,
+  oscarShortlistsByYear,
+  shortlistRule,
+  SHORTLIST_RULE_CATEGORIES,
   type AccuracyEdition,
   type EditionStatus,
   type OscarEdition,
 } from "./accuracy";
 import type { Outcome } from "./stage";
 
+type Expected = {
+  win: { hits: number; count: number };
+  nomination: { hits: number; count: number };
+  nominees: { hits: number; count: number } | null;
+  years: number[];
+  noDataYears: number[];
+  formatted: { win: string; nomination: string; nominees: string };
+};
 type Fixture = {
+  oscarCategory: string;
+  kind: string;
   winnersOnly: boolean;
   today: string;
-  expected: {
-    win: { hits: number; count: number };
-    nomination: { hits: number; count: number };
-    nominees: { hits: number; count: number } | null;
-    years: number[];
-    noDataYears: number[];
-    formatted: { win: string; nomination: string; nominees: string };
-  };
+  /** Under the shortlist rule (task 8.1). */
+  expected: Expected;
+  expectedWithoutShortlistRule: Expected;
   years: Array<{
     year: number;
     status: EditionStatus;
@@ -32,8 +40,12 @@ type Fixture = {
   }>;
 };
 
-describe("the hand-checked fixture (Cinema Eye feature → Oscar Documentary)", () => {
-  const fixture = JSON.parse(readFileSync("tests/fixtures/accuracy-cinema-eye.json", "utf8")) as Fixture;
+// Each fixture's films reached the Oscars in the season of their award year.
+describe.each([
+  ["Cinema Eye feature → Oscar Documentary", "tests/fixtures/accuracy-cinema-eye.json"],
+  ["Sundance U.S. Documentary jury → Oscar Documentary (a festival, winners only)", "tests/fixtures/accuracy-sundance-us-documentary.json"],
+])("the hand-checked fixture (%s)", (_, path) => {
+  const fixture = JSON.parse(readFileSync(path, "utf8")) as Fixture;
   const editions: AccuracyEdition[] = fixture.years.map((y) => ({
     year: y.year,
     status: y.status,
@@ -46,22 +58,25 @@ describe("the hand-checked fixture (Cinema Eye feature → Oscar Documentary)", 
     }
     return { year: y.year, status: y.oscars.status, winnersOn: y.oscars.winnersOn, results };
   });
-  const figures = computeAccuracy({
-    winnersOnly: fixture.winnersOnly,
-    editions,
-    oscars: oscarOutcomes(oscars),
-    oscarNominees: oscarNomineesByYear(oscars),
-    finished: finishedYears(oscars, fixture.today),
-  });
+  const figures = (withRule: boolean) =>
+    computeAccuracy({
+      winnersOnly: fixture.winnersOnly,
+      editions,
+      oscars: oscarOutcomes(oscars),
+      oscarNominees: oscarNomineesByYear(oscars),
+      finished: finishedYears(oscars, fixture.today),
+      shortlist: withRule ? shortlistRule(fixture.oscarCategory, fixture.kind, oscarShortlistsByYear(oscars)) : null,
+    });
+  const check = (got: ReturnType<typeof figures>, { formatted, ...expected }: Expected) => {
+    // The fixture lists only the award's films, not every Oscar nominee, so `caught` is tested below.
+    expect({ ...got, caught: undefined }).toEqual(expected);
+    expect(formatFigure(got.win)).toBe(formatted.win);
+    expect(formatFigure(got.nomination)).toBe(formatted.nomination);
+    expect(formatFigure(got.nominees)).toBe(formatted.nominees);
+  };
 
-  it("matches the worked figures exactly", () => {
-    const { formatted, ...expected } = fixture.expected;
-    // The fixture lists only Cinema Eye's films, not every Oscar nominee, so `caught` is tested below.
-    expect({ ...figures, caught: undefined }).toEqual(expected);
-    expect(formatFigure(figures.win)).toBe(formatted.win);
-    expect(formatFigure(figures.nomination)).toBe(formatted.nomination);
-    expect(formatFigure(figures.nominees)).toBe(formatted.nominees);
-  });
+  it("matches the worked figures exactly, under the shortlist rule", () => check(figures(true), fixture.expected));
+  it("matches the worked figures without the rule", () => check(figures(false), fixture.expectedWithoutShortlistRule));
 });
 
 // Small synthetic seasons for the rules the fixture doesn't reach.
@@ -82,13 +97,14 @@ const OSCARS = [
   oscarYear(2021, [["d", "won"], ["e", "nominated"], ["f", "nominated"]]),
   oscarYear(2022, [["g", "won"], ["h", "nominated"]]),
 ];
-const run = (editions: AccuracyEdition[], winnersOnly = false, oscars = OSCARS) =>
+const run = (editions: AccuracyEdition[], winnersOnly = false, oscars = OSCARS, rule?: { category: string; kind: string }) =>
   computeAccuracy({
     winnersOnly,
     editions,
     oscars: oscarOutcomes(oscars),
     oscarNominees: oscarNomineesByYear(oscars),
     finished: finishedYears(oscars, TODAY),
+    shortlist: rule ? shortlistRule(rule.category, rule.kind, oscarShortlistsByYear(oscars)) : null,
   });
 
 describe("computeAccuracy", () => {
@@ -176,6 +192,70 @@ describe("computeAccuracy", () => {
   it("matches a film to the Oscars of any year (a festival film can get there a year later)", () => {
     const figures = run([edition(2020, [["e", "won"]])]);
     expect(figures.nomination).toEqual({ hits: 1, count: 1 });
+  });
+});
+
+describe("the shortlist rule (Documentary and International)", () => {
+  const DOC = { category: "documentary", kind: "major" };
+  // 2020's shortlist is a, b, c; 2021's d, e, f, plus k (a 2020 festival film shortlisted a year later).
+  const oscars = [
+    oscarYear(2020, [["a", "won"], ["b", "nominated"], ["c", "shortlisted"], ["s", "submitted"]]),
+    oscarYear(2021, [["d", "won"], ["e", "nominated"], ["f", "shortlisted"], ["k", "nominated"]]),
+  ];
+
+  it("leaves out a winner not shortlisted, and its year doesn't count for the winner figures", () => {
+    const figures = run([edition(2020, [["a", "won"]]), edition(2021, [["x", "won"]])], true, oscars, DOC);
+    expect(figures.win).toEqual({ hits: 1, count: 1 });
+    expect(figures.nomination).toEqual({ hits: 1, count: 1 });
+    // The year is still one with results.
+    expect(figures.years).toEqual([2020, 2021]);
+    // A tie: the shortlisted winner counts; a submitted film is not on the shortlist.
+    const tie = run([edition(2020, [["s", "won"], ["c", "won"]])], true, oscars, DOC);
+    expect(tie.win).toEqual({ hits: 0, count: 1 });
+    expect(tie.nomination).toEqual({ hits: 0, count: 1 });
+    expect(run([edition(2020, [["s", "won"]])], true, oscars, DOC).win).toEqual({ hits: 0, count: 0 });
+  });
+
+  it("leaves out a nominee not shortlisted, but caught is unchanged", () => {
+    const editions = [edition(2020, [["a", "won"], ["c", "nominated"], ["x", "nominated"], ["y", "runner_up"]])];
+    const figures = run(editions, false, oscars, DOC);
+    expect(figures.nominees).toEqual({ hits: 1, count: 2 });
+    expect(figures.caught).toEqual({ hits: 1, count: 2 });
+    const without = run(editions, false, oscars);
+    expect(without.nominees).toEqual({ hits: 1, count: 4 });
+    expect(without.caught).toEqual(figures.caught);
+  });
+
+  it("counts a festival film shortlisted the next season, and only for a festival", () => {
+    const editions = [edition(2020, [["k", "won"], ["x", "nominated"]])];
+    const festival = run(editions, false, oscars, { category: "documentary", kind: "festival" });
+    expect(festival.win).toEqual({ hits: 0, count: 1 });
+    expect(festival.nomination).toEqual({ hits: 1, count: 1 });
+    expect(festival.nominees).toEqual({ hits: 1, count: 1 });
+    const critics = run(editions, false, oscars, { category: "documentary", kind: "critics" });
+    expect(critics.win).toEqual({ hits: 0, count: 0 });
+    expect(critics.nominees).toBeNull();
+  });
+
+  it("applies to International the same way", () => {
+    const figures = run([edition(2020, [["x", "won"]]), edition(2021, [["d", "won"]])], true, oscars, { category: "international", kind: "major" });
+    expect(figures.win).toEqual({ hits: 1, count: 1 });
+  });
+
+  it("leaves Picture and Animated unchanged", () => {
+    expect([...SHORTLIST_RULE_CATEGORIES].sort()).toEqual(["documentary", "international"]);
+    expect(shortlistRule("picture", "major", oscarShortlistsByYear(oscars))).toBeNull();
+    expect(shortlistRule("animated", "festival", oscarShortlistsByYear(oscars))).toBeNull();
+    const editions = [edition(2020, [["x", "won"], ["b", "nominated"], ["y", "nominated"]]), edition(2021, [["d", "won"]])];
+    expect(run(editions, false, oscars, { category: "picture", kind: "major" })).toEqual(run(editions, false, oscars));
+    expect(run(editions, false, oscars, { category: "picture", kind: "major" }).win).toEqual({ hits: 1, count: 2 });
+  });
+});
+
+describe("oscarShortlistsByYear", () => {
+  it("has each season's films shortlisted or further, not those only submitted or eligible", () => {
+    const lists = oscarShortlistsByYear([oscarYear(2020, [["a", "won"], ["b", "runner_up"], ["c", "shortlisted"], ["d", "eligible"], ["e", "submitted"]])]);
+    expect([...lists.get(2020)!].sort()).toEqual(["a", "b", "c"]);
   });
 });
 

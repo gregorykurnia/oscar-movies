@@ -1,10 +1,12 @@
 {
-  "_note": "Cinema Eye Honors, Outstanding Nonfiction Feature (feature) → Oscar Documentary Feature. Input copied from data/ on 2026-10-23; the expected figures were worked out by hand, year by year (see _workings). `oscar` is the film's Oscar Documentary outcome, null when it was never submitted or shortlisted.",
+  "_note": "Cinema Eye Honors, Outstanding Nonfiction Feature (feature) → Oscar Documentary Feature. Input copied from data/ on 2026-10-23; the expected figures were worked out by hand, year by year (see _workings). `oscar` is the film's Oscar Documentary outcome, null when it was never submitted or shortlisted. Every film's Oscar outcome is in the same season as its Cinema Eye year. Since task 8.1 the figures follow the shortlist rule (Documentary): `expected` is with it, `expectedWithoutShortlistRule` the figures before it.",
   "_workings": [
     "Finished seasons: 2012-2025 (2026's Oscars are on 2027-03-14, after `today`). Cinema Eye 2026 is no_data but not finished, so it is not in noDataYears either.",
     "Winner -> Oscar win: 2014 Citizenfour, 2019 American Factory, 2024 No Other Land won; the other 11 winners did not. 3 of 14.",
     "Winner -> Oscar nomination: misses are 2016 Cameraperson and 2023 32 Sounds (shortlisted only); the other 12 were nominated or won. 12 of 14.",
-    "Nominees -> Oscar nominees: 2012-2020 are partial (winner only), so not counted. 2021: Flee, Ascension, Summer of Soul = 3 of 6. 2022: All That Breathes, All the Beauty and the Bloodshed, Fire of Love, Navalny = 4 of 6. 2023: 20 Days in Mariupol, The Eternal Memory, Four Daughters = 3 of 7. 2024: No Other Land, Black Box Diaries, Soundtrack to a Coup d'Etat, Sugarcane = 4 of 7. 2025: Come See Me in the Good Light, The Perfect Neighbor = 2 of 7. Total 16 of 33."
+    "Nominees -> Oscar nominees: 2012-2020 are partial (winner only), so not counted. 2021: Flee, Ascension, Summer of Soul = 3 of 6. 2022: All That Breathes, All the Beauty and the Bloodshed, Fire of Love, Navalny = 4 of 6. 2023: 20 Days in Mariupol, The Eternal Memory, Four Daughters = 3 of 7. 2024: No Other Land, Black Box Diaries, Soundtrack to a Coup d'Etat, Sugarcane = 4 of 7. 2025: Come See Me in the Good Light, The Perfect Neighbor = 2 of 7. Total 16 of 33.",
+    "Shortlist rule (task 8.1, worked out 2026-10-25): every Cinema Eye winner 2012-2025 made that season's shortlist (Cameraperson and 32 Sounds as shortlisted only), so the winner figures stay 3 of 14 and 12 of 14.",
+    "Nominees under the rule: 2021 all six shortlisted = 3 of 6. 2022: A Night of Knowing Nothing left out = 4 of 5. 2023: Kokomo City left out = 3 of 6. 2024: Look Into My Eyes left out = 4 of 6. 2025: Afternoons of Solitude and Put Your Soul on Your Hand and Walk left out = 2 of 5. Total 16 of 28 (57%)."
   ],
   "award": "cinema-eye",
   "category": "feature",
@@ -12,6 +14,42 @@
   "winnersOnly": false,
   "today": "2026-10-23",
   "expected": {
+    "win": {
+      "hits": 3,
+      "count": 14
+    },
+    "nomination": {
+      "hits": 12,
+      "count": 14
+    },
+    "nominees": {
+      "hits": 16,
+      "count": 28
+    },
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "noDataYears": [],
+    "formatted": {
+      "win": "21%",
+      "nomination": "86%",
+      "nominees": "57%"
+    }
+  },
+  "expectedWithoutShortlistRule": {
     "win": {
       "hits": 3,
       "count": 14
@@ -506,5 +544,6 @@
       },
       "results": []
     }
-  ]
+  ],
+  "kind": "major"
 }

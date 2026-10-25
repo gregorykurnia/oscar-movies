@@ -2,7 +2,7 @@
 // Oscar category it maps to. Pure: `scripts/lib/compute.ts` reads the database, calls this and
 // stores the hits and counts in `accuracy`; pages only format them.
 import { DASH } from "./format";
-import { compareOutcome, isNomination, type Outcome } from "./stage";
+import { compareOutcome, isNomination, isShortlisted, type Outcome } from "./stage";
 
 export type EditionStatus = "loaded" | "partial" | "no_data";
 
@@ -22,6 +22,23 @@ export type OscarEdition = {
   status: EditionStatus;
   winnersOn: string | null;
   results: ReadonlyArray<{ movie: MovieKey; outcome: Outcome }>;
+};
+
+/**
+ * The Oscar categories whose figures count only films that made the Oscar shortlist (§5.2's
+ * shortlist rule, task 8.1): the others have no shortlist.
+ */
+export const SHORTLIST_RULE_CATEGORIES: ReadonlySet<string> = new Set(["documentary", "international"]);
+
+/** The footnote on the accuracy and award pages for the shortlist rule. */
+export const SHORTLIST_RULE_NOTE = "Documentary and International count only films that made the Oscar shortlist.";
+
+/** §5.2's shortlist rule for one award category; build it with `shortlistRule`. */
+export type ShortlistRule = {
+  /** Each season's films on the Oscar shortlist or further, from `oscarShortlistsByYear`. */
+  byYear: ReadonlyMap<number, ReadonlySet<MovieKey>>;
+  /** A festival's film can make the next season's shortlist too. */
+  nextYear: boolean;
 };
 
 /** Hits over a count; a count of 0 means the figure can't be worked out yet. */
@@ -80,6 +97,25 @@ export function oscarNomineesByYear(oscars: ReadonlyArray<OscarEdition>): Map<nu
   return new Map(oscars.map((e) => [e.year, e.results.filter((r) => isNomination(r.outcome)).map((r) => r.movie)]));
 }
 
+/** Each season's films on the Oscar shortlist or further (shortlisted, nominated, won). */
+export function oscarShortlistsByYear(oscars: ReadonlyArray<OscarEdition>): Map<number, Set<MovieKey>> {
+  return new Map(oscars.map((e) => [e.year, new Set(e.results.filter((r) => isShortlisted(r.outcome)).map((r) => r.movie))]));
+}
+
+/**
+ * The shortlist rule for an award category mapped to `oscarCategory`, or null when the category
+ * has no shortlist (Picture, Animated). A festival's film counts if it made that season's
+ * shortlist or the next one's.
+ */
+export function shortlistRule(
+  oscarCategory: string,
+  awardKind: string,
+  shortlists: ReadonlyMap<number, ReadonlySet<MovieKey>>,
+): ShortlistRule | null {
+  if (!SHORTLIST_RULE_CATEGORIES.has(oscarCategory)) return null;
+  return { byYear: shortlists, nextYear: awardKind === "festival" };
+}
+
 /**
  * The four figures for one award category. A film counts as an Oscar hit by its furthest
  * outcome in the mapped category in any Oscars edition (a festival film can reach the Oscars a
@@ -88,6 +124,12 @@ export function oscarNomineesByYear(oscars: ReadonlyArray<OscarEdition>): Map<nu
  * (NBR's Animated, a `partial` edition with just its winner), which would read as a nominee list of
  * one, and is null when no edition names a nominee (Phase 4 review). A `partial` edition that names
  * nominees counts: most are partial only for a missing date (IMDb-loaded groups such as IDA).
+ *
+ * With a `shortlist` rule (Documentary and International), a result whose film didn't make that
+ * season's Oscar shortlist (a festival's: that season's or the next) is left out of the winner and
+ * nominees figures, and a year whose winners are all left out isn't counted for the winner figures.
+ * Which years name nominees, and the caught figure, are worked out before the rule, so "caught"
+ * is unchanged.
  */
 export function computeAccuracy(input: {
   winnersOnly: boolean;
@@ -96,6 +138,8 @@ export function computeAccuracy(input: {
   /** From `oscarNomineesByYear`. */
   oscarNominees: ReadonlyMap<number, ReadonlyArray<MovieKey>>;
   finished: ReadonlySet<number>;
+  /** From `shortlistRule`; null or left out for categories with no shortlist. */
+  shortlist?: ShortlistRule | null;
 }): AccuracyFigures {
   const win: Figure = { hits: 0, count: 0 };
   const nomination: Figure = { hits: 0, count: 0 };
@@ -111,6 +155,9 @@ export function computeAccuracy(input: {
     const outcome = input.oscars.get(movie);
     return outcome !== undefined && isNomination(outcome);
   };
+  const rule = input.shortlist ?? null;
+  const counts = (movie: MovieKey, year: number) =>
+    rule === null || rule.byYear.get(year)?.has(movie) === true || (rule.nextYear && rule.byYear.get(year + 1)?.has(movie) === true);
 
   for (const edition of [...input.editions].sort((a, b) => a.year - b.year)) {
     if (!input.finished.has(edition.year)) continue;
@@ -122,7 +169,7 @@ export function computeAccuracy(input: {
     years.push(edition.year);
 
     // Ties: a hit if any winner did it.
-    const winners = edition.results.filter((r) => r.outcome === "won");
+    const winners = edition.results.filter((r) => r.outcome === "won" && counts(r.movie, edition.year));
     if (winners.length > 0) {
       win.count += 1;
       nomination.count += 1;
@@ -133,7 +180,7 @@ export function computeAccuracy(input: {
     if (edition.results.some((r) => r.outcome !== "won" && isNomination(r.outcome))) {
       // Winners, runners-up and AFI's list: everything at nomination stage or further.
       for (const r of edition.results) {
-        if (!isNomination(r.outcome)) continue;
+        if (!isNomination(r.outcome) || !counts(r.movie, edition.year)) continue;
         nominees.count += 1;
         if (oscarNominated(r.movie)) nominees.hits += 1;
       }

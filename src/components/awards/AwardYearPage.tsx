@@ -14,6 +14,7 @@ import { StatsStrip } from "@/components/stats-strip/StatsStrip";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getAwardYear, type AwardCategoryResults, type AwardEdition } from "@/data/awards";
+import { SHORTLIST_RULE_CATEGORIES, SHORTLIST_RULE_NOTE } from "@/lib/accuracy";
 import { accuracyStats, oscarCell, oscarName } from "@/lib/award-page";
 import { awardHistoryPath, kindLabel, type AwardSummary } from "@/lib/awards";
 import { getMarks } from "@/data/watch-list";
@@ -224,6 +225,7 @@ function Footnote({ award, categories }: { award: AwardSummary; categories: Awar
   const notes = [
     award.winnersOnly && `${award.name} announces its winners only, so there is no nominee figure (–).`,
     award.isSelection && `${award.name} names a list of films and no winner, so only the nominee figure applies.`,
+    categories.some((c) => SHORTLIST_RULE_CATEGORIES.has(c.category.oscarCategory)) && SHORTLIST_RULE_NOTE,
     ...categories.filter((c) => c.category.mappingNote).map((c) => `${c.category.name}: ${c.category.mappingNote}`),
   ].filter((n): n is string => Boolean(n));
   const oscarCategories = [...new Set(categories.map((c) => c.category.oscarCategory))];

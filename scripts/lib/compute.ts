@@ -7,6 +7,8 @@ import {
   finishedYears,
   oscarNomineesByYear,
   oscarOutcomes,
+  oscarShortlistsByYear,
+  shortlistRule,
   type AccuracyEdition,
   type OscarEdition,
 } from "../../src/lib/accuracy";
@@ -52,10 +54,16 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
     (byEditionCategory.get(`${editionId}/${categoryId}`) ?? []).map((r) => ({ movie: r.movieId, outcome: r.outcome }));
   const editionsOf = (awardId: number) => editionRows.filter((e) => e.awardId === awardId);
 
-  // Per Oscar category: the finished seasons, each film's furthest outcome and each season's nominees.
+  // Per Oscar category: the finished seasons, each film's furthest outcome, each season's nominees
+  // and its shortlist (for the shortlist rule).
   const oscarSide = new Map<
     string,
-    { finished: Set<number>; outcomes: ReturnType<typeof oscarOutcomes>; nominees: ReturnType<typeof oscarNomineesByYear> }
+    {
+      finished: Set<number>;
+      outcomes: ReturnType<typeof oscarOutcomes>;
+      nominees: ReturnType<typeof oscarNomineesByYear>;
+      shortlists: ReturnType<typeof oscarShortlistsByYear>;
+    }
   >();
   for (const c of categoryRows.filter((c) => c.awardId === oscarsAward.id)) {
     const seasons: OscarEdition[] = editionsOf(oscarsAward.id).map((e) => ({
@@ -68,6 +76,7 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
       finished: finishedYears(seasons, today),
       outcomes: oscarOutcomes(seasons),
       nominees: oscarNomineesByYear(seasons),
+      shortlists: oscarShortlistsByYear(seasons),
     });
   }
 
@@ -86,6 +95,7 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
       oscars: oscar.outcomes,
       oscarNominees: oscar.nominees,
       finished: oscar.finished,
+      shortlist: shortlistRule(c.oscarCategory, award.kind, oscar.shortlists),
     });
     return [
       {

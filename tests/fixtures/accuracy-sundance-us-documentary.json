@@ -1,0 +1,382 @@
+{
+  "_note": "Sundance, U.S. Documentary Grand Jury Prize (us-documentary-jury) → Oscar Documentary Feature, under the shortlist rule (task 8.1). Input copied from data/ on 2026-10-25; the expected figures were worked out by hand, year by year (see _workings). `oscar` is the film's Oscar Documentary outcome, null when it was never submitted or shortlisted; each one is in the same season as the film's Sundance year. A festival, so a film also counts if it made the next season's shortlist; none here did.",
+  "_workings": [
+    "Finished seasons: 2012-2025 (2026's Oscars are on 2027-03-14, after `today`), so 2026's Nuisance Bear is not counted.",
+    "Shortlist rule: left out, as neither that season's nor the next season's shortlist has them: 2013 Blood Brother, 2014 Rich Hill, 2015 The Wolfpack, 2017 Dina, 2018 The Price of Free, 2022 The Exiles. Those six years have no winner left, so they don't count for the winner figures. Counted: 2012, 2016, 2019, 2020, 2021, 2023, 2024, 2025 = 8 years.",
+    "Winner -> Oscar win: 2021 Summer of Soul won. 1 of 8 (13%).",
+    "Winner -> Oscar nomination: 2021 Summer of Soul and 2024 Porcelain War. 2 of 8 (25%). The House I Live In, Weiner, One Child Nation, Boys State, Going to Mars and Seeds were shortlisted only.",
+    "Nominees -> Oscar nominees: Sundance announces winners only, so null (–).",
+    "Without the rule it would be 1 of 14 and 2 of 14."
+  ],
+  "award": "sundance",
+  "category": "us-documentary-jury",
+  "oscarCategory": "documentary",
+  "kind": "festival",
+  "winnersOnly": true,
+  "today": "2026-10-25",
+  "expected": {
+    "win": {
+      "hits": 1,
+      "count": 8
+    },
+    "nomination": {
+      "hits": 2,
+      "count": 8
+    },
+    "nominees": null,
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "noDataYears": [],
+    "formatted": {
+      "win": "13%",
+      "nomination": "25%",
+      "nominees": "–"
+    }
+  },
+  "expectedWithoutShortlistRule": {
+    "win": {
+      "hits": 1,
+      "count": 14
+    },
+    "nomination": {
+      "hits": 2,
+      "count": 14
+    },
+    "nominees": null,
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "noDataYears": [],
+    "formatted": {
+      "win": "7%",
+      "nomination": "14%",
+      "nominees": "–"
+    }
+  },
+  "years": [
+    {
+      "year": 2012,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2013-02-24",
+        "winner": {
+          "imdb": "tt2125608",
+          "title": "Searching for Sugar Man"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2125653",
+          "title": "The House I Live In",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2013,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2014-03-02",
+        "winner": {
+          "imdb": "tt2396566",
+          "title": "20 Feet from Stardom"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2265179",
+          "title": "Blood Brother",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2014,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2015-02-22",
+        "winner": {
+          "imdb": "tt4044364",
+          "title": "Citizenfour"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2548738",
+          "title": "Rich Hill",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2015,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2016-02-28",
+        "winner": {
+          "imdb": "tt2870648",
+          "title": "Amy"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt2415458",
+          "title": "The Wolfpack",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2016,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2017-02-26",
+        "winner": {
+          "imdb": "tt5275892",
+          "title": "O.J.: Made in America"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt5278596",
+          "title": "Weiner",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2018-03-04",
+        "winner": {
+          "imdb": "tt6333060",
+          "title": "Icarus"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt6333058",
+          "title": "Dina",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2019-02-24",
+        "winner": {
+          "imdb": "tt7775622",
+          "title": "Free Solo"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt7689912",
+          "title": "The Price of Free",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2020-02-09",
+        "winner": {
+          "imdb": "tt9351980",
+          "title": "American Factory"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt8923482",
+          "title": "One Child Nation",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2021-04-25",
+        "winner": {
+          "imdb": "tt12888462",
+          "title": "My Octopus Teacher"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt11095742",
+          "title": "Boys State",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2022-03-27",
+        "winner": {
+          "imdb": "tt7378922",
+          "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt7378922",
+          "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)",
+          "outcome": "won",
+          "oscar": "won"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2023-03-12",
+        "winner": {
+          "imdb": "tt17041964",
+          "title": "Navalny"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt16227006",
+          "title": "The Exiles",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2024-03-10",
+        "winner": {
+          "imdb": "tt24082438",
+          "title": "20 Days in Mariupol"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt7196012",
+          "title": "Going to Mars: The Nikki Giovanni Project",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2025-03-02",
+        "winner": {
+          "imdb": "tt30953759",
+          "title": "No Other Land"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt30294282",
+          "title": "Porcelain War",
+          "outcome": "won",
+          "oscar": "nominated"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "status": "loaded",
+      "oscars": {
+        "status": "loaded",
+        "winnersOn": "2026-03-15",
+        "winner": {
+          "imdb": "tt34965515",
+          "title": "Mr. Nobody Against Putin"
+        }
+      },
+      "results": [
+        {
+          "imdb": "tt34963731",
+          "title": "Seeds",
+          "outcome": "won",
+          "oscar": "shortlisted"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "status": "loaded",
+      "oscars": {
+        "status": "partial",
+        "winnersOn": "2027-03-14",
+        "winner": null
+      },
+      "results": [
+        {
+          "imdb": "tt39150922",
+          "title": "Nuisance Bear",
+          "outcome": "won",
+          "oscar": null
+        }
+      ]
+    }
+  ]
+}

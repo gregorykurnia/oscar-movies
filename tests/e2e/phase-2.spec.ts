@@ -25,8 +25,10 @@ test("BAFTA 2025's page lists its nominees and winners with their Oscar results"
 test("the accuracy figures for a hand-checked award match", async ({ page }) => {
   // Cinema Eye Honors' feature prize against Best Documentary Feature, worked out by hand in
   // tests/fixtures/accuracy-cinema-eye.json: 3 of 14 and 12 of 14. The nominee figure was 16 of 33 there;
-  // since partial editions that name nominees count (1606655) it is 39 of 83 (7.R).
+  // since partial editions that name nominees count (1606655) it is 39 of 83 (7.R), and 39 of 69 under
+  // the shortlist rule (8.1; the fixture's 16 of 28).
   await page.goto("/awards/cinema-eye/2025");
+  await expect(page.getByText("Documentary and International count only films that made the Oscar shortlist.")).toBeVisible();
   await page.getByRole("link", { name: "Best Documentary Feature", exact: true }).click();
   await expect(page).toHaveURL(/\/accuracy\/documentary$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Accuracy: Best Documentary Feature");
@@ -36,10 +38,11 @@ test("the accuracy figures for a hand-checked award match", async ({ page }) => 
   const cells = row.getByRole("cell");
   await expect(cells.nth(1)).toHaveText("21% 3 of 14");
   await expect(cells.nth(2)).toHaveText("86% 12 of 14");
-  await expect(cells.nth(3)).toHaveText("47% 39 of 83");
+  await expect(cells.nth(3)).toHaveText("57% 39 of 69");
   // The fourth figure, Oscar nominees it caught (78c2dd4), then the years.
   await expect(cells.nth(4)).toHaveText("56% 39 of 70");
   await expect(cells.nth(5)).toHaveText("14");
+  await expect(page.getByRole("region", { name: "Accuracy by award" }).getByText(/^Documentary and International count only films that made the Oscar shortlist\./)).toBeVisible();
 
   // A winners-only award has no nominee figure, so the dash is explained.
   await page.goto("/accuracy/picture");
