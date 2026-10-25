@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Approved v1.2 (2026-10-25): adds an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
+**Status:** Approved v1.3 (2026-10-25): adds Phase 8, nomination patterns for Documentary and International (§3.16), and the shortlist rule for their accuracy figures (§3.6). v1.2 (2026-10-25) added an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
 
 ## 1. Overview
 
@@ -103,6 +103,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
   - **Winner → Oscar nomination:** how often its winner was nominated for it.
   - **Nominees → Oscar nominees:** of its nominees, the share that got the Oscar nomination. Awards that announce winners only (many critics groups) show "–" here, and the page says why.
   - **Oscar nominees it caught:** the other way round: of the Oscar nominees, the share the award had nominated (or picked as winner). A picky award with few nominees scores high on the figure above and low here; a broad one the reverse. "–" for winners-only awards, as above.
+- **Shortlist rule (Documentary and International, from Phase 8):** a film that never reached the Oscar shortlist is left out of the first three figures, so an award isn't marked down for a winner that couldn't compete (not submitted, not eligible). A year whose winner is left out doesn't count for the winner figures. "Oscar nominees it caught" is unchanged.
 - **Running:** they update automatically when an Oscar season finishes; the current season never counts until its ceremony is over.
 - An **accuracy page** per Oscar category ranks every award and festival by these figures (major and critics groups in their own sections), sortable by each figure, with the number of years each is based on.
 
@@ -199,6 +200,21 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - **By film:** each film any strong award picked, with which ones and their figures ("Won BAFTA Documentary (86%) · Nominated Cinema Eye Audience Choice (57%)"); films picked by the most strong awards first.
 - Opens on the current season with a year switcher; linked from the accuracy page and each race category.
 
+### 3.16 Nomination patterns (Documentary and International)
+
+**Purpose:** which mix of precursor results usually leads to an Oscar nomination, which well-awarded films missed and why, and the five the patterns pick for any year (owner's request, 2026-10-25).
+
+**Requirements**
+- **Strong awards:** the awards whose nominees, among shortlisted films, went on to the Oscar nomination clearly more often than the shortlist as a whole (Documentary, 2012–2024: New York, Los Angeles and National Society critics, Spirit Awards, European Film Awards, IDA Director, Toronto critics, TIFF and Sundance World Cinema documentary prizes, Black Film Critics, Cinema for Peace).
+- **Patterns:** how many strong awards nominated a film (0, 1, 2, 3 or more) and, for Documentary, whether it is US-only, with how often films with that pattern got nominated ("3+ strong awards, not US-only: 22 of 23 nominated").
+- **The five it picks:** each shortlisted film ranked by its pattern. Past years show the five next to the real nominees, hits and misses marked, worked out only from the seasons before it, as it would have been live. The live year shows the five and the next three as outside chances; before the shortlist, the ranking without percentages.
+- **Why they missed:** each shortlisted film that wasn't nominated, most-nominated first, with its pattern and how that pattern did before ("US-only, no strong awards: 9 of 72 got in; its 41 nominations came from awards whose nominees did no better than the shortlist"); and the most-awarded misses across all years.
+- **Underdogs:** nominees with at most one strong award, per year and how often that happens (about half of Documentary's nominees).
+- **Backtest:** per year, how many nominees the patterns and the app's current method picked. The race's % to be nominated for the category uses whichever did better.
+
+**UX notes:** linked from the race's Documentary and International tabs and the accuracy page. Small history: the page says the patterns are tendencies from 14 seasons.
+
+
 ## 4. Key flows
 
 1. **Check the race** (daily): open the app → the current race is the home screen. **1 step**. Another category: 1 tap on its tab.
@@ -273,6 +289,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | 3. Predictions and the live race | % chance to be nominated and to win per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
 | 4. Critics groups | The 63 critics groups, 2012–2026, in the grid, award pages, accuracy figures and predictions | Each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked |
 | 5. Festival lineups | 2025 and 2026 lineups by section for the five festivals; festival screenings on the movie page | Cannes 2025's page lists every section's films with flags and scores |
+| 8. Nomination patterns | The shortlist rule for Documentary and International accuracy figures; the nomination patterns page; the race's % to be nominated from whichever method backtests better | European Film Awards Documentary's winner figure counts only shortlisted winners; the 2024 Documentary patterns page shows the five it picked next to the real nominees, the well-awarded misses with their reasons, and the underdogs |
 | 7. Owner's requests of 25 Oct | One flag per film; the grid's Oscar order; strong signals page; an award's all-years page; Watch list add box, drag order, release date and platform | Every row shows one flag; Critics Choice's all-years page lists every year's nominees and winners; the 2025 Picture grid opens with the nominees on top; the 2025 Documentary signals page lists each strong award with its figure and films; a film typed into the Watch list, dragged and given a date and platform keeps all three after a reload |
 
 **Suggested checkpoints with real data:** after Phase 1, the owner marks the films they've seen for 2024–2026 and checks a handful of Oscar years against memory; after Phase 2, the owner spot-checks three awards; after Phase 3, the owner compares the predictions with their own instinct for the 2026 race.
@@ -303,6 +320,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 
 - 2026-10-25: Phase 7 (owner's requests): one flag per film (submitting country for any International submission, else Wikipedia's first country); the year grid opens on Oscar nominees, then shortlisted, then by nominations, other sorts kept; a strong signals page (awards with "Oscar nominees it caught" ≥ 50% or "Winner → Oscar nomination" ≥ 80% over at least 5 years, and the films they picked that year, by award and by film); the Watch list gets an add-by-typing box (films in the app only), the owner's own drag order, and a typed release date (first date watchable from Indonesia, or TBD) and platform. Defaults chosen by Claude and accepted: 5-year minimum, both views on one page, a new film goes to the top of the order.
 - 2026-10-25: An all-years page per award (§3.5), added to Phase 7. Claude's defaults, accepted: newest year first, one Oscar category at a time, no accuracy figures on it (they stay on the year pages).
+- 2026-10-25: Phase 8, nomination patterns for Documentary and International (owner's request), and the shortlist rule for their accuracy figures (owner's rule). Tested first on the `test` data, each year from earlier seasons only: the patterns picked 33 of 55 Documentary nominees over 2015–2025 (the current method 30, random about 18); 3 of 5 in 2023, 2024 and 2025. Documentary themes (labelled by hand from TMDB summaries) were tested and not kept: war films got in 58% of the time against 33% for the shortlist, but adding theme picked fewer nominees (30 of 55), because it mostly repeats what the country and strong awards already say.
 
 ## 10. Open questions
 
