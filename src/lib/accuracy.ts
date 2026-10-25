@@ -74,10 +74,10 @@ export function oscarOutcomes(oscars: ReadonlyArray<OscarEdition>): Map<MovieKey
  * The three figures for one award category. A film counts as an Oscar hit by its furthest
  * outcome in the mapped category in any Oscars edition (a festival film can reach the Oscars a
  * year later). Only finished seasons count, and only `loaded` or `partial` editions with results
- * in this category. The nominees figure counts `loaded` editions only: a `partial` edition may
- * hold just its winner, which would read as a nominee list of one. For the same reason it skips a
- * `loaded` edition that names only winners in this category (NBR's Animated), and is null when no
- * edition names a nominee (Phase 4 review).
+ * in this category. The nominees figure skips an edition that names only winners in this category
+ * (NBR's Animated, a `partial` edition with just its winner), which would read as a nominee list of
+ * one, and is null when no edition names a nominee (Phase 4 review). A `partial` edition that names
+ * nominees counts: most are partial only for a missing date (IMDb-loaded groups such as IDA).
  */
 export function computeAccuracy(input: {
   winnersOnly: boolean;
@@ -113,7 +113,7 @@ export function computeAccuracy(input: {
       if (winners.some((r) => oscarNominated(r.movie))) nomination.hits += 1;
     }
 
-    if (edition.status === "loaded" && edition.results.some((r) => r.outcome !== "won" && isNomination(r.outcome))) {
+    if (edition.results.some((r) => r.outcome !== "won" && isNomination(r.outcome))) {
       // Winners, runners-up and AFI's list: everything at nomination stage or further.
       for (const r of edition.results) {
         if (!isNomination(r.outcome)) continue;

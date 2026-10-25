@@ -29,7 +29,7 @@ section next to Wikipedia. **Wikipedia stays wherever it has data;** IMDb fills 
   has instance 1 for 2020 films and 2 for 2021 films).
 - **No dates** for small groups (`dateRange` holds only the year). Never invent one: an edition
   filled from IMDb without a stated day stays `partial`, note "IMDb gives no announcement date".
-  (Partial editions count for the winner figures, not the nominees figure: `src/lib/accuracy.ts`.)
+  (Partial editions still count in every figure, nominees too when they name any: `src/lib/accuracy.ts`.)
 - Coverage is uneven: Atlanta has winners from the 2017 edition and nominees only for 2025. A
   category with winners only, for a group that announces nominees, stays `partial` ("IMDb lists
   only the winners").

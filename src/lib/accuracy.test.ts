@@ -124,8 +124,8 @@ describe("computeAccuracy", () => {
     expect(figures.noDataYears).toEqual([]);
   });
 
-  it("counts winners of a partial edition but not its nominees", () => {
-    const figures = run([edition(2020, [["a", "won"]], "partial"), edition(2021, [["d", "won"], ["x", "nominated"]])]);
+  it("counts the nominees of a partial edition that names them, but not a partial edition with only its winner", () => {
+    const figures = run([edition(2020, [["a", "won"]], "partial"), edition(2021, [["d", "won"], ["x", "nominated"]], "partial")]);
     expect(figures.win).toEqual({ hits: 2, count: 2 });
     expect(figures.nominees).toEqual({ hits: 1, count: 2 });
   });
