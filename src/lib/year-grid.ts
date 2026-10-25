@@ -175,9 +175,10 @@ export function filmCountLabel(n: number): string {
 
 // The address: `?category=&sort=&filter=&critics=` (plan §4).
 
-export const GRID_SORTS = ["wins", "noms", "average", "title"] as const;
+export const GRID_SORTS = ["oscar", "wins", "noms", "average", "title"] as const;
 export type GridSort = (typeof GRID_SORTS)[number];
 export const GRID_SORT_LABELS: Record<GridSort, string> = {
+  oscar: "Oscars",
   wins: "Wins",
   noms: "Nominations",
   average: "Average score",
@@ -194,13 +195,13 @@ export type GridQuery = {
   criticsOpen: boolean;
 };
 
-const DEFAULT_SORT: GridSort = "wins";
+const DEFAULT_SORT: GridSort = "oscar";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
 const first = (value: string | string[] | undefined) => [value].flat()[0];
 
-/** The address's view. Anything unknown is ignored: Picture, by wins, no filter, critics folded. */
+/** The address's view. Anything unknown is ignored: Picture, in Oscar order, no filter, critics folded. */
 export function parseGridQuery(params: SearchParams): GridQuery {
   const mark = parseMarkFilter(params);
   return {
@@ -239,14 +240,29 @@ function byAverage(a: GridFilm, b: GridFilm): number {
 }
 
 /**
+ * The Oscar order's group: the Oscar winner, then nominees (a runner-up place counts), then films on
+ * the shortlist, then the rest (eligible, submitted, or no Oscar result). In "All categories" the
+ * cell is the film's furthest Oscar outcome in any category.
+ */
+function oscarGroup(film: GridFilm): number {
+  const outcome = film.cells.oscars?.outcome;
+  if (!outcome) return 3;
+  if (outcome === "won") return 0;
+  if (isNomination(outcome)) return 1;
+  return isShortlisted(outcome) ? 2 : 3;
+}
+
+/**
  * The rows the page shows: the filter (Watched keeps films marked watched, Unwatched the rest, so a
- * want-to-watch film stays; Want to watch keeps those), then the sort. Wins: most wins, then nominations; Nominations:
+ * want-to-watch film stays; Want to watch keeps those), then the sort. Oscars: the winner, then
+ * nominees, then shortlisted films, then the rest, each group by nominations, then wins; Wins: most wins, then nominations; Nominations:
  * the other way round; Average: highest first, no scores last; every sort ends on the title.
  */
 export function viewGrid(films: GridFilm[], { sort, filters }: GridQuery, marks: MarkSets): GridFilm[] {
   const totals = new Map(films.map((f) => [f.film.id, gridTotals(f)]));
   const t = (f: GridFilm) => totals.get(f.film.id)!;
   const compare: Record<GridSort, (a: GridFilm, b: GridFilm) => number> = {
+    oscar: (a, b) => oscarGroup(a) - oscarGroup(b) || t(b).noms - t(a).noms || t(b).wins - t(a).wins || byTitle(a, b),
     wins: (a, b) => t(b).wins - t(a).wins || t(b).noms - t(a).noms || byTitle(a, b),
     noms: (a, b) => t(b).noms - t(a).noms || t(b).wins - t(a).wins || byTitle(a, b),
     average: (a, b) => byAverage(a, b) || t(b).wins - t(a).wins || byTitle(a, b),

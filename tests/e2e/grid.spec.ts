@@ -26,7 +26,7 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
   const table = page.getByRole("table");
   const rows = table.getByRole("rowheader");
   expect(await rows.count()).toBeGreaterThanOrEqual(31);
-  // Sorted by wins: the Best Picture winner first.
+  // In Oscar order: the Best Picture winner first.
   await expect(rows.first()).toContainText("One Battle After Another");
 
   // Every Oscar nominee is a row, the winner's Oscar cell won, the others nominated.
@@ -57,7 +57,7 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
 test("the category, sort and Unwatched filter are kept in the address and survive a reload", async ({ page }) => {
   await page.goto("/grid/2025");
 
-  await page.getByRole("button", { name: "Sort: Wins" }).click();
+  await page.getByRole("button", { name: "Sort: Oscars" }).click();
   await page.getByRole("group", { name: "Sort by" }).getByRole("link", { name: "Title" }).click();
   await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
   // In title order, as the page sorts (`localeCompare`); the first title changes as precursors add films.
@@ -109,13 +109,13 @@ test("Watched and Unwatched are one choice, and All categories lists every categ
 
 test("the sort menu works by keyboard", async ({ page }) => {
   await page.goto("/grid/2025");
-  const button = page.getByRole("button", { name: "Sort: Wins" });
+  const button = page.getByRole("button", { name: "Sort: Oscars" });
   await button.focus();
   await page.keyboard.press("Enter");
   const menu = page.getByRole("group", { name: "Sort by" });
-  await expect(menu.getByRole("link", { name: "Wins" })).toBeFocused();
+  await expect(menu.getByRole("link", { name: "Oscars" })).toBeFocused();
   await page.keyboard.press("ArrowDown");
-  await expect(menu.getByRole("link", { name: "Nominations" })).toBeFocused();
+  await expect(menu.getByRole("link", { name: "Wins" })).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(menu).toHaveCount(0);
   await expect(button).toBeFocused();

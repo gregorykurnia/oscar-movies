@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 export type SortLink = { label: string; href: string; current: boolean };
 
 /**
- * The year grid's sort button (guide §8.4): a small secondary button "Sort: Wins" that opens a
+ * The year grid's sort button (guide §8.4): a small secondary button "Sort: Oscars" that opens a
  * popover of the sorts, each a link, so the sort stays in the address. Arrow keys move, Esc (from
  * the button or a link) closes and returns focus to the button, as does choosing a sort; a press
  * outside or tabbing away closes it.

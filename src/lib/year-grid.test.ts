@@ -184,7 +184,7 @@ describe("cells", () => {
 
 describe("the address", () => {
   it("reads the view, ignoring anything unknown", () => {
-    expect(parseGridQuery({})).toEqual({ category: "picture", sort: "wins", filters: [], criticsOpen: false });
+    expect(parseGridQuery({})).toEqual({ category: "picture", sort: "oscar", filters: [], criticsOpen: false });
     expect(parseGridQuery({ category: "animated", sort: "title", filter: ["unwatched", "x"], critics: "open" })).toEqual({
       category: "animated",
       sort: "title",
@@ -205,13 +205,21 @@ describe("the address", () => {
   it("reads the all categories view and the Watched filter", () => {
     expect(parseGridQuery({ category: "all", filter: "watched" })).toEqual({
       category: "all",
-      sort: "wins",
+      sort: "oscar",
       filters: ["watched"],
       criticsOpen: false,
     });
     expect(gridHref(2025, { category: "all", sort: "noms", filters: ["watched"], criticsOpen: false })).toBe(
       "/grid/2025?category=all&sort=noms&filter=watched",
     );
+  });
+
+  it("keeps an old sort=wins address working, and writes it back since it isn't the default", () => {
+    const view = parseGridQuery({ sort: "wins", category: "documentary" });
+    expect(view.sort).toBe("wins");
+    expect(gridHref(2025, view)).toBe("/grid/2025?category=documentary&sort=wins");
+    expect(parseGridQuery({ sort: "oscar" }).sort).toBe("oscar");
+    expect(gridHref(2025, parseGridQuery({ sort: "oscar" }))).toBe("/grid/2025");
   });
 
   it("flips a filter", () => {
@@ -223,7 +231,7 @@ describe("the address", () => {
     expect(toggleGridFilter(["unwatched"], "want")).toEqual(["want"]);
     expect(toggleGridFilter(["want"], "want")).toEqual([]);
     expect(parseGridQuery({ filter: ["want", "watched"] }).filters).toEqual(["watched"]);
-    expect(gridHref(2025, { category: "picture", sort: "wins", filters: ["want"], criticsOpen: false })).toBe(
+    expect(gridHref(2025, { category: "picture", sort: "oscar", filters: ["want"], criticsOpen: false })).toBe(
       "/grid/2025?filter=want",
     );
     expect(toggleGridFilter([], "watched")).toEqual(["watched"]);
@@ -270,6 +278,51 @@ describe("viewGrid", () => {
     expect(titles(view({ filters: ["watched"] }), new Set([2, 3]))).toEqual(["Anora", "Wicked"]);
     expect(titles(view({ filters: ["watched", "unwatched"] }), new Set([2, 3]))).toEqual([]);
     expect(titles(view({ filters: ["want"] }), new Set([2]), new Set([3, 4]))).toEqual(["Emilia Pérez", "Wicked"]);
+  });
+});
+
+describe("viewGrid in Oscar order", () => {
+  const oscar = (outcome: "won" | "nominated" | "runner_up" | "shortlisted" | "eligible" | "submitted") =>
+    ({ outcome, category: "Best Picture" }) as const;
+  const other = { outcome: "nominated", category: "x" } as const;
+  const otherWin = { outcome: "won", category: "x" } as const;
+  const run = (films: GridFilm[], over: Partial<GridQuery> = {}) =>
+    viewGrid(films, { category: "picture", sort: "oscar", filters: [], criticsOpen: false, ...over }, { watched: new Set(), want: new Set() }).map(
+      (f) => f.film.title,
+    );
+
+  it("puts the Oscar winner first even with fewer nominations, then nominees, shortlisted, the rest", () => {
+    const films = [
+      gf(film(1, "Rest", 70), { b: otherWin, c: otherWin, d: other }),
+      gf(film(2, "Short", 70), { oscars: oscar("shortlisted"), b: other, c: other }),
+      gf(film(3, "Nominee", 70), { oscars: oscar("nominated") }),
+      gf(film(4, "Winner", 70), { oscars: oscar("won") }),
+      gf(film(5, "Runner", 70), { oscars: oscar("runner_up") }),
+      gf(film(6, "Eligible", 70), { oscars: oscar("eligible"), b: other }),
+    ];
+    expect(run(films)).toEqual(["Winner", "Nominee", "Runner", "Short", "Rest", "Eligible"]);
+  });
+
+  it("breaks ties by nominations, then wins, then title", () => {
+    const films = [
+      gf(film(1, "Zed", 70), { oscars: oscar("nominated"), b: other }),
+      gf(film(2, "Beta", 70), { oscars: oscar("nominated"), b: otherWin }),
+      gf(film(3, "Alpha", 70), { oscars: oscar("nominated"), b: otherWin }),
+      gf(film(4, "Many", 70), { oscars: oscar("nominated"), b: other, c: other }),
+      gf(film(5, "Winner", 70), { oscars: oscar("won") }),
+    ];
+    expect(run(films)).toEqual(["Winner", "Many", "Alpha", "Beta", "Zed"]);
+  });
+
+  it("uses a film's furthest Oscar outcome in All categories", () => {
+    // The cell for the "all" grid is already the furthest across categories (gridFilms).
+    const rows: GridResultRow[] = [
+      { film: film(1, "Won Animated", 70), awardSlug: "oscars", category: "Best Animated Feature Film", outcome: "nominated" },
+      { film: film(1, "Won Animated", 70), awardSlug: "oscars", category: "Best Picture", outcome: "won" },
+      { film: film(2, "Nominated Only", 70), awardSlug: "oscars", category: "Best Picture", outcome: "nominated" },
+      { film: film(2, "Nominated Only", 70), awardSlug: "bafta", category: "Best Film", outcome: "nominated" },
+    ];
+    expect(run(gridFilms(rows), { category: "all" })).toEqual(["Won Animated", "Nominated Only"]);
   });
 });
 

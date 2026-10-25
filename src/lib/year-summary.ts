@@ -100,5 +100,5 @@ export function mostNominatedNote({ films }: MostNominated): string {
 
 /** Where a count opens: the grid's view for the category, filter and sort it counts (the defaults otherwise). */
 export function listHref(year: number, view: Partial<GridQuery> & { category: GridCategory }): string {
-  return gridHref(year, { sort: "wins", filters: [], criticsOpen: false, ...view });
+  return gridHref(year, { sort: "oscar", filters: [], criticsOpen: false, ...view });
 }
