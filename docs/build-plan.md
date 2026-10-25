@@ -438,6 +438,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 5 choices to confirm or change (5.3, 5.R): the lineup's sort (Title or Average score) and mark chips; "Selected" in the Nominated look, as AFI's top ten; possible follow-up: links that jump to a lineup's sections | 2026-10-23 | nothing (easy to change) |
 | Phase 6 owner check: spot-check two critics groups' IMDb-filled pages against memory, `/accuracy/documentary` and the 2024 Documentary grid with critics open, sign off | 2026-10-24 | Phase 6 done |
 | Phase 6 choices to confirm or change (6.R): Cinema Eye's Unforgettables counts as a list (no winner figures, a nominee figure) rather than as wins; winners-only groups keep IMDb's winners only, though Kansas City's own site announces nominees (flip its `winnersOnly` and rerun `imdb.ts` to keep them); a list's sub line still says "Festival prize" | 2026-10-24 | nothing (easy to change) |
+| Approve removing Cinema for Peace from production: `npx tsx scripts/remove-award.ts --target production --yes-production --award cinema-for-peace` (`--dry-run` first; done on `test`) | 2026-10-25 | the live site still lists it until then |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log

@@ -186,9 +186,6 @@
     "lgbtq-critics": [
       "ev0002507"
     ],
-    "cinema-for-peace": [
-      "ev0001568"
-    ],
     "peabody": [
       "ev0000527"
     ]
@@ -316,17 +313,6 @@
       "Best Foreign Film": "international",
       "Best Documentary Film": "documentary",
       "Best Animated Film": "animated"
-    },
-    "cinema-for-peace": {
-      "Cinema for Peace Award for the Most Valuable Film of the Year": "most-valuable-film",
-      "Cinema for Peace Award for The Most Valuable Film of the Year": "most-valuable-film",
-      "Cinema for Peace Dove for The Most Valuable Film of the Year": "most-valuable-film",
-      "Cinema for Peace Dove for the Most Valuable Film of the Year": "most-valuable-film",
-      "Cinema for Peace Award for the Most Valuable Documentary of the Year": "most-valuable-documentary",
-      "Cinema for Peace Award for The Most Valuable Documentary of the Year": "most-valuable-documentary",
-      "Cinema for Peace Dove for The Most Valuable Documentary of the Year": "most-valuable-documentary",
-      "Cinema for Peace Dove for the Most Valuable Documentary of the Year": "most-valuable-documentary",
-      "Most Valuable Documentary of the Year": "most-valuable-documentary"
     },
     "columbus-critics": {
       "Best Film": "picture",
@@ -638,28 +624,11 @@
   "honorees": {
     "cinema-eye/unforgettables": "Honours a year's memorable film subjects: every film named is an honoree, none a winner or nominee, so the films are written as a list (nominated), like a selection"
   },
-  "seasons": {
-    "ev0001568/2010/1": {
-      "year": 2009,
-      "why": "Cinema for Peace's February 2010 gala honours 2009 films; the search starts at 2010 releases, so only films released in early 2010 are left, which the season rule files under 2010."
-    }
-  },
+  "seasons": {},
   "leaveOut": {
     "british-independent 2019 tt8979144": {
       "why": "Monos is typed as a short on IMDb (it is a feature); Wikipedia's nominee list already has it",
       "note": "a feature typed as a short on IMDb"
-    },
-    "cinema-for-peace 2015 tt6438986": {
-      "why": "Háwar: no film record with that IMDb ID on TMDB or Wikidata",
-      "note": "no film record could be matched"
-    },
-    "cinema-for-peace 2023 tt29306658": {
-      "why": "JFK: One Day in America is a documentary series, not a feature",
-      "note": "a series"
-    },
-    "cinema-for-peace 2016 tt6073176": {
-      "why": "The White Helmets is a short documentary",
-      "note": "a short"
     },
     "greater-western-new-york-critics 2020 tt12837488": {
       "why": "World of Tomorrow Episode Three is a short film",

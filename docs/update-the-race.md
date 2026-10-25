@@ -22,7 +22,7 @@ The routine for when the owner says **"update the race"** (product plan §3.12; 
    | Cannes, Venice, Berlin, Sundance, TIFF | `npx tsx scripts/research/festivals.ts --award <slug> --years <season> --refresh` |
    | Oscars: Picture, Documentary, Animated (shortlists, nominations, winners) | `npx tsx scripts/research/oscars.ts --years <season> --refresh` |
    | Oscars: International submissions and shortlist | `npx tsx scripts/research/international.ts --years <season> --refresh`, then `oscars.ts --years <season> --offline` |
-   | The 63 critics groups (Critics Choice, Gotham, IDA, Peabody and the rest) | `npx tsx scripts/research/critics.ts --award <slug> --years <season> --refresh` |
+   | The 62 critics groups (Critics Choice, Gotham, IDA, Peabody and the rest) | `npx tsx scripts/research/critics.ts --award <slug> --years <season> --refresh` |
    | Gaps Wikipedia leaves: Cinema Eye's Direction, Production, Audience Choice and Unforgettables, and every critics group | `npx tsx scripts/research/imdb.ts --award <slug>[,<slug>…] --years <season> --refresh`, **always after** `majors.ts` or `critics.ts` for the same award (they drop IMDb's rows) |
    | DOC NYC (Short List: Features in October or November, Winner's Circle) | `npx tsx scripts/research/docnyc.ts --years <season> --refresh` |
 

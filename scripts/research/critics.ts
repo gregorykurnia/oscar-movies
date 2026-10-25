@@ -400,54 +400,6 @@ async function readLasVegas(year: number, ctx: Ctx): Promise<Read | null> {
   };
 }
 
-/**
- * Cinema for Peace: one heading per ceremony year (Berlin, February: the year after the films), each
- * with a bullet per prize, "The Cinema for Peace Dove for The Most Valuable Film of the Year: A by X; B by Y".
- * Only the winners are listed from 2011 on; a prize shared by several films has them all as winners.
- */
-async function readCinemaForPeace(year: number, ctx: Ctx): Promise<Read | null> {
-  const page = await ctx.page("Cinema for Peace Awards");
-  const $ = cheerio.load(page.html);
-  const prizes: Array<{ slug: string; label: RegExp }> = [
-    { slug: "most-valuable-film", label: /^The Cinema for Peace Dove for The Most Valuable Film of the Year:/ },
-    { slug: "most-valuable-documentary", label: /^The Cinema for Peace Dove for The Most Valuable Documentary of the Year:/ },
-  ];
-  const heading = $("h3")
-    .toArray()
-    .find((h) => clean($(h).text()) === String(year + 1));
-  if (!heading) return null;
-  let node = $(heading).closest(".mw-heading").next();
-  while (node.length > 0 && !node.is("ul, .mw-heading")) node = node.next();
-  if (!node.is("ul")) return null;
-  const rows: Row[] = [];
-  const missing: string[] = [];
-  for (const prize of prizes) {
-    const li = node
-      .children("li")
-      .toArray()
-      .find((l) => prize.label.test(clean($(l).text())));
-    if (!li) {
-      missing.push(prize.slug);
-      continue;
-    }
-    const own = ownContent($, li);
-    const anchors = own.find("a").toArray().map((a) => linkOf($, $(a) as cheerio.Cheerio<Element>));
-    for (const segment of clean(own.text()).replace(prize.label, "").split(/;\s*/)) {
-      const title = clean(segment.split(/\s+by\s+/)[0]);
-      if (!title) continue;
-      rows.push({ category: prize.slug, link: anchors.find((a) => flat(a.text) === flat(title)) ?? { article: null, text: title }, outcome: "won" });
-    }
-  }
-  if (rows.length === 0) return null;
-  return {
-    rows,
-    missing,
-    urls: [page.url],
-    gaps: ["Wikipedia lists only the winners of each prize and gives no ceremony date"],
-    problems: [],
-  };
-}
-
 /** Phoenix FCS's "Best Picture winners" table: the winner of each year (the year is the film year). */
 async function readPhoenix(year: number, ctx: Ctx): Promise<Read | null> {
   const page = await ctx.page("Phoenix Film Critics Society");
@@ -858,14 +810,6 @@ export const GROUPS: Group[] = [
     why: "Wikipedia has no page for the Chicago Indie Critics' awards and no other source was found for them",
     winnersOnly: false,
     read: async () => null,
-  },
-  {
-    slug: "cinema-for-peace",
-    name: "Cinema for Peace",
-    years: [2012, 2024],
-    why: "the Cinema for Peace Awards for these films are not on Wikipedia (its list stops at the 2025 gala, for 2024 films)",
-    winnersOnly: false,
-    read: readCinemaForPeace,
   },
   {
     slug: "columbus-critics",

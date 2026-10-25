@@ -2711,34 +2711,6 @@
     ]
   },
   {
-    "slug": "cinema-for-peace",
-    "name": "Cinema for Peace Awards",
-    "shortName": "Cinema for Peace",
-    "kind": "critics",
-    "calendarOrder": 510,
-    "winnersOnly": false,
-    "isSelection": false,
-    "url": "https://cinemaforpeace-foundation.org",
-    "categories": [
-      {
-        "slug": "most-valuable-film",
-        "name": "Most Valuable Film of the Year",
-        "oscarCategory": "picture",
-        "loose": true,
-        "mappingNote": "A prize for films on peace and human rights, read as a vote for the film",
-        "sortOrder": 1
-      },
-      {
-        "slug": "most-valuable-documentary",
-        "name": "Most Valuable Documentary of the Year",
-        "oscarCategory": "documentary",
-        "loose": true,
-        "mappingNote": "A prize for films on peace and human rights, read as a vote for the film",
-        "sortOrder": 2
-      }
-    ]
-  },
-  {
     "slug": "peabody",
     "name": "Peabody Awards (documentary winners)",
     "shortName": "Peabody",

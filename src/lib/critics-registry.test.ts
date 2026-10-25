@@ -5,7 +5,7 @@ import type { AwardsFile } from "./data-files";
 const registry = JSON.parse(readFileSync("data/awards.json", "utf8")) as AwardsFile;
 const critics = registry.filter((a) => a.kind === "critics");
 
-// Product plan §3.1's 63 critics groups, in its order, with the registry slugs that hold them
+// Product plan §3.1's 62 critics groups, in its order, with the registry slugs that hold them
 // (identities from product plan §10). Critics Choice has two: its Documentary Awards run on
 // their own dates in November.
 const GROUPS: [string, string[]][] = [
@@ -20,7 +20,6 @@ const GROUPS: [string, string[]][] = [
   ["Central Florida", ["central-florida-critics"]],
   ["Chicago FCA", ["chicago-critics"]],
   ["Chicago IC", ["chicago-indie-critics"]],
-  ["Cinema for Peace", ["cinema-for-peace"]],
   ["Columbus", ["columbus-critics"]],
   ["Critics Choice", ["critics-choice", "critics-choice-documentary"]],
   ["Dallas Fort Worth", ["dallas-fort-worth-critics"]],
@@ -76,7 +75,7 @@ const GROUPS: [string, string[]][] = [
 
 describe("critics registry (data/awards.json)", () => {
   it("holds every group in product plan §3.1 and nothing else", () => {
-    expect(GROUPS).toHaveLength(63);
+    expect(GROUPS).toHaveLength(62);
     expect(critics.map((a) => a.slug).sort()).toEqual(GROUPS.flatMap(([, slugs]) => slugs).sort());
   });
 
