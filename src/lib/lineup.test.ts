@@ -30,6 +30,7 @@ const film = (id: number, title: string, more: Partial<LineupFilm> = {}): Lineup
   originalLang: null,
   year: 2025,
   countries: ["FR"],
+  flag: "FR",
   scores: { imdb: null, rt: null, mc: null, tmdb: null, average: null, count: 0 },
   prize: null,
   ...more,

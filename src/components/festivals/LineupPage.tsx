@@ -192,7 +192,7 @@ function SectionFilms({ section, year }: { section: LineupSection; year: number 
               key={film.id}
               title={film.title}
               href={`/movies/${film.slug}`}
-              flags={film.countries}
+              flag={film.flag}
               // The lineup's year goes without saying; a film from another year says which.
               meta={film.year === year ? undefined : String(film.year)}
               scores={film.scores}

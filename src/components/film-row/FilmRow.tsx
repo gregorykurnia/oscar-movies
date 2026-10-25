@@ -78,8 +78,8 @@ export function FilmRow({
   href,
   lang,
   lead,
-  flags = [],
-  firstFlagLabel,
+  flag,
+  flagLabel,
   meta,
   scores,
   badge,
@@ -94,10 +94,10 @@ export function FilmRow({
   lang?: string;
   /** The first column (International: the submitting country's flag and name). */
   lead?: ReactNode;
-  /** Country codes, main country first. */
-  flags?: string[];
-  /** Accessible name of the first flag ("Brazil, submitting country"). */
-  firstFlagLabel?: string;
+  /** The film's one flag: its primary country (`FilmRowData.flag`). */
+  flag?: string | null;
+  /** Accessible name of the flag ("Brazil, submitting country"). */
+  flagLabel?: string;
   /** Caption under the title (year · categories). */
   meta?: ReactNode;
   scores?: Scores;
@@ -123,7 +123,7 @@ export function FilmRow({
     >
       {lead ? <div className="min-w-0 text-small max-md:[grid-area:lead]">{lead}</div> : null}
       <div className="flex min-w-0 gap-3 max-md:[grid-area:film] md:gap-3.5">
-        <Flags codes={flags} stacked firstLabel={firstFlagLabel} className="pt-1" />
+        <Flags code={flag} label={flagLabel} className="mt-1" />
         <div className="min-w-0">
           <Heading className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[16px] leading-snug font-medium tracking-title [overflow-wrap:anywhere] md:text-[17px]">
             <Link
@@ -143,7 +143,7 @@ export function FilmRow({
       <div
         className={cn(
           "flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-caption max-md:[grid-area:res] md:contents",
-          flags.length > 0 && "pl-[33px]",
+          flag && "pl-[33px]",
           results.every((r) => r.phoneHidden) && "max-md:hidden",
         )}
       >

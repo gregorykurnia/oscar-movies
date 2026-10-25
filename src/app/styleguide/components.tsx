@@ -206,26 +206,23 @@ export function Components({ s }: { s: Sample }) {
       <Board
         id="flags"
         title="Flags"
-        note="3:2 artwork with a hairline edge, main country first, up to three then +N. The flag's name is the country."
+        note="3:2 artwork with a hairline edge. One flag per film: its primary country, never two and never +N. The flag's name is the country."
       >
         <Spec>
-          <Cell name="One" note="21×14">
-            <Flags codes={["US"]} />
+          <Cell name="Row" note="21×14">
+            <Flags code="US" />
           </Cell>
-          <Cell name="Co-production" note="three, then +N">
-            <Flags codes={s.coProduction} />
-          </Cell>
-          <Cell name="Stacked" note="in race rows">
-            <Flags codes={["GB", "US"]} stacked />
+          <Cell name="Co-production" note="the first country only">
+            <Flags code="NO" />
           </Cell>
           <Cell name="Small" note="15×10, tabs">
-            <Flags codes={["BR"]} size="sm" />
+            <Flags code="BR" size="sm" />
           </Cell>
           <Cell name="Large" note="30×20, movie page">
-            <Flags codes={["BR", "FR"]} size="lg" />
+            <Flags code="BR" size="lg" />
           </Cell>
-          <Cell name="Submitting country" note="first flag named">
-            <Flags codes={["BR", "FR", "NL"]} firstLabel="Brazil, submitting country" />
+          <Cell name="Submitting country" note="named in International rows">
+            <Flags code="BR" label="Brazil, submitting country" />
           </Cell>
           <Cell name="Unknown code" note="blank, not broken">
             <Flag code="XX" />
@@ -393,7 +390,7 @@ export function Components({ s }: { s: Sample }) {
               title={film.title}
               href={film.href}
               lang={film.lang}
-              flags={film.flags}
+              flag={film.flag}
               meta={film.meta}
               scores={film.scores}
               winner={i === 0}
@@ -414,8 +411,8 @@ export function Components({ s }: { s: Sample }) {
           <FilmRow
             title={s.stress ? s.films[2].title : "The Secret Agent"}
             href="#"
-            flags={["BR", "FR", "NL"]}
-            firstFlagLabel="Brazil, submitting country"
+            flag="BR"
+            flagLabel="Brazil, submitting country"
             meta="2025 · International"
             results={[
               { label: "To win", value: "34%", numeric: true, gold: true },

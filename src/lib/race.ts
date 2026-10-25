@@ -168,7 +168,7 @@ export function tabLead({
   submissions,
 }: {
   state: SeasonState;
-  entries: { outcome: Outcome; title: string; flags: string[] }[];
+  entries: { outcome: Outcome; title: string; flag: string | null }[];
   /** International: how many countries have submitted a film. */
   submissions: number;
 }): TabLead {
@@ -176,7 +176,7 @@ export function tabLead({
   switch (state) {
     case "finished": {
       const winners = entries.filter((e) => e.outcome === "won");
-      return { kind: "winner", title: joinTitles(winners.map((w) => w.title)), flag: winners[0]?.flags[0] ?? null };
+      return { kind: "winner", title: joinTitles(winners.map((w) => w.title)), flag: winners[0]?.flag ?? null };
     }
     case "nominations":
       return { kind: "text", text: plural(entries.length, "nominee", "nominees") };

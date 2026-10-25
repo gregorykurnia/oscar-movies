@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { OUTCOMES, compareOutcome, flagsFor, isNomination, isShortlisted, outcomeStage, type Outcome } from "./stage";
+import { OUTCOMES, compareOutcome, isNomination, isShortlisted, outcomeStage, type Outcome } from "./stage";
 
 describe("compareOutcome", () => {
   it("orders submitted < eligible = shortlisted < runner_up = nominated < won", () => {
@@ -31,14 +31,5 @@ describe("outcomeStage", () => {
     expect(outcomeStage("runner_up")).toBe("runner-up");
     expect(outcomeStage("won")).toBe("won");
     expect(outcomeStage("submitted")).toBe("submitted");
-  });
-});
-
-describe("flagsFor", () => {
-  it("puts the submitting country first, once", () => {
-    expect(flagsFor(["FR", "BR"], "BR")).toEqual(["BR", "FR"]);
-    expect(flagsFor(["FR"], "BE")).toEqual(["BE", "FR"]);
-    expect(flagsFor(["US", "GB"])).toEqual(["US", "GB"]);
-    expect(flagsFor(["US"], null)).toEqual(["US"]);
   });
 });

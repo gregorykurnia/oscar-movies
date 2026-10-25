@@ -21,6 +21,7 @@ describe("queryMovie", () => {
       originalTitle: "Ainda Estou Aqui",
       year: 2024,
       countries: ["BR", "FR"],
+      flag: "BR",
       language: "pt",
     });
     const boxes = film!.oscars.map((b) => [b.category, b.outcome, b.year, b.listSize, b.country]);
@@ -29,6 +30,12 @@ describe("queryMovie", () => {
       ["picture", "nominated", 2024, 10, null],
     ]);
     expect(film!.oscars[0].winnersOn).toBe("2025-03-02");
+  });
+
+  it("has one flag: the submitting country for a submitted film, else the first country", async () => {
+    // Iranian-French, submitted by France: the flag follows the submission, the countries stay as stored.
+    expect(await queryMovie(db, "it-was-just-an-accident")).toMatchObject({ countries: ["IR", "FR"], flag: "FR" });
+    expect(await queryMovie(db, "the-brutalist")).toMatchObject({ flag: "US" });
   });
 
   it("gives each score the day it was fetched", async () => {

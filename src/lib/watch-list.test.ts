@@ -14,6 +14,7 @@ function film(title: string, stage: Outcome | null, nominations: number, average
       originalLang: null,
       year: 2025,
       countries: [],
+      flag: null,
       scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 },
     },
     stage,
@@ -21,7 +22,6 @@ function film(title: string, stage: Outcome | null, nominations: number, average
     categories: [],
     nominations,
     chance,
-    flags: [],
   };
 }
 

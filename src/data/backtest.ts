@@ -6,8 +6,8 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, predictions, results } from "@/db/schema";
 import { buildBacktest, type Backtest, type BacktestFilm, type SeasonInput } from "@/lib/backtest";
-import { flagsFor } from "@/lib/stage";
-import type { ReadDb } from "./films";
+import { primaryCountry, type Submission } from "@/lib/flags";
+import { submissionsColumn, type ReadDb } from "./films";
 import type { OscarCategory } from "./oscars";
 
 /** The backtest of the given finished seasons of one Oscar category. */
@@ -19,10 +19,10 @@ export async function queryBacktest(db: ReadDb, category: OscarCategory, seasons
       year: editions.year,
       movieId: results.movieId,
       outcome: results.outcome,
-      country: results.country,
       title: movies.title,
       slug: movies.slug,
       countries: movies.countries,
+      submissions: submissionsColumn,
     })
     .from(results)
     .innerJoin(editions, eq(editions.id, results.editionId))
@@ -42,6 +42,7 @@ export async function queryBacktest(db: ReadDb, category: OscarCategory, seasons
       title: movies.title,
       slug: movies.slug,
       countries: movies.countries,
+      submissions: submissionsColumn,
     })
     .from(predictions)
     .innerJoin(movies, eq(movies.id, predictions.movieId))
@@ -54,13 +55,17 @@ export async function queryBacktest(db: ReadDb, category: OscarCategory, seasons
     )
     .orderBy(asc(predictions.year), asc(predictions.rank));
 
-  // International's flag is the submitting country first, as everywhere else.
-  const submitted = new Map(oscar.filter((r) => r.country).map((r) => [`${r.year}/${r.movieId}`, r.country]));
-  const film = (year: number, r: { movieId: number; title: string; slug: string; countries: string[] }): BacktestFilm => ({
+  const film = (r: {
+    movieId: number;
+    title: string;
+    slug: string;
+    countries: string[];
+    submissions: Submission[] | null;
+  }): BacktestFilm => ({
     id: r.movieId,
     title: r.title,
     slug: r.slug,
-    flags: flagsFor(r.countries, submitted.get(`${year}/${r.movieId}`)),
+    flag: primaryCountry(r.countries, r.submissions ?? []),
   });
 
   const inputs = seasons.map((year): SeasonInput => {
@@ -69,11 +74,11 @@ export async function queryBacktest(db: ReadDb, category: OscarCategory, seasons
     const first = ceremony[0];
     return {
       year,
-      winners: oscar.filter((r) => r.year === year && r.outcome === "won").map((r) => film(year, r)),
+      winners: oscar.filter((r) => r.year === year && r.outcome === "won").map((r) => film(r)),
       nomineeIds: oscar
         .filter((r) => r.year === year && (r.outcome === "won" || r.outcome === "nominated" || r.outcome === "runner_up"))
         .map((r) => r.movieId),
-      favourite: first ? { film: film(year, first), pWin: first.pWin } : null,
+      favourite: first ? { film: film(first), pWin: first.pWin } : null,
       eveNominations:
         eveNominations.length > 0
           ? eveNominations.map((r) => ({ movieId: r.movieId, pNominate: r.pNominate ?? 0, rank: r.rank }))

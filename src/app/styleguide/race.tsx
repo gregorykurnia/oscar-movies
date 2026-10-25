@@ -128,7 +128,7 @@ export function RaceBoards({ s }: { s: Sample }) {
             <ContenderRow
               title={s.films[0].title}
               href="#"
-              flags={s.films[0].flags}
+              flag={s.films[0].flag}
               badge={<StagePill stage="won" />}
               precursors={{ won: ["PGA", "DGA", "Satellite"], nominated: ["Globes"] }}
               scores={s.films[0].scores}
@@ -137,7 +137,7 @@ export function RaceBoards({ s }: { s: Sample }) {
             <ContenderRow
               title={s.films[1].title}
               href="#"
-              flags={s.films[1].flags}
+              flag={s.films[1].flag}
               badge={<StagePill stage="nominated" />}
               precursors={{ won: [], nominated: ["BAFTA", "PGA", "Actor Awards", "Globes"] }}
               scores={s.films[1].scores}
@@ -146,8 +146,8 @@ export function RaceBoards({ s }: { s: Sample }) {
             <ContenderRow
               title={s.films[2].title}
               href="#"
-              flags={["BR", "FR", "NL"]}
-              firstFlagLabel="Brazil, submitting country"
+              flag="BR"
+              flagLabel="Brazil, submitting country"
               badge={<StagePill stage="shortlisted" />}
               scores={s.films[2].scores}
               marks={<Marks watched={false} want={false} />}
@@ -155,7 +155,7 @@ export function RaceBoards({ s }: { s: Sample }) {
             <ContenderRow
               title="No pill on a list of nominees"
               href="#"
-              flags={["US"]}
+              flag="US"
               scores={s.scoreRows[2]}
               marks={<Marks watched={false} want={false} disabled />}
             />
@@ -166,7 +166,7 @@ export function RaceBoards({ s }: { s: Sample }) {
             <ContenderRow
               title={s.stress ? s.films[1].title : "A film with a long title that wraps under its flags on a phone"}
               href="#"
-              flags={s.coProduction}
+              flag="NO"
               badge={<StagePill stage="nominated" />}
               precursors={{ won: s.stress ? ["Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz"] : ["Globes"], nominated: ["BAFTA"] }}
               scores={s.scoreRows[1]}
@@ -215,7 +215,7 @@ export function RaceBoards({ s }: { s: Sample }) {
                 key="a"
                 title={s.films[0].title}
                 href="#"
-                flags={s.films[0].flags}
+                flag={s.films[0].flag}
                 precursors={{ won: ["Gotham", "NBR"], nominated: ["Globes", "Critics Choice", "AFI"] }}
                 scores={s.films[0].scores}
                 marks={<Marks watched want={false} />}
@@ -226,7 +226,7 @@ export function RaceBoards({ s }: { s: Sample }) {
                 key="b"
                 title={s.films[1].title}
                 href="#"
-                flags={s.films[1].flags}
+                flag={s.films[1].flag}
                 precursors={{ won: ["TIFF"], nominated: ["Globes", "AFI"] }}
                 scores={s.films[1].scores}
                 marks={<Marks watched={false} want />}
@@ -239,7 +239,7 @@ export function RaceBoards({ s }: { s: Sample }) {
                 key="c"
                 title={s.films[2].title}
                 href="#"
-                flags={s.films[2].flags}
+                flag={s.films[2].flag}
                 scores={s.films[2].scores}
                 marks={<Marks watched={false} want={false} />}
                 columns="both"
@@ -259,7 +259,7 @@ export function RaceBoards({ s }: { s: Sample }) {
                 key="d"
                 title="Anora"
                 href="#"
-                flags={["US"]}
+                flag="US"
                 badge={<StagePill stage="won" />}
                 scores={s.scoreRows[0]}
                 marks={<Marks watched want={false} />}
@@ -270,7 +270,7 @@ export function RaceBoards({ s }: { s: Sample }) {
                 key="e"
                 title="Conclave"
                 href="#"
-                flags={["GB", "US"]}
+                flag="GB"
                 badge={<StagePill stage="nominated" />}
                 scores={s.scoreRows[1]}
                 marks={<Marks watched={false} want={false} />}

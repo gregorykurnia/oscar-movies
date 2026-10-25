@@ -7,7 +7,7 @@ import { getDb } from "@/db";
 import { accuracy, awardCategories, awards, editions, movies, results } from "@/db/schema";
 import type { Figure } from "@/lib/accuracy";
 import { seasonState, type SeasonState } from "@/lib/race";
-import { compareOutcome, flagsFor, type Outcome } from "@/lib/stage";
+import { compareOutcome, type Outcome } from "@/lib/stage";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
 import { queryOscarResults, type OscarCategory } from "./oscars";
 
@@ -52,8 +52,6 @@ export type AwardEntry = {
   film: FilmRowData;
   /** The furthest stage the film reached in this category. */
   outcome: Outcome;
-  /** Flags to show: the production countries. */
-  flags: string[];
   /** Null when the film isn't on the Oscar category's list that year (see `oscarState`). */
   oscar: OscarOutcome;
 };
@@ -177,7 +175,6 @@ export async function queryAwardYear(db: ReadDb, awardSlug: string, year: number
           return {
             film: toFilmRow(film),
             outcome,
-            flags: flagsFor(film.countries),
             oscar: oscar ? { outcome: oscar.outcome, country: oscar.country } : null,
           };
         })

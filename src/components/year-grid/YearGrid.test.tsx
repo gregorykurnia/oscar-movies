@@ -37,6 +37,7 @@ function film(id: number, title: string): FilmRowData {
     originalLang: null,
     year: 2024,
     countries: ["US"],
+    flag: "US",
     scores: { imdb: 7.5, rt: null, mc: null, tmdb: null, average: 75, count: 1 },
   };
 }
@@ -44,7 +45,6 @@ function film(id: number, title: string): FilmRowData {
 const FILMS: GridFilm[] = [
   {
     film: film(1, "Anora"),
-    flags: ["US"],
     cells: {
       oscars: { outcome: "won", category: "Best Picture" },
       bafta: { outcome: "nominated", category: "Best Film" },
@@ -55,7 +55,6 @@ const FILMS: GridFilm[] = [
   },
   {
     film: film(2, "Wicked"),
-    flags: ["US"],
     cells: { oscars: { outcome: "nominated", category: "Best Picture" } },
   },
 ];

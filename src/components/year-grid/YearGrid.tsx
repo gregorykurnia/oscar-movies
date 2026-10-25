@@ -132,7 +132,7 @@ export function YearGrid({
                 <th scope="row" aria-label={f.film.title} className={cn(filmCell, "py-2.5 font-normal")}>
                   <div className="flex items-center gap-2.5">
                     <span className="hidden flex-none md:block">
-                      <Flags codes={f.flags} />
+                      <Flags code={f.film.flag} />
                     </span>
                     <span className="min-w-0 flex-1 text-small leading-[1.3] font-medium [overflow-wrap:anywhere]">
                       <Link

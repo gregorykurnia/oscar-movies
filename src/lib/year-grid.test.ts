@@ -33,6 +33,7 @@ function film(id: number, title: string, average: number | null = null, countrie
     originalLang: null,
     year: 2025,
     countries,
+    flag: countries[0] ?? null,
     scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 1 },
   };
 }
@@ -85,12 +86,11 @@ describe("gridCategoryName", () => {
   });
 });
 
-const row = (f: FilmRowData, awardSlug: string, outcome: GridResultRow["outcome"], category = "Best Film", country: string | null = null): GridResultRow => ({
+const row = (f: FilmRowData, awardSlug: string, outcome: GridResultRow["outcome"], category = "Best Film"): GridResultRow => ({
   film: f,
   awardSlug,
   category,
   outcome,
-  country,
 });
 
 describe("gridFilms", () => {
@@ -104,35 +104,27 @@ describe("gridFilms", () => {
       [
         row(a, "bafta", "won"),
         row(b, "tiff", "runner_up"),
-        row(c, "oscars", "eligible", "Best International Feature Film", "BR"),
-        row(d, "oscars", "shortlisted", "Best International Feature Film", "BR"),
+        row(c, "oscars", "eligible", "Best International Feature Film"),
+        row(d, "oscars", "shortlisted", "Best International Feature Film"),
       ],
-      "international",
     );
     expect(films.map((f) => f.film.title)).toEqual(["Anora", "The Brutalist", "Shortlisted"]);
-  });
-
-  it("puts the submitting country's flag first for International only", () => {
-    const rows = [row(d, "oscars", "shortlisted", "Best International Feature Film", "BR")];
-    expect(gridFilms(rows, "international")[0].flags).toEqual(["BR", "FR"]);
-    expect(gridFilms(rows, "picture")[0].flags).toEqual(["FR", "BR"]);
   });
 
   it("keeps a film's furthest result at an award with several categories (Globes' Drama and Comedy)", () => {
     const films = gridFilms(
       [row(a, "golden-globes", "nominated", "Drama"), row(a, "golden-globes", "won", "Comedy"), row(a, "golden-globes", "nominated", "Other")],
-      "picture",
     );
     expect(films[0].cells["golden-globes"]).toEqual({ outcome: "won", category: "Comedy" });
   });
 
   it("keeps the first category read on a tie", () => {
-    const films = gridFilms([row(a, "sundance", "won", "Jury"), row(a, "sundance", "won", "Audience")], "picture");
+    const films = gridFilms([row(a, "sundance", "won", "Jury"), row(a, "sundance", "won", "Audience")]);
     expect(films[0].cells.sundance.category).toBe("Jury");
   });
 });
 
-const gf = (f: FilmRowData, cells: GridFilm["cells"]): GridFilm => ({ film: f, flags: f.countries, cells });
+const gf = (f: FilmRowData, cells: GridFilm["cells"]): GridFilm => ({ film: f, cells });
 
 describe("gridTotals and criticsWins", () => {
   const g = gf(film(1, "Anora"), {

@@ -44,9 +44,3 @@ export function outcomeStage(outcome: Outcome): Stage {
 export function oscarStage(outcome: Outcome, category?: string | null): Stage {
   return outcome === "eligible" && category === "international" ? "not-nominated" : outcomeStage(outcome);
 }
-
-/** A film's flags: the submitting country first (International), then its production countries. */
-export function flagsFor(countries: string[], submittingCountry?: string | null): string[] {
-  if (!submittingCountry) return countries;
-  return [submittingCountry, ...countries.filter((c) => c !== submittingCountry)];
-}

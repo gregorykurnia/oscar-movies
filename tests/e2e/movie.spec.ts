@@ -8,8 +8,9 @@ test("/movies/im-still-here shows the titles, flags, marks and Oscar results", a
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("I'm Still Here");
   await expect(page.getByText("Ainda Estou Aqui")).toHaveAttribute("lang", "pt-BR");
   await expect(page.getByText("2024 · Brazil, France · Portuguese")).toBeVisible();
+  // One flag, the primary country's; every country is named in the text above.
   await expect(page.getByRole("img", { name: "Brazil" })).toBeVisible();
-  await expect(page.getByRole("img", { name: "France" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "France" })).toHaveCount(0);
   // Labelled marks, not the round ones.
   await expect(page.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveText("Watched");
   await expect(page.getByRole("button", { name: /^(Add to want to watch|Want to watch)$/ })).toHaveText("Want to watch");

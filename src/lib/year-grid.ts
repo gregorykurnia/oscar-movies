@@ -9,7 +9,7 @@ import type { AwardKind, AwardSummary } from "@/lib/awards";
 import { DASH, formatScore } from "@/lib/format";
 import { MARK_FILTERS, parseMarkFilter, passesMark, toggleFilterIn, type MarkSets } from "@/lib/mark-filter";
 import { parseCategory, RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
-import { compareOutcome, flagsFor, isNomination, isShortlisted, type Outcome } from "@/lib/stage";
+import { compareOutcome, isNomination, isShortlisted, type Outcome } from "@/lib/stage";
 
 export type EditionStatus = "loaded" | "partial" | "no_data";
 
@@ -30,8 +30,6 @@ export type GridCell = { outcome: Outcome; category: string };
 
 export type GridFilm = {
   film: FilmRowData;
-  /** Production countries; for International the submitting country first. */
-  flags: string[];
   /** By award slug; an award the film has no result at has no cell. */
   cells: Record<string, GridCell>;
 };
@@ -81,8 +79,6 @@ export type GridResultRow = {
   /** The award's own name for the category ("Best Film"). */
   category: string;
   outcome: Outcome;
-  /** Submitting country (International only). */
-  country: string | null;
 };
 
 /**
@@ -101,27 +97,22 @@ function isGridFilm(cells: Record<string, GridCell>): boolean {
  * furthest result there (Golden Globes' Drama and Comedy share one column); on a tie the first
  * row read wins, so the caller orders rows by the award's category order.
  */
-export function gridFilms(rows: GridResultRow[], category: GridCategory): GridFilm[] {
-  const byFilm = new Map<number, { film: FilmRowData; cells: Record<string, GridCell>; submittedBy: string | null }>();
+export function gridFilms(rows: GridResultRow[]): GridFilm[] {
+  const byFilm = new Map<number, { film: FilmRowData; cells: Record<string, GridCell> }>();
   for (const row of rows) {
     let entry = byFilm.get(row.film.id);
     if (!entry) {
-      entry = { film: row.film, cells: {}, submittedBy: null };
+      entry = { film: row.film, cells: {} };
       byFilm.set(row.film.id, entry);
     }
     const current = entry.cells[row.awardSlug];
     if (!current || compareOutcome(row.outcome, current.outcome) > 0) {
       entry.cells[row.awardSlug] = { outcome: row.outcome, category: row.category };
     }
-    if (row.awardSlug === "oscars" && row.country) entry.submittedBy = row.country;
   }
   return [...byFilm.values()]
     .filter((e) => isGridFilm(e.cells))
-    .map((e) => ({
-      film: e.film,
-      flags: flagsFor(e.film.countries, category === "international" ? e.submittedBy : null),
-      cells: e.cells,
-    }));
+    .map((e) => ({ film: e.film, cells: e.cells }));
 }
 
 /** Wins and nominations over every column (a win counts as a nomination too; runner-up counts). */

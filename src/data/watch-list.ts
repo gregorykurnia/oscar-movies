@@ -8,7 +8,7 @@ import { getDb } from "@/db";
 import { awardCategories, awards, editions, marks, movies, predictions, results } from "@/db/schema";
 import type { Stage } from "@/components/stage-pill/StagePill";
 import { RACE_CATEGORIES } from "@/lib/race";
-import { flagsFor, oscarStage, type Outcome } from "@/lib/stage";
+import { oscarStage, type Outcome } from "@/lib/stage";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
 
 export type Mark = { movieId: number; watched: boolean; want: boolean };
@@ -26,8 +26,6 @@ export type StagedFilm = {
   nominations: number;
   /** Its best chance to win (0–1) in the live season's prediction, any category; null: none stored. */
   chance: number | null;
-  /** Flags to show: an International submission's country first. */
-  flags: string[];
 };
 
 export type WatchList = {
@@ -52,7 +50,7 @@ export async function getMarks(): Promise<Mark[]> {
 }
 
 /**
- * Per film: its furthest Oscar outcome, nominations, submitting country and categories, in one
+ * Per film: its furthest Oscar outcome, nominations and categories, in one
  * year or all. `eligibleOnlyInternational`: every `eligible` result is International's, so a
  * furthest stage of eligible reads Not nominated.
  */
@@ -66,7 +64,6 @@ function oscarSummary(db: ReadDb, year?: number) {
         sql<number>`(count(*) filter (where ${results.outcome} in ('runner_up', 'nominated', 'won')))::int`.as(
           "nominations",
         ),
-      country: sql<string | null>`max(${results.country})`.as("country"),
       categories: sql<string>`string_agg(distinct ${awardCategories.oscarCategory}::text, ',')`.as("categories"),
       eligibleOnlyInternational:
         sql<boolean>`bool_and(${results.outcome} <> 'eligible' or ${awardCategories.oscarCategory} = 'international')`.as(
@@ -84,19 +81,18 @@ function oscarSummary(db: ReadDb, year?: number) {
 
 /** A film row's columns plus its Oscar summary's. */
 function stagedColumns(summary: ReturnType<typeof oscarSummary>) {
-  const { stage, nominations, country, categories, eligibleOnlyInternational } = summary;
-  return { ...filmColumns, stage, nominations, country, categories, eligibleOnlyInternational };
+  const { stage, nominations, categories, eligibleOnlyInternational } = summary;
+  return { ...filmColumns, stage, nominations, categories, eligibleOnlyInternational };
 }
 
 type StagedRow = Parameters<typeof toFilmRow>[0] & {
   stage: Outcome | null;
   nominations: number | null;
-  country: string | null;
   categories: string | null;
   eligibleOnlyInternational: boolean | null;
 };
 
-function toStagedFilm({ stage, nominations, country, categories, eligibleOnlyInternational, ...film }: StagedRow): StagedFilm {
+function toStagedFilm({ stage, nominations, categories, eligibleOnlyInternational, ...film }: StagedRow): StagedFilm {
   const slugs = (categories ?? "").split(",");
   return {
     film: toFilmRow(film),
@@ -105,7 +101,6 @@ function toStagedFilm({ stage, nominations, country, categories, eligibleOnlyInt
     categories: RACE_CATEGORIES.filter((c) => slugs.includes(c.slug)).map((c) => c.name),
     nominations: nominations ?? 0,
     chance: null,
-    flags: flagsFor(film.countries, country),
   };
 }
 

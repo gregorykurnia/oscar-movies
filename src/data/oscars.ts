@@ -5,7 +5,7 @@ import { and, asc, eq, inArray } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
-import { flagsFor, OUTCOMES, type Outcome } from "@/lib/stage";
+import { OUTCOMES, type Outcome } from "@/lib/stage";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
 
 export type OscarCategory = "picture" | "documentary" | "international" | "animated";
@@ -28,8 +28,6 @@ export type OscarEntry = {
   outcome: Outcome;
   /** Submitting country (International only). */
   country: string | null;
-  /** Flags to show: the submitting country first, then the production countries. */
-  flags: string[];
 };
 
 export async function queryOscarEdition(db: ReadDb, year: number): Promise<OscarEdition | null> {
@@ -92,7 +90,6 @@ export async function queryOscarResults(
       film: toFilmRow(film),
       outcome,
       country,
-      flags: flagsFor(film.countries, country),
     }))
     .sort((a, b) => OUTCOMES.indexOf(b.outcome) - OUTCOMES.indexOf(a.outcome));
 }

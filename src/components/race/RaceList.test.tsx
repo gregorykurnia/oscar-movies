@@ -26,7 +26,7 @@ function row(id: number, title: string, c: Partial<RowChance> & { pWin: number }
       key={id}
       title={title}
       href={`/movies/${id}`}
-      flags={["US"]}
+      flag="US"
       scores={scores}
       marks={<span />}
       columns={chance.pNominate === null ? "win" : "both"}

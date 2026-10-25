@@ -126,13 +126,13 @@ function Films({ films, sort }: { films: StagedFilm[]; sort: WatchQuery["sort"] 
       head={["Oscar stage", ...(byChance ? [{ label: "To win", numeric: true as const }] : []), { label: "Nominations", numeric: true }]}
       columns={byChance ? CHANCE_COLUMNS : COLUMNS}
     >
-      {films.map(({ film, stage, pill, categories, nominations, chance, flags }) => (
+      {films.map(({ film, stage, pill, categories, nominations, chance }) => (
         <FilmRow
           key={film.id}
           headingLevel={3}
           title={film.title}
           href={`/movies/${film.slug}`}
-          flags={flags}
+          flag={film.flag}
           meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
           scores={film.scores}
           winner={stage === "won"}

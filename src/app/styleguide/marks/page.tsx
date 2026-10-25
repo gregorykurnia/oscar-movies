@@ -38,12 +38,12 @@ async function Films() {
   const films = await liveMarksFilms();
   return (
     <FilmList head={["Oscar"]} columns={["minmax(0,1fr)", "132px", "84px"]} className="mt-8 md:mt-10">
-      {films.map(({ film, stage, flags }) => (
+      {films.map(({ film, stage }) => (
         <FilmRow
           key={film.id}
           title={film.title}
           href={`/styleguide/marks/film?id=${film.id}`}
-          flags={flags}
+          flag={film.flag}
           meta={film.year}
           scores={film.scores}
           results={[{ label: "Oscar", value: stage ? <StagePill stage={outcomeStage(stage)} /> : "–" }]}

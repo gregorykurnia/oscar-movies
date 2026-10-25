@@ -4,11 +4,12 @@
 // Each query is written twice over: `queryX(db, …)` takes any client (database tests pass the
 // `test` branch's), and `getX(…)` is the cached version pages call. Marks are never cached
 // (read in `src/data/watch-list.ts`, written in `src/data/marks.ts`).
-import { count } from "drizzle-orm";
+import { count, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Scores } from "@/components/score-line/ScoreLine";
 import { getDb, type ScriptDb } from "@/db";
 import { movies } from "@/db/schema";
+import { primaryCountry, type Submission } from "@/lib/flags";
 
 /** What a query needs from a client: the app's (HTTP) and the scripts' (pool) both fit. */
 export type ReadDb = Pick<ScriptDb, "select">;
@@ -24,8 +25,24 @@ export type FilmRowData = {
   year: number;
   /** Production countries, main first. */
   countries: string[];
+  /** The film's one flag: its primary country (`primaryCountry`), an upper-case ISO code. */
+  flag: string | null;
   scores: Scores;
 };
+
+/**
+ * The film's Oscar International Feature submissions (year and submitting country), from a
+ * correlated subquery on `movies`, for `primaryCountry`. Any select that reads `movies` can
+ * include it; its own aliases keep it clear of the outer query's `results` and `editions`.
+ */
+export const submissionsColumn = sql<Submission[] | null>`(
+  select json_agg(json_build_object('year', sub_e.year, 'country', sub_r.country))
+  from results sub_r
+  join editions sub_e on sub_e.id = sub_r.edition_id
+  join awards sub_a on sub_a.id = sub_e.award_id and sub_a.kind = 'oscars'
+  join award_categories sub_c on sub_c.id = sub_r.category_id and sub_c.oscar_category = 'international'
+  where sub_r.movie_id = ${movies.id} and sub_r.country is not null
+)`.as("submissions");
 
 /** The columns behind `FilmRowData`, for any select that joins `movies`. */
 export const filmColumns = {
@@ -36,6 +53,7 @@ export const filmColumns = {
   originalLang: movies.originalLang,
   year: movies.year,
   countries: movies.countries,
+  submissions: submissionsColumn,
   imdbRating: movies.imdbRating,
   rtScore: movies.rtScore,
   mcScore: movies.mcScore,
@@ -52,6 +70,7 @@ type FilmColumnsRow = {
   originalLang: string | null;
   year: number;
   countries: string[];
+  submissions: Submission[] | null;
   imdbRating: number | null;
   rtScore: number | null;
   mcScore: number | null;
@@ -69,6 +88,7 @@ export function toFilmRow(row: FilmColumnsRow): FilmRowData {
     originalLang: row.originalLang,
     year: row.year,
     countries: row.countries,
+    flag: primaryCountry(row.countries, row.submissions ?? []),
     scores: {
       imdb: row.imdbRating,
       rt: row.rtScore,

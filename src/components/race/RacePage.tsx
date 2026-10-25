@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { Suspense, type ReactNode } from "react";
 import { EmptyState } from "@/components/empty-state/EmptyState";
-import { countryName, Flag } from "@/components/flag/Flag";
+import { Flag, submittingLabel } from "@/components/flag/Flag";
 import { FilmMarks } from "@/components/marks/MarksProvider";
 import { PageHeader } from "@/components/page-header/PageHeader";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
@@ -41,7 +41,7 @@ import {
   type Chance,
   type RaceSnapshot,
 } from "@/lib/race-chances";
-import { flagsFor, oscarStage } from "@/lib/stage";
+import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 import { CategoryTabs } from "./CategoryTabs";
 import { ContenderRow, type ChanceColumns } from "./ContenderRow";
@@ -153,16 +153,13 @@ async function Race({ year }: { year: number }) {
   RACE_CATEGORIES.forEach(({ slug }, i) => {
     const all = results[i];
     const state = states[i];
-    const rows = raceRows({ state, entries: all, predictions: chances[i].stored }).map((r) => ({
-      ...r,
-      flags: r.entry?.flags ?? flagsFor(r.film.countries),
-    }));
+    const rows = raceRows({ state, entries: all, predictions: chances[i].stored });
     const submissions = slug === "international" ? all.length : 0;
     const leader = state === "finished" ? null : leaderOf(rows);
     if (leader) {
       leads[slug] = (
         <>
-          {leader.flags[0] ? <Flag code={leader.flags[0]} size="sm" /> : null}
+          {leader.film.flag ? <Flag code={leader.film.flag} size="sm" /> : null}
           <span data-lead-text className="truncate">
             {leader.film.title}
           </span>
@@ -170,7 +167,7 @@ async function Race({ year }: { year: number }) {
         </>
       );
     } else {
-      const lead = tabLead({ state, submissions, entries: rows.flatMap((r) => (r.entry ? [{ outcome: r.entry.outcome, title: r.film.title, flags: r.flags }] : [])) });
+      const lead = tabLead({ state, submissions, entries: rows.flatMap((r) => (r.entry ? [{ outcome: r.entry.outcome, title: r.film.title, flag: r.film.flag }] : [])) });
       leads[slug] =
         lead.kind === "winner" ? (
           <>
@@ -204,7 +201,7 @@ async function Race({ year }: { year: number }) {
   return <CategoryTabs leads={leads} panels={panels} />;
 }
 
-type Row = { film: FilmRowData; entry: OscarEntry | null; chance: Chance | null; flags: string[] };
+type Row = { film: FilmRowData; entry: OscarEntry | null; chance: Chance | null };
 
 function CategoryPanel({
   year,
@@ -253,8 +250,8 @@ function CategoryPanel({
       key={r.film.id}
       title={r.film.title}
       href={`/movies/${r.film.slug}`}
-      flags={r.flags}
-      firstFlagLabel={r.entry?.country ? `${countryName(r.entry.country)}, submitting country` : undefined}
+      flag={r.film.flag}
+      flagLabel={submittingLabel(r.film.flag, r.entry?.country ?? null)}
       badge={pills && r.entry ? <StagePill stage={oscarStage(r.entry.outcome, category)} /> : undefined}
       precursors={lines.get(r.film.id)}
       scores={r.film.scores}

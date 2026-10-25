@@ -44,7 +44,7 @@ async function Movie({ slug }: { slug: string }) {
         title={film.title}
         sub={
           <>
-            {film.countries.length > 0 ? <Flags codes={film.countries} size="lg" /> : null}
+            <Flags code={film.flag} size="lg" />
             {original ? (
               <span lang={film.originalLang ?? undefined} className="[overflow-wrap:anywhere]">
                 {original}

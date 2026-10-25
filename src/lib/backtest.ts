@@ -3,7 +3,7 @@
 // slots on the eve of the nominations. Pure, shared by the page and its tests.
 import { nominationSlots, type OscarCategory } from "@/lib/predict";
 
-export type BacktestFilm = { id: number; title: string; slug: string; flags: string[] };
+export type BacktestFilm = { id: number; title: string; slug: string; flag: string | null };
 
 /** What the database gives for one finished season of one category. */
 export type SeasonInput = {

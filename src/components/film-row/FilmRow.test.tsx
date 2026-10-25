@@ -12,7 +12,7 @@ function list(winner = false) {
       <FilmRow
         title="Conclave"
         href="/movies/conclave"
-        flags={["gb", "us"]}
+        flag="gb"
         meta="2024 · Picture"
         scores={scores}
         winner={winner}
@@ -40,7 +40,7 @@ describe("FilmList and FilmRow", () => {
     expect(head.textContent).toBe("FilmBAFTAOscar, Best Picture");
   });
 
-  it("a row: flags, the title linking to the movie, meta, scores, results with labels, marks", () => {
+  it("a row: flag, the title linking to the movie, meta, scores, results with labels, marks", () => {
     list();
     const title = screen.getByRole("heading", { level: 3, name: "Conclave" });
     expect(within(title).getByRole("link").getAttribute("href")).toBe("/movies/conclave");
@@ -86,10 +86,10 @@ describe("FilmList and FilmRow", () => {
     expect(lead.parentElement?.className).toContain("[grid-template-areas:'lead_lead'_'film_marks'_'res_res']");
   });
 
-  it("the results line is indented past the flags only when the row has flags", () => {
+  it("the results line is indented past the flag only when the row has one", () => {
     const { container } = render(
       <FilmList>
-        <FilmRow title="With flags" href="/a" flags={["gb"]} results={[{ label: "Oscar", value: "Won" }]} />
+        <FilmRow title="With flags" href="/a" flag="gb" results={[{ label: "Oscar", value: "Won" }]} />
         <FilmRow title="No flags" href="/b" results={[{ label: "Oscar", value: "Won" }]} />
       </FilmList>,
     );

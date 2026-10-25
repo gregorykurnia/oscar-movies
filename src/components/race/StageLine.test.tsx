@@ -20,14 +20,14 @@ describe("StageLine", () => {
 });
 
 describe("ContenderRow", () => {
-  it("links the title, follows it with the pill, and carries the flags, scores and marks", () => {
+  it("links the title, follows it with the pill, and carries the flag, scores and marks", () => {
     render(
       <ContenderList>
         <ContenderRow
           title="I'm Still Here"
           href="/movies/im-still-here"
-          flags={["BR", "FR"]}
-          firstFlagLabel="Brazil, submitting country"
+          flag="BR"
+          flagLabel="Brazil, submitting country"
           badge={<StagePill stage="won" />}
           scores={scores}
           marks={<button type="button">Mark as watched</button>}
@@ -37,7 +37,7 @@ describe("ContenderRow", () => {
     const heading = screen.getByRole("heading", { level: 3, name: /^I'm Still Here ?Won$/ });
     expect(heading.querySelector("a")?.getAttribute("href")).toBe("/movies/im-still-here");
     expect(screen.getByRole("img", { name: "Brazil, submitting country" })).toBeTruthy();
-    expect(screen.getByRole("img", { name: "France" })).toBeTruthy();
+    expect(screen.getAllByRole("img")).toHaveLength(1);
     expect(screen.getByText("TMDB –")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Mark as watched" })).toBeTruthy();
   });

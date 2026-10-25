@@ -69,8 +69,8 @@ const GRID: Record<ChanceColumns, string> = {
 export function ContenderRow({
   title,
   href,
-  flags,
-  firstFlagLabel,
+  flag,
+  flagLabel,
   badge,
   precursors,
   scores,
@@ -80,10 +80,10 @@ export function ContenderRow({
 }: {
   title: string;
   href: string;
-  /** Country codes, main first (the submitting country first for International). */
-  flags: string[];
-  /** Accessible name of the first flag ("Brazil, submitting country"). */
-  firstFlagLabel?: string;
+  /** The film's one flag: its primary country (`FilmRowData.flag`). */
+  flag: string | null;
+  /** Accessible name of the flag ("Brazil, submitting country"). */
+  flagLabel?: string;
   /** The Oscar stage pill after the title (Shortlisted, Won, Nominated). */
   badge?: ReactNode;
   /** The awards it won and was nominated for (`precursorLine`). */
@@ -104,7 +104,7 @@ export function ContenderRow({
       )}
     >
       <div className="flex min-w-0 gap-3 [grid-area:film] md:gap-4">
-        <Flags codes={flags} stacked firstLabel={firstFlagLabel} className="pt-1 md:pt-1.5" />
+        <Flags code={flag} label={flagLabel} className="mt-1 md:mt-1.5" />
         <div className="min-w-0">
           <h3 className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-title-phone leading-snug font-medium tracking-title [overflow-wrap:anywhere] md:text-title">
             <Link

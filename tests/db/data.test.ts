@@ -57,6 +57,7 @@ describe("film rows", () => {
       originalLang: "pt-BR",
       year: 2024,
       countries: ["BR", "FR"],
+      flag: "BR",
       scores: {
         imdb: stored.imdbRating,
         rt: stored.rtScore,
@@ -106,7 +107,7 @@ describe("Oscar results by year and category", () => {
   it("list Best Picture's nominees with the winner first", async () => {
     const picture = await queryOscarResults(db, 2024, "picture");
     expect(picture).toHaveLength(10);
-    expect(picture[0]).toMatchObject({ outcome: "won", film: { slug: "anora" }, country: null, flags: ["US"] });
+    expect(picture[0]).toMatchObject({ outcome: "won", film: { slug: "anora", flag: "US" }, country: null });
     expect(picture.slice(1).every((e) => e.outcome === "nominated")).toBe(true);
     const titles = picture.slice(1).map((e) => e.film.title);
     expect(titles).toEqual([...titles].sort((a, b) => a.localeCompare(b, "en")));
@@ -128,11 +129,11 @@ describe("Oscar results by year and category", () => {
     expect(animated.at(-1)?.outcome).toBe("eligible");
   });
 
-  it("put the submitting country's flag first for International", async () => {
+  it("carry the submitting country as the winner's flag for International", async () => {
     const international = await queryOscarResults(db, 2024, "international");
     expect(international).toHaveLength(15);
     const [winner] = international;
-    expect(winner).toMatchObject({ outcome: "won", country: "BR", flags: ["BR", "FR"] });
+    expect(winner).toMatchObject({ outcome: "won", country: "BR", film: { flag: "BR" } });
   });
 
   it("are empty for a category with no results that year", async () => {
@@ -144,7 +145,7 @@ describe("International submissions", () => {
   it("list every submission of a year with its country", async () => {
     const submissions = await querySubmissions(db, 2024);
     expect(submissions).toHaveLength(89);
-    expect(submissions.every((e) => e.country !== null && e.flags[0] === e.country)).toBe(true);
+    expect(submissions.every((e) => e.country !== null && e.film.flag === e.country)).toBe(true);
     expect(submissions.map((e) => e.outcome).slice(0, 15)).toEqual([
       "won",
       ...Array(4).fill("nominated"),
@@ -188,10 +189,10 @@ describe("marks and the watch list", () => {
     // Picture 10, Documentary 15, International 89, Animated 30, less films in two categories.
     expect(season.length).toBeGreaterThan(130);
     expect(season.length).toBeLessThanOrEqual(144);
-    expect(season.find((f) => f.film.slug === "anora")).toMatchObject({ stage: "won", nominations: 1, flags: ["US"] });
+    expect(season.find((f) => f.film.slug === "anora")).toMatchObject({ stage: "won", nominations: 1, film: { flag: "US" } });
     expect(season.find((f) => f.film.slug === "im-still-here")).toMatchObject({
       stage: "won",
-      flags: ["BR", "FR"],
+      film: { flag: "BR" },
     });
     // I'm Still Here was nominated for Best Picture and won International.
     expect(season.find((f) => f.film.slug === "im-still-here")).toMatchObject({
@@ -218,8 +219,8 @@ describe("marks and the watch list", () => {
       await tx.insert(marks).values({ movieId: film.id, want: true });
       const wanted = await queryWantedFilms(tx);
       expect(wanted.map((f) => f.film.slug)).toEqual(["conclave", "test-data-want"]);
-      expect(wanted[0]).toMatchObject({ stage: "nominated", nominations: 1, flags: ["GB", "US"] });
-      expect(wanted[1]).toMatchObject({ stage: null, nominations: 0, flags: ["FR"] });
+      expect(wanted[0]).toMatchObject({ stage: "nominated", nominations: 1, film: { flag: "GB" } });
+      expect(wanted[1]).toMatchObject({ stage: null, nominations: 0, film: { flag: "FR" } });
     });
   });
 

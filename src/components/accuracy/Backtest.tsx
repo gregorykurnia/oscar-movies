@@ -59,7 +59,7 @@ export function Backtest({ backtest, oscar }: { backtest: BacktestData; oscar: s
         row.year,
         row.favourite ? (
           <span key="film" className="inline-flex items-center gap-2.5 text-left">
-            <Flags codes={row.favourite.film.flags} className="max-md:hidden" />
+            <Flags code={row.favourite.film.flag} className="max-md:hidden" />
             <span>
               <Link
                 href={`/movies/${row.favourite.film.slug}`}

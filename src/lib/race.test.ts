@@ -15,7 +15,7 @@ import type { Outcome } from "./stage";
 const DATES_2024 = { shortlistOn: "2024-12-17", nominationsOn: "2025-01-23", winnersOn: "2025-03-02" };
 const DATES_2026 = { shortlistOn: "2026-12-15", nominationsOn: "2027-01-21", winnersOn: "2027-03-14" };
 
-const entry = (title: string, outcome: Outcome, flags = ["US"]) => ({ title, outcome, flags });
+const entry = (title: string, outcome: Outcome, flag: string | null = "US") => ({ title, outcome, flag });
 
 describe("parseCategory and raceHref", () => {
   it("reads the four categories and falls back to Picture", () => {
@@ -143,8 +143,8 @@ describe("stageLine", () => {
 });
 
 describe("tabLead", () => {
-  it("shows the winner with its first flag, or a count", () => {
-    expect(tabLead({ state: "finished", entries: [entry("I'm Still Here", "won", ["BR", "FR"]), entry("Flow", "nominated")], submissions: 0 })).toEqual({
+  it("shows the winner with its flag, or a count", () => {
+    expect(tabLead({ state: "finished", entries: [entry("I'm Still Here", "won", "BR"), entry("Flow", "nominated")], submissions: 0 })).toEqual({
       kind: "winner",
       title: "I'm Still Here",
       flag: "BR",

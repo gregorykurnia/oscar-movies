@@ -6,6 +6,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results, screenings } from "@/db/schema";
 import type { ScoreTilesData } from "@/components/score-tiles/ScoreTiles";
+import { primaryCountry } from "@/lib/flags";
 import { orderScreenings, type MovieScreening } from "@/lib/lineup";
 import { movieAwardRows, type AwardCandidate, type AwardResult, type MovieAwardRow } from "@/lib/movie-awards";
 import { compareOutcome, isShortlisted, type Outcome } from "@/lib/stage";
@@ -36,6 +37,8 @@ export type MovieData = {
   originalLang: string | null;
   year: number;
   countries: string[];
+  /** The one large flag: the primary country (`primaryCountry`). */
+  flag: string | null;
   /** ISO 639-1 code ("pt"), or null when unknown. */
   language: string | null;
   scores: ScoreTilesData;
@@ -124,6 +127,7 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
     originalLang: m.originalLang,
     year: m.year,
     countries: m.countries,
+    flag: primaryCountry(m.countries, mine.filter((r) => r.category === "international")),
     language: m.language,
     scores: {
       imdb: { value: m.imdbRating, updatedAt: m.imdbAt },

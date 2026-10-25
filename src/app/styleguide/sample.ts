@@ -12,8 +12,7 @@ export type SampleFilm = {
   title: string;
   href: string;
   lang?: string;
-  flags: string[];
-  firstFlagLabel?: string;
+  flag: string;
   meta: string;
   scores: Scores;
 };
@@ -27,14 +26,14 @@ export function sample(stress: boolean) {
     {
       title: stress ? LONG_WORD : "One Battle After Another",
       href: "#",
-      flags: ["US"],
+      flag: "US",
       meta: "2025 · Picture",
       scores: stress ? NONE : ALL_FOUR,
     },
     {
       title: stress ? LONG_TITLE : "Hamnet",
       href: "#",
-      flags: ["GB", "US"],
+      flag: "GB",
       meta: "2025 · Picture",
       scores: stress ? { ...THREE, imdb: null, mc: null, average: 83, count: 1 } : { imdb: 8, rt: 87, mc: 84, tmdb: 7.9, average: 83, count: 4 },
     },
@@ -42,7 +41,7 @@ export function sample(stress: boolean) {
       title: stress ? "Birdman or (The Unexpected Virtue of Ignorance)" : "Sentimental Value",
       href: "#",
       lang: "no",
-      flags: ["NO", "FR", "DK", "SE", "DE"],
+      flag: "NO",
       meta: "2025 · International",
       scores: stress ? NONE : THREE,
     },
@@ -51,7 +50,6 @@ export function sample(stress: boolean) {
     stress,
     films,
     longWord: LONG_WORD,
-    coProduction: stress ? ["NO", "FR", "DK", "GB", "DE", "IT", "ES", "PL", "SE", "FI", "BE", "NL", "AT", "CH"] : ["NO", "FR", "DK", "GB", "DE"],
     scoreRows: stress ? [NONE, NONE, NONE] : [ALL_FOUR, THREE, NONE],
     nominations: stress ? "1,204" : "7",
     watchCount: stress ? "1,204 films" : "4 films",

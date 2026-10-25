@@ -2,7 +2,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { FilterChips } from "@/components/chip/FilterChips";
 import { EmptyState } from "@/components/empty-state/EmptyState";
-import { countryName } from "@/components/flag/Flag";
+import { countryName, submittingLabel } from "@/components/flag/Flag";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
 import { FilmMarks } from "@/components/marks/MarksProvider";
 import { PageHeader } from "@/components/page-header/PageHeader";
@@ -160,8 +160,8 @@ function CategorySection({
               key={e.film.id}
               title={e.film.title}
               href={`/movies/${e.film.slug}`}
-              flags={e.flags}
-              firstFlagLabel={e.country ? `${countryName(e.country)}, submitting country` : undefined}
+              flag={e.film.flag}
+              flagLabel={submittingLabel(e.film.flag, e.country)}
               scores={e.film.scores}
               winner={e.outcome === "won"}
               results={[

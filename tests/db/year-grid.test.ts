@@ -54,16 +54,21 @@ describe("queryYearGrid", () => {
     expect(winner.film.title).toBe("One Battle After Another");
     expect(winner.cells.oscars.category).toBe("Best Picture");
     expect(gridTotals(winner)).toEqual({ wins: 5, noms: 8 });
+    // One flag per film: a submitted film shows its submitting country (France for the Iranian-French
+    // "It Was Just an Accident"), any other film its first country.
+    expect(films.find((f) => f.film.title === "It Was Just an Accident")!.film.flag).toBe("FR");
+    expect(films.find((f) => f.film.title === "The Secret Agent")!.film.flag).toBe("BR");
+    expect(winner.film.flag).toBe("US");
     // A festival winner with no other result is a row too.
     expect(films.find((f) => f.film.title === "Sirāt")!.cells.cannes.outcome).toBe("won");
   });
 
-  it("2025 International: the Oscar shortlist makes a row, a submission alone doesn't; the submitting country's flag leads", async () => {
+  it("2025 International: the Oscar shortlist makes a row, a submission alone doesn't; the submitting country's flag shows", async () => {
     const { films } = majorsOnly(await queryYearGrid(db, 2025, "international"));
     expect(films).toHaveLength(20);
     expect(films.filter((f) => f.cells.oscars?.outcome === "shortlisted")).toHaveLength(10);
     expect(films.some((f) => f.cells.oscars?.outcome === "submitted" && Object.keys(f.cells).length === 1)).toBe(false);
-    expect(films.find((f) => f.film.title === "Sentimental Value")!.flags[0]).toBe("NO");
+    expect(films.find((f) => f.film.title === "Sentimental Value")!.film.flag).toBe("NO");
   });
 
   it("2025 all categories: the four categories' films together, each once, with every award as a column", async () => {

@@ -20,7 +20,6 @@ export async function queryYearGrid(db: ReadDb, year: number, category: GridCate
         awardSlug: awards.slug,
         category: awardCategories.name,
         outcome: results.outcome,
-        country: results.country,
       })
       .from(results)
       .innerJoin(editions, eq(editions.id, results.editionId))
@@ -34,14 +33,12 @@ export async function queryYearGrid(db: ReadDb, year: number, category: GridCate
   return {
     columns: gridColumns(AWARDS, category, yearEditions, withData),
     films: gridFilms(
-      rows.map(({ awardSlug, category: name, outcome, country, ...film }) => ({
+      rows.map(({ awardSlug, category: name, outcome, ...film }) => ({
         film: toFilmRow(film),
         awardSlug,
         category: name,
         outcome,
-        country,
       })),
-      category,
     ),
   };
 }

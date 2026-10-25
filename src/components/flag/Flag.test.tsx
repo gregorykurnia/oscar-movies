@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Flag, Flags, countryName } from "./Flag";
+import { Flag, Flags, countryName, submittingLabel } from "./Flag";
 
 describe("Flag", () => {
   it("draws the 3:2 artwork with the country as its name", () => {
@@ -36,29 +36,29 @@ describe("Flag", () => {
 });
 
 describe("Flags", () => {
-  it("shows up to three, then +N naming the rest", () => {
-    render(<Flags codes={["NO", "FR", "DK", "SE", "DE"]} />);
-    expect(screen.getAllByRole("img").map((f) => f.getAttribute("aria-label"))).toEqual([
-      "Norway",
-      "France",
-      "Denmark",
-    ]);
-    const more = screen.getByText("+2");
-    expect(more.getAttribute("aria-label")).toBe("and Sweden, Germany");
-    expect(more.className).toContain("text-ink-muted");
-  });
-
-  it("stacks in race rows and names the submitting country", () => {
-    const { container } = render(
-      <Flags codes={["BR", "FR"]} stacked firstLabel="Brazil, submitting country" />,
-    );
-    expect((container.firstChild as HTMLElement).className).toContain("flex-col");
-    expect(screen.getByRole("img", { name: "Brazil, submitting country" })).toBeTruthy();
+  it("draws the film's one flag, named for its country", () => {
+    render(<Flags code="NO" />);
+    expect(screen.getAllByRole("img")).toHaveLength(1);
+    expect(screen.getByRole("img", { name: "Norway" })).toBeTruthy();
     expect(screen.queryByText(/^\+/)).toBeNull();
   });
 
-  it("renders nothing without countries", () => {
-    const { container } = render(<Flags codes={[]} />);
+  it("names the submitting country in an International row", () => {
+    render(<Flags code="BR" label={submittingLabel("BR", "br")} />);
+    expect(screen.getByRole("img", { name: "Brazil, submitting country" })).toBeTruthy();
+  });
+
+  it("renders nothing for a film without a country", () => {
+    const { container } = render(<Flags code={null} />);
     expect(container.firstChild).toBeNull();
+  });
+});
+
+describe("submittingLabel", () => {
+  it("claims the submission only when the flag is the submitting country", () => {
+    expect(submittingLabel("BR", "BR")).toBe("Brazil, submitting country");
+    expect(submittingLabel("FR", "BR")).toBeUndefined();
+    expect(submittingLabel("BR", null)).toBeUndefined();
+    expect(submittingLabel(null, "BR")).toBeUndefined();
   });
 });

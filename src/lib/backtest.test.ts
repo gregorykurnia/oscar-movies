@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { buildBacktest, lostTo, noisePoints, topSlotHits, type BacktestFilm, type SeasonInput } from "./backtest";
 
-const f = (id: number, title = `Film ${id}`): BacktestFilm => ({ id, title, slug: `film-${id}`, flags: [] });
+const f = (id: number, title = `Film ${id}`): BacktestFilm => ({ id, title, slug: `film-${id}`, flag: null });
 
 describe("topSlotHits", () => {
   it("counts the nominees among the top slots by chance to be nominated", () => {

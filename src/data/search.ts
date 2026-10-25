@@ -15,8 +15,9 @@ import {
   type SearchableAward,
   type SearchFilm,
 } from "@/lib/search";
-import { flagsFor, oscarStage, type Outcome } from "@/lib/stage";
-import type { ReadDb } from "./films";
+import { oscarStage, type Outcome } from "@/lib/stage";
+import { primaryCountry } from "@/lib/flags";
+import { submissionsColumn, type ReadDb } from "./films";
 
 /** The Oscar categories as a result row names them, in the order a film lists them. */
 const CATEGORY_LABELS: Record<string, string> = {
@@ -27,14 +28,13 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 const CATEGORY_ORDER = Object.keys(CATEGORY_LABELS);
 
-/** Per film: its furthest Oscar outcome, the submitting country and the categories it appears in. */
+/** Per film: its furthest Oscar outcome and the categories it appears in. */
 function oscarSummary(db: ReadDb) {
   return db
     .select({
       movieId: results.movieId,
       // Postgres orders an enum by its declaration: submitted … won.
       stage: sql<Outcome>`max(${results.outcome})`.as("stage"),
-      country: sql<string | null>`max(${results.country})`.as("country"),
       categories: sql<string>`string_agg(distinct ${awardCategories.oscarCategory}::text, ',')`.as("categories"),
       // Every eligible result is International's: a furthest stage of eligible reads Not nominated.
       eligibleOnlyInternational:
@@ -73,8 +73,8 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
       originalLang: movies.originalLang,
       year: movies.year,
       countries: movies.countries,
+      submissions: submissionsColumn,
       stage: summary.stage,
-      country: summary.country,
       categories: summary.categories,
       eligibleOnlyInternational: summary.eligibleOnlyInternational,
     })
@@ -95,7 +95,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
     originalTitle: row.originalTitle,
     originalLang: row.originalLang,
     year: row.year,
-    flag: flagsFor(row.countries, row.country)[0] ?? null,
+    flag: primaryCountry(row.countries, row.submissions ?? []),
     categories: (row.categories ?? "")
       .split(",")
       .filter((slug) => slug in CATEGORY_LABELS)

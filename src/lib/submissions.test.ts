@@ -21,11 +21,11 @@ function row(id: number, title: string, country: string, outcome: Outcome, avera
       originalLang: null,
       year: 2024,
       countries: [country],
+      flag: country,
       scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 },
     },
     outcome,
     country,
-    flags: [country],
   };
 }
 

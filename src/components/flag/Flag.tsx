@@ -58,48 +58,30 @@ export function Flag({
 }
 
 /**
- * A film's flags: main country first (for International Feature, the submitting country first),
- * up to three, then "+N". Stacked in race rows and film lists, in a line elsewhere.
+ * The accessible name of a film's flag in an International row: "Brazil, submitting country" when
+ * the row's submitting country is the flag shown, otherwise the plain country name.
+ */
+export function submittingLabel(flag: string | null, submittedBy: string | null): string | undefined {
+  if (!flag || !submittedBy || flag.toUpperCase() !== submittedBy.toUpperCase()) return undefined;
+  return `${countryName(flag)}, submitting country`;
+}
+
+/**
+ * A film's one flag (guide §7 Flags): its primary country, or nothing for a film with none.
+ * Never several flags and never "+N"; the other countries are named in text on the movie page.
  */
 export function Flags({
-  codes,
+  code,
   size = "md",
-  stacked = false,
-  max = 3,
-  firstLabel,
+  label,
   className,
 }: {
-  codes: string[];
+  code: string | null | undefined;
   size?: FlagSize;
-  stacked?: boolean;
-  max?: number;
-  /** Accessible name for the first flag, e.g. "Brazil, submitting country". */
-  firstLabel?: string;
+  /** Accessible name, e.g. "Brazil, submitting country" (`submittingLabel`). */
+  label?: string;
   className?: string;
 }) {
-  if (codes.length === 0) return null;
-  const shown = codes.slice(0, max);
-  const hidden = codes.slice(max);
-  return (
-    <span
-      className={cn(
-        "inline-flex gap-[3px]",
-        stacked ? "flex-col items-start" : "items-center",
-        className,
-      )}
-    >
-      {shown.map((code, i) => (
-        <Flag key={`${code}-${i}`} code={code} size={size} label={i === 0 ? firstLabel : undefined} />
-      ))}
-      {hidden.length > 0 ? (
-        <span
-          className="ml-0.5 text-micro leading-none text-ink-muted"
-          aria-label={`and ${hidden.map(countryName).join(", ")}`}
-          title={hidden.map(countryName).join(", ")}
-        >
-          +{hidden.length}
-        </span>
-      ) : null}
-    </span>
-  );
+  if (!code) return null;
+  return <Flag code={code} size={size} label={label} className={className} />;
 }

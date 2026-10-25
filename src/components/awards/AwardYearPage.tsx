@@ -181,7 +181,7 @@ function CategorySection({
                 key={e.film.id}
                 title={e.film.title}
                 href={`/movies/${e.film.slug}`}
-                flags={e.flags}
+                flag={e.film.flag}
                 scores={e.film.scores}
                 winner={e.outcome === "won"}
                 results={[

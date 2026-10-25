@@ -19,11 +19,12 @@ function film(id: number, title: string): FilmRowData {
     originalLang: null,
     year: 2025,
     countries: ["US"],
+    flag: "US",
     scores: { imdb: null, rt: null, mc: null, tmdb: null, average: null, count: 0 },
   };
 }
 
-const gf = (f: FilmRowData, cells: Record<string, GridCell>): GridFilm => ({ film: f, flags: f.countries, cells });
+const gf = (f: FilmRowData, cells: Record<string, GridCell>): GridFilm => ({ film: f, cells });
 const won = { outcome: "won", category: "Best Picture" } as const;
 const nominated = { outcome: "nominated", category: "Best Picture" } as const;
 const runnerUp = { outcome: "runner_up", category: "People's Choice" } as const;
