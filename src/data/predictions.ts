@@ -17,7 +17,7 @@ export async function queryRacePredictions(
   db: ReadDb,
   year: number,
   category: OscarCategory,
-  snapshot: RaceSnapshot,
+  snapshot: RaceSnapshot | "eve_nominations",
 ): Promise<RacePrediction[]> {
   const rows = await db
     .select({ ...filmColumns, pWin: predictions.pWin, pNominate: predictions.pNominate, rank: predictions.rank, why: predictions.why })
@@ -29,7 +29,11 @@ export async function queryRacePredictions(
 }
 
 /** Cached `queryRacePredictions`: the category's contenders by rank, empty when none are stored. */
-export async function getRacePredictions(year: number, category: OscarCategory, snapshot: RaceSnapshot): Promise<RacePrediction[]> {
+export async function getRacePredictions(
+  year: number,
+  category: OscarCategory,
+  snapshot: RaceSnapshot | "eve_nominations",
+): Promise<RacePrediction[]> {
   "use cache";
   cacheTag("awards", "scores");
   cacheLife("max");

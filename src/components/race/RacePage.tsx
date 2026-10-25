@@ -31,11 +31,13 @@ import {
   formatChance,
   leaderOf,
   leadersOf,
+  nominateSnapshot,
   raceRows,
   raceSnapshot,
   showAllText,
   splitRows,
   stagePillsBefore,
+  withEveNominations,
   type Chance,
   type RaceSnapshot,
 } from "@/lib/race-chances";
@@ -126,10 +128,18 @@ async function Race({ year }: { year: number }) {
   const chances = await Promise.all(
     RACE_CATEGORIES.map(async ({ slug }, i) => {
       const snapshot = raceSnapshot(states[i]);
-      const stored = await getRacePredictions(year, slug, snapshot);
+      const nominate = nominateSnapshot(states[i]);
+      const [own, eveOfNominations] = await Promise.all([
+        getRacePredictions(year, slug, snapshot),
+        nominate ? getRacePredictions(year, slug, nominate) : null,
+      ]);
       // A finished season without its eve (no ceremony date) falls back to the live chances.
-      if (stored.length > 0 || snapshot === "live") return { snapshot, stored };
-      return { snapshot: "live" as const, stored: await getRacePredictions(year, slug, "live") };
+      const fallback = own.length === 0 && snapshot !== "live";
+      const stored = fallback ? await getRacePredictions(year, slug, "live") : own;
+      return {
+        snapshot: fallback ? ("live" as const) : snapshot,
+        stored: eveOfNominations ? withEveNominations(stored, eveOfNominations) : stored,
+      };
     }),
   );
   const early = await Promise.all(
@@ -234,6 +244,8 @@ function CategoryPanel({
   const lines = new Map(precursors.map((p) => [p.movieId, p]));
   const leaders = leadersOf(rows);
   const { shown, more } = splitRows(rows, state);
+  // From the nominations on, the % to be nominated is the eve of the nominations' (`nominateSnapshot`).
+  const nominatedEve = labels?.nominate && nominateSnapshot(state) && edition.nominationsOn ? eve(edition.nominationsOn) : null;
   const showAll = more.length > 0 ? showAllText(rows.length, more.map((r) => ({ title: r.film.title, noChance: r.chance === null }))) : null;
 
   const render = (r: Row) => (
@@ -285,6 +297,9 @@ function CategoryPanel({
           {labels ? (
             <p className="mt-10 text-caption text-ink-muted md:mt-12">
               The % chance to win in a category adds up to 100. Tap a % to see the past seasons behind it.
+              {nominatedEve
+                ? ` The % to be nominated is each nominee's chance on ${formatDate(new Date(`${nominatedEve}T00:00:00Z`), true)}, the day before the nominations.`
+                : null}
             </p>
           ) : null}
         </>

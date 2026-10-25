@@ -196,7 +196,7 @@ Under the tabs: a gold 8px dot with a 4px gold-wash halo, then the next step in 
 
 Grid: film (1fr) · to be nominated (112px) · to win (200px) · marks (84px). Padding 26 top, 28 bottom.
 - **Film:** flags stacked at the left (main country first, up to three, then "+N"), then the title (Title style, links to the movie page; an Oscar stage pill follows it when the stage isn't the same for every row: Shortlisted, Won), the precursor line ("Won: …  · Nominated: …", labels `--ink-muted`, awards `--ink`; at most the three to five most telling awards), and the scores line.
-- **To be nominated:** 18px `--ink-muted`, right-aligned. Shown until the nominations are announced; after that the column is removed.
+- **To be nominated:** 18px `--ink-muted`, right-aligned. Live until the nominations are announced; after that it shows each nominee's % from the day before the nominations, and the footnote under the list says so.
 - **To win:** % numeral XL, right-aligned, inside a button that opens the "why"; a 2px underline in `--line` (hover `--gold-soft`, open `--gold`); "to win" (or "final prediction" after the ceremony) in micro `--ink-muted` under it. The leader's number and % are `--gold-ink`.
 - **The chance line:** 2px `--gold`, on the row's bottom rule, from the left edge, `width = chance%` of the row.
 - **Phone:** title block left; % top right with "to win"; "99% to be nominated" under it; marks on their own line under the film, indented to the title.
@@ -252,7 +252,7 @@ Each kind of page has one frame in `design-preview.html` §4–5. Phone layouts 
     - **Nothing yet:** tabs show "No contenders yet" under the empty category; the empty state "No contenders yet" + "The first precursor results arrive in <month>…".
     - **Early:** gold notice "Early: few results yet." with what will move the chances.
     - **Shortlist out:** only shortlisted films, each with a Shortlisted pill; International rows lead with the submitting country's flag.
-    - **After the nominations:** nominees only; the "to be nominated" column is gone; the stage line counts the nominees.
+    - **After the nominations:** nominees only; the "to be nominated" column shows the eve-of-nominations %; the stage line counts the nominees.
     - **After the ceremony and past years:** the winner gets a Won pill, the others Nominated; "final prediction" under each %; stage dot in ink; the sub line says when the final prediction was made.
     - **Loading:** skeleton rows after 300ms. **Failed save:** the mark flips back and the toast appears. **Offline:** error notice under the PageHeader, marks disabled. **No results:** search's message.
 

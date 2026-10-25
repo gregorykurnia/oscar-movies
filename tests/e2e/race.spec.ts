@@ -33,7 +33,10 @@ test("/race/2024 shows the nominees and the winner in every tab", async ({ page 
     await expect(chances).toHaveCount(nominees);
     await expect(panel(page).getByText("final prediction", { exact: true })).toHaveCount(nominees);
     await expect(chances.first().locator("[data-leader]")).toHaveCount(1);
-    await expect(panel(page).getByText("To be nominated", { exact: true })).toHaveCount(0);
+    // Each nominee's % to be nominated from the eve of the nominations, explained under the list.
+    await expect(panel(page).getByText("To be nominated", { exact: true })).toBeVisible();
+    await expect(panel(page).getByText(/^(<1|\d+)% to be nominated$/)).toHaveCount(nominees);
+    await expect(panel(page).getByText(/The % to be nominated is each nominee's chance on \d+ Jan 2025, the day before the nominations\./)).toBeVisible();
   }
   // International leads with the submitting country's flag.
   await expect(panel(page).getByRole("img", { name: "Brazil, submitting country" })).toHaveCount(0);

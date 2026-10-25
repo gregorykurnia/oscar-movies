@@ -6,11 +6,13 @@ import {
   leaderOf,
   leadersOf,
   MIN_SHOWN,
+  nominateSnapshot,
   raceRows,
   raceSnapshot,
   showAllText,
   splitRows,
   stagePillsBefore,
+  withEveNominations,
   type Chance,
 } from "./race-chances";
 import type { Outcome } from "./stage";
@@ -33,6 +35,24 @@ describe("raceSnapshot and formatChance", () => {
     expect(formatChance(0.995)).toBe("100");
     expect(formatChance(0.004)).toBe("<1");
     expect(formatChance(0)).toBe("0");
+  });
+});
+
+describe("the % to be nominated from the nominations on", () => {
+  it("comes from the eve of the nominations once they are out, and the shown snapshot before", () => {
+    expect(nominateSnapshot("finished")).toBe("eve_nominations");
+    expect(nominateSnapshot("nominations")).toBe("eve_nominations");
+    expect(nominateSnapshot("shortlist")).toBeNull();
+    expect(nominateSnapshot("before")).toBeNull();
+  });
+
+  it("gives each row its eve chance, and none to a film that wasn't a contender then", () => {
+    const stored = [{ film: film(1), ...chance(1, 0.6) }, { film: film(2), ...chance(2, 0.4) }];
+    const eve = [{ film: film(1), ...chance(3, 0.1, 0.72) }, { film: film(3), ...chance(1, 0.5, 0.95) }];
+    expect(withEveNominations(stored, eve)).toEqual([
+      { film: film(1), ...chance(1, 0.6, 0.72) },
+      { film: film(2), ...chance(2, 0.4, null) },
+    ]);
   });
 });
 

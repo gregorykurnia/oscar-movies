@@ -63,7 +63,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - Opens on the **current season** (2026 now). A year switcher reaches any year from 2012 on.
-- The four categories, each as its own section (tabs on phone): its contenders or nominees, each with its **Oscar stage**, its **% chance to be nominated** (until the nominations are announced), its **% chance to win**, its main precursor results (e.g. "Won: BAFTA, PGA · Nominated: Globes"), scores, flag and watched marks.
+- The four categories, each as its own section (tabs on phone): its contenders or nominees, each with its **Oscar stage**, its **% chance to be nominated** (live until the nominations are announced; after them, what each nominee had the day before), its **% chance to win**, its main precursor results (e.g. "Won: BAFTA, PGA · Nominated: Globes"), scores, flag and watched marks.
 - Before the Oscar nominations, the contenders are every film with a nomination or win at any followed award or festival in that category (and the shortlist once it exists). After the nominations, only the nominees. After the ceremony, the winner is marked and the % chances freeze as "final prediction".
 - Past years show the real Oscar nominees and winners, with the prediction the app would have made on the eve of the ceremony, so the method can be judged.
 - Each film's % opens a short **"why"**: the past seasons and precursor results it is based on.
@@ -76,7 +76,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - Each contender's chance comes from **how past contenders with a similar run of precursor results did** (2012 to the last finished season): which awards they won or were nominated at, weighted by how well those awards have predicted that category. The chances in a category add up to 100%.
-- **% chance to be nominated**, shown until the Oscar nominations are announced: from how often past contenders with a similar run of precursor results (and shortlist status, where there is one) got the nomination. These don't add up to 100%; together they add up to roughly the number of nomination slots (10 for Picture, 5 for the others).
+- **% chance to be nominated**, live until the Oscar nominations are announced, then frozen at the day before them for each nominee (so past seasons show how well it called them): from how often past contenders with a similar run of precursor results (and shortlist status, where there is one) got the nomination. These don't add up to 100%; together they add up to roughly the number of nomination slots (10 for Picture, 5 for the others).
 - Recalculated whenever new results are loaded, and when an Oscar ceremony's results make a season "finished" (so its history now counts).
 - The method is explained in plain words on the accuracy page, with the backtest: for each past year, the app's eve-of-ceremony favourite and whether it won, and how many of the nominees it had in its top slots on the eve of the nominations.
 
@@ -279,6 +279,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: Plan approved as v1.0.
 - 2026-10-22: Every movie shows its country flag, not only International entries.
 - 2026-10-24: Gaps in critics groups (and Cinema Eye 2012–2020) are filled from IMDb's award records (credited on the sources page); Wikipedia stays where it has data. DOC NYC (Short List, Winner's Circle) and four more Cinema Eye categories added. DC Dox Fest left out.
+- 2026-10-25: Past seasons (and the live one after its nominations) show each nominee's % to be nominated from the day before the nominations. Counting "passed over" at an award (named its nominees, not this film) was tried in the model and not kept: over 2012–2025, left out one season at a time, it called no more nominees (247 vs 248 in the top slots) and won one more favourite while Best Picture got worse.
 
 ## 10. Open questions
 

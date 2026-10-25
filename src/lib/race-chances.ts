@@ -7,9 +7,28 @@ import { raceEntries, type SeasonState } from "./race";
 
 export type RaceSnapshot = "live" | "eve_ceremony";
 
+type Film = { id: number };
+
 /** Past seasons show the eve-of-ceremony prediction ("final prediction"); the others the live one. */
 export function raceSnapshot(state: SeasonState): RaceSnapshot {
   return state === "finished" ? "eve_ceremony" : "live";
+}
+
+/**
+ * From the nominations on, the % to be nominated a row shows is the one from the eve of the
+ * nominations: what the app gave each nominee before it was one. Before, the shown snapshot's own.
+ */
+export function nominateSnapshot(state: SeasonState): "eve_nominations" | null {
+  return state === "nominations" || state === "finished" ? "eve_nominations" : null;
+}
+
+/** `stored` with each film's % to be nominated from `eve` (null for a film that wasn't a contender then). */
+export function withEveNominations<P extends { film: Film; pNominate: number | null }>(
+  stored: P[],
+  eve: Array<{ film: Film; pNominate: number | null }>,
+): P[] {
+  const byFilm = new Map(eve.map((e) => [e.film.id, e.pNominate]));
+  return stored.map((p) => ({ ...p, pNominate: byFilm.get(p.film.id) ?? null }));
 }
 
 /** "41", "<1" for a chance that rounds to nothing but isn't nothing, "0" for none. */
@@ -20,8 +39,6 @@ export function formatChance(p: number): string {
 
 /** A film's stored prediction (`predictions`) for the snapshot shown. */
 export type Chance = { pWin: number; pNominate: number | null; rank: number; why: Why };
-
-type Film = { id: number };
 
 /**
  * The rows a category shows, in the order of their chances. Before any Oscar list rules films
