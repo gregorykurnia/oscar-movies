@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Approved v1.1 (2026-10-25): adds Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
+**Status:** Approved v1.2 (2026-10-25): adds an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
 
 ## 1. Overview
 
@@ -91,6 +91,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - The award's **accuracy figures** for each category (3.6) at the top.
 - Festivals show their major prizes the same way; from 2025 on, the page also links to the year's **lineup** (3.9).
 - An awards index for the year: Oscars first, then major awards, then festivals, then critics groups (below the majors, per the owner).
+- **All years of one award** (owner's request, 2026-10-25): one page per award or festival (the Oscars too) listing its winners and nominees for every year in the app, newest first, one Oscar category at a time. Each film shows flag, scores, marks and its Oscar result that year; each year links to its own page. A year with no data says so; a year the award gave nothing in that category says so too. Reached by an "All years" link on each award's year page. The Oscars list nominees and winners only (submissions and shortlists stay on the year pages).
 
 ### 3.6 Accuracy figures ("running correlation")
 
@@ -272,7 +273,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | 3. Predictions and the live race | % chance to be nominated and to win per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
 | 4. Critics groups | The 63 critics groups, 2012–2026, in the grid, award pages, accuracy figures and predictions | Each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked |
 | 5. Festival lineups | 2025 and 2026 lineups by section for the five festivals; festival screenings on the movie page | Cannes 2025's page lists every section's films with flags and scores |
-| 7. Owner's requests of 25 Oct | One flag per film; the grid's Oscar order; strong signals page; Watch list add box, drag order, release date and platform | Every row shows one flag; the 2025 Picture grid opens with the nominees on top; the 2025 Documentary signals page lists each strong award with its figure and films; a film typed into the Watch list, dragged and given a date and platform keeps all three after a reload |
+| 7. Owner's requests of 25 Oct | One flag per film; the grid's Oscar order; strong signals page; an award's all-years page; Watch list add box, drag order, release date and platform | Every row shows one flag; Critics Choice's all-years page lists every year's nominees and winners; the 2025 Picture grid opens with the nominees on top; the 2025 Documentary signals page lists each strong award with its figure and films; a film typed into the Watch list, dragged and given a date and platform keeps all three after a reload |
 
 **Suggested checkpoints with real data:** after Phase 1, the owner marks the films they've seen for 2024–2026 and checks a handful of Oscar years against memory; after Phase 2, the owner spot-checks three awards; after Phase 3, the owner compares the predictions with their own instinct for the 2026 race.
 
@@ -301,6 +302,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-25: Past seasons (and the live one after its nominations) show each nominee's % to be nominated from the day before the nominations. Counting "passed over" at an award (named its nominees, not this film) was tried in the model and not kept: over 2012–2025, left out one season at a time, it called no more nominees (247 vs 248 in the top slots) and won one more favourite while Best Picture got worse.
 
 - 2026-10-25: Phase 7 (owner's requests): one flag per film (submitting country for any International submission, else Wikipedia's first country); the year grid opens on Oscar nominees, then shortlisted, then by nominations, other sorts kept; a strong signals page (awards with "Oscar nominees it caught" ≥ 50% or "Winner → Oscar nomination" ≥ 80% over at least 5 years, and the films they picked that year, by award and by film); the Watch list gets an add-by-typing box (films in the app only), the owner's own drag order, and a typed release date (first date watchable from Indonesia, or TBD) and platform. Defaults chosen by Claude and accepted: 5-year minimum, both views on one page, a new film goes to the top of the order.
+- 2026-10-25: An all-years page per award (§3.5), added to Phase 7. Claude's defaults, accepted: newest year first, one Oscar category at a time, no accuracy figures on it (they stay on the year pages).
 
 ## 10. Open questions
 
