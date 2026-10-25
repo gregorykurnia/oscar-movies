@@ -182,6 +182,7 @@ async function queryAwardRows(
       isSelection: awards.isSelection,
       year: editions.year,
       categoryName: awardCategories.name,
+      categorySlug: awardCategories.slug,
       oscarCategory: awardCategories.oscarCategory,
       outcome: results.outcome,
     })

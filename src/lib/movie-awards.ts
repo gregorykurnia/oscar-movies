@@ -15,6 +15,8 @@ export type AwardResult = {
   isSelection: boolean;
   year: number;
   categoryName: string;
+  /** The award category's slug, for the Strong tag; absent in fixtures. */
+  categorySlug?: string;
   oscarCategory: OscarCategoryName;
   outcome: Outcome;
 };
@@ -34,6 +36,8 @@ export type MovieAwardRow = {
   year: number;
   /** The award's own name for the category (names joined with " / " for a "not nominated" in several). */
   category: string;
+  /** The category's slug (not for "not nominated" rows, which can join several). */
+  categorySlug?: string;
   oscarCategory: OscarCategoryName;
   result: "won" | "nominated" | "runner_up" | "not_nominated";
   /** Only for not nominated: shown from this day (the nominations' day); null when unknown. */
@@ -67,6 +71,7 @@ export function movieAwardRows(results: AwardResult[], candidates: AwardCandidat
       isSelection: r.isSelection,
       year: r.year,
       category: r.categoryName,
+      categorySlug: r.categorySlug,
       oscarCategory: r.oscarCategory,
       result: r.outcome,
       since: null,

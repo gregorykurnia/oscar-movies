@@ -64,3 +64,42 @@ test("an unknown slug shows the 404 page", async ({ page }) => {
   await page.goto("/movies/no-such-film-2024");
   await expect(page.getByText("This page isn't here")).toBeVisible();
 });
+
+// Nomination patterns panel and Strong tag (task 8.7, guide §8.6). Figures are the seeded `test` data's.
+test("a flagged shortlisted film shows its panel with Snub risk, its reasons and Strong tags", async ({ page }) => {
+  await page.goto("/movies/my-undesirable-friends-part-i-last-air-in-moscow");
+  const panel = page.getByRole("region", { name: "Nomination patterns" });
+  await expect(panel.getByText("2025 · Best Documentary Feature")).toBeVisible();
+  await expect(panel.getByText("Pattern", { exact: true })).toBeVisible();
+  await expect(panel.getByText(/^Pick #\d+ of 15$/)).toBeVisible();
+  await expect(panel.getByText("Oscar result")).toBeVisible();
+  await expect(panel.getByText("Not nominated", { exact: true })).toBeVisible();
+  await expect(panel.getByText("Snub risk", { exact: false }).first()).toContainText(/flagged, and missed/i);
+  await expect(panel.locator("[data-risk-reason]", { hasText: "critics' sweep" })).toContainText("1 of 4");
+  await expect(panel.getByRole("link", { name: /All of 2025.s nomination patterns/ })).toHaveAttribute("href", "/patterns/2025");
+  // The panel sits between Oscars and Awards.
+  const order = await page.locator("main h2").allTextContents();
+  expect(order.indexOf("Oscars")).toBeLessThan(order.indexOf("Nomination patterns"));
+  expect(order.indexOf("Nomination patterns")).toBeLessThan(order.indexOf("Awards"));
+
+  // Strong tags on the results at the season's strong awards.
+  const awards = page.getByRole("region", { name: "Awards" });
+  for (const slug of ["new-york-critics", "los-angeles-critics", "national-society", "spirit-awards"]) {
+    await expect(awards.locator(`li:has(a[href="/awards/${slug}/2025"])`).locator('[data-tag="strong"]')).toHaveText("Strong");
+  }
+});
+
+test("an unflagged shortlisted film shows its panel with no flag", async ({ page }) => {
+  await page.goto("/movies/the-perfect-neighbor");
+  const panel = page.getByRole("region", { name: "Nomination patterns" });
+  await expect(panel.getByText("Oscar result")).toBeVisible();
+  await expect(panel.getByText(/Snub risk/)).toHaveCount(0);
+  await expect(panel.locator("[data-risk-reason]")).toHaveCount(0);
+});
+
+test("a film never shortlisted has no panel and no Strong tag", async ({ page }) => {
+  await page.goto("/movies/the-brutalist");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("The Brutalist");
+  await expect(page.getByRole("region", { name: "Nomination patterns" })).toHaveCount(0);
+  await expect(page.locator('[data-tag="strong"]')).toHaveCount(0);
+});

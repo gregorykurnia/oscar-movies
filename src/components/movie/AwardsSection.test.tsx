@@ -3,6 +3,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import type { MovieScreening } from "@/lib/lineup";
 import type { MovieAwardRow } from "@/lib/movie-awards";
+import { strongKey } from "@/lib/patterns/movie";
 import { AwardsSection, CRITICS_CAP } from "./AwardsSection";
 
 const screening = (more: Partial<MovieScreening>): MovieScreening => ({
@@ -139,5 +140,38 @@ describe("AwardsSection", () => {
     const festivals = screen.getByRole("group", { name: "Festivals" });
     expect(within(festivals).getByRole("link", { name: "Cannes Film Festival" })).toBeTruthy();
     expect(within(festivals).getByText("Festival lineups are tracked from 2025 on.")).toBeTruthy();
+  });
+
+  it("tags a Won or Nominated result at a strong award, in any section, and never a Not nominated one", () => {
+    const strong = new Set([
+      strongKey(2025, "documentary", "nyfcc/documentary"),
+      strongKey(2025, "documentary", "pga/documentary"),
+      strongKey(2025, "documentary", "spirit-awards/documentary"),
+    ]);
+    const doc = { oscarCategory: "documentary" as const, year: 2025 };
+    render(
+      <AwardsSection
+        today="2026-03-01"
+        strong={strong}
+        rows={[
+          row({ ...doc, awardSlug: "nyfcc", awardName: "New York Film Critics Circle", kind: "critics", categorySlug: "documentary", result: "won" }),
+          row({ ...doc, awardSlug: "pga", awardName: "PGA", categorySlug: "documentary", result: "nominated" }),
+          row({ ...doc, awardSlug: "spirit-awards", awardName: "Spirit Awards", categorySlug: "documentary", result: "not_nominated", since: "2025-12-01" }),
+          // Not strong, and a strong category in another season.
+          row({ ...doc, awardSlug: "dga", awardName: "DGA", categorySlug: "documentary", result: "nominated" }),
+          row({ ...doc, year: 2024, awardSlug: "nyfcc", awardName: "NYFCC 2024", kind: "critics", categorySlug: "documentary", result: "won" }),
+        ]}
+      />,
+    );
+    const tagged = screen.getAllByText("Strong").map((t) => t.closest("li")?.getAttribute("data-result") + ":" + t.closest("li")?.textContent);
+    expect(tagged).toHaveLength(2);
+    expect(tagged[0]).toContain("PGA");
+    expect(tagged[1]).toContain("New York Film Critics Circle");
+    expect(within(screen.getByRole("group", { name: "Major awards" })).getAllByText("Strong")).toHaveLength(1);
+  });
+
+  it("shows no Strong tag without strong awards", () => {
+    render(<AwardsSection today="2025-03-01" rows={[row({ categorySlug: "best-film" })]} />);
+    expect(screen.queryByText("Strong")).toBeNull();
   });
 });

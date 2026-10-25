@@ -8,8 +8,11 @@ import { ScoreTiles } from "@/components/score-tiles/ScoreTiles";
 import { Skeleton, SkeletonRegion } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { getMovie, type MovieData, type OscarBox } from "@/data/movie";
+import { getPatterns } from "@/data/patterns";
 import { AwardsSection } from "@/components/movie/AwardsSection";
+import { NominationPatterns } from "@/components/movie/NominationPatterns";
 import { cn } from "@/lib/cn";
+import { nominationPanel, panelCategory, strongKeys, type NominationPanel } from "@/lib/patterns/movie";
 import { movieFacts, oscarBoxNote, oscarsHeading, shownOriginalTitle } from "@/lib/movie";
 import { RACE_CATEGORIES } from "@/lib/race";
 import { oscarStage } from "@/lib/stage";
@@ -20,7 +23,8 @@ const CATEGORY_NAMES = Object.fromEntries(RACE_CATEGORIES.map((c) => [c.slug, c.
 /**
  * Guide §8.6 Movie page (`/movies/[slug]`): back link (the browser's Back when the visit came
  * from this app), title, a sub line with large flags, original title, year, countries and
- * language, the labelled marks, the score tiles, the Oscar result boxes and the Awards sections
+ * language, the labelled marks, the score tiles, the Oscar result boxes, the Nomination patterns
+ * panel (a film shortlisted in Documentary or International, 2012 on) and the Awards sections
  * (won, nominated, not nominated), with the festival screenings in the Festivals part.
  */
 export function MoviePage({ slug }: { slug: string }) {
@@ -37,6 +41,8 @@ async function Movie({ slug }: { slug: string }) {
   const film = await getMovie(slug);
   if (!film) notFound();
   const original = shownOriginalTitle(film.title, film.originalTitle);
+  const today = new Date().toISOString().slice(0, 10);
+  const { panels, strong } = await patternsFor(film, today);
   return (
     <>
       <PageHeader
@@ -58,14 +64,26 @@ async function Movie({ slug }: { slug: string }) {
       <FilmLabelledMarks movieId={film.id} title={film.title} className="mt-6 flex flex-wrap gap-2" />
       <ScoreTiles scores={film.scores} className="mt-7 md:mt-10" />
       <OscarSection film={film} />
-      <AwardsSection
-        rows={film.awards}
-        screenings={film.screenings}
-        year={film.year}
-        today={new Date().toISOString().slice(0, 10)}
-      />
+      {panels.map((panel) => (
+        <NominationPatterns key={`${panel.year}-${panel.category}`} panel={panel} />
+      ))}
+      <AwardsSection rows={film.awards} screenings={film.screenings} year={film.year} today={today} strong={strong} />
     </>
   );
+}
+
+/** The Nomination patterns panels of the film's shortlisted seasons and those seasons' strong awards (none for other films). */
+async function patternsFor(film: MovieData, today: string): Promise<{ panels: NominationPanel[]; strong: Set<string> }> {
+  const panels: NominationPanel[] = [];
+  const strong = new Set<string>();
+  for (const box of film.oscars) {
+    const category = panelCategory(box);
+    if (!category) continue;
+    const season = (await getPatterns(category, today)).seasons.find((s) => s.year === box.year);
+    panels.push(nominationPanel({ movieId: film.id, box: { ...box, category }, season }));
+    for (const key of strongKeys(season)) strong.add(key);
+  }
+  return { panels: panels.sort((a, b) => b.year - a.year), strong };
 }
 
 function OscarSection({ film }: { film: MovieData }) {

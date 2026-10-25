@@ -1,9 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Notice } from "@/components/notice/Notice";
+import { OutlineTag } from "@/components/patterns/Pieces";
 import { StagePill, type Stage } from "@/components/stage-pill/StagePill";
 import { cn } from "@/lib/cn";
 import { oscarName } from "@/lib/award-page";
+import { strongKey } from "@/lib/patterns/movie";
 import { COVERAGE_NOTICE, hasLineups, lineupPath, screeningCaption, type MovieScreening } from "@/lib/lineup";
 import {
   awardRowCaption,
@@ -30,18 +32,22 @@ const STAGES: Record<MovieAwardRow["result"], Stage> = {
  * its category and Won / Nominated / Not nominated (the last in `--ink-muted`). Critics groups are
  * summarised in the heading and capped. The Festivals section also lists the film's screenings
  * (section and prizes, each linking to its lineup). `today` decides whether a "not nominated" can
- * be said yet; `year` is the film's, for the note that lineups are tracked from 2025.
+ * be said yet; `year` is the film's, for the note that lineups are tracked from 2025. `strong` holds
+ * the `strongKey`s of the award categories that were strong in the film's shortlisted seasons: a
+ * Won or Nominated row at one carries the Strong tag (guide §8.6).
  */
 export function AwardsSection({
   rows,
   screenings = [],
   year,
   today,
+  strong,
 }: {
   rows: MovieAwardRow[];
   screenings?: MovieScreening[];
   year?: number;
   today: string;
+  strong?: ReadonlySet<string>;
 }) {
   const sections = awardsSections(rows, today);
   const shown = sections.flatMap((s) => s.rows);
@@ -74,11 +80,12 @@ export function AwardsSection({
                   coverage={coverage}
                   showYear={showYear}
                   showOscar={showOscar}
+                  strong={strong}
                 />
               );
             }
             const section = sections.find((s) => s.kind === kind);
-            return section ? <AwardsGroup key={kind} section={section} showYear={showYear} showOscar={showOscar} /> : null;
+            return section ? <AwardsGroup key={kind} section={section} showYear={showYear} showOscar={showOscar} strong={strong} /> : null;
           })}
         </div>
       ) : (
@@ -97,12 +104,14 @@ function FestivalsGroup({
   coverage,
   showYear,
   showOscar,
+  strong,
 }: {
   rows: MovieAwardRow[];
   screenings: MovieScreening[];
   coverage: boolean;
   showYear: boolean;
   showOscar: boolean;
+  strong?: ReadonlySet<string>;
 }) {
   if (rows.length === 0 && screenings.length === 0) return <NoFestivals coverage={coverage} />;
   return (
@@ -112,7 +121,7 @@ function FestivalsGroup({
       </h3>
       <ul className="border-b border-line">
         {rows.map((r) => (
-          <AwardRow key={`${r.awardSlug}-${r.year}-${r.category}`} row={r} showYear={showYear} showOscar={showOscar} />
+          <AwardRow key={`${r.awardSlug}-${r.year}-${r.category}`} row={r} showYear={showYear} showOscar={showOscar} strong={strong} />
         ))}
         {screenings.map((s) => (
           <ResultRow
@@ -146,12 +155,22 @@ function NoFestivals({ coverage }: { coverage: boolean }) {
   );
 }
 
-function AwardsGroup({ section, showYear, showOscar }: { section: Section; showYear: boolean; showOscar: boolean }) {
+function AwardsGroup({
+  section,
+  showYear,
+  showOscar,
+  strong,
+}: {
+  section: Section;
+  showYear: boolean;
+  showOscar: boolean;
+  strong?: ReadonlySet<string>;
+}) {
   const capped = section.kind === "critics" && section.rows.length > CRITICS_CAP;
   const visible = capped ? section.rows.slice(0, CRITICS_CAP) : section.rows;
   const rest = capped ? section.rows.slice(CRITICS_CAP) : [];
   const row = (r: MovieAwardRow) => (
-    <AwardRow key={`${r.awardSlug}-${r.year}-${r.category}`} row={r} showYear={showYear} showOscar={showOscar} />
+    <AwardRow key={`${r.awardSlug}-${r.year}-${r.category}`} row={r} showYear={showYear} showOscar={showOscar} strong={strong} />
   );
   return (
     <div role="group" aria-labelledby={`awards-${section.kind}-h`}>
@@ -174,7 +193,21 @@ function AwardsGroup({ section, showYear, showOscar }: { section: Section; showY
   );
 }
 
-function AwardRow({ row, showYear, showOscar }: { row: MovieAwardRow; showYear: boolean; showOscar: boolean }) {
+function AwardRow({
+  row,
+  showYear,
+  showOscar,
+  strong,
+}: {
+  row: MovieAwardRow;
+  showYear: boolean;
+  showOscar: boolean;
+  strong?: ReadonlySet<string>;
+}) {
+  const isStrong =
+    row.result !== "not_nominated" &&
+    row.categorySlug !== undefined &&
+    strong?.has(strongKey(row.year, row.oscarCategory, `${row.awardSlug}/${row.categorySlug}`)) === true;
   return (
     <ResultRow
       result={row.result}
@@ -183,6 +216,7 @@ function AwardRow({ row, showYear, showOscar }: { row: MovieAwardRow; showYear: 
       caption={awardRowCaption(row, { showYear, oscarName: showOscar ? oscarName(row.oscarCategory) : null })}
       pill={<StagePill stage={STAGES[row.result]}>{resultLabel(row)}</StagePill>}
       muted={row.result === "not_nominated"}
+      tag={isStrong ? <OutlineTag kind="strong">Strong</OutlineTag> : null}
     />
   );
 }
@@ -195,6 +229,7 @@ function ResultRow({
   caption,
   pill,
   muted = false,
+  tag = null,
 }: {
   result: string;
   href: string;
@@ -203,6 +238,8 @@ function ResultRow({
   pill: ReactNode;
   /** "Not nominated" rows read in `--ink-muted`. */
   muted?: boolean;
+  /** A tag after the name (the Strong tag). */
+  tag?: ReactNode;
 }) {
   return (
     <li
@@ -219,6 +256,7 @@ function ResultRow({
         >
           {name}
         </Link>
+        {tag ? <span className="ml-2">{tag}</span> : null}
       </div>
       <span className="col-span-2 row-start-2 text-caption text-ink-muted [overflow-wrap:anywhere] md:col-span-1 md:col-start-2 md:row-start-1 md:text-small">
         {caption}
