@@ -319,7 +319,7 @@ export function ReleaseEditor({
                 aria-label="Close"
                 disabled={busy}
                 onClick={() => close()}
-                className="-mt-2 -mr-2 grid size-9 flex-none place-items-center rounded-[8px] text-ink-muted outline-none hover:bg-track hover:text-ink focus-visible:shadow-focus disabled:text-ink-faint"
+                className="-mt-2.5 -mr-2.5 grid size-11 flex-none place-items-center rounded-[8px] text-ink-muted outline-none hover:bg-track hover:text-ink focus-visible:shadow-focus disabled:text-ink-faint"
               >
                 <X aria-hidden="true" className="size-4" strokeWidth={1.75} />
               </button>

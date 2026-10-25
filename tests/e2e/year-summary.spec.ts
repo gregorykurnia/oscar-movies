@@ -73,7 +73,7 @@ test("a count opens the grid view it counts, and the grid lists as many films as
   await all.click();
   await expect(page).toHaveURL(/\/grid\/2025\?category=all$/);
   await expect(page.getByText(`All categories · ${allCount} films with a nomination`)).toBeVisible();
-  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(allCount);
+  await expect(page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") })).toHaveCount(allCount);
 
   // The watched figure is the number of films its list shows, and the Watched chip says so.
   await page.goto("/years/2025");
@@ -85,7 +85,7 @@ test("a count opens the grid view it counts, and the grid lists as many films as
     "aria-pressed",
     "true",
   );
-  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(count);
+  await expect(page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") })).toHaveCount(count);
 
   // A category's watched figure opens that category's watched films the same way.
   await page.goto("/years/2025");
@@ -93,7 +93,7 @@ test("a count opens the grid view it counts, and the grid lists as many films as
   const internationalCount = Number.parseInt((await internationalWatched.textContent()) ?? "", 10);
   await internationalWatched.click();
   await expect(page).toHaveURL(/\/grid\/2025\?category=international&filter=watched$/);
-  await expect(page.getByRole("table").getByRole("rowheader")).toHaveCount(internationalCount);
+  await expect(page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") })).toHaveCount(internationalCount);
 });
 
 test("the year switcher keeps the summary, and an unknown year is not found", async ({ page }) => {

@@ -8,6 +8,7 @@ import { expect, test, type Locator, type Page } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
+import { LIVE_YEAR } from "../../src/lib/years";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -57,14 +58,14 @@ test("every row on the race, the grid and the Watch list shows one flag", async 
 
   // The year grid: one flag in each film's row header.
   await page.goto("/grid/2025");
-  const heads = page.getByRole("table").getByRole("rowheader");
+  const heads = page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") });
   await expect(heads.first()).toBeVisible();
   const grid = await heads.evaluateAll((els) => els.map((el) => ({ title: el.getAttribute("aria-label") ?? "", flags: el.querySelectorAll("[data-flag]").length })));
   expectOneFlagEach(grid, "grid 2025 Picture");
 
   // The Watch list: both sections.
   await page.goto("/watch-list");
-  const season = section(page, "Not watched yet, 2026 season");
+  const season = section(page, `Not watched yet, ${LIVE_YEAR} season`);
   await expect(season.getByRole("heading", { level: 3 }).first()).toBeVisible();
   expectOneFlagEach(await flagsPerRow(season, "h3"), "Watch list season");
 });
@@ -72,7 +73,7 @@ test("every row on the race, the grid and the Watch list shows one flag", async 
 test("the 2025 Picture grid opens with its winner, then the other nominees", async ({ page }) => {
   await page.goto("/grid/2025");
   await expect(page.getByRole("button", { name: "Sort: Oscars" })).toBeVisible();
-  const heads = page.getByRole("table").getByRole("rowheader");
+  const heads = page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") });
   await expect(heads.first()).toBeVisible();
   const titles = (await heads.evaluateAll((els) => els.map((el) => el.getAttribute("aria-label") ?? ""))).filter(Boolean);
   expect(titles[0]).toBe("One Battle After Another");
@@ -112,9 +113,9 @@ test("Critics Choice's all-years page lists every year from the live year back t
   const years = await page.getByRole("heading", { level: 2 }).allTextContents();
   const expected = Array.from({ length: live - 2012 + 1 }, (_, i) => String(live - i));
   expect(years.map((t) => t.trim())).toEqual(expected);
-  // The 2025 block shows its Picture nominees with a winner; the live year says there is no data yet.
+  // The 2025 block shows its Picture nominees with a winner. (The live year's block reads "No data"
+  // until its results load: not checked, so the test holds through the season, 7.R.)
   await expect(section(page, "Critics Choice 2025").locator("[data-winner]").first()).toBeVisible();
-  await expect(section(page, `Critics Choice ${live}`).getByText("No data", { exact: true })).toBeVisible();
 });
 
 test("the accuracy page's link opens the 2025 Documentary signals with a strong award's figure and films", async ({ page }) => {
@@ -154,8 +155,12 @@ test("a film typed into the Watch list, moved to second place and given a date a
 
     // Type part of its original title; Enter adds it at the top.
     const box = page.getByRole("combobox", { name: "Add a film" });
-    await box.fill("agente secre");
-    await expect(page.getByRole("option", { name: /The Secret Agent/ })).toBeVisible();
+    // Typed again until the option shows: typing before the box hydrates fires no search (7.R).
+    await expect(async () => {
+      await box.fill("");
+      await box.fill("agente secre");
+      await expect(page.getByRole("option", { name: /The Secret Agent/ })).toBeVisible({ timeout: 2_000 });
+    }).toPass();
     await box.press("Enter");
     await expect.poll(() => titlesIn(want)).toEqual(["The Secret Agent", "Anora", "Hamnet"]);
 

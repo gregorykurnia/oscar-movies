@@ -78,6 +78,8 @@ const slot = cn(
   "*:invisible before:bg-track before:outline before:outline-1 before:-outline-offset-1 before:outline-dashed before:outline-line-strong",
 );
 
+// `--ease` (tokens.css, guide §12) spelled out: the drop animation runs through `element.animate`,
+// which can't read a CSS variable.
 const EASE = "cubic-bezier(0.2, 0.7, 0.2, 1)";
 
 // The lifted row follows the pointer up and down only, so the page never scrolls sideways.
@@ -159,19 +161,26 @@ export function SortableWantList({
     }),
   );
 
+  // One save at a time: dragging waits on `saving`, and this also stops a toast's "Try again"
+  // from starting a second save whose failure would put back rows the first one moved (7.R).
+  const saveInFlight = useRef(false);
+
   /** Moves `id` to place `to`, shows it at once and saves; on failure the rows go back. */
   const commit = useCallback(
     function commit(id: number, to: number) {
+      if (saveInFlight.current) return;
       const previous = orderRef.current;
       const from = previous.indexOf(id);
       if (from < 0) return;
       const next = moveItem(previous, from, to);
+      saveInFlight.current = true;
       setOrder(next);
       setFailed(null);
       setSaving({ id, ring: false });
       const ring = later(() => setSaving((s) => (s?.id === id ? { id, ring: true } : s)), SAVING_DELAY_MS);
 
       const fail = (reason: "stale" | "failed") => {
+        saveInFlight.current = false;
         clearTimeout(ring);
         setSaving(null);
         setOrder(previous);
@@ -196,6 +205,7 @@ export function SortableWantList({
       reorderWatchList(orderToSave(next, readWant)).then(
         (result) => {
           if (!result.ok) return fail(result.reason);
+          saveInFlight.current = false;
           clearTimeout(ring);
           setSaving(null);
         },

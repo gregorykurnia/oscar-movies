@@ -39,11 +39,12 @@ describe("queryAwardHistory", () => {
   });
 
   it("has the edition but no categories for a year with no data", async () => {
-    const history = await queryAwardHistory(db, "critics-choice");
-    const live = history!.years[0];
-    expect(live.year).toBe(LIVE_YEAR);
-    expect(live.edition!.status).toBe("no_data");
-    expect(live.categories).toEqual([]);
+    // A past year (the live year's edition fills up when its results load, 7.R).
+    const history = await queryAwardHistory(db, "critics-choice-documentary");
+    expect(history!.years[0].year).toBe(LIVE_YEAR);
+    const none = history!.years.find((y) => y.year === 2012)!;
+    expect(none.edition!.status).toBe("no_data");
+    expect(none.categories).toEqual([]);
   });
 
   it("gives Golden Globes Picture its two categories, with the Oscar result of each film's year", async () => {

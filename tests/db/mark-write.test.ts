@@ -64,8 +64,12 @@ describe("writeMark", () => {
   });
 });
 
-/** Three films of our own, on top of the seeded marks. */
+/** Three films of our own, on top of the seeded marks (their order numbered 1…n first). */
 async function addFilms(tx: Tx) {
+  await tx.execute(sql`
+    update marks set want_rank = r.rank
+    from (select movie_id, row_number() over (order by want_rank, movie_id) as rank from marks where want) r
+    where marks.movie_id = r.movie_id`);
   const rows = await tx
     .insert(movies)
     .values([
@@ -133,6 +137,9 @@ describe("writeMark and the order", () => {
       await writeMark(tx, two, { watched: true, want: false });
       expect(await row(tx, two)).toMatchObject({ watched: true, want: false, wantRank: null });
       expect(await order(tx)).toEqual([three, one, ...seeded]);
+      // The films below it move up: still numbered 1…n with no gap (7.R).
+      const ranks = await tx.select({ r: marks.wantRank }).from(marks).where(eq(marks.want, true)).orderBy(asc(marks.wantRank));
+      expect(ranks.map((r) => r.r)).toEqual(ranks.map((_, i) => i + 1));
       await writeMark(tx, two, { watched: false, want: true });
       expect(await order(tx)).toEqual([two, three, one, ...seeded]);
     });

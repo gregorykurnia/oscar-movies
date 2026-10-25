@@ -122,7 +122,7 @@ test("the year grid's Want to watch chip keeps the want-to-watch films", async (
     await page.goto("/grid/2025");
     await chip(page, "Want to watch").click();
     await expect(page).toHaveURL(/\/grid\/2025\?filter=want$/);
-    const rows = page.getByRole("table").getByRole("rowheader");
+    const rows = page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") });
     await expect(rows.filter({ hasText: "Hamnet" })).toHaveCount(1);
     await expect(rows.filter({ hasText: "Sinners" })).toHaveCount(0);
 

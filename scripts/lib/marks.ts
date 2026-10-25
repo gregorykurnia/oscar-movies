@@ -6,7 +6,7 @@
 // backup) leaves them as they are.
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
-import { eq, inArray, isNotNull, or } from "drizzle-orm";
+import { eq, inArray, isNotNull, or, sql } from "drizzle-orm";
 import type { ScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema, type MarkEntry, type MarksFile } from "../../src/lib/data-files";
@@ -327,6 +327,15 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
         await tx.update(marks).set(values).where(eq(marks.movieId, w.film.id));
       }
     }
+    // The file's ranks can collide with films it leaves alone (a backup older than the order
+    // now): number every wanted film 1…n again, the more recently marked first on a tie (7.R).
+    await tx.execute(sql`
+      update marks set want_rank = r.rank
+      from (
+        select movie_id, row_number() over (order by want_rank nulls last, updated_at desc, movie_id) as rank
+        from marks where want
+      ) r
+      where marks.movie_id = r.movie_id and marks.want_rank is distinct from r.rank`);
   });
   return plan.writes.length;
 }

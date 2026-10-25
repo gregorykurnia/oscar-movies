@@ -50,6 +50,7 @@ async function Movie({ slug }: { slug: string }) {
                 {original}
               </span>
             ) : null}
+            {original ? <span aria-hidden="true">·</span> : null}
             <span>{movieFacts(film)}</span>
           </>
         }

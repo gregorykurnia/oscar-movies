@@ -109,7 +109,7 @@ export function countryNames(raw: string): string[] {
   text = text.replace(/\{\{[^{}]*\}\}/g, " ").replace(/\{\{|\}\}/g, " ");
   text = text.replace(/<br\s*\/?>|<\/?(?:small|span|div|nowiki)[^>]*>/gi, "\n").replace(/'{2,}/g, "");
   const names: string[] = [];
-  for (const piece of text.split(/\n|\||·|•|;|\/|,|\s+&\s+|(?<!Bosnia|Trinidad|Antigua|Kitts|Príncipe|Principe|Tome)\s+and\s+(?=[A-Z])/)) {
+  for (const piece of text.split(/\n|\||·|•|;|\/|,|\s+&\s+|(?<!Bosnia|Trinidad|Antigua|Kitts|Príncipe|Principe|Tome|Tomé)\s+and\s+(?=[A-Z])/)) {
     const name = piece.replace(/^[\s*#:]+/, "").replace(/&nbsp;| /g, " ").replace(/\s+/g, " ").trim();
     if (name !== "" && !names.includes(name)) names.push(name);
   }

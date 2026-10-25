@@ -24,7 +24,7 @@ test("/grid/2025 shows every nominated Picture film with its won and nominated c
   await expect(page.getByRole("link", { name: "Year summary" })).toHaveAttribute("href", "/years/2025");
 
   const table = page.getByRole("table");
-  const rows = table.getByRole("rowheader");
+  const rows = table.getByRole("rowheader").filter({ has: page.getByRole("link") });
   expect(await rows.count()).toBeGreaterThanOrEqual(31);
   // In Oscar order: the Best Picture winner first.
   await expect(rows.first()).toContainText("One Battle After Another");
@@ -58,7 +58,7 @@ test("the category, sort and Unwatched filter are kept in the address and surviv
   await page.goto("/grid/2025");
 
   await page.getByRole("button", { name: "Sort: Oscars" }).click();
-  await page.getByRole("group", { name: "Sort by" }).getByRole("link", { name: "Title" }).click();
+  await page.getByRole("menu", { name: "Sort the films by" }).getByRole("menuitemradio", { name: "Title" }).click();
   await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
   // In title order, as the page sorts (`localeCompare`); the first title changes as precursors add films.
   await expect(async () => {
@@ -112,16 +112,16 @@ test("the sort menu works by keyboard", async ({ page }) => {
   const button = page.getByRole("button", { name: "Sort: Oscars" });
   await button.focus();
   await page.keyboard.press("Enter");
-  const menu = page.getByRole("group", { name: "Sort by" });
-  await expect(menu.getByRole("link", { name: "Oscars" })).toBeFocused();
+  const menu = page.getByRole("menu", { name: "Sort the films by" });
+  await expect(menu.getByRole("menuitemradio", { name: "Oscars" })).toBeFocused();
   await page.keyboard.press("ArrowDown");
-  await expect(menu.getByRole("link", { name: "Wins" })).toBeFocused();
+  await expect(menu.getByRole("menuitemradio", { name: "Wins" })).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(menu).toHaveCount(0);
   await expect(button).toBeFocused();
   await page.keyboard.press("Enter");
   await page.keyboard.press("ArrowUp");
-  await expect(menu.getByRole("link", { name: "Title" })).toBeFocused();
+  await expect(menu.getByRole("menuitemradio", { name: "Title" })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/grid\/2025\?sort=title$/);
   // Choosing a sort keeps the keyboard's place on the button, and Esc works from the button too.
@@ -139,7 +139,7 @@ test("the sort menu works by keyboard", async ({ page }) => {
 test("at 390 the page never scrolls sideways: the grid scrolls in its frame and the film column stays", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/grid/2025");
-  await expect(page.getByRole("table").getByRole("rowheader").first()).toBeVisible();
+  await expect(page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") }).first()).toBeVisible();
 
   const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(widths.scroll).toBeLessThanOrEqual(widths.client);
@@ -148,7 +148,7 @@ test("at 390 the page never scrolls sideways: the grid scrolls in its frame and 
   const inner = await region.evaluate((el) => ({ scroll: el.scrollWidth, client: el.clientWidth }));
   expect(inner.scroll).toBeGreaterThan(inner.client);
 
-  const film = page.getByRole("table").getByRole("rowheader").first();
+  const film = page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") }).first();
   const before = await film.boundingBox();
   await region.evaluate((el) => el.scrollTo({ left: 400 }));
   await expect.poll(() => region.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);

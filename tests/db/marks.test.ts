@@ -7,6 +7,7 @@
 import { asc, eq, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { applyRestore, exportMarks, formatPlan, loadRestorePlan } from "../../scripts/lib/marks";
+import { writeWantAtTop } from "../../src/data/marks";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema } from "../../src/lib/data-files";
@@ -41,13 +42,17 @@ async function addFilms(tx: Tx) {
     ])
     .returning({ id: movies.id });
   const [one, two, three, four] = rows.map((r) => r.id);
+  // Two goes last in the order, after the seeded wanted films (numbered 1…n first).
+  const seeded = await tx.select({ id: marks.movieId }).from(marks).where(eq(marks.want, true)).orderBy(asc(marks.wantRank), asc(marks.movieId));
+  for (const [i, m] of seeded.entries()) await tx.update(marks).set({ wantRank: i + 1 }).where(eq(marks.movieId, m.id));
+  const twoRank = seeded.length + 1;
   await tx.insert(marks).values([
     { movieId: one, watched: true, want: false, updatedAt: new Date("2026-01-01T10:00:00Z") },
     {
       movieId: two,
       watched: false,
       want: true,
-      wantRank: 7,
+      wantRank: twoRank,
       releaseOn: "2026-12-12",
       platform: "Netflix",
       updatedAt: new Date("2026-02-01T10:00:00Z"),
@@ -55,13 +60,13 @@ async function addFilms(tx: Tx) {
     { movieId: three, watched: true, want: false, platform: "MUBI", updatedAt: new Date("2026-03-01T10:00:00Z") },
     { movieId: four, watched: false, want: false },
   ]);
-  return { one, two, three, four };
+  return { one, two, three, four, twoRank };
 }
 
 describe("marks export and restore", () => {
   it("exports every marked film by IMDb ID or QID, sorted by ID, as a valid marks file", async () => {
     await rolledBack(async (tx) => {
-      await addFilms(tx);
+      const { twoRank } = await addFilms(tx);
       const file = await exportMarks(tx);
       expect(marksFileSchema.safeParse(file).success).toBe(true);
       const ours = file.filter((m) => m.title?.startsWith("Marks "));
@@ -76,7 +81,7 @@ describe("marks export and restore", () => {
           year: 2024,
           watched: false,
           want: true,
-          wantRank: 7,
+          wantRank: twoRank,
           releaseOn: "2026-12-12",
           platform: "Netflix",
           updatedAt: "2026-02-01T10:00:00.000Z",
@@ -146,7 +151,8 @@ describe("marks export and restore", () => {
         platform: "Cinema XXI",
       });
       await tx.update(marks).set({ releaseOn: null, platform: null }).where(eq(marks.movieId, four));
-      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBe(1);
+      // Two, and any seeded wanted film, get their backed-up places back.
+      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBeGreaterThan(0);
       expect((await tx.select().from(marks).where(eq(marks.movieId, four)))[0]).toMatchObject({
         releaseOn: "2026-11-03",
         platform: "Cinema XXI",
@@ -156,7 +162,7 @@ describe("marks export and restore", () => {
 
   it("puts the order and release notes back exactly, nulls included", async () => {
     await rolledBack(async (tx) => {
-      const { two, three } = await addFilms(tx);
+      const { two, three, twoRank } = await addFilms(tx);
       const exported = await snapshot(tx);
       const file = await exportMarks(tx);
 
@@ -166,7 +172,7 @@ describe("marks export and restore", () => {
 
       const plan = await loadRestorePlan(tx, file);
       expect(plan.writes.map((w) => w.film.id).sort()).toEqual([two, three].sort());
-      expect(formatPlan(plan, "Plan")).toContain("Marks Two (2024, tt80000002): want #1, TBD · Prime Video → want #7, 2026-12-12 · Netflix");
+      expect(formatPlan(plan, "Plan")).toContain(`Marks Two (2024, tt80000002): want #1, TBD · Prime Video → want #${twoRank}, 2026-12-12 · Netflix`);
       expect(await applyRestore(tx, plan)).toBe(2);
       expect(await snapshot(tx)).toEqual(exported);
       expect((await loadRestorePlan(tx, file)).writes).toEqual([]);
@@ -175,7 +181,7 @@ describe("marks export and restore", () => {
 
   it("restores an older file without the Watch list fields, leaving them alone", async () => {
     await rolledBack(async (tx) => {
-      const { one, two, three } = await addFilms(tx);
+      const { one, two, three, twoRank } = await addFilms(tx);
       // Two stops being wanted and three is wanted, after the old backup.
       await tx.update(marks).set({ want: false, wantRank: null }).where(eq(marks.movieId, two));
       await tx.update(marks).set({ watched: false, want: true, wantRank: 1 }).where(eq(marks.movieId, three));
@@ -192,11 +198,26 @@ describe("marks export and restore", () => {
       const after = await snapshot(tx);
       const byId = (id: number) => after.find((m) => m.movieId === id);
       expect(byId(one)).toMatchObject({ watched: true, want: false, wantRank: null, releaseOn: null, platform: null });
-      // Wanted again, unranked (sorts last until moved), its notes kept through the unwanted spell.
-      expect(byId(two)).toMatchObject({ watched: false, want: true, wantRank: null, releaseOn: "2026-12-12", platform: "Netflix" });
+      // Wanted again, last in the order, its notes kept through the unwanted spell.
+      expect(byId(two)).toMatchObject({ watched: false, want: true, wantRank: twoRank, releaseOn: "2026-12-12", platform: "Netflix" });
       // Watched again: no rank, platform kept.
       expect(byId(three)).toMatchObject({ watched: true, want: false, wantRank: null, platform: "MUBI" });
       expect((await loadRestorePlan(tx, old)).writes).toEqual([]);
+    });
+  });
+
+  it("numbers the order 1…n again when an older backup's places collide with today's (7.R)", async () => {
+    await rolledBack(async (tx) => {
+      const { two, four } = await addFilms(tx);
+      const file = await exportMarks(tx);
+      // After the backup: Four is added at the top (everyone moves down one), then Two's mark is lost.
+      await writeWantAtTop(tx, four);
+      await tx.update(marks).set({ want: false, wantRank: null }).where(eq(marks.movieId, two));
+      // Two, and any seeded wanted film, get their backed-up places back.
+      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBeGreaterThan(0);
+      const wanted = await tx.select({ id: marks.movieId, rank: marks.wantRank }).from(marks).where(eq(marks.want, true)).orderBy(asc(marks.wantRank));
+      expect(wanted.map((w) => w.rank)).toEqual(wanted.map((_, i) => i + 1));
+      expect(wanted[0].id).toBe(four);
     });
   });
 

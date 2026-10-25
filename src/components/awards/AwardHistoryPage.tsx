@@ -199,7 +199,7 @@ function CategoryList({
           value: cell ? (
             <>
               <StagePill stage={cell.stage} />
-              {cell.country ? <span className="ml-2 text-caption text-ink-muted">for {countryName(cell.country)}</span> : null}
+              {cell.country ? <span className="ml-2 text-caption text-ink-muted md:mt-1 md:ml-0 md:block">for {countryName(cell.country)}</span> : null}
             </>
           ) : (
             <span className="text-ink-muted">Not yet</span>

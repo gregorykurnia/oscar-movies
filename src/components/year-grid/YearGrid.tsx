@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { Fragment } from "react";
 import { Flags } from "@/components/flag/Flag";
 import { FilmWatchedMark } from "@/components/marks/MarksProvider";
 import { cn } from "@/lib/cn";
@@ -12,6 +13,7 @@ import {
   gridGroups,
   gridTotals,
   hasNoData,
+  oscarGroupLabel,
   type CellKind,
   type GridCategory,
   type GridColumn,
@@ -64,6 +66,7 @@ export function YearGrid({
   category,
   criticsOpen,
   caption,
+  oscarGroups = false,
 }: {
   columns: GridColumn[];
   /** Already filtered and sorted. */
@@ -71,11 +74,17 @@ export function YearGrid({
   category: GridCategory;
   criticsOpen: boolean;
   caption: string;
+  /** The Oscar order: a group row heads each Oscar group that has films (guide §8.4, v1.1). */
+  oscarGroups?: boolean;
 }) {
   const groups = gridGroups(columns).map((g) => ({
     ...g,
     folded: !criticsOpen && g.columns[0].kind === "critics",
   }));
+  const awardColumns = groups.reduce((n, g) => n + (g.folded ? 1 : g.columns.length), 0);
+  const labels = oscarGroups ? films.map(oscarGroupLabel) : [];
+  const counts = new Map<string, number>();
+  for (const label of labels) counts.set(label, (counts.get(label) ?? 0) + 1);
 
   return (
     <div
@@ -124,57 +133,72 @@ export function YearGrid({
           </tr>
         </thead>
         <tbody>
-          {films.map((f) => {
+          {films.map((f, index) => {
             const { wins, noms } = gridTotals(f);
+            const label = labels[index];
             // The row's name is the film's title alone, so each cell reads "Anora, BAFTA, Won: Best Film".
             return (
-              <tr key={f.film.id}>
-                <th scope="row" aria-label={f.film.title} className={cn(filmCell, "py-2.5 font-normal")}>
-                  <div className="flex items-center gap-2.5">
-                    <span className="hidden flex-none md:block">
-                      <Flags code={f.film.flag} />
-                    </span>
-                    <span className="min-w-0 flex-1 text-small leading-[1.3] font-medium [overflow-wrap:anywhere]">
-                      <Link
-                        href={`/movies/${f.film.slug}`}
-                        className="rounded-xs outline-none hover:underline hover:decoration-1 hover:underline-offset-[3px] focus-visible:shadow-focus"
-                      >
-                        {f.film.title}
-                      </Link>
-                      <span className="block text-micro font-normal text-ink-muted">{averageLine(f.film)}</span>
-                    </span>
-                    <FilmWatchedMark movieId={f.film.id} title={f.film.title} className="flex-none" />
-                  </div>
-                </th>
-                <td data-tot="" data-w={wins > 0 ? "" : undefined} data-gs="">
-                  {wins}
-                </td>
-                <td data-tot="">{noms}</td>
-                {groups.map((g) => {
-                  if (g.folded) {
-                    const n = criticsWins(f, g.columns);
-                    return (
-                      <td key={g.label} data-gs="">
-                        {n > 0 ? <Cell kind="cnt" label={criticsLabel(n)}>{n}</Cell> : null}
-                      </td>
-                    );
-                  }
-                  return g.columns.map((c, i) => {
-                    const cell = f.cells[c.slug];
-                    return (
-                      <td key={c.slug} data-gs={i === 0 ? "" : undefined}>
-                        {cell ? (
-                          <Cell kind={cellKind(cell.outcome)} label={cellLabel(cell, c, category)} />
-                        ) : hasNoData(c) ? (
-                          <Cell kind="none" label="No data">
-                            –
-                          </Cell>
-                        ) : null}
-                      </td>
-                    );
-                  });
-                })}
-              </tr>
+              <Fragment key={f.film.id}>
+                {label && label !== labels[index - 1] ? (
+                  <tr>
+                    <th
+                      scope="rowgroup"
+                      className={cn(filmCell, "!h-[34px] !border-b-line-strong !bg-paper py-1.5 align-middle text-micro font-medium text-ink-muted")}
+                    >
+                      {label}
+                      <span className="ml-1.5 font-normal">{counts.get(label)}</span>
+                    </th>
+                    <td colSpan={awardColumns + 2} className="!h-[34px] !border-b-line-strong !bg-paper" />
+                  </tr>
+                ) : null}
+                <tr>
+                  <th scope="row" aria-label={f.film.title} className={cn(filmCell, "py-2.5 font-normal")}>
+                    <div className="flex items-center gap-2.5">
+                      <span className="hidden flex-none md:block">
+                        <Flags code={f.film.flag} />
+                      </span>
+                      <span className="min-w-0 flex-1 text-small leading-[1.3] font-medium [overflow-wrap:anywhere]">
+                        <Link
+                          href={`/movies/${f.film.slug}`}
+                          className="rounded-xs outline-none hover:underline hover:decoration-1 hover:underline-offset-[3px] focus-visible:shadow-focus"
+                        >
+                          {f.film.title}
+                        </Link>
+                        <span className="block text-micro font-normal text-ink-muted">{averageLine(f.film)}</span>
+                      </span>
+                      <FilmWatchedMark movieId={f.film.id} title={f.film.title} className="flex-none" />
+                    </div>
+                  </th>
+                  <td data-tot="" data-w={wins > 0 ? "" : undefined} data-gs="">
+                    {wins}
+                  </td>
+                  <td data-tot="">{noms}</td>
+                  {groups.map((g) => {
+                    if (g.folded) {
+                      const n = criticsWins(f, g.columns);
+                      return (
+                        <td key={g.label} data-gs="">
+                          {n > 0 ? <Cell kind="cnt" label={criticsLabel(n)}>{n}</Cell> : null}
+                        </td>
+                      );
+                    }
+                    return g.columns.map((c, i) => {
+                      const cell = f.cells[c.slug];
+                      return (
+                        <td key={c.slug} data-gs={i === 0 ? "" : undefined}>
+                          {cell ? (
+                            <Cell kind={cellKind(cell.outcome)} label={cellLabel(cell, c, category)} />
+                          ) : hasNoData(c) ? (
+                            <Cell kind="none" label="No data">
+                              –
+                            </Cell>
+                          ) : null}
+                        </td>
+                      );
+                    });
+                  })}
+                </tr>
+              </Fragment>
             );
           })}
         </tbody>

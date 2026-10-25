@@ -6,11 +6,11 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { buttonClasses } from "@/components/button/Button";
 import { cn } from "@/lib/cn";
 
-export type SortLink = { label: string; href: string; current: boolean };
+export type SortLink = { label: string; href: string; current: boolean; /** One line under the label. */ caption?: string };
 
 /**
- * The year grid's sort button (guide §8.4): a small secondary button "Sort: Oscars" that opens a
- * popover of the sorts, each a link, so the sort stays in the address. Arrow keys move, Esc (from
+ * The year grid's sort button (guide §7 Sort menu, §8.4): a small secondary button "Sort: Oscars"
+ * that opens a menu of the sorts, each a link (`menuitemradio`), so the sort stays in the address. Arrow keys move, Esc (from
  * the button or a link) closes and returns focus to the button, as does choosing a sort; a press
  * outside or tabbing away closes it.
  */
@@ -80,6 +80,7 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
       <button
         ref={buttonRef}
         type="button"
+        aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={open ? popId : undefined}
         onClick={() => setOpen(!open)}
@@ -92,10 +93,13 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
       {open ? (
         <div
           id={popId}
-          role="group"
-          aria-label="Sort by"
-          className="absolute top-full left-0 z-20 mt-2 w-[220px] animate-pop rounded-lg bg-surface p-1.5 shadow-pop md:right-0 md:left-auto"
+          role="menu"
+          aria-labelledby={`${popId}-label`}
+          className="absolute top-full left-0 z-20 mt-2 w-[248px] animate-pop rounded-lg bg-surface p-2 shadow-pop md:right-0 md:left-auto"
         >
+          <div id={`${popId}-label`} className="px-2.5 pt-1 pb-1.5 text-micro text-ink-muted">
+            Sort the films by
+          </div>
           {items.map((item, i) => (
             <Link
               key={item.href}
@@ -104,18 +108,24 @@ export function SortMenu({ items, className }: { items: SortLink[]; className?: 
               }}
               href={item.href}
               scroll={false}
-              aria-current={item.current ? "true" : undefined}
+              role="menuitemradio"
+              aria-checked={item.current}
               onClick={() => {
                 buttonRef.current?.focus();
                 setOpen(false);
               }}
               className={cn(
-                "flex h-10 items-center justify-between gap-3 rounded-[8px] px-2.5 text-small text-ink outline-none",
+                "grid min-h-10 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-[8px] px-2.5 py-1.5 text-small text-ink outline-none",
                 "transition-colors duration-[var(--dur-fast)] ease-app hover:bg-track focus-visible:bg-track focus-visible:shadow-focus",
-                item.current && "font-medium",
+                item.current && "bg-gold-wash font-medium text-gold-ink hover:bg-gold-wash",
               )}
             >
-              {item.label}
+              <span>
+                {item.label}
+                {item.caption ? (
+                  <span className="block text-caption font-normal text-ink-muted">{item.caption}</span>
+                ) : null}
+              </span>
               {item.current ? <Check aria-hidden="true" className="size-4" strokeWidth={1.75} /> : null}
             </Link>
           ))}

@@ -177,7 +177,7 @@ function CategorySection({
                   value: (
                     <>
                       <StagePill stage={oscarStage(e.outcome, slug)} />
-                      {e.country ? <span className="ml-2 text-caption text-ink-muted">for {countryName(e.country)}</span> : null}
+                      {e.country ? <span className="ml-2 text-caption text-ink-muted md:mt-1 md:ml-0 md:block">for {countryName(e.country)}</span> : null}
                     </>
                   ),
                 },

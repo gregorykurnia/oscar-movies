@@ -1,4 +1,4 @@
-import { CalendarClock, Award } from "lucide-react";
+import { Award, Calendar } from "lucide-react";
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
@@ -143,7 +143,7 @@ function ByAward({ data, year, category, oscar, today }: { data: SignalsData; ye
                 const { lead, rest } = figureSentence(kind, figure, a.row.years);
                 return (
                   <p key={kind} data-figure={kind}>
-                    <strong className="font-medium text-ink">{lead}</strong> · {rest}
+                    <strong className="font-medium text-ink">{lead}</strong> · <span className="whitespace-nowrap">{rest}</span>
                   </p>
                 );
               })}
@@ -181,7 +181,7 @@ function ByAward({ data, year, category, oscar, today }: { data: SignalsData; ye
 function NotYet({ text, year }: { text: string | null; year: number }) {
   return (
     <div className="flex items-start gap-3 border-t border-ink border-b border-b-line py-[18px] text-small text-ink-muted">
-      <CalendarClock aria-hidden="true" className="mt-[3px] size-4 flex-none text-ink-subtle" strokeWidth={1.75} />
+      <Calendar aria-hidden="true" className="mt-[3px] size-4 flex-none text-ink-subtle" strokeWidth={1.75} />
       <span>
         {text ? (
           <>
@@ -206,7 +206,7 @@ function ByFilm({ data, category, oscar, today }: { data: SignalsData; year: num
           {pending
             .map((a) => {
               const next = nextText(a.next, today);
-              return `${shortName(a.row)}, ${a.row.note}${next ? `: ${next}` : ""}`;
+              return `${shortName(a.row)} ${categoryName(a.row)}${next ? `: ${next}` : ""}`;
             })
             .join(" · ")}
           .
@@ -215,7 +215,12 @@ function ByFilm({ data, category, oscar, today }: { data: SignalsData; year: num
       {byFilm.length === 0 ? (
         <p className="mt-10 text-small text-ink-muted">No film has been picked by a strong award yet.</p>
       ) : (
-        <FilmList head={[{ label: "Strong awards", numeric: true }, `Oscar, ${oscar}`]} columns={FILM_COLUMNS} className="mt-6">
+        <FilmList
+          filmLabel="Film and the strong awards that picked it"
+          head={[{ label: "Strong awards", numeric: true }, `Oscar, ${oscar}`]}
+          columns={FILM_COLUMNS}
+          className="mt-6"
+        >
           {byFilm.map((f) => (
             <FilmRow
               key={f.film.id}
@@ -245,7 +250,7 @@ function Picks({ film }: { film: FilmSignal<unknown> }) {
       {film.picks.map((p, i) => (
         <span key={p.row.key}>
           {i > 0 ? <span className="text-ink-muted"> · </span> : null}
-          <span className="text-ink-muted">{STAGE_LABELS[outcomeStage(p.outcome)]}</span> {shortName(p.row)} {p.row.note}{" "}
+          <span className="text-ink-muted">{STAGE_LABELS[outcomeStage(p.outcome)]}</span> {shortName(p.row)} {categoryName(p.row)}{" "}
           <span className="text-ink-muted">({formatFigure(p.figure)})</span>
         </span>
       ))}
@@ -253,12 +258,18 @@ function Picks({ film }: { film: FilmSignal<unknown> }) {
   );
 }
 
+/** The award's own name for the category, without the accuracy table's notes ("looser match", "a list, no winner"). */
+function categoryName(row: { note: string }): string {
+  return row.note.split(" · ")[0];
+}
+
 function Footnote({ year, category }: { year: number; category: RaceCategory }) {
   return (
     <footer className="mt-10 border-t border-line pt-4 text-caption text-ink-muted md:mt-12">
       <p>
         A strong award is one whose &ldquo;Oscar nominees it caught&rdquo; is 50% or more, or whose winner was Oscar-nominated 80% or
-        more of years, over at least 5 counted years. The figures are today&apos;s, so they include {year} itself.{" "}
+        more of years, over at least 5 counted years. The figures are today&apos;s: they count every finished season, {year}{" "}
+        included once its Oscars have been held.{" "}
         <TextLink href={`/accuracy/${category}#method`}>How accuracy is counted</TextLink>
       </p>
     </footer>

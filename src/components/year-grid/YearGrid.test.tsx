@@ -109,6 +109,24 @@ describe("YearGrid", () => {
   });
 });
 
+describe("YearGrid in the Oscar order", () => {
+  it("heads each Oscar group that has films with a group row and its count, and none under other sorts", () => {
+    const films = [...FILMS, { film: film(3, "Nickel Boys"), cells: { oscars: { outcome: "shortlisted" as const, category: "Best Picture" } } }];
+    const { container, unmount } = render(
+      <YearGrid columns={COLUMNS} films={films} category="picture" criticsOpen={false} caption="Best Picture, 2024" oscarGroups />,
+    );
+    const heads = [...container.querySelectorAll("th[scope=rowgroup]")].map((th) => th.textContent);
+    expect(heads).toEqual(["Oscar winner and nominees2", "Oscar shortlist1"]);
+    // The group row spans the whole table: its cell takes every column after the film's.
+    const groupRow = container.querySelector("th[scope=rowgroup]")!.closest("tr")!;
+    const filmRow = screen.getByRole("rowheader", { name: "Anora" }).closest("tr")!;
+    expect(Number(groupRow.querySelector("td")!.getAttribute("colspan"))).toBe(filmRow.querySelectorAll("td").length);
+    unmount();
+    renderGrid(false);
+    expect(document.querySelectorAll("th[scope=rowgroup]")).toHaveLength(0);
+  });
+});
+
 describe("YearGridLegend", () => {
   it("names every cell kind, with critics and no data only when the grid has them", () => {
     const { rerender } = render(<YearGridLegend category="international" hasCritics={false} hasNoDataColumn={false} />);

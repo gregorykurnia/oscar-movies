@@ -38,7 +38,8 @@ async function rows(db: WriteDb, query: ReturnType<typeof sql>): Promise<Array<R
 async function upsertMark(db: WriteDb, movieId: number, value: MarkValue, top: boolean): Promise<boolean> {
   if (value.watched && value.want) throw new Error("A film can't be both watched and wanted");
   // `old_rank`: the film's place if it's wanted now. Moving to the top shifts down the wanted
-  // films above that place (all of them when it wasn't wanted), so the order stays 1…n.
+  // films above that place (all of them when it wasn't wanted); unwanting moves the films
+  // below it up one, so the order stays 1…n.
   const found = await rows(
     db,
     sql`
@@ -55,6 +56,12 @@ async function upsertMark(db: WriteDb, movieId: number, value: MarkValue, top: b
         where (select v from to_top) and exists (select 1 from film)
           and want and want_rank is not null and movie_id <> ${movieId}
           and want_rank < coalesce((select old_rank from prev), 2147483647)
+        returning movie_id
+      ),
+      closed as (
+        update marks set want_rank = want_rank - 1
+        where not ${value.want}::boolean and (select old_rank from prev) is not null
+          and want and want_rank > (select old_rank from prev) and movie_id <> ${movieId}
         returning movie_id
       )
       insert into marks (movie_id, watched, want, want_rank, updated_at)

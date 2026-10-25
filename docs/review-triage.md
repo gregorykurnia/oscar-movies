@@ -227,3 +227,50 @@ Three fresh read-only reviews (importers and data; pages, specs and design on `s
 | 6-23 | Notes said "Not found on the source: international, documentary, animated" above IMDb's results for those categories (98 editions) | Fixed: "Not on Wikipedia: …" once IMDb fills them |
 | 6-24 | Ranked top tens (Atlanta, Southeastern, Black Film Critics) and runners-up stored as nominees | Dropped: as in Phase 4, everything at nomination stage or further counts as a nomination |
 | 6-25 | Earlier specs tied to data Phase 6 changed (full suite 90 of 95): `grid.spec.ts` expected Atropia first by title (28 Years Later now is), `phase-2.spec.ts` took the first Cinema Eye row (five since Phase 6), `phase-4.spec.ts` expected San Francisco's gap and IDA's emptiness (both filled from IMDb) and a row for every group with any edition (Chicago Indie has no Best Picture results) | Fixed: title order checked with the page's comparator; the feature row by name; Seattle's gap and New Jersey read from the database; groups with Best Picture results only |
+
+## Phase 7 review (2026-10-25)
+
+**Checks:** full Playwright suite 115 of 120 on the first run (nothing else testing); the five failures were specs tied to changes since the last full run (7-31 to 7-34) and to the new group rows (7-17); fixed, then all five passed with `--last-failed` (the fixes touched specs only). Screenshot spec: the eleven Phase 7 routes retaken, 11 of 11 (22 pictures at 390 and 1280, light only; new `grid-2025-sort-menu`). Unit 910, database 124 (one failed before the fixes: 7-2), typecheck, lint, build clean. Hex grep clean (only test data in `Styleguide.test.tsx`).
+
+**Owner-data checks on `test`** (a throwaway script through the real `marks:export` / `marks:restore` CLI, `test` put back exactly as before): export carries rank, date and platform; reorder, release notes and a mark changed, then restored: a second export is byte-for-byte the first, and a second restore plans nothing; a reorder missing a wanted film, with an unwanted film added, or with a wrong id swapped in is refused and writes nothing, one naming a film twice throws; an old-format file restores the marks and leaves release notes alone (a film wanted again goes last).
+
+**Guide §15** on `screenshots/phase-7/` and the components: AppShell and PageHeader on every page; tokens only; gold only for its jobs; light only; no sideways scroll at 390 or 1280; keyboard and focus (add box, release editor focus and return, drag by keyboard with Esc, sort menu Esc); empty, loading, failure and saving states drawn; long titles wrap; one flag per row in all shots. Failed before the fixes: the grid's group rows and the sort menu (7-17, 7-18) and the signals picks line (7-19).
+
+Three fresh read-only reviews: writes (marks, Watch list actions, backup), pages and data layer, design. Differences already recorded in tasks 7.1–7.14 aren't repeated here.
+
+| # | Item | Where it went |
+|---|---|---|
+| 7-1 | A restore wrote the file's ranks next to films it left alone, so two films could share a place (an older backup restored after the order changed) | Fixed: the restore transaction numbers every wanted film 1…n again (the more recently marked first on a tie); db test |
+| 7-2 | Unwanting a film left a gap in the ranks (1, 3, …), despite 7.4's "1…n"; `test`'s seeded film sat at #2, which failed `mark-write.test.ts` | Fixed: the unwant moves the films below up one in the same statement; `test` renumbered; db tests assert 1…n and no longer assume the seeded order has no gap |
+| 7-3 | Between migration 0004 on production and the deploy, the live code's unwant fails the new rank check (and a film wanted there is unranked) | Documented: the Waiting list row says the migration and `git push origin staging:main` go back to back |
+| 7-4 | The order toast's "Try again" could start a second save while one was running; if that failed, the rows went back past the first move and the screen and database disagreed | Fixed: one order save at a time |
+| 7-5 | Two "to the top" writes landing in the same instant can both get #1 | Dropped: needs two devices at once on a one-owner app; a tie only sorts by title and the next drag renumbers. A lock inside one read-committed statement wouldn't prevent it |
+| 7-6 | The stale check compares which films are wanted, not their order: a reorder from an old tab overwrites another tab's reorder | Dropped: last write wins between the owner's own tabs and no film is lost; the refused cases are the ones that could drop or invent a place |
+| 7-7 | "Used before" platforms are ordered by any mark change, not by when the platform was set | Dropped: suggestion order only; a separate timestamp would need a migration |
+| 7-8 | Specs and a db test expected Critics Choice's live year to read "No data" (breaks when its 2026 results load) | Fixed: a past no-data year (Critics Choice Doc 2012); the Done-when spec checks only that the live year's block is there |
+| 7-9 | 2026 hard-coded in the signals, Phase 7, Watch list and all-years specs | Fixed: `LIVE_YEAR` |
+| 7-10 | Typing into Add a film right after loading could beat hydration (no search fires) | Fixed: specs and the screens script type again until the option shows |
+| 7-11 | Older Watch list specs put back only watched and want, dropping a film's rank and release notes | Fixed: `putBack` restores the whole rows, the other films' places included |
+| 7-12 | `getAwardHistory` ran its three reads one after another | Fixed: one `Promise.all`. Skipping the Oscar rows on the Oscars' own page dropped: its stage line reads them |
+| 7-13 | Signals footnote said the figures "include {year} itself", untrue before the year's Oscars | Fixed: "they count every finished season, {year} included once its Oscars have been held" |
+| 7-14 | A strong award whose category stopped running reads "No results for <year> · the app has none from this award yet" | Dropped: still true; the wording is 7.6's provisional line, on the Waiting list for the owner |
+| 7-15 | The infobox parser would split "São Tomé and Príncipe" | Fixed: unit test |
+| 7-16 | The flag subquery runs per result row | Dropped: indexed and cheap; the pages are cached |
+| 7-17 | Year grid: no group rows under the Oscars sort (guide §8.4 v1.1) | Fixed: "Oscar winner and nominees n", "Oscar shortlist n", "Other films n" (`th scope="rowgroup"`, paper, `--line-strong`); unit test; grid specs count film rows only (they're the row headers with a link) |
+| 7-18 | Sort menu not as guide §7 v1.1 (220px, no caption, chosen item only bold, `group` of links) | Fixed: 248px, radius 14, padding 8, "Sort the films by", Oscars' caption, chosen on gold wash, `menu` / `menuitemradio`; screenshot of the open menu added |
+| 7-19 | Signals By film: picks carried the accuracy table's notes ("· a list, no winner", "· looser match"), clashing with the dots between picks | Fixed: the category's own name only, also in the not-announced notice; the notes stay beside the By award heading |
+| 7-20 | The add box screenshot showed the flag's placeholder | Fixed: the screens script waits for the flag |
+| 7-21 | Signals used `CalendarClock`; §9's set has `Calendar` | Fixed |
+| 7-22 | The figure sentence's count split across lines at 390 ("5 / of 6") | Fixed: the count doesn't wrap |
+| 7-23 | By film's head read "Film", not §8.13's "Film and the strong awards that picked it" | Fixed: `FilmList` takes `filmLabel` |
+| 7-24 | All years: an edition's note shows in every tab, including remarks about other categories | Dropped: notes are one per edition in the data; splitting them is a data change. Repeating the note is 7.11's choice, on the Waiting list |
+| 7-25 | "for <country>" sat beside the pill at every width; §8.2 says under it on desktop | Fixed on the all-years and Oscar year pages |
+| 7-26 | All years' back link goes to the live year before it has results | Dropped: follows §8.2; that page says why it's empty. On the Waiting list |
+| 7-27 | The phone sheet's close button was 36px (§13: 44) | Fixed |
+| 7-28 | One-off values: `py-[18px]`, `mt-[3px]`, a spelled-out easing curve | Dropped: 18px and 3px are the reference's `.nyet` and film-row values; the drop animation runs through `element.animate`, which can't read `var(--ease)`, so the curve is spelled out with a comment |
+| 7-29 | Movie page: no dot between the original title and the year | Fixed |
+| 7-30 | Toast titles ended differently ("… added." against "Couldn't save the order") | Fixed: no full stop, as the reference's add toast |
+| 7-31 | `awards-index.spec.ts` expected 64 critics groups (63 since Cinema for Peace was dropped) | Fixed |
+| 7-32 | `phase-2.spec.ts` expected the nominee figure 16 of 33 and Years in the fifth cell (since 1606655 and 78c2dd4: 39 of 83, and the caught figure 39 of 70 before Years) | Fixed |
+| 7-33 | `phase-1.spec.ts` found a Watch list row by its first button, now the release line | Fixed: the nearest block holding the marks |
+| 7-34 | `data.spec.ts` read the TMDB logo's pixels before the lazy image was scrolled to | Fixed: scrolls to it first |

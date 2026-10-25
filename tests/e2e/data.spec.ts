@@ -50,6 +50,8 @@ test("/data's Sources read as the guide gives them, with TMDB's logo unaltered",
   );
   const logo = card("TMDB").getByRole("img", { name: "TMDB" });
   await expect(logo).toHaveAttribute("src", /tmdb-logo\.svg/);
+  // The image loads lazily: below the fold it has no pixels until it's scrolled to (7.R).
+  await logo.scrollIntoViewIfNeeded();
   await expect.poll(() => logo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
 
   await expect(card("Wikipedia")).toContainText(

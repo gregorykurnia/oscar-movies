@@ -144,6 +144,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             label: GRID_SORT_LABELS[sort],
             href: gridHref(year, { ...view, sort }),
             current: sort === view.sort,
+            caption: sort === "oscar" ? "Winner, nominees, shortlist, then the rest" : undefined,
           }))}
         />
         <FilterChips label="Filter" items={chips} />
@@ -173,6 +174,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             category={view.category}
             criticsOpen={view.criticsOpen}
             caption={`${gridCategoryName(view.category)}, ${year}: each film's results at every award`}
+            oscarGroups={view.sort === "oscar"}
           />
           <YearGridLegend
             category={view.category}

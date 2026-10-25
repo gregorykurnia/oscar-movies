@@ -192,7 +192,7 @@ export function AddFilm() {
       showToast({
         tone: "info",
         icon: Check,
-        title: `${film.title} added.`,
+        title: `${film.title} added`,
         description: "It is at the top of Want to watch.",
         duration: TOAST_MS,
       });

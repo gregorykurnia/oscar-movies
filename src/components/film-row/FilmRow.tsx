@@ -25,6 +25,7 @@ const phoneGridWithHandle =
  */
 export function FilmList({
   head,
+  filmLabel = "Film",
   leadLabel,
   handles = false,
   columns = DEFAULT_COLUMNS,
@@ -33,6 +34,8 @@ export function FilmList({
 }: {
   /** Labels of the result columns, in order ("BAFTA", "Oscar, Best Picture"); a numeric column's label is right-aligned over its figures. */
   head?: (string | { label: string; numeric: true })[];
+  /** The film column's label. */
+  filmLabel?: string;
   /** The lead column's label ("Country"), when the rows have a lead. */
   leadLabel?: string;
   /** The rows start with a drag handle (an unlabelled first column). */
@@ -47,7 +50,7 @@ export function FilmList({
         <div aria-hidden="true" className={cn(rowGrid, "hidden border-b border-line py-2.5 text-caption text-ink-muted md:grid")}>
           {handles ? <span /> : null}
           {leadLabel ? <span>{leadLabel}</span> : null}
-          <span>Film</span>
+          <span>{filmLabel}</span>
           {head.map((h) =>
             typeof h === "string" ? (
               <span key={h}>{h}</span>

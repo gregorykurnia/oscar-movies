@@ -252,6 +252,14 @@ function oscarGroup(film: GridFilm): number {
   return isShortlisted(outcome) ? 2 : 3;
 }
 
+/** The group row a film sits under in the Oscar order (guide §8.4): winner and nominees share one. */
+export type OscarGroupLabel = "Oscar winner and nominees" | "Oscar shortlist" | "Other films";
+
+export function oscarGroupLabel(film: GridFilm): OscarGroupLabel {
+  const group = oscarGroup(film);
+  return group <= 1 ? "Oscar winner and nominees" : group === 2 ? "Oscar shortlist" : "Other films";
+}
+
 /**
  * The rows the page shows: the filter (Watched keeps films marked watched, Unwatched the rest, so a
  * want-to-watch film stays; Want to watch keeps those), then the sort. Oscars: the winner, then

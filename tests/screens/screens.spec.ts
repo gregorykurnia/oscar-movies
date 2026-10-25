@@ -103,8 +103,16 @@ async function expectMyOrder(page: Page) {
 
 // The add box with results: a title the box would add ("I'm Still Here" isn't in WATCH_ORDER).
 async function typeInAddBox(page: Page) {
-  await page.getByRole("combobox", { name: "Add a film" }).fill("ainda estou");
-  await expect(page.getByRole("option", { name: /I'm Still Here/ })).toBeVisible();
+  const box = page.getByRole("combobox", { name: "Add a film" });
+  const option = page.getByRole("option", { name: /I'm Still Here/ });
+  // Typed again until the option shows: typing before the box hydrates fires no search (7.R).
+  await expect(async () => {
+    await box.fill("");
+    await box.fill("ainda estou");
+    await expect(option).toBeVisible({ timeout: 2_000 });
+  }).toPass();
+  // The result's flag loads after the row (7.R: the picture showed its placeholder).
+  await expect(option.locator("[data-flag]")).toBeVisible();
 }
 
 // The first Want to watch row is The Secret Agent: its release line opens the editor, a popover on a laptop and a
@@ -436,8 +444,27 @@ const ROUTES: Route[] = [
     // Oscar order leads with the winner (task 7.7); the sort button names it.
     ready: async (page) => {
       await expect(page.getByRole("button", { name: "Sort: Oscars" })).toBeVisible();
-      const winner = page.getByRole("table").getByRole("rowheader").first();
+      const winner = page.getByRole("table").getByRole("rowheader").filter({ has: page.getByRole("link") }).first();
       await expect(winner).toHaveAttribute("aria-label", "One Battle After Another");
+    },
+  },
+  {
+    // The sort menu open over the grid's group rows (7.R: no shot showed either).
+    name: "grid-2025-sort-menu",
+    path: "/grid/2025",
+    status: 200,
+    heading: "2025 year grid",
+    ready: async (page) => {
+      await expect(page.locator("th[scope=rowgroup]").first()).toHaveText(/^Oscar winner and nominees/);
+    },
+    open: async (page) => {
+      const button = page.getByRole("button", { name: "Sort: Oscars" });
+      const menu = page.getByRole("menu", { name: "Sort the films by" });
+      // Pressed again until it opens: a press before hydration does nothing.
+      await expect(async () => {
+        if (!(await menu.isVisible())) await button.click();
+        await expect(menu).toBeVisible({ timeout: 2_000 });
+      }).toPass();
     },
   },
   {

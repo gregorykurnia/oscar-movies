@@ -5,6 +5,7 @@ import { expect, test } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
+import { LIVE_YEAR } from "../../src/lib/years";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -29,6 +30,29 @@ async function setMark(id: number, value: { watched: boolean; want: boolean } | 
     .onConflictDoUpdate({ target: marks.movieId, set: value });
 }
 
+/**
+ * Puts every mark back as `saved` (a `select().from(marks)` taken before the test): the film's
+ * whole row, and the places a want or unwant moved the other films to (7.R).
+ */
+async function putBack(id: number, saved: (typeof marks.$inferSelect)[]) {
+  if (!saved.some((row) => row.movieId === id)) await db.delete(marks).where(eq(marks.movieId, id));
+  for (const row of saved) {
+    await db.insert(marks).values(row).onConflictDoUpdate({ target: marks.movieId, set: row });
+  }
+}
+
+/**
+ * Types into the Add a film box until `option` shows: typing before the box has hydrated
+ * fires no search (7.R), so it is typed again.
+ */
+async function typeToFind(box: import("@playwright/test").Locator, text: string, option: import("@playwright/test").Locator) {
+  await expect(async () => {
+    await box.fill("");
+    await box.fill(text);
+    await expect(option).toBeVisible({ timeout: 2_000 });
+  }).toPass();
+}
+
 /** The row a title heading sits in. */
 const rowOf = (heading: import("@playwright/test").Locator) => heading.locator("xpath=ancestor::div[contains(@class,'border-b')][1]");
 const section = (page: import("@playwright/test").Page, name: string) => page.getByRole("region", { name });
@@ -36,7 +60,7 @@ const titlesIn = (region: import("@playwright/test").Locator) => region.getByRol
 
 test("both sections list their films, and the sort is kept in the address", async ({ page }) => {
   const id = await movieId("im-still-here");
-  const saved = await readMark(id);
+  const saved = await db.select().from(marks);
   try {
     await setMark(id, { watched: false, want: true });
     await page.goto("/watch-list");
@@ -50,7 +74,7 @@ test("both sections list their films, and the sort is kept in the address", asyn
     await expect(want.locator("[data-stage]").first()).toBeVisible();
 
     // The season section: films of the live season, the first twenty until "Show all".
-    const season = section(page, "Not watched yet, 2026 season");
+    const season = section(page, `Not watched yet, ${LIVE_YEAR} season`);
     await expect(season.getByRole("heading", { level: 3 })).toHaveCount(20);
     await expect(season.getByText(/^\d+ films?$/)).toHaveText("100 films");
     await season.getByRole("link", { name: "Show all 100 films" }).click();
@@ -66,14 +90,14 @@ test("both sections list their films, and the sort is kept in the address", asyn
     await expect(sort.getByRole("link", { name: "Average score" })).toHaveAttribute("aria-current", "page");
     await expect(season.getByRole("heading", { level: 3 })).toHaveCount(100);
   } finally {
-    await setMark(id, saved);
+    await putBack(id, saved);
   }
 });
 
 test("sorted by % chance, the season's films run from the best chance down, and the figure shows", async ({ page }) => {
   await page.goto("/watch-list?sort=chance&all=1");
   await expect(page.getByRole("navigation", { name: "Sort by" }).getByRole("link", { name: "% chance" })).toHaveAttribute("aria-current", "page");
-  const season = section(page, "Not watched yet, 2026 season");
+  const season = section(page, `Not watched yet, ${LIVE_YEAR} season`);
   const rows = season.getByRole("heading", { level: 3 });
   await expect(rows).toHaveCount(100);
   // The "To win" figures in row order: percentages first, then the dashes (no chance stored).
@@ -92,7 +116,7 @@ test("sorted by % chance, the season's films run from the best chance down, and 
 
 test("unmarking a film leaves its row until the next visit", async ({ page }) => {
   const id = await movieId("im-still-here");
-  const saved = await readMark(id);
+  const saved = await db.select().from(marks);
   try {
     await setMark(id, { watched: false, want: true });
     await page.goto("/watch-list");
@@ -122,18 +146,18 @@ test("unmarking a film leaves its row until the next visit", async ({ page }) =>
     await page.reload();
     await expect(section(page, "Want to watch").getByRole("heading", { level: 3, name: "I'm Still Here" })).toHaveCount(0);
   } finally {
-    await setMark(id, saved);
+    await putBack(id, saved);
   }
 });
 
 test("a season film marked watched stays until the next visit, then leaves the list", async ({ page }) => {
   await page.goto("/watch-list");
-  const season = section(page, "Not watched yet, 2026 season");
+  const season = section(page, `Not watched yet, ${LIVE_YEAR} season`);
   const first = season.getByRole("heading", { level: 3 }).first();
   const title = (await first.textContent()) ?? "";
   const href = (await first.getByRole("link").getAttribute("href")) ?? "";
   const id = await movieId(href.replace("/movies/", ""));
-  const saved = await readMark(id);
+  const saved = await db.select().from(marks);
   try {
     const row = rowOf(first);
     const watched = row.getByRole("button", { name: "Mark as watched" });
@@ -148,7 +172,7 @@ test("a season film marked watched stays until the next visit, then leaves the l
     await expect(season.getByRole("heading", { level: 3, name: title, exact: true })).toHaveCount(0);
     await expect(season.getByText(/^\d+ films?$/)).toHaveText("99 films");
   } finally {
-    await setMark(id, saved);
+    await putBack(id, saved);
   }
 });
 
@@ -161,17 +185,15 @@ test("adds a film by typing part of its original title, and it is at the top aft
     await page.goto("/watch-list");
     const box = page.getByRole("combobox", { name: "Add a film" });
     await expect(box).toBeVisible();
-    await box.fill("agente secre");
-
     // Found by its original title (shown with the match), not yet on the list.
     const result = page.getByRole("option", { name: /The Secret Agent/ });
-    await expect(result).toBeVisible();
+    await typeToFind(box, "agente secre", result);
     await expect(result).toContainText("O Agente Secreto");
     await expect(result).not.toContainText("On your list");
     await box.press("Enter");
 
     // A toast confirms, the box clears and the film heads Want to watch without a reload.
-    await expect(page.getByRole("status").filter({ hasText: "The Secret Agent added." })).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "The Secret Agent added" })).toBeVisible();
     await expect(box).toHaveValue("");
     const want = section(page, "Want to watch");
     await expect.poll(async () => (await titlesIn(want))[0]).toBe("The Secret Agent");
@@ -181,21 +203,16 @@ test("adds a film by typing part of its original title, and it is at the top aft
     await expect.poll(async () => (await titlesIn(section(page, "Want to watch")))[0]).toBe("The Secret Agent");
 
     // Typing it again says it is on the list.
-    await page.getByRole("combobox", { name: "Add a film" }).fill("agente secre");
-    await expect(page.getByRole("option", { name: /The Secret Agent/ })).toContainText("On your list");
+    const again = page.getByRole("option", { name: /The Secret Agent/ });
+    await typeToFind(page.getByRole("combobox", { name: "Add a film" }), "agente secre", again);
+    await expect(again).toContainText("On your list");
 
     // No match: the line says so, and nothing is added.
     await page.getByRole("combobox", { name: "Add a film" }).fill("zzzxq");
     await expect(page.getByText("No film called “zzzxq” yet.")).toBeVisible();
   } finally {
     // Put every mark back, including the places the add moved the other films to.
-    await setMark(id, null);
-    for (const row of saved) {
-      await db
-        .insert(marks)
-        .values(row)
-        .onConflictDoUpdate({ target: marks.movieId, set: row });
-    }
+    await putBack(id, saved);
   }
 });
 
@@ -239,7 +256,7 @@ for (const width of [390, 1280]) {
         const want = section(page, "Want to watch");
         await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
         await expect(want.getByText("3 films · drag the handle to reorder")).toBeVisible();
-        await expect(section(page, "Not watched yet, 2026 season").getByText(/· by Oscar stage$/)).toBeVisible();
+        await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`).getByText(/· by Oscar stage$/)).toBeVisible();
 
         // Space lifts, ↓ moves, space drops: the notice and the live region follow the move.
         const handle = want.getByRole("button", { name: `Reorder ${a}` });

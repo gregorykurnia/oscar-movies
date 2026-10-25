@@ -2,6 +2,7 @@
 // best and the films they picked, by award or by film, with both controls in the address, reached
 // from the accuracy page and the race. Reads only; no writes.
 import { expect, test } from "@playwright/test";
+import { LIVE_YEAR } from "../../src/lib/years";
 
 test("2025 Documentary lists each strong award with its figure sentence and films", async ({ page }) => {
   await page.goto("/signals/2025?category=documentary");
@@ -59,8 +60,8 @@ test("the year switcher keeps the category and view", async ({ page }) => {
 
 test("/signals opens on the live season", async ({ page }) => {
   await page.goto("/signals?category=documentary");
-  await expect(page).toHaveURL(/\/signals\/2026\?category=documentary$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("2026 strong signals");
+  await expect(page).toHaveURL(new RegExp(`/signals/${LIVE_YEAR}\\?category=documentary$`));
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(`${LIVE_YEAR} strong signals`);
 });
 
 // The years' shell is prerendered, so an unlisted year streams the 404 page after a 200 status.
@@ -71,8 +72,8 @@ test("a year the app doesn't cover is not found", async ({ page }) => {
 
 test("the accuracy page and the race link to it", async ({ page }) => {
   await page.goto("/accuracy/documentary");
-  await page.getByRole("link", { name: "Strong signals, 2026" }).click();
-  await expect(page).toHaveURL(/\/signals\/2026\?category=documentary$/);
+  await page.getByRole("link", { name: `Strong signals, ${LIVE_YEAR}` }).click();
+  await expect(page).toHaveURL(new RegExp(`/signals/${LIVE_YEAR}\\?category=documentary$`));
 
   await page.goto("/race/2024");
   await page.getByRole("tab", { name: /^Documentary/ }).click();

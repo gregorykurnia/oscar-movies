@@ -24,7 +24,8 @@ test("BAFTA 2025's page lists its nominees and winners with their Oscar results"
 
 test("the accuracy figures for a hand-checked award match", async ({ page }) => {
   // Cinema Eye Honors' feature prize against Best Documentary Feature, worked out by hand in
-  // tests/fixtures/accuracy-cinema-eye.json: 3 of 14, 12 of 14 and 16 of 33.
+  // tests/fixtures/accuracy-cinema-eye.json: 3 of 14 and 12 of 14. The nominee figure was 16 of 33 there;
+  // since partial editions that name nominees count (1606655) it is 39 of 83 (7.R).
   await page.goto("/awards/cinema-eye/2025");
   await page.getByRole("link", { name: "Best Documentary Feature", exact: true }).click();
   await expect(page).toHaveURL(/\/accuracy\/documentary$/);
@@ -35,8 +36,10 @@ test("the accuracy figures for a hand-checked award match", async ({ page }) => 
   const cells = row.getByRole("cell");
   await expect(cells.nth(1)).toHaveText("21% 3 of 14");
   await expect(cells.nth(2)).toHaveText("86% 12 of 14");
-  await expect(cells.nth(3)).toHaveText("48% 16 of 33");
-  await expect(cells.nth(4)).toHaveText("14");
+  await expect(cells.nth(3)).toHaveText("47% 39 of 83");
+  // The fourth figure, Oscar nominees it caught (78c2dd4), then the years.
+  await expect(cells.nth(4)).toHaveText("56% 39 of 70");
+  await expect(cells.nth(5)).toHaveText("14");
 
   // A winners-only award has no nominee figure, so the dash is explained.
   await page.goto("/accuracy/picture");
@@ -52,7 +55,7 @@ test("the 2025 grid shows every nominated movie with its awards coloured", async
   const sub = await page.getByText(/^Best Picture · \d+ films with a nomination$/).textContent();
   const films = Number(sub!.match(/(\d+) films/)![1]);
   expect(films).toBeGreaterThanOrEqual(31);
-  await expect(table.getByRole("rowheader")).toHaveCount(films);
+  await expect(table.getByRole("rowheader").filter({ has: page.getByRole("link") })).toHaveCount(films);
 
   // The ten Best Picture nominees are all rows, one cell won and nine nominated.
   const oscarNominees = [

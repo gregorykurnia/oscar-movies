@@ -2,6 +2,7 @@
 // tabs, a year heading opening that year's page, the no-data and no-results lines, a tab with two
 // categories, the Oscars' footnote and the phone width. Reads only; no writes.
 import { expect, test } from "@playwright/test";
+import { LIVE_YEAR } from "../../src/lib/years";
 
 test("from BAFTA 2025, All years opens the history; a tab switches the category and a year opens its page", async ({ page }) => {
   await page.goto("/awards/bafta/2025");
@@ -9,13 +10,13 @@ test("from BAFTA 2025, All years opens the history; a tab switches the category 
   await expect(page).toHaveURL(/\/awards\/bafta\/all$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("BAFTA, all years");
   await expect(page.getByText("Major award · every year since 2012, newest first")).toBeVisible();
-  await expect(page.getByRole("link", { name: "BAFTA 2026" }).first()).toHaveAttribute("href", "/awards/bafta/2026");
+  await expect(page.getByRole("link", { name: `BAFTA ${LIVE_YEAR}` }).first()).toHaveAttribute("href", `/awards/bafta/${LIVE_YEAR}`);
 
   const tabs = page.getByRole("navigation", { name: "Category" });
   await expect(tabs.getByRole("link")).toHaveText(["Picture", "Documentary", "International", "Animated"]);
   await expect(tabs.getByRole("link", { name: "Picture" })).toHaveAttribute("aria-current", "page");
   // Newest first: 2025's block comes before 2024's, and the live year has no data yet.
-  await expect(page.getByRole("heading", { level: 2 }).first()).toHaveAccessibleName("BAFTA 2026");
+  await expect(page.getByRole("heading", { level: 2 }).first()).toHaveAccessibleName(`BAFTA ${LIVE_YEAR}`);
   const block2025 = page.getByRole("region", { name: "BAFTA 2025" });
   await expect(block2025.locator("[data-winner]").getByRole("heading", { name: "One Battle After Another" })).toBeVisible();
   await expect(block2025.getByText("22 Feb 2026")).toBeVisible();
@@ -33,10 +34,13 @@ test("from BAFTA 2025, All years opens the history; a tab switches the category 
 });
 
 test("a year with no data and a year with no results each read as one line", async ({ page }) => {
+  // A past year with no data (the live year's would fill up when its results load, 7.R).
+  await page.goto("/awards/critics-choice-documentary/all");
+  const none = page.getByRole("region", { name: "Critics Choice Doc 2012" });
+  await expect(none.getByText("No data", { exact: true })).toBeVisible();
+  await expect(none.getByRole("row")).toHaveCount(0);
+
   await page.goto("/awards/critics-choice/all?category=documentary");
-  const live = page.getByRole("region", { name: "Critics Choice 2026" });
-  await expect(live.getByText("No data", { exact: true })).toBeVisible();
-  await expect(live.getByRole("row")).toHaveCount(0);
   const empty = page.getByRole("region", { name: "Critics Choice 2020" });
   await expect(empty.getByText("No results this year")).toBeVisible();
   await expect(empty.getByRole("heading", { level: 3 })).toHaveCount(0);

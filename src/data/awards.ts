@@ -222,52 +222,53 @@ export async function queryAwardHistory(db: ReadDb, awardSlug: string): Promise<
   if (categories.length === 0) return null;
   const isOscars = award?.kind === "oscars";
 
-  const editionRows = await db
-    .select({
-      year: editions.year,
-      ordinal: editions.ordinal,
-      status: editions.status,
-      note: editions.note,
-      winnersOn: resultsDay,
-    })
-    .from(editions)
-    .innerJoin(awards, eq(awards.id, editions.awardId))
-    .where(eq(awards.slug, awardSlug));
-
-  // The Oscar result of every film in the mapped categories, any year (only ids: the rows come from below).
+  // The three reads don't depend on each other: one round trip (7.R).
   const mapped = [...new Set(categories.map((c) => c.oscarCategory))];
-  const oscarRows = await db
-    .select({
-      year: editions.year,
-      category: awardCategories.oscarCategory,
-      movieId: results.movieId,
-      outcome: results.outcome,
-      country: results.country,
-    })
-    .from(results)
-    .innerJoin(editions, eq(editions.id, results.editionId))
-    .innerJoin(awards, eq(awards.id, editions.awardId))
-    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
-    .where(and(eq(awards.kind, "oscars"), inArray(awardCategories.oscarCategory, mapped)));
-
-  // This award's own results with the films; the Oscars' are nominees and winners only.
-  const rows = await db
-    .select({
-      ...filmColumns,
-      editionYear: editions.year,
-      categorySlug: awardCategories.slug,
-      outcome: results.outcome,
-      country: results.country,
-    })
-    .from(results)
-    .innerJoin(editions, eq(editions.id, results.editionId))
-    .innerJoin(awards, eq(awards.id, editions.awardId))
-    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
-    .innerJoin(movies, eq(movies.id, results.movieId))
-    .where(
-      and(eq(awards.slug, awardSlug), isOscars ? inArray(results.outcome, OUTCOMES.filter(isNomination)) : undefined),
-    )
-    .orderBy(asc(movies.title), asc(movies.id));
+  const [editionRows, oscarRows, rows] = await Promise.all([
+    db
+      .select({
+        year: editions.year,
+        ordinal: editions.ordinal,
+        status: editions.status,
+        note: editions.note,
+        winnersOn: resultsDay,
+      })
+      .from(editions)
+      .innerJoin(awards, eq(awards.id, editions.awardId))
+      .where(eq(awards.slug, awardSlug)),
+    // The Oscar result of every film in the mapped categories, any year (only ids: the rows come from below).
+    db
+      .select({
+        year: editions.year,
+        category: awardCategories.oscarCategory,
+        movieId: results.movieId,
+        outcome: results.outcome,
+        country: results.country,
+      })
+      .from(results)
+      .innerJoin(editions, eq(editions.id, results.editionId))
+      .innerJoin(awards, eq(awards.id, editions.awardId))
+      .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+      .where(and(eq(awards.kind, "oscars"), inArray(awardCategories.oscarCategory, mapped))),
+    // This award's own results with the films; the Oscars' are nominees and winners only.
+    db
+      .select({
+        ...filmColumns,
+        editionYear: editions.year,
+        categorySlug: awardCategories.slug,
+        outcome: results.outcome,
+        country: results.country,
+      })
+      .from(results)
+      .innerJoin(editions, eq(editions.id, results.editionId))
+      .innerJoin(awards, eq(awards.id, editions.awardId))
+      .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+      .innerJoin(movies, eq(movies.id, results.movieId))
+      .where(
+        and(eq(awards.slug, awardSlug), isOscars ? inArray(results.outcome, OUTCOMES.filter(isNomination)) : undefined),
+      )
+      .orderBy(asc(movies.title), asc(movies.id)),
+  ]);
 
   const years = yearRange(LIVE_YEAR, OLDEST_YEAR).map((year): AwardHistoryYear => {
     const edition = editionRows.find((e) => e.year === year) ?? null;

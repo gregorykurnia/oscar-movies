@@ -43,6 +43,7 @@ describe("infobox country line", () => {
     expect(countryNames("{{hlist\n  | [[China]]\n  | [[Hong Kong]]}}")).toEqual(["China", "Hong Kong"]);
     expect(countryNames("{{Ublist|Hong Kong|United States}}")).toEqual(["Hong Kong", "United States"]);
     expect(countryNames("Bosnia and Herzegovina<br>France")).toEqual(["Bosnia and Herzegovina", "France"]);
+    expect(countryNames("São Tomé and Príncipe, Portugal")).toEqual(["São Tomé and Príncipe", "Portugal"]);
     expect(countryNames("France and Belgium")).toEqual(["France", "Belgium"]);
   });
 
