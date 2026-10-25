@@ -1,6 +1,6 @@
 // The Watch list (task 1.14, guide §8.3): both sections, the sort in the address, and marks that
 // change the list only on the next visit, never under the tap; Add a film (7.8) and My order's
-// drag handles (7.9). It writes marks on the `test` branch and puts each one back as it was.
+// drag handles (7.9) and the release editor (7.10). It writes marks on the `test` branch and puts each one back as it was.
 import { expect, test } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
@@ -269,6 +269,8 @@ for (const width of [390, 1280]) {
     });
 
     test("moves a film by mouse without the page scrolling sideways, and the order survives a reload", async ({ page }) => {
+      // Tall enough that all three rows (each with its release line) are on screen, so the pointer never starts below the fold.
+      await page.setViewportSize({ width, height: 1100 });
       await withOrder(async ([a, b, c], ids) => {
         await page.goto("/watch-list");
         const want = section(page, "Want to watch");
@@ -324,5 +326,174 @@ test("a move that can't be saved puts the rows back and says so; other sorts hav
     await page.goto("/watch-list?sort=stage");
     await expect(section(page, "Want to watch").getByRole("heading", { level: 3 })).toHaveCount(3);
     await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+  });
+});
+
+// Release date and platform (7.10): the editor opens from each Want to watch row's release line.
+const storedRelease = async (id: number) =>
+  (await db.select({ releaseOn: marks.releaseOn, platform: marks.platform }).from(marks).where(eq(marks.movieId, id)))[0];
+
+/** Tab until the field has focus: the browser's date field has a stop for its day, month and year. */
+async function tabTo(page: import("@playwright/test").Page, target: import("@playwright/test").Locator) {
+  for (let i = 0; i < 4 && !(await target.evaluate((el) => el === document.activeElement)); i++) await page.keyboard.press("Tab");
+  await expect(target).toBeFocused();
+}
+
+const editorOf = (page: import("@playwright/test").Page) => page.getByRole("dialog", { name: "Release date and platform" });
+
+test("sets a film's date and platform by keyboard, reloads, fails and retries, then clears", async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await withOrder(async ([a], [id]) => {
+    await page.goto("/watch-list");
+    const row = rowOf(
+      section(page, "Want to watch").getByRole("heading", {
+        level: 3,
+        name: a,
+      }),
+    );
+    const line = row.getByRole("button", { name: "Add release date" });
+    await expect(line).toHaveAttribute("aria-expanded", "false");
+
+    // Enter opens the editor with focus in the Date field.
+    await line.focus();
+    await page.keyboard.press("Enter");
+    const editor = editorOf(page);
+    const date = editor.getByLabel("Date");
+    await expect(editor).toBeVisible();
+    await expect(editor).toContainText(a);
+    await expect(editor).toContainText("The first date you can watch it from Indonesia. Empty means TBD.");
+    await expect(date).toBeFocused();
+    await expect(editor.getByRole("button", { name: "Clear" })).toBeDisabled();
+
+    // Tab runs Date, Platform, (Clear once something is set), Cancel, Save; Esc cancels and focus returns.
+    await date.fill("2030-12-12");
+    const platform = editor.getByRole("combobox", { name: "Platform" });
+    await tabTo(page, platform);
+    await page.keyboard.press("Tab");
+    await expect(editor.getByRole("button", { name: "Clear" })).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(editor.getByRole("button", { name: "Cancel" })).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(editor.getByRole("button", { name: "Save" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(editor).toHaveCount(0);
+    await expect(line).toBeFocused();
+    expect(await storedRelease(id)).toEqual({
+      releaseOn: null,
+      platform: null,
+    });
+
+    // Reopen, type, take a suggestion with the arrows, and Enter (no list open) saves.
+    await page.keyboard.press("Enter");
+    await expect(date).toBeFocused();
+    await expect(date).toHaveValue("");
+    await date.fill("2030-12-12");
+    await tabTo(page, platform);
+    await platform.pressSequentially("net");
+    await expect(editor.getByRole("listbox", { name: "Platforms" })).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(editor.getByRole("option", { selected: true })).toHaveText("Netflix");
+    await page.keyboard.press("Enter");
+    await expect(platform).toHaveValue("Netflix");
+    await expect(editor.getByRole("listbox")).toHaveCount(0);
+    await page.keyboard.press("Enter");
+    await expect(editor).toHaveCount(0);
+    const saved = row.getByRole("button", { name: /12 Dec 2030 · Netflix/ });
+    await expect(saved).toBeFocused();
+    await expect.poll(() => storedRelease(id)).toEqual({ releaseOn: "2030-12-12", platform: "Netflix" });
+
+    // Both survive a reload.
+    await page.reload();
+    const reloaded = rowOf(
+      section(page, "Want to watch").getByRole("heading", {
+        level: 3,
+        name: a,
+      }),
+    ).getByRole("button", {
+      name: /12 Dec 2030 · Netflix/,
+    });
+    await expect(reloaded).toBeVisible();
+
+    // A save that fails stays open with the values kept and says so; the release is as it was.
+    await reloaded.click();
+    await platform.fill("MUBI");
+    await page.route("**/watch-list", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
+    await editor.getByRole("button", { name: "Save" }).click();
+    await expect(editor.getByRole("alert")).toContainText(`${a}'s release is as it was.`);
+    await expect(platform).toHaveValue("MUBI");
+    expect(await storedRelease(id)).toEqual({
+      releaseOn: "2030-12-12",
+      platform: "Netflix",
+    });
+
+    // Save again with the connection back: no date reads TBD only if emptied; here the date stays.
+    await page.unroute("**/watch-list");
+    await editor.getByRole("button", { name: "Save" }).click();
+    await expect(editor).toHaveCount(0);
+    await expect.poll(() => storedRelease(id)).toEqual({ releaseOn: "2030-12-12", platform: "MUBI" });
+
+    // Clear empties both and saves at once; the platform just used is offered as "Used before".
+    await row.getByRole("button", { name: /12 Dec 2030 · MUBI/ }).click();
+    await platform.focus();
+    await expect(editor.getByRole("group", { name: "Used before" }).getByRole("option", { name: "MUBI" })).toBeVisible();
+    await editor.getByRole("button", { name: "Clear" }).click();
+    await expect(editor).toHaveCount(0);
+    await expect(row.getByRole("button", { name: "Add release date" })).toBeFocused();
+    await expect.poll(() => storedRelease(id)).toEqual({ releaseOn: null, platform: null });
+
+    // A platform alone reads TBD.
+    await row.getByRole("button", { name: "Add release date" }).click();
+    await platform.fill("Cinema XXI");
+    await editor.getByRole("button", { name: "Save" }).click();
+    await expect(row.getByRole("button", { name: /TBD · Cinema XXI/ })).toBeVisible();
+    await expect.poll(() => storedRelease(id)).toEqual({ releaseOn: null, platform: "Cinema XXI" });
+  });
+});
+
+test("on a phone the editor is a sheet that keeps focus inside, and the page doesn't scroll sideways", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await withOrder(async ([a], [id]) => {
+    await page.goto("/watch-list");
+    const row = rowOf(
+      section(page, "Want to watch").getByRole("heading", {
+        level: 3,
+        name: a,
+      }),
+    );
+    const line = row.getByRole("button", { name: "Add release date" });
+    await line.click();
+    const editor = editorOf(page);
+    await expect(editor).toHaveAttribute("aria-modal", "true");
+    await expect(editor.getByLabel("Date")).toBeFocused();
+
+    // Tab wraps from the last control to the close button and back.
+    await editor.getByRole("button", { name: "Save" }).focus();
+    await page.keyboard.press("Tab");
+    await expect(editor.getByRole("button", { name: "Close" })).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(editor.getByRole("button", { name: "Save" })).toBeFocused();
+
+    // Close returns focus to the line; a long platform wraps without widening the page.
+    await editor.getByRole("button", { name: "Close" }).click();
+    await expect(editor).toHaveCount(0);
+    await expect(line).toBeFocused();
+    await line.click();
+    await editor.getByLabel("Date").fill("2030-01-05");
+    await editor.getByRole("combobox", { name: "Platform" }).fill("Cinépolis Lippo Mall Kemang IMAX Laser");
+    await editor.getByRole("button", { name: "Save" }).click();
+    await expect(editor).toHaveCount(0);
+    await expect(
+      row.getByRole("button", {
+        name: /5 Jan 2030 · Cinépolis Lippo Mall Kemang IMAX Laser/,
+      }),
+    ).toBeVisible();
+    expect(await noSidewaysScroll(page)).toBe(true);
+    await expect
+      .poll(() => storedRelease(id))
+      .toEqual({
+        releaseOn: "2030-01-05",
+        platform: "Cinépolis Lippo Mall Kemang IMAX Laser",
+      });
   });
 });

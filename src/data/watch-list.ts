@@ -158,6 +158,26 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
   }));
 }
 
+/**
+ * The platforms the owner has written on any film (wanted or not), the one used most recently
+ * first, for the release editor's "Used before" list.
+ */
+export async function queryUsedPlatforms(db: ReadDb): Promise<string[]> {
+  const rows = await db
+    .select({ platform: marks.platform })
+    .from(marks)
+    .where(sql`${marks.platform} is not null`)
+    .groupBy(marks.platform)
+    .orderBy(sql`max(${marks.updatedAt}) desc`, asc(marks.platform))
+    .limit(20);
+  return rows.flatMap((r) => (r.platform ? [r.platform] : []));
+}
+
+/** The platforms used before, read per request (the marks change any time). */
+export async function getUsedPlatforms(): Promise<string[]> {
+  return queryUsedPlatforms(getDb());
+}
+
 /** Each film's best chance to win in a season's live prediction (its best category), by movie ID. */
 export async function queryLiveChances(db: ReadDb, year: number): Promise<Record<number, number>> {
   const rows = await db

@@ -88,6 +88,7 @@ export function FilmRow({
   flagLabel,
   meta,
   scores,
+  note,
   badge,
   results,
   marks,
@@ -109,6 +110,8 @@ export function FilmRow({
   /** Caption under the title (year · categories). */
   meta?: ReactNode;
   scores?: Scores;
+  /** A line under the scores (the Watch list's release line). */
+  note?: ReactNode;
   /** A stage pill after the title. */
   badge?: ReactNode;
   results: FilmResult[];
@@ -146,6 +149,7 @@ export function FilmRow({
           </Heading>
           {meta ? <p className="mt-1 text-caption text-ink-muted">{meta}</p> : null}
           {scores ? <ScoreLine scores={scores} className="mt-1" /> : null}
+          {note}
         </div>
       </div>
       {/* On phone the results line sits under the title, indented past the flags when there are some. */}

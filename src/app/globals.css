@@ -87,6 +87,8 @@
   --animate-pop: pop-in var(--dur) var(--ease);
   --animate-sheet: sheet-in var(--dur-slow) var(--ease);
   --animate-fade: fade-in var(--dur-slow) var(--ease);
+  /* The Watch list's release editor on phone: a bottom sheet that slides up (guide §8.3). */
+  --animate-sheet-up: sheet-up var(--dur-slow) var(--ease);
   --breakpoint-md: 761px;
   --breakpoint-xl: 1101px;
 
@@ -168,6 +170,10 @@
 
 @keyframes sheet-in {
   from { transform: translateY(-100%); }
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
 }
 
 /* Reduced motion: every transition and animation is instant, and nothing shimmers (guide §12). */

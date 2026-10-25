@@ -14,6 +14,7 @@ import {
   buildWatchList,
   queryMarks,
   querySeasonFilms,
+  queryUsedPlatforms,
   queryWantedFilms,
 } from "../../src/data/watch-list";
 
@@ -245,6 +246,26 @@ describe("marks and the watch list", () => {
         ["conclave", 2, null, null],
         ["test-data-rank-b", null, null, null],
       ]);
+    });
+  });
+
+  it("list the platforms used before, newest first, once each, even on films no longer wanted", async () => {
+    await rolledBack(async (tx) => {
+      const films = await tx
+        .insert(movies)
+        .values([
+          { slug: "test-data-plat-a", title: "A", year: 2025, countries: ["US"], imdbId: "tt82000021" },
+          { slug: "test-data-plat-b", title: "B", year: 2025, countries: ["US"], imdbId: "tt82000022" },
+          { slug: "test-data-plat-c", title: "C", year: 2025, countries: ["US"], imdbId: "tt82000023" },
+        ])
+        .returning({ id: movies.id });
+      await tx.insert(marks).values([
+        { movieId: films[0].id, platform: "Zz Old Platform", updatedAt: new Date("2030-01-01T00:00:00Z") },
+        { movieId: films[1].id, want: true, platform: "Zz New Platform", updatedAt: new Date("2030-03-01T00:00:00Z") },
+        { movieId: films[2].id, want: true, platform: "Zz Old Platform", updatedAt: new Date("2030-02-01T00:00:00Z") },
+      ]);
+      const used = (await queryUsedPlatforms(tx)).filter((p) => p.startsWith("Zz "));
+      expect(used).toEqual(["Zz New Platform", "Zz Old Platform"]);
     });
   });
 

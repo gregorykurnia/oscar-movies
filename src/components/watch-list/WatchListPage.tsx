@@ -9,12 +9,13 @@ import { ShowAllRow } from "@/components/show-all/ShowAllRow";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { formatChance } from "@/lib/race-chances";
-import { getWatchList, type StagedFilm } from "@/data/watch-list";
+import { getUsedPlatforms, getWatchList, type StagedFilm, type WantedFilm } from "@/data/watch-list";
 import {
   parseWatchQuery,
   SEASON_LIMIT,
   sortWanted,
   sortWatchList,
+  todayInJakarta,
   WATCH_SORT_LABELS,
   WATCH_SORTS,
   watchHref,
@@ -22,6 +23,7 @@ import {
 } from "@/lib/watch-list";
 import { LIVE_YEAR } from "@/lib/years";
 import { AddFilm } from "./AddFilm";
+import { ReleaseEditor } from "./ReleaseEditor";
 import { DragHandle, SortableWantList } from "./SortableWantList";
 
 type Query = Record<string, string | string[] | undefined>;
@@ -62,7 +64,9 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
 async function Lists({ query }: { query: Promise<Query> }) {
   // Wait for the request: the address and the marks are read per visit.
   await connection();
-  const [list, params] = await Promise.all([getWatchList(LIVE_YEAR), query]);
+  const [list, platforms, params] = await Promise.all([getWatchList(LIVE_YEAR), getUsedPlatforms(), query]);
+  // The release lines read "Out" from today's date in Indonesia; the editor offers the platforms used before.
+  const release = { today: todayInJakarta(), platforms };
   const state = parseWatchQuery(params);
   const want = sortWanted(list.want, state.sort);
   const unwatched = sortWatchList(list.unwatched, state.sort);
@@ -91,12 +95,12 @@ async function Lists({ query }: { query: Promise<Query> }) {
           // Keyed by the films, so a list read again (a film added) starts from the stored order.
           <SortableWantList
             key={want.map((f) => f.film.id).join(",")}
-            films={want.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort={state.sort} handle /> }))}
+            films={want.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort={state.sort} handle release={release} /> }))}
             head={head(state.sort)}
             columns={HANDLE_COLUMNS}
           />
         ) : want.length > 0 ? (
-          <Films films={want} sort={state.sort} />
+          <Films films={want} sort={state.sort} release={release} />
         ) : (
           <EmptyState title="Nothing marked yet" headingLevel={3}>
             Tap the bookmark on any film to put it here.
@@ -161,26 +165,32 @@ const head = (sort: WatchQuery["sort"]) => [
   { label: "Nominations", numeric: true as const },
 ];
 
-function Films({ films, sort }: { films: StagedFilm[]; sort: WatchQuery["sort"] }) {
+function Films({ films, sort, release }: { films: StagedFilm[]; sort: WatchQuery["sort"]; release?: ReleaseContext }) {
   return (
     <FilmList head={head(sort)} columns={sort === "chance" ? CHANCE_COLUMNS : COLUMNS}>
       {films.map((film) => (
-        <Row key={film.film.id} film={film} sort={sort} />
+        <Row key={film.film.id} film={film} sort={sort} release={release} />
       ))}
     </FilmList>
   );
 }
 
+type ReleaseContext = { today: string; platforms: string[] };
+
 function Row({
-  film: { film, stage, pill, categories, nominations, chance },
+  film: staged,
   sort,
   handle = false,
+  release,
 }: {
-  film: StagedFilm;
+  film: StagedFilm | WantedFilm;
   sort: WatchQuery["sort"];
   /** My order's Want to watch: the row starts with its drag handle. */
   handle?: boolean;
+  /** Want to watch rows only: the release line and its editor. */
+  release?: ReleaseContext;
 }) {
+  const { film, stage, pill, categories, nominations, chance } = staged;
   return (
     <FilmRow
       headingLevel={3}
@@ -190,6 +200,18 @@ function Row({
       flag={film.flag}
       meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
       scores={film.scores}
+      note={
+        release && "releaseOn" in staged ? (
+          <ReleaseEditor
+            movieId={film.id}
+            title={film.title}
+            releaseOn={staged.releaseOn}
+            platform={staged.platform}
+            today={release.today}
+            usedPlatforms={release.platforms}
+          />
+        ) : undefined
+      }
       winner={stage === "won"}
       results={[
         {
