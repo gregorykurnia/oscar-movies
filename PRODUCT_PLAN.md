@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Approved v1.0 (2026-10-22). Approved by the owner after the feasibility check (v0.3 content).
+**Status:** Approved v1.1 (2026-10-25): adds Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
 
 ## 1. Overview
 
@@ -11,7 +11,7 @@ A personal web app for following the film awards season and the Oscars. For each
 **Basic principles**
 - **Users:** the owner only. **No sign-in** (owner's choice). The live app is kept out of search engines.
 - **Years:** 2012–2025 as finished seasons, plus the **2026 season tracked live** as awards are announced.
-- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. The app has no editing forms: corrections and season updates go through Claude (see 3.12).
+- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. The app has no editing forms for award or movie data: corrections and season updates go through Claude (see 3.12). The only things typed in the app are the owner's own watch-list notes (order, release date, platform; 3.13).
 
 ## 2. Users and jobs
 
@@ -52,7 +52,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Requirements**
 - Every movie row, anywhere in the app, shows: title (original title on the detail page), **country flag(s)**, **IMDb, Rotten Tomatoes (Tomatometer), Metacritic, TMDB user score**, the **average**, and the watched / want-to-watch marks.
 - **Average:** each score converted to 0–100 (IMDb × 10, TMDB × 10, Tomatometer and Metacritic as they are), averaged over the scores that exist. It shows how many sources it's based on (e.g. "84 · 3 of 4") so a missing score is visible.
-- **Flags:** every movie gets the flag(s) of its production countries, main country first; co-productions show up to three flags plus "+N". For International Feature submissions, the **submitting country's** flag comes first, since that's what the race is about.
+- **Flags:** every movie shows **one flag**, its **primary country**: for a film ever submitted for International Feature, the country that submitted it, on every page (not only the International lists); otherwise the first country Wikipedia lists for it. The movie page names all its countries in text. (Until 2026-10-25: up to three flags plus "+N".)
 - A missing score shows as "–", never as 0. Rotten Tomatoes comes through OMDb and can be missing or late for new and foreign films; there is no paid or scraped fallback.
 - Letterboxd isn't shown: it has no legal free source (its API isn't granted to personal projects and its terms forbid scraping).
 - Scores are refreshed in a **small daily batch**, so each current-season film is updated about once a week and older films about monthly (they barely change). Each score shows when it was last updated on the movie page.
@@ -112,7 +112,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Requirements**
 - For a year and an Oscar category: **rows are the movies** with at least one nomination, **columns are the awards** (Oscars first, then major awards, festivals, then critics groups). A cell is coloured for **nominated** or **won** (and shortlisted/submitted for the Oscars), blank otherwise.
 - Each row shows the movie's flag, average score, watched mark, and its totals (nominations, wins).
-- Sort by wins, nominations, average score or title; filter to unwatched. The year, category, sort and filter are kept in the address.
+- **Default order:** Oscar nominees first (the winner at the top), then Oscar-shortlisted films, then the rest; within each group, most nominations first. Sort by this Oscar order, wins, nominations, average score or title; filter to unwatched. The year, category, sort and filter are kept in the address.
 
 **UX notes:** on phone, the movie column stays fixed while the award columns scroll sideways inside the grid (the page itself never scrolls sideways). Critics group columns can be folded into one "critics groups: N wins" column.
 
@@ -171,6 +171,9 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - Two marks per movie: **watched** and **want to watch** (marking watched clears want to watch). One tap each, on every row and on the movie page.
 - The marks show wherever the movie appears, and every list can be filtered to watched, unwatched or want to watch.
 - A **Watch list** page: want-to-watch films, then unwatched films of the current season, sortable by Oscar stage, % chance, nominations or average score.
+- **Add a film by typing** (2026-10-25): an "Add a film" box at the top of the Watch list finds any film in the app by title (original titles too, accents ignored) and adds it to Want to watch in one step. A film the app doesn't have can't be added there (Claude adds it).
+- **Your own order** (2026-10-25): Want to watch keeps the owner's order, changed by dragging (touch, mouse or keyboard). "My order" is the Watch list's default sort; a newly added film goes to the top.
+- **Release date and platform** (2026-10-25): each want-to-watch film can carry a date and a platform the owner types in: the first date it can be watched from Indonesia (in cinemas or streaming, whichever comes first), "TBD" when there's no date, and where (Netflix, Cinema XXI…). Shown on its Watch list row.
 
 **UX notes:** marking is instant and can be undone by tapping again; if saving fails, the mark flips back and a message says so.
 
@@ -182,6 +185,18 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - A search box on every page (also opened with `/` on a keyboard), matching movie titles (including original titles, ignoring accents) and award and festival names. Results show year, flag and the movie's Oscar stage.
 
 **UX notes:** no results: "No movie or award matches '<text>'."
+
+### 3.15 Strong signals
+
+**Purpose:** for one Oscar category and year, which films the best-predicting awards picked (owner's request, 2026-10-25).
+
+**Requirements**
+- **Strong awards** come from the accuracy figures (3.6), as they stand, over at least 5 counted years:
+  - **Catches Oscar nominees:** "Oscar nominees it caught" of 50% or more. Its films are the ones it nominated (or more) that year.
+  - **Its winner gets nominated:** "Winner → Oscar nomination" of 80% or more. Its film is that year's winner.
+- **By award:** each strong award with its figure in words ("Cinema Eye Audience Choice caught 57% of Oscar nominees", "BAFTA Documentary's winner was Oscar-nominated 86% of years"), then that year's films (nominated or won). An award that hasn't announced yet says so, with its date.
+- **By film:** each film any strong award picked, with which ones and their figures ("Won BAFTA Documentary (86%) · Nominated Cinema Eye Audience Choice (57%)"); films picked by the most strong awards first.
+- Opens on the current season with a year switcher; linked from the accuracy page and each race category.
 
 ## 4. Key flows
 
@@ -209,7 +224,8 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - Watched date or the owner's own rating (declined: just watched or not).
 - Oscar categories beyond Picture, Documentary, International and Animated.
 - Full festival lineups before 2025.
-- Editing data in the app (corrections go through Claude).
+- Editing award or movie data in the app (corrections go through Claude). The owner's watch-list notes are the one exception (3.13).
+- Adding a film the app doesn't have from the Watch list (not in Phase 7; a possible follow-up: look it up on TMDB and add it). Looking up release dates and platforms automatically (declined 2026-10-25: the owner types them).
 
 ## 7. Technical approach
 
@@ -256,6 +272,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | 3. Predictions and the live race | % chance to be nominated and to win per contender, the "why", the backtest; the race as home; the "update the race" routine; data coverage page | Each 2026 category shows chances that add to 100%; past years show the eve-of-ceremony favourite; an update adds a new award result and the chances change |
 | 4. Critics groups | The 63 critics groups, 2012–2026, in the grid, award pages, accuracy figures and predictions | Each critics group with data appears below the major awards in the grid and accuracy page, and "no data" years are marked |
 | 5. Festival lineups | 2025 and 2026 lineups by section for the five festivals; festival screenings on the movie page | Cannes 2025's page lists every section's films with flags and scores |
+| 7. Owner's requests of 25 Oct | One flag per film; the grid's Oscar order; strong signals page; Watch list add box, drag order, release date and platform | Every row shows one flag; the 2025 Picture grid opens with the nominees on top; the 2025 Documentary signals page lists each strong award with its figure and films; a film typed into the Watch list, dragged and given a date and platform keeps all three after a reload |
 
 **Suggested checkpoints with real data:** after Phase 1, the owner marks the films they've seen for 2024–2026 and checks a handful of Oscar years against memory; after Phase 2, the owner spot-checks three awards; after Phase 3, the owner compares the predictions with their own instinct for the 2026 race.
 
@@ -282,6 +299,8 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-24: Gaps in critics groups (and Cinema Eye 2012–2020) are filled from IMDb's award records (credited on the sources page); Wikipedia stays where it has data. DOC NYC (Short List, Winner's Circle) and four more Cinema Eye categories added. DC Dox Fest left out.
 - 2026-10-25: Fourth accuracy figure, "Oscar nominees it caught" (of the Oscar nominees, the share the award had nominated), on the accuracy page and award pages (owner's idea).
 - 2026-10-25: Past seasons (and the live one after its nominations) show each nominee's % to be nominated from the day before the nominations. Counting "passed over" at an award (named its nominees, not this film) was tried in the model and not kept: over 2012–2025, left out one season at a time, it called no more nominees (247 vs 248 in the top slots) and won one more favourite while Best Picture got worse.
+
+- 2026-10-25: Phase 7 (owner's requests): one flag per film (submitting country for any International submission, else Wikipedia's first country); the year grid opens on Oscar nominees, then shortlisted, then by nominations, other sorts kept; a strong signals page (awards with "Oscar nominees it caught" ≥ 50% or "Winner → Oscar nomination" ≥ 80% over at least 5 years, and the films they picked that year, by award and by film); the Watch list gets an add-by-typing box (films in the app only), the owner's own drag order, and a typed release date (first date watchable from Indonesia, or TBD) and platform. Defaults chosen by Claude and accepted: 5-year minimum, both views on one page, a new film goes to the top of the order.
 
 ## 10. Open questions
 
