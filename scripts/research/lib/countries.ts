@@ -207,6 +207,9 @@ const ALIASES: Record<string, string> = {
   "United Arab Emirates": "AE",
   Zambia: "ZM",
   Zimbabwe: "ZW",
+  "Georgia (country)": "GE",
+  "Democratic Republic of Congo": "CD",
+  Curaçao: "CW",
 };
 
 /** The ISO code of a country name, or undefined for a name the tables don't know. */

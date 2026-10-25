@@ -93,21 +93,21 @@ describe("primary country", () => {
     ["G (film)", "{{Infobox film\n| country = Atlantis\n}}"],
   ]);
 
-  it("reorders only films with two or more countries, a Wikidata item, an article and a known first name", () => {
+  it("reorders films with a Wikidata item, an article and a known first name, single-country ones too", () => {
     const data = files();
     const summary = applyPrimaryCountries(data, titles, texts);
     const film = (k: string) => data.get(2024)?.[k].countries;
     expect(film("tt1")).toEqual(["GB", "US"]); // moved
     expect(film("tt2")).toEqual(["US", "GB"]); // already first
-    expect(film("tt3")).toEqual(["US"]); // one country: not read
+    expect(film("tt3")).toEqual(["CA", "US"]); // one country: the article's first is added
     expect(film("tt4")).toEqual(["IT", "US", "FR"]); // not listed: added at the front
     expect(film("tt5")).toEqual(["US", "FR"]); // infobox without a country
     expect(film("tt6")).toEqual(["US", "FR"]); // no Wikidata item
     expect(film("tt7")).toEqual(["US", "FR"]); // unknown name
     expect(film("tt8")).toEqual(["US", "FR"]); // no article text
-    expect(summary).toMatchObject({ examined: 6, alreadyFirst: 1, noInfoboxCountry: 1, noArticle: 1 });
+    expect(summary).toMatchObject({ examined: 7, alreadyFirst: 1, noInfoboxCountry: 1, noArticle: 1 });
     expect([...summary.unmapped]).toEqual([["Atlantis", ["G (2024)"]]]);
-    expect(summary.changes.map((c) => [c.key, c.old, c.next])).toEqual([["tt1", "US", "GB"], ["tt4", "US", "IT"]]);
+    expect(summary.changes.map((c) => [c.key, c.old, c.next])).toEqual([["tt1", "US", "GB"], ["tt3", "US", "CA"], ["tt4", "US", "IT"]]);
   });
 
   it("changes nothing on a second pass", () => {

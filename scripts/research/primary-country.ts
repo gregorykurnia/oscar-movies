@@ -1,6 +1,8 @@
 // `npx tsx scripts/research/primary-country.ts [--offline]` (IMPLEMENTATION_PLAN.md task 7.2): makes
 // `countries[0]` the country Wikipedia's article lists first, for every film in `data/movies/*.json`
-// with two or more countries and a Wikidata item (the app shows one flag per film, Phase 7).
+// with a Wikidata item (the app shows one flag per film, Phase 7). Single-country films are read
+// too: their one country can miss the first one Wikipedia lists (No Other Land: Norway only, where
+// the article says Palestine, Norway).
 // - Wikidata gives each film's English Wikipedia title (sitelinks, 50 items to a request); the
 //   MediaWiki API gives the wikitext of 50 titles to a request; both go through the toolkit's
 //   fetcher, so a rerun reads `.cache/wiki/` and `--offline` never reaches the network.
@@ -119,7 +121,7 @@ export function applyPrimaryCountries(
   const summary: Summary = { examined: 0, noArticle: 0, noInfoboxCountry: 0, unmapped: new Map(), alreadyFirst: 0, changes: [] };
   for (const [year, file] of files) {
     for (const [key, film] of Object.entries(file)) {
-      if (film.countries.length < 2 || !film.wd) continue;
+      if (!film.wd) continue;
       summary.examined++;
       const article = titles.get(film.wd);
       const text = article === undefined ? undefined : texts.get(article);
@@ -171,7 +173,7 @@ export function formatReport(changes: Change[], earlier: Map<string, Change>): s
   return [
     "# Primary country from Wikipedia",
     "",
-    "Films whose first country changed to the one Wikipedia's infobox lists first (`scripts/research/primary-country.ts`, IMPLEMENTATION_PLAN.md task 7.2). Only films with two or more countries and a Wikidata item are read; the others, and films with no article or no infobox country, keep their order. A film changed in an earlier run stays listed.",
+    "Films whose first country changed to the one Wikipedia's infobox lists first (`scripts/research/primary-country.ts`, IMPLEMENTATION_PLAN.md task 7.2). Every film with a Wikidata item is read (until 2026-10-25 only films with two or more countries); the others, and films with no article or no infobox country, keep their order. A film changed in an earlier run stays listed.",
     "",
     `${sorted.length} films changed.`,
     "",
@@ -189,7 +191,7 @@ async function main() {
   const fetcher = createFetcher({ cacheDir: WIKI_CACHE_DIR, offline });
 
   const files = readMoviesFiles(DATA_DIR);
-  const qids = [...files.values()].flatMap((f) => Object.values(f)).filter((m) => m.countries.length >= 2 && m.wd).map((m) => m.wd as string);
+  const qids = [...files.values()].flatMap((f) => Object.values(f)).filter((m) => m.wd).map((m) => m.wd as string);
   const titles = await sitelinkTitles(fetcher, qids);
   const texts = await fetchWikitexts(fetcher, [...titles.values()]);
 
@@ -206,7 +208,7 @@ async function main() {
   }
 
   console.log(
-    `${summary.examined} films with two or more countries and a Wikidata item: ${summary.changes.length} changed, ${summary.alreadyFirst} already first, ` +
+    `${summary.examined} films with a Wikidata item: ${summary.changes.length} changed, ${summary.alreadyFirst} already first, ` +
       `${summary.noArticle} with no article, ${summary.noInfoboxCountry} with no infobox country, ${[...summary.unmapped.values()].flat().length} with a first name not in lib/countries.ts. ` +
       `${fetcher.requests} network requests.`,
   );

@@ -156,7 +156,7 @@
   "tt10514222": { "slug": "ma-raineys-black-bottom", "title": "Ma Rainey's Black Bottom", "countries": ["US"], "language": "en", "wd": "Q65049470", "tmdb": 615667 },
   "tt10612922": { "slug": "one-night-in-miami", "title": "One Night in Miami...", "countries": ["US"], "language": "en", "wd": "Q83973479", "tmdb": 661914 },
   "tt11394314": { "slug": "softie", "title": "Softie", "countries": ["KE"], "language": "en", "wd": "Q101201502", "tmdb": 653761 },
-  "tt11394166": { "slug": "a-thousand-cuts", "title": "A Thousand Cuts", "countries": ["US"], "language": "en", "wd": "Q96371338", "tmdb": 653731 },
+  "tt11394166": { "slug": "a-thousand-cuts", "title": "A Thousand Cuts", "countries": ["PH", "US"], "language": "en", "wd": "Q96371338", "tmdb": 653731 },
   "tt9231040": { "slug": "first-cow", "title": "First Cow", "countries": ["US"], "language": "en", "wd": "Q65082453", "tmdb": 558582 },
   "tt7772582": { "slug": "never-rarely-sometimes-always", "title": "Never Rarely Sometimes Always", "countries": ["US"], "language": "en", "wd": "Q63183583", "tmdb": 595671 },
   "tt2762506": { "slug": "bacurau", "title": "Bacurau", "countries": ["BR", "FR"], "language": "pt", "wd": "Q63246555", "tmdb": 446159 },
@@ -241,7 +241,7 @@
   "tt13032926": { "slug": "love-it-was-not", "title": "Love It Was Not", "originalTitle": "אהבה זאת לא היתה", "originalLang": "he", "countries": ["IL"], "language": "he", "wd": "Q122583741", "tmdb": 686969 },
   "tt13359582": { "slug": "radiograph-of-a-family", "title": "Radiograph of a Family", "countries": ["NO", "IR", "CH"], "language": "fr", "wd": "Q117088536", "tmdb": 768199 },
   "tt12899382": { "slug": "apocalypse-45", "title": "Apocalypse '45", "countries": ["US"], "language": "en", "tmdb": 729769 },
-  "tt7131470": { "slug": "television-event", "title": "Television Event", "countries": ["AU"], "language": "en", "wd": "Q107272264", "tmdb": 731012 },
+  "tt7131470": { "slug": "television-event", "title": "Television Event", "countries": ["US", "AU"], "language": "en", "wd": "Q107272264", "tmdb": 731012 },
   "tt9318280": { "slug": "driveways", "title": "Driveways", "countries": ["US"], "language": "en", "wd": "Q62082683", "tmdb": 568994 },
   "tt8800266": { "slug": "ema", "title": "Ema", "countries": ["CL"], "language": "es", "wd": "Q56276462", "tmdb": 540709 },
   "tt12515958": { "slug": "innocence", "title": "Innocence", "originalTitle": "결백", "originalLang": "ko", "countries": ["KR"], "language": "ko", "wd": "Q85972954", "tmdb": 602296 },
@@ -275,6 +275,6 @@
   "tt11394650": { "slug": "on-the-record", "title": "On the Record", "countries": ["US"], "language": "en", "wd": "Q85790665", "tmdb": 653612 },
   "tt12286048": { "slug": "the-walrus-and-the-whistleblower", "title": "The Walrus and the Whistleblower", "countries": ["CA"], "language": "en", "wd": "Q96409698", "tmdb": 710218 },
   "tt11905922": { "slug": "stray", "title": "Stray", "countries": ["US"], "language": "tr", "wd": "Q106493882", "tmdb": 684697 },
-  "tt12095032": { "slug": "songs-of-repression", "title": "Songs of Repression", "countries": ["DK"], "language": "de", "wd": "Q76450214", "tmdb": 679683 },
+  "tt12095032": { "slug": "songs-of-repression", "title": "Songs of Repression", "countries": ["CL", "DK"], "language": "de", "wd": "Q76450214", "tmdb": 679683 },
   "tt9078338": { "slug": "beautiful-something-left-behind", "title": "Beautiful Something Left Behind", "countries": ["DK", "US"], "language": "en", "tmdb": 674884 }
 }
