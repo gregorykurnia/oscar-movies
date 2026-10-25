@@ -50,7 +50,10 @@ test("the 2025 Oscars page shows all four categories with flags, scores and the 
   for (const { id, heading, nominees, winner } of OSCARS_2025) {
     const section = page.getByRole("region", { name: heading });
     await expect(section).toHaveAttribute("id", id);
-    await expect(section.getByRole("heading", { level: 3 })).toHaveCount(nominees);
+    // Documentary and International then list the shortlisted films that missed under their own heading (8.6).
+    const missedHeading = section.getByRole("heading", { level: 3, name: /^Shortlisted, not nominated \(\d+\)$/ });
+    const missed = (await missedHeading.count()) > 0 ? Number((await missedHeading.textContent())!.match(/\((\d+)\)/)![1]) + 1 : 0;
+    await expect(section.getByRole("heading", { level: 3 })).toHaveCount(nominees + missed);
     await expect(section.locator("[data-winner]").getByRole("heading", { level: 3, name: winner })).toBeVisible();
     // Every film shows its flags and a scores line ending in the average, or "No scores yet".
     const rows = section.getByRole("heading", { level: 3 }).locator("xpath=ancestor::div[.//button][1]");

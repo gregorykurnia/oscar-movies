@@ -2,10 +2,11 @@
 // the 2015–2025 backtests of both methods, each season from earlier seasons only, the choice in
 // `NOMINATION_METHOD` they make, and the race's % to be nominated taken from it. Reads only.
 import { afterAll, describe, expect, it } from "vitest";
-import { computePredictionRows, readPredictionTables } from "../../scripts/lib/compute";
+import { computePredictionRows, readPredictionTables, snapshotsFor } from "../../scripts/lib/compute";
 import { queryPatterns, queryPatternSeasons } from "../../src/data/patterns";
 import { createScriptDb } from "../../src/db";
-import { backtest, type PatternCategory } from "../../src/lib/patterns";
+import { analyzeSeason, backtest, patternSeasons, PICKS_FROM, type PatternCategory } from "../../src/lib/patterns";
+import { buildSeasons, predictCategory } from "../../src/lib/predict";
 import { chooseMethod, engineBacktest, NOMINATION_METHOD } from "../../src/lib/predict/method";
 
 const { db, close } = createScriptDb();
@@ -83,12 +84,33 @@ describe("the race's % to be nominated (recomputePredictions' rows)", () => {
       const sum = eve(category, 2024).reduce((s, r) => s + (r.pNominate ?? 0), 0);
       expect(sum).toBeCloseTo(5, 6);
     }
+    // The engine's own chances, snapshot by snapshot: International keeps them everywhere, and
+    // Documentary wherever the patterns don't apply (before 2015, and before its shortlist is out).
+    const tables = await readPredictionTables(db);
+    const films = new Map((tables.movieRows ?? []).map((m) => [m.id, m]));
+    const compared = { international: 0, documentaryEarly: 0, documentaryBefore: 0 };
+    for (const category of ["documentary", "international"] as const) {
+      const seasons = buildSeasons(tables, category, TODAY);
+      const withFilms = patternSeasons(seasons, films);
+      for (const season of seasons) {
+        const patternsApply = category === "documentary" && season.year >= PICKS_FROM && analyzeSeason({ category, year: season.year, seasons: withFilms })?.state !== "before";
+        for (const snapshot of snapshotsFor(season, TODAY)) {
+          const p = predictCategory({ category, year: season.year, seasons, snapshot });
+          if (!p || (patternsApply && p.phase === "before")) continue;
+          const stored = rows.filter((r) => r.oscarCategory === category && r.year === season.year && r.snapshot === snapshot.kind);
+          const engine = new Map(p.contenders.map((c) => [Number(c.movie), c.pNominate]));
+          for (const row of stored) expect(row.pNominate).toBe(engine.get(row.movieId));
+          if (category === "international") compared.international += stored.length;
+          else if (season.year < PICKS_FROM) compared.documentaryEarly += stored.length;
+          else compared.documentaryBefore += stored.length;
+        }
+      }
+    }
+    expect(compared.international).toBeGreaterThan(0);
+    expect(compared.documentaryEarly).toBeGreaterThan(0);
+    // And the 2024 eve's International chances are the engine's (not the patterns', which differ).
+    const intlPatterns = analyzeSeason({ category: "international", year: 2024, seasons: patternSeasons(buildSeasons(tables, "international", TODAY), films) })!;
     const intl = eve("international", 2024);
-    const intlSeasons = (await queryPatternSeasons(db, "international", TODAY)).seasons;
-    const engine = engineBacktest({ category: "international", seasons: intlSeasons, years: [2024] });
-    expect(intl.length).toBeGreaterThan(0);
-    expect(engine.rows).toHaveLength(1);
-    // Before the shortlist (the earliest seasons), Documentary still has the engine's chances.
-    expect(eve("documentary", 2013).every((r) => r.pNominate !== null)).toBe(true);
+    expect(intl.some((r) => r.pNominate !== (intlPatterns.films.find((f) => Number(f.movie) === r.movieId)?.pNominate ?? 0))).toBe(true);
   }, 300_000);
 });

@@ -2,6 +2,8 @@
 // the winner marked, flags, scores and marks; International names the submitting country.
 // Reads only; no writes.
 import { expect, test } from "@playwright/test";
+import { LIVE_YEAR } from "../../src/lib/years";
+import { liveState, readPatterns } from "./live-patterns";
 
 // The 97th Academy Awards (2024 films): the Academy's nominees and winners.
 const OSCARS_2024 = [
@@ -67,7 +69,8 @@ test("/awards/oscars/2025 lists Documentary's and International's whole shortlis
 });
 
 test("the live year before its shortlist looks as it did", async ({ page }) => {
-  await page.goto("/awards/oscars/2026");
+  test.skip(liveState(await readPatterns("documentary")) !== "before", "the live year's Documentary shortlist is out");
+  await page.goto(`/awards/oscars/${LIVE_YEAR}`);
   const documentary = page.getByRole("region", { name: "Best Documentary Feature" });
   await expect(documentary.getByText("Shortlisted, not nominated")).toHaveCount(0);
   await expect(documentary.locator("[data-snub-risk]")).toHaveCount(0);

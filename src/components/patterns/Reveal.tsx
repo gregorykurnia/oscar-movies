@@ -72,7 +72,11 @@ export function RevealTable({
       revealed.current = false;
       const shown = new Set(rows.map((r) => r.key));
       const first = allRows.findIndex((r) => !shown.has(r.key));
-      frame.current?.querySelectorAll("tbody tr")[first]?.querySelector<HTMLElement>("a")?.focus();
+      const row = frame.current?.querySelectorAll<HTMLElement>("tbody tr")[first];
+      // The predictor and strong-award rows hold no link: focus the row itself, so focus isn't lost with the button.
+      const target = row?.querySelector<HTMLElement>("a") ?? row;
+      if (target === row) row?.setAttribute("tabindex", "-1");
+      target?.focus();
     }
   }, [all, rows, allRows]);
   return (

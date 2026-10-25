@@ -42,7 +42,6 @@ async function Movie({ slug }: { slug: string }) {
   if (!film) notFound();
   const original = shownOriginalTitle(film.title, film.originalTitle);
   const today = new Date().toISOString().slice(0, 10);
-  const { panels, strong } = await patternsFor(film, today);
   return (
     <>
       <PageHeader
@@ -64,6 +63,18 @@ async function Movie({ slug }: { slug: string }) {
       <FilmLabelledMarks movieId={film.id} title={film.title} className="mt-6 flex flex-wrap gap-2" />
       <ScoreTiles scores={film.scores} className="mt-7 md:mt-10" />
       <OscarSection film={film} />
+      {/* The patterns read is heavy, so the panels and the awards (their Strong tags) stream in after the rest. */}
+      <Suspense fallback={<AwardsSkeleton />}>
+        <PatternsAndAwards film={film} today={today} />
+      </Suspense>
+    </>
+  );
+}
+
+async function PatternsAndAwards({ film, today }: { film: MovieData; today: string }) {
+  const { panels, strong } = await patternsFor(film, today);
+  return (
+    <>
       {panels.map((panel) => (
         <NominationPatterns key={`${panel.year}-${panel.category}`} panel={panel} />
       ))}
@@ -74,15 +85,19 @@ async function Movie({ slug }: { slug: string }) {
 
 /** The Nomination patterns panels of the film's shortlisted seasons and those seasons' strong awards (none for other films). */
 async function patternsFor(film: MovieData, today: string): Promise<{ panels: NominationPanel[]; strong: Set<string> }> {
+  const boxes = film.oscars.flatMap((box) => {
+    const category = panelCategory(box);
+    return category ? [{ ...box, category }] : [];
+  });
+  const seasons = await Promise.all(
+    boxes.map(async (box) => (await getPatterns(box.category, today)).seasons.find((s) => s.year === box.year)),
+  );
   const panels: NominationPanel[] = [];
   const strong = new Set<string>();
-  for (const box of film.oscars) {
-    const category = panelCategory(box);
-    if (!category) continue;
-    const season = (await getPatterns(category, today)).seasons.find((s) => s.year === box.year);
-    panels.push(nominationPanel({ movieId: film.id, box: { ...box, category }, season }));
-    for (const key of strongKeys(season)) strong.add(key);
-  }
+  boxes.forEach((box, i) => {
+    panels.push(nominationPanel({ movieId: film.id, box, season: seasons[i] }));
+    for (const key of strongKeys(seasons[i], film.id)) strong.add(key);
+  });
   return { panels: panels.sort((a, b) => b.year - a.year), strong };
 }
 
@@ -128,6 +143,15 @@ function OscarResult({ box, showEdition }: { box: OscarBox; showEdition: boolean
       </div>
       <StagePill stage={oscarStage(box.outcome, box.category)} />
     </li>
+  );
+}
+
+function AwardsSkeleton() {
+  return (
+    <SkeletonRegion label="Loading the film's awards">
+      <Skeleton className="mt-10 h-7 w-40 md:mt-14" />
+      <Skeleton className="mt-4 h-28 w-full rounded-lg" />
+    </SkeletonRegion>
   );
 }
 

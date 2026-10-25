@@ -226,6 +226,31 @@ describe("nomination patterns: other cases", () => {
     expect([...past.values()].reduce((s, v) => s + v, 0)).toBeCloseTo(5);
   });
 
+  it("pools the base over the earlier seasons only, and never reads the season's own outcomes", () => {
+    // The fixture's seasons all have 5 nominees in 10, so a wrong base (the season's own, or an
+    // average of shares) would match by chance: make 2014 4 in 10 and recount.
+    const demoted = all.map((s) =>
+      s.year !== 2014 ? s : { ...s, films: s.films.map((f, i) => (i === s.films.findIndex((g) => g.oscar === "nominated") ? { ...f, oscar: "shortlisted" as const } : f)) },
+    );
+    const shortlisted = (s: PatternSeason) => s.films.filter((f) => f.oscar === "shortlisted" || f.oscar === "nominated" || f.oscar === "won");
+    const nominated = (s: PatternSeason) => shortlisted(s).filter((f) => f.oscar === "nominated" || f.oscar === "won");
+    const earlier = demoted.filter((s) => s.year < 2016);
+    const a = analyzeSeason({ category: "documentary", year: 2016, seasons: demoted })!;
+    expect(a.base).toEqual({
+      hits: earlier.reduce((n, s) => n + nominated(s).length, 0),
+      count: earlier.reduce((n, s) => n + shortlisted(s).length, 0),
+    });
+    expect(a.base).not.toEqual(analyze(2016)!.base);
+    // 2016's own outcomes turned around: its base, strong awards, rates and picks stay the same.
+    const flipped = demoted.map((s) =>
+      s.year !== 2016 ? s : { ...s, films: s.films.map((f) => ({ ...f, oscar: f.oscar === "nominated" ? ("shortlisted" as const) : f.oscar === "shortlisted" ? ("nominated" as const) : f.oscar })) },
+    );
+    const b = analyzeSeason({ category: "documentary", year: 2016, seasons: flipped })!;
+    expect(b.base).toEqual(a.base);
+    expect(b.awards).toEqual(a.awards);
+    expect(b.films.map((f) => [f.title, f.rate, f.pick])).toEqual(a.films.map((f) => [f.title, f.rate, f.pick]));
+  });
+
   it("adds titles and countries to the engine's seasons", () => {
     const [s] = patternSeasons([{ ...all[0], films: [{ movie: 7, results: [], oscar: null }, { movie: 8, results: [], oscar: null }] }], new Map([[7, { title: "Seven", countries: ["FR"] }]]));
     expect(s.films).toEqual([

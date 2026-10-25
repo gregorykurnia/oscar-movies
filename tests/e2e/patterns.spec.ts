@@ -1,9 +1,12 @@
 // The nomination patterns page (task 8.5, guide §8.14): the five the patterns pick next to the
 // real nominees, why the well-awarded films missed, the best predictors and the backtest, with the
 // category in the address, reached from the race and the accuracy page. Reads only; no writes.
-// Figures are the seeded `test` data's (the planning check: 35 of 55 picked, 5 of 24 flagged got in).
+// 2024's own figures are fixed; the totals across seasons and the live year's state are read the
+// way the page reads them (`live-patterns.ts`), as they move when a season's nominees load
+// (on today's `test` data: 35 of 55 picked, 5 of 24 flagged got in, 2015–2025).
 import { expect, test, type Page } from "@playwright/test";
 import { LIVE_YEAR } from "../../src/lib/years";
+import { backtestSpan, liveHeading, liveState, readPatterns } from "./live-patterns";
 
 const title = (page: Page, scope: string, name: string) => page.locator(scope).getByRole("heading", { level: 3 }).filter({ has: page.getByRole("link", { name, exact: true }) });
 
@@ -46,11 +49,13 @@ test("Will & Harper is among the misses with its reason, flagged Snub risk", asy
 });
 
 test("the strip counts the flag, the tables show the learned figures and the best all-round predictors", async ({ page }) => {
+  const data = await readPatterns("documentary");
+  const span = backtestSpan(data);
   await page.goto("/patterns/2024");
-  await expect(page.getByText("Flagged films got in (Snub risk), 2015–2025")).toBeVisible();
-  await expect(page.getByText("5 of 24")).toBeVisible();
-  await expect(page.getByText("Nominees the patterns picked, 2015–2025")).toBeVisible();
-  await expect(page.getByText("35 of 55").first()).toBeVisible();
+  await expect(page.getByText(`Flagged films got in (Snub risk), ${span}`)).toBeVisible();
+  await expect(page.getByText(`${data.flagged.hits} of ${data.flagged.count}`, { exact: true })).toBeVisible();
+  await expect(page.getByText(`Nominees the patterns picked, ${span}`)).toBeVisible();
+  await expect(page.getByText(`${data.backtest.hits} of ${data.backtest.nominees}`, { exact: true }).first()).toBeVisible();
 
   const learned = page.locator("#learned");
   await expect(learned.getByRole("heading", { level: 2 })).toHaveText("What the patterns learned");
@@ -73,15 +78,16 @@ test("the strip counts the flag, the tables show the learned figures and the bes
   await expect(page.locator("#how li")).toHaveCount(5);
   const strip = page.locator("[data-backtest]");
   await expect(strip.getByRole("link", { name: /^2024/ })).toHaveAttribute("aria-current", "page");
-  await expect(strip.getByText("Current 31")).toBeVisible();
-  await expect(strip.getByText("2015–2025")).toBeVisible();
+  await expect(strip.getByText(`Current ${data.engineBacktest.hits}`, { exact: true })).toBeVisible();
+  await expect(strip.getByText(span)).toBeVisible();
 });
 
 test("International has no Snub risk flag and two figures in its strip", async ({ page }) => {
+  const data = await readPatterns("international");
   await page.goto("/patterns/2024?category=international");
   await expect(page.getByRole("link", { name: "International" })).toHaveAttribute("aria-current", "page");
   await expect(page.getByText("Best International Feature · the films the patterns pick")).toBeVisible();
-  await expect(page.getByText("38 of 55").first()).toBeVisible();
+  await expect(page.getByText(`${data.backtest.hits} of ${data.backtest.nominees}`, { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Flagged films got in")).toHaveCount(0);
   await expect(page.locator("[data-snub-risk]")).toHaveCount(0);
   await expect(page.locator("#how")).toContainText("New York critics");
@@ -93,14 +99,20 @@ test("International has no Snub risk flag and two figures in its strip", async (
   await expect(page).toHaveURL(/\/patterns\/2023$/);
 });
 
-test("/patterns opens the live year, before its shortlist as the ranked contenders", async ({ page }) => {
+test("/patterns opens the live year in the state its season is in", async ({ page }) => {
+  const state = liveState(await readPatterns("documentary"));
   await page.goto("/patterns");
   await expect(page).toHaveURL(new RegExp(`/patterns/${LIVE_YEAR}$`));
-  await expect(page.getByText("The shortlist isn't out yet.")).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: "The contenders so far" })).toBeVisible();
-  // No flag on the contenders (the flags in the most-awarded misses are past years').
-  await expect(page.locator("#five [data-snub-risk]")).toHaveCount(0);
-  await expect(page.getByText("To be nominated")).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 2, name: liveHeading(state) })).toBeVisible();
+  if (state === "before") {
+    // Before the shortlist: the ranked contenders, no %, no flag (the most-awarded misses' flags are past years').
+    await expect(page.getByText("The shortlist isn't out yet.")).toBeVisible();
+    await expect(page.locator("#five [data-snub-risk]")).toHaveCount(0);
+    await expect(page.getByText("To be nominated")).toHaveCount(0);
+  } else if (state === "shortlist") {
+    await expect(page.getByText("The shortlist is out.")).toBeVisible();
+    await expect(page.locator("#five").getByText("To be nominated").first()).toBeVisible();
+  }
   // Years the page doesn't cover are the 404 page.
   // (The 404 page streams in with a 200 status, as on the award pages.)
   await page.goto("/patterns/2014");

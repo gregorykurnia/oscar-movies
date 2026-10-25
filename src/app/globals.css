@@ -61,6 +61,8 @@
   --tracking-heading: var(--tracking-heading);
   --tracking-title: var(--tracking-title);
   --tracking-num: var(--tracking-num);
+  /* Resets the tracking a "of 5" inherits from its numeral (the components already use it). */
+  --tracking-normal: 0em;
 
   /* Shape, shadows, breakpoints (mobile first: md is the desktop layout) */
   --radius-xs: var(--radius-xs);

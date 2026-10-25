@@ -25,7 +25,7 @@ describe("NominationPatterns", () => {
         })}
       />,
     );
-    const region = screen.getByRole("region", { name: "Nomination patterns" });
+    const region = screen.getByRole("region", { name: "Nomination patterns 2025 · Best Documentary Feature" });
     expect(within(region).getByText("2025 · Best Documentary Feature")).toBeTruthy();
     expect(within(region).getByText("1 strong award, US-only")).toBeTruthy();
     expect(within(region).getByText(/5 of 12 nominated/)).toBeTruthy();
@@ -48,9 +48,10 @@ describe("NominationPatterns", () => {
     expect(document.querySelector("[data-risk-reason]")).toBeNull();
   });
 
-  it("a film shortlisted before 2015 has no pick row", () => {
-    render(<NominationPatterns panel={panel({ year: 2014, pick: null })} />);
+  it("a film shortlisted before 2015 has no pick row and no link (no patterns page that year)", () => {
+    render(<NominationPatterns panel={panel({ year: 2014, pick: null, href: null })} />);
     expect(screen.queryByText("The patterns' pick")).toBeNull();
+    expect(screen.queryByRole("link")).toBeNull();
     expect(screen.getByText("Pattern")).toBeTruthy();
     expect(screen.getByText("Oscar result")).toBeTruthy();
   });

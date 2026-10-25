@@ -4,7 +4,7 @@
 import type { Stage } from "@/components/stage-pill/StagePill";
 import { isShortlisted, oscarStage, type Outcome } from "../stage";
 import { LIVE_YEAR } from "../years";
-import { FIRST_SEASON, type FilmPatterns, type PatternCategory, type SeasonPatterns } from "./index";
+import { FIRST_SEASON, PICKS_FROM, type FilmPatterns, type PatternCategory, type SeasonPatterns } from "./index";
 import { patternsHref, PATTERN_TABS } from "./page";
 import { figureWords, patternLabel, snubRiskText } from "./words";
 
@@ -27,7 +27,8 @@ export type NominationPanel = {
   stage: Stage;
   /** The Snub risk flag: `result` says how a past year went; each sign is a sentence with its figure. */
   flag: { result: "missed" | "got-in" | null; signs: string[] } | null;
-  href: string;
+  /** That year's patterns page; null before 2015, which has none. */
+  href: string | null;
 };
 
 const sentence = (text: string) => `${text.charAt(0).toUpperCase()}${text.slice(1)}.`;
@@ -58,14 +59,18 @@ export function nominationPanel(input: {
           signs: film.snubRisk.map((s) => sentence(snubRiskText(s))),
         }
       : null,
-    href: patternsHref(box.year, box.category),
+    href: box.year >= PICKS_FROM ? patternsHref(box.year, box.category) : null,
   };
 }
 
 /** A result row's key for the Strong tag: the film year, the Oscar category and "award/category". */
 export const strongKey = (year: number, oscarCategory: string, category: string) => `${year}:${oscarCategory}:${category}`;
 
-/** The award categories that were strong in a season, as `strongKey`s. */
-export function strongKeys(season: SeasonPatterns | null | undefined): string[] {
-  return (season?.awards ?? []).filter((a) => a.strong).map((a) => strongKey(season!.year, season!.category, a.category));
+/**
+ * The film's results at the season's strong awards, as `strongKey`s: only those the patterns
+ * counted (announced before the Oscar nominations), so the tags match the "N strong awards" captions.
+ */
+export function strongKeys(season: SeasonPatterns | null | undefined, movieId: number): string[] {
+  const film = season?.films.find((f) => Number(f.movie) === movieId);
+  return (film?.strongAwards ?? []).map((category) => strongKey(season!.year, season!.category, category));
 }

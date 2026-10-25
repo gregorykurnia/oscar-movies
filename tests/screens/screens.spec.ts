@@ -10,6 +10,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
+import { LIVE_YEAR } from "../../src/lib/years";
 
 // Each phase's review judges its own folder. Phases 0 to 7 keep theirs. The Phase 8 review runs the
 // whole list into this one, so until then it holds only the pages task 8.9 added (`--grep` them).
@@ -527,11 +528,12 @@ const ROUTES: Route[] = [
   },
   {
     name: "patterns-live",
-    path: "/patterns/2026",
+    path: `/patterns/${LIVE_YEAR}`,
     status: 200,
-    heading: "2026 nomination patterns",
+    heading: `${LIVE_YEAR} nomination patterns`,
     ready: async (page) => {
-      await expect(page.getByRole("heading", { level: 2, name: "The contenders so far" })).toBeVisible();
+      // Whatever state the live season is in ("The contenders so far", then "The five it picks").
+      await expect(page.locator("#five").getByRole("heading", { level: 2 })).toBeVisible();
     },
   },
   {

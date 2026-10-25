@@ -93,7 +93,7 @@ describe("nominationPanel", () => {
     });
     expect(panel.pick).toBeNull();
     expect(panel.pattern?.label).toBe("1 strong award, US-only");
-    expect(panel.href).toBe("/patterns/2014");
+    expect(panel.href).toBeNull();
   });
 
   it("a season the patterns can't work out (2012) keeps only the Oscar result", () => {
@@ -125,8 +125,12 @@ describe("panelCategory", () => {
 });
 
 describe("strongKeys", () => {
-  it("lists only the season's strong award categories, keyed by year and Oscar category", () => {
-    expect(strongKeys(season([]))).toEqual([strongKey(2025, "documentary", "nyfcc/documentary")]);
-    expect(strongKeys(null)).toEqual([]);
+  it("lists the film's results the patterns counted at strong awards, keyed by year and Oscar category", () => {
+    const s = season([film(1, { strongAwards: ["nyfcc/documentary"] }), film(2)]);
+    expect(strongKeys(s, 1)).toEqual([strongKey(2025, "documentary", "nyfcc/documentary")]);
+    // Film 2's strong-award result came after the Oscar nominations, so the patterns didn't count it: no tag.
+    expect(strongKeys(s, 2)).toEqual([]);
+    expect(strongKeys(s, 3)).toEqual([]);
+    expect(strongKeys(null, 1)).toEqual([]);
   });
 });

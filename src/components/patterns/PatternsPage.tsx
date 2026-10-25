@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { EmptyState } from "@/components/empty-state/EmptyState";
 import { Notice } from "@/components/notice/Notice";
 import { PageHeader } from "@/components/page-header/PageHeader";
 import { Segmented } from "@/components/segmented/Segmented";
@@ -65,6 +66,14 @@ async function Patterns({ year, category, name }: { year: number; category: Patt
   const today = new Date().toISOString().slice(0, 10);
   const data = await getPatterns(category, today);
   const season = data.seasons.find((s) => s.year === year);
+  // The live year's Oscars edition may not be loaded yet (a new season): say so, as the race does, rather than a 404 under a 200.
+  if (!season && year >= LIVE_YEAR) {
+    return (
+      <EmptyState title="Not loaded yet" className="mt-10 md:mt-12">
+        The {year} Oscars season isn&apos;t in the app yet, so there are no contenders to rank. It appears here once its first results are loaded.
+      </EmptyState>
+    );
+  }
   if (!season) notFound();
   const dates = data.info[year]?.dates;
   const first = season.history[0];

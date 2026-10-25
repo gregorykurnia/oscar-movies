@@ -8,6 +8,8 @@ The planning check behind Phase 8 (product plan §3.16, implementation plan Phas
 
 The figures below cover all 14 seasons together: they describe the past. The backtest further down is the real test (each year from earlier seasons only).
 
+The tables below are a reading of the figures, grouped by hand in the planning check. The page groups them by the plan's exact rules (near-certain: got in 85% or more; best all-round: 65% and caught 25%; wide nets: caught 50%), so a few rows sit elsewhere there: Cinema Eye Best Feature win (11 of 13, 84.6%) and the New York critics nominee (12 of 15, 80%, caught 17%) aren't near-certain on the page, and the New York nominee matches no group, so it isn't listed. Every figure here was recounted from the database in the Phase 8 review (8.R) and matches.
+
 ## Documentary (209 shortlisted films, 70 nominees; 33% of the shortlist gets in)
 
 ### Near-certain, but few films a year
@@ -118,11 +120,11 @@ Random picks from the shortlist average about 18 of 55. Other cut-offs for "stro
 
 **The snub rule:** a film among the five most-nominated (ties at fifth included) with no Spirit and no IDA Best Feature nomination gets the lower of its pattern's rate and the rate of such films in earlier seasons (smoothed the same way). It held at 34–35 whether "most-nominated" meant the top 3 or the top 7; Spirit alone or IDA alone did not help (33–34). It was found by looking at all seasons, so the backtest flatters it a little.
 
-| Year | The five it picked (✓ nominated) | Missed nominees (its rank) |
+| Year | The five it picked, in pick order (✓ nominated) | Missed nominees (its rank) |
 |---|---|---|
 | 2023 | Four Daughters ✓, The Eternal Memory ✓, Apolonia, Apolonia, Going to Mars: The Nikki Giovanni Project, 20 Days in Mariupol ✓ | Bobi Wine: The People's President (7), To Kill a Tiger (9) |
-| 2024 | No Other Land ✓, Dahomey, Soundtrack to a Coup d'Etat ✓, Sugarcane ✓, Black Box Diaries ✓ | Porcelain War (8) |
-| 2025 | The Perfect Neighbor ✓, My Undesirable Friends: Part I, Apocalypse in the Tropics, Cutting Through Rocks ✓, Seeds | Come See Me in the Good Light (6), Mr. Nobody Against Putin (7), The Alabama Solution (14) |
+| 2024 | No Other Land ✓, Soundtrack to a Coup d'Etat ✓, Dahomey, Sugarcane ✓, Black Box Diaries ✓ | Porcelain War (8) |
+| 2025 | My Undesirable Friends: Part I, The Perfect Neighbor ✓, Apocalypse in the Tropics, Cutting Through Rocks ✓, Seeds | Come See Me in the Good Light (6), Mr. Nobody Against Putin (7), The Alabama Solution (14) |
 
 ### Tested and not kept: themes
 Each shortlisted documentary was labelled by hand with one theme from its TMDB summary. War and conflict got in 58% (70% when not US-only), crime and scandal 11%, US-only politics 1 of 21. Adding theme to the patterns picked fewer nominees (30 of 55; 2025: 2 of 5, as five war documentaries were shortlisted and one got in): it mostly repeats what country and strong awards already say.
@@ -229,14 +231,14 @@ The first line passes only with hindsight (the strong awards learned from all 14
 
 The two methods picked the same five in 9 of the 11 years (2015 and 2019 differ, with the same count), so a tie: the race keeps the current method for International (`NOMINATION_METHOD`). Random picks from the shortlist average about 24 of 55.
 
-| Year | The five it picked (✓ nominated) | Missed nominees (its rank) |
+| Year | The five it picked, in pick order (✓ nominated) | Missed nominees (its rank) |
 |---|---|---|
 | 2023 | The Zone of Interest ✓, Fallen Leaves, Perfect Days ✓, Society of the Snow ✓, The Taste of Things | The Teachers' Lounge (6), Io capitano (10) |
 | 2024 | The Seed of the Sacred Fig ✓, Emilia Pérez ✓, I'm Still Here ✓, Flow ✓, Kneecap | The Girl with the Needle (6) |
 | 2025 | It Was Just an Accident ✓, Sentimental Value ✓, The Secret Agent ✓, No Other Choice, Sirāt ✓ | The Voice of Hind Rajab (7) |
 
 ### The shortlist rule (task 8.1)
-273 of 716 International award wins in 2012–2025 went to films never shortlisted; left out, for example, the Los Angeles critics' winner figure goes from 7 of 16 to 7 of 8.
+273 of 716 International award wins in 2012–2025 went to films never shortlisted; left out, for example, the Los Angeles critics' winner figure goes from 7 of 14 to 7 of 7 (hand-checked in 8.R).
 
 ### Cautions
 - Many of the critics groups pick the same films, so "3+ strong awards" is common (79 films) and the patterns rarely separate the last two spots.

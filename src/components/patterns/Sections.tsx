@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { DataFigure, DataName, DataTable, type DataColumn, type DataRow } from "@/components/data-table/DataTable";
+import { EmptyState } from "@/components/empty-state/EmptyState";
 import { FilmList } from "@/components/film-row/FilmRow";
 import { Flags } from "@/components/flag/Flag";
 import type { Stat } from "@/components/stats-strip/StatsStrip";
@@ -11,7 +12,7 @@ import { cn } from "@/lib/cn";
 import type { FilmPatterns, PatternCategory, PredictorRow, SeasonPatterns } from "@/lib/patterns";
 import { PREDICTOR_GROUPS } from "@/lib/patterns";
 import { awardCategoryName, missedFilms, nomineesOf, patternsHref, percent, picksOf } from "@/lib/patterns/page";
-import { GROUP_LABELS, HOW_TO_PICK, patternLabel, predictorLabel } from "@/lib/patterns/words";
+import { GROUP_LABELS, HOW_TO_PICK, patternLabel, predictorLabel, keepFigures, reasonText } from "@/lib/patterns/words";
 import { Caption, SnubRiskFlag } from "./Pieces";
 import { Reveal, RevealTable } from "./Reveal";
 import { CONTENDER_COLUMNS, ContenderRow, LIVE_COLUMNS, MISS_COLUMNS, MissRow, NomineeRow, PICK_COLUMNS, PickedRow } from "./Rows";
@@ -26,9 +27,10 @@ const SHOWN_STRONG = 10;
 
 type Props = { data: PatternsData; season: SeasonPatterns };
 
+/** A page section, 56px below the one before (40 on phone, guide §5); `className` replaces that margin. */
 export function Section({ id, title, note, children, className }: { id: string; title: string; note?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <section aria-labelledby={`${id}-h`} id={id} className={cn("mt-10 scroll-mt-20 md:mt-12", className)}>
+    <section aria-labelledby={`${id}-h`} id={id} className={cn("scroll-mt-20", className ?? "mt-10 md:mt-14")}>
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 max-md:flex-col">
         <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {title}
@@ -86,7 +88,7 @@ export function FiveFinished({ data, season }: Props) {
   const picks = picksOf(season);
   const hits = picks.filter((f) => f.nominated).length;
   return (
-    <Section id="five" title="The five it picked" note={`${hits} of ${picks.length} were nominated`}>
+    <Section id="five" title="The five it picked" note={`${hits} of ${picks.length} were nominated`} className="mt-10">
       <div className="grid gap-8 md:grid-cols-2">
         <div>
           <ListHeading title="What the patterns picked" note="Ranked, from earlier seasons only" />
@@ -120,10 +122,16 @@ export function FiveLive({ data, season, note }: Props & { note: string }) {
   const noun = percentColumn ? "shortlist" : "contenders";
   const row = ({ film, link }: (typeof all)[number]) => <ContenderRow key={link.id} film={film} link={link} percent={percentColumn} />;
   return (
-    <Section id="five" title={percentColumn ? "The five it picks" : "The contenders so far"} note={note}>
-      <FilmList columns={columns} head={percentColumn ? [{ label: "To be nominated", numeric: true }] : undefined}>
-        {five.map(row)}
-      </FilmList>
+    <Section id="five" title={percentColumn ? "The five it picks" : "The contenders so far"} note={note} className="mt-10">
+      {all.length === 0 ? (
+        <EmptyState title="No contenders yet" headingLevel={3}>
+          No shortlisted film or award result for {season.year} yet. They appear here as the awards announce them.
+        </EmptyState>
+      ) : (
+        <FilmList columns={columns} head={percentColumn ? [{ label: "To be nominated", numeric: true }] : []}>
+          {five.map(row)}
+        </FilmList>
+      )}
       {outside.length > 0 ? (
         <>
           <SubHeading>Outside chances ({outside.length})</SubHeading>
@@ -251,13 +259,11 @@ export function MostAwardedMisses({ data }: { data: PatternsData }) {
         key: `${year}-${link.id}`,
         cells: [
           <span key="f" className="inline-flex items-start gap-2.5 text-left">
-            <Flags code={link.flag} className="mt-1 max-md:hidden" />
+            <Flags code={link.flag} className="mt-1" />
             <span>
-              <Link href={`/movies/${link.slug}`} className="underline decoration-line-strong decoration-1 underline-offset-[3px] outline-none hover:decoration-ink focus-visible:shadow-focus">
-                {link.title}
-              </Link>
+              <TextLink href={`/movies/${link.slug}`}>{link.title}</TextLink>
               <Caption>
-                <span>{patternLabel(film.pattern)}</span>
+                <span>{keepFigures(reasonText(film.reasons.find((r) => r.kind === "pattern") ?? { kind: "pattern", pattern: film.pattern, figure: { hits: 0, count: 0 } }))}</span>
                 {film.snubRisk.length > 0 ? <SnubRiskFlag /> : null}
               </Caption>
             </span>
@@ -382,8 +388,8 @@ export function BacktestStrip({ data, year, category }: { data: PatternsData; ye
         </div>
       </div>
       <p className="mt-3 max-w-[760px] text-caption text-ink-muted">
-        The large figure is the patterns&apos; nominees found in their five. &ldquo;Current&rdquo; is the app&apos;s earlier method, run the same way.
-        The race uses whichever picked more.
+        The large figure is the patterns&apos; nominees found in their five. &ldquo;Current&rdquo; is the app&apos;s other method, run the same way.
+        Once the shortlist is out, the race uses whichever picked more over these years, and the current method on a tie.
       </p>
     </Section>
   );

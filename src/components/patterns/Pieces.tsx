@@ -53,7 +53,7 @@ export function Caption({ children, className }: { children: ReactNode; classNam
 export function RiskLine({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <p data-risk-reason className={cn("flex items-start gap-2 text-caption text-ink-muted", className)}>
-      <CircleAlert aria-hidden="true" className="mt-[3px] size-3.5 flex-none text-ink" strokeWidth={1.75} />
+      <CircleAlert aria-hidden="true" className="mt-[3px] size-3.5 flex-none text-ink" strokeWidth={2.25} />
       <span className="min-w-0 [overflow-wrap:anywhere]">{children}</span>
     </p>
   );

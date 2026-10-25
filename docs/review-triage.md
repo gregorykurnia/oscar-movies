@@ -274,3 +274,43 @@ Three fresh read-only reviews: writes (marks, Watch list actions, backup), pages
 | 7-32 | `phase-2.spec.ts` expected the nominee figure 16 of 33 and Years in the fifth cell (since 1606655 and 78c2dd4: 39 of 83, and the caught figure 39 of 70 before Years) | Fixed |
 | 7-33 | `phase-1.spec.ts` found a Watch list row by its first button, now the release line | Fixed: the nearest block holding the marks |
 | 7-34 | `data.spec.ts` read the TMDB logo's pixels before the lazy image was scrolled to | Fixed: scrolls to it first |
+
+## Phase 8 review (2026-10-25)
+
+**Checks:** full Playwright suite 139 of 140 on the first run (nothing else testing); the failure was `phase-1.spec.ts` counting 2025 Documentary's film headings, which 8.6's shortlist sub-list added to (8-27); fixed, then it passed with `--last-failed`. After the last page fix, `patterns.spec.ts` 10 of 10. Screenshot spec: the five Phase 8 routes retaken (10 pictures at 390 and 1280, light only), plus close-ups of the fixed parts. Unit 969 (with the new tests), the patterns database test, typecheck, lint, build clean. Hex grep clean.
+
+**Hand checks** (a throwaway raw-SQL recount on `test`, not using `src/lib/patterns`, `src/lib/predict` or `accuracy.ts`): three accuracy figures under the shortlist rule match the database: European Film Awards Documentary winner 7 of 7 (nominees 13 of 18), Sundance World Cinema Documentary Jury 7 of 7, Los Angeles critics International 7 of 7 (nominees 9 of 11); the write-up's "7 of 16 to 7 of 8" for the last was wrong (8-25). The 2024 Documentary five (No Other Land, Soundtrack to a Coup d'Etat, Dahomey, Sugarcane, Black Box Diaries; Porcelain War 8th), 2023 and 2025's, International's 2023–25, both backtests (35 and 38 of 55, every year), flagged 5 of 24, and every best-predictor figure the write-up lists match. Snub risk: Will & Harper (busy sign, 4 of 21 before 2024), Cover-Up (busy, 4 of 23) and My Undesirable Friends (critics' sweep, 1 of 4) flagged as the write-up says, with Daughters, 2000 Meters to Andriivka and The Alabama Solution.
+
+**Guide §15** on `screenshots/phase-8/`: AppShell and PageHeader on every page; tokens only; gold only for its jobs; light only; no sideways scroll at 390; long titles wrap; one flag per row. Failed before the fixes: 8-10 to 8-16.
+
+Three fresh read-only reviews: logic and figures (no wrong figure found), pages and specs, design. Differences already recorded in tasks 8.1–8.9 aren't repeated here.
+
+| # | Item | Where it went |
+|---|---|---|
+| 8-1 | The movie panel linked films shortlisted in 2012–14 to `/patterns/<year>`, the 404 page; a unit test asserted the link | Fixed: no link before 2015 (`href` null); tests updated |
+| 8-2 | Specs and the screens script tied to today's state: the live year "before the shortlist" (changes 15 Dec 2026), "2015–2025", "5 of 24", "35 of 55", "Current 31", "38 of 55" (change when 2026's nominees load), `/patterns/2026` and `/awards/oscars/2026` hard-coded | Fixed: `tests/e2e/live-patterns.ts` reads the state and totals as the page does; checks follow the state; `LIVE_YEAR`; the Oscars page's "before" test skips once the shortlist is out |
+| 8-3 | "Show all" on the strong awards and best predictors dropped keyboard focus to the page (their rows hold no link) | Fixed: focus moves to the first new row; checked in a browser |
+| 8-4 | The live list had no empty state; a live year not in the database yet gave the 404 page under a 200 | Fixed: "No contenders yet" and "Not loaded yet" empty states |
+| 8-5 | A shortlisted film's whole page waited on the patterns read, one category after the other | Fixed: the panels and awards stream in their own Suspense (awards skeleton), reads in parallel |
+| 8-6 | A film shortlisted in both categories got two regions both named "Nomination patterns" | Fixed: the region's name adds the year and category |
+| 8-7 | The backtest note said "the race uses whichever picked more" (International was a tie, the engine stays) | Fixed: "…whichever picked more over these years, and the current method on a tie" |
+| 8-8 | An unknown `?category=` shows Documentary at a non-canonical address | Dropped: the race's `parseCategory` does the same; nothing links there |
+| 8-9 | `oscars-year.spec.ts`'s 2024 test counts the missed rows without waiting | Dropped: the count only feeds a waiting `toHaveCount`; the 2025 test checks the sub-list itself |
+| 8-10 | `tracking-normal` produced no CSS (the theme clears the tracking scale), so "of 5" read "of5" (patterns strip, backtest; also StatsStrip, race Pct, phone menu captions) | Fixed: `--tracking-normal: 0em` in `globals.css`; shared, covered by the full suite run after it |
+| 8-11 | The five's lists used 36px marks overflowing their 72px column (§8.14: 30px) | Fixed: small marks on those two lists |
+| 8-12 | The movie panel's link looked like body text; notice and link 12px below (reference 16) | Fixed: `TextLink`, `mt-4` |
+| 8-13 | Figures broke inside their phrase at 390 ("8 / of 20 nominated", "none at a strong / award"; §7) | Fixed: `keepFigures` (no-break spaces) on the captions, the reasons and the misses table; unit test |
+| 8-14 | Sections 48px apart on desktop (§5: 56) | Fixed: `md:mt-14`; the first after the strip stays 40 |
+| 8-15 | "The contenders so far" had no head row (§8.14) | Fixed: "Film" head row |
+| 8-16 | Most-awarded misses: pattern without its figure, flag hidden on phone, hand-built title link | Fixed: the pattern with its figure, flag at every width, `TextLink` |
+| 8-17 | One-off sizes on the patterns page (`text-[18px]`, `text-[24px]`, `text-[13px]`) | Dropped: they are the guide's numbers, in the same idiom as `StatsStrip` and `FilmRow`; a shared numeral class would touch pages outside this phase |
+| 8-18 | The risk line's icon drawn thinner (1.75) than the flag's (2.25) | Fixed: 2.25 |
+| 8-19 | The race's Snub risk row has no screenshot | Dropped: the race reaches the shortlist state on 15 Dec 2026 (as 3.10's note); `RaceList.test.tsx` covers the flag |
+| 8-20 | The race-chances database test passed whatever the method: International checked only for rows, Documentary's "before" case read 2013 (no patterns before 2015) | Fixed: every stored snapshot where the patterns don't apply equals the engine's own chances; International 2024 differs from the patterns' |
+| 8-21 | The hand-worked fixture has 5 nominees in 10 every season, so a leaked or averaged base would pass | Fixed: a unit test with one season at 4 in 10 (pooled base from earlier seasons only) and the season's own outcomes flipped (nothing moves) |
+| 8-22 | The Strong tag marked strong-award results announced after the Oscar nominations, which the captions don't count | Fixed: only the film's results the patterns counted; unit test |
+| 8-23 | The write-up's groups were set by hand: Cinema Eye Best Feature win (84.6%) and the New York nominee (80%) sit elsewhere on the page | Documented in `docs/research/nomination-predictors.md` |
+| 8-24 | The stored eve mixes two cutoffs: the patterns' % counts results before the nominations day, the engine's rank and % to win before its eve | Dropped: as the Phase 8 notes set it; only a result announced on the eve itself differs |
+| 8-25 | Write-up: Los Angeles critics International "7 of 16 to 7 of 8" | Fixed: 7 of 14 to 7 of 7 (recounted) |
+| 8-26 | Write-up: the 2024 and 2025 Documentary five not in pick order (the app ranks by the full strong-award count after the rate) | Fixed: in pick order, labelled; the choice is on the Waiting list |
+| 8-27 | `phase-1.spec.ts` expected 5 film headings in 2025's Documentary section (8.6 added the shortlist sub-list) | Fixed: counts the sub-list from its heading |

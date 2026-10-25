@@ -31,6 +31,13 @@ const SIGNS: Record<SnubSign, { text: string; noun: string }> = {
   sweep: { text: "a critics' sweep with no filmmakers' group", noun: "got in" },
 };
 
+/**
+ * Guide §7: a figure never breaks inside its phrase. Joins "8 of 20 nominated", "2 nominations",
+ * "1 at a strong award" and "none at a strong award" with no-break spaces.
+ */
+export const keepFigures = (text: string) =>
+  text.replace(/\b(\d+ of \d+ [a-z]+|\d+ nominations?|(?:\d+|none) at (?:a )?strong awards?)/g, (phrase) => phrase.replace(/ /g, "\u00a0"));
+
 /** "a critics' sweep with no filmmakers' group: 1 of 4 got in (few films)". */
 export function snubRiskText(risk: SnubRisk): string {
   const sign = SIGNS[risk.sign];

@@ -11,6 +11,7 @@ import { queryPatterns, type PatternsData } from "../../src/data/patterns";
 import { missedFilms, nomineesOf, picksOf } from "../../src/lib/patterns/page";
 import type { PatternCategory } from "../../src/lib/patterns";
 import { LIVE_YEAR } from "../../src/lib/years";
+import { liveHeading, liveState } from "./live-patterns";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
@@ -30,7 +31,7 @@ test("the race's Documentary tab leads to the live year's patterns page", async 
   await page.locator("[data-patterns-link]:visible").getByRole("link", { name: `Nomination patterns, ${LIVE_YEAR}` }).click();
   await expect(page).toHaveURL(new RegExp(`/patterns/${LIVE_YEAR}$`));
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(`${LIVE_YEAR} nomination patterns`);
-  await expect(page.getByRole("heading", { level: 2, name: "The contenders so far" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: liveHeading(liveState(await read("documentary"))) })).toBeVisible();
 });
 
 test("2024 Documentary: the five it picked, the misses and the underdogs match the database", async ({ page }) => {

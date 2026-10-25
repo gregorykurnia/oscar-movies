@@ -1,8 +1,8 @@
 import { CircleAlert } from "lucide-react";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { Notice } from "@/components/notice/Notice";
 import { StagePill } from "@/components/stage-pill/StagePill";
+import { TextLink } from "@/components/text-link/TextLink";
 import type { NominationPanel } from "@/lib/patterns/movie";
 import { SNUB_RISK_LABEL } from "@/lib/patterns/words";
 
@@ -15,12 +15,12 @@ export function NominationPatterns({ panel }: { panel: NominationPanel }) {
   const id = `patterns-${panel.year}-${panel.category}`;
   const { flag } = panel;
   return (
-    <section aria-labelledby={`${id}-h`} data-panel={panel.category} className="mt-10 md:mt-14">
+    <section aria-labelledby={`${id}-h ${id}-sub`} data-panel={panel.category} className="mt-10 md:mt-14">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading md:text-section">
           Nomination patterns
         </h2>
-        <span className="text-small text-ink-muted">
+        <span id={`${id}-sub`} className="text-small text-ink-muted">
           {panel.year} · {panel.categoryName}
         </span>
       </div>
@@ -46,7 +46,7 @@ export function NominationPatterns({ panel }: { panel: NominationPanel }) {
         <Notice
           tone="neutral"
           icon={CircleAlert}
-          className="mt-3"
+          className="mt-4"
           title={`${SNUB_RISK_LABEL}${
             flag.result === "missed" ? " · Flagged, and missed" : flag.result === "got-in" ? " · Flagged, and got in anyway" : ""
           }`}
@@ -58,14 +58,11 @@ export function NominationPatterns({ panel }: { panel: NominationPanel }) {
           ))}
         </Notice>
       ) : null}
-      <p className="mt-3 text-small">
-        <Link
-          href={panel.href}
-          className="rounded-xs outline-none decoration-line-strong decoration-1 underline-offset-4 hover:underline focus-visible:shadow-focus"
-        >
-          All of {panel.year}&rsquo;s nomination patterns
-        </Link>
-      </p>
+      {panel.href ? (
+        <p className="mt-4 text-small">
+          <TextLink href={panel.href}>All of {panel.year}&rsquo;s nomination patterns</TextLink>
+        </p>
+      ) : null}
     </section>
   );
 }

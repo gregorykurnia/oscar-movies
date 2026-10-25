@@ -4,7 +4,7 @@ import { StagePill } from "@/components/stage-pill/StagePill";
 import type { PatternFilmLink } from "@/data/patterns";
 import type { FilmPatterns, Reason } from "@/lib/patterns";
 import { formatChance } from "@/lib/race-chances";
-import { reasonText, snubRiskText } from "@/lib/patterns/words";
+import { keepFigures, reasonText, snubRiskText } from "@/lib/patterns/words";
 import { Caption, HitPill, OutlineTag, RiskLine, SnubRiskFlag } from "./Pieces";
 
 // The patterns page's Film rows (guide §8.14): one builder per list, all on the same Film row.
@@ -19,15 +19,17 @@ export const MISS_COLUMNS = ["minmax(0,1fr)", "minmax(0,1.25fr)", "84px"];
 type Rowfilm = { film: FilmPatterns; link: PatternFilmLink };
 
 const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
 const flagged = (f: FilmPatterns) => f.snubRisk.length > 0;
 
-function common({ link }: { link: PatternFilmLink }) {
+/** The row's shared props; the five's two lists use small marks (guide §8.14: 30px, a 72px column). */
+function common({ link }: { link: PatternFilmLink }, marks: "md" | "sm" = "md") {
   return {
     title: link.title,
     href: `/movies/${link.slug}`,
     flag: link.flag,
     scores: link.scores,
-    marks: <FilmMarks movieId={link.id} title={link.title} />,
+    marks: <FilmMarks movieId={link.id} title={link.title} size={marks} />,
     headingLevel: 3 as const,
   };
 }
@@ -48,7 +50,7 @@ function Tags({ film }: { film: FilmPatterns }) {
 
 /** "What the patterns picked": ranked, with Nominated or Not nominated (and Won). */
 export function PickedRow({ film, link, won }: Rowfilm & { won: boolean }) {
-  const row = common({ link });
+  const row = common({ link }, "sm");
   return (
     <FilmRow
       {...row}
@@ -62,7 +64,7 @@ export function PickedRow({ film, link, won }: Rowfilm & { won: boolean }) {
       }
       note={
         <Caption>
-          <span>{patternReason(film)}</span>
+          <span>{keepFigures(patternReason(film))}</span>
           <Tags film={film} />
         </Caption>
       }
@@ -73,7 +75,7 @@ export function PickedRow({ film, link, won }: Rowfilm & { won: boolean }) {
 
 /** "What the Oscars nominated": the winner first, with Picked #4 or Not picked, ranked 8. */
 export function NomineeRow({ film, link, won, slots }: Rowfilm & { won: boolean; slots: number }) {
-  const row = common({ link });
+  const row = common({ link }, "sm");
   const picked = film.pick !== null && film.pick <= slots;
   return (
     <FilmRow
@@ -87,7 +89,7 @@ export function NomineeRow({ film, link, won, slots }: Rowfilm & { won: boolean;
       }
       note={
         <Caption>
-          <span>{nominationsReason(film)}</span>
+          <span>{keepFigures(nominationsReason(film))}</span>
           <Tags film={film} />
         </Caption>
       }
@@ -107,7 +109,7 @@ export function ContenderRow({ film, link, percent }: Rowfilm & { percent: boole
         <>
           <Caption>
             <span>
-              {patternReason(film)} · {nominationsReason(film)}
+              {keepFigures(patternReason(film))} · {keepFigures(nominationsReason(film))}
             </span>
             {flagged(film) ? <SnubRiskFlag /> : null}
           </Caption>
@@ -149,7 +151,7 @@ export function MissRow({ film, link }: Rowfilm) {
             <ul data-reasons className="mt-0.5 grid gap-1.5 text-small text-ink-muted md:mt-0">
               {reasons.map((r, i) => (
                 <li key={r.kind} className={i === 0 ? "text-ink" : undefined}>
-                  {capital(reasonText(r))}.
+                  {keepFigures(capital(reasonText(r)))}.
                 </li>
               ))}
               {film.snubRisk.map((risk) => (
