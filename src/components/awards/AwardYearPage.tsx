@@ -15,7 +15,7 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getAwardYear, type AwardCategoryResults, type AwardEdition } from "@/data/awards";
 import { accuracyStats, oscarCell, oscarName } from "@/lib/award-page";
-import { kindLabel, type AwardSummary } from "@/lib/awards";
+import { awardHistoryPath, kindLabel, type AwardSummary } from "@/lib/awards";
 import { getMarks } from "@/data/watch-list";
 import { formatDate } from "@/lib/format";
 import { lineupPath, opensLineup } from "@/lib/lineup";
@@ -81,6 +81,8 @@ async function Sub({ award, year }: { award: AwardSummary; year: number }) {
           <TextLink href={lineupPath(award.slug, year)}>Lineup</TextLink>
         </>
       ) : null}
+      {" · "}
+      <TextLink href={awardHistoryPath(award.slug)}>All years</TextLink>
     </p>
   );
 }

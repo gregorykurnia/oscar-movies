@@ -1,13 +1,14 @@
 // One award's results in one film year (plan §3.1, guide §8.2): per category the films with the
 // stage each reached, the Oscar result of the category it maps to, and the award's accuracy
 // figures. Cached under `awards` and `scores`; see `films.ts` for the query/cached pairing.
-import { and, asc, eq, ne, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, ne, sql } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { accuracy, awardCategories, awards, editions, movies, results } from "@/db/schema";
 import type { Figure } from "@/lib/accuracy";
-import { seasonState, type SeasonState } from "@/lib/race";
-import { compareOutcome, type Outcome } from "@/lib/stage";
+import { RACE_CATEGORIES, seasonState, type SeasonState } from "@/lib/race";
+import { compareOutcome, isNomination, OUTCOMES, type Outcome } from "@/lib/stage";
+import { LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
 import { queryOscarResults, type OscarCategory } from "./oscars";
 
@@ -190,6 +191,123 @@ export async function getAwardYear(awardSlug: string, year: number): Promise<Awa
   cacheTag("awards", "scores");
   cacheLife("max");
   return queryAwardYear(getDb(), awardSlug, year);
+}
+
+/** One film year of an award's history: the edition (null when none is loaded) and its categories with results. */
+export type AwardHistoryYear = {
+  year: number;
+  edition: AwardEdition | null;
+  /** In the award's own order, every Oscar category together: the page keeps the ones of its tab. A category with no results that year is left out. */
+  categories: AwardCategoryResults[];
+};
+
+export type AwardHistory = {
+  /** The Oscar categories the award has results in, any year, in race order: the page's tabs. */
+  tabs: OscarCategory[];
+  /** From the live year down to the oldest, every one of them (a year without an edition has `edition: null`). */
+  years: AwardHistoryYear[];
+};
+
+/**
+ * Everything the all-years page shows (guide §8.2, all years): for every film year, the edition and
+ * each category's films with their stage and Oscar result, as `queryAwardYear` gives for one year.
+ * For the Oscars the films are the nominees and winners only. One query per table, not one per year.
+ * Null when the award isn't in the database.
+ */
+export async function queryAwardHistory(db: ReadDb, awardSlug: string): Promise<AwardHistory | null> {
+  const [categories, [award]] = await Promise.all([
+    queryAwardCategories(db, awardSlug),
+    db.select({ kind: awards.kind }).from(awards).where(eq(awards.slug, awardSlug)),
+  ]);
+  if (categories.length === 0) return null;
+  const isOscars = award?.kind === "oscars";
+
+  const editionRows = await db
+    .select({
+      year: editions.year,
+      ordinal: editions.ordinal,
+      status: editions.status,
+      note: editions.note,
+      winnersOn: resultsDay,
+    })
+    .from(editions)
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .where(eq(awards.slug, awardSlug));
+
+  // The Oscar result of every film in the mapped categories, any year (only ids: the rows come from below).
+  const mapped = [...new Set(categories.map((c) => c.oscarCategory))];
+  const oscarRows = await db
+    .select({
+      year: editions.year,
+      category: awardCategories.oscarCategory,
+      movieId: results.movieId,
+      outcome: results.outcome,
+      country: results.country,
+    })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .where(and(eq(awards.kind, "oscars"), inArray(awardCategories.oscarCategory, mapped)));
+
+  // This award's own results with the films; the Oscars' are nominees and winners only.
+  const rows = await db
+    .select({
+      ...filmColumns,
+      editionYear: editions.year,
+      categorySlug: awardCategories.slug,
+      outcome: results.outcome,
+      country: results.country,
+    })
+    .from(results)
+    .innerJoin(editions, eq(editions.id, results.editionId))
+    .innerJoin(awards, eq(awards.id, editions.awardId))
+    .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .innerJoin(movies, eq(movies.id, results.movieId))
+    .where(
+      and(eq(awards.slug, awardSlug), isOscars ? inArray(results.outcome, OUTCOMES.filter(isNomination)) : undefined),
+    )
+    .orderBy(asc(movies.title), asc(movies.id));
+
+  const years = yearRange(LIVE_YEAR, OLDEST_YEAR).map((year): AwardHistoryYear => {
+    const edition = editionRows.find((e) => e.year === year) ?? null;
+    const inYear = rows.filter((r) => r.editionYear === year);
+    const withResults = categories.filter((c) => inYear.some((r) => r.categorySlug === c.slug));
+    return {
+      year,
+      edition,
+      categories: withResults.map((category) => {
+        const oscars = oscarRows.filter((o) => o.year === year && o.category === category.oscarCategory);
+        const byFilm = new Map(oscars.map((o) => [o.movieId, o]));
+        const entries = inYear
+          .filter((r) => r.categorySlug === category.slug)
+          .map((r): AwardEntry => {
+            // The Oscars' own rows are the Oscar result; the other awards' films look theirs up.
+            const oscar = isOscars ? r : byFilm.get(r.id);
+            return {
+              film: toFilmRow(r),
+              outcome: r.outcome,
+              oscar: oscar ? { outcome: oscar.outcome, country: oscar.country } : null,
+            };
+          })
+          .sort((a, b) => compareOutcome(b.outcome, a.outcome));
+        return { category, oscarState: seasonState(oscars.map((o) => o.outcome)), entries };
+      }),
+    };
+  });
+
+  const tabs = RACE_CATEGORIES.map((c) => c.slug).filter((slug) =>
+    years.some((y) => y.categories.some((c) => c.category.oscarCategory === slug)),
+  );
+  return { tabs, years };
+}
+
+/** Cached `queryAwardHistory`. */
+export async function getAwardHistory(awardSlug: string): Promise<AwardHistory | null> {
+  "use cache";
+  cacheTag("awards", "scores");
+  cacheLife("max");
+  return queryAwardHistory(getDb(), awardSlug);
 }
 
 /** One award's edition in a film year, with the award's slug (the awards index's rows, guide §8.7). */

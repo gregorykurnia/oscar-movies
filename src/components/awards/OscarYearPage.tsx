@@ -13,6 +13,7 @@ import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
 import { getOscarEdition, getOscarResults, type OscarEdition, type OscarEntry } from "@/data/oscars";
 import { getMarks } from "@/data/watch-list";
+import { awardHistoryPath } from "@/lib/awards";
 import { formatDate } from "@/lib/format";
 import { keepMarked, markChips, markFilterQuery, markSets, parseMarkFilter, MARK_FILTER_LABELS, type MarkFilter, type MarkSets } from "@/lib/mark-filter";
 import { noResultsNote, RACE_CATEGORIES, raceEntries, seasonState, type RaceCategory, type SeasonState } from "@/lib/race";
@@ -61,7 +62,13 @@ async function Sub({ year }: { year: number }) {
   await connection();
   const edition = await getOscarEdition(year);
   const date = edition?.winnersOn ? formatDate(new Date(`${edition.winnersOn}T00:00:00Z`), true) : null;
-  return <p>{date ? `${editionLabel(year)} · ${date}` : editionLabel(year)}</p>;
+  return (
+    <p>
+      {date ? `${editionLabel(year)} · ${date}` : editionLabel(year)}
+      {" · "}
+      <TextLink href={awardHistoryPath("oscars")}>All years</TextLink>
+    </p>
+  );
 }
 
 /** The year switcher keeps the mark chip when it changes the year. */

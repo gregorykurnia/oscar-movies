@@ -46,3 +46,13 @@ const KIND_LABEL: Record<AwardKind, string> = {
 export function kindLabel(kind: AwardKind): string {
   return KIND_LABEL[kind];
 }
+
+/** An award's page for one film year; the Oscars have their own route under the same segment. */
+export function awardYearPath(slug: string, year: number): string {
+  return `/awards/${slug}/${year}`;
+}
+
+/** An award's all-years page (guide §8.2); `category` is the Oscar category tab, Picture (the first) leaving the address bare. */
+export function awardHistoryPath(slug: string, category?: OscarCategory): string {
+  return `/awards/${slug}/all${category && category !== "picture" ? `?category=${category}` : ""}`;
+}
