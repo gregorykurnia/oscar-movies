@@ -1,0 +1,93 @@
+# What predicts an Oscar nomination: Documentary and International
+
+The planning check behind Phase 8 (product plan §3.16, implementation plan Phase 8), run read-only on the `test` database on 2026-10-25. International is filled in by task 8.3.
+
+**How it was counted:** shortlisted films only (`shortlisted` or better), 2012–2025. A precursor result counts only if it was announced before that year's Oscar nominations (`nominations_on`, else `winners_on`; no date counts as announced); a win announced later counts as a nomination. "US-only" means the film's countries are exactly `["US"]`. Two figures per predictor:
+- **Got in:** of the shortlisted films that had it, the share nominated.
+- **Caught:** of the 70 Oscar nominees, the share that had it.
+
+The figures below cover all 14 seasons together: they describe the past. The backtest further down is the real test (each year from earlier seasons only).
+
+## Documentary (209 shortlisted films, 70 nominees; 33% of the shortlist gets in)
+
+### Near-certain, but few films a year
+| Predictor | Got in | Caught |
+|---|---|---|
+| IDA Best Feature win | 12 of 12 (100%) | 17% |
+| European Film Awards documentary win | 7 of 7 (100%) | 10% |
+| 3+ strong awards, not US-only | 22 of 23 (96%) | 31% |
+| National Society of Film Critics win | 12 of 13 (92%) | 17% |
+| Cinema Eye Best Feature win | 11 of 13 (85%) | 16% |
+| New York Film Critics Circle nominee | 12 of 15 (80%) | 17% |
+
+### Best all-round
+| Predictor | Got in | Caught |
+|---|---|---|
+| Spirit Awards documentary nominee | 35 of 49 (71%) | **50%** |
+| Los Angeles critics nominee | 19 of 27 (70%) | 27% |
+| Toronto critics nominee | 22 of 32 (69%) | 31% |
+| National Society of Film Critics nominee | 21 of 31 (68%) | 30% |
+
+### Wide nets (most nominees are in them, many misses too)
+| Predictor | Got in | Caught |
+|---|---|---|
+| DOC NYC short list | 58 of 131 (44%) | **83%** |
+| IDA Best Feature nominee | 40 of 71 (56%) | 57% |
+| Cinema Eye Best Feature nominee | 39 of 69 (57%) | 56% |
+| DGA documentary nominee | 38 of 65 (58%) | 54% |
+
+### Warning signs
+| Predictor | Got in |
+|---|---|
+| US-only and none of the strong awards | 10 of 75 (13%): Apollo 11, Won't You Be My Neighbor?, Will & Harper, Daughters, Cover-Up |
+| Critics Choice Documentary win | 3 of 9 (33%), no better than the shortlist |
+| Cinema Eye Audience Choice win | 4 of 11 (36%) |
+| US-only (any) | 30 of 124 (24%), against 40 of 85 (47%) for the rest |
+
+**Strong awards** (Phase 8 rule: nominees among shortlisted films number 6 or more, smoothed rate at least 60%; as learned from 2012–2024): New York, Los Angeles and National Society critics, Spirit Awards, European Film Awards, IDA Best Director, Toronto critics, TIFF People's Choice Documentary, Sundance World Cinema Documentary Jury, Black Film Critics, Cinema for Peace.
+
+### Patterns (strong awards × country, 2012–2024)
+| Pattern | Nominated |
+|---|---|
+| 3+, not US-only | 22 of 23 (96%) |
+| 3+, US-only | 9 of 12 (75%) |
+| 2, not US-only | 5 of 9 (56%) |
+| 2, US-only | 3 of 9 (33%) |
+| 1 | about 1 in 4 |
+| 0, not US-only | 4 of 24 (17%) |
+| 0, US-only | 9 of 72 (13%) |
+
+**Underdogs** (nominees with 0–1 strong awards) are about half of each year's nominees: the first two or three picks are reliable, the rest close to a guess.
+
+### How to pick the five
+1. Work from the shortlist of 15.
+2. Lock in films with 3+ strong awards, non-US first, and any IDA, European Film Awards or National Society winner.
+3. Next, Spirit Awards nominees, non-US first.
+4. The last one or two spots are open: prefer a non-US film on the IDA, Cinema Eye or DGA lists over a US crowd-pleaser with many critics-group wins.
+
+### Backtest (each year from earlier seasons only)
+| Year | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | Total |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Patterns | 2 | 4 | 2 | 2 | 4 | 4 | 2 | 4 | 3 | 3 | 3 | **33 of 55** |
+| App's current method | 3 | 3 | 2 | 3 | 3 | 3 | 2 | 4 | 2 | 2 | 3 | 30 of 55 |
+
+Random picks from the shortlist average about 18 of 55. Other cut-offs for "strong" (50–65%, cap 2–4) gave 30–34; 60% / 3+ is a middle setting, not the best one picked after the fact. The current method's eve figures are leave-one-season-out (they saw later seasons), so its real-time score would be no better.
+
+| Year | The five it picked (✓ nominated) | Missed nominees (its rank) |
+|---|---|---|
+| 2023 | Four Daughters ✓, 20 Days in Mariupol ✓, The Eternal Memory ✓, Apolonia, Apolonia, American Symphony | Bobi Wine: The People's President (13), To Kill a Tiger (15) |
+| 2024 | No Other Land ✓, Soundtrack to a Coup d'Etat ✓, Dahomey, Sugarcane ✓, The Remarkable Life of Ibelin | Black Box Diaries (6), Porcelain War (7) |
+| 2025 | My Undesirable Friends: Part I, The Perfect Neighbor ✓, Come See Me in the Good Light ✓, Apocalypse in the Tropics, Cutting Through Rocks ✓ | Mr. Nobody Against Putin (8), The Alabama Solution (14) |
+
+### Tested and not kept: themes
+Each shortlisted documentary was labelled by hand with one theme from its TMDB summary. War and conflict got in 58% (70% when not US-only), crime and scandal 11%, US-only politics 1 of 21. Adding theme to the patterns picked fewer nominees (30 of 55; 2025: 2 of 5, as five war documentaries were shortlisted and one got in): it mostly repeats what country and strong awards already say.
+
+### The shortlist rule (task 8.1)
+199 of 946 documentary award wins in 2012–2025 went to films that never reached the Oscar shortlist, and so count against the award today. Left out, European Film Awards' winner figure goes from 7 of 14 to 7 of 7, Sundance World Cinema documentary's from 7 of 14 to 7 of 7, Peabody's from 33% to 59%.
+
+### Cautions
+- 14 seasons and 70 nominees: tendencies, not rules. Many predictors pick the same films.
+- Countries come from Wikipedia and can mislead: My Undesirable Friends (a Moscow story) is listed US-only. Task 7.2 fixed the first-listed country.
+
+## International
+To be filled in by task 8.3, in the same form (International has no US-only split; 273 of 716 award wins went to films never shortlisted, e.g. Los Angeles critics' winner figure goes from 7 of 16 to 7 of 8).
