@@ -20,14 +20,16 @@ test("/awards/oscars/2024 lists the nominees and winner in all four categories",
   for (const { id, heading, nominees, winner } of OSCARS_2024) {
     const section = page.getByRole("region", { name: heading });
     await expect(section).toHaveAttribute("id", id);
-    await expect(section.getByRole("heading", { level: 3 })).toHaveCount(nominees);
+    // Documentary and International also list the shortlisted films that missed (their own test below).
+    const missed = await section.getByText("Shortlisted", { exact: true }).count();
+    await expect(section.getByText(/^(Won|Nominated)$/)).toHaveCount(nominees);
     const winnerRow = section.locator("[data-winner]");
     await expect(winnerRow).toHaveCount(1);
     await expect(winnerRow.getByRole("heading", { level: 3, name: winner })).toBeVisible();
     await expect(winnerRow.getByText("Won", { exact: true })).toBeVisible();
     await expect(section.getByText("Nominated", { exact: true })).toHaveCount(nominees - 1);
     // Every row has the two marks.
-    await expect(section.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(nominees);
+    await expect(section.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(nominees + missed);
   }
 
   // International: the submitting country's flag and "for <country>".
@@ -36,6 +38,40 @@ test("/awards/oscars/2024 lists the nominees and winner in all four categories",
   await expect(international.getByText("for Brazil")).toBeVisible();
   // No accuracy figures on the Oscars' own page.
   await expect(page.getByText(/Winner won|Winner was nominated/)).toHaveCount(0);
+});
+
+// The 98th Academy Awards (2025 films): the shortlists sit under the nominees, with a caption line
+// and the Snub risk flag on the films the patterns flag (task 8.6).
+test("/awards/oscars/2025 lists Documentary's and International's whole shortlists", async ({ page }) => {
+  await page.goto("/awards/oscars/2025");
+  const documentary = page.getByRole("region", { name: "Best Documentary Feature" });
+  await expect(documentary.getByText("Nominees and winner · 15 shortlisted")).toBeVisible();
+  await expect(documentary.getByText(/^(Won|Nominated)$/)).toHaveCount(5);
+  await expect(documentary.getByRole("heading", { level: 3, name: "Shortlisted, not nominated (10)" })).toBeVisible();
+  await expect(documentary.getByText("Shortlisted", { exact: true })).toHaveCount(10);
+
+  const row = (title: string) => documentary.locator("div:has(> div > div > h3)").filter({ has: page.getByRole("link", { name: title, exact: true }) }).last();
+  for (const title of ["Cover-Up", "My Undesirable Friends: Part I — Last Air in Moscow"]) {
+    await expect(row(title).locator("[data-snub-risk]")).toHaveText("Snub risk");
+  }
+  const neighbor = row("The Perfect Neighbor");
+  await expect(neighbor.locator("[data-snub-risk]")).toHaveCount(0);
+  await expect(neighbor.getByText(/\d+ nominations · \d+ strong awards · Pick #\d+/)).toBeVisible();
+
+  // International lists its full shortlist the same way, and never carries the flag.
+  const international = page.getByRole("region", { name: "Best International Feature" });
+  await expect(international.getByRole("heading", { level: 3, name: /^Shortlisted, not nominated \(\d+\)$/ })).toBeVisible();
+  await expect(international.getByText(/^(Won|Nominated)$/)).toHaveCount(5);
+  await expect(international.getByText(/Pick #\d+/).first()).toBeVisible();
+  await expect(international.locator("[data-snub-risk]")).toHaveCount(0);
+});
+
+test("the live year before its shortlist looks as it did", async ({ page }) => {
+  await page.goto("/awards/oscars/2026");
+  const documentary = page.getByRole("region", { name: "Best Documentary Feature" });
+  await expect(documentary.getByText("Shortlisted, not nominated")).toHaveCount(0);
+  await expect(documentary.locator("[data-snub-risk]")).toHaveCount(0);
+  await expect(documentary.getByText("The shortlist comes out", { exact: false })).toBeVisible();
 });
 
 test("the jump control links to each category and the year switcher keeps the page", async ({ page }) => {

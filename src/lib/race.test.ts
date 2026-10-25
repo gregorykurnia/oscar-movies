@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  hasShortlist,
   noResultsNote,
+  oscarYearRows,
   parseCategory,
   raceEntries,
   raceHref,
@@ -56,6 +58,38 @@ describe("seasonState and raceEntries", () => {
     expect(showsStagePills("finished")).toBe(true);
     expect(showsStagePills("nominations")).toBe(false);
     expect(showsStagePills("before")).toBe(false);
+  });
+});
+
+describe("oscarYearRows", () => {
+  const all = [entry("W", "won"), entry("N", "nominated"), entry("S", "shortlisted"), entry("T", "shortlisted"), entry("E", "eligible")];
+  const titles = (rows: { title: string }[]) => rows.map((e) => e.title);
+
+  it("has no rows before the shortlist", () => {
+    expect(oscarYearRows([entry("E", "eligible")], "before", true)).toEqual({ listed: [], notNominated: [] });
+  });
+
+  it("lists the whole shortlist as one list while the nominees aren't out", () => {
+    const rows = oscarYearRows([entry("S", "shortlisted"), entry("T", "shortlisted"), entry("E", "eligible")], "shortlist", true);
+    expect(titles(rows.listed)).toEqual(["S", "T"]);
+    expect(rows.notNominated).toEqual([]);
+  });
+
+  it("lists the nominees, then the shortlisted films that missed, once they are known", () => {
+    for (const state of ["nominations", "finished"] as const) {
+      const rows = oscarYearRows(all, state, true);
+      expect(titles(rows.listed)).toEqual(["W", "N"]);
+      expect(titles(rows.notNominated)).toEqual(["S", "T"]);
+    }
+  });
+
+  it("leaves a category with no shortlist as it was, and a season with none shortlisted-only", () => {
+    expect(oscarYearRows(all, "finished", false)).toEqual({ listed: raceEntries(all, "finished"), notNominated: [] });
+    expect(oscarYearRows([entry("W", "won"), entry("N", "nominated")], "finished", true).notNominated).toEqual([]);
+  });
+
+  it("knows which categories have a shortlist", () => {
+    expect(["picture", "documentary", "international", "animated"].filter((c) => hasShortlist(c as never))).toEqual(["documentary", "international"]);
   });
 });
 

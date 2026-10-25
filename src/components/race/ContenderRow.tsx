@@ -5,6 +5,7 @@ import { ScoreLine, type Scores } from "@/components/score-line/ScoreLine";
 import { cn } from "@/lib/cn";
 import { formatChance } from "@/lib/race-chances";
 import type { PrecursorLine } from "@/lib/movie-awards";
+import { SnubRiskFlag } from "@/components/patterns/Pieces";
 import { ChanceLine } from "./ChanceLine";
 import { Pct } from "./Pct";
 import { WhyButton, WhyRegion } from "./RaceList";
@@ -72,6 +73,7 @@ export function ContenderRow({
   flag,
   flagLabel,
   badge,
+  snubRisk = false,
   precursors,
   scores,
   marks,
@@ -86,6 +88,8 @@ export function ContenderRow({
   flagLabel?: string;
   /** The Oscar stage pill after the title (Shortlisted, Won, Nominated). */
   badge?: ReactNode;
+  /** The Snub risk flag after the pill (Documentary, shortlist state; guide §6.5). */
+  snubRisk?: boolean;
   /** The awards it won and was nominated for (`precursorLine`). */
   precursors?: PrecursorLine;
   scores: Scores;
@@ -114,6 +118,7 @@ export function ContenderRow({
               {title}
             </Link>
             {badge}
+            {snubRisk ? <SnubRiskFlag /> : null}
           </h3>
           {precursors ? <PrecursorText line={precursors} className="mt-1.5" /> : null}
           <ScoreLine scores={scores} className="mt-1.5" />

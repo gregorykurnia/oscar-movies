@@ -56,6 +56,24 @@ describe("ContenderRow with chances", () => {
   });
 });
 
+describe("ContenderRow in the shortlist state", () => {
+  const rowOf = (snubRisk: boolean) => (
+    <ContenderRow title="Cover-Up" href="/movies/cover-up" flag="US" scores={scores} marks={<span />} badge={<span>Shortlisted</span>} snubRisk={snubRisk} />
+  );
+
+  it("shows the Snub risk flag after the stage pill on a flagged film", () => {
+    const { container } = render(rowOf(true));
+    const flag = container.querySelector("[data-snub-risk]")!;
+    expect(flag.textContent).toBe("Snub risk");
+    expect(flag.previousElementSibling?.textContent).toBe("Shortlisted");
+  });
+
+  it("shows none on a film that isn't flagged", () => {
+    const { container } = render(rowOf(false));
+    expect(container.querySelector("[data-snub-risk]")).toBeNull();
+  });
+});
+
 describe("the why", () => {
   it("opens and closes from its %, one at a time, and Esc returns focus to the %", () => {
     render(<RaceList rows={[row(1, "Anora", { pWin: 0.41 }), row(2, "Conclave", { pWin: 0.18 })]} />);

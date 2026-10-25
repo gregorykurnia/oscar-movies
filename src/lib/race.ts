@@ -48,6 +48,26 @@ export function raceEntries<T extends { outcome: Outcome }>(entries: T[], state:
   return entries.filter((e) => isNomination(e.outcome));
 }
 
+/** Documentary and International list their whole shortlist (Phase 8); Picture and Animated have none. */
+export function hasShortlist(category: RaceCategory): category is "documentary" | "international" {
+  return category === "documentary" || category === "international";
+}
+
+/**
+ * The Oscars year page's rows (guide §8.2): `listed` is the race's rows (`raceEntries`); in a
+ * category with a shortlist, once the nominees are known `notNominated` adds the shortlisted films
+ * that missed. A season with no shortlisted-only films has none, so it looks as before.
+ */
+export function oscarYearRows<T extends { outcome: Outcome }>(
+  entries: T[],
+  state: SeasonState,
+  shortlist: boolean,
+): { listed: T[]; notNominated: T[] } {
+  const listed = raceEntries(entries, state);
+  const split = shortlist && (state === "nominations" || state === "finished");
+  return { listed, notNominated: split ? entries.filter((e) => e.outcome === "shortlisted") : [] };
+}
+
 /** Stage pills after the titles everywhere but the nominations, where every row is a nominee. */
 export function showsStagePills(state: SeasonState): boolean {
   return state === "shortlist" || state === "finished";

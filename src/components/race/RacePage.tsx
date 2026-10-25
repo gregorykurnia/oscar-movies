@@ -17,6 +17,7 @@ import type { FilmRowData } from "@/data/films";
 import { formatDate } from "@/lib/format";
 import { eve } from "@/lib/predict/season";
 import {
+  hasShortlist,
   RACE_CATEGORIES,
   seasonDate,
   seasonState,
@@ -41,8 +42,9 @@ import {
   type Chance,
   type RaceSnapshot,
 } from "@/lib/race-chances";
+import { getPatterns } from "@/data/patterns";
 import { PICKS_FROM } from "@/lib/patterns/rules";
-import { patternsHref } from "@/lib/patterns/page";
+import { flaggedFilms, patternsHref } from "@/lib/patterns/page";
 import { signalsHref } from "@/lib/signals";
 import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
@@ -151,6 +153,15 @@ async function Race({ year }: { year: number }) {
     ),
   );
 
+  // Snub risk, in the shortlist state only (guide §6.5): the films the patterns flag.
+  const flagged = await Promise.all(
+    RACE_CATEGORIES.map(async ({ slug }, i) =>
+      hasShortlist(slug) && states[i] === "shortlist"
+        ? flaggedFilms((await getPatterns(slug, today)).seasons.find((s) => s.year === year))
+        : new Set<number>(),
+    ),
+  );
+
   const leads = {} as Record<RaceCategory, ReactNode>;
   const panels = {} as Record<RaceCategory, ReactNode>;
   RACE_CATEGORIES.forEach(({ slug }, i) => {
@@ -196,6 +207,7 @@ async function Race({ year }: { year: number }) {
         rows={rows}
         early={early[i] !== null && early[i] < 3}
         precursors={precursors[i]}
+        flagged={flagged[i]}
         submissions={submissions}
       />
     );
@@ -216,6 +228,7 @@ function CategoryPanel({
   rows,
   early,
   precursors,
+  flagged,
   submissions,
 }: {
   year: number;
@@ -228,6 +241,8 @@ function CategoryPanel({
   /** Fewer than 3 precursor awards have announced results (live, before the nominations). */
   early: boolean;
   precursors: RacePrecursors;
+  /** Films flagged Snub risk (shortlist state). */
+  flagged: Set<number>;
   submissions: number;
 }) {
   const oscar = RACE_CATEGORIES.find((c) => c.slug === category)!.oscar;
@@ -256,6 +271,7 @@ function CategoryPanel({
       flag={r.film.flag}
       flagLabel={submittingLabel(r.film.flag, r.entry?.country ?? null)}
       badge={pills && r.entry ? <StagePill stage={oscarStage(r.entry.outcome, category)} /> : undefined}
+      snubRisk={flagged.has(r.film.id)}
       precursors={lines.get(r.film.id)}
       scores={r.film.scores}
       marks={<FilmMarks movieId={r.film.id} title={r.film.title} />}

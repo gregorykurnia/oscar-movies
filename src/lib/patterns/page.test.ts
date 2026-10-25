@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { FilmPatterns, SeasonPatterns } from "./index";
-import { awardCategoryName, missedFilms, nomineesOf, parsePatternCategory, parsePatternYear, patternsHref, PATTERN_YEARS, picksOf } from "./page";
+import { awardCategoryName, filmsById, flaggedFilms, missedFilms, shortlistCaption, shortlistOrder, nomineesOf, parsePatternCategory, parsePatternYear, patternsHref, PATTERN_YEARS, picksOf } from "./page";
 
 const film = (title: string, over: Partial<FilmPatterns> = {}): FilmPatterns => ({
   movie: title,
@@ -87,5 +87,33 @@ describe("a season's lists", () => {
     expect(nomineesOf(season(films), 0).map((f) => f.title)).toEqual(["A", "C"]);
     const withWinner = [film("A", { movie: 1, pick: 1, nominated: true }), film("C", { movie: 2, pick: 3, nominated: true })];
     expect(nomineesOf(season(withWinner), 2).map((f) => f.title)).toEqual(["C", "A"]);
+  });
+});
+
+describe("the Oscars page's shortlist", () => {
+  const films = [
+    film("A", { movie: 1, pick: 2, nominations: 9, strongAwards: ["x/y"] }),
+    film("B", { movie: 2, pick: 1, nominations: 1, snubRisk: [{ sign: "sweep", figure: { hits: 1, count: 4 } }] }),
+    film("C", { movie: 3, pick: null, nominations: 6 }),
+    film("D", { movie: 4, pick: null, nominations: 6 }),
+  ];
+  const byFilm = filmsById(season(films));
+  const entry = (id: number, title: string) => ({ film: { id, title } });
+
+  it("orders by pick, then most nominations, then title; before 2015 there is no pick", () => {
+    const rows = [entry(4, "D"), entry(3, "C"), entry(1, "A"), entry(2, "B")];
+    expect(shortlistOrder(rows, byFilm).map((e) => e.film.title)).toEqual(["B", "A", "C", "D"]);
+    expect(shortlistOrder([entry(4, "D"), entry(3, "C"), entry(9, "Z")], new Map()).map((e) => e.film.title)).toEqual(["C", "D", "Z"]);
+  });
+
+  it("words the caption: nominations, strong awards and the pick", () => {
+    expect(shortlistCaption(films[0])).toEqual(["9 nominations", "1 strong award", "Pick #2"]);
+    expect(shortlistCaption(films[1])).toEqual(["1 nomination", "0 strong awards", "Pick #1"]);
+    expect(shortlistCaption(films[2])).toEqual(["6 nominations", "0 strong awards"]);
+  });
+
+  it("names the flagged films, none without a season", () => {
+    expect([...flaggedFilms(season(films))]).toEqual([2]);
+    expect(flaggedFilms(undefined).size).toBe(0);
   });
 });

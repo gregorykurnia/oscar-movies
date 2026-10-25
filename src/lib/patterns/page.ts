@@ -66,3 +66,29 @@ export function nomineesOf(season: SeasonPatterns, winner: number | null): FilmP
     .filter((f) => f.nominated)
     .sort((a, b) => Number(Number(b.movie) === winner) - Number(Number(a.movie) === winner));
 }
+
+/** The ids of a season's films flagged Snub risk (none before the shortlist or without a season). */
+export function flaggedFilms(season: SeasonPatterns | undefined): Set<number> {
+  return new Set((season?.films ?? []).filter((f) => f.snubRisk.length > 0).map((f) => Number(f.movie)));
+}
+
+/** A season's films by id, for the pages that list the shortlist with their own rows. */
+export function filmsById(season: SeasonPatterns | undefined): Map<number, FilmPatterns> {
+  return new Map((season?.films ?? []).map((f) => [Number(f.movie), f]));
+}
+
+/** The patterns' order for the shortlisted films that missed: pick, then most nominations, then title (no pick: nominations, title). */
+export function shortlistOrder<T extends { film: { id: number; title: string } }>(entries: T[], byFilm: Map<number, FilmPatterns>): T[] {
+  const pick = (e: T) => byFilm.get(e.film.id)?.pick ?? Infinity;
+  const nominations = (e: T) => byFilm.get(e.film.id)?.nominations ?? 0;
+  return [...entries].sort((a, b) => pick(a) - pick(b) || nominations(b) - nominations(a) || a.film.title.localeCompare(b.film.title));
+}
+
+const plural = (n: number, one: string) => `${n} ${one}${n === 1 ? "" : "s"}`;
+
+/** The Oscars page's caption parts: "47 nominations", "3 strong awards", "Pick #2" (no pick before 2015). */
+export function shortlistCaption(film: FilmPatterns): string[] {
+  const parts = [plural(film.nominations, "nomination"), plural(film.strongAwards.length, "strong award")];
+  if (film.pick !== null) parts.push(`Pick #${film.pick}`);
+  return parts;
+}
