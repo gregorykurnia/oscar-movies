@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { saveMark } from "@/app/actions/marks";
 import { showToast } from "@/components/toast/Toaster";
 import { useOnline } from "@/lib/use-online";
@@ -67,6 +67,15 @@ export function useWantCount(): number | undefined {
 }
 
 const noSubscribe = () => () => {};
+
+/**
+ * Reads whether a film is marked want to watch at the moment of the call (an event handler's
+ * question, so nothing re-renders): undefined before the marks are read or if they couldn't be.
+ */
+export function useReadWant(): (movieId: number) => boolean | undefined {
+  const store = useMarksStore();
+  return useCallback((movieId: number) => (store.getPhase() === "ready" ? store.get(movieId).value.want : undefined), [store]);
+}
 
 /** One film's marks, whether they can be changed now, and the tap. */
 function useFilmMarks(movieId: number, title: string) {

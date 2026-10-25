@@ -79,3 +79,36 @@ export function sortWatchList<F extends StagedFilm>(films: F[], sort: WatchSort)
 export function sortWanted<F extends StagedFilm>(films: F[], sort: WatchSort): F[] {
   return sort === "mine" ? [...films] : sortWatchList(films, sort);
 }
+
+// "My order" (guide §8.3, task 7.9): the drag order's helpers, kept pure so they're unit tested.
+
+/** A new list with the item at `from` moved to `to` (indexes before the move). Out of range: unchanged. */
+export function moveItem<T>(list: readonly T[], from: number, to: number): T[] {
+  const next = [...list];
+  if (from === to || from < 0 || to < 0 || from >= list.length || to >= list.length) return next;
+  const [item] = next.splice(from, 1);
+  next.splice(to, 0, item);
+  return next;
+}
+
+/**
+ * The order to save, top first: the rows' films that are still wanted. A film unmarked during the
+ * visit keeps its row until the next visit but no longer has a place (`wanted` says false); an
+ * unknown mark (`undefined`, the marks not read yet) counts as wanted.
+ */
+export function orderToSave(ids: readonly number[], wanted: (id: number) => boolean | undefined): number[] {
+  return ids.filter((id) => wanted(id) !== false);
+}
+
+/** "position 2 of 4" (index from 0). */
+export const positionText = (index: number, total: number) => `position ${index + 1} of ${total}`;
+
+/** The live region's words as a film is lifted, moved, dropped or put back by the keyboard or a pointer. */
+export const reorderWords = {
+  lifted: (title: string, index: number, total: number) => `Picked up ${title}. ${capitalise(positionText(index, total))}.`,
+  moved: (title: string, index: number, total: number) => `Moved ${title} to ${positionText(index, total)}`,
+  dropped: (title: string, index: number, total: number) => `Dropped ${title} at ${positionText(index, total)}.`,
+  cancelled: (title: string, index: number, total: number) => `Moving cancelled. ${title} is back at ${positionText(index, total)}.`,
+};
+
+const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

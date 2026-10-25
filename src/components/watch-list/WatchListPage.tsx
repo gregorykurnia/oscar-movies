@@ -22,12 +22,15 @@ import {
 } from "@/lib/watch-list";
 import { LIVE_YEAR } from "@/lib/years";
 import { AddFilm } from "./AddFilm";
+import { DragHandle, SortableWantList } from "./SortableWantList";
 
 type Query = Record<string, string | string[] | undefined>;
 
 // Film · Oscar stage · nominations · marks; sorted by % chance, a "To win" column joins after the stage.
 const COLUMNS = ["minmax(0,1fr)", "132px", "104px", "84px"];
 const CHANCE_COLUMNS = ["minmax(0,1fr)", "132px", "88px", "104px", "84px"];
+// My order's Want to watch: the drag handle first (guide §8.3).
+const HANDLE_COLUMNS = ["28px", ...COLUMNS];
 
 // The "Show all" row's tail ("sorted by Oscar stage"); Oscar keeps its capital.
 const SORTED_BY: Record<WatchQuery["sort"], string> = { mine: "Oscar stage", stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score" };
@@ -46,7 +49,7 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
     <>
       <PageHeader
         title="Watch list"
-        sub={<p>Films you want to watch, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
+        sub={<p>Films you want to watch, in your order, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
       />
       <AddFilm />
       <Suspense fallback={<RaceRowsSkeleton label="Loading the watch list" />}>
@@ -64,6 +67,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
   const want = sortWanted(list.want, state.sort);
   const unwatched = sortWatchList(list.unwatched, state.sort);
   const shown = state.all ? unwatched : unwatched.slice(0, SEASON_LIMIT);
+  const mine = state.sort === "mine";
 
   return (
     <>
@@ -82,8 +86,16 @@ async function Lists({ query }: { query: Promise<Query> }) {
         </div>
       </div>
 
-      <Section id="want" title="Want to watch" count={want.length}>
-        {want.length > 0 ? (
+      <Section id="want" title="Want to watch" count={want.length} hint={mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
+        {want.length > 0 && mine ? (
+          // Keyed by the films, so a list read again (a film added) starts from the stored order.
+          <SortableWantList
+            key={want.map((f) => f.film.id).join(",")}
+            films={want.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort={state.sort} handle /> }))}
+            head={head(state.sort)}
+            columns={HANDLE_COLUMNS}
+          />
+        ) : want.length > 0 ? (
           <Films films={want} sort={state.sort} />
         ) : (
           <EmptyState title="Nothing marked yet" headingLevel={3}>
@@ -92,7 +104,12 @@ async function Lists({ query }: { query: Promise<Query> }) {
         )}
       </Section>
 
-      <Section id="season" title={`Not watched yet, ${LIVE_YEAR} season`} count={unwatched.length}>
+      <Section
+        id="season"
+        title={`Not watched yet, ${LIVE_YEAR} season`}
+        count={unwatched.length}
+        hint={mine && unwatched.length > 1 ? "by Oscar stage" : undefined}
+      >
         {unwatched.length > 0 ? (
           <>
             <Films films={shown} sort={state.sort} />
@@ -108,51 +125,84 @@ async function Lists({ query }: { query: Promise<Query> }) {
   );
 }
 
-function Section({ id, title, count, children }: { id: string; title: string; count: number; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  count,
+  hint,
+  children,
+}: {
+  id: string;
+  title: string;
+  count: number;
+  /** After the count: how the section is ordered under My order. */
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <section aria-labelledby={`${id}-h`} className="mt-10 md:mt-12">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {title}
         </h2>
-        <span className="text-small text-ink-muted">{filmCount(count)}</span>
+        <span className="text-small text-ink-muted">
+          <span>{filmCount(count)}</span>
+          {hint ? ` · ${hint}` : null}
+        </span>
       </div>
       {children}
     </section>
   );
 }
 
+const head = (sort: WatchQuery["sort"]) => [
+  "Oscar stage",
+  ...(sort === "chance" ? [{ label: "To win", numeric: true as const }] : []),
+  { label: "Nominations", numeric: true as const },
+];
+
 function Films({ films, sort }: { films: StagedFilm[]; sort: WatchQuery["sort"] }) {
-  const byChance = sort === "chance";
   return (
-    <FilmList
-      head={["Oscar stage", ...(byChance ? [{ label: "To win", numeric: true as const }] : []), { label: "Nominations", numeric: true }]}
-      columns={byChance ? CHANCE_COLUMNS : COLUMNS}
-    >
-      {films.map(({ film, stage, pill, categories, nominations, chance }) => (
-        <FilmRow
-          key={film.id}
-          headingLevel={3}
-          title={film.title}
-          href={`/movies/${film.slug}`}
-          flag={film.flag}
-          meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
-          scores={film.scores}
-          winner={stage === "won"}
-          results={[
-            {
-              label: "Oscar stage",
-              value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">No Oscar result</span>,
-            },
-            ...(byChance
-              ? [{ label: "To win", value: chance === null ? <span className="text-ink-muted">–</span> : `${formatChance(chance)}%`, numeric: true }]
-              : []),
-            { label: "Nominations", value: nominations, numeric: true },
-          ]}
-          marks={<FilmMarks movieId={film.id} title={film.title} />}
-        />
+    <FilmList head={head(sort)} columns={sort === "chance" ? CHANCE_COLUMNS : COLUMNS}>
+      {films.map((film) => (
+        <Row key={film.film.id} film={film} sort={sort} />
       ))}
     </FilmList>
+  );
+}
+
+function Row({
+  film: { film, stage, pill, categories, nominations, chance },
+  sort,
+  handle = false,
+}: {
+  film: StagedFilm;
+  sort: WatchQuery["sort"];
+  /** My order's Want to watch: the row starts with its drag handle. */
+  handle?: boolean;
+}) {
+  return (
+    <FilmRow
+      headingLevel={3}
+      title={film.title}
+      href={`/movies/${film.slug}`}
+      handle={handle ? <DragHandle /> : undefined}
+      flag={film.flag}
+      meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
+      scores={film.scores}
+      winner={stage === "won"}
+      results={[
+        {
+          label: "Oscar stage",
+          value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">No Oscar result</span>,
+        },
+        ...(sort === "chance"
+          ? [{ label: "To win", value: chance === null ? <span className="text-ink-muted">–</span> : `${formatChance(chance)}%`, numeric: true }]
+          : []),
+        { label: "Nominations", value: nominations, numeric: true },
+      ]}
+      marks={<FilmMarks movieId={film.id} title={film.title} />}
+    />
   );
 }
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { StagedFilm } from "@/data/watch-list";
 import type { Outcome } from "@/lib/stage";
-import { parseWatchQuery, sortWanted, sortWatchList, watchHref } from "./watch-list";
+import { moveItem, orderToSave, parseWatchQuery, positionText, reorderWords, sortWanted, sortWatchList, watchHref } from "./watch-list";
 
 let nextId = 1;
 function film(title: string, stage: Outcome | null, nominations: number, average: number | null, chance: number | null = null): StagedFilm {
@@ -77,5 +77,40 @@ describe("sorting", () => {
     const before = titles(films);
     sortWatchList(films, "average");
     expect(titles(films)).toEqual(before);
+  });
+});
+
+describe("my order", () => {
+  it("moves one item and keeps the rest in order", () => {
+    expect(moveItem([1, 2, 3, 4], 0, 2)).toEqual([2, 3, 1, 4]);
+    expect(moveItem([1, 2, 3, 4], 3, 0)).toEqual([4, 1, 2, 3]);
+    expect(moveItem([1, 2, 3, 4], 1, 2)).toEqual([1, 3, 2, 4]);
+  });
+
+  it("leaves the list as it was for no move or a place out of range, and never changes the original", () => {
+    const list = [1, 2, 3];
+    expect(moveItem(list, 1, 1)).toEqual([1, 2, 3]);
+    expect(moveItem(list, -1, 1)).toEqual([1, 2, 3]);
+    expect(moveItem(list, 0, 3)).toEqual([1, 2, 3]);
+    expect(moveItem(list, 2, 0)).not.toBe(list);
+    expect(list).toEqual([1, 2, 3]);
+  });
+
+  it("saves only the films still wanted, in the rows' order; an unknown mark counts as wanted", () => {
+    const marks = new Map<number, boolean>([
+      [10, true],
+      [20, false],
+      [30, true],
+    ]);
+    expect(orderToSave([30, 20, 10, 40], (id) => marks.get(id))).toEqual([30, 10, 40]);
+    expect(orderToSave([], () => true)).toEqual([]);
+  });
+
+  it("words the moves for the live region from the first place as 1", () => {
+    expect(positionText(0, 4)).toBe("position 1 of 4");
+    expect(reorderWords.lifted("Hamnet", 0, 4)).toBe("Picked up Hamnet. Position 1 of 4.");
+    expect(reorderWords.moved("Hamnet", 1, 4)).toBe("Moved Hamnet to position 2 of 4");
+    expect(reorderWords.dropped("Hamnet", 3, 4)).toBe("Dropped Hamnet at position 4 of 4.");
+    expect(reorderWords.cancelled("Hamnet", 0, 4)).toBe("Moving cancelled. Hamnet is back at position 1 of 4.");
   });
 });

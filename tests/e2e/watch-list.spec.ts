@@ -1,6 +1,6 @@
 // The Watch list (task 1.14, guide §8.3): both sections, the sort in the address, and marks that
-// change the list only on the next visit, never under the tap. It writes marks on the `test`
-// branch and puts each one back as it was.
+// change the list only on the next visit, never under the tap; Add a film (7.8) and My order's
+// drag handles (7.9). It writes marks on the `test` branch and puts each one back as it was.
 import { expect, test } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
@@ -197,4 +197,132 @@ test("adds a film by typing part of its original title, and it is at the top aft
         .onConflictDoUpdate({ target: marks.movieId, set: row });
     }
   }
+});
+
+// My order (7.9): three wanted films in a known order, every other mark set aside and put back.
+const ORDER = ["anora", "hamnet", "im-still-here"] as const;
+
+async function withOrder(run: (titles: string[], ids: number[]) => Promise<void>) {
+  const saved = await db.select().from(marks);
+  const ids = await Promise.all(ORDER.map(movieId));
+  const titles = await Promise.all(
+    ids.map(async (id) => (await db.select({ title: movies.title }).from(movies).where(eq(movies.id, id)))[0].title),
+  );
+  try {
+    await db.delete(marks);
+    await db.insert(marks).values(ids.map((id, i) => ({ movieId: id, watched: false, want: true, wantRank: i + 1 })));
+    await run(titles, ids);
+  } finally {
+    await db.delete(marks);
+    if (saved.length > 0) await db.insert(marks).values(saved);
+  }
+}
+
+const storedOrder = async (ids: number[]) => {
+  const rows = await db.select({ movieId: marks.movieId, wantRank: marks.wantRank }).from(marks);
+  return [...rows].filter((r) => ids.includes(r.movieId)).sort((a, b) => (a.wantRank ?? 0) - (b.wantRank ?? 0)).map((r) => r.movieId);
+};
+
+/** Neither the window nor the page is wider than the screen. */
+const noSidewaysScroll = (page: import("@playwright/test").Page) =>
+  page.evaluate(() => window.scrollX === 0 && document.documentElement.scrollWidth <= document.documentElement.clientWidth);
+
+for (const width of [390, 1280]) {
+  test.describe(`My order at ${width}px`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+    });
+
+    test("moves a film by keyboard, Esc puts one back, and the order survives a reload", async ({ page }) => {
+      await withOrder(async ([a, b, c], ids) => {
+        await page.goto("/watch-list");
+        const want = section(page, "Want to watch");
+        await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
+        await expect(want.getByText("3 films · drag the handle to reorder")).toBeVisible();
+        await expect(section(page, "Not watched yet, 2026 season").getByText(/· by Oscar stage$/)).toBeVisible();
+
+        // Space lifts, ↓ moves, space drops: the notice and the live region follow the move.
+        const handle = want.getByRole("button", { name: `Reorder ${a}` });
+        await handle.focus();
+        await page.keyboard.press("Space");
+        await expect(page.getByText(`Moving ${a}.`)).toBeVisible();
+        await page.keyboard.press("ArrowDown");
+        await expect(page.getByText(`Moving ${a}. Position 2 of 3.`)).toBeVisible();
+        await expect(page.getByText(`Moved ${a} to position 2 of 3`)).toBeAttached();
+        await page.keyboard.press("Space");
+        await expect(page.getByText(`Moving ${a}.`)).toHaveCount(0);
+        await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
+        await expect(handle).toBeFocused();
+        await expect.poll(() => storedOrder(ids)).toEqual([ids[1], ids[0], ids[2]]);
+
+        // Esc puts a lifted film back where it was, and nothing is saved.
+        await handle.focus();
+        await page.keyboard.press("Space");
+        await page.keyboard.press("ArrowDown");
+        await page.keyboard.press("Escape");
+        await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
+
+        await page.reload();
+        await expect.poll(() => titlesIn(section(page, "Want to watch"))).toEqual([b, a, c]);
+        expect(await storedOrder(ids)).toEqual([ids[1], ids[0], ids[2]]);
+      });
+    });
+
+    test("moves a film by mouse without the page scrolling sideways, and the order survives a reload", async ({ page }) => {
+      await withOrder(async ([a, b, c], ids) => {
+        await page.goto("/watch-list");
+        const want = section(page, "Want to watch");
+        await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
+
+        // Drag the last film's handle above the first row, wandering sideways on the way.
+        const from = await want.getByRole("button", { name: `Reorder ${c}` }).boundingBox();
+        const to = await rowOf(want.getByRole("heading", { level: 3, name: a })).boundingBox();
+        if (!from || !to) throw new Error("rows not laid out");
+        await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+        await page.mouse.down();
+        await page.mouse.move(from.x + from.width / 2 + 10, from.y, { steps: 5 });
+        await page.mouse.move(from.x + width, to.y + to.height / 2, { steps: 10 });
+        await page.mouse.move(from.x + from.width / 2, to.y + 4, { steps: 10 });
+        expect(await noSidewaysScroll(page)).toBe(true);
+        await page.mouse.up();
+
+        await expect.poll(() => titlesIn(want)).toEqual([c, a, b]);
+        expect(await noSidewaysScroll(page)).toBe(true);
+        await expect.poll(() => storedOrder(ids)).toEqual([ids[2], ids[0], ids[1]]);
+        await page.reload();
+        await expect.poll(() => titlesIn(section(page, "Want to watch"))).toEqual([c, a, b]);
+      });
+    });
+  });
+}
+
+test("a move that can't be saved puts the rows back and says so; other sorts have no handles", async ({ page }) => {
+  await withOrder(async ([a, b, c], ids) => {
+    await page.goto("/watch-list");
+    const want = section(page, "Want to watch");
+    await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
+
+    // The save (a Server Action, posted to the page) fails.
+    await page.route("**/watch-list", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
+    await want.getByRole("button", { name: `Reorder ${b}` }).focus();
+    await page.keyboard.press("Space");
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("Space");
+    await expect(page.getByRole("status").filter({ hasText: "Couldn't save the order" })).toContainText(
+      "Your list is back as it was.",
+    );
+    await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
+    expect(await storedOrder(ids)).toEqual(ids);
+
+    // Try again, with the connection back, makes the move.
+    await page.unroute("**/watch-list");
+    await page.getByRole("status").filter({ hasText: "Couldn't save the order" }).getByRole("button", { name: "Try again" }).click();
+    await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
+    await expect.poll(() => storedOrder(ids)).toEqual([ids[1], ids[0], ids[2]]);
+
+    // Under another sort the handles are gone.
+    await page.goto("/watch-list?sort=stage");
+    await expect(section(page, "Want to watch").getByRole("heading", { level: 3 })).toHaveCount(3);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+  });
 });
