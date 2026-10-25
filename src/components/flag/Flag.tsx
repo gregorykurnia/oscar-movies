@@ -44,6 +44,7 @@ export function Flag({
   return (
     <span
       role="img"
+      data-flag=""
       aria-label={label ?? countryName(code)}
       className={cn(
         // The 1px inset edge sits over the artwork so white flags show on paper.
