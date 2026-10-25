@@ -107,9 +107,10 @@ async function typeInAddBox(page: Page) {
   await expect(page.getByRole("option", { name: /I'm Still Here/ })).toBeVisible();
 }
 
-// The release line of The Secret Agent opens its editor: a popover on a laptop, a sheet on a phone (task 7.10).
+// The first Want to watch row is The Secret Agent: its release line opens the editor, a popover on a laptop and a
+// sheet on a phone (task 7.10). Found by its "Release:" label, not its date, which reads "Out" once the date passes.
 async function openReleaseEditor(page: Page) {
-  await page.getByRole("button", { name: /12 Dec 2026 · Netflix/ }).click();
+  await page.getByRole("button", { name: /^Release: / }).first().click();
   await expect(page.getByRole("dialog", { name: "Release date and platform" })).toBeVisible();
 }
 
