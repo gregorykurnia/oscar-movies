@@ -1,9 +1,26 @@
 // Strong signals (plan Phase 7 notes, guide §8.13): for one Oscar category and year, the award
 // categories that have predicted it best and the films they picked. Pure: `src/data/signals.ts`
 // reads the accuracy rows, the year's editions and results, and calls this.
-import type { EditionStatus, Figure } from "./accuracy";
+import { formatFigure, formatFigureCount, type EditionStatus, type Figure } from "./accuracy";
 import type { AccuracyRow } from "./accuracy-page";
+import type { RaceCategory } from "./race";
 import { isNomination, type Outcome } from "./stage";
+
+/** The page's two views, in the address as `?view=` (By award is the default and has no parameter). */
+export type SignalsView = "award" | "film";
+
+export function parseView(value: string | string[] | null | undefined): SignalsView {
+  return (Array.isArray(value) ? value[0] : value) === "film" ? "film" : "award";
+}
+
+/** The strong signals page's address (`year` may be a "{year}" placeholder for the year switcher); Picture and By award are the defaults and stay out of it. */
+export function signalsHref(year: number | string, category: RaceCategory = "picture", view: SignalsView = "award"): string {
+  const query = new URLSearchParams();
+  if (category !== "picture") query.set("category", category);
+  if (view !== "award") query.set("view", view);
+  const q = query.toString();
+  return `/signals/${year}${q ? `?${q}` : ""}`;
+}
 
 /** "caught": its "Oscar nominees it caught" is ≥ 50%; "winner": its winner was Oscar-nominated ≥ 80% of years. */
 export type StrongKind = "caught" | "winner";
@@ -161,4 +178,13 @@ export function buildSignals<F extends { id: number; title: string }>(input: Sig
     .sort((a, b) => b.picks.length - a.picks.length || wins(b) - wins(a) || byTitle(a, b));
 
   return { byAward, byFilm, pending };
+}
+
+/** A strong figure in words (guide §8.13): "Caught 62% of Oscar nominees" · "43 of 70 over 14 years". */
+export function figureSentence(kind: StrongKind, figure: Figure, years: number): { lead: string; rest: string } {
+  const pct = formatFigure(figure);
+  const count = formatFigureCount(figure);
+  return kind === "caught"
+    ? { lead: `Caught ${pct} of Oscar nominees`, rest: `${count} over ${years} years` }
+    : { lead: `Its winner was Oscar-nominated ${pct} of years`, rest: count };
 }

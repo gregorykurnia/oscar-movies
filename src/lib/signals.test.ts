@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { AccuracyRow } from "./accuracy-page";
-import { buildSignals, strongKinds, type SignalEdition, type Signals } from "./signals";
+import { buildSignals, figureSentence, parseView, signalsHref, strongKinds, type SignalEdition, type Signals } from "./signals";
 import type { Outcome } from "./stage";
 
 type Film = { id: number; title: string };
@@ -87,5 +87,28 @@ describe("the next date of an award that hasn't announced", () => {
     const editions = { ...fixture.editions, "ida/feature": { ...fixture.editions["ida/feature"], status: "no_data" as const } };
     const ida = build({ ...fixture, editions }).byAward.find((a) => a.row.key === "ida/feature")!;
     expect(ida.films).toBeNull();
+  });
+});
+
+describe("signalsHref and parseView", () => {
+  it("leaves the defaults out of the address", () => {
+    expect(signalsHref(2025)).toBe("/signals/2025");
+    expect(signalsHref(2025, "documentary")).toBe("/signals/2025?category=documentary");
+    expect(signalsHref(2025, "picture", "film")).toBe("/signals/2025?view=film");
+    expect(signalsHref(2024, "animated", "film")).toBe("/signals/2024?category=animated&view=film");
+  });
+
+  it("reads a view from the address, anything unknown being By award", () => {
+    expect(parseView("film")).toBe("film");
+    expect(parseView(["film", "award"])).toBe("film");
+    expect(parseView("nope")).toBe("award");
+    expect(parseView(undefined)).toBe("award");
+  });
+});
+
+describe("figureSentence", () => {
+  it("words both kinds with their counts", () => {
+    expect(figureSentence("caught", { hits: 43, count: 70 }, 14)).toEqual({ lead: "Caught 61% of Oscar nominees", rest: "43 of 70 over 14 years" });
+    expect(figureSentence("winner", { hits: 13, count: 14 }, 14)).toEqual({ lead: "Its winner was Oscar-nominated 93% of years", rest: "13 of 14" });
   });
 });

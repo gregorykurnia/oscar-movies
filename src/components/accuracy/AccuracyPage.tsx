@@ -9,6 +9,8 @@ import { getAccuracy } from "@/data/accuracy";
 import { getBacktest } from "@/data/backtest";
 import { parseSort, seasonsSpan } from "@/lib/accuracy-page";
 import { RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
+import { signalsHref } from "@/lib/signals";
+import { LIVE_YEAR } from "@/lib/years";
 import { AccuracyTable } from "./AccuracyTable";
 import { Backtest } from "./Backtest";
 import { Method } from "./Method";
@@ -39,9 +41,10 @@ export function AccuracyPage({ category, query }: { category: RaceCategory; quer
           label="Category"
           items={RACE_CATEGORIES.map((c) => ({ label: c.name, href: `/accuracy/${c.slug}`, current: c.slug === category }))}
         />
-        <TextLink href={`/accuracy/${category}#method`} className="text-small">
-          How the % chance works
-        </TextLink>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-small">
+          <TextLink href={signalsHref(LIVE_YEAR, category)}>Strong signals, {LIVE_YEAR}</TextLink>
+          <TextLink href={`/accuracy/${category}#method`}>How the % chance works</TextLink>
+        </div>
       </div>
       <Suspense fallback={<RaceRowsSkeleton label="Loading accuracy" />}>
         <Table category={category} oscar={oscar} query={query} />

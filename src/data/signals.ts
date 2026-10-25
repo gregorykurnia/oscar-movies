@@ -8,17 +8,21 @@ import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
 import { buildSignals, strongKinds, type SignalEdition, type Signals } from "@/lib/signals";
 import type { Outcome } from "@/lib/stage";
+import { seasonState, type SeasonState } from "@/lib/race";
 import { queryAccuracy } from "./accuracy";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
 import { queryOscarResults, type OscarCategory } from "./oscars";
 
-export type SignalsData = Signals<FilmRowData>;
+/** The views, plus where the category's Oscar season stands (what the Oscar column says of a film with no result). */
+export type SignalsData = Signals<FilmRowData> & { oscarState: SeasonState };
 
 /** The strong awards of an Oscar category and the films they picked in a film year, both views. */
 export async function querySignals(db: ReadDb, category: OscarCategory, year: number, today: string): Promise<SignalsData> {
   const { rows } = await queryAccuracy(db, category, today);
   const strong = rows.filter((r) => strongKinds(r).length > 0);
-  if (strong.length === 0) return buildSignals({ rows, editions: new Map(), films: new Map(), oscar: new Map(), today });
+  if (strong.length === 0) {
+    return { ...buildSignals({ rows, editions: new Map(), films: new Map(), oscar: new Map(), today }), oscarState: "before" };
+  }
 
   const key = (awardSlug: string, categorySlug: string) => `${awardSlug}/${categorySlug}`;
   const strongAwards = [...new Set(strong.map((r) => r.key.split("/")[0]))];
@@ -65,13 +69,14 @@ export async function querySignals(db: ReadDb, category: OscarCategory, year: nu
     if (e) signalEditions.set(r.key, { ...e, results: listed.get(r.key) ?? [] });
   }
 
-  return buildSignals({
+  const signals = buildSignals({
     rows,
     editions: signalEditions,
     films,
     oscar: new Map(oscars.map((e) => [e.film.id, e.outcome])),
     today,
   });
+  return { ...signals, oscarState: seasonState(oscars.map((e) => e.outcome)) };
 }
 
 /** Cached `querySignals`. */

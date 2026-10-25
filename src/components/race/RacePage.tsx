@@ -41,6 +41,7 @@ import {
   type Chance,
   type RaceSnapshot,
 } from "@/lib/race-chances";
+import { signalsHref } from "@/lib/signals";
 import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
 import { CategoryTabs } from "./CategoryTabs";
@@ -277,6 +278,10 @@ function CategoryPanel({
       {/* The tab names the panel on screen; the heading keeps the outline h1 → h2 → h3 (1.R). */}
       <h2 className="sr-only">{oscar}</h2>
       <StageLine line={line} columns={labels} className="mt-[18px] md:mt-7" />
+      <p data-signals-link className="mt-2.5 flex flex-wrap gap-x-2.5 gap-y-0.5 text-small text-ink-muted">
+        <TextLink href={signalsHref(year, category)}>Strong signals, {year}</TextLink>
+        <span>the films the best-predicting awards picked</span>
+      </p>
       {rows.length > 0 && early ? (
         <Notice tone="gold" title="Early: few results yet." className="mt-5">
           Chances will move a lot as more awards announce their nominees and winners.
