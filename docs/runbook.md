@@ -11,7 +11,7 @@ What can be lost, and where its copy lives:
 | Award results, movies, editions | `data/` in git | Reload: `npm run load -- --target production --yes-production` (dry run first) |
 | Scores | OMDb and TMDB | The next cron run, or `npm run scores:refresh` |
 | Accuracy, predictions | Computed | The loader recomputes them |
-| **Marks** (watched, want) | `data/marks.json` in git, as fresh as the last export | `npm run marks:restore` (below) |
+| **Marks** (watched, want, and from 7.4 the Watch list order, release date and platform) | `data/marks.json` in git, as fresh as the last export | `npm run marks:restore` (below) |
 
 **Neon's restore window.** Neon Free can restore a branch to any moment in the last 6 hours (Neon console → the project → Branches → `production` → Restore). Use it only for a mistake noticed within hours; anything restored that way loses every mark made after that moment, so export the marks first if the database still answers.
 
@@ -26,7 +26,7 @@ git add data/marks.json && git commit -m "Back up marks" && git push origin stag
 
 The export says how many films the file had before, and it keeps the file as it is when the database has fewer marked films than the file: that usually means marks were lost, and the file may be the only copy. Find out why first. Only if marks were removed on purpose, run it again with `--allow-shrink`. The earlier backups are in git too (`git log -p data/marks.json`). A test export can't write `data/marks.json`, even with `--file`, and every script stops on an argument it doesn't know (a typo in `--dry-run` never becomes a real write).
 
-**Restoring the marks.** Restore writes only films whose marks differ from the file, in one transaction, and never clears a mark the file doesn't mention (it lists those as "keep"). Films are matched by IMDb ID, then by Wikidata QID. If any entry names a film that isn't in the database, it stops and writes nothing.
+**Restoring the marks.** Restore writes only films whose marks differ from the file, in one transaction, and never clears a mark the file doesn't mention (it lists those as "keep"). Films are matched by IMDb ID, then by Wikidata QID. If any entry names a film that isn't in the database, it stops and writes nothing. Exports from 7.4 on carry each film's `wantRank`, `releaseOn` and `platform` (null when empty) and also list unmarked films that have release notes; an older file without those fields restores the marks and leaves the fields as they are (a film that stops being wanted loses its rank, and one wanted again from an old file sorts last until the owner moves it).
 
 1. Dry run, and read every line of the plan:
    `npm run marks:restore -- --target production --yes-production --dry-run`
@@ -80,7 +80,7 @@ curl -sI "$URL/does-not-exist" | grep -i x-robots-tag      # the 404 sends it to
 
 ## Security
 
-No sign-in (the owner's choice). The only write from the app is the marks action (validated). The cron route needs `CRON_SECRET` and the revalidate route needs `REVALIDATE_SECRET`. Imports run only from scripts on this server, and every script that writes needs `--target` and, for production, `--yes-production`.
+No sign-in (the owner's choice). The only writes from the app are the marks action and, from 7.4, the Watch list actions (`src/app/actions/watch-list.ts`), all validated. The cron route needs `CRON_SECRET` and the revalidate route needs `REVALIDATE_SECRET`. Imports run only from scripts on this server, and every script that writes needs `--target` and, for production, `--yes-production`.
 
 ## Checks before a release
 

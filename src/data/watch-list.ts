@@ -28,9 +28,18 @@ export type StagedFilm = {
   chance: number | null;
 };
 
+/** A wanted film with the owner's order and release notes (7.4). */
+export type WantedFilm = StagedFilm & {
+  /** Its place in the owner's order (1 = top); null only for a film restored from an old backup. */
+  wantRank: number | null;
+  /** `YYYY-MM-DD`, the first date the owner can watch it; null = TBD. */
+  releaseOn: string | null;
+  platform: string | null;
+};
+
 export type WatchList = {
-  /** Films marked want to watch, from any year. */
-  want: StagedFilm[];
+  /** Films marked want to watch, from any year, in the owner's order. */
+  want: WantedFilm[];
   /** The season's films not watched and not already in `want`. */
   unwatched: StagedFilm[];
 };
@@ -123,17 +132,30 @@ export async function getSeasonFilms(year: number): Promise<StagedFilm[]> {
   return querySeasonFilms(getDb(), year);
 }
 
-/** Films marked want to watch, with their furthest Oscar stage in any year, by title. */
-export async function queryWantedFilms(db: ReadDb): Promise<StagedFilm[]> {
+/**
+ * Films marked want to watch, with their furthest Oscar stage in any year and their order and
+ * release notes, in the owner's order (unranked last, then by title).
+ */
+export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
   const summary = oscarSummary(db);
   const rows = await db
-    .select(stagedColumns(summary))
+    .select({
+      ...stagedColumns(summary),
+      wantRank: marks.wantRank,
+      releaseOn: marks.releaseOn,
+      platform: marks.platform,
+    })
     .from(marks)
     .innerJoin(movies, eq(movies.id, marks.movieId))
     .leftJoin(summary, eq(summary.movieId, movies.id))
     .where(eq(marks.want, true))
-    .orderBy(asc(movies.title), asc(movies.id));
-  return rows.map(toStagedFilm);
+    .orderBy(sql`${marks.wantRank} asc nulls last`, asc(movies.title), asc(movies.id));
+  return rows.map(({ wantRank, releaseOn, platform, ...row }) => ({
+    ...toStagedFilm(row),
+    wantRank,
+    releaseOn,
+    platform,
+  }));
 }
 
 /** Each film's best chance to win in a season's live prediction (its best category), by movie ID. */
@@ -156,13 +178,13 @@ export async function getLiveChances(year: number): Promise<Record<number, numbe
 
 /** The watch list's two sections; the page sorts each. */
 export function buildWatchList(
-  wanted: StagedFilm[],
+  wanted: WantedFilm[],
   season: StagedFilm[],
   allMarks: Mark[],
   chances: Record<number, number> = {},
 ): WatchList {
   const marked = new Set(allMarks.filter((m) => m.watched || m.want).map((m) => m.movieId));
-  const withChance = (f: StagedFilm): StagedFilm => ({ ...f, chance: chances[f.film.id] ?? null });
+  const withChance = <F extends StagedFilm>(f: F): F => ({ ...f, chance: chances[f.film.id] ?? null });
   return { want: wanted.map(withChance), unwatched: season.filter((f) => !marked.has(f.film.id)).map(withChance) };
 }
 

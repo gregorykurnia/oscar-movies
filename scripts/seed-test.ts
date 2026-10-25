@@ -26,10 +26,12 @@ async function resetMarks(tx: Tx) {
     .where(inArray(movies.imdbId, fixture.map((m) => m.imdb)));
   const idOf = new Map(found.map((m) => [m.imdbId, m.id]));
   await tx.delete(marks);
+  let rank = 0;
   for (const m of fixture) {
     const movieId = idOf.get(m.imdb);
     if (movieId === undefined) throw new Error(`tests/fixtures/marks.json: no film ${m.imdb}.`);
-    await tx.insert(marks).values({ movieId, watched: m.watched, want: m.want });
+    // Wanted films in the fixture's order, as the Watch list's "My order" (7.4).
+    await tx.insert(marks).values({ movieId, watched: m.watched, want: m.want, wantRank: m.want ? ++rank : null });
   }
   return fixture.length;
 }

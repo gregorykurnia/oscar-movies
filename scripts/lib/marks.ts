@@ -1,10 +1,12 @@
 // Marks export and restore (IMPLEMENTATION_PLAN.md §3.5, §10). The marks are the only data
 // that exists nowhere else, so the export names films by IMDb ID or QID (it survives any
 // reload) and restore writes only the films whose marks differ, after a plan that lists
-// every write. Restore never clears a mark that the file doesn't mention.
+// every write. Restore never clears a mark that the file doesn't mention. From 7.4 the file
+// also carries each film's Watch list order and release notes; a file without them (an older
+// backup) leaves them as they are.
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
-import { eq, inArray, or } from "drizzle-orm";
+import { eq, inArray, isNotNull, or } from "drizzle-orm";
 import type { ScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema, type MarkEntry, type MarksFile } from "../../src/lib/data-files";
@@ -12,7 +14,14 @@ import { marksFileSchema, type MarkEntry, type MarksFile } from "../../src/lib/d
 /** A script client or a transaction on one. */
 export type Db = Pick<ScriptDb, "select" | "insert" | "transaction">;
 
-export type MarkState = { watched: boolean; want: boolean };
+/** A film's whole row in `marks`, less its time. */
+export type MarkState = {
+  watched: boolean;
+  want: boolean;
+  wantRank: number | null;
+  releaseOn: string | null;
+  platform: string | null;
+};
 export type Film = { id: number; imdbId: string | null; wikidataId: string | null; title: string; year: number };
 export type CurrentMark = MarkState & { movieId: number };
 
@@ -32,13 +41,43 @@ export type RestorePlan = {
   notInFile: Array<{ film: Film; mark: MarkState }>;
 };
 
-const NONE: MarkState = { watched: false, want: false };
-const sameMark = (a: MarkState, b: MarkState) => a.watched === b.watched && a.want === b.want;
-const isMarked = (m: MarkState) => m.watched || m.want;
+const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, platform: null };
+const sameMark = (a: MarkState, b: MarkState) =>
+  a.watched === b.watched &&
+  a.want === b.want &&
+  a.wantRank === b.wantRank &&
+  a.releaseOn === b.releaseOn &&
+  a.platform === b.platform;
+/** A row worth keeping in the backup: a mark, or release notes (kept when a film is unwanted). */
+const isKept = (m: MarkState) => m.watched || m.want || m.releaseOn !== null || m.platform !== null;
 const entryId = (m: MarkEntry) => (m.imdb ?? m.wd) as string;
+const stateOf = ({ watched, want, wantRank, releaseOn, platform }: MarkState): MarkState => ({
+  watched,
+  want,
+  wantRank,
+  releaseOn,
+  platform,
+});
+
+/**
+ * The row an entry asks for, given the film's row now. A Watch list field the entry leaves out
+ * (an older file) keeps its value, except that a film that isn't wanted has no rank.
+ */
+export function targetState(entry: MarkEntry, now: MarkState): MarkState {
+  const keptRank = now.want ? now.wantRank : null;
+  return {
+    watched: entry.watched,
+    want: entry.want,
+    wantRank: entry.want ? (entry.wantRank === undefined ? keptRank : entry.wantRank) : null,
+    releaseOn: entry.releaseOn === undefined ? now.releaseOn : entry.releaseOn,
+    platform: entry.platform === undefined ? now.platform : entry.platform,
+  };
+}
 
 export function markLabel(m: MarkState): string {
-  return m.watched ? "watched" : m.want ? "want" : "none";
+  const parts = [m.watched ? "watched" : m.want ? `want${m.wantRank === null ? "" : ` #${m.wantRank}`}` : "none"];
+  if (m.releaseOn !== null || m.platform !== null) parts.push(`${m.releaseOn ?? "TBD"} · ${m.platform ?? "no platform"}`);
+  return parts.join(", ");
 }
 
 export function filmLabel(f: Film): string {
@@ -73,11 +112,11 @@ export function planRestore(entries: MarksFile, films: Film[], current: CurrentM
     claimed.set(film.id, id);
 
     const now = markOf.get(film.id);
-    const to = { watched: entry.watched, want: entry.want, updatedAt: entry.updatedAt };
+    const to = { ...targetState(entry, now ?? NONE), updatedAt: entry.updatedAt };
     if (sameMark(now ?? NONE, to)) {
       plan.unchanged += 1;
     } else if (now) {
-      plan.writes.push({ kind: "update", film, from: { watched: now.watched, want: now.want }, to });
+      plan.writes.push({ kind: "update", film, from: stateOf(now), to });
     } else {
       plan.writes.push({ kind: "insert", film, from: null, to });
     }
@@ -85,9 +124,9 @@ export function planRestore(entries: MarksFile, films: Film[], current: CurrentM
 
   const filmById = new Map(films.map((f) => [f.id, f]));
   for (const m of current) {
-    if (!claimed.has(m.movieId) && isMarked(m)) {
+    if (!claimed.has(m.movieId) && isKept(m)) {
       const film = filmById.get(m.movieId);
-      if (film) plan.notInFile.push({ film, mark: { watched: m.watched, want: m.want } });
+      if (film) plan.notInFile.push({ film, mark: stateOf(m) });
     }
   }
   return plan;
@@ -118,13 +157,25 @@ const filmColumns = {
   year: movies.year,
 };
 
-/** Every marked film (watched or want), sorted by IMDb ID or QID so the file diffs small. */
+const markColumns = {
+  watched: marks.watched,
+  want: marks.want,
+  wantRank: marks.wantRank,
+  releaseOn: marks.releaseOn,
+  platform: marks.platform,
+};
+
+/**
+ * Every marked film (watched or want) and every film with release notes, sorted by IMDb ID or
+ * QID so the file diffs small. Each entry has all three Watch list fields, so a restore puts
+ * them back exactly.
+ */
 export async function exportMarks(db: Db): Promise<MarksFile> {
   const rows = await db
-    .select({ ...filmColumns, watched: marks.watched, want: marks.want, updatedAt: marks.updatedAt })
+    .select({ ...filmColumns, ...markColumns, updatedAt: marks.updatedAt })
     .from(marks)
     .innerJoin(movies, eq(movies.id, marks.movieId))
-    .where(or(eq(marks.watched, true), eq(marks.want, true)));
+    .where(or(eq(marks.watched, true), eq(marks.want, true), isNotNull(marks.releaseOn), isNotNull(marks.platform)));
   return rows
     .map((r) => ({
       ...(r.imdbId ? { imdb: r.imdbId } : {}),
@@ -133,6 +184,9 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
       year: r.year,
       watched: r.watched,
       want: r.want,
+      wantRank: r.wantRank,
+      releaseOn: r.releaseOn,
+      platform: r.platform,
       updatedAt: r.updatedAt.toISOString(),
     }))
     .sort((a, b) => entryId(a).localeCompare(entryId(b)));
@@ -214,9 +268,7 @@ export async function exportMarksToFile(
 export async function loadRestorePlan(db: Db, entries: MarksFile): Promise<RestorePlan> {
   const imdbIds = entries.flatMap((m) => (m.imdb ? [m.imdb] : []));
   const wdIds = entries.flatMap((m) => (m.wd ? [m.wd] : []));
-  const current = await db
-    .select({ movieId: marks.movieId, watched: marks.watched, want: marks.want })
-    .from(marks);
+  const current = await db.select({ movieId: marks.movieId, ...markColumns }).from(marks);
   const markedIds = current.map((m) => m.movieId);
   const conditions = [
     imdbIds.length > 0 ? inArray(movies.imdbId, imdbIds) : undefined,
@@ -240,7 +292,7 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
   await db.transaction(async (tx) => {
     const ids = plan.writes.map((w) => w.film.id);
     const rows = await tx
-      .select({ movieId: marks.movieId, watched: marks.watched, want: marks.want })
+      .select({ movieId: marks.movieId, ...markColumns })
       .from(marks)
       .where(inArray(marks.movieId, ids))
       .for("update");
@@ -257,8 +309,7 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
     }
     for (const w of plan.writes) {
       const values = {
-        watched: w.to.watched,
-        want: w.to.want,
+        ...stateOf(w.to),
         updatedAt: w.to.updatedAt ? new Date(w.to.updatedAt) : new Date(),
       };
       if (w.from === null) {

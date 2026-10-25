@@ -51,7 +51,23 @@ describe("marksFileSchema", () => {
     expect(marksFileSchema.safeParse([entry]).success).toBe(true);
   });
 
+  it("accepts the Watch list fields, filled or null, and an older entry without them", () => {
+    const entries = [
+      { imdb: "tt1", watched: false, want: true, wantRank: 1, releaseOn: "2026-12-12", platform: "Netflix" },
+      { imdb: "tt2", watched: true, want: false, wantRank: null, releaseOn: null, platform: null },
+      { imdb: "tt3", watched: false, want: false, wantRank: null, releaseOn: "2026-11-03", platform: "Cinema XXI" },
+      { imdb: "tt4", watched: false, want: true },
+    ];
+    expect(marksFileSchema.safeParse(entries).success).toBe(true);
+  });
+
   it.each([
+    ["a rank but not wanted", { imdb: "tt1", watched: true, want: false, wantRank: 2 }],
+    ["a rank of 0", { imdb: "tt1", watched: false, want: true, wantRank: 0 }],
+    ["a date that isn't one", { imdb: "tt1", watched: false, want: true, releaseOn: "12 Dec 2026" }],
+    ["an empty platform", { imdb: "tt1", watched: false, want: true, platform: "" }],
+    ["a platform over 40 characters", { imdb: "tt1", watched: false, want: true, platform: "x".repeat(41) }],
+
     ["no id", { watched: true, want: false }],
     ["a bad IMDb ID", { imdb: "nm123", watched: true, want: false }],
     ["watched and want", { imdb: "tt1", watched: true, want: true }],

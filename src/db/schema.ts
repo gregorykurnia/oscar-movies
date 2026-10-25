@@ -106,8 +106,11 @@ export const movies = pgTable(
   ],
 );
 
-// The owner's watched and want-to-watch marks: written only by the marks action and the
-// marks restore script, never by imports.
+// The owner's watched and want-to-watch marks, and from 7.4 their Want to watch order and
+// release notes: written only by the marks and Watch list actions and the marks restore
+// script, never by imports. `want_rank` orders the wanted films (1 = top; ties by title) and
+// is null when the film isn't wanted; `release_on` (null = TBD) and `platform` stay when it
+// stops being wanted.
 export const marks = pgTable(
   "marks",
   {
@@ -117,8 +120,15 @@ export const marks = pgTable(
     watched: boolean("watched").notNull().default(false),
     want: boolean("want").notNull().default(false),
     updatedAt: timestamptz("updated_at").notNull().defaultNow(),
+    wantRank: integer("want_rank"),
+    releaseOn: date("release_on"),
+    platform: text("platform"),
   },
-  (t) => [check("marks_not_watched_and_want", sql`not (${t.watched} and ${t.want})`)],
+  (t) => [
+    check("marks_not_watched_and_want", sql`not (${t.watched} and ${t.want})`),
+    check("marks_want_rank", sql`${t.wantRank} is null or (${t.want} and ${t.wantRank} > 0)`),
+    check("marks_platform", sql`${t.platform} is null or char_length(${t.platform}) between 1 and 40`),
+  ],
 );
 
 export const awards = pgTable("awards", {

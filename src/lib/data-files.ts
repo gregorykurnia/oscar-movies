@@ -161,7 +161,9 @@ export const refKey = (r: { imdb?: string; wd?: string }) => r.imdb ?? r.wd;
 /**
  * One film's marks in `data/marks.json` (the marks export, §3.5). Films are named by IMDb ID
  * or Wikidata QID, never by database id, so the file survives any reload. `title` and `year`
- * are there for a person reading the file; restore ignores them.
+ * are there for a person reading the file; restore ignores them. From 7.4 an export also
+ * writes the Watch list fields (`wantRank`, `releaseOn`, `platform`, null when empty); a file
+ * without them (older backups) restores the marks and leaves those fields as they are.
  */
 export const markEntrySchema = z
   .object({
@@ -171,13 +173,17 @@ export const markEntrySchema = z
     year: z.number().int().optional(),
     watched: z.boolean(),
     want: z.boolean(),
+    wantRank: z.number().int().positive().max(2_147_483_647).nullable().optional(),
+    releaseOn: z.iso.date().nullable().optional(),
+    platform: z.string().min(1).max(40).nullable().optional(),
     updatedAt: z.iso.datetime({ offset: true }).optional(),
   })
   .strict()
   .refine((m) => m.imdb !== undefined || m.wd !== undefined, {
     message: "needs an IMDb ID (imdb) or a Wikidata QID (wd)",
   })
-  .refine((m) => !(m.watched && m.want), { message: "can't be both watched and want" });
+  .refine((m) => !(m.watched && m.want), { message: "can't be both watched and want" })
+  .refine((m) => m.want || m.wantRank == null, { message: "has a wantRank but isn't wanted" });
 
 export type MarkEntry = z.infer<typeof markEntrySchema>;
 

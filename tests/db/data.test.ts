@@ -224,6 +224,30 @@ describe("marks and the watch list", () => {
     });
   });
 
+  it("list the want-to-watch films in the owner's order with their release notes, unranked last", async () => {
+    await rolledBack(async (tx) => {
+      const films = await tx
+        .insert(movies)
+        .values([
+          { slug: "test-data-rank-a", title: "Zed", year: 2025, countries: ["US"], imdbId: "tt82000011" },
+          { slug: "test-data-rank-b", title: "Alpha", year: 2025, countries: ["US"], imdbId: "tt82000012" },
+        ])
+        .returning({ id: movies.id });
+      // The seeded Conclave is rank 1 after the migration or the seed.
+      await tx.update(marks).set({ wantRank: 2 }).where(eq(marks.want, true));
+      await tx.insert(marks).values([
+        { movieId: films[0].id, want: true, wantRank: 1, releaseOn: "2026-12-12", platform: "Netflix" },
+        { movieId: films[1].id, want: true },
+      ]);
+      const wanted = await queryWantedFilms(tx);
+      expect(wanted.map((f) => [f.film.slug, f.wantRank, f.releaseOn, f.platform])).toEqual([
+        ["test-data-rank-a", 1, "2026-12-12", "Netflix"],
+        ["conclave", 2, null, null],
+        ["test-data-rank-b", null, null, null],
+      ]);
+    });
+  });
+
   it("drop watched and wanted films from the season's section", async () => {
     const [wanted, season, allMarks] = await Promise.all([
       queryWantedFilms(db),
