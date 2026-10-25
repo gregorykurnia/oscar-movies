@@ -1,8 +1,8 @@
 // Screenshots for the phase reviews (task 0.12, IMPLEMENTATION_PLAN.md §8 Visual): every page in
 // ROUTES at 390 and 1280, light only, from the production build the global setup starts. Each test
 // first checks that its page answers with the right status and shows its h1, so a picture is never
-// of the wrong page, and that the page doesn't scroll sideways. Pictures go to screenshots/phase-5/
-// (gitignored); the phase review judges them.
+// of the wrong page, and that the page doesn't scroll sideways. Pictures go to `OUT_DIR` (gitignored);
+// the phase review judges them.
 // One page: `npm run screens -- --grep <name>`.
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -11,9 +11,9 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-// Each phase's review judges its own folder. Phases 0 to 5 keep theirs. The Phase 6 review runs the
-// whole list into this one, so until then it holds only the pages task 6.7 re-shot or added.
-const OUT_DIR = "screenshots/phase-6";
+// Each phase's review judges its own folder. Phases 0 to 6 keep theirs. The Phase 7 review runs the
+// whole list into this one, so until then it holds only the pages task 7.14 added (`--grep` them).
+const OUT_DIR = "screenshots/phase-7";
 mkdirSync(OUT_DIR, { recursive: true });
 
 // 390 is a phone and 1280 a laptop. The height only sets the first screen: each picture is the whole page.
@@ -46,6 +46,71 @@ async function setMark(slug: string, value: Mark | null): Promise<Mark | null> {
   } finally {
     await close();
   }
+}
+
+type WantedFilm = { slug: string; releaseOn?: string; platform?: string };
+
+// The Watch list's four wanted films in order, one for each kind of release line: a date and a platform,
+// a platform with TBD, a date already past ("Out 3 Oct") and none ("Add release date") (task 7.14).
+const WATCH_ORDER: WantedFilm[] = [
+  { slug: "the-secret-agent", releaseOn: "2026-12-12", platform: "Netflix" },
+  { slug: "hamnet", platform: "Netflix" },
+  { slug: "sentimental-value", releaseOn: "2026-10-03", platform: "Cinema XXI" },
+  { slug: "anora" },
+];
+
+/**
+ * Sets the test branch's marks to `wanted` (in that order, with their release notes) and no others.
+ * Returns the function that puts every mark back as it was.
+ */
+async function setWatchList(wanted: WantedFilm[]): Promise<() => Promise<void>> {
+  const { db, close } = createScriptDb();
+  try {
+    const saved = await db.select().from(marks);
+    const rows: (typeof marks.$inferInsert)[] = [];
+    for (const [i, film] of wanted.entries()) {
+      const [movie] = await db.select({ id: movies.id }).from(movies).where(eq(movies.slug, film.slug));
+      if (!movie) throw new Error(`${film.slug} isn't on the test branch`);
+      rows.push({
+        movieId: movie.id,
+        watched: false,
+        want: true,
+        wantRank: i + 1,
+        releaseOn: film.releaseOn ?? null,
+        platform: film.platform ?? null,
+      });
+    }
+    await db.delete(marks);
+    await db.insert(marks).values(rows);
+    return async () => {
+      const back = createScriptDb();
+      try {
+        await back.db.delete(marks);
+        if (saved.length > 0) await back.db.insert(marks).values(saved);
+      } finally {
+        await back.close();
+      }
+    };
+  } finally {
+    await close();
+  }
+}
+
+// My order: every Want to watch row starts with its drag handle (task 7.9).
+async function expectMyOrder(page: Page) {
+  await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(WATCH_ORDER.length);
+}
+
+// The add box with results: a title the box would add ("I'm Still Here" isn't in WATCH_ORDER).
+async function typeInAddBox(page: Page) {
+  await page.getByRole("combobox", { name: "Add a film" }).fill("ainda estou");
+  await expect(page.getByRole("option", { name: /I'm Still Here/ })).toBeVisible();
+}
+
+// The release line of The Secret Agent opens its editor: a popover on a laptop, a sheet on a phone (task 7.10).
+async function openReleaseEditor(page: Page) {
+  await page.getByRole("button", { name: /12 Dec 2026 · Netflix/ }).click();
+  await expect(page.getByRole("dialog", { name: "Release date and platform" })).toBeVisible();
 }
 
 // Search as a visitor opens it: the Search button opens the full-screen sheet on a phone, `/` the
@@ -308,6 +373,105 @@ const ROUTES: Route[] = [
     ready: async (page) => {
       await expect(page.getByRole("table").getByRole("columnheader", { name: "Cinema Eye", exact: true })).toBeVisible();
       await showDocNycColumn(page);
+    },
+  },
+  // Phase 7 (task 7.14). Signals: Documentary 2025 in both views (the accuracy page's link). All years: Critics
+  // Choice's Picture and Documentary tabs, then the Oscars. The 2025 Picture grid in Oscar order. The Watch list in
+  // its add box with results, in My order with the handles, and with the release editor open (WATCH_ORDER). A
+  // co-production's movie page: The Secret Agent (Brazil, France, Germany), one flag and every country in its text.
+  {
+    name: "signals-2025-documentary-award",
+    path: "/signals/2025?category=documentary",
+    status: 200,
+    heading: "2025 strong signals",
+    ready: async (page) => {
+      await expect(page.locator('[data-award="cinema-eye/feature"]')).toBeVisible();
+    },
+  },
+  {
+    name: "signals-2025-documentary-film",
+    path: "/signals/2025?category=documentary&view=film",
+    status: 200,
+    heading: "2025 strong signals",
+    ready: async (page) => {
+      await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+    },
+  },
+  {
+    name: "awards-critics-choice-all-picture",
+    path: "/awards/critics-choice/all",
+    status: 200,
+    heading: "Critics Choice, all years",
+    ready: async (page) => {
+      await expect(page.getByRole("region", { name: "Critics Choice 2025" }).locator("[data-winner]").first()).toBeVisible();
+    },
+  },
+  {
+    name: "awards-critics-choice-all-documentary",
+    path: "/awards/critics-choice/all?category=documentary",
+    status: 200,
+    heading: "Critics Choice, all years",
+    ready: async (page) => {
+      const tabs = page.getByRole("navigation", { name: "Category" });
+      await expect(tabs.getByRole("link", { name: "Documentary" })).toHaveAttribute("aria-current", "page");
+      const old = page.getByRole("region", { name: "Critics Choice 2015" });
+      await expect(old.getByRole("heading", { level: 3 }).first()).toBeVisible();
+    },
+  },
+  {
+    name: "awards-oscars-all",
+    path: "/awards/oscars/all",
+    status: 200,
+    heading: "Oscars, all years",
+    ready: async (page) => {
+      await expect(page.getByRole("region", { name: "Oscars 2025" })).toBeVisible();
+    },
+  },
+  {
+    name: "grid-2025-oscar",
+    path: "/grid/2025?sort=oscar",
+    status: 200,
+    heading: "2025 year grid",
+    // Oscar order leads with the winner (task 7.7); the sort button names it.
+    ready: async (page) => {
+      await expect(page.getByRole("button", { name: "Sort: Oscars" })).toBeVisible();
+      const winner = page.getByRole("table").getByRole("rowheader").first();
+      await expect(winner).toHaveAttribute("aria-label", "One Battle After Another");
+    },
+  },
+  {
+    name: "watch-list-add",
+    path: "/watch-list",
+    status: 200,
+    heading: "Watch list",
+    prepare: () => setWatchList(WATCH_ORDER),
+    ready: expectMyOrder,
+    open: typeInAddBox,
+  },
+  {
+    name: "watch-list-order",
+    path: "/watch-list",
+    status: 200,
+    heading: "Watch list",
+    prepare: () => setWatchList(WATCH_ORDER),
+    ready: expectMyOrder,
+  },
+  {
+    name: "watch-list-editor",
+    path: "/watch-list",
+    status: 200,
+    heading: "Watch list",
+    prepare: () => setWatchList(WATCH_ORDER),
+    ready: expectMyOrder,
+    open: openReleaseEditor,
+  },
+  {
+    name: "movie-co-production",
+    path: "/movies/the-secret-agent",
+    status: 200,
+    heading: "The Secret Agent",
+    ready: async (page) => {
+      await expect(page.getByText("Brazil, France, Germany")).toBeVisible();
     },
   },
 ];
