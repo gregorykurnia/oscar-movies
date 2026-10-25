@@ -79,6 +79,39 @@ Random picks from the shortlist average about 18 of 55. Other cut-offs for "stro
 | 2024 | No Other Land ✓, Soundtrack to a Coup d'Etat ✓, Dahomey, Sugarcane ✓, The Remarkable Life of Ibelin | Black Box Diaries (6), Porcelain War (7) |
 | 2025 | My Undesirable Friends: Part I, The Perfect Neighbor ✓, Come See Me in the Good Light ✓, Apocalypse in the Tropics, Cutting Through Rocks ✓ | Mr. Nobody Against Putin (8), The Alabama Solution (14) |
 
+### Busy films that got snubbed
+"Busy" here means the five shortlisted films with the most precursor awards nominating them that year. A high count is a poor guide on its own: those five got in 38 of 70 times (54%). Most of the count is regional US critics groups, which tend to nominate the same popular American films. Of the 70:
+
+| Sign | Got in |
+|---|---|
+| No Spirit Awards nomination and no IDA Best Feature nomination | 4 of 24 (17%); 2 of 11 in 2012–18, 2 of 13 in 2019–25 |
+| 0 strong awards | 4 of 18 (22%) |
+| Critics Choice Documentary win | 3 of 9 (33%) |
+| Hollywood Critics nominee | 8 of 19 (42%) |
+| US-only | 19 of 43 (44%) |
+| Spirit and IDA Best Feature nominations | 21 of 24 (88%) |
+| 3+ strong awards | 26 of 29 (90%) |
+
+The typical snub is a US film with many critics-group nominations and crowd wins but none of the documentary groups' own awards: Life Itself, Going Clear, Three Identical Strangers, Boys State, Moonage Daydream, Still, Will & Harper, Cover-Up. The four that got in anyway: Cartel Land, RBG, 20 Days in Mariupol, The Alabama Solution. All four films in a year's top two by count with no strong award were snubbed (Blackfish, Still, Will & Harper, Cover-Up). Celebrity and music portraits among the busy films, labelled by hand: about 10 snubbed, 4 in (Searching for Sugar Man, 20 Feet from Stardom, Amy, Summer of Soul); 1 of 6 since 2019.
+
+### Underdogs: what lifts them
+Every year has 1–3 nominees from outside the top five by count (32 of the 70). Of the 139 less-awarded shortlisted films (23% get in):
+
+| Sign | Got in |
+|---|---|
+| No US country, plus a DGA, Cinema Eye Best Feature or Spirit nomination | 9 of 11 (82%) |
+| 2+ strong awards, not counting Cinema for Peace | 7 of 11 (64%) |
+| DGA nominee | 15 of 27 (56%) |
+| Cinema Eye Best Feature nominee | 11 of 20 (55%) |
+| Spirit nominee | 8 of 16 (50%) |
+| No US country | 14 of 29 (48%) |
+| None of DGA, Cinema Eye Best Feature or Spirit | 8 of 88 (9%) |
+| US-only and none of those three | 2 of 57 (4%); 0 of 21 since 2019 |
+
+A nomination from a group where filmmakers vote (DGA, Cinema Eye, Spirit) matters far more than the number of critics-group mentions. Non-US examples: Virunga, Fire at Sea, My Octopus Teacher, The Mole Agent, A House Made of Splinters, The Eternal Memory, Soundtrack to a Coup d'Etat (Maiden and Midnight Family missed).
+
+Both sections describe all 14 seasons together and were not backtested.
+
 ### Tested and not kept: themes
 Each shortlisted documentary was labelled by hand with one theme from its TMDB summary. War and conflict got in 58% (70% when not US-only), crime and scandal 11%, US-only politics 1 of 21. Adding theme to the patterns picked fewer nominees (30 of 55; 2025: 2 of 5, as five war documentaries were shortlisted and one got in): it mostly repeats what country and strong awards already say.
 
@@ -87,6 +120,7 @@ Each shortlisted documentary was labelled by hand with one theme from its TMDB s
 
 ### Cautions
 - 14 seasons and 70 nominees: tendencies, not rules. Many predictors pick the same films.
+- Cinema for Peace (22 of 34 got in, one of the strong awards) has no announcement dates in the data, so every result counts. Its gala is at the Berlinale in February, after Oscar nominations, so it may partly repeat the Oscar list. Check its nominee dates before relying on it.
 - Countries come from Wikipedia and can mislead: My Undesirable Friends (a Moscow story) is listed US-only. Task 7.2 fixed the first-listed country.
 
 ## International
