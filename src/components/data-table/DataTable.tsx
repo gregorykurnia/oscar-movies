@@ -21,7 +21,7 @@ export type DataColumn = {
 };
 
 export type DataRow =
-  | { type: "group"; key: string; label: string }
+  | { type: "group"; key: string; label: ReactNode }
   | { type?: "row"; key: string; cells: ReactNode[] };
 
 /**

@@ -9,6 +9,7 @@ import { getAccuracy } from "@/data/accuracy";
 import { getBacktest } from "@/data/backtest";
 import { SHORTLIST_RULE_CATEGORIES, SHORTLIST_RULE_NOTE } from "@/lib/accuracy";
 import { parseSort, seasonsSpan } from "@/lib/accuracy-page";
+import { patternsHref } from "@/lib/patterns/page";
 import { RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { signalsHref } from "@/lib/signals";
 import { LIVE_YEAR } from "@/lib/years";
@@ -44,6 +45,9 @@ export function AccuracyPage({ category, query }: { category: RaceCategory; quer
         />
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-small">
           <TextLink href={signalsHref(LIVE_YEAR, category)}>Strong signals, {LIVE_YEAR}</TextLink>
+          {category === "documentary" || category === "international" ? (
+            <TextLink href={patternsHref(LIVE_YEAR, category)}>Nomination patterns, {LIVE_YEAR}</TextLink>
+          ) : null}
           <TextLink href={`/accuracy/${category}#method`}>How the % chance works</TextLink>
         </div>
       </div>

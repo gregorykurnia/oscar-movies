@@ -29,6 +29,7 @@ export function FilmList({
   leadLabel,
   handles = false,
   columns = DEFAULT_COLUMNS,
+  rule = true,
   children,
   className,
 }: {
@@ -41,11 +42,13 @@ export function FilmList({
   /** The rows start with a drag handle (an unlabelled first column). */
   handles?: boolean;
   columns?: string[];
+  /** The first rule in ink; off for a list that continues one above it (a sub-list under its heading). */
+  rule?: boolean;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <div className={cn("border-t border-ink", className)} style={{ "--film-cols": columns.join(" ") } as CSSProperties}>
+    <div className={cn(rule && "border-t border-ink", className)} style={{ "--film-cols": columns.join(" ") } as CSSProperties}>
       {head ? (
         <div aria-hidden="true" className={cn(rowGrid, "hidden border-b border-line py-2.5 text-caption text-ink-muted md:grid")}>
           {handles ? <span /> : null}
@@ -79,6 +82,8 @@ export type FilmResult = {
   gold?: boolean;
   /** Left out of the phone's results line (an empty "–" that would take a line of its own). */
   phoneHidden?: boolean;
+  /** A list of lines (the patterns page's reasons): a line of its own under the film on phone, its label read out only. */
+  block?: boolean;
 };
 
 export function FilmRow({
@@ -87,6 +92,7 @@ export function FilmRow({
   lang,
   handle,
   lead,
+  rank,
   flag,
   flagLabel,
   meta,
@@ -106,6 +112,8 @@ export function FilmRow({
   handle?: ReactNode;
   /** The first column (International: the submitting country's flag and name). */
   lead?: ReactNode;
+  /** The patterns' pick number, a light numeral in a 20px column before the flag. */
+  rank?: number;
   /** The film's one flag: its primary country (`FilmRowData.flag`). */
   flag?: string | null;
   /** Accessible name of the flag ("Brazil, submitting country"). */
@@ -138,6 +146,11 @@ export function FilmRow({
       {handle ? <div className="flex justify-center max-md:[grid-area:grip]">{handle}</div> : null}
       {lead ? <div className="min-w-0 text-small max-md:[grid-area:lead]">{lead}</div> : null}
       <div className="flex min-w-0 gap-3 max-md:[grid-area:film] md:gap-3.5">
+        {rank !== undefined ? (
+          <span aria-hidden="true" className="w-5 flex-none pt-px text-right text-[18px] leading-[1.3] font-light tracking-[-0.02em] text-ink-muted">
+            {rank}
+          </span>
+        ) : null}
         <Flags code={flag} label={flagLabel} className="mt-1" />
         <div className="min-w-0">
           <Heading className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[16px] leading-snug font-medium tracking-title [overflow-wrap:anywhere] md:text-[17px]">
@@ -159,7 +172,7 @@ export function FilmRow({
       <div
         className={cn(
           "flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-caption max-md:[grid-area:res] md:contents",
-          flag && "pl-[33px]",
+          flag && (rank !== undefined ? "pl-[65px]" : "pl-[33px]"),
           results.every((r) => r.phoneHidden) && "max-md:hidden",
         )}
       >
@@ -172,9 +185,10 @@ export function FilmRow({
               !result.numeric && "md:text-small",
               result.gold && "text-gold-ink",
               result.phoneHidden && "max-md:hidden",
+              result.block && "max-md:basis-full",
             )}
           >
-            <span className="text-ink-muted md:sr-only">{result.label} </span>
+            <span className={cn("text-ink-muted", result.block ? "sr-only" : "md:sr-only")}>{result.label} </span>
             {result.value}
           </span>
         ))}

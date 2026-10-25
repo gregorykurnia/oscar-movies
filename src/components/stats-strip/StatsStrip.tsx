@@ -16,13 +16,14 @@ export type Stat = {
 };
 
 /**
- * Guide §7 Stats strip: three equal cells between line rules; stacks on phone. Four (an award
+ * Guide §7 Stats strip: three equal cells between line rules (two on the patterns page's International); stacks on phone. Four (an award
  * page's accuracy figures) stack until desktop, as "100% 138 of 140" doesn't fit a quarter of a tablet.
  */
 export function StatsStrip({ stats, className }: { stats: Stat[]; className?: string }) {
   const four = stats.length === 4;
+  const two = stats.length === 2;
   return (
-    <div className={cn("grid grid-cols-1 border-y border-line", four ? "lg:grid-cols-4" : "md:grid-cols-3", className)}>
+    <div className={cn("grid grid-cols-1 border-y border-line", four ? "lg:grid-cols-4" : two ? "md:grid-cols-2" : "md:grid-cols-3", className)}>
       {stats.map((stat, i) => {
         const body = (
           <>

@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  // `/submissions`, `/awards`, `/festivals`, `/grid` and `/signals` open the live season's pages (a `?category=` or `?view=` carries over), `/accuracy` Picture (plan §4).
+  // `/submissions`, `/awards`, `/festivals`, `/grid` and `/signals` and `/patterns` open the live season's pages (a `?category=` or `?view=` carries over), `/accuracy` Picture (plan §4).
   async redirects() {
     return [
       { source: "/submissions", destination: `/submissions/${LIVE_YEAR}`, permanent: false },
@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
       { source: "/festivals", destination: `/festivals/${LIVE_YEAR}`, permanent: false },
       { source: "/grid", destination: `/grid/${LIVE_YEAR}`, permanent: false },
       { source: "/signals", destination: `/signals/${LIVE_YEAR}`, permanent: false },
+      { source: "/patterns", destination: `/patterns/${LIVE_YEAR}`, permanent: false },
       { source: "/accuracy", destination: "/accuracy/picture", permanent: false },
     ];
   },

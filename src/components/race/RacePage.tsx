@@ -41,6 +41,8 @@ import {
   type Chance,
   type RaceSnapshot,
 } from "@/lib/race-chances";
+import { PICKS_FROM } from "@/lib/patterns/rules";
+import { patternsHref } from "@/lib/patterns/page";
 import { signalsHref } from "@/lib/signals";
 import { oscarStage } from "@/lib/stage";
 import { editionLabel, LIVE_YEAR, OLDEST_YEAR, yearRange } from "@/lib/years";
@@ -282,6 +284,12 @@ function CategoryPanel({
         <TextLink href={signalsHref(year, category)}>Strong signals, {year}</TextLink>
         <span>the films the best-predicting awards picked</span>
       </p>
+      {(category === "documentary" || category === "international") && year >= PICKS_FROM ? (
+        <p data-patterns-link className="mt-1 flex flex-wrap gap-x-2.5 gap-y-0.5 text-small text-ink-muted">
+          <TextLink href={patternsHref(year, category)}>Nomination patterns, {year}</TextLink>
+          <span>the five the patterns pick, and why the well-awarded ones miss</span>
+        </p>
+      ) : null}
       {rows.length > 0 && early ? (
         <Notice tone="gold" title="Early: few results yet." className="mt-5">
           Chances will move a lot as more awards announce their nominees and winners.
