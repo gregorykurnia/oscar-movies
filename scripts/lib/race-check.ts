@@ -50,6 +50,7 @@ export function tablesAfterPlan(
   const editionIdOf = new Map(editionRows.map((e) => [`${awardSlugOf.get(e.awardId)}/${e.year}`, e.id]));
 
   const allFilms = [...films];
+  const movieRows = (tables.movieRows ?? []).map((m) => ({ ...m }));
   const movieIdOf = new Map<string, number>();
   for (const f of films) {
     if (f.imdbId) movieIdOf.set(f.imdbId, f.id);
@@ -59,12 +60,16 @@ export function tablesAfterPlan(
     const id = nextId--;
     movieIdOf.set(m.key, id);
     allFilms.push({ id, title: m.title, imdbId: m.imdbId ?? null, wikidataId: m.wikidataId ?? null });
+    movieRows.push({ id, title: m.title, countries: m.countries ?? null });
   }
   for (const u of plan.movies.updates) {
     if (u.set.imdbId) movieIdOf.set(u.set.imdbId, u.id);
     if (u.set.wikidataId) movieIdOf.set(u.set.wikidataId, u.id);
     const film = allFilms.find((f) => f.id === u.id);
     if (film && u.set.title) film.title = u.set.title;
+    const row = movieRows.find((f) => f.id === u.id);
+    if (row && u.set.title) row.title = u.set.title;
+    if (row && u.set.countries) row.countries = u.set.countries;
   }
 
   const deleted = new Set(plan.results.deletes.map((d) => d.id));
@@ -82,7 +87,7 @@ export function tablesAfterPlan(
       outcome: r.outcome,
     });
   }
-  return { tables: { awardRows, categoryRows, editionRows, resultRows }, films: allFilms };
+  return { tables: { awardRows, categoryRows, editionRows, resultRows, movieRows }, films: allFilms };
 }
 
 /** A film's chance in the snapshot the race shows, before and after (null: not a contender). */

@@ -272,6 +272,21 @@ describe("leave one season out never sees the held-out season", () => {
     expect(predictCategory({ category: "picture", year: 2014, seasons: reshuffled, snapshot: { kind: "eve_nominations" } })).toEqual(base);
   });
 
+  it("with historyBefore, learns only from the seasons before it (later seasons' answers change nothing)", () => {
+    const seasons = history("documentary");
+    const p = predictCategory({ category: "documentary", year: 2017, seasons, snapshot: { kind: "eve_nominations" }, historyBefore: 2017 })!;
+    expect(p.history).toEqual(PAST.filter((y) => y < 2017));
+    const later = predictCategory({
+      category: "documentary",
+      year: 2017,
+      seasons: swapAnswers(swapAnswers(seasons, 2019), 2022),
+      snapshot: { kind: "eve_nominations" },
+      historyBefore: 2017,
+    });
+    expect(later).toEqual(p);
+    expect(predictCategory({ category: "documentary", year: 2017, seasons: swapAnswers(seasons, 2015), snapshot: { kind: "eve_nominations" }, historyBefore: 2017 })).not.toEqual(p);
+  });
+
   it("gives the same answer whether or not the held-out season counts as finished", () => {
     const seasons = history("documentary");
     const asUnfinished = seasons.map((s) => (s.year === 2020 ? { ...s, finished: false } : s));

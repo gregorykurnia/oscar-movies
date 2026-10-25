@@ -67,6 +67,9 @@ export const RULES: Record<PatternCategory, CategoryRules> = {
     sweep: { critics: BIG_CRITICS, min: 2, without: [DGA, CINEMA_EYE_FEATURE, IDA_FEATURE] },
     signs: ["busy", "sweep"],
   },
+  // Task 8.3 found no International Snub risk sign (`docs/research/nomination-predictors.md`): the
+  // nearest, busy with no strong award, got in 2 of 7 over all seasons but 2 of 4 as the flag
+  // would judge it (each season's strong awards from earlier seasons), so `signs` stays empty.
   international: {
     usSplit: false,
     snubRule: null,

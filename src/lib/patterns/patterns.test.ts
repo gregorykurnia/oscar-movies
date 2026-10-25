@@ -11,7 +11,9 @@ import {
   flaggedRecord,
   mostAwardedMisses,
   pastSeasons,
+  patternChances,
   patternKey,
+  patternSeasons,
   scaleToSlots,
   underdogRecord,
   type PatternCategory,
@@ -208,5 +210,27 @@ describe("nomination patterns: other cases", () => {
     expect(reasonText({ kind: "pattern", pattern: { strong: 2, usOnly: true }, figure: { hits: 0, count: 0 } })).toBe(
       "2 strong awards, US-only: no films before",
     );
+  });
+
+  it("gives the race the patterns' % from the shortlist on, from 2015, and nothing before", () => {
+    const live = all.find((s) => s.year === 2017)!;
+    const a = analyzeSeason({ category: "documentary", year: 2017, seasons: all })!;
+    const chances = patternChances({ category: "documentary", year: 2017, seasons: all });
+    if (a.state === "before") expect(chances).toBeNull();
+    else expect(chances).toEqual(new Map(a.films.map((f) => [f.movie, f.pNominate])));
+    const before = all.map((s) => (s.year !== 2017 ? s : { ...s, films: live.films.map((f) => ({ ...f, oscar: null })) }));
+    expect(patternChances({ category: "documentary", year: 2017, seasons: before })).toBeNull();
+    const shifted = all.map((s) => ({ ...s, year: s.year - 1 }));
+    expect(patternChances({ category: "documentary", year: 2014, seasons: shifted })).toBeNull();
+    const past = patternChances({ category: "documentary", year: 2016, seasons: all })!;
+    expect([...past.values()].reduce((s, v) => s + v, 0)).toBeCloseTo(5);
+  });
+
+  it("adds titles and countries to the engine's seasons", () => {
+    const [s] = patternSeasons([{ ...all[0], films: [{ movie: 7, results: [], oscar: null }, { movie: 8, results: [], oscar: null }] }], new Map([[7, { title: "Seven", countries: ["FR"] }]]));
+    expect(s.films).toEqual([
+      { movie: 7, results: [], oscar: null, title: "Seven", countries: ["FR"] },
+      { movie: 8, results: [], oscar: null, title: "8", countries: null },
+    ]);
   });
 });

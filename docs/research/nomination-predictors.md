@@ -1,6 +1,6 @@
 # What predicts an Oscar nomination: Documentary and International
 
-The planning check behind Phase 8 (product plan §3.16, implementation plan Phase 8), run read-only on the `test` database on 2026-10-25 and recounted the same day without Cinema for Peace (removed from the app: its gala is at the Berlinale in February, after the Oscar nominations). International is filled in by task 8.3.
+The planning check behind Phase 8 (product plan §3.16, implementation plan Phase 8), run read-only on the `test` database on 2026-10-25 and recounted the same day without Cinema for Peace (removed from the app: its gala is at the Berlinale in February, after the Oscar nominations). International was added by task 8.3 the same day, from the app's own code (`npx tsx scripts/research/nomination-predictors.ts --target test --category international` prints its figures; `tests/db/patterns.test.ts` holds both categories' backtests).
 
 **How it was counted:** shortlisted films only (`shortlisted` or better), 2012–2025. A precursor result counts only if it was announced before that year's Oscar nominations (`nominations_on`, else `winners_on`; no date counts as announced); a win announced later counts as a nomination. "US-only" means the film's countries are exactly `["US"]`. Two figures per predictor:
 - **Got in:** of the shortlisted films that had it, the share nominated.
@@ -79,7 +79,7 @@ This sign is part of the method (see "The snub rule" under the backtest).
 
 **A critics' sweep with no filmmakers' group:** shortlisted films nominated by two or more of the New York, Los Angeles and National Society critics got in 16 of 19 times with a DGA, Cinema Eye Best Feature or IDA Best Feature nomination, and 1 of 5 without (The Gatekeepers got in; This Is Not a Film, Shirkers, Procession and My Undesirable Friends missed).
 
-**Snub risk flag (Phase 8):** a film matching either sign above, judged each season from earlier seasons only. Over 2015–2025 it flagged 27 films and 7 got in (26%). As they stood for 2025: the busy sign 4 of 23, the critics' sweep 1 of 4. Flagged in 2024: Will & Harper, Daughters (both missed); in 2025: Cover-Up, 2000 Meters to Andriivka, My Undesirable Friends (missed) and The Alabama Solution (got in). A third sign, busy with no strong award, flagged no extra film and was left out.
+**Snub risk flag (Phase 8):** a film matching either sign above, judged each season from earlier seasons only. Over 2015–2025 it flagged 27 films and 7 got in (26%), as first counted; task 8.3's recount with the app's code gives 24 flagged and 5 in (21%) over 2015–2025 (Cartel Land, Abacus, RBG, 20 Days in Mariupol, The Alabama Solution), and 27 flagged, 5 in, with 2014 added. The page shows the recount. As they stood for 2025: the busy sign 4 of 23, the critics' sweep 1 of 4. Flagged in 2024: Will & Harper, Daughters (both missed); in 2025: Cover-Up, 2000 Meters to Andriivka, My Undesirable Friends (missed) and The Alabama Solution (got in). A third sign, busy with no strong award, flagged no extra film and was left out.
 
 ### Underdogs: what lifts them
 Every year has 1–3 nominees from outside the busy five. Of the 137 less-nominated shortlisted films (23% get in):
@@ -110,6 +110,9 @@ A nomination from a group where filmmakers vote (DGA, Cinema Eye, Spirit) matter
 | Patterns with the snub rule | 2 | 4 | 3 | 3 | 4 | 3 | 3 | 4 | 3 | 4 | 2 | **35 of 55** |
 | Patterns alone | 2 | 4 | 2 | 3 | 4 | 3 | 2 | 4 | 3 | 4 | 2 | 33 of 55 |
 | App's current method | 3 | 3 | 2 | 3 | 3 | 3 | 2 | 4 | 2 | 2 | 3 | 30 of 55 |
+| App's current method, earlier seasons only (task 8.3) | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 4 | 2 | 2 | 3 | 31 of 55 |
+
+The race uses the patterns for Documentary's % to be nominated once the shortlist is out (`NOMINATION_METHOD`, task 8.3): 35 against 31, each from earlier seasons only.
 
 Random picks from the shortlist average about 18 of 55. Other cut-offs for "strong" (50–65%, cap 2–4) gave 30–34 for patterns alone and 33–38 with the snub rule, which added 2–7 under every setting; 60% / 3+ is a middle setting, not the best one picked after the fact. The current method's eve figures are leave-one-season-out (they saw later seasons), so its real-time score would be no better. With Cinema for Peace still counted (before its removal), patterns alone also gave 33 and the current method 30.
 
@@ -132,5 +135,109 @@ Each shortlisted documentary was labelled by hand with one theme from its TMDB s
 - An award with no announcement dates counts every result as announced in time. Cinema for Peace was one (22 of 34 got in) until it was removed for coming after the Oscar nominations; check the dates of any award that looks this good.
 - Countries come from Wikipedia and can mislead: My Undesirable Friends (a Moscow story) is listed US-only. Task 7.2 fixed the first-listed country.
 
-## International
-To be filled in by task 8.3, in the same form (International has no US-only split; 273 of 716 award wins went to films never shortlisted, e.g. Los Angeles critics' winner figure goes from 7 of 16 to 7 of 8).
+## International (163 shortlisted films, 70 nominees; 43% of the shortlist gets in)
+
+Counted the same way (shortlisted films, 2012–2025, results announced before the Oscar nominations), with no US-only split: nearly every film is from outside the US. The shortlist had 9 films until 2018, 10 in 2019 and 15 since 2020, so more of it gets in than in Documentary.
+
+International is followed by far more critics groups than Documentary, and they mostly agree: 49 of the 57 award categories with 6 or more shortlisted films count as strong (as learned from 2012–2024). So a pattern here is mostly "named by many critics groups or by none", and the five most-nominated are usually the five it picks.
+
+### Near-certain, but few films a year
+| Predictor | Got in | Caught |
+|---|---|---|
+| New York Film Critics Circle nominee | 9 of 9 (100%) | 13% |
+| European Film Awards European Film win | 9 of 9 (100%) | 13% |
+| Las Vegas critics nominee | 9 of 9 (100%) | 13% |
+| Georgia critics win | 10 of 10 (100%) | 14% |
+| Alliance of Women Film Journalists win | 12 of 13 (92%) | 17% |
+| San Francisco Bay Area critics win | 10 of 11 (91%) | 14% |
+| Golden Globe win | 9 of 10 (90%) | 13% |
+| Boston Society of Film Critics nominee | 8 of 9 (89%) | 11% |
+| Los Angeles critics win | 7 of 8 (88%) | 10% |
+
+21 predictors in all, nearly all a regional critics group's win; each covers one or two films a year.
+
+### Best all-round
+| Predictor | Got in | Caught |
+|---|---|---|
+| BAFTA Film Not in the English Language nominee | 26 of 32 (81%) | 37% |
+| Online Film Critics Society nominee | 29 of 36 (81%) | 41% |
+| London Film Critics' Circle nominee | 21 of 26 (81%) | 30% |
+| Toronto critics nominee | 20 of 25 (80%) | 29% |
+| Online Film & Television Association nominee | 38 of 48 (79%) | **54%** |
+| Houston critics nominee | 33 of 43 (77%) | 47% |
+| Dallas–Fort Worth critics nominee | 37 of 49 (76%) | **53%** |
+| Golden Globe nominee | 40 of 53 (75%) | **57%** |
+| European Film Awards European Film nominee | 24 of 32 (75%) | 34% |
+| Critics Choice nominee | 39 of 54 (72%) | **56%** |
+| Washington D.C. critics nominee | 34 of 50 (68%) | 49% |
+
+32 predictors in all, every one a critics group or a film award's nomination at 67–83%.
+
+### Wide nets (most nominees are in them, many misses too)
+| Predictor | Got in | Caught |
+|---|---|---|
+| 3+ strong awards | 49 of 79 (62%) | **70%** |
+| Satellite Awards International nominee | 45 of 74 (61%) | 64% |
+
+### Warning signs
+| Predictor | Got in |
+|---|---|
+| No strong awards | 11 of 59 (19%) |
+| 2 strong awards | 2 of 7 (29%) |
+| Gotham Awards International nominee | 4 of 11 (36%) |
+| 1 strong award | 8 of 18 (44%), about the shortlist's share |
+
+Not strong, for all their size: the Spirit Awards International (20 of 32, 63%), National Board of Review (27 of 46, 59%), Satellite (40 of 67, 60%), each as learned from 2012–2024.
+
+### Patterns (strong awards, 2012–2024)
+| Pattern | Nominated |
+|---|---|
+| 3+ | 44 of 69 (64%) |
+| 2 | 1 of 5 (20%) |
+| 1 | 7 of 15 (47%) |
+| 0 | 13 of 59 (22%) |
+
+**Underdogs** (nominees with 0–1 strong awards) are fewer than in Documentary: 12 of the 55 nominees in 2015–2025 (22%).
+
+### Busy films and Snub risk
+The busy five (the five shortlisted films with the most precursor nominations, ties at fifth included) got in 53 of 77 times (69%), and the 17 nominees from outside them came about one a year. A sign would count (implementation plan Phase 8) if the busy films with it got in no more than the shortlist's share + 5 points (48%) over 6 or more films. None does:
+
+| Sign, among the busy five | Got in |
+|---|---|
+| No strong award (all seasons' strong awards) | 2 of 7 (29%): Paradise, Foxtrot, The Painted Bird, Truth and Justice, Beanpole missed |
+| The same, each season's strong awards from earlier seasons only (as the flag would judge it) | 2 of 4 (50%): The Grandmaster, Viva missed; Theeb, Honeyland got in |
+| No Critics Choice nomination | 14 of 26 (54%) |
+| No Golden Globe nomination | 17 of 30 (57%) |
+| No BAFTA nomination | 29 of 50 (58%) |
+| No win at any award | 14 of 24 (58%) |
+| Without any one other award's nomination | 52% or more |
+
+The first line passes only with hindsight (the strong awards learned from all 14 seasons) and on 7 films; as the flag would run, it marks 4 films in 13 seasons and half got in. So International has no Snub risk flag (`src/lib/patterns/rules.ts`), and no snub rule in the ranking.
+
+### How to pick the five
+1. Work from the shortlist of 15.
+2. Lock in a film the New York critics nominated, or that won the Golden Globe or the European Film Award: nearly all got in.
+3. Next, BAFTA, Golden Globe and Critics Choice nominees: about three in four got in, and most nominees had at least one of them.
+4. Count the critics groups: the five most-nominated got in about 7 times in 10, a film no strong award named about 1 in 5.
+5. Expect about one nominee a year from outside the five most-nominated; no sign has picked which favourite misses.
+
+### Backtest (each year from earlier seasons only)
+| Year | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | Total |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Patterns | 3 | 4 | 3 | 4 | 3 | 2 | 4 | 4 | 3 | 4 | 4 | 38 of 55 |
+| App's current method, earlier seasons only | 3 | 4 | 3 | 4 | 3 | 2 | 4 | 4 | 3 | 4 | 4 | 38 of 55 |
+
+The two methods picked the same five in 9 of the 11 years (2015 and 2019 differ, with the same count), so a tie: the race keeps the current method for International (`NOMINATION_METHOD`). Random picks from the shortlist average about 24 of 55.
+
+| Year | The five it picked (✓ nominated) | Missed nominees (its rank) |
+|---|---|---|
+| 2023 | The Zone of Interest ✓, Fallen Leaves, Perfect Days ✓, Society of the Snow ✓, The Taste of Things | The Teachers' Lounge (6), Io capitano (10) |
+| 2024 | The Seed of the Sacred Fig ✓, Emilia Pérez ✓, I'm Still Here ✓, Flow ✓, Kneecap | The Girl with the Needle (6) |
+| 2025 | It Was Just an Accident ✓, Sentimental Value ✓, The Secret Agent ✓, No Other Choice, Sirāt ✓ | The Voice of Hind Rajab (7) |
+
+### The shortlist rule (task 8.1)
+273 of 716 International award wins in 2012–2025 went to films never shortlisted; left out, for example, the Los Angeles critics' winner figure goes from 7 of 16 to 7 of 8.
+
+### Cautions
+- Many of the critics groups pick the same films, so "3+ strong awards" is common (79 films) and the patterns rarely separate the last two spots.
+- Each country submits one film, chosen at home, and a shortlist film's nominations depend on when it reached US screens; neither is in the data.

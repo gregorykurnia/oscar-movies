@@ -10,17 +10,21 @@ import { buildWhy, type PastContender } from "./why";
 
 export type * from "./types";
 export { nominationSlots, eve } from "./season";
+export { buildSeasons, type SeasonTables } from "./tables";
 
 /**
  * One category's chances in one season. History is every finished season except `year` (leave
- * one season out), each read at the same point of its season as the target. Null when the
- * snapshot's Oscar date isn't known, or the season isn't in `seasons`.
+ * one season out), each read at the same point of its season as the target. With
+ * `historyBefore`, only the finished seasons before that year (as it would have run live: the
+ * backtests that choose `NOMINATION_METHOD`). Null when the snapshot's Oscar date isn't known,
+ * or the season isn't in `seasons`.
  */
 export function predictCategory(input: {
   category: OscarCategory;
   year: number;
   seasons: ReadonlyArray<Season>;
   snapshot: Snapshot;
+  historyBefore?: number;
 }): CategoryPrediction | null {
   const { category, year, snapshot } = input;
   const target = input.seasons.find((s) => s.year === year);
@@ -33,6 +37,7 @@ export function predictCategory(input: {
   const past: PastContender[] = [];
   for (const season of input.seasons) {
     if (!season.finished || season.year === year) continue;
+    if (input.historyBefore !== undefined && season.year >= input.historyBefore) continue;
     const at = historyCutoff(snapshot, now.phase, target.oscar, season.oscar);
     if (at === undefined) continue;
     const then = seasonAsOf(season, category, at);

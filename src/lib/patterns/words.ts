@@ -77,8 +77,8 @@ export function predictorLabel(p: Predictor, awardName: (category: string) => st
 }
 
 /**
- * "How to pick the five", fixed per category. Documentary's is from
- * `docs/research/nomination-predictors.md`; International's is written by task 8.3 from its numbers.
+ * "How to pick the five", fixed per category, from `docs/research/nomination-predictors.md`
+ * (International's written by task 8.3 from its numbers).
  */
 export const HOW_TO_PICK: Record<PatternCategory, readonly string[]> = {
   documentary: [
@@ -88,5 +88,11 @@ export const HOW_TO_PICK: Record<PatternCategory, readonly string[]> = {
     "Distrust a film among the five most-nominated with no Spirit or IDA Best Feature nomination, however many critics groups named it.",
     "The last one or two spots are open: prefer a non-US film with a DGA, Cinema Eye or Spirit nomination over a US crowd-pleaser with many critics-group wins.",
   ],
-  international: [],
+  international: [
+    "Work from the shortlist of 15.",
+    "Lock in a film the New York critics nominated, or that won the Golden Globe or the European Film Award: nearly all got in.",
+    "Next, BAFTA, Golden Globe and Critics Choice nominees: about three in four got in, and most nominees had at least one of them.",
+    "Count the critics groups: the five most-nominated got in about 7 times in 10, a film no strong award named about 1 in 5.",
+    "Expect about one nominee a year from outside the five most-nominated; no sign has picked which favourite misses.",
+  ],
 };

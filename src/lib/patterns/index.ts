@@ -420,8 +420,13 @@ export function backtest(input: {
   seasons: ReadonlyArray<PatternSeason>;
   snubRule?: boolean;
 }): PatternsBacktest {
+  return backtestOf(pastSeasons(input));
+}
+
+/** The backtest of seasons already worked out (`pastSeasons`). */
+export function backtestOf(past: readonly SeasonPatterns[]): PatternsBacktest {
   const rows: BacktestRow[] = [];
-  for (const analysis of pastSeasons(input)) {
+  for (const analysis of past) {
     const picks = analysis.films.slice(0, analysis.slots);
     rows.push({
       year: analysis.year,
@@ -565,4 +570,31 @@ export function bestPredictors(input: { category: PatternCategory; seasons: Read
     });
   }
   return { seasons: years, shortlist, strong: [...learned.strong].sort(), groups };
+}
+
+/** The engine's seasons with each film's title and countries (a film missing from `films`: its key, no countries). */
+export function patternSeasons(
+  seasons: ReadonlyArray<Season>,
+  films: ReadonlyMap<MovieKey, { title: string; countries: readonly string[] | null }>,
+): PatternSeason[] {
+  return seasons.map((s) => ({
+    ...s,
+    films: s.films.map((f) => ({ ...f, title: films.get(f.movie)?.title ?? String(f.movie), countries: films.get(f.movie)?.countries ?? null })),
+  }));
+}
+
+/**
+ * The patterns' % to be nominated for a season once its shortlist is out, by film (the shortlist
+ * only), for the race when `NOMINATION_METHOD` names patterns. Null before the shortlist, before
+ * `PICKS_FROM` (the backtest that chose the method starts there) or with nothing to learn from.
+ */
+export function patternChances(input: {
+  category: PatternCategory;
+  year: number;
+  seasons: ReadonlyArray<PatternSeason>;
+}): Map<MovieKey, number> | null {
+  if (input.year < PICKS_FROM) return null;
+  const analysis = analyzeSeason(input);
+  if (!analysis || analysis.state === "before") return null;
+  return new Map(analysis.films.map((f) => [f.movie, f.pNominate ?? 0]));
 }
