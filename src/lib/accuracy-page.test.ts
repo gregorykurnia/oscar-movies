@@ -19,6 +19,7 @@ const row = (award: string, win: [number, number] | null, extra: Partial<Accurac
   win: win && { hits: win[0], count: win[1] },
   nomination: { hits: 1, count: 2 },
   nominees: null,
+  caught: null,
   years: 14,
   ...extra,
 });
@@ -31,6 +32,7 @@ describe("parseSort and sortQuery", () => {
 
   it("reads the column and direction; the award's name starts A to Z, a figure highest first", () => {
     expect(parseSort("nominees", "asc")).toEqual({ key: "nominees", direction: "ascending" });
+    expect(parseSort("caught", undefined)).toEqual({ key: "caught", direction: "descending" });
     expect(parseSort("award", undefined)).toEqual({ key: "award", direction: "ascending" });
     expect(parseSort("years", undefined)).toEqual({ key: "years", direction: "descending" });
   });

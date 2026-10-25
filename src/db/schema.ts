@@ -223,7 +223,7 @@ export const screenings = pgTable(
 );
 
 // Computed by the loader (§5.2), never typed. Each figure is hits over a count; the
-// nominees figure is null for `winners_only` awards.
+// nominees and caught figures are null for `winners_only` awards.
 export const accuracy = pgTable("accuracy", {
   categoryId: integer("category_id")
     .primaryKey()
@@ -234,6 +234,8 @@ export const accuracy = pgTable("accuracy", {
   nomCount: smallint("nom_count").notNull(),
   nomineesHits: smallint("nominees_hits"),
   nomineesCount: smallint("nominees_count"),
+  caughtHits: smallint("caught_hits"),
+  caughtCount: smallint("caught_count"),
   computedAt: timestamptz("computed_at").notNull().defaultNow(),
 });
 

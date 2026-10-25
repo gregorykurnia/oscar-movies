@@ -34,6 +34,11 @@ export type AccuracyFigures = {
   nomination: Figure;
   /** Nominees → Oscar nominees, over all nominees; null for `winners_only` awards. */
   nominees: Figure | null;
+  /**
+   * Oscar nominees it caught: of the Oscar nominees in the years the nominees figure counts, those
+   * the award nominated (or more) in any edition; null when the nominees figure is.
+   */
+  caught: Figure | null;
   /** The finished seasons counted (the edition has results in this category). */
   years: number[];
   /** The finished seasons left out because the award has no data for them. */
@@ -70,8 +75,13 @@ export function oscarOutcomes(oscars: ReadonlyArray<OscarEdition>): Map<MovieKey
   return furthest;
 }
 
+/** Each season's Oscar nominees (and winners) in the Oscar category. */
+export function oscarNomineesByYear(oscars: ReadonlyArray<OscarEdition>): Map<number, MovieKey[]> {
+  return new Map(oscars.map((e) => [e.year, e.results.filter((r) => isNomination(r.outcome)).map((r) => r.movie)]));
+}
+
 /**
- * The three figures for one award category. A film counts as an Oscar hit by its furthest
+ * The four figures for one award category. A film counts as an Oscar hit by its furthest
  * outcome in the mapped category in any Oscars edition (a festival film can reach the Oscars a
  * year later). Only finished seasons count, and only `loaded` or `partial` editions with results
  * in this category. The nominees figure skips an edition that names only winners in this category
@@ -83,11 +93,18 @@ export function computeAccuracy(input: {
   winnersOnly: boolean;
   editions: ReadonlyArray<AccuracyEdition>;
   oscars: ReadonlyMap<MovieKey, Outcome>;
+  /** From `oscarNomineesByYear`. */
+  oscarNominees: ReadonlyMap<number, ReadonlyArray<MovieKey>>;
   finished: ReadonlySet<number>;
 }): AccuracyFigures {
   const win: Figure = { hits: 0, count: 0 };
   const nomination: Figure = { hits: 0, count: 0 };
   const nominees: Figure = { hits: 0, count: 0 };
+  const caught: Figure = { hits: 0, count: 0 };
+  // Any edition, as a festival film can reach the Oscars a year later (mirrors `oscars`).
+  const awardNominated = new Set(
+    input.editions.flatMap((e) => e.results.filter((r) => isNomination(r.outcome)).map((r) => r.movie)),
+  );
   const years: number[] = [];
   const noDataYears: number[] = [];
   const oscarNominated = (movie: MovieKey) => {
@@ -120,10 +137,15 @@ export function computeAccuracy(input: {
         nominees.count += 1;
         if (oscarNominated(r.movie)) nominees.hits += 1;
       }
+      for (const movie of input.oscarNominees.get(edition.year) ?? []) {
+        caught.count += 1;
+        if (awardNominated.has(movie)) caught.hits += 1;
+      }
     }
   }
 
-  return { win, nomination, nominees: input.winnersOnly || nominees.count === 0 ? null : nominees, years, noDataYears };
+  const noNominees = input.winnersOnly || nominees.count === 0;
+  return { win, nomination, nominees: noNominees ? null : nominees, caught: noNominees ? null : caught, years, noDataYears };
 }
 
 /** "79%", or "–" when the figure doesn't apply or has nothing to count (guide §11). */

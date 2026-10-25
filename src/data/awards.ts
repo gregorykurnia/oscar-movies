@@ -16,6 +16,8 @@ export type AwardFigures = {
   nomination: Figure;
   /** Null for awards that announce winners only. */
   nominees: Figure | null;
+  /** Oscar nominees it caught; null as `nominees`, and until the figures are recomputed. */
+  caught: Figure | null;
 };
 
 export type AwardCategory = {
@@ -85,6 +87,8 @@ export async function queryAwardCategories(db: ReadDb, awardSlug: string): Promi
       nomCount: accuracy.nomCount,
       nomineesHits: accuracy.nomineesHits,
       nomineesCount: accuracy.nomineesCount,
+      caughtHits: accuracy.caughtHits,
+      caughtCount: accuracy.caughtCount,
     })
     .from(awardCategories)
     .innerJoin(awards, eq(awards.id, awardCategories.awardId))
@@ -107,6 +111,7 @@ export async function queryAwardCategories(db: ReadDb, awardSlug: string): Promi
               r.nomineesHits === null || r.nomineesCount === null
                 ? null
                 : { hits: r.nomineesHits, count: r.nomineesCount },
+            caught: r.caughtHits === null || r.caughtCount === null ? null : { hits: r.caughtHits, count: r.caughtCount },
           },
   }));
 }

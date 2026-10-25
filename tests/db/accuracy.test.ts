@@ -27,6 +27,9 @@ describe("queryAccuracy", () => {
     expect(bafta).toMatchObject({ award: "BAFTA", kind: "major", note: "Best Film", years: 14 });
     expect(bafta.win!.count).toBe(14);
     expect(bafta.nominees!.count).toBeGreaterThan(14);
+    // Every Best Picture nominee of 14 seasons (8 to 10 a year), read back from its own columns.
+    expect(bafta.caught!.count).toBeGreaterThan(100);
+    expect(bafta.caught!.hits).toBeLessThanOrEqual(bafta.caught!.count);
     expect(rows.some((r) => r.key.startsWith("oscars/"))).toBe(false);
     expect(new Set(rows.map((r) => r.kind))).toEqual(new Set(["major", "festival", "critics"]));
   });
@@ -35,6 +38,7 @@ describe("queryAccuracy", () => {
     const { rows } = await queryAccuracy(db, "picture", "2026-03-16");
     const cannes = rows.find((r) => r.award === "Cannes")!;
     expect(cannes.nominees).toBeNull();
+    expect(cannes.caught).toBeNull();
     expect(cannes.note).toContain("winners only");
     const afi = rows.find((r) => r.award === "AFI")!;
     expect(afi.win!.count).toBe(0);

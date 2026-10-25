@@ -13,11 +13,13 @@ export type AccuracyRow = {
   win: Figure | null;
   nomination: Figure | null;
   nominees: Figure | null;
+  /** Of the Oscar nominees, the share it had nominated. */
+  caught: Figure | null;
   /** Finished seasons the figures are based on. */
   years: number;
 };
 
-export const SORT_KEYS = ["award", "win", "nomination", "nominees", "years"] as const;
+export const SORT_KEYS = ["award", "win", "nomination", "nominees", "caught", "years"] as const;
 export type SortKey = (typeof SORT_KEYS)[number];
 export type SortState = { key: SortKey; direction: "ascending" | "descending" };
 

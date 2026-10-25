@@ -64,6 +64,8 @@ export async function queryAccuracy(db: ReadDb, category: OscarCategory, today: 
       nomCount: accuracy.nomCount,
       nomineesHits: accuracy.nomineesHits,
       nomineesCount: accuracy.nomineesCount,
+      caughtHits: accuracy.caughtHits,
+      caughtCount: accuracy.caughtCount,
     })
     .from(awardCategories)
     .innerJoin(awards, eq(awards.id, awardCategories.awardId))
@@ -91,6 +93,7 @@ export async function queryAccuracy(db: ReadDb, category: OscarCategory, today: 
       win: figure(c.winHits, c.winCount),
       nomination: figure(c.nomHits, c.nomCount),
       nominees: figure(c.nomineesHits, c.nomineesCount),
+      caught: figure(c.caughtHits, c.caughtCount),
       years: yearsOf(c.id),
     }),
   );

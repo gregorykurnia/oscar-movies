@@ -5,10 +5,10 @@ import type { AccuracyRow } from "@/lib/accuracy-page";
 import { AccuracyTable } from "./AccuracyTable";
 
 const rows: AccuracyRow[] = [
-  { key: "pga", award: "PGA", kind: "major", note: "Theatrical Motion Picture", win: { hits: 11, count: 14 }, nomination: { hits: 14, count: 14 }, nominees: { hits: 104, count: 138 }, years: 14 },
-  { key: "bafta", award: "BAFTA", kind: "major", note: "Best Film", win: { hits: 8, count: 14 }, nomination: { hits: 13, count: 14 }, nominees: { hits: 60, count: 70 }, years: 14 },
-  { key: "afi", award: "AFI Top 10", kind: "major", note: "Top 10 · a list, no winner", win: { hits: 0, count: 0 }, nomination: { hits: 0, count: 0 }, nominees: { hits: 75, count: 140 }, years: 12 },
-  { key: "cannes", award: "Cannes", kind: "festival", note: "Palme d'Or · winners only", win: { hits: 2, count: 14 }, nomination: { hits: 5, count: 14 }, nominees: null, years: 14 },
+  { key: "pga", award: "PGA", kind: "major", note: "Theatrical Motion Picture", win: { hits: 11, count: 14 }, nomination: { hits: 14, count: 14 }, nominees: { hits: 104, count: 138 }, caught: { hits: 104, count: 130 }, years: 14 },
+  { key: "bafta", award: "BAFTA", kind: "major", note: "Best Film", win: { hits: 8, count: 14 }, nomination: { hits: 13, count: 14 }, nominees: { hits: 60, count: 70 }, caught: { hits: 60, count: 66 }, years: 14 },
+  { key: "afi", award: "AFI Top 10", kind: "major", note: "Top 10 · a list, no winner", win: { hits: 0, count: 0 }, nomination: { hits: 0, count: 0 }, nominees: { hits: 75, count: 140 }, caught: { hits: 75, count: 110 }, years: 12 },
+  { key: "cannes", award: "Cannes", kind: "festival", note: "Palme d'Or · winners only", win: { hits: 2, count: 14 }, nomination: { hits: 5, count: 14 }, nominees: null, caught: null, years: 14 },
 ];
 
 const order = () =>
@@ -24,7 +24,7 @@ describe("AccuracyTable", () => {
     render(<AccuracyTable rows={rows} caption="Accuracy" />);
     expect(order()).toEqual(["PGA", "BAFTA", "AFI Top 10", "Cannes"]);
     expect(screen.getByRole("columnheader", { name: "Winner won the Oscar" }).getAttribute("aria-sort")).toBe("descending");
-    for (const name of ["Award", "Winner nominated", "Nominees nominated", "Years"]) {
+    for (const name of ["Award", "Winner nominated", "Nominees nominated", "Oscar nominees it caught", "Years"]) {
       expect(screen.getByRole("columnheader", { name }).getAttribute("aria-sort")).toBeNull();
     }
     expect(screen.getByRole("columnheader", { name: "Major awards" })).toBeTruthy();
@@ -66,6 +66,10 @@ describe("AccuracyTable", () => {
     render(<AccuracyTable rows={rows} caption="Accuracy" />);
     fireEvent.click(within(screen.getByRole("columnheader", { name: "Nominees nominated" })).getByRole("button"));
     expect(window.location.search).toBe("?sort=nominees&dir=desc");
+    // The caught figure sorts the other way round from the nominees one: BAFTA 91% over PGA 80%.
+    fireEvent.click(within(screen.getByRole("columnheader", { name: "Oscar nominees it caught" })).getByRole("button"));
+    expect(window.location.search).toBe("?sort=caught&dir=desc");
+    expect(order().slice(0, 3)).toEqual(["BAFTA", "PGA", "AFI Top 10"]);
     // Back to the default sort: the address is plain again.
     fireEvent.click(within(screen.getByRole("columnheader", { name: "Winner won the Oscar" })).getByRole("button"));
     expect(window.location.search).toBe("");
@@ -75,7 +79,7 @@ describe("AccuracyTable", () => {
     render(<AccuracyTable rows={rows} caption="Accuracy" initialSort={{ key: "award", direction: "ascending" }} />);
     expect(order()).toEqual(["AFI Top 10", "BAFTA", "PGA", "Cannes"]);
     expect(screen.getByRole("columnheader", { name: "Award" }).getAttribute("aria-sort")).toBe("ascending");
-    expect(screen.getAllByTitle("Not counted: only the winners are known")).toHaveLength(1);
+    expect(screen.getAllByTitle("Not counted: only the winners are known")).toHaveLength(2);
     expect(screen.getAllByTitle("Not counted: the award names no winner")).toHaveLength(2);
   });
 });
@@ -89,6 +93,7 @@ describe("AccuracyTable critics groups", () => {
     win: { hits: 12 - i, count: 14 },
     nomination: { hits: 14, count: 14 },
     nominees: null,
+    caught: null,
     years: 14,
   }));
 

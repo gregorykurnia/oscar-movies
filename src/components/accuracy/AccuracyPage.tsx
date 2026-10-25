@@ -99,7 +99,7 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
       <footer className="mt-4 space-y-1.5 text-caption text-ink-muted">
         {hasDash ? (
           <p>
-            &ldquo;–&rdquo; means the figure doesn&apos;t apply: awards that announce winners only, or whose nominees aren&apos;t known, have no nominees figure, and a list such
+            &ldquo;–&rdquo; means the figure doesn&apos;t apply: awards that announce winners only, or whose nominees aren&apos;t known, have no nominees figures, and a list such
             as AFI&apos;s has no winner.
           </p>
         ) : null}
@@ -112,7 +112,8 @@ async function Table({ category, oscar, query }: { category: RaceCategory; oscar
         ) : null}
         <p>
           Years counts the finished seasons in which the award has results for {oscar}. A film counts by the furthest it went at the
-          Oscars, in any year.
+          Oscars, in any year. Oscar nominees it caught counts the Oscar nominees of the years the award named its nominees, and how
+          many of them it had nominated.
         </p>
       </footer>
     </section>

@@ -15,10 +15,14 @@ export type Stat = {
   href?: string;
 };
 
-/** Guide §7 Stats strip: three equal cells between line rules; stacks on phone. */
+/**
+ * Guide §7 Stats strip: three equal cells between line rules; stacks on phone. Four (an award
+ * page's accuracy figures) stack until desktop, as "100% 138 of 140" doesn't fit a quarter of a tablet.
+ */
 export function StatsStrip({ stats, className }: { stats: Stat[]; className?: string }) {
+  const four = stats.length === 4;
   return (
-    <div className={cn("grid grid-cols-1 border-y border-line md:grid-cols-3", className)}>
+    <div className={cn("grid grid-cols-1 border-y border-line", four ? "lg:grid-cols-4" : "md:grid-cols-3", className)}>
       {stats.map((stat, i) => {
         const body = (
           <>
@@ -37,10 +41,9 @@ export function StatsStrip({ stats, className }: { stats: Stat[]; className?: st
             ) : null}
           </>
         );
-        const cell = cn(
-          "py-3.5 md:pt-[18px] md:pr-6 md:pb-5",
-          i > 0 && "border-t border-line md:border-t-0 md:border-l md:pl-6",
-        );
+        const cell = four
+          ? cn("py-3.5 lg:pt-[18px] lg:pr-6 lg:pb-5", i > 0 && "border-t border-line lg:border-t-0 lg:border-l lg:pl-6")
+          : cn("py-3.5 md:pt-[18px] md:pr-6 md:pb-5", i > 0 && "border-t border-line md:border-t-0 md:border-l md:pl-6");
         return stat.href ? (
           <Link
             key={stat.label}

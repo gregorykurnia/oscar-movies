@@ -7,9 +7,10 @@ const HEADS = {
   win: "Winner won the Oscar",
   nomination: "Winner nominated",
   nominees: "Nominees nominated",
+  caught: "Oscar nominees it caught",
   years: "Years",
 } as const;
-const COLUMN = { win: 1, nomination: 2, nominees: 3, years: 4 } as const;
+const COLUMN = { win: 1, nomination: 2, nominees: 3, caught: 4, years: 5 } as const;
 
 /** The first group's rows' cell texts in one column, for the order check ("–" as null). */
 async function majorsColumn(page: Page, key: keyof typeof COLUMN): Promise<(number | null)[]> {
@@ -99,7 +100,7 @@ test("every figure head sorts by keyboard, aria-sort is right, and the address k
   await page.goto("/accuracy/picture");
   const table = page.getByRole("table", { name: "How well each award foretells Best Picture" });
 
-  for (const key of ["nomination", "nominees", "years", "win"] as const) {
+  for (const key of ["nomination", "nominees", "caught", "years", "win"] as const) {
     const head = table.getByRole("columnheader", { name: HEADS[key] });
     await head.getByRole("button").focus();
     await page.keyboard.press("Enter");

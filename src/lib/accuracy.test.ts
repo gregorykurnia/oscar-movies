@@ -5,6 +5,7 @@ import {
   finishedYears,
   formatFigure,
   formatFigureCount,
+  oscarNomineesByYear,
   oscarOutcomes,
   type AccuracyEdition,
   type EditionStatus,
@@ -49,12 +50,14 @@ describe("the hand-checked fixture (Cinema Eye feature → Oscar Documentary)", 
     winnersOnly: fixture.winnersOnly,
     editions,
     oscars: oscarOutcomes(oscars),
+    oscarNominees: oscarNomineesByYear(oscars),
     finished: finishedYears(oscars, fixture.today),
   });
 
   it("matches the worked figures exactly", () => {
     const { formatted, ...expected } = fixture.expected;
-    expect(figures).toEqual(expected);
+    // The fixture lists only Cinema Eye's films, not every Oscar nominee, so `caught` is tested below.
+    expect({ ...figures, caught: undefined }).toEqual(expected);
     expect(formatFigure(figures.win)).toBe(formatted.win);
     expect(formatFigure(figures.nomination)).toBe(formatted.nomination);
     expect(formatFigure(figures.nominees)).toBe(formatted.nominees);
@@ -80,7 +83,13 @@ const OSCARS = [
   oscarYear(2022, [["g", "won"], ["h", "nominated"]]),
 ];
 const run = (editions: AccuracyEdition[], winnersOnly = false, oscars = OSCARS) =>
-  computeAccuracy({ winnersOnly, editions, oscars: oscarOutcomes(oscars), finished: finishedYears(oscars, TODAY) });
+  computeAccuracy({
+    winnersOnly,
+    editions,
+    oscars: oscarOutcomes(oscars),
+    oscarNominees: oscarNomineesByYear(oscars),
+    finished: finishedYears(oscars, TODAY),
+  });
 
 describe("computeAccuracy", () => {
   it("gives – for the nominees figure of a winners-only award, and still works out the winner figures", () => {
@@ -88,6 +97,7 @@ describe("computeAccuracy", () => {
     expect(figures.nominees).toBeNull();
     expect(formatFigure(figures.nominees)).toBe("–");
     expect(formatFigureCount(figures.nominees)).toBe("–");
+    expect(figures.caught).toBeNull();
     expect(figures.win).toEqual({ hits: 1, count: 2 });
     expect(figures.nomination).toEqual({ hits: 2, count: 2 });
   });
@@ -144,6 +154,23 @@ describe("computeAccuracy", () => {
     expect(figures.win).toEqual({ hits: 0, count: 0 });
     expect(formatFigure(figures.win)).toBe("–");
     expect(figures.nominees).toEqual({ hits: 2, count: 3 });
+  });
+
+  it("counts the Oscar nominees it caught, the other way round from the nominees figure", () => {
+    // A picky award: one nominee a year, always Oscar-nominated (100%), catches 2 of 5 Oscar nominees.
+    const picky = run([edition(2020, [["a", "won"], ["x", "nominated"]]), edition(2021, [["d", "won"], ["y", "nominated"]])]);
+    expect(picky.caught).toEqual({ hits: 2, count: 5 });
+    // A broad one: many nominees, every Oscar nominee among them. An Oscar shortlist isn't counted.
+    const broad = run([edition(2020, [["a", "won"], ["b", "nominated"], ["c", "nominated"], ["x", "nominated"], ["y", "nominated"]])]);
+    expect(broad.nominees).toEqual({ hits: 2, count: 5 });
+    expect(broad.caught).toEqual({ hits: 2, count: 2 });
+  });
+
+  it("counts caught Oscar nominees only in years that name nominees, from any of the award's editions", () => {
+    // 2020 names only its winner, so its Oscar nominees aren't counted; e (Oscar 2021) was nominated in 2020.
+    const figures = run([edition(2020, [["e", "won"]]), edition(2021, [["d", "won"], ["x", "nominated"]])]);
+    expect(figures.caught).toEqual({ hits: 2, count: 3 });
+    expect(run([edition(2020, [["a", "won"]]), edition(2021, [["d", "won"]])]).caught).toBeNull();
   });
 
   it("matches a film to the Oscars of any year (a festival film can get there a year later)", () => {

@@ -28,6 +28,18 @@ describe("StatsStrip", () => {
     expect((strip.firstElementChild as HTMLElement).className).not.toContain("border-l");
   });
 
+  it("four cells (an award page's accuracy figures) stay stacked until desktop", () => {
+    const { container } = render(
+      <StatsStrip stats={["Won", "Nominated", "Nominees", "Caught"].map((label) => ({ value: "50%", of: "7 of 14", label }))} />,
+    );
+    const strip = container.firstElementChild as HTMLElement;
+    expect(strip.className).toContain("lg:grid-cols-4");
+    expect(strip.className).not.toContain("md:grid-cols-3");
+    const last = strip.lastElementChild as HTMLElement;
+    for (const cls of ["border-t", "lg:border-t-0", "lg:border-l"]) expect(last.className).toContain(cls);
+    expect(last.className).not.toContain("md:border-l");
+  });
+
   it("a note sits under the label, in ink-muted, and is left out when there is none", () => {
     render(
       <StatsStrip

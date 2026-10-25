@@ -20,11 +20,12 @@ test("/awards/bafta/2025 lists nominees and winners with their Oscar results", a
   await expect(picture.getByText("Nominated", { exact: true })).toHaveCount(8);
   await expect(picture.getByRole("button", { name: /^(Mark as watched|Watched)$/ })).toHaveCount(5);
 
-  // The accuracy strip: three figures with their counts.
+  // The accuracy strip: four figures with their counts.
   await expect(picture.getByText("Winner won the Oscar")).toBeVisible();
   await expect(picture.getByText("Winner was nominated")).toBeVisible();
   await expect(picture.getByText("Nominees were nominated")).toBeVisible();
-  await expect(picture.getByText(/^\d+ of \d+$/)).toHaveCount(3);
+  await expect(picture.getByText("Oscar nominees it caught")).toBeVisible();
+  await expect(picture.getByText(/^\d+ of \d+$/)).toHaveCount(4);
 
   // The documentary shortlist shows as a shortlist; International names the Oscar's country.
   const documentary = page.getByRole("region", { name: "Documentary", exact: true });

@@ -5,6 +5,7 @@ import { accuracy, awardCategories, awards, editions, predictions, results } fro
 import {
   computeAccuracy,
   finishedYears,
+  oscarNomineesByYear,
   oscarOutcomes,
   type AccuracyEdition,
   type OscarEdition,
@@ -51,8 +52,11 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
     (byEditionCategory.get(`${editionId}/${categoryId}`) ?? []).map((r) => ({ movie: r.movieId, outcome: r.outcome }));
   const editionsOf = (awardId: number) => editionRows.filter((e) => e.awardId === awardId);
 
-  // Per Oscar category: the finished seasons and each film's furthest outcome.
-  const oscarSide = new Map<string, { finished: Set<number>; outcomes: ReturnType<typeof oscarOutcomes> }>();
+  // Per Oscar category: the finished seasons, each film's furthest outcome and each season's nominees.
+  const oscarSide = new Map<
+    string,
+    { finished: Set<number>; outcomes: ReturnType<typeof oscarOutcomes>; nominees: ReturnType<typeof oscarNomineesByYear> }
+  >();
   for (const c of categoryRows.filter((c) => c.awardId === oscarsAward.id)) {
     const seasons: OscarEdition[] = editionsOf(oscarsAward.id).map((e) => ({
       year: e.year,
@@ -60,7 +64,11 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
       winnersOn: e.winnersOn,
       results: resultsOf(e.id, c.id),
     }));
-    oscarSide.set(c.oscarCategory, { finished: finishedYears(seasons, today), outcomes: oscarOutcomes(seasons) });
+    oscarSide.set(c.oscarCategory, {
+      finished: finishedYears(seasons, today),
+      outcomes: oscarOutcomes(seasons),
+      nominees: oscarNomineesByYear(seasons),
+    });
   }
 
   const rows = categoryRows.flatMap((c) => {
@@ -72,7 +80,13 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
       status: e.status,
       results: resultsOf(e.id, c.id),
     }));
-    const f = computeAccuracy({ winnersOnly: award.winnersOnly, editions: awardEditions, oscars: oscar.outcomes, finished: oscar.finished });
+    const f = computeAccuracy({
+      winnersOnly: award.winnersOnly,
+      editions: awardEditions,
+      oscars: oscar.outcomes,
+      oscarNominees: oscar.nominees,
+      finished: oscar.finished,
+    });
     return [
       {
         categoryId: c.id,
@@ -82,6 +96,8 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
         nomCount: f.nomination.count,
         nomineesHits: f.nominees?.hits ?? null,
         nomineesCount: f.nominees?.count ?? null,
+        caughtHits: f.caught?.hits ?? null,
+        caughtCount: f.caught?.count ?? null,
       },
     ];
   });

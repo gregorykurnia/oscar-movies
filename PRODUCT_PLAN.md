@@ -101,6 +101,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
   - **Winner → Oscar win:** how often its winner won the matching Oscar ("9 of 14 years, 64%").
   - **Winner → Oscar nomination:** how often its winner was nominated for it.
   - **Nominees → Oscar nominees:** of its nominees, the share that got the Oscar nomination. Awards that announce winners only (many critics groups) show "–" here, and the page says why.
+  - **Oscar nominees it caught:** the other way round: of the Oscar nominees, the share the award had nominated (or picked as winner). A picky award with few nominees scores high on the figure above and low here; a broad one the reverse. "–" for winners-only awards, as above.
 - **Running:** they update automatically when an Oscar season finishes; the current season never counts until its ceremony is over.
 - An **accuracy page** per Oscar category ranks every award and festival by these figures (major and critics groups in their own sections), sortable by each figure, with the number of years each is based on.
 
@@ -279,6 +280,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - 2026-10-22: Plan approved as v1.0.
 - 2026-10-22: Every movie shows its country flag, not only International entries.
 - 2026-10-24: Gaps in critics groups (and Cinema Eye 2012–2020) are filled from IMDb's award records (credited on the sources page); Wikipedia stays where it has data. DOC NYC (Short List, Winner's Circle) and four more Cinema Eye categories added. DC Dox Fest left out.
+- 2026-10-25: Fourth accuracy figure, "Oscar nominees it caught" (of the Oscar nominees, the share the award had nominated), on the accuracy page and award pages (owner's idea).
 - 2026-10-25: Past seasons (and the live one after its nominations) show each nominee's % to be nominated from the day before the nominations. Counting "passed over" at an award (named its nominees, not this film) was tried in the model and not kept: over 2012–2025, left out one season at a time, it called no more nominees (247 vs 248 in the top slots) and won one more favourite while Best Picture got worse.
 
 ## 10. Open questions

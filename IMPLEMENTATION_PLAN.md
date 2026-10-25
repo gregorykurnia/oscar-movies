@@ -61,7 +61,7 @@ Enums: `award_kind` (oscars, major, festival, critics) · `oscar_category` (pict
 | `editions` | `id` · `award_id` → awards restrict · `year` smallint (the film year it honours, 2012–) · `ordinal` (98th) · `status` · `shortlist_on`, `nominations_on`, `winners_on` date · `source_urls` text[] · `note` · unique (`award_id`, `year`) | One award in one film year. Dates drive the season stage and the eve snapshots |
 | `results` | `id` · `edition_id` → editions **cascade** · `category_id` → award_categories restrict · `movie_id` → movies restrict · `outcome` · `country` (submitting country, International only) · unique (`edition_id`, `category_id`, `movie_id`) | Index `movie_id`, `category_id`. One row per film per category: its furthest stage |
 | `screenings` | `id` · `edition_id` → editions cascade · `movie_id` → movies restrict · `section`, `section_order` · `prize` · unique (`edition_id`, `movie_id`, `section`) | Festival lineups, 2025 on |
-| `accuracy` | `category_id` PK → award_categories cascade · hits and counts for the three figures (§5.2) · `computed_at` | Computed, never typed |
+| `accuracy` | `category_id` PK → award_categories cascade · hits and counts for the four figures (§5.2) · `computed_at` | Computed, never typed |
 | `predictions` | PK (`year`, `oscar_category`, `snapshot`, `movie_id`) · `p_nominate`, `p_win` real · `rank` · `why` jsonb · `computed_at` | Computed (§5.3) |
 | `data_loads` | `id` · `kind` (awards, race-update, correction, scores) · `summary` jsonb · `git_commit` · `loaded_at` | "Updated 20 Dec 2025", the coverage page, the cron's outcome |
 | `app_meta` | `key` PK · `value` | `db_branch` (§2) |
@@ -137,6 +137,7 @@ For each award category mapped to Oscar category C, over **finished** seasons (O
 - **Winner → Oscar win:** years whose winner won Oscar C / years with a winner (ties: a hit if any winner won).
 - **Winner → Oscar nomination:** years whose winner was nominated (or won) / years with a winner.
 - **Nominees → Oscar nominees:** of all its nominees (winners, runners-up and AFI's list included), the share nominated for Oscar C. `–` for `winners_only` awards, with the reason in a footnote.
+- **Oscar nominees it caught:** of Oscar C's nominees in the years that count for the figure above, the share the award category nominated (or more) in any edition (a festival film can reach the Oscars a year later). `–` when the figure above is.
 `no_data` years are left out and the year count shows it. A hand-checked fixture (one award, all years worked out by hand in `tests/fixtures/accuracy-*.json`) must match exactly.
 
 ### 5.3 Predictions (`src/lib/predict/`, pure, unit tested; product plan §3.4 and feasibility notes)

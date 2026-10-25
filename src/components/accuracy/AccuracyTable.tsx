@@ -20,14 +20,18 @@ const COLUMNS: DataColumn[] = [
   { key: "win", label: "Winner won the Oscar", sortable: true },
   { key: "nomination", label: "Winner nominated", sortable: true },
   { key: "nominees", label: "Nominees nominated", sortable: true },
+  { key: "caught", label: "Oscar nominees it caught", sortable: true },
   { key: "years", label: "Years", sortable: true, hidePhone: true },
 ];
 
 const NO_NOMINEES = "Not counted: only the winners are known";
 const NO_WINNER = "Not counted: the award names no winner";
 
-function dashReason(row: AccuracyRow, key: "win" | "nomination" | "nominees"): string | undefined {
-  if (key === "nominees") return row.nominees === null ? NO_NOMINEES : undefined;
+type FigureKey = "win" | "nomination" | "nominees" | "caught";
+const FIGURE_KEYS: readonly SortKey[] = ["win", "nomination", "nominees", "caught"];
+
+function dashReason(row: AccuracyRow, key: FigureKey): string | undefined {
+  if (key === "nominees" || key === "caught") return row[key] === null ? NO_NOMINEES : undefined;
   return row[key]?.count === 0 ? NO_WINNER : undefined;
 }
 
@@ -58,12 +62,12 @@ export function AccuracyTable({
     window.history.replaceState(null, "", `${window.location.pathname}${sortQuery(state)}${window.location.hash}`);
   };
 
-  const meterKey = sort.key === "win" || sort.key === "nomination" || sort.key === "nominees" ? sort.key : "win";
+  const meterKey = FIGURE_KEYS.includes(sort.key) ? sort.key : "win";
   const folded = foldCritics(groupRows(rows, sort), showAll);
   const tableRows: DataRow[] = folded.groups.flatMap((group) => [
     { type: "group" as const, key: group.kind, label: group.label },
     ...group.rows.map((row) => {
-      const figure = (key: "win" | "nomination" | "nominees") => {
+      const figure = (key: FigureKey) => {
         const { pct, count } = figureCell(row[key]);
         return <DataFigure pct={pct} count={count} meter={key === meterKey} reason={dashReason(row, key)} />;
       };
@@ -74,6 +78,7 @@ export function AccuracyTable({
           figure("win"),
           figure("nomination"),
           figure("nominees"),
+          figure("caught"),
           row.years,
         ],
       };

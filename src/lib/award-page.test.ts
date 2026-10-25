@@ -7,18 +7,21 @@ describe("accuracyStats", () => {
       win: { hits: 11, count: 14 },
       nomination: { hits: 13, count: 14 },
       nominees: { hits: 20, count: 80 },
+      caught: { hits: 50, count: 70 },
     });
     expect(stats.map((s) => [s.value, s.of, s.meter])).toEqual([
       ["79%", "11 of 14", (11 / 14) * 100],
       ["93%", "13 of 14", (13 / 14) * 100],
       ["25%", "20 of 80", 25],
+      ["71%", "50 of 70", (50 / 70) * 100],
     ]);
   });
 
   it("reads – for a winners-only award's nominee figure and for nothing counted", () => {
-    const stats = accuracyStats({ win: { hits: 2, count: 4 }, nomination: { hits: 3, count: 4 }, nominees: null });
+    const stats = accuracyStats({ win: { hits: 2, count: 4 }, nomination: { hits: 3, count: 4 }, nominees: null, caught: null });
     expect(stats[2]).toEqual({ value: "–", label: "Nominees were nominated" });
-    expect(accuracyStats(null).map((s) => s.value)).toEqual(["–", "–", "–"]);
+    expect(stats[3]).toEqual({ value: "–", label: "Oscar nominees it caught" });
+    expect(accuracyStats(null).map((s) => s.value)).toEqual(["–", "–", "–", "–"]);
   });
 });
 

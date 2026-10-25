@@ -22,12 +22,13 @@ function stat(figure: Figure | null, label: string): Stat {
   };
 }
 
-/** The three accuracy figures; "–" for a figure with nothing to count (winners-only awards have no nominee figure). */
+/** The four accuracy figures; "–" for a figure with nothing to count (winners-only awards have no nominee figures). */
 export function accuracyStats(figures: AwardFigures | null): Stat[] {
   return [
     stat(figures?.win ?? null, "Winner won the Oscar"),
     stat(figures?.nomination ?? null, "Winner was nominated"),
     stat(figures?.nominees ?? null, "Nominees were nominated"),
+    stat(figures?.caught ?? null, "Oscar nominees it caught"),
   ];
 }
 
