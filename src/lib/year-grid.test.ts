@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import type { FilmRowData } from "@/data/films";
 import type { AwardSummary } from "@/lib/awards";
 import {
+  awardRuns,
   averageLine,
   cellKind,
   cellLabel,
+  columnKey,
   criticsLabel,
   criticsWins,
   filmCountLabel,
@@ -16,8 +18,10 @@ import {
   hasNoData,
   gridCategoryName,
   parseGridQuery,
+  splitAwards,
   toggleGridFilter,
   viewGrid,
+  type GridAwardCategory,
   type GridColumn,
   type GridFilm,
   type GridQuery,
@@ -336,5 +340,55 @@ describe("gridGroups", () => {
       ["Critics groups", 1],
     ]);
     expect(gridGroups(gridColumns(AWARDS, "animated", [])).map((g) => g.label)).toEqual(["Major awards"]);
+  });
+});
+
+describe("split awards (Documentary)", () => {
+  const DOC_AWARDS: AwardSummary[] = [
+    award("oscars", "oscars", 1000, ["documentary"]),
+    award("cinema-eye", "major", 500, ["documentary"]),
+    award("bafta", "major", 680, ["documentary"]),
+    award("ida", "critics", 900, ["documentary"]),
+  ];
+  const CATEGORIES: GridAwardCategory[] = [
+    { awardSlug: "cinema-eye", slug: "feature", name: "Outstanding Achievement in Nonfiction Feature Filmmaking" },
+    { awardSlug: "cinema-eye", slug: "direction", name: "Outstanding Achievement in Direction" },
+    { awardSlug: "cinema-eye", slug: "new-one", name: "A Category With No Short Name" },
+    { awardSlug: "bafta", slug: "documentary", name: "Documentary" },
+    { awardSlug: "ida", slug: "feature", name: "Best Feature Documentary" },
+    { awardSlug: "ida", slug: "director", name: "Best Director" },
+  ];
+
+  it("splits only Documentary's awards with more than one category", () => {
+    expect([...splitAwards("documentary", CATEGORIES)]).toEqual(["cinema-eye", "ida"]);
+    expect(splitAwards("picture", CATEGORIES).size).toBe(0);
+  });
+
+  it("gives a split award one column per category, in the award's order, with a short head or the category's name", () => {
+    const columns = gridColumns(DOC_AWARDS, "documentary", [], undefined, CATEGORIES);
+    expect(columns.map(columnKey)).toEqual(["oscars", "cinema-eye/feature", "cinema-eye/direction", "cinema-eye/new-one", "bafta", "ida/feature", "ida/director"]);
+    expect(columns.filter((c) => c.sub).map((c) => c.sub!.shortName)).toEqual(["Feature", "Direction", "A Category With No Short Name", "Feature", "Director"]);
+    expect(columns.find((c) => c.slug === "bafta")!.sub).toBeUndefined();
+    expect(awardRuns(columns).map((r) => r.map(columnKey))).toEqual([
+      ["oscars"],
+      ["cinema-eye/feature", "cinema-eye/direction", "cinema-eye/new-one"],
+      ["bafta"],
+      ["ida/feature", "ida/director"],
+    ]);
+  });
+
+  it("keeps a cell per category, so a split award's nominations and wins count one each", () => {
+    const a = film(1, "No Other Land");
+    const split = splitAwards("documentary", CATEGORIES);
+    const rows: GridResultRow[] = [
+      { ...row(a, "cinema-eye", "won", "Feature"), categorySlug: "feature" },
+      { ...row(a, "cinema-eye", "nominated", "Direction"), categorySlug: "direction" },
+      { ...row(a, "bafta", "nominated", "Documentary"), categorySlug: "documentary" },
+      { ...row(a, "ida", "won", "Best Director"), categorySlug: "director" },
+    ];
+    const [g] = gridFilms(rows, split);
+    expect(Object.keys(g.cells)).toEqual(["cinema-eye/feature", "cinema-eye/direction", "bafta", "ida/director"]);
+    expect(gridTotals(g)).toEqual({ wins: 2, noms: 4 });
+    expect(criticsWins(g, gridColumns(DOC_AWARDS, "documentary", [], undefined, CATEGORIES))).toBe(1);
   });
 });

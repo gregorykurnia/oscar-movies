@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Approved v1.5 (2026-10-25): adds the Snub risk flag, full shortlists on the Oscars year page and a patterns panel on the movie page (§3.16). v1.4 (2026-10-25) dropped Cinema for Peace, whose gala comes after the Oscar nominations, and adds the snub rule to the nomination patterns (§3.16). v1.3 (2026-10-25) added Phase 8, nomination patterns for Documentary and International (§3.16), and the shortlist rule for their accuracy figures (§3.6). v1.2 (2026-10-25) added an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
+**Status:** Approved v1.6 (2026-10-26): the Documentary grid splits awards with several categories into a column each (§3.7). v1.5 (2026-10-25): adds the Snub risk flag, full shortlists on the Oscars year page and a patterns panel on the movie page (§3.16). v1.4 (2026-10-25) dropped Cinema for Peace, whose gala comes after the Oscar nominations, and adds the snub rule to the nomination patterns (§3.16). v1.3 (2026-10-25) added Phase 8, nomination patterns for Documentary and International (§3.16), and the shortlist rule for their accuracy figures (§3.6). v1.2 (2026-10-25) added an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
 
 ## 1. Overview
 
@@ -113,6 +113,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - For a year and an Oscar category: **rows are the movies** with at least one nomination, **columns are the awards** (Oscars first, then major awards, festivals, then critics groups). A cell is coloured for **nominated** or **won** (and shortlisted/submitted for the Oscars), blank otherwise.
+- **Documentary (v1.6):** an award with several Documentary categories (Cinema Eye, Sundance, DOC NYC, Critics Choice Documentary, IDA) gets one column per category, under the award's name, and each category counts in the totals. Other categories keep one column per award (Globes' Drama and Comedy share one).
 - Each row shows the movie's flag, average score, watched mark, and its totals (nominations, wins).
 - **Default order:** Oscar nominees first (the winner at the top), then Oscar-shortlisted films, then the rest; within each group, most nominations first. Sort by this Oscar order, wins, nominations, average score or title; filter to unwatched. The year, category, sort and filter are kept in the address.
 

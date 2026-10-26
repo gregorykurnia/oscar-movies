@@ -148,3 +148,32 @@ describe("YearGridLegend", () => {
     ]);
   });
 });
+
+describe("YearGrid with a split award", () => {
+  const sub = (slug: string, shortName: string) => ({ slug, name: `${shortName} prize`, shortName });
+  const eye = (s: ReturnType<typeof sub>): GridColumn => ({ ...column("cinema-eye", "major"), shortName: "Cinema Eye", name: "Cinema Eye Honors", sub: s });
+  const columns = [column("oscars", "oscars"), eye(sub("feature", "Feature")), eye(sub("direction", "Direction")), column("bafta", "major")];
+  const films: GridFilm[] = [
+    {
+      film: film(1, "No Other Land"),
+      cells: {
+        oscars: { outcome: "won", category: "Best Documentary Feature Film" },
+        "cinema-eye/direction": { outcome: "nominated", category: "Direction prize" },
+      },
+    },
+  ];
+
+  it("spans the award's name over its categories' heads, and fills each category's own cell", () => {
+    render(<YearGrid columns={columns} films={films} category="documentary" criticsOpen={false} caption="Documentary" />);
+    const award = screen.getByRole("columnheader", { name: "Cinema Eye" });
+    expect(award.getAttribute("colspan")).toBe("2");
+    expect(screen.getByRole("columnheader", { name: "Feature" }).title).toBe("Cinema Eye Honors: Feature prize");
+    expect(screen.getByRole("columnheader", { name: "BAFTA" }).getAttribute("rowspan")).toBe("2");
+    const row = screen.getByRole("row", { name: /No Other Land/ });
+    const cells = within(row).getAllByRole("cell");
+    // Wins, Noms, Oscars, Feature, Direction, BAFTA.
+    expect(cells).toHaveLength(6);
+    expect(within(cells[3]).queryByRole("img")).toBeNull();
+    expect(within(cells[4]).getByRole("img").getAttribute("aria-label")).toBe("Nominated: Direction prize");
+  });
+});

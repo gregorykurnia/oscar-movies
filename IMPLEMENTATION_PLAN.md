@@ -169,7 +169,7 @@ For each award category mapped to Oscar category C, over **finished** seasons (O
 One tap: the provider flips at once (watched clears want); the Server Action (Zod: movie id exists, field, value) upserts `marks`. A spinner ring shows only after 400ms. On failure the mark flips back, shows its error ring for 2s and a toast ("Couldn't save. Hamnet is back to not watched. Check the connection and try again." with Try again). Two quick taps on the same mark: the last one wins (requests carry a sequence number; older replies are ignored). Offline (`navigator.onLine` false): marks disabled and the offline notice shows.
 
 ### 5.7 Year grid (`YearGrid`)
-A real `<table>` in a frame that scrolls sideways; the film column is `position: sticky`. Columns: film, Wins, Noms, Oscars, majors and festivals in calendar order, then critics groups folded into one count chip column (unfolded with `critics=open`, one column each). Rendered on the server; one category per page. Picture can reach about 100 rows × 80 columns: keep each cell to one element with a `title` and accessible name; no client JS beyond the marks and the toolbar.
+A real `<table>` in a frame that scrolls sideways; the film column is `position: sticky`. Columns: film, Wins, Noms, Oscars, majors and festivals in calendar order, then critics groups folded into one count chip column (unfolded with `critics=open`, one column each). In Documentary an award with several categories is one column per category (`splitAwards`, cells keyed `award/category` by `columnKey`). Rendered on the server; one category per page. Picture can reach about 100 rows × 80 columns: keep each cell to one element with a `title` and accessible name; no client JS beyond the marks and the toolbar.
 
 ## 6. Phase task checklists
 

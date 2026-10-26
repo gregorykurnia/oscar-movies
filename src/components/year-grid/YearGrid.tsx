@@ -5,9 +5,11 @@ import { Flags } from "@/components/flag/Flag";
 import { FilmWatchedMark } from "@/components/marks/MarksProvider";
 import { cn } from "@/lib/cn";
 import {
+  awardRuns,
   averageLine,
   cellKind,
   cellLabel,
+  columnKey,
   criticsLabel,
   criticsWins,
   gridGroups,
@@ -48,6 +50,9 @@ const tableLook = cn(
   "[&_[data-c]]:h-7 [&_[data-c]]:min-w-7 [&_[data-c]_svg]:size-3.5",
 );
 
+// A head spanning both head rows sits on the lower one, level with a split award's category heads.
+const bottomHead = "!align-bottom !pb-[7px]";
+
 // The film column stays put while the awards scroll (280px; 168px without flags on phone).
 const filmCell =
   "sticky left-0 z-[1] w-[168px] min-w-[168px] max-w-[168px] border-r border-line bg-surface pr-2 pl-4 text-left " +
@@ -56,7 +61,8 @@ const filmCell =
 /**
  * Guide §8.4 the year grid: a real table in a bordered frame that scrolls sideways (edge to edge on
  * phone), the film column sticky. A group row (Totals, Oscars, Major awards, Festivals, Critics
- * groups) sits over the column names; thin rules separate the groups. Critics groups are one count
+ * groups) sits over the column names; thin rules separate the groups. A split award's name spans its
+ * categories' heads, a row lower, with rules either side of the run. Critics groups are one count
  * column unless `criticsOpen`. Every cell has a text label. Rendered on the server; only the
  * watched marks are client components.
  */
@@ -80,7 +86,14 @@ export function YearGrid({
   const groups = gridGroups(columns).map((g) => ({
     ...g,
     folded: !criticsOpen && g.columns[0].kind === "critics",
+    runs: awardRuns(g.columns),
   }));
+  // A split award's run puts its categories' heads on a row of their own; the other heads span both rows.
+  const subRow = groups.some((g) => !g.folded && g.runs.some((r) => r[0].sub));
+  const headSpan = subRow ? 2 : undefined;
+  // A rule before a group's first column and on either side of a split award's run.
+  const ruled = (cols: GridColumn[], i: number) =>
+    i === 0 || (cols[i].slug !== cols[i - 1].slug && Boolean(cols[i].sub || cols[i - 1].sub));
   const awardColumns = groups.reduce((n, g) => n + (g.folded ? 1 : g.columns.length), 0);
   const labels = oscarGroups ? films.map(oscarGroupLabel) : [];
   const counts = new Map<string, number>();
@@ -104,33 +117,79 @@ export function YearGrid({
             ))}
           </tr>
           <tr>
-            <th scope="col" className={cn(filmCell, "z-[2] !pr-2 !pb-2 !pl-4 !text-left align-bottom md:!pr-3 md:!pl-3.5")}>
+            <th
+              scope="col"
+              rowSpan={headSpan}
+              className={cn(filmCell, "z-[2] !pr-2 !pb-2 !pl-4 !text-left align-bottom md:!pr-3 md:!pl-3.5")}
+            >
               Film
             </th>
-            <th scope="col" data-gs="">
+            <th scope="col" rowSpan={headSpan} data-gs="" className={cn(subRow && bottomHead)}>
               Wins
             </th>
-            <th scope="col">Noms</th>
-            {groups.map((g) =>
-              g.folded ? (
-                <th key={g.label} scope="col" data-gs="" className="!px-2">
-                  {g.columns.length} groups
-                </th>
-              ) : (
-                g.columns.map((c, i) => (
+            <th scope="col" rowSpan={headSpan} className={cn(subRow && bottomHead)}>
+              Noms
+            </th>
+            {groups.map((g) => {
+              if (g.folded) {
+                return (
+                  <th key={g.label} scope="col" rowSpan={headSpan} data-gs="" className={cn("!px-2", subRow && bottomHead)}>
+                    {new Set(g.columns.map((c) => c.slug)).size} groups
+                  </th>
+                );
+              }
+              let at = 0;
+              return g.runs.map((run) => {
+                const i = at;
+                at += run.length;
+                const c = run[0];
+                return c.sub ? (
+                  <th
+                    key={c.slug}
+                    scope="colgroup"
+                    colSpan={run.length}
+                    title={hasNoData(c) ? `${c.name}: no data this year` : c.name}
+                    data-gs=""
+                    className="!border-b-0 !px-2 !align-bottom"
+                  >
+                    <span className="block border-b border-line-strong pb-1">{c.shortName}</span>
+                  </th>
+                ) : (
                   <th
                     key={c.slug}
                     scope="col"
+                    rowSpan={headSpan}
                     title={hasNoData(c) ? `${c.name}: no data this year` : c.name}
-                    data-gs={i === 0 ? "" : undefined}
-                    className="!px-2"
+                    data-gs={ruled(g.columns, i) ? "" : undefined}
+                    className={cn("!px-2", subRow && bottomHead)}
                   >
                     {c.shortName}
                   </th>
-                ))
-              ),
-            )}
+                );
+              });
+            })}
           </tr>
+          {subRow ? (
+            <tr>
+              {groups.map((g) =>
+                g.folded
+                  ? null
+                  : g.columns.map((c, i) =>
+                      c.sub ? (
+                        <th
+                          key={columnKey(c)}
+                          scope="col"
+                          title={`${c.name}: ${c.sub.name}`}
+                          data-gs={ruled(g.columns, i) ? "" : undefined}
+                          className="!px-2"
+                        >
+                          {c.sub.shortName}
+                        </th>
+                      ) : null,
+                    ),
+              )}
+            </tr>
+          ) : null}
         </thead>
         <tbody>
           {films.map((f, index) => {
@@ -183,9 +242,9 @@ export function YearGrid({
                       );
                     }
                     return g.columns.map((c, i) => {
-                      const cell = f.cells[c.slug];
+                      const cell = f.cells[columnKey(c)];
                       return (
-                        <td key={c.slug} data-gs={i === 0 ? "" : undefined}>
+                        <td key={columnKey(c)} data-gs={ruled(g.columns, i) ? "" : undefined}>
                           {cell ? (
                             <Cell kind={cellKind(cell.outcome)} label={cellLabel(cell, c, category)} />
                           ) : hasNoData(c) ? (

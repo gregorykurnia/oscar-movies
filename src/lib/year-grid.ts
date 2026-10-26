@@ -1,7 +1,8 @@
 // The year grid (plan §5.7, guide §8.4, product plan §3.7): for a film year and an Oscar category (or
 // "all" four together, the year summary's lists), one row per film with a nomination anywhere in
 // that category and one column per award that gives it (Oscars, majors, festivals, critics groups,
-// each in calendar order). Pure, so the columns, the cells, the totals, the sort, the filter and the
+// each in calendar order; in Documentary an award with several categories gets one column for each).
+// Pure, so the columns, the cells, the totals, the sort, the filter and the
 // address are unit tested; the data layer (`src/data/year-grid.ts`) reads the rows and the page
 // draws them.
 import type { FilmRowData } from "@/data/films";
@@ -13,6 +14,9 @@ import { compareOutcome, isNomination, isShortlisted, type Outcome } from "@/lib
 
 export type EditionStatus = "loaded" | "partial" | "no_data";
 
+/** One of a split award's categories (product plan §3.7): its slug, its own name and its head. */
+export type GridSubColumn = { slug: string; name: string; shortName: string };
+
 export type GridColumn = {
   slug: string;
   /** The column's head ("BAFTA"). */
@@ -23,14 +27,21 @@ export type GridColumn = {
   isSelection: boolean;
   /** The award's edition that film year; null when it has none. */
   status: EditionStatus | null;
+  /** Set when the award is split: the column is this one category. */
+  sub?: GridSubColumn;
 };
+
+/** The key of a column's cells in `GridFilm.cells`: the award's slug, or "cinema-eye/direction" for a split column. */
+export function columnKey(column: Pick<GridColumn, "slug" | "sub">): string {
+  return column.sub ? `${column.slug}/${column.sub.slug}` : column.slug;
+}
 
 /** A film's furthest result at one award, in the categories mapped to the grid's Oscar category. */
 export type GridCell = { outcome: Outcome; category: string };
 
 export type GridFilm = {
   film: FilmRowData;
-  /** By award slug; an award the film has no result at has no cell. */
+  /** By column key (`columnKey`); an award the film has no result at has no cell. */
   cells: Record<string, GridCell>;
 };
 
@@ -46,30 +57,84 @@ export function gridCategoryName(category: GridCategory): string {
   return category === "all" ? "All categories" : RACE_CATEGORIES.find((c) => c.slug === category)!.oscar;
 }
 
+/** The grids whose awards get one column per category (product plan §3.7). */
+const SPLIT_CATEGORIES: GridCategory[] = ["documentary"];
+
+/** One of an award's categories mapped to the grid's Oscar category, as the data layer reads them (in the award's order). */
+export type GridAwardCategory = { awardSlug: string; slug: string; name: string };
+
+/** The awards split into one column per category: in a split grid, those with more than one category. */
+export function splitAwards(category: GridCategory, categories: GridAwardCategory[]): Set<string> {
+  if (!SPLIT_CATEGORIES.includes(category)) return new Set();
+  const count = new Map<string, number>();
+  for (const c of categories) count.set(c.awardSlug, (count.get(c.awardSlug) ?? 0) + 1);
+  return new Set([...count].filter(([, n]) => n > 1).map(([slug]) => slug));
+}
+
+// A split column's head; any other category's head is its own name.
+const SUB_SHORT_NAMES: Record<string, string> = {
+  "cinema-eye/feature": "Feature",
+  "cinema-eye/direction": "Direction",
+  "cinema-eye/production": "Production",
+  "cinema-eye/audience": "Audience",
+  "cinema-eye/unforgettables": "Unforgettables",
+  "sundance/us-documentary-jury": "U.S. Jury",
+  "sundance/us-documentary-audience": "U.S. Audience",
+  "sundance/world-documentary-jury": "World Jury",
+  "sundance/world-documentary-audience": "World Audience",
+  "doc-nyc/short-list": "Short List",
+  "doc-nyc/winners-circle": "Winner's Circle",
+  "critics-choice-documentary/feature": "Feature",
+  "critics-choice-documentary/director": "Director",
+  "critics-choice-documentary/political": "Political",
+  "ida/feature": "Feature",
+  "ida/director": "Director",
+};
+
 /**
  * The awards that give the category (every award for "all"), Oscars first, then majors, festivals and
  * critics groups, each in calendar order, with their edition's status that year. A critics group
  * with no data in any year (`withData` lacks it) has no column: it would read "No data" all down.
+ * A split award (`splitAwards`) is one column per category, in the award's order.
  */
 export function gridColumns(
   awards: AwardSummary[],
   category: GridCategory,
   editions: { slug: string; status: EditionStatus }[],
   withData?: Set<string>,
+  categories: GridAwardCategory[] = [],
 ): GridColumn[] {
   const status = new Map(editions.map((e) => [e.slug, e.status]));
+  const split = splitAwards(category, categories);
   return awards
     .filter((a) => category === "all" || a.oscarCategories.includes(category))
     .filter((a) => a.kind !== "critics" || !withData || withData.has(a.slug))
     .sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind) || a.calendarOrder - b.calendarOrder)
-    .map((a) => ({
-      slug: a.slug,
-      shortName: a.shortName,
-      name: a.name,
-      kind: a.kind,
-      isSelection: a.isSelection,
-      status: status.get(a.slug) ?? null,
-    }));
+    .flatMap((a) => {
+      const column: GridColumn = {
+        slug: a.slug,
+        shortName: a.shortName,
+        name: a.name,
+        kind: a.kind,
+        isSelection: a.isSelection,
+        status: status.get(a.slug) ?? null,
+      };
+      if (!split.has(a.slug)) return [column];
+      return categories
+        .filter((c) => c.awardSlug === a.slug)
+        .map((c) => ({ ...column, sub: { slug: c.slug, name: c.name, shortName: SUB_SHORT_NAMES[`${a.slug}/${c.slug}`] ?? c.name } }));
+    });
+}
+
+/** The columns in runs of one award: a split award's categories together, any other award alone. */
+export function awardRuns(columns: GridColumn[]): GridColumn[][] {
+  const runs: GridColumn[][] = [];
+  for (const column of columns) {
+    const last = runs.at(-1);
+    if (column.sub && last?.[0].sub && last[0].slug === column.slug) last.push(column);
+    else runs.push([column]);
+  }
+  return runs;
 }
 
 /** One result as the data layer reads it: a film, an award, the award's category and the stage. */
@@ -78,6 +143,8 @@ export type GridResultRow = {
   awardSlug: string;
   /** The award's own name for the category ("Best Film"). */
   category: string;
+  /** The category's slug, which a split award's cells are keyed by. */
+  categorySlug?: string;
   outcome: Outcome;
 };
 
@@ -95,9 +162,10 @@ function isGridFilm(cells: Record<string, GridCell>): boolean {
 /**
  * The grid's films from the year's results in the category. Each award's cell is the film's
  * furthest result there (Golden Globes' Drama and Comedy share one column); on a tie the first
- * row read wins, so the caller orders rows by the award's category order.
+ * row read wins, so the caller orders rows by the award's category order. A split award (`split`)
+ * has a cell per category instead.
  */
-export function gridFilms(rows: GridResultRow[]): GridFilm[] {
+export function gridFilms(rows: GridResultRow[], split: Set<string> = new Set()): GridFilm[] {
   const byFilm = new Map<number, { film: FilmRowData; cells: Record<string, GridCell> }>();
   for (const row of rows) {
     let entry = byFilm.get(row.film.id);
@@ -105,9 +173,10 @@ export function gridFilms(rows: GridResultRow[]): GridFilm[] {
       entry = { film: row.film, cells: {} };
       byFilm.set(row.film.id, entry);
     }
-    const current = entry.cells[row.awardSlug];
+    const key = split.has(row.awardSlug) ? `${row.awardSlug}/${row.categorySlug}` : row.awardSlug;
+    const current = entry.cells[key];
     if (!current || compareOutcome(row.outcome, current.outcome) > 0) {
-      entry.cells[row.awardSlug] = { outcome: row.outcome, category: row.category };
+      entry.cells[key] = { outcome: row.outcome, category: row.category };
     }
   }
   return [...byFilm.values()]
@@ -115,7 +184,7 @@ export function gridFilms(rows: GridResultRow[]): GridFilm[] {
     .map((e) => ({ film: e.film, cells: e.cells }));
 }
 
-/** Wins and nominations over every column (a win counts as a nomination too; runner-up counts). */
+/** Wins and nominations over every column (a win counts as a nomination too; runner-up counts); a split award's categories count one each. */
 export function gridTotals(film: GridFilm): { wins: number; noms: number } {
   let wins = 0;
   let noms = 0;
@@ -128,7 +197,7 @@ export function gridTotals(film: GridFilm): { wins: number; noms: number } {
 
 /** Critics groups' wins, for the folded column's count chip. */
 export function criticsWins(film: GridFilm, columns: GridColumn[]): number {
-  return columns.filter((c) => c.kind === "critics" && film.cells[c.slug]?.outcome === "won").length;
+  return columns.filter((c) => c.kind === "critics" && film.cells[columnKey(c)]?.outcome === "won").length;
 }
 
 /** How a cell looks (guide §7 Year grid): won, nominated or on the list, Oscar shortlist, submitted. */

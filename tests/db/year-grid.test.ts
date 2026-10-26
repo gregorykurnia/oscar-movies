@@ -4,7 +4,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryYearGrid } from "../../src/data/year-grid";
 import { AWARDS } from "../../src/lib/awards";
-import { gridTotals } from "../../src/lib/year-grid";
+import { columnKey, gridTotals } from "../../src/lib/year-grid";
 import { majorsOnly } from "./majors-only";
 
 const { db, close } = createScriptDb();
@@ -69,6 +69,19 @@ describe("queryYearGrid", () => {
     expect(films.filter((f) => f.cells.oscars?.outcome === "shortlisted")).toHaveLength(10);
     expect(films.some((f) => f.cells.oscars?.outcome === "submitted" && Object.keys(f.cells).length === 1)).toBe(false);
     expect(films.find((f) => f.film.title === "Sentimental Value")!.film.flag).toBe("NO");
+  });
+
+  it("2024 Documentary: Cinema Eye, Sundance and DOC NYC get a column per category, and each result sits in its category's", async () => {
+    const { columns, films } = majorsOnly(await queryYearGrid(db, 2024, "documentary"));
+    const keys = (slug: string) => columns.filter((c) => c.slug === slug).map(columnKey);
+    expect(keys("cinema-eye")).toEqual(["feature", "direction", "production", "audience", "unforgettables"].map((s) => `cinema-eye/${s}`));
+    expect(keys("sundance")).toHaveLength(4);
+    expect(keys("doc-nyc")).toEqual(["doc-nyc/short-list", "doc-nyc/winners-circle"]);
+    expect(keys("bafta")).toEqual(["bafta"]);
+    // Every cell has a column, and a split award's cells are only under its categories.
+    const all = new Set(columns.map(columnKey));
+    for (const f of films) for (const key of Object.keys(f.cells)) expect(all.has(key), key).toBe(true);
+    expect(films.filter((f) => Object.keys(f.cells).filter((k) => k.startsWith("doc-nyc/short-list")).length)).toHaveLength(15);
   });
 
   it("2025 all categories: the four categories' films together, each once, with every award as a column", async () => {

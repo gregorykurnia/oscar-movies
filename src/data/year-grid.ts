@@ -6,19 +6,29 @@ import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
 import { awardCategories, awards, editions, movies, results } from "@/db/schema";
 import { AWARDS } from "@/lib/awards";
-import { gridColumns, gridFilms, type GridCategory, type YearGrid } from "@/lib/year-grid";
+import { gridColumns, gridFilms, splitAwards, type GridCategory, type YearGrid } from "@/lib/year-grid";
 import { queryAwardsWithData, queryYearEditions } from "./awards";
 import { filmColumns, toFilmRow, type ReadDb } from "./films";
 
 export async function queryYearGrid(db: ReadDb, year: number, category: GridCategory): Promise<YearGrid> {
-  const [yearEditions, withData, rows] = await Promise.all([
+  const [yearEditions, withData, categories, rows] = await Promise.all([
     queryYearEditions(db, year),
     queryAwardsWithData(db),
+    // Every award's categories in this one, for the awards split into a column each (none in "all").
+    category === "all"
+      ? []
+      : db
+          .select({ awardSlug: awards.slug, slug: awardCategories.slug, name: awardCategories.name })
+          .from(awardCategories)
+          .innerJoin(awards, eq(awards.id, awardCategories.awardId))
+          .where(eq(awardCategories.oscarCategory, category))
+          .orderBy(asc(awardCategories.sortOrder), asc(awardCategories.id)),
     db
       .select({
         ...filmColumns,
         awardSlug: awards.slug,
         category: awardCategories.name,
+        categorySlug: awardCategories.slug,
         outcome: results.outcome,
       })
       .from(results)
@@ -31,14 +41,16 @@ export async function queryYearGrid(db: ReadDb, year: number, category: GridCate
       .orderBy(asc(awardCategories.sortOrder), asc(awardCategories.id)),
   ]);
   return {
-    columns: gridColumns(AWARDS, category, yearEditions, withData),
+    columns: gridColumns(AWARDS, category, yearEditions, withData, categories),
     films: gridFilms(
-      rows.map(({ awardSlug, category: name, outcome, ...film }) => ({
+      rows.map(({ awardSlug, category: name, categorySlug, outcome, ...film }) => ({
         film: toFilmRow(film),
         awardSlug,
         category: name,
+        categorySlug,
         outcome,
       })),
+      splitAwards(category, categories),
     ),
   };
 }

@@ -152,8 +152,8 @@ test("/accuracy/documentary lists Cinema Eye's five categories, DOC NYC's two li
   }
 });
 
-test("the 2024 Documentary grid has a column for Cinema Eye and DOC NYC with each film's result, and critics groups after the festivals", async ({ page }) => {
-  // The films with a Cinema Eye or DOC NYC result that year, with their furthest outcomes per award.
+test("the 2024 Documentary grid has a column for each Cinema Eye and DOC NYC category with each film's result, and critics groups after the festivals", async ({ page }) => {
+  // The films' results at Cinema Eye and DOC NYC that year: each category is a column of its own (product plan §3.7).
   const rows = await db
     .select({ title: movies.title, award: awards.slug, category: awardCategories.name, outcome: results.outcome })
     .from(results)
@@ -162,17 +162,9 @@ test("the 2024 Documentary grid has a column for Cinema Eye and DOC NYC with eac
     .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
     .innerJoin(movies, eq(movies.id, results.movieId))
     .where(and(eq(editions.year, GRID_YEAR), inArray(awards.slug, ["cinema-eye", "doc-nyc"]), eq(awardCategories.oscarCategory, "documentary")));
-  const expected = new Map<string, { won: boolean; categories: Set<string> }>();
-  for (const r of rows.filter((r) => ["won", "nominated", "runner_up"].includes(r.outcome))) {
-    const key = `${r.award}|${r.title}`;
-    const entry = expected.get(key) ?? { won: false, categories: new Set<string>() };
-    entry.won ||= r.outcome === "won";
-    entry.categories.add(r.category);
-    expected.set(key, entry);
-  }
-  // The Short List has 15 films a year; a Winner's Circle film that is also on it is one row, with the first list's name.
+  const expected = rows.filter((r) => ["won", "nominated", "runner_up"].includes(r.outcome));
+  // The Short List has 15 films a year.
   expect(rows.filter((r) => r.award === "doc-nyc" && r.category === "Short List: Features")).toHaveLength(15);
-  expect([...expected.keys()].filter((k) => k.startsWith("doc-nyc|")).length).toBeGreaterThanOrEqual(15);
 
   await page.goto(`/grid/${GRID_YEAR}`);
   await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "Documentary" }).click();
@@ -185,42 +177,57 @@ test("the 2024 Documentary grid has a column for Cinema Eye and DOC NYC with eac
   }).toPass();
 
   const table = page.getByRole("table");
-  const readHeads = () =>
-    table.locator('th[scope="col"]').evaluateAll((els) => els.map((el) => ({ text: el.textContent ?? "", title: el.getAttribute("title") ?? "" })));
+  // Each column's award head and, under a split award, its category's head (with the category's full name as title),
+  // laid out from the head rows' spans: column 0 is Film, then Wins and Noms, then the awards.
+  const readColumns = () =>
+    table.evaluate((el) => {
+      const grid: Element[][] = [];
+      el.querySelectorAll("thead tr").forEach((tr, r) => {
+        grid[r] ??= [];
+        let c = 0;
+        for (const th of tr.children as HTMLCollectionOf<HTMLTableCellElement>) {
+          while (grid[r][c]) c++;
+          for (let dr = 0; dr < th.rowSpan; dr++) for (let dc = 0; dc < th.colSpan; dc++) (grid[r + dr] ??= [])[c + dc] = th;
+          c += th.colSpan;
+        }
+      });
+      const [heads, subs] = [grid[1], grid[2]];
+      return heads.map((th, i) => ({
+        award: th.textContent ?? "",
+        sub: subs[i] !== th ? (subs[i].getAttribute("title") ?? "") : null,
+      }));
+    });
   // Wait for the opened table: the critics groups' columns follow DOC NYC's.
-  await expect.poll(async () => (await readHeads()).length).toBeGreaterThan(50);
-  const heads = await readHeads();
-  const index = (name: string) => heads.findIndex((h) => h.text === name);
-  const [eye, nyc] = [index("Cinema Eye"), index("DOC NYC")];
-  expect(eye).toBeGreaterThan(0);
-  expect(nyc).toBeGreaterThan(eye);
-  // DOC NYC is the last festival column: every column after it is a critics group.
-  const after = heads.slice(nyc + 1).map((h) => h.text);
+  await expect.poll(async () => (await readColumns()).length).toBeGreaterThan(50);
+  const columns = await readColumns();
+  const at = (award: string) => columns.flatMap((c, i) => (c.award === award ? [i] : []));
+  const [eye, nyc] = [at("Cinema Eye"), at("DOC NYC")];
+  expect(eye).toHaveLength(5);
+  expect(nyc).toHaveLength(2);
+  expect(eye[0]).toBeGreaterThan(0);
+  expect(nyc[0]).toBeGreaterThan(eye.at(-1)!);
+  // DOC NYC is the last festival: every column after it is a critics group.
+  const after = columns.slice(nyc.at(-1)! + 1).map((c) => c.award);
   expect(after.length).toBeGreaterThan(40);
   const critics = new Set(AWARDS.filter((a) => a.kind === "critics").map((a) => a.shortName));
   expect(after.filter((name) => !critics.has(name))).toEqual([]);
 
-  // Every film's cells by award column: the head row has Film, Wins, Noms, then the awards; a row has Wins and Noms as its first two cells.
-  const cells = await page.evaluate(
-    ([eyeCol, nycCol]) => {
-      const out: Record<string, { eye: string; nyc: string }> = {};
-      for (const tr of document.querySelectorAll("tbody tr")) {
-        const title = tr.querySelector('th[scope="row"]')?.getAttribute("aria-label") ?? "";
-        const tds = tr.querySelectorAll("td");
-        const label = (col: number) => tds[col - 1]?.querySelector('[role="img"]')?.getAttribute("aria-label") ?? "";
-        out[title] = { eye: label(eyeCol), nyc: label(nycCol) };
-      }
-      return out;
-    },
-    [eye, nyc] as [number, number],
-  );
-  for (const [key, entry] of expected) {
-    const [award, title] = [key.slice(0, key.indexOf("|")), key.slice(key.indexOf("|") + 1)];
-    const label = cells[title]?.[award === "cinema-eye" ? "eye" : "nyc"];
-    expect(label, `${title} has a row with a ${award} cell`).toBeTruthy();
-    const word = award === "doc-nyc" ? "Selected" : entry.won ? "Won" : "Nominated";
-    expect(label.startsWith(`${word}: `), `${title} at ${award}: ${label}`).toBe(true);
-    expect([...entry.categories].some((c) => label.endsWith(`: ${c}`)), label).toBe(true);
+  // Every film's cell labels by column; a row has Wins and Noms as its first two cells.
+  const cells = await page.evaluate(() => {
+    const out: Record<string, string[]> = {};
+    for (const tr of document.querySelectorAll("tbody tr")) {
+      const title = tr.querySelector('th[scope="row"]')?.getAttribute("aria-label") ?? "";
+      out[title] = [...tr.querySelectorAll("td")].map((td) => td.querySelector('[role="img"]')?.getAttribute("aria-label") ?? "");
+    }
+    return out;
+  });
+  const word = { won: "Won", runner_up: "Runner-up" } as Record<string, string>;
+  for (const r of expected) {
+    const col = (r.award === "cinema-eye" ? eye : nyc).find((i) => columns[i].sub?.endsWith(`: ${r.category}`));
+    expect(col, `${r.award} has a column for ${r.category}`).toBeDefined();
+    const label = cells[r.title]?.[col! - 1];
+    const w = word[r.outcome] ?? (r.award === "doc-nyc" ? "Selected" : "Nominated");
+    expect(label, `${r.title} at ${r.award}, ${r.category}`).toBe(`${w}: ${r.category}`);
   }
 });
 
