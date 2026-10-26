@@ -62,7 +62,7 @@ describe("major award winners in data/", () => {
     for (let year = 2012; year <= 2019; year++) expect(editions.get(`cinema-eye/${year}`)?.status).toBe("partial");
     expect(editions.get("cinema-eye/2020")?.status).toBe("partial");
     for (let year = 2021; year <= 2025; year++) expect(editions.get(`cinema-eye/${year}`)?.status).toBe("loaded");
-    expect(editions.get("cinema-eye/2026")?.status).toBe("no_data");
+    expect(editions.get("cinema-eye/2026")?.status).toBe("partial"); // the Unforgettables are out, the nominations not yet
     // The AFI Top 10: ten films a year, eleven in 2014; no winners.
     for (let year = 2012; year <= 2025; year++) {
       const results = editions.get(`afi/${year}`)?.results ?? [];
