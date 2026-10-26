@@ -2,9 +2,17 @@
   "award": "cinema-eye",
   "year": 2026,
   "ordinal": "20th",
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "The ceremony for 2026 films has not taken place yet (early 2027).",
-  "results": [],
+  "status": "partial",
+  "nominationsOn": "2026-10-22",
+  "sourceUrls": ["https://en.wikipedia.org/wiki/20th_Cinema_Eye_Honors", "https://cinemaeyehonors.com/news/cinema-eye-honors-reveals-first-awards-announcements-for-2027/"],
+  "note": "The Unforgettables (announced 22 Oct 2026) were typed by hand from Cinema Eye's announcement, since neither script reads them yet: a rerun of majors.ts drops them unless imdb.ts finds them on IMDb. The Audience Choice longlist (17 films) is left out until the 10 nominees are named; the feature nominations come on 12 Nov 2026 and the ceremony on 11 Jan 2027.",
+  "results": [
+    { "category": "unforgettables", "imdb": "tt39149951", "title": "American Doctor", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt38037335", "title": "Ask E. Jean", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt18163224", "title": "A Fox Under a Pink Moon", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt39150093", "title": "Give Me the Ball!", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt38983842", "title": "One in a Million", "outcome": "nominated" },
+    { "category": "unforgettables", "imdb": "tt36748956", "title": "Steal This Story, Please!", "outcome": "nominated" }
+  ],
   "screenings": []
 }
