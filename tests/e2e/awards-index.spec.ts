@@ -34,9 +34,13 @@ test("/awards/2026 marks the majors No data and the Oscars Partly loaded", async
   await expect(oscars.getByText("14 Mar 2027")).toBeVisible();
   await expect(oscars.getByText("Partly loaded", { exact: true })).toBeVisible();
 
+  // Cinema Eye's Unforgettables are out, so it is the one major that links.
   const majors = page.getByRole("region", { name: "Major awards" });
-  await expect(majors.getByText("No data", { exact: true })).toHaveCount(11);
-  await expect(majors.getByRole("link")).toHaveCount(0);
+  await expect(majors.getByText("No data", { exact: true })).toHaveCount(10);
+  const cinemaEye = majors.getByRole("link");
+  await expect(cinemaEye).toHaveCount(1);
+  await expect(cinemaEye).toHaveAttribute("href", "/awards/cinema-eye/2026");
+  await expect(cinemaEye.getByText("Partly loaded", { exact: true })).toBeVisible();
 
   // A festival with its prizes loaded links to them, dated by the month.
   const cannes = page.getByRole("region", { name: "Festivals" }).getByRole("link", { name: /Cannes Film Festival/ });
