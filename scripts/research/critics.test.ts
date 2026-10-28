@@ -10,8 +10,10 @@
 // or nested under it (2020).
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { aafcaLabelYear, dorianFilmYear, GROUPS, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
+import type { MoviesFile } from "../../src/lib/data-files";
+import { aafcaLabelYear, dorianFilmYear, GROUPS, keepFiledImdb, readAafcaTopTen, readPeabodyDocumentaries, sourcesSchema } from "./critics";
 import { blockRows, daysIn, leadDates, readBlocks, readCategoryTables, readDtBlocks, readNestedBlocks, withoutSection } from "./lib/critics-pages";
+import type { ResearchedFilm } from "./lib/films";
 import { readNomineeLists } from "./lib/tables";
 
 /** No Wikipedia data: `no_data`, or (Phase 6) filled from IMDb's award records alone. */
@@ -482,5 +484,23 @@ describe("task 4.9 readers and editions", () => {
     expect(of("washington-dc-critics/2023", "international", "won")).toEqual(["Anatomy of a Fall"]);
     for (let year = 2012; year <= 2025; year++) expect(edition(`washington-dc-critics/${year}`).status).toBe("loaded");
     expect(edition("washington-dc-critics/2026").status).toBe("no_data");
+  });
+});
+
+describe("keepFiledImdb", () => {
+  const film = (wd: string, imdb: string) => ({ ok: true, link: { text: "Filipiñana" }, imdb, wd, facts: { title: "Filipiñana" } }) as Extract<ResearchedFilm, { ok: true }>;
+  const filed = new Map([[2026, { tt38268539: { slug: "filipinana", title: "Filipiñana", countries: ["PH"], wd: "Q137836697" } } as unknown as MoviesFile]]);
+
+  it("keeps the IMDb ID a film is filed under when Wikidata now gives another, and says so", () => {
+    const moved = film("Q137836697", "tt29512008");
+    expect(keepFiledImdb([moved], filed)).toEqual(["Filipiñana (Q137836697) is filed as tt38268539; Wikidata now gives tt29512008"]);
+    expect(moved.imdb).toBe("tt38268539");
+  });
+
+  it("leaves a film filed under the same ID, or not filed at all", () => {
+    const same = film("Q137836697", "tt38268539");
+    const other = film("Q1", "tt0000001");
+    expect(keepFiledImdb([same, other], filed)).toEqual([]);
+    expect([same.imdb, other.imdb]).toEqual(["tt38268539", "tt0000001"]);
   });
 });

@@ -875,7 +875,7 @@ export const GROUPS: Group[] = [
   {
     slug: "gotham",
     name: "Gotham",
-    years: [2012, 2025],
+    years: [2012, 2026],
     why: "the Gotham Awards for these films are not on Wikipedia",
     winnersOnly: false,
     read: pageRead("gotham", {
@@ -1207,6 +1207,23 @@ function fixLink(link: FilmLink, sources: Sources): FilmLink {
   return { text: link.text, article: fix.article ?? link.article, ...(fix.wd ? { wd: fix.wd } : {}) };
 }
 
+/**
+ * A filed film whose Wikidata item now gives another IMDb ID (IMDb merged two records) keeps the ID
+ * it is filed under: the database matches films by it, and `load.ts` refuses a changed one (fixed by
+ * hand). Returns one line per film kept, for the report.
+ */
+export function keepFiledImdb(films: Iterable<ResearchedFilm>, filed: Map<number, MoviesFile>): string[] {
+  const byWd = new Map([...filed.values()].flatMap((f) => Object.entries(f).flatMap(([key, m]) => (m.wd && key.startsWith("tt") ? [[m.wd, key] as const] : []))));
+  const kept: string[] = [];
+  for (const f of films) {
+    const key = f.ok && f.wd && f.imdb ? byWd.get(f.wd) : undefined;
+    if (!f.ok || !key || key === f.imdb) continue;
+    kept.push(`${f.facts.title} (${f.wd}) is filed as ${key}; Wikidata now gives ${f.imdb}`);
+    f.imdb = key;
+  }
+  return kept;
+}
+
 async function main() {
   const argv = process.argv.slice(2);
   checkArgs(argv, { flags: ["--refresh", "--offline"], values: ["--years", "--award"] });
@@ -1315,6 +1332,7 @@ async function main() {
       }
 
       const films = await researchFilms(fetcher, kept.map((e) => e.link), tmdb);
+      for (const line of keepFiledImdb(films.values(), readMoviesFiles(DATA_DIR))) problems.push(`${label}: kept the filed IMDb ID: ${line}`);
       const viaTmdb = new Map<string, ResearchedFilm>();
       for (const e of kept) {
         const search = sources.tmdbSearch[`${group.slug} ${year} ${e.link.text}`];
