@@ -191,6 +191,7 @@ function Row({
   release?: ReleaseContext;
 }) {
   const { film, stage, pill, categories, nominations, chance } = staged;
+  const unknownResults = stage === null && categories.length === 0 && nominations === 0 && chance === null;
   return (
     <FilmRow
       headingLevel={3}
@@ -198,6 +199,7 @@ function Row({
       href={`/movies/${film.slug}`}
       handle={handle ? <DragHandle /> : undefined}
       flag={film.flag}
+      reserveFlag
       meta={[film.year, ...(categories.length > 0 ? [categories.join(", ")] : [])].join(" · ")}
       scores={film.scores}
       note={
@@ -216,12 +218,13 @@ function Row({
       results={[
         {
           label: "Oscar stage",
-          value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">No Oscar result</span>,
+          value: pill ? <StagePill stage={pill} /> : <span className="text-ink-muted">{unknownResults ? "–" : "No Oscar result"}</span>,
+          phoneHidden: unknownResults,
         },
         ...(sort === "chance"
-          ? [{ label: "To win", value: chance === null ? <span className="text-ink-muted">–</span> : `${formatChance(chance)}%`, numeric: true }]
+          ? [{ label: "To win", value: chance === null ? <span className="text-ink-muted">–</span> : `${formatChance(chance)}%`, numeric: true, phoneHidden: unknownResults }]
           : []),
-        { label: "Nominations", value: nominations, numeric: true },
+        { label: "Nominations", value: unknownResults ? <span className="text-ink-muted">–</span> : nominations, numeric: true, phoneHidden: unknownResults },
       ]}
       marks={<FilmMarks movieId={film.id} title={film.title} />}
     />

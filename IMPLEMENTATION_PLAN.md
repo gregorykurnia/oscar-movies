@@ -193,7 +193,7 @@ Owner request: “add it directly into this website app even if it doesn’t exi
 | 9.3b | [no look] Later research-loader matching; brief 9.3b (reuse app-added films without changing identity) | Sol Max | 2026-11-10 · research reuses app films and notes |
 | 9.4 | [no look] TMDB search client, route and deterministic fixtures; brief 9.4 (bounded provider requests and failures) | Sol xHigh | 2026-11-10 · bounded search and guarded fixtures |
 | 9.5 | [no look] Atomic film creation and wanted mark; brief 9.5 (identity conflicts, rollback and retries) | Sol Max | 2026-11-10 · atomic saves, safe retries and shared rank lock |
-| 9.6 | [look] Connect catalogue/manual Add a film paths; brief 9.6 (forms follow the established reference) | Sol xHigh | |
+| 9.6 | [look] Connect catalogue/manual Add a film paths; brief 9.6 (forms follow the established reference) | Sol xHigh | 2026-11-10 · both paths checked at 390/844/1280 |
 | 9.7 | [look] End-to-end phase checks, screenshots and failure report; brief 9.7 (one full run, fixes in the next row) | Sol xHigh | |
 | 9.R | [look] Phase 9 review and targeted fixes; brief 9.R (other family from the implementation, data and UX checks) | Opus 5.5 High | |
 

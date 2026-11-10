@@ -315,7 +315,7 @@ test("adds a film by typing part of its original title, and it is at the top aft
 
     // No match: the line says so, and nothing is added.
     await page.getByRole("combobox", { name: "Add a film" }).fill("zzzxq");
-    await expect(page.getByText("No film called “zzzxq” yet.")).toBeVisible();
+    await expect(page.getByText("No film called “zzzxq” in the app yet.")).toBeVisible();
   } finally {
     // Put every mark back, including the places the add moved the other films to.
     await putBack(id, saved);
@@ -620,3 +620,246 @@ test("on a phone the editor is a sheet that keeps focus inside, and the page doe
       });
   });
 });
+
+// Phase 9: both entry paths through the real Watch list, with server-side provider fixtures.
+async function restoreFilmFlow(saved: (typeof marks.$inferSelect)[], beforeIds: Set<number>) {
+  await db.transaction(async (tx) => {
+    await lockFilmWrites(tx);
+    const created = (await tx.select({ id: movies.id }).from(movies)).filter((film) => !beforeIds.has(film.id)).map((film) => film.id);
+    if (created.length) {
+      await tx.delete(marks).where(inArray(marks.movieId, created));
+      await tx.delete(movies).where(inArray(movies.id, created));
+    }
+    for (const row of saved) await tx.insert(marks).values(row).onConflictDoUpdate({ target: marks.movieId, set: row });
+  });
+}
+
+async function openMore(page: import('@playwright/test').Page, query: string) {
+  const box = page.getByRole('combobox', { name: 'Add a film' });
+  await typeToFind(box, query, page.getByRole('button', { name: 'Search more films', exact: true }));
+  await page.getByRole('button', { name: 'Search more films', exact: true }).click();
+  return page.getByRole('region', { name: 'Search more films' });
+}
+
+test('manual and catalogue films survive reload, global search and movie navigation with marks and release notes', async ({ page }) => {
+  test.setTimeout(120_000);
+  const saved = await db.select().from(marks);
+  const beforeIds = new Set((await db.select({ id: movies.id }).from(movies)).map((row) => row.id));
+  const title = `Manual film ${randomUUID().slice(0, 8)}`;
+  try {
+    await page.goto('/watch-list?sort=average');
+    const box = page.getByRole('combobox', { name: 'Add a film' });
+    await typeToFind(box, title, page.getByRole('button', { name: 'Add manually', exact: true }));
+    // The two paths are in the ordinary Tab sequence, after the main input.
+    await box.focus(); await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'Search more films', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab'); await page.keyboard.press('Enter');
+    const form = page.getByRole('region', { name: 'Add manually' });
+    await expect(form.getByLabel('Release or planned year')).toBeFocused();
+    await form.getByLabel('Release or planned year').fill('2032');
+    await form.getByLabel('Release or planned year').press('Enter');
+    await expect(box).toHaveValue(''); await expect(box).toBeFocused();
+    await expect(page).toHaveURL(/sort=average/);
+    await page.getByRole('link', { name: 'Open film', exact: true }).click();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
+    await page.reload(); await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
+    const manualUrl = page.url();
+    // Global search uses the stored film, not the external provider.
+    await page.getByRole('heading', { level: 1 }).click(); await page.keyboard.press('/');
+    const global = page.getByRole('combobox', { name: 'Search films and awards' });
+    await expect(global).toBeFocused(); await global.fill(title);
+    await expect(page.getByRole('option', { name: new RegExp(title) })).toBeVisible();
+    await global.press('Enter'); await expect(page).toHaveURL(manualUrl);
+    await page.goto('/watch-list');
+    const row = rowOf(section(page, 'Want to watch').getByRole('heading', { level: 3, name: title }));
+    await row.getByRole('button', { name: 'Add release date' }).click();
+    await editorOf(page).getByLabel('Date').fill('2032-12-12');
+    await editorOf(page).getByRole('combobox', { name: 'Platform' }).fill('MUBI');
+    await editorOf(page).getByRole('button', { name: 'Save', exact: true }).click();
+    await expect(editorOf(page)).toHaveCount(0);
+    await page.reload(); await expect(row).toContainText('MUBI');
+    // Catalogue, using keyboard selection and a forthcoming film with no IMDb ID.
+    const panel = await openMore(page, 'Upcoming fixture');
+    await expect(panel.getByRole('option', { name: /Upcoming fixture/ })).toBeVisible();
+    await box.press('Enter');
+    await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeFocused();
+    await page.keyboard.press('Enter'); await expect(box).toHaveValue('');
+    await expect.poll(async () => (await titlesIn(section(page, 'Want to watch')))[0]).toBe('Upcoming fixture');
+    await page.reload();
+    const catalogueRow = rowOf(section(page, 'Want to watch').getByRole('heading', { level: 3, name: 'Upcoming fixture' }));
+    await catalogueRow.getByRole('link', { name: 'Upcoming fixture' }).click();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Upcoming fixture');
+    await page.getByRole('heading', { level: 1 }).click(); await page.keyboard.press('/');
+    await global.fill('Upcoming fixture');
+    await expect(page.getByRole('option', { name: /Upcoming fixture/ })).toBeVisible();
+    await global.press('Escape');
+    // Existing mark controls work for the newly stored film as well.
+    const [film] = await db.select().from(movies).where(eq(movies.tmdbId, 99004003));
+    await page.getByRole('button', { name: 'Watched', exact: true }).click();
+    await expect.poll(() => readMark(film.id)).toEqual({ watched: true, want: false });
+    // A manual title/year match waits for a choice rather than silently merging.
+    await page.goto('/watch-list'); await typeToFind(box, title, page.getByRole('button', { name: 'Add manually', exact: true }));
+    await page.getByRole('button', { name: 'Add manually', exact: true }).click();
+    await form.getByLabel('Release or planned year').fill('2032');
+    await form.getByRole('button', { name: 'Add to Want to watch' }).click();
+    await expect(form.getByRole('radiogroup')).toBeVisible();
+    await form.getByRole('button', { name: 'Use this film', exact: true }).click();
+    await expect(box).toHaveValue(''); await page.reload(); await expect(row).toContainText('MUBI');
+    expect((await db.select().from(movies).where(eq(movies.title, title)))).toHaveLength(1);
+  } finally { await restoreFilmFlow(saved, beforeIds); }
+});
+
+// Required look evidence stays under screenshots/phase-9; no unrelated screens are captured.
+for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }]) {
+  test(`add-film look ${width}: results, confirmation, validation, saving, failure and saved row`, async ({ page }) => {
+    test.setTimeout(120_000);
+    const { mkdirSync } = await import('node:fs');
+    mkdirSync('screenshots/phase-9', { recursive: true });
+    const saved = await db.select().from(marks);
+    const beforeIds = new Set((await db.select({ id: movies.id }).from(movies)).map((row) => row.id));
+    const title = `Pulang ke Rumah · ${width}`;
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    const shot = async (name: string) => {
+      await page.evaluate(() => document.fonts.ready);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+      // Audit only this task's visible controls/text, including occlusion at the tap centre.
+      const problems = await page.locator('main').evaluate((main) => {
+        const panel = main.querySelector('section[aria-labelledby$="-panel-title"]');
+        if (!panel) return [];
+        return Array.from(panel.querySelectorAll<HTMLElement>('button,input,h2,h3,label')).flatMap((element) => {
+          const rect = element.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) return [];
+          const result: string[] = [];
+          if (element.scrollWidth > element.clientWidth + 1) result.push(`overflow: ${element.textContent}`);
+          const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
+          if (element.matches('button,input') && y > 56 && y < innerHeight && !element.contains(document.elementFromPoint(x, y))) result.push(`covered: ${element.textContent}`);
+          return result;
+        });
+      });
+      expect(problems).toEqual([]);
+      await page.screenshot({ path: `screenshots/phase-9/${name}-${width}.png`, animations: 'disabled', caret: 'hide' });
+    };
+    try {
+      await page.setViewportSize({ width, height });
+      await page.goto('/watch-list');
+      const box = page.getByRole('combobox', { name: 'Add a film' });
+      await typeToFind(box, 'zzzxq', page.getByText('No film called “zzzxq” in the app yet.'));
+      await expect(page.getByRole('button', { name: 'Search more films', exact: true })).toBeInViewport();
+      await expect(box).toBeInViewport();
+      await shot('no-match');
+      if (width === 390) {
+        let finishSearch!: () => void;
+        const searchGate = new Promise<void>((resolve) => { finishSearch = resolve; });
+        await page.route('**/api/movie-catalogue?**', async (route) => { await searchGate; await route.continue(); });
+        const empty = await openMore(page, 'fixture:empty');
+        await expect(empty.getByLabel('Searching TMDB', { exact: true })).toBeVisible();
+        await shot('loading'); finishSearch();
+        await expect(empty.getByText('No film called “fixture:empty” on TMDB.')).toBeVisible();
+        await shot('empty');
+        await page.unroute('**/api/movie-catalogue?**');
+        await page.keyboard.press('Escape');
+        await typeToFind(box, 'offline film', page.getByRole('button', { name: 'Search more films', exact: true }));
+        await page.context().setOffline(true);
+        await page.getByRole('button', { name: 'Search more films', exact: true }).click();
+        await expect(empty.getByRole('alert')).toContainText("Couldn't reach TMDB.");
+        await shot('offline');
+        await page.context().setOffline(false);
+        await page.keyboard.press('Escape');
+      }
+      const panel = await openMore(page, 'fixture:pages');
+      await expect(panel.getByRole('option')).toHaveCount(3);
+      await panel.getByRole('button', { name: 'Show more results' }).click();
+      await expect(panel.getByRole('option')).toHaveCount(5);
+      await expect(panel.getByRole('button', { name: 'Show more results' })).toHaveCount(0);
+      await panel.getByRole('option').first().scrollIntoViewIfNeeded();
+      await shot('results');
+      await panel.getByRole('option', { name: /Upcoming fixture/ }).click();
+      await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeFocused();
+      await expect(panel.getByRole('heading', { name: 'Upcoming fixture' })).toBeInViewport();
+      await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeInViewport();
+      await shot('picked');
+      // A 100% crop covers the panel's text ends, frame and action boundary.
+      await panel.screenshot({ path: `screenshots/phase-9/picked-panel-${width}.png` });
+      await panel.getByRole('button', { name: 'Back to results' }).click();
+      await panel.getByRole('option', { name: /Unknown year fixture/ }).click();
+      await expect(panel.getByLabel('Release or planned year')).toBeFocused();
+      await panel.getByRole('button', { name: 'Add to Want to watch' }).click();
+      await expect(panel.getByText('Type a year from 1800 to 9999.')).toBeVisible();
+      if (width === 390) await shot('unknown-year');
+      await page.keyboard.press('Escape'); await expect(box).toBeFocused();
+      // Search failure is never presented as empty; manual entry preserves its query.
+      await openMore(page, 'fixture:401'); await expect(panel.getByRole('alert')).toContainText("Film search isn't working.");
+      if (width === 390) await shot('provider-failed');
+      await panel.getByRole('button', { name: 'Add manually', exact: true }).click();
+      const manual = page.getByRole('region', { name: 'Add manually' });
+      await manual.getByLabel('Title', { exact: true }).fill(title);
+      await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
+      await expect(manual.getByText('Type a year from 1800 to 9999.')).toBeVisible();
+      const yearErrorColour = await manual.getByLabel('Release or planned year').evaluate((element) => {
+        const probe = document.createElement('span'); probe.style.color = 'var(--error)'; document.body.append(probe);
+        const error = getComputedStyle(probe).color; probe.remove();
+        return { border: getComputedStyle(element).borderTopColor, error };
+      });
+      expect(yearErrorColour.border).toBe(yearErrorColour.error);
+      await shot('manual-error');
+      await manual.screenshot({ path: `screenshots/phase-9/manual-panel-${width}.png` });
+      if (width !== 844) {
+        const { readFileSync } = await import('node:fs');
+        const { createRequire } = await import('node:module');
+        await page.addScriptTag({ content: readFileSync(createRequire(`${process.cwd()}/package.json`).resolve('axe-core/axe.min.js'), 'utf8') });
+        const violations = await page.evaluate(async () => {
+          // @ts-expect-error axe is injected into this test page
+          const result = await window.axe.run(document.querySelector('main'), { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } });
+          return result.violations.map((v: { id: string; nodes: { target: string[] }[] }) => ({ id: v.id, nodes: v.nodes.map((n) => n.target) }));
+        });
+        expect(violations).toEqual([]);
+      }
+      await manual.getByLabel('Release or planned year').fill('2031');
+      let release!: () => void;
+      const gate = new Promise<void>((resolve) => { release = resolve; });
+      await page.route('**/watch-list', async (route) => {
+        if (route.request().method() === 'POST') { await gate; await route.abort('failed'); }
+        else await route.continue();
+      });
+      await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
+      await expect(manual.locator('form')).toHaveAttribute('aria-busy', 'true');
+      await expect(manual.getByRole('button', { name: 'Cancel', exact: true })).toBeDisabled();
+      await shot('saving'); release();
+      await expect(manual.getByRole('alert')).toContainText("Couldn't add");
+      await shot('save-failed');
+      await expect(manual.getByLabel('Title', { exact: true })).toHaveValue(title);
+      await page.unroute('**/watch-list');
+      await manual.getByRole('button', { name: 'Try again', exact: true }).click();
+      await expect(box).toHaveValue(''); await expect(box).toBeFocused();
+      await expect.poll(async () => (await titlesIn(section(page, 'Want to watch')))[0]).toBe(title);
+      await page.reload();
+      await expect.poll(async () => (await titlesIn(section(page, 'Want to watch')))[0]).toBe(title);
+      const savedRow = rowOf(section(page, 'Want to watch').getByRole('heading', { level: 3, name: title }));
+      await savedRow.scrollIntoViewIfNeeded();
+      await shot('saved-row');
+      await expect(savedRow).not.toContainText('No Oscar result');
+      await expect(savedRow).not.toContainText('Nominations 0');
+      if (width === 390) {
+        await typeToFind(box, title, page.getByRole('button', { name: 'Add manually', exact: true }));
+        await page.getByRole('button', { name: 'Add manually', exact: true }).click();
+        await manual.getByLabel('Release or planned year').fill('2031');
+        await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
+        await expect(manual.getByRole('radiogroup')).toBeVisible();
+        await shot('duplicate');
+        await page.keyboard.press('Escape');
+        const longTitle = 'TheUnusuallyLongUnbrokenFilmTitle'.repeat(5);
+        await page.route('**/api/movie-catalogue?**', (route) => route.fulfill({ json: { ok: true, value: {
+          films: [{ tmdbId: 123, title: longTitle, originalTitle: null, year: 2030, overview: 'A full overview that remains readable without making the action disappear.' }], page: 1, nextPage: null,
+        } } }));
+        await openMore(page, 'stress title');
+        await panel.getByRole('option').click();
+        await expect(panel.getByRole('heading', { name: longTitle })).toBeInViewport();
+        await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeInViewport();
+        await shot('long-title');
+        await page.unroute('**/api/movie-catalogue?**');
+      }
+      expect(errors).toEqual([]);
+    } finally { await restoreFilmFlow(saved, beforeIds); }
+  });
+}

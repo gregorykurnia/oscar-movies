@@ -1,4 +1,5 @@
 import { AlertCircle, Info, X, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/button/Button";
 import { cn } from "@/lib/cn";
 
@@ -10,6 +11,7 @@ export type ToastProps = {
   title: string;
   /** "Hamnet is back to not watched. Check the connection and try again." */
   description?: string;
+  action?: { label: string; href: string };
   /** Replaces the tone's icon (the info toast for an added film shows a check). */
   icon?: LucideIcon;
   /** Shows the ghost "Try again" button. */
@@ -22,7 +24,7 @@ export type ToastProps = {
  * Guide §7 Toast: only for failures (and the odd neutral note); successes need none.
  * Stays until closed or retried. Placement is the Toaster's job.
  */
-export function Toast({ tone = "error", title, description, icon, onRetry, onClose, className }: ToastProps) {
+export function Toast({ tone = "error", title, description, action, icon, onRetry, onClose, className }: ToastProps) {
   const Icon = icon ?? (tone === "error" ? AlertCircle : Info);
   return (
     <div
@@ -38,9 +40,10 @@ export function Toast({ tone = "error", title, description, icon, onRetry, onClo
         className={cn("mt-px size-[18px] flex-none", tone === "error" ? "text-error" : "text-ink-muted")}
         strokeWidth={1.75}
       />
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
         <strong className="block font-medium">{title}</strong>
         {description ? <span className="text-ink-muted">{description}</span> : null}
+        {action ? <Link href={action.href} className="mt-1 block w-fit rounded-sm font-medium text-gold-ink outline-none hover:underline focus-visible:shadow-focus">{action.label}</Link> : null}
       </div>
       {onRetry ? (
         <Button variant="ghost" size="sm" onClick={onRetry}>

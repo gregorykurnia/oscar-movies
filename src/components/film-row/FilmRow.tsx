@@ -94,6 +94,7 @@ export function FilmRow({
   lead,
   rank,
   flag,
+  reserveFlag = false,
   flagLabel,
   meta,
   scores,
@@ -116,6 +117,8 @@ export function FilmRow({
   rank?: number;
   /** The film's one flag: its primary country (`FilmRowData.flag`). */
   flag?: string | null;
+  /** Keep Watch list titles aligned when a manually added film has no country. */
+  reserveFlag?: boolean;
   /** Accessible name of the flag ("Brazil, submitting country"). */
   flagLabel?: string;
   /** Caption under the title (year · categories). */
@@ -151,7 +154,7 @@ export function FilmRow({
             {rank}
           </span>
         ) : null}
-        <Flags code={flag} label={flagLabel} className="mt-1" />
+        {reserveFlag && !flag ? <span aria-hidden="true" className="w-[21px] flex-none" /> : <Flags code={flag} label={flagLabel} className="mt-1" />}
         <div className="min-w-0">
           <Heading className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[16px] leading-snug font-medium tracking-title [overflow-wrap:anywhere] md:text-[17px]">
             <Link
