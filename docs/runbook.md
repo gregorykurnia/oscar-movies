@@ -15,6 +15,8 @@ What can be lost, and where its copy lives:
 
 **Dropping an award** the app no longer follows (the loader never deletes one): take it out of `data/awards.json` and `data/editions/`, then run `npx tsx scripts/remove-award.ts --target test --award <slug>`, and the same with `--target production --yes-production` once the owner approves. Dry run first (`--dry-run`). It deletes the award's editions, results and categories, recomputes, and on production exports the marks first.
 
+**Later research loads** resolve IMDb, Wikidata and TMDB IDs together and refuse conflicting identities before any writes. A matched app-created film keeps its row, local UUID, stable slug and known IDs omitted by research; reviewed metadata can change. Marks, order and release notes stay attached. Unrelated app-created films are kept, and title/year alone never merges manual entries. Ordinary researched films still refuse slug changes. See [Update the race](update-the-race.md) for the backup and reviewed-load procedure.
+
 **Neon's restore window.** Neon Free can restore a branch to any moment in the last 6 hours (Neon console → the project → Branches → `production` → Restore). Use it only for a mistake noticed within hours; anything restored that way loses every mark made after that moment, so export the marks first if the database still answers.
 
 **When the marks are exported** to `data/marks.json` and committed:

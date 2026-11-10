@@ -3,6 +3,7 @@
 // nothing, the marks are never touched, and a production target exports the marks before
 // anything else. A small data set of its own (award `test-load`, films `tt71000001`…) sits
 // next to the seeded data; most tests run inside a transaction that is rolled back.
+import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { asc, count, desc, eq, inArray, sql, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
@@ -198,6 +199,98 @@ describe("the loader", () => {
       expect(await ourFilms(tx)).toHaveLength(3);
       expect((await snapshot(tx)).marks).toEqual(marksBefore);
       expect((await runLoad(tx, data, { target: "test", dryRun: false, ...quiet })).written).toBe(false);
+    });
+  });
+
+  it.each(["imdbId", "wikidataId", "tmdbId"] as const)("reuses an app film matched by %s without changing its link or personal notes", async (field) => {
+    await rolledBack(async (tx) => {
+      const ids = { imdbId: FILMS[0], wikidataId: "Q71000001", tmdbId: 71000001 };
+      const [film] = await tx.insert(movies).values({
+        localId: randomUUID(), slug: "test-load-app-one", title: "Draft One", year: 2023, countries: [],
+        [field]: ids[field], tmdbScore: 7.5,
+      }).returning();
+      await tx.insert(marks).values({
+        movieId: film.id, want: true, wantRank: 1, releaseOn: "2027-02-03", platform: "Cinema",
+      });
+      const before = await snapshot(tx);
+      const data = testData();
+      data.movies[0].file[FILMS[0]] = { ...data.movies[0].file[FILMS[0]], wd: ids.wikidataId, tmdb: ids.tmdbId };
+      data.editions[0].edition.screenings!.push({ imdb: FILMS[0], title: "Load One", section: "Competition", sectionOrder: 1 });
+
+      const dry = await runLoad(tx, data, { target: "test", dryRun: true, ...quiet });
+      expect(dry.written).toBe(false);
+      expect(dry.plan.movies.inserts).toHaveLength(2);
+      expect(dry.plan.movies.updates.map((u) => u.id)).toEqual([film.id]);
+      expect(await snapshot(tx)).toEqual(before);
+      expect((await tx.select().from(movies).where(eq(movies.id, film.id)))[0]).toEqual(film);
+
+      expect((await runLoad(tx, data, { target: "test", dryRun: false, ...quiet })).written).toBe(true);
+      expect((await tx.select().from(movies).where(eq(movies.id, film.id)))[0]).toMatchObject({
+        ...ids, id: film.id, localId: film.localId, slug: film.slug,
+        title: "Load One", year: 2024, countries: ["US"], tmdbScore: 7.5,
+      });
+      expect((await snapshot(tx)).marks).toEqual(before.marks);
+      expect(await ourFilms(tx)).toHaveLength(3);
+      expect(await tx.select().from(results).where(eq(results.movieId, film.id))).toHaveLength(1);
+      expect(await tx.select().from(screenings).where(eq(screenings.movieId, film.id))).toHaveLength(1);
+      const after = await snapshot(tx);
+      const second = await runLoad(tx, data, { target: "test", dryRun: false, ...quiet });
+      expect(second.written).toBe(false);
+      expect(second.plan.problems).toEqual([]);
+      expect(await snapshot(tx)).toEqual(after);
+    });
+  });
+
+  it("keeps omitted known IDs and unrelated manual/TMDB films, without merging equal titles", async () => {
+    await rolledBack(async (tx) => {
+      const saved = await tx.insert(movies).values([
+        {
+          localId: randomUUID(), slug: "test-load-app-one", title: "Load One", year: 2024, countries: ["US"],
+          imdbId: FILMS[0], wikidataId: "Q71000001", tmdbId: 71000001,
+        },
+        { localId: randomUUID(), slug: "test-load-manual-two", title: "Load Two", year: 2024, countries: [] },
+        { localId: randomUUID(), slug: "test-load-unrelated-tmdb", title: "Unrelated", year: 2030, countries: [], tmdbId: 71000009 },
+      ]).returning();
+      await tx.insert(marks).values(saved.map((film, i) => ({
+        movieId: film.id, want: true, wantRank: i + 1, releaseOn: "2027-02-03", platform: "Cinema",
+      })));
+      const before = await snapshot(tx);
+      const first = await runLoad(tx, testData(), { target: "test", dryRun: false, ...quiet });
+      expect(first.plan.movies.inserts).toHaveLength(2);
+      expect(first.plan.movies.updates).toEqual([]);
+      expect(await tx.select().from(movies).where(inArray(movies.id, saved.map((m) => m.id))).orderBy(asc(movies.id))).toEqual(saved);
+      expect((await snapshot(tx)).marks).toEqual(before.marks);
+      expect((await runLoad(tx, testData(), { target: "test", dryRun: false, ...quiet })).written).toBe(false);
+    });
+  });
+
+  it.each(["split-wikidata", "split-tmdb", "changed-wikidata", "changed-tmdb", "changed-imdb"])("refuses the whole load for %s identities", async (conflict) => {
+    await rolledBack(async (tx) => {
+      const saved = await tx.insert(movies).values([
+        {
+          localId: randomUUID(), slug: "test-load-app-one", title: "Draft One", year: 2023, countries: [],
+          imdbId: conflict === "changed-imdb" ? "tt71000999" : FILMS[0], wikidataId: "Q71000001", tmdbId: 71000001,
+        },
+        {
+          localId: randomUUID(), slug: "test-load-conflict-two", title: "Other film", year: 2023, countries: [],
+          wikidataId: "Q71000002", tmdbId: 71000002,
+        },
+      ]).returning();
+      await tx.insert(marks).values({ movieId: saved[0].id, want: true, wantRank: 1, platform: "Cinema" });
+      const before = await snapshot(tx);
+      const data = testData();
+      data.movies[0].file[FILMS[0]] = {
+        ...data.movies[0].file[FILMS[0]],
+        wd: conflict === "split-wikidata" ? "Q71000002" : conflict === "changed-wikidata" ? "Q71000999" : "Q71000001",
+        tmdb: conflict === "split-tmdb" ? 71000002 : conflict === "changed-tmdb" ? 71000999 : 71000001,
+      };
+      const lines: string[] = [];
+      await expect(runLoad(tx, data, { target: "test", dryRun: false, ...quiet, log: (l) => lines.push(l) })).rejects.toThrow(
+        "The plan has problems (above). Nothing was written.",
+      );
+      expect(lines.join("\n")).toContain("conflicting external IDs");
+      expect(await snapshot(tx)).toEqual(before);
+      expect(await tx.select().from(movies).where(inArray(movies.id, saved.map((m) => m.id))).orderBy(asc(movies.id))).toEqual(saved);
     });
   });
 

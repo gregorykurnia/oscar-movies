@@ -2,7 +2,9 @@
 
 The routine for when the owner says **"update the race"** (product plan §3.12; two or three times a week from November to March). It adds the season's new results to `data/`, shows the owner what changes, and loads it. Files are the source (IMPLEMENTATION_PLAN.md §3.3); the loader is §3.5. A session runs it in about 15–30 minutes.
 
-**The rule:** nothing reaches `production` until the owner has read the `race:check` report and said go. Results are matched by IMDb ID (or Wikidata QID), never by title, and a result that can't be confirmed is left out, never guessed.
+**The rule:** nothing reaches `production` until the owner has read the `race:check` report and said go. Results name IMDb IDs (or Wikidata QIDs); the loader resolves all supplied IMDb, Wikidata and TMDB IDs together, never by title. A result that can't be confirmed is left out, never guessed.
+
+A research match reuses an app-added film's database row, keeping its local UUID, movie link, known IDs, marks, Watch list order and release notes. Reviewed research may update its metadata; its research-file slug can differ from the existing app link. Conflicting external IDs stop the whole load, even if another ID matches. Ordinary researched films still reject slug changes. Manual films with no external IDs remain separate, even with the same title/year; linking them later requires an explicit correction.
 
 ## 1. Start
 
@@ -52,10 +54,10 @@ Check it the way the owner will: every `delete` line is meant (a correction), no
 
 ## 5. Load `production` (only after the owner says go)
 
-1. `npm run load -- --target production --yes-production --dry-run`. It exports the marks to `data/marks.json` first and stops if that fails. Read the plan: it must match what the owner saw.
+1. `npm run load -- --target production --yes-production --dry-run`. It exports all personal data to `data/marks.json` first: marks, Watch list order, release notes and every app-created film's identity/snapshot, including unmarked films. It stops if the backup fails. Read the plan: it must match what the owner saw.
 2. `npm run load -- --target production --yes-production`. One transaction, then predictions and accuracy are recomputed and the live site's cache is expired.
 3. `npm run race:check -- --target production` says clean.
-4. Commit `data/marks.json` ("Back up marks before the race update") and push.
+4. Commit `data/marks.json` ("Back up films and personal notes before the race update") and push.
 5. Tell the owner: the editions loaded, the biggest moves, and that the race page shows them now. Data loads don't need a release: the live site reads the database.
 
 In an unattended session, stop after step 4 and leave step 5 for the owner (`RUNNER: BLOCKED`).

@@ -92,9 +92,9 @@ function loaded(): DbState {
       { id: 12, awardId: 2, slug: "palme", name: "Palme d'Or", oscarCategory: "picture", loose: false, mappingNote: null, sortOrder: 1 },
     ],
     movies: [
-      { id: 100, slug: "one", title: "One", originalTitle: null, originalLang: null, year: 2024, countries: ["US"], language: null, imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 11 },
-      { id: 101, slug: "two", title: "Two", originalTitle: "Deux", originalLang: "fr", year: 2024, countries: ["FR"], language: null, imdbId: "tt0000002", wikidataId: null, tmdbId: null },
-      { id: 102, slug: "three", title: "Three", originalTitle: null, originalLang: null, year: 2024, countries: ["JP"], language: null, imdbId: null, wikidataId: "Q3", tmdbId: null },
+      { id: 100, localId: null, slug: "one", title: "One", originalTitle: null, originalLang: null, year: 2024, countries: ["US"], language: null, imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 11 },
+      { id: 101, localId: null, slug: "two", title: "Two", originalTitle: "Deux", originalLang: "fr", year: 2024, countries: ["FR"], language: null, imdbId: "tt0000002", wikidataId: null, tmdbId: null },
+      { id: 102, localId: null, slug: "three", title: "Three", originalTitle: null, originalLang: null, year: 2024, countries: ["JP"], language: null, imdbId: null, wikidataId: "Q3", tmdbId: null },
     ],
     editions: [
       { id: 20, awardId: 1, year: 2024, ordinal: null, status: "loaded", shortlistOn: null, nominationsOn: "2024-11-01", winnersOn: "2024-12-02", sourceUrls: ["https://example.org/gotham"], note: null },
@@ -194,6 +194,82 @@ describe("planLoad", () => {
     expect(plan.results.inserts).toEqual([]);
   });
 
+  it.each(["imdbId", "wikidataId", "tmdbId"] as const)("reuses an app-created film by %s, keeping its slug and local identity", (field) => {
+    const data = files();
+    const db = loaded();
+    const original = db.movies[0];
+    db.movies[0] = {
+      ...original, localId: "71000000-0000-4000-8000-000000000001", slug: "app-one",
+      imdbId: null, wikidataId: null, tmdbId: null, [field]: original[field],
+    };
+    const plan = planLoad(data, db);
+    expect(plan.problems).toEqual([]);
+    expect(plan.movies.inserts).toEqual([]);
+    expect(plan.movies.updates).toHaveLength(1);
+    const [update] = plan.movies.updates;
+    expect(update.id).toBe(original.id);
+    expect(update.set).not.toHaveProperty("slug");
+    expect(update.set).not.toHaveProperty("localId");
+    expect(plan.results.inserts).toEqual([]);
+    expect(plan.results.deletes).toEqual([]);
+    Object.assign(db.movies[0], update.set);
+    expect(planSize(planLoad(data, db))).toBe(0);
+  });
+
+  it("keeps app-created IDs omitted from research and accepts reviewed metadata changes", () => {
+    const data = files();
+    data.movies[0].file.tt0000001 = { slug: "one", title: "One, corrected", countries: ["GB"] };
+    const db = loaded();
+    db.movies[0] = { ...db.movies[0], localId: "71000000-0000-4000-8000-000000000001", slug: "app-one" };
+    const plan = planLoad(data, db);
+    expect(plan.problems).toEqual([]);
+    expect(plan.movies.updates.map((u) => u.set)).toEqual([{ title: "One, corrected", countries: ["GB"] }]);
+    Object.assign(db.movies[0], plan.movies.updates[0].set);
+    expect(planSize(planLoad(data, db))).toBe(0);
+  });
+
+  it.each([
+    ["imdbId", "wikidataId"], ["imdbId", "tmdbId"], ["wikidataId", "tmdbId"],
+  ] as const)("refuses %s and %s pointing at different rows", (first, second) => {
+    const data = files();
+    data.movies[0].file = { tt0000001: data.movies[0].file.tt0000001 };
+    data.editions = [];
+    const db = loaded();
+    const ids = { imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 11 };
+    db.movies[0] = { ...db.movies[0], imdbId: null, wikidataId: null, tmdbId: null, [first]: ids[first] };
+    db.movies[1] = { ...db.movies[1], imdbId: null, wikidataId: null, tmdbId: null, [second]: ids[second] };
+    const plan = planLoad(data, db);
+    expect(plan.problems).toEqual(["movie tt0000001 (One): conflicting external IDs; fix the film's IDs by hand."]);
+    expect(plan.movies.inserts).toEqual([]);
+    expect(plan.movies.updates).toEqual([]);
+  });
+
+  it.each(["imdbId", "wikidataId", "tmdbId"] as const)("refuses a supplied %s that disagrees with the matched row", (field) => {
+    const data = files();
+    const key = field === "imdbId" ? "tt0000999" : "tt0000001";
+    data.movies[0].file = { [key]: {
+      ...data.movies[0].file.tt0000001,
+      wd: field === "wikidataId" ? "Q999" : "Q1",
+      tmdb: field === "tmdbId" ? 999 : 11,
+    } };
+    data.editions = [];
+    const plan = planLoad(data, loaded());
+    expect(plan.problems).toEqual([`movie ${key} (One): conflicting external IDs; fix the film's IDs by hand.`]);
+    expect(plan.movies.updates).toEqual([]);
+  });
+
+  it("never matches an ID-free manual film by title or year", () => {
+    const db = loaded();
+    db.movies[0] = {
+      ...db.movies[0], localId: "71000000-0000-4000-8000-000000000001", slug: "app-one",
+      imdbId: null, wikidataId: null, tmdbId: null,
+    };
+    const plan = planLoad(files(), db);
+    expect(plan.problems).toEqual([]);
+    expect(plan.movies.inserts.map((m) => m.key)).toEqual(["tt0000001"]);
+    expect(plan.movies.updates).toEqual([]);
+  });
+
   it("refuses a slug that would change, and an ID two films would share", () => {
     const data = files();
     data.movies[0].file.tt0000001 = { ...data.movies[0].file.tt0000001, slug: "one-renamed" };
@@ -201,7 +277,7 @@ describe("planLoad", () => {
     const plan = planLoad(data, loaded());
     expect(plan.problems).toEqual([
       'movie tt0000001 (One): its slug would change from "one" to "one-renamed" (slugs never change).',
-      'tt0000001 and tt0000002 would share tmdbId 11.',
+      "movie tt0000002 (Two): conflicting external IDs; fix the film's IDs by hand.",
     ]);
     expect(formatLoadPlan(plan, "Load plan").split("\n").slice(-3)).toEqual([
       "Can't load (2):",

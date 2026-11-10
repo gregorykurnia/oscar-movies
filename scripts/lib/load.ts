@@ -58,7 +58,7 @@ export type LoadPlan = {
 export type DbState = {
   awards: Array<AwardRow & { id: number }>;
   categories: Array<CategoryRow & { id: number; awardId: number }>;
-  movies: Array<MovieRow & { id: number }>;
+  movies: Array<MovieRow & Pick<typeof movies.$inferSelect, "id" | "localId">>;
   editions: Array<EditionRow & { id: number; awardId: number; year: number }>;
   results: Array<ResultRow & { id: number; editionId: number; categoryId: number; movieId: number }>;
   screenings: Array<ScreeningRow & { id: number; editionId: number; movieId: number; section: string }>;
@@ -70,6 +70,7 @@ export type DbState = {
 /** Compares as the database stores it: a missing optional value is null. */
 const norm = (v: unknown) => (v === undefined ? null : v);
 const same = (a: unknown, b: unknown) => JSON.stringify(norm(a)) === JSON.stringify(norm(b));
+const EXTERNAL_IDS = ["imdbId", "wikidataId", "tmdbId"] as const;
 
 function diff<T extends object>(current: T, wanted: T): { set: Partial<T>; changes: Change[] } {
   const set: Partial<T> = {};
@@ -154,9 +155,13 @@ export function planLoad(data: DataSet, db: DbState): LoadPlan {
     }
   }
 
-  // Movies, by IMDb ID, then by QID (a film filed by QID that later got an IMDb ID).
-  const byImdb = new Map(db.movies.filter((m) => m.imdbId).map((m) => [m.imdbId as string, m]));
-  const byWd = new Map(db.movies.filter((m) => m.wikidataId).map((m) => [m.wikidataId as string, m]));
+  // Every supplied external ID must agree; titles and years never establish identity.
+  const byIdentity = new Map<string, DbState["movies"][number]>();
+  for (const movie of db.movies) {
+    for (const field of EXTERNAL_IDS) {
+      if (movie[field] != null) byIdentity.set(`${field}:${movie[field]}`, movie);
+    }
+  }
   const keyOfMovieId = new Map<number, string>();
   const fileKeyOf = new Map<string, string>(); // file key or QID → the key the film is filed under
   const finalRows = new Map<number | string, MovieRow>(db.movies.map((m) => [m.id, m]));
@@ -165,9 +170,19 @@ export function planLoad(data: DataSet, db: DbState): LoadPlan {
       fileKeyOf.set(key, key);
       if (entry.wd) fileKeyOf.set(entry.wd, key);
       const wanted = movieRow(key, year, entry);
-      const current =
-        (wanted.imdbId ? byImdb.get(wanted.imdbId) : undefined) ?? (wanted.wikidataId ? byWd.get(wanted.wikidataId) : undefined);
       const label = `movie ${key} (${entry.title})`;
+      const matches = new Map<number, DbState["movies"][number]>();
+      for (const field of EXTERNAL_IDS) {
+        const match = wanted[field] == null ? undefined : byIdentity.get(`${field}:${wanted[field]}`);
+        if (match) matches.set(match.id, match);
+      }
+      const current = matches.values().next().value;
+      if (matches.size > 1 || (current && EXTERNAL_IDS.some((field) =>
+        wanted[field] != null && current[field] != null && wanted[field] !== current[field],
+      ))) {
+        plan.problems.push(`${label}: conflicting external IDs; fix the film's IDs by hand.`);
+        continue;
+      }
       if (!current) {
         plan.movies.inserts.push({ ...wanted, key });
         finalRows.set(key, wanted);
@@ -178,6 +193,13 @@ export function planLoad(data: DataSet, db: DbState): LoadPlan {
         continue;
       }
       keyOfMovieId.set(current.id, key);
+      if (current.localId) {
+        // App-created links and IDs survive reviewed research, even when a file omits them.
+        wanted.slug = current.slug;
+        wanted.imdbId ??= current.imdbId;
+        wanted.wikidataId ??= current.wikidataId;
+        wanted.tmdbId ??= current.tmdbId;
+      }
       finalRows.set(current.id, wanted);
       const { set, changes } = diff<MovieRow>(current, wanted);
       if (set.slug !== undefined) {
@@ -190,7 +212,7 @@ export function planLoad(data: DataSet, db: DbState): LoadPlan {
     }
   }
   // Unique columns after the load: two films may not share one.
-  for (const field of ["slug", "imdbId", "wikidataId", "tmdbId"] as const) {
+  for (const field of ["slug", ...EXTERNAL_IDS] as const) {
     const owners = new Map<unknown, string>();
     for (const [id, row] of finalRows) {
       const value = row[field];
@@ -380,6 +402,7 @@ export async function readDbState(db: Pick<Db, "select">, data: DataSet): Promis
         imdbId: movies.imdbId,
         wikidataId: movies.wikidataId,
         tmdbId: movies.tmdbId,
+        localId: movies.localId,
       })
       .from(movies),
     db.select().from(editions),
