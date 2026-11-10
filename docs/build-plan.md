@@ -445,6 +445,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 9: after building, check adding a missing film on a real phone using the test-backed preview; approve its test-proven production migration and request a normal release | 2026-11-10 | Phase 9 release only; never autorun build tasks |
 | Phase 9 visual choices (9.6): confirm the inline no-match panel, wrapped phone sort controls and clearer confirmation/saving wording against the refreshed screenshots; guide §8.3 records these provisional refinements from existing pieces | 2026-11-10 | nothing; Phase 9 review covers the reference update |
 | Phase 9 review (9.R): the save-failure notice says "Your list is unchanged" (guide §8.3), which can be untrue when the answer was lost; retries can't duplicate. Keep it, or change it to "It may not have saved…"? Also confirm the new provisional "An earlier try may have added it already" message | 2026-11-10 | Nothing; wording only |
+| After the next release, recompute production's chances (`npm run compute -- --target production --yes-production`): its stored % to be nominated came from a nomination fit that ran off (9.Rb; International's leaders showed 0%). Pages read the stored rows, so the code fix alone doesn't change them | 2026-11-10 | the right live % to be nominated |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log
