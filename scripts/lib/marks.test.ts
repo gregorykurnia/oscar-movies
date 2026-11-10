@@ -2,9 +2,10 @@
 import { describe, expect, it } from "vitest";
 import { exportProblem, formatPlan, planRestore, serializeMarks, type CurrentMark, type Film, type MarkState } from "./marks";
 
-const anora: Film = { id: 1, imdbId: "tt1", wikidataId: "Q1", title: "Anora", year: 2024 };
-const conclave: Film = { id: 2, imdbId: "tt2", wikidataId: "Q2", title: "Conclave", year: 2024 };
-const noImdb: Film = { id: 3, imdbId: null, wikidataId: "Q3", title: "Flow", year: 2024 };
+const ids = { tmdbId: null, localId: null };
+const anora: Film = { ...ids, id: 1, slug: "anora", imdbId: "tt1", wikidataId: "Q1", title: "Anora", year: 2024 };
+const conclave: Film = { ...ids, id: 2, slug: "conclave", imdbId: "tt2", wikidataId: "Q2", title: "Conclave", year: 2024 };
+const noImdb: Film = { ...ids, id: 3, slug: "flow", imdbId: null, wikidataId: "Q3", title: "Flow", year: 2024 };
 const films = [anora, conclave, noImdb];
 
 const EMPTY = { wantRank: null, releaseOn: null, platform: null };
@@ -18,6 +19,59 @@ const row = (movieId: number, watched: boolean, want: boolean, extra: Partial<Ma
 });
 
 describe("planRestore", () => {
+  const movie = {
+    localId: "7a8f5c20-564a-4bb1-928b-e54506617339",
+    slug: "manual-film-2026", title: "Manual Film", year: 2026, countries: [],
+  };
+  const local = { localId: movie.localId, movie, watched: false, want: false };
+
+  it("plans recreating even an unmarked film, and describes its stable link", () => {
+    const plan = planRestore([local], [], []);
+    expect(plan.problems).toEqual([]);
+    expect(plan.creates).toEqual([{ movie, to: { watched: false, want: false, ...EMPTY, updatedAt: undefined } }]);
+    expect(formatPlan(plan, "Plan")).toContain("0 marks to write, 1 films to recreate");
+    expect(formatPlan(plan, "Plan")).toContain("/movies/manual-film-2026: none");
+    expect(formatPlan(planRestore([{ ...local, want: true }], [], []), "Plan"))
+      .toContain("1 marks to write, 1 films to recreate");
+  });
+
+  it("finds existing TMDB-only and local-only films", () => {
+    const film = { ...anora, tmdbId: 123, localId: movie.localId };
+    for (const identity of [{ tmdb: 123 }, { localId: movie.localId }]) {
+      const plan = planRestore([{ ...identity, watched: true, want: false }], [film], []);
+      expect(plan.problems).toEqual([]);
+      expect(plan.writes[0].film).toEqual(film);
+      expect(plan.creates).toEqual([]);
+    }
+  });
+
+  it("refuses identities pointing to different films or disagreeing with a known ID", () => {
+    for (const identity of [
+      { imdb: "tt1", wd: "Q2" }, { imdb: "tt999", wd: "Q1" }, { imdb: "tt1", tmdb: 123 },
+    ]) {
+      const plan = planRestore([{ ...identity, watched: true, want: false }], [anora, { ...conclave, tmdbId: 123 }], []);
+      expect(plan.problems).toEqual([expect.stringMatching(/conflicting film identities/)]);
+      expect(plan.writes).toEqual([]);
+    }
+  });
+
+  it("refuses slug collisions, changed local slugs and local identity replacement", () => {
+    for (const existing of [
+      { ...anora, slug: movie.slug },
+      { ...anora, localId: movie.localId },
+      { ...anora, slug: movie.slug, tmdbId: 123 },
+    ]) {
+      const entry = { ...local, ...(existing.tmdbId ? { tmdb: 123, movie: { ...movie, tmdb: 123 } } : {}) };
+      expect(planRestore([entry], [existing], []).problems).toEqual([expect.stringMatching(/conflicting stable slug or local identity/)]);
+    }
+  });
+
+  it("refuses two snapshots claiming the same stable slug", () => {
+    const other = { ...movie, localId: "c7590917-f1ad-49ad-a224-7be63dff128d" };
+    expect(planRestore([local, { ...local, localId: other.localId, movie: other }], [], []).problems)
+      .toEqual([expect.stringMatching(/conflicting stable slug/)]);
+  });
+
   it("plans nothing when the file matches the database", () => {
     const plan = planRestore(
       [
@@ -30,7 +84,9 @@ describe("planRestore", () => {
         row(3, false, true),
       ],
     );
-    expect(plan).toEqual({ writes: [], unchanged: 2, problems: [], notInFile: [] });
+    expect(plan).toEqual({ entries: [
+      { imdb: "tt1", watched: true, want: false }, { wd: "Q3", watched: false, want: true },
+    ], creates: [], writes: [], unchanged: 2, problems: [], notInFile: [] });
   });
 
   it("inserts a film with no row and updates one whose marks differ", () => {
@@ -152,7 +208,7 @@ describe("formatPlan", () => {
     );
     expect(formatPlan(plan, "Plan")).toBe(
       [
-        "Plan: 2 to write, 0 unchanged.",
+        "Plan: 2 marks to write, 0 films to recreate, 0 unchanged.",
         "  insert  Anora (2024, tt1): watched",
         "  update  Conclave (2024, tt2): want → watched",
         "Marked in the database but not in the file (left as they are): 1",
@@ -186,7 +242,7 @@ describe("exportProblem", () => {
   });
 
   it("keeps a file that would shrink unless --allow-shrink is passed", () => {
-    expect(exportProblem({ ...base, previous: 12, next: 0 })).toMatch(/has 12 marked films and production has only 0/);
+    expect(exportProblem({ ...base, previous: 12, next: 0 })).toMatch(/has 12 backed-up films and production has only 0/);
     expect(exportProblem({ ...base, previous: 12, next: 3, allowShrink: true })).toBeNull();
   });
 

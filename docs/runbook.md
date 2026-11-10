@@ -11,7 +11,7 @@ What can be lost, and where its copy lives:
 | Award results, movies, editions | `data/` in git | Reload: `npm run load -- --target production --yes-production` (dry run first) |
 | Scores | OMDb and TMDB | The next cron run, or `npm run scores:refresh` |
 | Accuracy, predictions | Computed | The loader recomputes them |
-| **Marks** (watched, want, and from 7.4 the Watch list order, release date and platform) | `data/marks.json` in git, as fresh as the last export | `npm run marks:restore` (below) |
+| **Personal data** (watched, want, Watch list order, release date/platform, and app-created films) | `data/marks.json` in git, as fresh as the last export | `npm run marks:restore` recreates missing app-created films and their marks together (below) |
 
 **Dropping an award** the app no longer follows (the loader never deletes one): take it out of `data/awards.json` and `data/editions/`, then run `npx tsx scripts/remove-award.ts --target test --award <slug>`, and the same with `--target production --yes-production` once the owner approves. Dry run first (`--dry-run`). It deletes the award's editions, results and categories, recomputes, and on production exports the marks first.
 
@@ -26,20 +26,20 @@ npm run marks:export -- --target production --yes-production   # writes data/mar
 git add data/marks.json && git commit -m "Back up marks" && git push origin staging
 ```
 
-The export says how many films the file had before, and it keeps the file as it is when the database has fewer marked films than the file: that usually means marks were lost, and the file may be the only copy. Find out why first. Only if marks were removed on purpose, run it again with `--allow-shrink`. The earlier backups are in git too (`git log -p data/marks.json`). A test export can't write `data/marks.json`, even with `--file`, and every script stops on an argument it doesn't know (a typo in `--dry-run` never becomes a real write).
+The export includes every film with marks or release notes and **every app-created film**, even one with no marks or notes. Local films carry their durable UUID, available external IDs and a validated snapshot (stable slug, titles/year, original language and countries); scores can be fetched again. The file is replaced atomically. It says how many films the file had before and refuses to shrink the backup: that can mean owner data was lost and the file is the only copy. Find out why first. Only if films or marks were removed on purpose, run it again with `--allow-shrink`. The earlier backups are in git too (`git log -p data/marks.json`). A test export can't write `data/marks.json`, even with `--file`, and every script stops on an argument it doesn't know (a typo in `--dry-run` never becomes a real write).
 
-**Restoring the marks.** Restore writes only films whose marks differ from the file, in one transaction, and never clears a mark the file doesn't mention (it lists those as "keep"). Films are matched by IMDb ID, then by Wikidata QID. If any entry names a film that isn't in the database, it stops and writes nothing. Exports from 7.4 on carry each film's `wantRank`, `releaseOn` and `platform` (null when empty) and also list unmarked films that have release notes; an older file without those fields restores the marks and leaves the fields as they are (a film that stops being wanted loses its rank, and one wanted again from an old file sorts last until the owner moves it).
+**Restoring films and marks.** Restore resolves IMDb, Wikidata, TMDB and local IDs together; conflicting identities or stable slugs stop the entire restore. Missing app-created films are recreated from their snapshots, preserving identity and movie links, in the same transaction as their marks. Existing film metadata is kept. A missing film without a snapshot (including older backups) remains an error: reload its research data first. Malformed snapshots also stop the restore before writing. Only changed marks are written; unmentioned marks and notes are kept and listed as "keep". Exports from 7.4 on carry `wantRank`, `releaseOn` and `platform` (null when empty); older entries without those fields leave the current values alone (a film that stops being wanted loses its rank, and one wanted again from an old file sorts last until the owner moves it).
 
-1. Dry run, and read every line of the plan:
+1. Dry run, and read the films to recreate, marks to write and every conflict. This writes nothing:
    `npm run marks:restore -- --target production --yes-production --dry-run`
 2. If the plan is right, run it without `--dry-run`.
-3. Run the dry run again: it must say `0 to write`. If a mark changes between the plan and the write (a tap on the live site), restore writes nothing and asks for a fresh dry run.
+3. Run the dry run again: it must say `0 marks to write, 0 films to recreate`. If a planned mark or film identity changes, or a missing film appears between planning and applying, restore refuses the stale plan; run the dry run again. A database failure rolls back both film creation and marks.
 
 To restore from an older backup, take it out of git first (`git show <commit>:data/marks.json > .cache/marks.old.json`) and pass `--file .cache/marks.old.json`.
 
 On `test`, both commands default to `.cache/marks.test.json` (gitignored), so a test run never overwrites the production backup.
 
-**If a branch is reset or restored from the other one** (Neon → Branches → Reset from parent), its `app_meta` row comes along: `test` would then say `production`, and every script and test refuses it (the safe direction). `db:mark-branch` never overwrites a mark, so fix it by hand in the Neon SQL editor on that branch: `update app_meta set value = 'test' where key = 'db_branch';`. `tests/db/marks.test.ts` proves that export then restore changes nothing and that the dry run lists every write.
+**If a branch is reset or restored from the other one** (Neon → Branches → Reset from parent), its `app_meta` row comes along: `test` would then say `production`, and every script and test refuses it (the safe direction). `db:mark-branch` never overwrites a mark, so fix it by hand in the Neon SQL editor on that branch: `update app_meta set value = 'test' where key = 'db_branch';`. `tests/db/marks.test.ts` and `tests/db/marks-backup.test.ts` cover old backups, dry runs, movie deletion/recovery, rollback, conflicts and second-run no-op in rolled-back test transactions.
 
 ## Error alerts
 

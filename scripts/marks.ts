@@ -2,9 +2,9 @@
 // `npm run marks:restore -- --target test|production [--yes-production] [--dry-run] [--file <path>]`
 //
 // Marks backup (IMPLEMENTATION_PLAN.md §3.5, §10; how and when: docs/runbook.md). Export
-// writes every marked film to the file; restore plans the writes that would make the
-// database match the file, prints every one, and with `--dry-run` stops there. Restore
-// writes only films whose marks differ, in one transaction, and never clears a mark the
+// writes every marked/note-bearing film and every app-created film with its snapshot;
+// restore prints missing-film creations and changed marks, and `--dry-run` stops there.
+// Restore recreates films and writes their marks in one transaction, and never clears a mark the
 // file doesn't mention. The file defaults to `data/marks.json` (committed) for production
 // and `.cache/marks.test.json` (gitignored) for test, so a test run never overwrites the
 // production backup.
@@ -63,7 +63,9 @@ async function main() {
       return;
     }
     const written = await applyRestore(db, plan);
-    console.log(written === 0 ? "Nothing to write." : `Wrote ${written} marks in one transaction.`);
+    console.log(written === 0 && plan.creates.length === 0
+      ? "Nothing to write."
+      : `Recreated ${plan.creates.length} films and wrote ${written} marks in one transaction.`);
   } finally {
     await close();
   }

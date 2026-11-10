@@ -41,6 +41,52 @@ describe("data file schemas", () => {
 });
 
 describe("marksFileSchema", () => {
+  const movie = {
+    localId: "7a8f5c20-564a-4bb1-928b-e54506617339",
+    slug: "manual-film-2026", title: "Manual Film", year: 2026, countries: [],
+  };
+  const local = { localId: movie.localId, movie, watched: false, want: false };
+
+  it("accepts local-only snapshots and TMDB-only identities, with no invented external IDs", () => {
+    expect(marksFileSchema.parse([local])[0]).toEqual(local);
+    expect(marksFileSchema.safeParse([{ tmdb: 123, watched: true, want: false }]).success).toBe(true);
+    expect(marksFileSchema.safeParse([{ ...local, tmdb: 123, movie: { ...movie, tmdb: 123 } }]).success).toBe(true);
+  });
+
+  it.each([
+    ["invalid UUID", { ...movie, localId: "not-a-uuid" }],
+    ["invalid slug", { ...movie, slug: "../film" }],
+    ["missing title", { ...movie, title: "" }],
+    ["year outside smallint", { ...movie, year: 32_768 }],
+    ["missing year", { ...movie, year: undefined }],
+    ["invalid country", { ...movie, countries: ["USA"] }],
+    ["unpaired original title", { ...movie, originalTitle: "Original" }],
+    ["unpaired original language", { ...movie, originalLang: "ja" }],
+    ["invalid original language", { ...movie, originalTitle: "Original", originalLang: "Japanese" }],
+    ["invalid external ID", { ...movie, imdb: "nm123" }],
+    ["disagreeing external ID", { ...movie, imdb: "tt123" }],
+    ["unknown field", { ...movie, id: 123 }],
+  ])("refuses a snapshot with %s", (_, snapshot) => {
+    expect(marksFileSchema.safeParse([{ ...local, movie: snapshot }]).success).toBe(false);
+  });
+
+  it("refuses disagreement between the entry and its snapshot", () => {
+    for (const fields of [
+      { localId: "c7590917-f1ad-49ad-a224-7be63dff128d" },
+      { title: "Another Film" }, { year: 2025 }, { tmdb: 99 }, { imdb: "tt99" }, { wd: "Q99" },
+    ]) expect(marksFileSchema.safeParse([{ ...local, ...fields }]).success).toBe(false);
+  });
+
+  it("refuses duplicate TMDB/local IDs and out-of-range TMDB IDs", () => {
+    expect(marksFileSchema.safeParse([local, local]).success).toBe(false);
+    expect(marksFileSchema.safeParse([
+      { tmdb: 42, watched: true, want: false }, { imdb: "tt42", tmdb: 42, watched: false, want: true },
+    ]).success).toBe(false);
+    for (const tmdb of [0, -1, 1.5, 2_147_483_648]) {
+      expect(marksFileSchema.safeParse([{ tmdb, watched: true, want: false }]).success).toBe(false);
+    }
+  });
+
   it("accepts the test fixture", () => {
     const fixture: unknown = JSON.parse(readFileSync("tests/fixtures/marks.json", "utf8"));
     expect(marksFileSchema.safeParse(fixture).success).toBe(true);

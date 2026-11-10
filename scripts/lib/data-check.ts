@@ -229,7 +229,10 @@ export function checkData(data: DataSet, { today, previousSlugs }: CheckOptions)
   }
 
   for (const m of data.marks ?? []) {
-    const key = m.imdb ?? m.wd;
+    // App-created films are deliberately absent from research files; their validated
+    // snapshots are sufficient for recovery without inventing a research entry.
+    if (m.movie) continue;
+    const key = m.imdb ?? m.wd ?? (m.tmdb === undefined ? `local:${m.localId}` : `tmdb:${m.tmdb}`);
     if (!(m.imdb && movieOf.has(m.imdb)) && !(m.wd && movieOf.has(m.wd))) {
       warnings.push(`marks.json: ${key}${m.title ? ` (${m.title})` : ""} is in no movie file`);
     }

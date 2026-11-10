@@ -158,17 +158,34 @@ export const refKey = (r: { imdb?: string; wd?: string }) => r.imdb ?? r.wd;
 // ---------------------------------------------------------------------------------------------
 // data/marks.json
 
+/** Facts needed to recreate an app-created film; scores can be fetched again. */
+export const movieSnapshotSchema = z
+  .object({
+    ...movieEntrySchema.shape,
+    year: z.number().int().min(1).max(32_767),
+    imdb: z.string().regex(IMDB_ID).optional(),
+    tmdb: z.number().int().positive().max(2_147_483_647).optional(),
+    localId: z.uuid().toLowerCase(),
+  })
+  .strict()
+  .refine((m) => (m.originalTitle === undefined) === (m.originalLang === undefined), {
+    message: "originalTitle and originalLang come together",
+  });
+
+export type MovieSnapshot = z.infer<typeof movieSnapshotSchema>;
+
 /**
- * One film's marks in `data/marks.json` (the marks export, §3.5). Films are named by IMDb ID
- * or Wikidata QID, never by database id, so the file survives any reload. `title` and `year`
- * are there for a person reading the file; restore ignores them. From 7.4 an export also
- * writes the Watch list fields (`wantRank`, `releaseOn`, `platform`, null when empty); a file
- * without them (older backups) restores the marks and leaves those fields as they are.
+ * Durable identities survive reloads. Phase 9 adds TMDB/local IDs and an optional snapshot
+ * for recreating an app-created film. Older backups without Watch list fields keep the
+ * existing order and release notes. Existing films' facts are never overwritten by restore.
  */
 export const markEntrySchema = z
   .object({
     imdb: z.string().regex(IMDB_ID).optional(),
     wd: z.string().regex(WIKIDATA_ID).optional(),
+    tmdb: z.number().int().positive().max(2_147_483_647).optional(),
+    localId: z.uuid().toLowerCase().optional(),
+    movie: movieSnapshotSchema.optional(),
     title: z.string().min(1).optional(),
     year: z.number().int().optional(),
     watched: z.boolean(),
@@ -179,19 +196,28 @@ export const markEntrySchema = z
     updatedAt: z.iso.datetime({ offset: true }).optional(),
   })
   .strict()
-  .refine((m) => m.imdb !== undefined || m.wd !== undefined, {
-    message: "needs an IMDb ID (imdb) or a Wikidata QID (wd)",
+  .refine((m) => m.imdb !== undefined || m.wd !== undefined || m.tmdb !== undefined || m.localId !== undefined, {
+    message: "needs an IMDb ID (imdb), Wikidata QID (wd), TMDB ID (tmdb) or localId",
   })
   .refine((m) => !(m.watched && m.want), { message: "can't be both watched and want" })
-  .refine((m) => m.want || m.wantRank == null, { message: "has a wantRank but isn't wanted" });
+  .refine((m) => m.want || m.wantRank == null, { message: "has a wantRank but isn't wanted" })
+  .superRefine((m, ctx) => {
+    if (!m.movie) return;
+    for (const key of ["imdb", "wd", "tmdb", "localId", "title", "year"] as const) {
+      if ((key === "title" || key === "year") && m[key] === undefined) continue;
+      if (m[key] !== m.movie[key]) {
+        ctx.addIssue({ code: "custom", path: ["movie", key], message: `${key} disagrees with the backup entry` });
+      }
+    }
+  });
 
 export type MarkEntry = z.infer<typeof markEntrySchema>;
 
-/** Each film at most once, by IMDb ID and by QID. */
+/** Each durable identity at most once; numeric TMDB IDs have their own namespace. */
 export const marksFileSchema = z.array(markEntrySchema).superRefine((entries, ctx) => {
   const seen = new Set<string>();
   entries.forEach((m, i) => {
-    for (const id of [m.imdb, m.wd]) {
+    for (const id of [m.imdb, m.wd, m.tmdb === undefined ? undefined : `tmdb:${m.tmdb}`, m.localId]) {
       if (id === undefined) continue;
       if (seen.has(id)) ctx.addIssue({ code: "custom", path: [i], message: `${id} appears twice` });
       seen.add(id);

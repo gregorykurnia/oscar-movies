@@ -255,7 +255,7 @@ describe("the loader", () => {
           },
         });
         expect(events[0]).toBe("backup");
-        expect(events[1]).toMatch(/^Exported \d+ marked films from test to \.cache\/test-load-marks\.json\.$/);
+        expect(events[1]).toMatch(/^Exported \d+ films with marks, notes or local snapshots from test to \.cache\/test-load-marks\.json\.$/);
         expect(events[2]).toMatch(/^Load plan for production: \d+ writes\.$/);
         const exported = marksFileSchema.parse(JSON.parse(readFileSync(file, "utf8")));
         const marked = (await snapshot(tx)).marks.filter((m) => m.watched || m.want);

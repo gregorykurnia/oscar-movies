@@ -164,4 +164,21 @@ describe("checkData", () => {
     const data = { ...dataSet(finished()), marks: [{ imdb: "tt404", title: "Lost", watched: true, want: false }] };
     expect(checkData(data, { today: "2026-10-22" }).warnings).toEqual(["marks.json: tt404 (Lost) is in no movie file"]);
   });
+
+  it("accepts self-contained local film backups without requiring researched movie files", () => {
+    const movie = { localId: "b6871340-cb0a-4f82-a40c-3510cdbd0001", slug: "manual-2026", title: "Manual", year: 2026, countries: [] };
+    const data = { ...dataSet(finished()), marks: [{ localId: movie.localId, movie, watched: false, want: false }] };
+    expect(checkData(data, { today: "2026-10-22" })).toEqual({ errors: [], warnings: [] });
+  });
+
+  it("labels unrecoverable TMDB/local marks without snapshots in its warnings", () => {
+    const data = { ...dataSet(finished()), marks: [
+      { tmdb: 123, watched: true, want: false },
+      { localId: "b6871340-cb0a-4f82-a40c-3510cdbd0001", watched: false, want: true },
+    ] };
+    expect(checkData(data, { today: "2026-10-22" }).warnings).toEqual([
+      "marks.json: tmdb:123 is in no movie file",
+      "marks.json: local:b6871340-cb0a-4f82-a40c-3510cdbd0001 is in no movie file",
+    ]);
+  });
 });
