@@ -187,7 +187,7 @@ Owner request: “add it directly into this website app even if it doesn’t exi
 
 | ID | Task | Pick | Done |
 |---|---|---|---|
-| 9.1 | [look] Define missing-film screens in the guide and reference; brief 9.1 (sets the new confirmation/form layout) | Opus 5.5 High | |
+| 9.1 | [look] Define missing-film screens in the guide and reference; brief 9.1 (sets the new confirmation/form layout) | Opus 5.5 High || 2026-11-10 · guide v1.4 |
 | 9.2 | [no look] Schema and test migration for local/TMDB-only films; brief 9.2 (durable identity without invented IDs) | Sol Max | |
 | 9.3a | [no look] Backup/export/restore of app-created films; brief 9.3a (recover films and personal notes together) | Sol Max | |
 | 9.3b | [no look] Later research-loader matching; brief 9.3b (reuse app-added films without changing identity) | Sol Max | |
