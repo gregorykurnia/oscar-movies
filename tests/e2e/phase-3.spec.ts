@@ -125,8 +125,9 @@ test("an update that adds an award result changes the chances", async ({ page })
   const share = (title: string, rows: { title: string; pWin: number }[]) => rows.find((r) => r.title === title)!.pWin;
   const fjordRow = (page: Page) =>
     panel(page).getByRole("heading", { level: 3, name: /^Fjord/ }).locator("xpath=../../..");
+  // Exact: a string name matches any part, so "5% …" would also find Fjord's "15% …".
   const fjordChance = (page: Page, pct: string) =>
-    fjordRow(page).getByRole("button", { name: `${pct}% chance to win, show why` });
+    fjordRow(page).getByRole("button", { name: `${pct}% chance to win, show why`, exact: true });
   // Fjord may wait behind "Show all" (under 3%), so it is opened first when it's there.
   const openRace = async (page: Page, pct: string) => {
     await page.goto("/");

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Outcome } from "../stage";
-import { outOfSeason, type HistorySeason } from "./fit";
+import { fitLogistic, outOfSeason, type HistorySeason } from "./fit";
 import { predictCategory, type OscarCategory, type PrecursorResult, type Season, type SeasonFilm, type Snapshot } from "./index";
 import { capEarly, fillSlots, score, softmax, tally, weights, EARLY_CAP, LATE_CAP } from "./model";
 import { historyCutoff, nominationSlots, oscarStatusAsOf, resultAsOf, seasonAsOf } from "./season";
@@ -174,6 +174,22 @@ describe("% to be nominated adds to the slots", () => {
     expect(Math.max(...filled)).toBeLessThanOrEqual(0.99);
     expect(fillSlots([1, 0, 0], 1, 0, 5)).toEqual([0.99, 0.99, 0.99]);
     expect(fillSlots([], 1, 0, 5)).toEqual([]);
+  });
+
+  it("fits a rising slope when a few scored films lead many at 0 (an undamped Newton step swung to a = −1320)", () => {
+    const rows: Array<[score: number, hit: boolean, count: number]> = [
+      [0, false, 200], [0, true, 6], [-0.4, false, 4], [2, false, 3], [2, true, 3], [3.6, true, 3], [3.6, false, 2],
+    ];
+    const scores = rows.flatMap(([s, , n]) => Array<number>(n).fill(s));
+    const hits = rows.flatMap(([, h, n]) => Array<boolean>(n).fill(h));
+    const { a, b } = fitLogistic(scores, hits);
+    expect(a).toBeGreaterThan(0.5);
+    expect(a).toBeLessThan(3);
+    // The scored films' share beats the films at 0, as their hit rates do (3 of 5 at 3.6, 3 of 6 at 2, 6 of 206 at 0).
+    const p = (s: number) => 1 / (1 + Math.exp(-(a * s + b)));
+    expect(p(3.6)).toBeGreaterThan(p(2));
+    expect(p(2)).toBeGreaterThan(p(0));
+    expect(p(0)).toBeGreaterThan(p(-0.4));
   });
 });
 

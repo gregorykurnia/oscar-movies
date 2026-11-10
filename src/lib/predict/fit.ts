@@ -65,11 +65,31 @@ export function fitWin(seasons: ReadonlyArray<HistorySeason>): WinFit {
   return best ? { alpha: best.alpha, temperature: best.temperature } : { alpha: ALPHAS[0], temperature: 1 };
 }
 
-/** Logistic regression of hits on one score (Newton's method, a small ridge so it never runs off). */
+/** `ln(1 + e^z)` without overflow. */
+function softplus(z: number): number {
+  return Math.max(z, 0) + Math.log1p(Math.exp(-Math.abs(z)));
+}
+
+/** The loss Newton's method minimises: the log loss plus the ridge. */
+function penalisedLoss(scores: readonly number[], hits: readonly boolean[], a: number, b: number): number {
+  const fit = scores.reduce((sum, s, i) => {
+    const z = a * s + b;
+    return sum + softplus(z) - (hits[i] ? z : 0);
+  }, 0);
+  return fit + (RIDGE / 2) * (a * a + b * b);
+}
+
+/**
+ * Logistic regression of hits on one score: Newton's method with a small ridge, each step
+ * halved until the loss goes down. A full step can overshoot and swing between ever larger
+ * slopes of both signs: with a few scored films among many at 0 (International's live history,
+ * 9.Rb), it stopped at a = −4388 and gave the leaders 0% to be nominated.
+ */
 export function fitLogistic(scores: readonly number[], hits: readonly boolean[]): { a: number; b: number } {
   const mean = hits.filter(Boolean).length / hits.length;
   let a = 0;
   let b = Math.log(mean / (1 - mean));
+  let loss = penalisedLoss(scores, hits, a, b);
   for (let iter = 0; iter < 100; iter += 1) {
     let ga = RIDGE * a;
     let gb = RIDGE * b;
@@ -87,10 +107,18 @@ export function fitLogistic(scores: readonly number[], hits: readonly boolean[])
       hbb += v;
     });
     const det = haa * hbb - hab * hab;
-    const da = (hbb * ga - hab * gb) / det;
-    const db = (haa * gb - hab * ga) / det;
+    let da = (hbb * ga - hab * gb) / det;
+    let db = (haa * gb - hab * ga) / det;
+    let next = penalisedLoss(scores, hits, a - da, b - db);
+    for (let halving = 0; next > loss && halving < 60; halving += 1) {
+      da /= 2;
+      db /= 2;
+      next = penalisedLoss(scores, hits, a - da, b - db);
+    }
+    if (next > loss) break;
     a -= da;
     b -= db;
+    loss = next;
     if (Math.abs(da) + Math.abs(db) < 1e-10) break;
   }
   return { a, b };
