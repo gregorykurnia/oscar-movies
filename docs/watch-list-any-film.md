@@ -119,3 +119,7 @@ Fresh Sol Max critique on 2026-11-10 identified two material gaps, both incorpor
 ## Release handoff
 
 Owner steps only, after the build: review a test-backed preview on a real phone; approve the exact production migration after seeing its test results; back up with the existing compatible exporter before migration and the new snapshot exporter afterward; run normal release checks and release on explicit instruction. Do not run a write test against the live URL or migrate production during autorun. Feature work can finish while these steps wait.
+
+Task 9.2 migration: `drizzle/0005_movies_local_id.sql` adds nullable unique `movies.local_id` (UUID), accepts TMDB/local identities and requires positive TMDB IDs. Applied to **test only** on 2026-11-10: all 4,377 existing films and 2 marks were unchanged (full-row fingerprints before/after, excluding the new column); existing films retained null local IDs. All 11 schema tests passed, including ID-only films, missing/invalid/duplicate IDs and existing constraints.
+
+Production command, **only after the owner's approval and the compatible pre-migration backup**: `npm run db:migrate` (runs `tsx scripts/migrate.ts --target production --yes-production`). Run before releasing code that reads the new column. No production migration has been run by task 9.2.

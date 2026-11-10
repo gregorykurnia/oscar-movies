@@ -2,6 +2,7 @@
 // comes back out, and every check, unique key and delete rule refuses what it should. Each
 // test runs inside a transaction that is rolled back, so the `test` branch stays as it was.
 // Slugs start with `test-` so they never clash with the seeded data (`db:seed:test`).
+import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { eq, sql, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
@@ -117,18 +118,89 @@ describe("movies", () => {
       expect(row.avgScore).toBe(83.7);
       expect(row.scoreCount).toBe(3);
       expect(row.searchKey).toBe("amelie le fabuleux destin d'amelie poulain");
+      expect(row.localId).toBeNull();
 
       const bare = await addMovie(tx, { title: "Sans scores" });
       expect(bare).toMatchObject({ avgScore: null, scoreCount: 0, searchKey: "sans scores " });
     });
   });
 
+  it("stores and reads local-ID-only and TMDB-only films without invented metadata", async () => {
+    await rolledBack(async (tx) => {
+      const localId = randomUUID();
+      const manual = await addMovie(tx, {
+        title: "A manual film",
+        year: 9999,
+        countries: [],
+        imdbId: null,
+        localId,
+      });
+      const tmdb = await addMovie(tx, {
+        title: "A TMDB-only film",
+        year: 1800,
+        countries: [],
+        imdbId: null,
+        tmdbId: 2_147_483_647,
+      });
+
+      for (const film of [manual, tmdb]) {
+        const [row] = await tx.select().from(movies).where(eq(movies.id, film.id));
+        expect(row).toMatchObject({
+          slug: film.slug,
+          title: film.title,
+          year: film.year,
+          localId: film.localId,
+          tmdbId: film.tmdbId,
+          imdbId: null,
+          wikidataId: null,
+          countries: [],
+          language: null,
+          imdbRating: null,
+          rtScore: null,
+          mcScore: null,
+          tmdbScore: null,
+          avgScore: null,
+          scoreCount: 0,
+        });
+      }
+      expect(manual.localId).toBe(localId);
+      expect(manual.tmdbId).toBeNull();
+      expect(tmdb.localId).toBeNull();
+
+      // A title/year match can be a different film; only IDs are unique.
+      const namesake = await addMovie(tx, {
+        title: manual.title,
+        year: manual.year,
+        imdbId: null,
+        localId: randomUUID(),
+      });
+      expect(namesake.id).not.toBe(manual.id);
+
+      for (const film of [manual, tmdb]) {
+        await expectViolation(tx, "movies_has_id", (sp) =>
+          sp.update(movies).set({ localId: null, tmdbId: null }).where(eq(movies.id, film.id)),
+        );
+      }
+    });
+  });
+
+  it("rejects malformed local UUIDs", async () => {
+    await rolledBack(async (tx) => {
+      await expect(
+        tx.transaction((sp) => addMovie(sp, { localId: "not-a-uuid" })),
+      ).rejects.toMatchObject({ cause: { code: "22P02" } });
+    });
+  });
+
   it("refuses bad ids, out-of-range scores and duplicates", async () => {
     await rolledBack(async (tx) => {
-      await addMovie(tx, { slug: "test-first", imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 1 });
+      const localId = randomUUID();
+      await addMovie(tx, { slug: "test-first", imdbId: "tt0000001", wikidataId: "Q1", tmdbId: 1, localId });
       await expectViolation(tx, "movies_has_id", (sp) => addMovie(sp, { imdbId: null }));
       await expectViolation(tx, "movies_imdb_id_format", (sp) => addMovie(sp, { imdbId: "nm123" }));
       await expectViolation(tx, "movies_wikidata_id_format", (sp) => addMovie(sp, { wikidataId: "P345" }));
+      await expectViolation(tx, "movies_tmdb_id_positive", (sp) => addMovie(sp, { tmdbId: 0 }));
+      await expectViolation(tx, "movies_tmdb_id_positive", (sp) => addMovie(sp, { tmdbId: -1 }));
       await expectViolation(tx, "movies_imdb_rating_range", (sp) => addMovie(sp, { imdbRating: 10.5 }));
       await expectViolation(tx, "movies_rt_score_range", (sp) => addMovie(sp, { rtScore: 101 }));
       await expectViolation(tx, "movies_mc_score_range", (sp) => addMovie(sp, { mcScore: -1 }));
@@ -136,6 +208,7 @@ describe("movies", () => {
       await expectViolation(tx, "movies_imdb_id_unique", (sp) => addMovie(sp, { imdbId: "tt0000001" }));
       await expectViolation(tx, "movies_wikidata_id_unique", (sp) => addMovie(sp, { wikidataId: "Q1" }));
       await expectViolation(tx, "movies_tmdb_id_unique", (sp) => addMovie(sp, { tmdbId: 1 }));
+      await expectViolation(tx, "movies_local_id_unique", (sp) => addMovie(sp, { localId }));
       await expectViolation(tx, "movies_slug_unique", (sp) => addMovie(sp, { slug: "test-first" }));
     });
   });

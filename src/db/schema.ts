@@ -23,6 +23,7 @@ import {
   text,
   timestamp,
   unique,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 export const awardKind = pgEnum("award_kind", ["oscars", "major", "festival", "critics"]);
@@ -68,6 +69,8 @@ export const movies = pgTable(
     imdbId: text("imdb_id").unique(),
     wikidataId: text("wikidata_id").unique(),
     tmdbId: integer("tmdb_id").unique(),
+    // Assigned only to app-created films; researched rows keep null and their existing IDs.
+    localId: uuid("local_id").unique(),
     imdbRating: numeric("imdb_rating", { precision: 3, scale: 1, mode: "number" }),
     rtScore: smallint("rt_score"),
     mcScore: smallint("mc_score"),
@@ -96,9 +99,13 @@ export const movies = pgTable(
     index("movies_year_idx").on(t.year),
     index("movies_avg_score_idx").on(t.avgScore),
     index("movies_search_key_trgm_idx").using("gin", sql`${t.searchKey} gin_trgm_ops`),
-    check("movies_has_id", sql`${t.imdbId} is not null or ${t.wikidataId} is not null`),
+    check(
+      "movies_has_id",
+      sql`${t.imdbId} is not null or ${t.wikidataId} is not null or ${t.tmdbId} is not null or ${t.localId} is not null`,
+    ),
     check("movies_imdb_id_format", sql`${t.imdbId} ~ '^tt[0-9]+$'`),
     check("movies_wikidata_id_format", sql`${t.wikidataId} ~ '^Q[0-9]+$'`),
+    check("movies_tmdb_id_positive", sql`${t.tmdbId} > 0`),
     check("movies_imdb_rating_range", sql`${t.imdbRating} between 0 and 10`),
     check("movies_rt_score_range", sql`${t.rtScore} between 0 and 100`),
     check("movies_mc_score_range", sql`${t.mcScore} between 0 and 100`),
