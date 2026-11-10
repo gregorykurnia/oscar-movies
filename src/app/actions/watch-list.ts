@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { getDb } from "@/db";
+import { getDb, withFilmTransaction } from "@/db";
 import { writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
 
 // The Watch list's Server Actions (plan §4, Phase 7 notes): Add a film, the owner's order and
@@ -19,7 +19,7 @@ export async function addToWatchList(raw: number): Promise<WatchListResult> {
   const parsed = movieId.safeParse(raw);
   if (!parsed.success) return { ok: false };
   try {
-    return { ok: await writeWantAtTop(getDb(), parsed.data) };
+    return { ok: await withFilmTransaction((tx) => writeWantAtTop(tx, parsed.data)) };
   } catch (error) {
     console.error("addToWatchList failed", { movieId: parsed.data }, error);
     return { ok: false };
@@ -39,7 +39,7 @@ export async function reorderWatchList(raw: number[]): Promise<ReorderResult> {
   const parsed = orderInput.safeParse(raw);
   if (!parsed.success) return { ok: false, reason: "failed" };
   try {
-    const result = await writeWantOrder(getDb(), parsed.data);
+    const result = await withFilmTransaction((tx) => writeWantOrder(tx, parsed.data));
     return result === "ok" ? { ok: true } : { ok: false, reason: "stale" };
   } catch (error) {
     console.error("reorderWatchList failed", { count: parsed.data.length }, error);

@@ -8,7 +8,7 @@ const { writeWantAtTop, writeWantOrder, writeRelease } = vi.hoisted(() => ({
   writeWantOrder: vi.fn(),
   writeRelease: vi.fn(),
 }));
-vi.mock("@/db", () => ({ getDb: () => ({}) }));
+vi.mock("@/db", () => ({ getDb: () => ({}), withFilmTransaction: (write: (tx: object) => unknown) => write({}) }));
 vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeRelease }));
 
 import { addToWatchList, reorderWatchList, setRelease } from "./watch-list";

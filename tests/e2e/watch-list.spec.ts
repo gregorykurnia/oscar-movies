@@ -2,13 +2,86 @@
 // change the list only on the next visit, never under the tap; Add a film (7.8) and My order's
 // drag handles (7.9) and the release editor (7.10). It writes marks on the `test` branch and puts each one back as it was.
 import { expect, test } from "@playwright/test";
-import { eq } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
+import { eq, inArray } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
+import { lockFilmWrites } from "../../src/db/write-lock";
 import { marks, movies } from "../../src/db/schema";
 import { LIVE_YEAR } from "../../src/lib/years";
+import { addFilmSlug, type AddFilmInput } from "../../src/lib/add-film";
 
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
+
+test("film save actions invalidate cached misses, preserve notes and safely retry manual/catalogue additions", async ({ page, request }) => {
+  test.setTimeout(90_000);
+  const savedMarks = await db.select().from(marks);
+  const identities = Array.from({ length: 4 }, () => randomUUID());
+  const title = `Atomic save ${identities[0]}`;
+  const manual: AddFilmInput = { kind: "manual", localId: identities[0], title, year: 2030 };
+  const slug = addFilmSlug(title, 2030, identities[0]);
+  const openChecks = async () => {
+    await page.goto("/styleguide/film-saves");
+    await expect.poll(() => page.evaluate(() => !!window.filmSaveChecks)).toBe(true);
+  };
+  const save = (input: AddFilmInput) => page.evaluate((value) => window.filmSaveChecks!.addFilm(value), input);
+  try {
+    // Cache the missing movie first; saving must expire this exact miss.
+    await page.goto(`/movies/${slug}`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("This page isn't here");
+    await openChecks();
+    const added = await save(manual);
+    expect(added).toMatchObject({ ok: true, created: true, refreshRequired: false, film: { slug, title } });
+    if (!added.ok) throw new Error(added.reason);
+    const id = added.film.id;
+    const retries = await page.evaluate((value) => Promise.all([
+      window.filmSaveChecks!.addFilm(value), window.filmSaveChecks!.addFilm(value),
+    ]), manual);
+    expect(retries).toEqual(retries.map(() => ({ ok: true, created: false, refreshRequired: false, film: added.film })));
+    await page.evaluate(async (movieId) => {
+      await window.filmSaveChecks!.setRelease(movieId, "2030-12-12", "MUBI");
+      await window.filmSaveChecks!.saveMark({ movieId, watched: true, want: false });
+    }, id);
+    expect(await save(manual)).toMatchObject({ ok: true, film: { id }, created: false });
+    expect(await save({ ...manual, title: "Changed after uncertain response" })).toEqual({ ok: false, reason: "draft-changed" });
+    expect((await db.select().from(marks).where(eq(marks.movieId, id)))[0]).toMatchObject({ want: true, watched: false, wantRank: 1, releaseOn: "2030-12-12", platform: "MUBI" });
+    const duplicate: AddFilmInput = { ...manual, localId: identities[1] };
+    expect(await save(duplicate)).toEqual({ ok: false, reason: "duplicate", matches: [added.film] });
+    expect(await save({ ...duplicate, duplicate: { kind: "use", movieId: id } })).toMatchObject({ ok: true, created: false, film: { id } });
+    const different = await save({ ...duplicate, duplicate: { kind: "different" } });
+    expect(different).toMatchObject({ ok: true, created: true });
+    if (!different.ok) throw new Error(different.reason);
+    expect(different.film.id).not.toBe(id);
+    expect(await save({ ...manual, duplicate: { kind: "use", movieId: different.film.id } }))
+      .toEqual({ ok: false, reason: "draft-changed" });
+    const catalogue: AddFilmInput = { kind: "catalogue", localId: identities[2], tmdbId: 99004003 };
+    expect(await save(catalogue)).toMatchObject({ ok: true, film: { title: "Upcoming fixture", year: 2030 } });
+    expect(await save(catalogue)).toMatchObject({ ok: true, created: false });
+    const unknown: AddFilmInput = { kind: "catalogue", localId: identities[3], tmdbId: 99004004 };
+    expect(await save(unknown)).toEqual({ ok: false, reason: "missing-year" });
+    expect(await save({ ...unknown, year: 2033 })).toMatchObject({ ok: true, film: { year: 2033 } });
+    expect(await save({ ...unknown, tmdbId: 99004005 })).toEqual({ ok: false, reason: "not-found" });
+    await page.goto(`/movies/${slug}`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
+    await page.reload();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
+    const search = await (await request.get(`/api/search?${new URLSearchParams({ q: title })}`)).json();
+    expect(search.films).toEqual(expect.arrayContaining([expect.objectContaining({ id, slug })]));
+    await page.goto("/watch-list?sort=mine");
+    await expect(page.locator(`a[href="/movies/${slug}"]`)).toBeVisible();
+  } finally {
+    await db.transaction(async (tx) => {
+      await lockFilmWrites(tx);
+      const films = await tx.select({ id: movies.id }).from(movies).where(inArray(movies.localId, identities));
+      const ids = films.map((f) => f.id);
+      if (ids.length) {
+        await tx.delete(marks).where(inArray(marks.movieId, ids));
+        await tx.delete(movies).where(inArray(movies.id, ids));
+      }
+      for (const row of savedMarks) await tx.insert(marks).values(row).onConflictDoUpdate({ target: marks.movieId, set: row });
+    });
+  }
+});
 
 test("catalogue route uses server fixtures, pages results and never writes films or marks", async ({ request }) => {
   const before = await db.select({ id: movies.id }).from(movies);

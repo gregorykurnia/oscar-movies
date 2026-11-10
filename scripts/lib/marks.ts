@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "
 import { dirname, relative, resolve } from "node:path";
 import { eq, inArray, isNotNull, or, sql } from "drizzle-orm";
 import type { ScriptDb } from "../../src/db";
+import { lockFilmWrites } from "../../src/db/write-lock";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema, type MarkEntry, type MarksFile, type MovieSnapshot } from "../../src/lib/data-files";
 
@@ -367,6 +368,7 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
   if (plan.writes.length === 0 && plan.creates.length === 0) return 0;
   const createdMarks = plan.creates.filter((c) => isKept(c.to)).length;
   await db.transaction(async (tx) => {
+    await lockFilmWrites(tx);
     // A film may have appeared since dry run. Recheck before writing; uniqueness constraints
     // also roll back the transaction if a concurrent insert wins after this read.
     const recheck = await loadRestorePlan(tx, plan.entries);

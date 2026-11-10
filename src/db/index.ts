@@ -1,10 +1,11 @@
-// Database clients (IMPLEMENTATION_PLAN.md §1). The app uses Neon's HTTP driver (fastest for
-// single queries on Vercel); scripts and database tests use the WebSocket `Pool`, which has
-// real transactions. Both are created on first use, so importing this file needs no env.
+// Database clients (IMPLEMENTATION_PLAN.md §1). Page reads use Neon's HTTP driver; locked
+// app writes, scripts and database tests use the WebSocket Pool for real transactions.
+// Both are created on first use, so importing this file needs no env.
 import { Pool } from "@neondatabase/serverless";
 import { drizzle as drizzleHttp } from "drizzle-orm/neon-http";
 import { drizzle as drizzleWs } from "drizzle-orm/neon-serverless";
 import * as schema from "./schema";
+import { lockFilmWrites } from "./write-lock";
 
 export { schema };
 
@@ -15,6 +16,8 @@ function requireEnv(name: string): string {
 }
 
 let appDb: ReturnType<typeof createAppDb> | undefined;
+// Load only when an app transaction is used, so ordinary CLI clients work outside Next.
+let serverOnly: Promise<unknown> | undefined;
 
 function createAppDb() {
   return drizzleHttp(requireEnv("DATABASE_URL_POOLED"), { schema });
@@ -37,3 +40,18 @@ export function createScriptDb(connectionString = requireEnv("DATABASE_URL")) {
 }
 
 export type ScriptDb = ReturnType<typeof createScriptDb>["db"];
+export type FilmTransaction = Parameters<Parameters<ScriptDb["transaction"]>[0]>[0];
+
+/** Request-scoped, server-only writes; ordinary page reads keep using HTTP. */
+export async function withFilmTransaction<T>(write: (tx: FilmTransaction) => Promise<T>): Promise<T> {
+  await (serverOnly ??= import("server-only"));
+  const client = createScriptDb(requireEnv("DATABASE_URL_POOLED"));
+  try {
+    return await client.db.transaction(async (tx) => {
+      await lockFilmWrites(tx);
+      return write(tx);
+    });
+  } finally {
+    await client.close();
+  }
+}

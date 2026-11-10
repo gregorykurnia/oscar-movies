@@ -1,10 +1,10 @@
-// Writing marks (plan §5.6) and, from 7.4, the Watch list's order and release notes: the only
-// writes the app makes, from the marks and Watch list Server Actions. Reading them is in
+// Writing marks (plan §5.6) and, from 7.4, the Watch list's order and release notes, used by
+// the marks, Watch list and film-creation actions. Reading them is in
 // `watch-list.ts` (never cached).
 //
-// Each write is one SQL statement, so it is its own transaction on both clients: the app's
-// HTTP driver has no interactive transactions. A film that becomes wanted goes to the top of
-// the order and the films above its old place shift down one; a film that stops being wanted
+// Each low-level write is one SQL statement. Rank-changing actions run it inside the shared
+// locked transaction; release notes alone still use HTTP. A film that becomes wanted goes
+// to the top and the films above its old place shift down one; a film that stops being wanted
 // loses its rank; nothing here touches `release_on` or `platform` except `writeRelease`.
 import { sql } from "drizzle-orm";
 import type { getDb, ScriptDb } from "@/db";

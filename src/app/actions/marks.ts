@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { getDb } from "@/db";
+import { withFilmTransaction } from "@/db";
 import { writeMark } from "@/data/marks";
 
 // The marks Server Action (plan §5.6). Anyone with the address can call it (no sign-in, the
@@ -21,7 +21,7 @@ export async function saveMark(raw: SaveMarkInput): Promise<SaveMarkResult> {
   if (!parsed.success) return { ok: false };
   const { movieId, watched, want } = parsed.data;
   try {
-    return { ok: await writeMark(getDb(), movieId, { watched, want }) };
+    return { ok: await withFilmTransaction((tx) => writeMark(tx, movieId, { watched, want })) };
   } catch (error) {
     console.error("saveMark failed", { movieId }, error);
     return { ok: false };
