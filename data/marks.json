@@ -1,1 +1,7 @@
-[]
+[
+  {"imdb":"tt15799564","wd":"Q133341572","title":"Wild Horse Nine","year":2026,"watched":false,"want":true,"wantRank":5,"releaseOn":"2027-02-20","platform":"Prime Video","updatedAt":"2026-11-10T14:17:48.088Z"},
+  {"imdb":"tt34718200","wd":"Q133885802","title":"The Debut","year":2026,"watched":false,"want":true,"wantRank":3,"releaseOn":"2026-12-11","platform":"Cinema","updatedAt":"2026-11-10T14:20:53.715Z"},
+  {"imdb":"tt35511966","wd":"Q134548431","title":"La bola negra","year":2026,"watched":false,"want":true,"wantRank":4,"releaseOn":"2026-12-02","platform":"Netflix","updatedAt":"2026-11-10T14:19:10.427Z"},
+  {"imdb":"tt36834996","wd":"Q137946980","title":"All of a Sudden","year":2026,"watched":false,"want":true,"wantRank":1,"releaseOn":"2026-12-26","platform":"Streaming","updatedAt":"2026-11-10T14:25:17.093Z"},
+  {"imdb":"tt45368240","wd":"Q141336617","title":"You Can See Everything","year":2026,"watched":false,"want":true,"wantRank":2,"releaseOn":"2027-01-30","platform":"Streaming","updatedAt":"2026-11-10T14:21:55.942Z"}
+]
