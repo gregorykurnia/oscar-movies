@@ -195,4 +195,17 @@ describe("app-created film backup", () => {
       rmSync(folder, { recursive: true, force: true });
     }
   });
+  it("exports a catalogue film whose original language TMDB doesn't know (9.R)", async () => {
+    await rolledBack(async (tx) => {
+      // TMDB gives every film an original title but "xx" (no language) for some; a snapshot needs both or neither.
+      await tx.insert(movies).values({
+        slug: "test-marks-backup-no-lang", title: "No Language", year: 2026, countries: [], tmdbId: 88000009,
+        localId: "b6871340-cb0a-4f82-a40c-3510cdbd0009", originalTitle: "No Language",
+      });
+      const entry = (await exportMarks(tx)).find((e) => e.localId === "b6871340-cb0a-4f82-a40c-3510cdbd0009");
+      expect(entry?.movie).toBeDefined();
+      expect(entry?.movie).not.toHaveProperty("originalTitle");
+      expect(entry?.movie).not.toHaveProperty("originalLang");
+    });
+  });
 });

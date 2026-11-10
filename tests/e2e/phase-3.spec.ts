@@ -52,17 +52,24 @@ async function loadTest(dir: string) {
   const { data, errors } = readDataSet(dir);
   expect(errors).toEqual([]);
   const today = new Date().toISOString().slice(0, 10);
-  await runLoad(db, data, {
+  const recompute = async (tx: Parameters<Parameters<typeof db.transaction>[0]>[0]) => {
+    await recomputeAccuracy(tx, today);
+    await recomputePredictions(tx, today);
+  };
+  const { written } = await runLoad(db, data, {
     target: "test",
     dryRun: false,
     today,
-    afterWrites: async (tx) => {
-      await recomputeAccuracy(tx, today);
-      await recomputePredictions(tx, today);
-    },
+    afterWrites: recompute,
     revalidate: revalidateAwards,
     log: () => {},
   });
+  // A load with nothing to write skips the recompute, so the stored chances could date from an
+  // earlier day (they depend on today): recompute anyway, so "before" and "restored" match.
+  if (!written) {
+    await db.transaction(recompute);
+    await revalidateAwards();
+  }
 }
 
 test("each 2026 category shows chances that add to 100%", async ({ page }) => {

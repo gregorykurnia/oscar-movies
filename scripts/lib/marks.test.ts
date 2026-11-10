@@ -59,11 +59,21 @@ describe("planRestore", () => {
     for (const existing of [
       { ...anora, slug: movie.slug },
       { ...anora, localId: movie.localId },
-      { ...anora, slug: movie.slug, tmdbId: 123 },
     ]) {
       const entry = { ...local, ...(existing.tmdbId ? { tmdb: 123, movie: { ...movie, tmdb: 123 } } : {}) };
       expect(planRestore([entry], [existing], []).problems).toEqual([expect.stringMatching(/conflicting stable slug or local identity/)]);
     }
+  });
+
+  it("puts the marks on a researched film that now carries the app film's TMDB ID, after a rebuild (9.R)", () => {
+    // Rebuild order (runbook): research load first, then restore. The film entered research meanwhile,
+    // so its row has the research slug and no local ID; every external ID agrees, so it is the same film.
+    const researched: Film = { ...anora, slug: "anora-research", tmdbId: 123 };
+    const entry = { ...local, tmdb: 123, movie: { ...movie, tmdb: 123 }, want: true };
+    const plan = planRestore([entry], [researched], []);
+    expect(plan.problems).toEqual([]);
+    expect(plan.creates).toEqual([]);
+    expect(plan.writes).toEqual([expect.objectContaining({ kind: "insert", film: researched })]);
   });
 
   it("refuses two snapshots claiming the same stable slug", () => {

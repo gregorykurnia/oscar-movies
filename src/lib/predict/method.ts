@@ -10,7 +10,7 @@ export type NominationMethod = "engine" | "patterns";
 /**
  * Set by task 8.3 from the 2015–2025 backtests on `test` (each season from earlier seasons only;
  * `tests/db/patterns.test.ts` checks this follows `chooseMethod`): Documentary, patterns with the
- * snub rule 35 of 55 nominees against the engine's 31; International, 38 of 55 each (nearly the
+ * snub rule 35 of 55 nominees against the engine's 31 (34 and 32 without the rule since the 2026-10-25 primary-country data fix); International, 38 of 55 each (nearly the
  * same picks every year), so the engine stays. Picture and Animated have no shortlist.
  */
 export const NOMINATION_METHOD: Record<OscarCategory, NominationMethod> = {

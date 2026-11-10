@@ -76,7 +76,8 @@ async function resolveAndSave(tx: FilmTransaction, { input, details }: FilmDraft
       localId: input.localId, title, year,
       slug: addFilmSlug(title, year, external ? `tmdb-${external.tmdbId}` : input.localId),
       countries: external?.countries ?? [], language: external?.language ?? null,
-      originalTitle: external?.originalTitle ?? null, originalLang: external?.language ?? null,
+      // Original title and language go together (as in the research files and backups).
+      originalTitle: external?.language ? external.originalTitle : null, originalLang: external?.language ?? null,
       tmdbId: external?.tmdbId ?? null, imdbId: external?.imdbId ?? null, wikidataId: external?.wikidataId ?? null,
       tmdbScore: external?.tmdbScore ?? null, tmdbAt: external?.tmdbScore == null ? null : new Date(),
     }).returning();

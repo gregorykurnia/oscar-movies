@@ -114,6 +114,8 @@ A nomination from a group where filmmakers vote (DGA, Cinema Eye, Spirit) matter
 | App's current method | 3 | 3 | 2 | 3 | 3 | 3 | 2 | 4 | 2 | 2 | 3 | 30 of 55 |
 | App's current method, earlier seasons only (task 8.3) | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 4 | 2 | 2 | 3 | 31 of 55 |
 
+Recount, 2026-11-10 (task 9.R): after the primary-country data fix (`4a430c8`, more films carry a second country, so fewer count as US-only), 2019 drops to 3, giving **34 of 55** with the snub rule and 32 alone; the engine stays at 31, so Documentary keeps the patterns.
+
 The race uses the patterns for Documentary's % to be nominated once the shortlist is out (`NOMINATION_METHOD`, task 8.3): 35 against 31, each from earlier seasons only.
 
 Random picks from the shortlist average about 18 of 55. Other cut-offs for "strong" (50–65%, cap 2–4) gave 30–34 for patterns alone and 33–38 with the snub rule, which added 2–7 under every setting; 60% / 3+ is a middle setting, not the best one picked after the fact. The current method's eve figures are leave-one-season-out (they saw later seasons), so its real-time score would be no better. With Cinema for Peace still counted (before its removal), patterns alone also gave 33 and the current method 30.

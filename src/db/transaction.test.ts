@@ -29,3 +29,8 @@ it("closes after a callback failure or lock failure", async () => {
   expect(write).not.toHaveBeenCalled();
   expect(close).toHaveBeenCalledTimes(2);
 });
+
+it("reports a committed write as saved even if closing the pool fails (9.R)", async () => {
+  close.mockRejectedValueOnce(new Error("close failed"));
+  expect(await withFilmTransaction(vi.fn().mockResolvedValue("saved"))).toBe("saved");
+});

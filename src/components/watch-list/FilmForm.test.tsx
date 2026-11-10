@@ -67,6 +67,27 @@ it.each(['Use this film', 'Add a different film'])('requires the explicit duplic
   expect(addFilm.mock.calls[1][0].localId).toBe(addFilm.mock.calls[0][0].localId);
 });
 
+it('after an unanswered "Add a different film", Try again sends the same choice and draft (9.R)', async () => {
+  addFilm.mockResolvedValueOnce({ ok: false, reason: 'duplicate', matches: [success.film] })
+    .mockRejectedValueOnce(new Error('network')).mockResolvedValue(success);
+  render(<FilmForm {...props} />);
+  fireEvent.change(year(), { target: { value: '2030' } }); save();
+  await screen.findByRole('radiogroup');
+  fireEvent.click(screen.getByRole('button', { name: 'Add a different film' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Try again' }));
+  await waitFor(() => expect(onSaved).toHaveBeenCalled());
+  expect(addFilm.mock.calls[2][0].duplicate).toEqual({ kind: 'different' });
+  expect(addFilm.mock.calls[2][0].localId).toBe(addFilm.mock.calls[0][0].localId);
+});
+
+it('says an earlier try may have saved when the server sees the draft changed', async () => {
+  addFilm.mockResolvedValue({ ok: false, reason: 'draft-changed' });
+  render(<FilmForm {...props} />);
+  fireEvent.change(year(), { target: { value: '2030' } }); save();
+  expect(await screen.findByText(/An earlier try may have added it already/)).toBeTruthy();
+  expect(screen.queryByText(/Your list is unchanged/)).toBeNull();
+});
+
 it('requests a missing source year and sends only the verified source ID plus that year', async () => {
   addFilm.mockResolvedValue(success);
   render(<FilmForm {...props} film={{ tmdbId: 123, title: 'Undated', originalTitle: null, year: null, overview: '' }} />);

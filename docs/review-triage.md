@@ -314,3 +314,27 @@ Three fresh read-only reviews: logic and figures (no wrong figure found), pages 
 | 8-25 | Write-up: Los Angeles critics International "7 of 16 to 7 of 8" | Fixed: 7 of 14 to 7 of 7 (recounted) |
 | 8-26 | Write-up: the 2024 and 2025 Documentary five not in pick order (the app ranks by the full strong-award count after the rate) | Fixed: in pick order, labelled; the choice is on the Waiting list |
 | 8-27 | `phase-1.spec.ts` expected 5 film headings in 2025's Documentary section (8.6 added the shortlist sub-list) | Fixed: counts the sub-list from its heading |
+
+## Phase 9 review (2026-11-10)
+
+**Checks:** review on Opus 5.5 (builders were Sol); a fresh-context review of the save, identity, backup and fixture code found no data-loss or production-test path. Database: `patterns` + `data` 24/24 and `marks-backup` + `add-film` 19/19 after the fixes. Browser: smoke + `watch-list.spec.ts` 21/21 (reorder failure and the gallery, with a new duplicate-retry frame); `phase-3.spec.ts:117` and `race.spec.ts:122` still fail (9-6, task 9.Rb). Full unit suite and build in the report. Fixture adapter refuses production (flag, `EXPECT_DB_BRANCH=test`, not Vercel production, live `app_meta` branch); the TMDB token stays server-side.
+
+**Guide §15** on the Add a film panel: AppShell/PageHeader unchanged; tokens only; the duplicate-retry state keeps both actions on one phone row inside the panel; no sideways scroll; focus returns to the chosen radio after a failure.
+
+| # | Item | Where it went |
+|---|---|---|
+| 9-1 | A TMDB film with no original language ("xx") saved an original title alone; the snapshot needs both, so every `marks:export` (and the backup before each load) would throw | Fixed: saved and exported as a pair; database test |
+| 9-2 | Restore after a rebuild refused the whole file when an app film had since entered research (researched row, no local UUID, other slug) | Fixed: matched by agreeing external IDs, the marks go onto that row; unit test; runbook |
+| 9-3 | An unanswered "Add a different film" retried as "Use this film" and answered "Your list is unchanged" (untrue), so a second press could want both films | Fixed: Try again resends the same choice and draft; a changed draft says an earlier try may have added it; unit tests, gallery frame |
+| 9-4 | A pool that failed to close after a commit turned a saved add, toggle or reorder into a reported failure | Fixed: close errors ignored after the transaction; unit test |
+| 9-5 | P9-E1: `phase-3.spec.ts` read "before" chances stored on an earlier day (a load with nothing to write skips the recompute) | Fixed in the spec (recompute and revalidate anyway); the test now fails later, at the after-load chance (9-6) |
+| 9-6 | P9-E2 `race.spec.ts:122` and `phase-3.spec.ts:151`: on today's recompute International's leader has 0% to be nominated and Hold Onto Me 99% at rank 100, so Show all disappears; the Fjord row still shows its old % after the sample load | Task 9.Rb (race and prediction code, not Phase 9) |
+| 9-7 | P9-E3: the reorder-failure test pressed keys before the drag had lifted | Fixed: each key waits for its announcement; passes |
+| 9-8 | P9-D1/D2: Documentary backtest 34 of 55 (32 without the snub rule), not 35/33, since the primary-country data fix `4a430c8` (2019 loses a pick) | Fixed: expectations and notes; the engine stays at 31, so the method doesn't change |
+| 9-9 | P9-D3–D6: three wanted marks left on `test` by the interrupted browser run | Fixed: `npm run db:seed:test` reset the test marks; an automatic reset at suite start dropped (it would hide cleanup bugs inside a run) |
+| 9-10 | P9-V1: at 844×390 the results push the manual footer below the frame | Dropped: both entry actions are in the first screen; five results can't fit 390px high; the footer is one scroll away |
+| 9-11 | One malformed TMDB result refuses the whole search page | Dropped: 9.4's deliberate, tested validation; manual entry stays available |
+| 9-12 | A slug unique conflict reads as "TMDB links it to two different films" | Dropped: slugs carry the TMDB ID or the full UUID |
+| 9-13 | "Use this film" looks among 20 title/year matches only | Dropped: more than 20 same-title, same-year films isn't realistic |
+| 9-14 | Try again after a page-2 search failure fetches page 1 | Dropped: page 1 shows again with its next-page action; nothing is lost |
+| 9-15 | Save-failure wording "Your list is unchanged" (guide §8.3) can be untrue after an unanswered save | Waiting for the owner (guide wording); retries reuse the draft, so no duplicate |

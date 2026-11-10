@@ -52,6 +52,7 @@ export async function withFilmTransaction<T>(write: (tx: FilmTransaction) => Pro
       return write(tx);
     });
   } finally {
-    await client.close();
+    // A pool that fails to close after the commit must not turn a saved write into a reported failure.
+    try { await client.close(); } catch { /* the write already committed or failed on its own */ }
   }
 }

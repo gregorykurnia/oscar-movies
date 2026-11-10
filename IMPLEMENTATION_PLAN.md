@@ -195,7 +195,8 @@ Owner request: “add it directly into this website app even if it doesn’t exi
 | 9.5 | [no look] Atomic film creation and wanted mark; brief 9.5 (identity conflicts, rollback and retries) | Sol Max | 2026-11-10 · atomic saves, safe retries and shared rank lock |
 | 9.6 | [look] Connect catalogue/manual Add a film paths; brief 9.6 (forms follow the established reference) | Sol xHigh | 2026-11-10 · both paths, look review fixes checked |
 | 9.7 | [look] End-to-end phase checks, screenshots and failure report; brief 9.7 (one full run, fixes in the next row) | Sol xHigh | 2026-11-10 · report + button-width fix checked; 3 browser / 6 DB failures for 9.R |
-| 9.R | [look] Phase 9 review and targeted fixes; brief 9.R (other family from the implementation, data and UX checks) | Opus 5.5 High | |
+| 9.R | [look] Phase 9 review and targeted fixes; brief 9.R (other family from the implementation, data and UX checks) | Opus 5.5 High | 2026-11-10 · 4 save/backup fixes, 7 test fixes; 2 race failures to 9.Rb |
+| 9.Rb | [no look] Fix the two live-race browser failures left by 9.R (`docs/review-triage.md` 9-6): `race.spec.ts:122` Show all gone (International leader 0% to be nominated, a rank-100 film 99%) and `phase-3.spec.ts:151` Fjord's old % after the sample load; fix the engine/split or the spec, then rerun only those two | Opus 5.5 High | |
 
 *Owner, after build:* check the test-backed flow on a real phone, approve the tested production migration and then request a normal release. No production migration, load, or release belongs to an unattended task.
 

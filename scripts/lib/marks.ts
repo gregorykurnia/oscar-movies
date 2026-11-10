@@ -141,7 +141,9 @@ export function planRestore(entries: MarksFile, films: Film[], current: CurrentM
     if (entry.movie) {
       const slugOwner = bySlug.get(entry.movie.slug);
       if ((slugOwner && slugOwner.id !== film?.id) || createdSlugs.has(entry.movie.slug) ||
-          (film && (film.slug !== entry.movie.slug || film.localId !== entry.localId))) {
+          // A matched film without a local ID is a researched row every external ID agrees with (a rebuild
+          // loads research before the restore): the marks go onto it and the snapshot isn't needed.
+          (film && film.localId !== null && (film.slug !== entry.movie.slug || film.localId !== entry.localId))) {
         plan.problems.push(`${id}: conflicting stable slug or local identity (${entry.movie.slug}).`);
         continue;
       }
@@ -243,8 +245,8 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
       ...identityOf(r),
       ...(r.localId ? { movie: {
         ...identityOf(r), localId: r.localId, slug: r.slug, title: r.title, year: r.year, countries: r.countries,
-        ...(r.originalTitle === null ? {} : { originalTitle: r.originalTitle }),
-        ...(r.originalLang === null ? {} : { originalLang: r.originalLang }),
+        // The snapshot pairs these (a TMDB film with no known language has a title only): both or neither.
+        ...(r.originalTitle === null || r.originalLang === null ? {} : { originalTitle: r.originalTitle, originalLang: r.originalLang }),
         ...(r.language === null ? {} : { language: r.language }),
       } } : {}),
       title: r.title,

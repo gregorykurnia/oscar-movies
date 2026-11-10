@@ -26,12 +26,12 @@ async function backtests(category: PatternCategory) {
 }
 
 describe("the backtests, 2015–2025", () => {
-  it("Documentary: the patterns pick 35 of 55 with the snub rule and 33 without (the planning check); the engine 31", async () => {
+  it("Documentary: the patterns pick 34 of 55 with the snub rule and 32 without (the planning check); the engine 31", async () => {
     const b = await backtests("documentary");
     expect(b.patterns.rows.map((r) => r.year)).toEqual(YEARS);
-    expect([b.patterns.hits, b.patterns.nominees]).toEqual([35, 55]);
-    expect(b.patterns.rows.map((r) => r.hits)).toEqual([2, 4, 3, 3, 4, 3, 3, 4, 3, 4, 2]);
-    expect([b.withoutSnubRule.hits, b.withoutSnubRule.nominees]).toEqual([33, 55]);
+    expect([b.patterns.hits, b.patterns.nominees]).toEqual([34, 55]);
+    expect(b.patterns.rows.map((r) => r.hits)).toEqual([2, 4, 3, 3, 3, 3, 3, 4, 3, 4, 2]);
+    expect([b.withoutSnubRule.hits, b.withoutSnubRule.nominees]).toEqual([32, 55]);
     expect(b.engine.rows.map((r) => r.year)).toEqual(YEARS);
     expect([b.engine.hits, b.engine.nominees]).toEqual([31, 55]);
     expect(NOMINATION_METHOD.documentary).toBe(chooseMethod(b.patterns.hits, b.engine.hits));
@@ -64,7 +64,7 @@ describe("queryPatterns", () => {
     ]);
     expect(s2024.films.find((f) => title(f.movie) === "Will & Harper")!.snubRisk.map((r) => r.sign)).toEqual(["busy"]);
     for (const s of data.seasons) for (const f of s.films) expect(data.films[Number(f.movie)]).toBeDefined();
-    expect([data.backtest.hits, data.backtest.nominees]).toEqual([35, 55]);
+    expect([data.backtest.hits, data.backtest.nominees]).toEqual([34, 55]);
     // The planning check's "27 flagged, 7 got in" doesn't recount: judged as the page judges it
     // (2015–2025, each season from earlier seasons only) it is 24 and 5; 2014 adds 3 misses.
     expect(data.flagged).toEqual({ hits: 5, count: 24 });

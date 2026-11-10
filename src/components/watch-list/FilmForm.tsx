@@ -36,6 +36,8 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
   const [missingYear, setMissingYear] = useState(false);
   const identity = useRef<string | null>(null);
   const inFlight = useRef(false);
+  // The duplicate choice whose save had an uncertain answer: Try again sends the same choice again.
+  const [lastChoice, setLastChoice] = useState<Extract<AddFilmInput, { kind: "manual" }>["duplicate"] | null>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const yearRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -55,7 +57,7 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
 
   function edit() {
     // A changed draft after an uncertain response is a new identity, never an edit of the old film.
-    identity.current = null;
+    identity.current = null; setLastChoice(null);
     setMatches([]); setFailure(null); setErrors({ title: "", year: "" }); setConflict(false);
   }
 
@@ -71,21 +73,27 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
     const input: AddFilmInput = film
       ? { kind: "catalogue", localId: identity.current, tmdbId: film.tmdbId, ...(needsYear ? { year: Number(year) } : {}) }
       : { kind: "manual", localId: identity.current, title: title.trim(), year: Number(year), ...(duplicate ? { duplicate } : {}) };
+    setLastChoice(duplicate ?? null);
     inFlight.current = true; setBusy(true); onBusy(true); setFailure(null);
     let result: AddFilmResult;
     try { result = await addFilm(input); } catch { result = { ok: false, reason: "failed" }; }
     inFlight.current = false; setBusy(false); onBusy(false);
-    if (result.ok) { onSaved(result); return; }
-    if (result.reason === "duplicate") { setMatches(result.matches); setSelected(0); return; }
+    if (result.ok) { setLastChoice(null); onSaved(result); return; }
+    if (result.reason === "duplicate") { setLastChoice(null); setMatches(result.matches); setSelected(0); return; }
     if (result.reason === "missing-year") { setMissingYear(true); setErrors((old) => ({ ...old, year: "Type a year from 1800 to 9999." })); return; }
     if (result.reason === "draft-changed") identity.current = null;
     setConflict(result.reason === "identity-conflict");
     setFailure(result.reason === "identity-conflict" ? "TMDB links it to two different films in the app, so nothing was added."
       : result.reason in catalogueErrors ? catalogueErrors[result.reason as keyof typeof catalogueErrors]
+      // The same draft was saved before with other details: an earlier, unanswered try may have added it.
+      : result.reason === "draft-changed" ? "An earlier try may have added it already. Check your list before adding it again."
       : "Your list is unchanged. Check the connection and add it again.");
   }
 
-  function submit(event: FormEvent) { event.preventDefault(); void save(matches.length ? { kind: "use", movieId: matches[selected].id } : undefined); }
+  function submit(event: FormEvent) {
+    event.preventDefault();
+    void save(failure && lastChoice ? lastChoice : matches.length ? { kind: "use", movieId: matches[selected].id } : undefined);
+  }
   function field(name: "title" | "year") {
     const error = errors[name];
     return <div className={name === "year" ? "min-w-0 md:max-w-[232px]" : "min-w-0"}>
@@ -113,7 +121,7 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
       <Notice title={`The app already has ${title.trim()} from ${year}.`}>Use it, or add a different film with the same title.</Notice>
       <div role="radiogroup" aria-label="Existing films" className="mt-2.5 rounded-[10px] border border-line p-1">
         {matches.map((match, index) => <label key={match.id} className="flex min-h-14 items-center gap-3 rounded-lg px-2 py-2 text-small hover:bg-track">
-          <input type="radio" name={`${id}-duplicate`} checked={index === selected} disabled={busy} onChange={() => setSelected(index)} className="accent-gold-ink" />
+          <input type="radio" name={`${id}-duplicate`} checked={index === selected} disabled={busy} onChange={() => { setSelected(index); setLastChoice(null); setFailure(null); }} className="accent-gold-ink" />
           <span className="min-w-0 [overflow-wrap:anywhere]"><span className="font-medium">{match.title}</span><span className="block text-caption text-ink-muted">{match.year}</span></span>
         </label>)}
       </div>
@@ -127,7 +135,7 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
         <span className="grid">
           <span aria-hidden="true" className="invisible col-start-1 row-start-1">{matches.length ? "Use this film" : "Add to Want to watch"}</span>
           <span className="col-start-1 row-start-1 inline-flex items-center justify-center gap-2">
-            {busy ? <><span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />Adding…</> : matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}
+            {busy ? <><span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />Adding…</> : failure && lastChoice ? "Try again" : matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}
           </span>
         </span>
       </Button> : null}

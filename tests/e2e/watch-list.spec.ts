@@ -430,8 +430,11 @@ test("a move that can't be saved puts the rows back and says so; other sorts hav
     // The save (a Server Action, posted to the page) fails.
     await page.route("**/watch-list", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
     await want.getByRole("button", { name: `Reorder ${b}` }).focus();
+    // Each key waits for the lift or move it makes: a key pressed before the drag has started is lost.
     await page.keyboard.press("Space");
+    await expect(page.getByText(`Moving ${b}.`)).toBeVisible();
     await page.keyboard.press("ArrowUp");
+    await expect(page.getByText(`Moving ${b}. Position 1 of 3.`)).toBeVisible();
     await page.keyboard.press("Space");
     await expect(page.getByRole("status").filter({ hasText: "Couldn't save the order" })).toContainText(
       "Your list is back as it was.",
@@ -891,6 +894,14 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
         await expect(manual.getByRole('radiogroup')).toBeVisible();
         await expect(manual.getByRole('radio')).toBeFocused();
         await shot('duplicate');
+        // An unanswered "Add a different film": the retry keeps that choice (9.R). The aborted post never reaches the server.
+        await page.route('**/watch-list', (route) => (route.request().method() === 'POST' ? route.abort() : route.continue()));
+        await manual.getByRole('button', { name: 'Add a different film' }).click();
+        await expect(manual.getByRole('alert')).toContainText(`Couldn't add ${title}`);
+        await expect(manual.getByRole('button', { name: 'Try again' })).toBeVisible();
+        await expect(manual.getByRole('radiogroup')).toBeVisible();
+        await shot('duplicate-retry');
+        await page.unroute('**/watch-list');
         await page.keyboard.press('Escape');
         const longTitle = 'TheUnusuallyLongUnbrokenFilmTitle'.repeat(5);
         await page.route('**/api/movie-catalogue?**', (route) => route.fulfill({ json: { ok: true, value: {
