@@ -21,6 +21,8 @@ const NEXT_BIN = "node_modules/.bin/next";
 const PORT = Number(new URL(TEST_APP_URL).port);
 const HASH_FILE = `${DIST_DIR}/source.hash`;
 const SERVER_LOG = `${DIST_DIR}/server.log`;
+// Applied after .env.test: never expose a real provider credential to automated tests.
+const PROVIDER_TEST_ENV = { MOVIE_CATALOGUE_FIXTURES: "1", TMDB_READ_TOKEN: "catalogue-fixture-token" };
 // What the test build is made from. Data files count because pages are prerendered from the
 // database the seed fills from them.
 const BUILD_INPUTS = [
@@ -32,6 +34,7 @@ const BUILD_INPUTS = [
   "tsconfig.json",
   "package.json",
   "package-lock.json",
+  "tests/e2e/global-setup.ts",
   ENV_FILES.test,
 ];
 
@@ -65,6 +68,7 @@ function sourceHash(): string {
   });
   if (listed.status !== 0) throw new Error(`git ls-files failed: ${listed.stderr}`);
   const hash = createHash("sha256");
+  hash.update(JSON.stringify(PROVIDER_TEST_ENV));
   // `.env.test` is gitignored, so git never lists it; hash it by name.
   const files = [...new Set([...listed.stdout.split("\n").filter(Boolean), ENV_FILES.test])].sort();
   for (const file of files) {
@@ -87,6 +91,7 @@ function serverEnv(testEnv: Record<string, string>): NodeJS.ProcessEnv {
     ...process.env,
     ...blanks,
     ...testEnv,
+    ...PROVIDER_TEST_ENV,
     NODE_ENV: "production",
     NEXT_DIST_DIR: DIST_DIR,
     NEXT_TELEMETRY_DISABLED: "1",
@@ -106,7 +111,7 @@ function buildIfChanged(env: NodeJS.ProcessEnv) {
   rmSync(HASH_FILE, { force: true });
   // `next build` points `next-env.d.ts` at its own folder; keep the tracked file as it is.
   const nextEnvTypes = readFileSync("next-env.d.ts");
-  const result = spawnSync(NEXT_BIN, ["build"], { env, stdio: "inherit" });
+  const result = spawnSync("npm", ["run", "build"], { env, stdio: "inherit" });
   writeFileSync("next-env.d.ts", nextEnvTypes);
   if (result.status !== 0) throw new Error(`next build failed (exit ${result.status}).`);
   writeFileSync(HASH_FILE, hash);
@@ -153,7 +158,7 @@ export default async function globalSetup() {
   const testEnv = readTargetEnv("test");
   await checkBranches(testEnv);
   // Tests that reset marks read the same env.
-  Object.assign(process.env, testEnv);
+  Object.assign(process.env, testEnv, PROVIDER_TEST_ENV);
   await checkPortFree();
 
   const env = serverEnv(testEnv);

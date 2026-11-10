@@ -10,6 +10,39 @@ import { LIVE_YEAR } from "../../src/lib/years";
 const { db, close } = createScriptDb();
 test.afterAll(() => close());
 
+test("catalogue route uses server fixtures, pages results and never writes films or marks", async ({ request }) => {
+  const before = await db.select({ id: movies.id }).from(movies);
+  const savedMarks = await db.select().from(marks);
+  const search = async (q: string, page = 1) => request.get(`/api/movie-catalogue?${new URLSearchParams({ q, page: String(page) })}`);
+  const response = await search("fixture:all");
+  expect(response.status()).toBe(200);
+  expect(response.headers()["cache-control"]).toBe("no-store");
+  const body = await response.json();
+  expect(body).toMatchObject({ ok: true, value: { page: 1, nextPage: null } });
+  expect(body.value.films.map((film: { title: string; year: number | null }) => [film.title, film.year])).toEqual([
+    ["Mother", 2009], ["Mother", 1926], ["Upcoming fixture", 2030], ["Unknown year fixture", null], ["Deleted fixture", 2024],
+  ]);
+  const first = await (await search("fixture:pages")).json();
+  const second = await (await search("fixture:pages", first.value.nextPage)).json();
+  expect(first.value.films).toHaveLength(3);
+  expect(second.value.films).toHaveLength(2);
+  expect(second.value.nextPage).toBeNull();
+  expect(await (await search("fixture:empty")).json()).toEqual({ ok: true, value: { films: [], page: 1, nextPage: null } });
+  for (const [query, error, status] of [
+    ["fixture:malformed", "invalid-response", 502], ["fixture:401", "refused", 503],
+    ["fixture:429", "rate-limited", 429], ["fixture:timeout", "timeout", 504], ["fixture:offline", "network", 502],
+  ] as const) {
+    const failure = await search(query);
+    expect(failure.status()).toBe(status);
+    expect(await failure.json()).toMatchObject({ ok: false, error });
+  }
+  expect((await search("Mother", 501)).status()).toBe(400);
+  const local = await request.get("/api/search?q=anora");
+  expect(await local.json()).toMatchObject({ films: expect.any(Array), awards: expect.any(Array) });
+  expect((await db.select({ id: movies.id }).from(movies)).sort((a, b) => a.id - b.id)).toEqual(before.sort((a, b) => a.id - b.id));
+  expect((await db.select().from(marks)).sort((a, b) => a.movieId - b.movieId)).toEqual(savedMarks.sort((a, b) => a.movieId - b.movieId));
+});
+
 async function movieId(slug: string) {
   const [row] = await db.select({ id: movies.id }).from(movies).where(eq(movies.slug, slug));
   expect(row, slug).toBeTruthy();
