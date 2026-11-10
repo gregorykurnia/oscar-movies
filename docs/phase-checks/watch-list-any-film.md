@@ -82,6 +82,8 @@ Guide §15 was checked as evidence, without approving the phase: AppShell/PageHe
 
 All following files are under `screenshots/phase-9/`; each was opened with original detail. The six `picked-panel-*`/`manual-panel-*` crops and three `*-edge-crop.png` files were also opened at 100% to inspect button bases, borders, frame edges and gaps.
 
+**Runner-recognition follow-up (2026-11-10, from `e3427ef`):** the runner counted zero image views in the original session; those calls used dynamically constructed paths. Recaptured only the three gallery scenarios with `npx playwright test tests/e2e/watch-list.spec.ts:714 --project chromium`: **3/3 passed in 31.7 seconds**, reusing the unchanged guarded production build. Fresh log and last-run evidence: `screenshots/phase-9/checks/look-recognition*`. Reopened all 28 fresh viewport images and six fresh panel crops using explicit literal absolute paths with `view_image`, `detail: original`; regenerated and opened the three edge crops at 100% too. This corrects the auditable view record; no runner code was changed. The descriptions below still match the fresh images. P9-V1 remains the landscape continuation question assigned to 9.R, with no additional visual fault found. The original three browser/six database failures are unchanged. The new owned server (PID 1512280) stopped after the gallery run.
+
 LOOKED: no-match-390.png · Entry panel rests above wrapped sort links and film rows; no overlap; lower rows continue below frame; all entry text whole.
 LOOKED: results-390.png · Five results and manual footer fit inside the white panel above sort links; no overlay or clipped text.
 LOOKED: picked-390.png · Film title/year sit above both buttons inside the panel; later Hamnet row crosses bottom; confirmation text whole.
