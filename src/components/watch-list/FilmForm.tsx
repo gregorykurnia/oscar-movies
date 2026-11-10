@@ -19,8 +19,9 @@ function draftId() {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-export function FilmForm({ film, initialTitle, onBack, onSaved, onBusy }: {
+export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, onBusy }: {
   film: CatalogueFilm | null; initialTitle: string; onBack: () => void;
+  onTitleChange?: (title: string) => void;
   onSaved: (result: Extract<AddFilmResult, { ok: true }>) => void; onBusy: (busy: boolean) => void;
 }) {
   const id = useId();
@@ -44,6 +45,13 @@ export function FilmForm({ film, initialTitle, onBack, onSaved, onBusy }: {
     if (needsYear) yearRef.current?.focus();
     else formRef.current?.querySelector<HTMLButtonElement>('button[type="submit"]')?.focus();
   }, [needsYear]);
+
+  // A natively disabled save button loses focus. Keep Escape and the next keyboard action in the panel.
+  useEffect(() => {
+    if (matches.length) formRef.current?.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.focus({ preventScroll: true });
+    else if (failure) (formRef.current?.querySelector<HTMLButtonElement>('button[type="submit"]') ?? formRef.current?.querySelector<HTMLButtonElement>('button'))?.focus({ preventScroll: true });
+    if (matches.length || failure) formRef.current?.closest('section')?.scrollIntoView?.({ block: "nearest" });
+  }, [matches, failure]);
 
   function edit() {
     // A changed draft after an uncertain response is a new identity, never an edit of the old film.
@@ -83,10 +91,10 @@ export function FilmForm({ film, initialTitle, onBack, onSaved, onBusy }: {
     return <div className={name === "year" ? "min-w-0 md:max-w-[232px]" : "min-w-0"}>
       <label htmlFor={`${id}-${name}`} className="mb-1.5 block text-small font-medium">{name === "title" ? "Title" : "Release or planned year"}</label>
       <input ref={name === "title" ? titleRef : yearRef} id={`${id}-${name}`} value={name === "title" ? title : year}
-        onChange={(event) => { edit(); if (name === "title") setTitle(event.target.value); else setYear(event.target.value); }}
+        onChange={(event) => { edit(); if (name === "title") { setTitle(event.target.value); onTitleChange?.(event.target.value); } else setYear(event.target.value); }}
         readOnly={busy} inputMode={name === "year" ? "numeric" : "text"} enterKeyHint="done" autoComplete="off"
         aria-invalid={!!error} aria-describedby={`${id}-${name}-hint`}
-        className={cn("h-11 w-full rounded-[9px] border bg-surface px-3 text-small outline-none md:h-10", busy ? "border-transparent bg-track text-ink-muted" : error ? "border-error shadow-[0_0_0_3px_var(--error-wash)] focus:border-error focus:shadow-[0_0_0_3px_var(--error-wash)]" : "border-line hover:border-line-strong focus:border-gold-ink focus:shadow-[0_0_0_3px_var(--gold-wash)]")} />
+        className={cn("h-11 w-full rounded-[9px] border bg-surface px-3 text-small outline-none md:h-10", busy ? "border-transparent bg-track text-ink" : error ? "border-error shadow-[0_0_0_3px_var(--error-wash)] focus:border-error focus:shadow-[0_0_0_3px_var(--error-wash)]" : "border-line hover:border-line-strong focus:border-gold-ink focus:shadow-[0_0_0_3px_var(--gold-wash)]")} />
       <p id={`${id}-${name}-hint`} className={cn("mt-1.5 text-caption", error ? "text-error" : "text-ink-muted")}>
         {error || (name === "year" ? film ? "TMDB has no date for it yet." : "The year it came out, or is planned to." : "")}
       </p>
@@ -115,7 +123,9 @@ export function FilmForm({ film, initialTitle, onBack, onSaved, onBusy }: {
       <Button onClick={matches.length ? () => void save({ kind: "different" }) : onBack} disabled={busy} className={formButton}>
         {matches.length ? "Add a different film" : film ? "Back to results" : "Cancel"}
       </Button>
-      {!conflict ? <Button type="submit" variant="primary" loading={busy} className={formButton}>{matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}</Button> : null}
+      {!conflict ? <Button type="submit" variant="primary" disabled={busy} aria-busy={busy} className={cn(formButton, busy && "disabled:bg-gold-ink! disabled:text-on-gold!")}>
+        {busy ? <><span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />Adding…</> : matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}
+      </Button> : null}
     </div>
   </form>;
 }

@@ -76,11 +76,11 @@ async function Lists({ query }: { query: Promise<Query> }) {
   return (
     <>
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7">
-        <div className="flex min-w-0 max-w-full items-center gap-3">
-          <span className="flex-none text-caption text-ink-muted">Sort by</span>
+        <div className="flex min-w-0 max-w-full items-center gap-3 max-md:items-start">
+          <span className="flex-none text-caption text-ink-muted max-md:pt-2.5">Sort by</span>
           <Segmented
             label="Sort by"
-            className="min-w-0"
+            className="min-w-0 max-md:flex-wrap max-md:overflow-visible"
             items={WATCH_SORTS.map((sort) => ({
               label: WATCH_SORT_LABELS[sort],
               href: watchHref({ ...state, sort }),
@@ -149,7 +149,7 @@ function Section({
         <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {title}
         </h2>
-        <span className="text-small text-ink-muted">
+        <span className="pr-0.5 text-small text-ink-muted [contain:paint]">
           <span>{filmCount(count)}</span>
           {hint ? ` · ${hint}` : null}
         </span>

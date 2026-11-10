@@ -27,6 +27,7 @@ it('keeps the identity and draft on retry, rotates identity on editing after a f
   render(<FilmForm {...props} />);
   fireEvent.change(year(), { target: { value: '2030' } }); save();
   await screen.findByRole('alert');
+  await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Try again' })));
   const first = addFilm.mock.calls[0][0];
   expect(onSaved).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
@@ -43,7 +44,9 @@ it('blocks double submission and pauses all save/close inputs while a save is un
   addFilm.mockImplementation(() => new Promise((resolve) => { finish = resolve; }));
   render(<FilmForm {...props} />);
   fireEvent.change(year(), { target: { value: '2030' } });
-  save(); save();
+  const submit = screen.getByRole('button', { name: 'Add to Want to watch' });
+  fireEvent.click(submit); fireEvent.click(submit);
+  expect(screen.getByRole('button', { name: 'Adding…' })).toBeTruthy();
   expect(addFilm).toHaveBeenCalledTimes(1);
   expect(screen.getByRole('button', { name: 'Cancel' }).hasAttribute('disabled')).toBe(true);
   expect(year().hasAttribute('readonly')).toBe(true);
@@ -56,6 +59,7 @@ it.each(['Use this film', 'Add a different film'])('requires the explicit duplic
   render(<FilmForm {...props} />);
   fireEvent.change(year(), { target: { value: '2030' } }); save();
   await screen.findByRole('radiogroup');
+  await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('radio')));
   expect(onSaved).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: choice }));
   await waitFor(() => expect(onSaved).toHaveBeenCalled());

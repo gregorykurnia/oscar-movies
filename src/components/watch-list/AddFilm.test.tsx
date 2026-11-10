@@ -75,3 +75,26 @@ it.each(['refused', 'timeout', 'rate-limited'])('source %s is distinct from empt
  fireEvent.click(screen.getByRole('button', { name: 'Add manually' }));
  expect((screen.getByLabelText('Title') as HTMLInputElement).value).toBe('Preserved');
 });
+
+it('keeps the manual title and Add a film box together as the draft is edited', async () => {
+ render(<AddFilm />); fireEvent.focus(box()); type('First draft');
+ fireEvent.click(screen.getByRole('button', { name: 'Add manually' }));
+ fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Revised draft' } });
+ expect((box() as HTMLInputElement).value).toBe('Revised draft');
+ fireEvent.keyDown(screen.getByLabelText('Release or planned year'), { key: 'Escape' });
+ expect((box() as HTMLInputElement).value).toBe('Revised draft');
+ expect(mocks.add).not.toHaveBeenCalled();
+});
+
+it('moves the single active source result with the pointer and names the confirmation after picking', async () => {
+ fetchMock.mockImplementation((url: string) => url.startsWith('/api/search') ? json({ films: [], awards: [] }) : json({ ok: true, value: { films: [source('First', 1), source('Second', 2)], page: 1, nextPage: null } }));
+ render(<AddFilm />); fireEvent.focus(box()); type('films');
+ fireEvent.click(screen.getByRole('button', { name: 'Search more films' }));
+ const options = await screen.findAllByRole('option');
+ fireEvent.pointerMove(options[1]);
+ expect(options.map((option) => option.getAttribute('aria-selected'))).toEqual(['false', 'true']);
+ fireEvent.keyDown(box(), { key: 'Enter' });
+ expect(screen.getByRole('heading', { name: 'Add to Want to watch' })).toBeTruthy();
+ expect(screen.getByRole('heading', { name: 'Second' })).toBeTruthy();
+ expect(screen.queryByText('Films from TMDB. Pick yours by its title and year.')).toBeNull();
+});

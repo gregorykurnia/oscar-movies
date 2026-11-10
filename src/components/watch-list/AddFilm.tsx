@@ -140,6 +140,7 @@ export function AddFilm() {
   const films = fresh && shown && !searchFailed ? shown.films : [];
   const activeIndex = films.length > 0 ? Math.min(active, films.length - 1) : -1;
   const open = panel === null && focused && !dismissed && normalized !== "";
+  const inlineResults = fresh && films.length === 0;
 
   // The short landscape viewport must keep the box and the extra ways to add together.
   useEffect(() => {
@@ -148,13 +149,14 @@ export function AddFilm() {
       const bottom = popoverRef.current!.getBoundingClientRect().bottom;
       const top = rootRef.current!.getBoundingClientRect().top;
       const overflow = bottom - (window.visualViewport?.height ?? window.innerHeight) + 12;
-      if (overflow > 0) window.scrollBy(0, Math.min(overflow, Math.max(0, top - 72)));
+      if (overflow > 0) window.scrollBy(0, inlineResults ? Math.max(0, top - 12) : Math.min(overflow, Math.max(0, top - 72)));
     });
     return () => { if (frame !== undefined) window.cancelAnimationFrame(frame); };
-  }, [open, fresh, searchFailed, searching, films.length]);
+  }, [open, fresh, searchFailed, searching, films.length, inlineResults]);
 
   useEffect(() => {
-    if (panel) panelRef.current?.scrollIntoView?.({ block: "nearest" });
+    if (panel === "catalogue" && !picked) rootRef.current?.scrollIntoView?.({ block: "start" });
+    else if (panel) panelRef.current?.scrollIntoView?.({ block: "nearest" });
   }, [panel, picked]);
 
   useEffect(() => {
@@ -340,7 +342,7 @@ export function AddFilm() {
   const status = !open ? "" : searchFailed ? "Search isn't available right now." : !fresh ? "" : films.length > 0 ? `${films.length} films` : "No films";
 
   return (
-    <div ref={rootRef} className="mt-6 max-w-[640px] md:mt-7" onKeyDown={(event) => {
+    <div ref={rootRef} className="mt-6 max-w-[640px] scroll-mt-3 md:mt-7" onKeyDown={(event) => {
       if (event.key === "Escape" && panel) { event.preventDefault(); event.stopPropagation(); closePanel(); }
     }}>
       <label htmlFor={`${id}-input`} className="mb-1.5 block text-small font-medium">
@@ -394,7 +396,7 @@ export function AddFilm() {
           {status}
         </p>
         {open ? (
-          <div ref={popoverRef} className="absolute top-full right-0 left-0 z-30 mt-1.5 flex max-h-[calc(100dvh-160px)] flex-col rounded-[14px] bg-surface p-2 shadow-pop">
+          <div ref={popoverRef} className={cn("mt-1.5 flex max-h-[calc(100dvh-160px)] flex-col rounded-[14px] bg-surface p-2", inlineResults ? "relative border border-line" : "absolute top-full right-0 left-0 z-30 shadow-pop")}>
             <div className="min-h-0 overflow-y-auto">{results}</div>
             <div className="mt-1.5 flex flex-none flex-wrap gap-2 border-t border-line px-1.5 pt-2.5 pb-1">
               <Button size="sm" className="h-11 md:h-8" disabled={saving !== null} onClick={() => openPanel("catalogue")}><Search strokeWidth={1.75} />Search more films</Button>
@@ -406,21 +408,22 @@ export function AddFilm() {
       {panel ? <section ref={panelRef} role="region" aria-labelledby={`${id}-panel-title`} aria-busy={panelBusy || (panel === "catalogue" && !picked && catalogue.busy)}
         className="mt-3 scroll-mt-16 rounded-[14px] border border-line bg-surface p-3.5 md:p-4">
         <header className="flex items-start justify-between gap-3">
-          <div><h2 id={`${id}-panel-title`} className="text-body font-semibold">{panel === "manual" ? "Add manually" : "Search more films"}</h2>
-            <p className="text-caption text-ink-muted">{panel === "manual" ? "For a film TMDB doesn't have. A title and a year are enough." : "Films from TMDB. Pick yours by its title and year."}</p></div>
+          <div><h2 id={`${id}-panel-title`} className="text-body font-semibold">{panel === "manual" ? "Add manually" : picked ? "Add to Want to watch" : "Search more films"}</h2>
+            <p className="text-caption text-ink-muted">{panel === "manual" ? "For a film TMDB doesn't have. A title and a year are enough." : picked ? "Confirm the film and year before adding it." : "Films from TMDB. Pick yours by its title and year."}</p></div>
           <button type="button" aria-label="Close add film panel" disabled={panelBusy} onClick={closePanel} className="-mt-2 -mr-2 grid size-11 flex-none place-items-center rounded-lg text-ink-muted outline-none hover:bg-track focus-visible:shadow-focus"><X className="size-[18px]" strokeWidth={1.75} /></button>
         </header>
-        {panel === "manual" || picked ? <FilmForm key={picked?.tmdbId ?? "manual"} film={picked} initialTitle={text} onBusy={setPanelBusy} onSaved={saved}
+        {panel === "manual" || picked ? <FilmForm key={picked?.tmdbId ?? "manual"} film={picked} initialTitle={text} onTitleChange={setText} onBusy={setPanelBusy} onSaved={saved}
           onBack={panel === "manual" ? closePanel : () => { setPicked(null); inputRef.current?.focus(); }} /> : <>
           <p role="status" className="mt-2.5 text-caption text-ink-muted">{catalogue.busy ? "Searching TMDB…" : catalogue.error ? "TMDB search failed" : !catalogue.query ? "Type a film title in Add a film." : `${catalogue.films.length} films on TMDB for “${text.trim()}”`}</p>
           {catalogue.error ? <div className="mt-3"><Notice tone="error" role="alert" title={catalogue.error.message} />{catalogue.error.retry ? <Button variant="ghost" onClick={catalogue.retry} className={formButton}>Try again</Button> : null}</div>
             : catalogue.films.length ? <div id={catalogueId} role="listbox" aria-label="Films from TMDB" className="mt-1.5 -mx-2">
               {catalogue.films.map((film, index) => <div key={film.tmdbId} id={`${catalogueId}-${index}`} role="option" aria-selected={index === catalogueIndex}
                 onMouseDown={(event) => event.preventDefault()} onClick={() => setPicked(film)}
-                className={cn("grid min-h-14 cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-lg px-2 py-2.5 text-small hover:bg-track", index === catalogueIndex && "bg-track")}>
+                onPointerMove={() => setCatalogueActive(index)}
+                className={cn("grid min-h-14 cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-lg px-2 py-2.5 text-small", index === catalogueIndex && "bg-track")}>
                 <div className="min-w-0 [overflow-wrap:anywhere]"><span className="font-medium">{film.title}</span>
                   <span className="block text-caption text-ink-muted">{film.year ?? "Year unknown"}{film.originalTitle && film.originalTitle !== film.title ? ` · ${film.originalTitle}` : ""}</span>
-                  <span className="mt-0.5 line-clamp-2 text-caption text-ink-muted">{film.overview}</span></div><ChevronRight aria-hidden="true" className="size-4 text-ink-subtle" strokeWidth={1.75} />
+                  <span className="mt-0.5 line-clamp-2 text-caption text-pretty text-ink-muted">{film.overview}</span></div><ChevronRight aria-hidden="true" className="size-4 text-ink-subtle" strokeWidth={1.75} />
               </div>)}
             </div> : catalogue.busy ? catalogue.skeleton ? <div aria-label="Searching TMDB" className="grid gap-3 py-4"><Skeleton className="h-12 w-full" /><Skeleton className="h-12 w-full" /></div> : null
               : catalogue.query ? <Message title={`No film called “${text.trim()}” on TMDB.`}>Check the spelling, or add it manually.</Message> : null}

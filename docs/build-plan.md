@@ -443,6 +443,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 8 owner check: read `/patterns/2024` and `/patterns/2025` (both categories) against instinct, open a flagged film's page (My Undesirable Friends) and `/awards/oscars/2025` on a real phone, sign off | 2026-10-25 | Phase 8 done |
 | Phase 8 choices to confirm or change (8.1–8.7, 8.R): after the rate, picks rank by the full strong-award count (not capped at 3+); the Strong tag only on results announced before the Oscar nominations (as the captions count them); a film shortlisted in 2012–14 gets a panel with no link (no patterns page before 2015); a live year not loaded yet shows "Not loaded yet" on `/patterns` | 2026-10-25 | nothing (easy to change) |
 | Phase 9: after building, check adding a missing film on a real phone using the test-backed preview; approve its test-proven production migration and request a normal release | 2026-11-10 | Phase 9 release only; never autorun build tasks |
+| Phase 9 visual choices (9.6): confirm the inline no-match panel, wrapped phone sort controls and clearer confirmation/saving wording against the refreshed screenshots; guide §8.3 records these provisional refinements from existing pieces | 2026-11-10 | nothing; Phase 9 review covers the reference update |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log

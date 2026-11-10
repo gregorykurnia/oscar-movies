@@ -638,7 +638,7 @@ async function openMore(page: import('@playwright/test').Page, query: string) {
   const box = page.getByRole('combobox', { name: 'Add a film' });
   await typeToFind(box, query, page.getByRole('button', { name: 'Search more films', exact: true }));
   await page.getByRole('button', { name: 'Search more films', exact: true }).click();
-  return page.getByRole('region', { name: 'Search more films' });
+  return page.getByRole('region', { name: /^(Search more films|Add to Want to watch)$/ });
 }
 
 test('manual and catalogue films survive reload, global search and movie navigation with marks and release notes', async ({ page }) => {
@@ -721,7 +721,9 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
     const shot = async (name: string) => {
+      await page.mouse.move(0, 0);
       await page.evaluate(() => document.fonts.ready);
+      await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
       expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
       // Audit only this task's visible controls/text, including occlusion at the tap centre.
       const problems = await page.locator('main').evaluate((main) => {
@@ -738,7 +740,26 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
         });
       });
       expect(problems).toEqual([]);
-      await page.screenshot({ path: `screenshots/phase-9/${name}-${width}.png`, animations: 'disabled', caret: 'hide' });
+      const sortOverflow = await page.getByRole('navigation', { name: 'Sort by' }).evaluate((nav) => nav.scrollWidth - nav.clientWidth);
+      expect(sortOverflow).toBeLessThanOrEqual(0);
+      const screenshot = await page.screenshot({ path: `screenshots/phase-9/${name}-${width}.png`, animations: 'disabled', caret: 'hide' });
+      // A moving count once left blue glyph-edge pixels painted over bare paper at the right edge.
+      const strayPixels = await page.evaluate(async (dataUrl) => {
+        const image = new Image(); image.src = dataUrl; await image.decode();
+        const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+        const context = canvas.getContext('2d')!; context.drawImage(image, 0, 0);
+        const main = document.querySelector('main')!;
+        const edge = main.getBoundingClientRect().right - parseFloat(getComputedStyle(main).paddingRight);
+        const scale = image.width / innerWidth;
+        const pixels = context.getImageData(Math.round(edge * scale), 0, 1, image.height).data;
+        const stray: number[] = [];
+        for (let y = 0; y < image.height; y++) {
+          const r = pixels[y * 4], g = pixels[y * 4 + 1], b = pixels[y * 4 + 2];
+          if (b > r + 20 && g > r + 10 && document.elementFromPoint(edge - 1, y / scale) === main) stray.push(y);
+        }
+        return stray;
+      }, `data:image/png;base64,${screenshot.toString('base64')}`);
+      expect(strayPixels, 'stray blue text paint outside the current count').toEqual([]);
     };
     try {
       await page.setViewportSize({ width, height });
@@ -747,6 +768,9 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       await typeToFind(box, 'zzzxq', page.getByText('No film called “zzzxq” in the app yet.'));
       await expect(page.getByRole('button', { name: 'Search more films', exact: true })).toBeInViewport();
       await expect(box).toBeInViewport();
+      const moreBounds = await page.getByRole('button', { name: 'Search more films', exact: true }).boundingBox();
+      const wantBounds = await section(page, 'Want to watch').getByRole('heading', { name: 'Want to watch', exact: true }).boundingBox();
+      expect(wantBounds!.y).toBeGreaterThanOrEqual(moreBounds!.y + moreBounds!.height);
       await shot('no-match');
       if (width === 390) {
         let finishSearch!: () => void;
@@ -771,11 +795,18 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       await expect(panel.getByRole('option')).toHaveCount(3);
       await panel.getByRole('button', { name: 'Show more results' }).click();
       await expect(panel.getByRole('option')).toHaveCount(5);
+      await panel.getByRole('option').nth(3).hover();
+      await expect(panel.getByRole('option').nth(3)).toHaveAttribute('aria-selected', 'true');
+      await expect(panel.locator('[role="option"][aria-selected="true"]')).toHaveCount(1);
       await expect(panel.getByRole('button', { name: 'Show more results' })).toHaveCount(0);
-      await panel.getByRole('option').first().scrollIntoViewIfNeeded();
+      await page.getByText('Add a film', { exact: true }).evaluate((label) => label.scrollIntoView({ block: 'start' }));
+      await page.evaluate(() => window.scrollBy(0, -12));
+      await expect(box).toBeInViewport({ ratio: 1 });
+      await expect(page.getByText('Add a film', { exact: true })).toBeInViewport({ ratio: 1 });
       await shot('results');
       await panel.getByRole('option', { name: /Upcoming fixture/ }).click();
       await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeFocused();
+      await expect(panel.getByRole('heading', { name: 'Add to Want to watch', exact: true })).toBeVisible();
       await expect(panel.getByRole('heading', { name: 'Upcoming fixture' })).toBeInViewport();
       await expect(panel.getByRole('button', { name: 'Add to Want to watch' })).toBeInViewport();
       await shot('picked');
@@ -794,6 +825,7 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       await panel.getByRole('button', { name: 'Add manually', exact: true }).click();
       const manual = page.getByRole('region', { name: 'Add manually' });
       await manual.getByLabel('Title', { exact: true }).fill(title);
+      await expect(box).toHaveValue(title);
       await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
       await expect(manual.getByText('Type a year from 1800 to 9999.')).toBeVisible();
       const yearErrorColour = await manual.getByLabel('Release or planned year').evaluate((element) => {
@@ -825,8 +857,11 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
       await expect(manual.locator('form')).toHaveAttribute('aria-busy', 'true');
       await expect(manual.getByRole('button', { name: 'Cancel', exact: true })).toBeDisabled();
+      await expect(manual.getByRole('button', { name: 'Adding…', exact: true })).toBeDisabled();
       await shot('saving'); release();
       await expect(manual.getByRole('alert')).toContainText("Couldn't add");
+      const retryBounds = await manual.getByRole('button', { name: 'Try again', exact: true }).boundingBox();
+      expect(retryBounds!.y + retryBounds!.height).toBeLessThanOrEqual(height - 8);
       await shot('save-failed');
       await expect(manual.getByLabel('Title', { exact: true })).toHaveValue(title);
       await page.unroute('**/watch-list');
@@ -846,6 +881,7 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
         await manual.getByLabel('Release or planned year').fill('2031');
         await manual.getByRole('button', { name: 'Add to Want to watch' }).click();
         await expect(manual.getByRole('radiogroup')).toBeVisible();
+        await expect(manual.getByRole('radio')).toBeFocused();
         await shot('duplicate');
         await page.keyboard.press('Escape');
         const longTitle = 'TheUnusuallyLongUnbrokenFilmTitle'.repeat(5);
