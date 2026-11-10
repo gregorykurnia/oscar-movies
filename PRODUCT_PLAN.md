@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** Approved v1.6 (2026-10-26): the Documentary grid splits awards with several categories into a column each (§3.7). v1.5 (2026-10-25): adds the Snub risk flag, full shortlists on the Oscars year page and a patterns panel on the movie page (§3.16). v1.4 (2026-10-25) dropped Cinema for Peace, whose gala comes after the Oscar nominations, and adds the snub rule to the nomination patterns (§3.16). v1.3 (2026-10-25) added Phase 8, nomination patterns for Documentary and International (§3.16), and the shortlist rule for their accuracy figures (§3.6). v1.2 (2026-10-25) added an award's all-years page (§3.5) to Phase 7. v1.1 (2026-10-25) added Phase 7, the owner's requests of 25 October (one flag, the grid's default order, strong signals, the Watch list's add box, order, release dates and platforms). v1.0 was approved 2026-10-22 after the feasibility check (v0.3 content).
+**Status:** v1.7 planned (2026-11-10): Phase 9 lets the owner add films from Watch list even when they are absent from the awards catalogue (§3.13). Requested by the owner; catalogue search plus manual entry is the planning default. Prior approved scope: v1.6 (2026-10-26).
 
 ## 1. Overview
 
@@ -11,7 +11,7 @@ A personal web app for following the film awards season and the Oscars. For each
 **Basic principles**
 - **Users:** the owner only. **No sign-in** (owner's choice). The live app is kept out of search engines.
 - **Years:** 2012–2025 as finished seasons, plus the **2026 season tracked live** as awards are announced.
-- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. The app has no editing forms for award or movie data: corrections and season updates go through Claude (see 3.12). The only things typed in the app are the owner's own watch-list notes (order, release date, platform; 3.13).
+- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. Award corrections and season updates go through Claude (see 3.12). The owner can add missing films from Watch list and type their own watch-list notes (order, release date, platform; 3.13).
 
 ## 2. Users and jobs
 
@@ -156,12 +156,12 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 ### 3.12 Data: research, updates and corrections
 
-**Purpose:** getting the data in and keeping it right, with no editing forms in the app.
+**Purpose:** getting award data in and keeping it right; missing films can also be added from Watch list (§3.13).
 
 **Requirements**
 - Claude researches and loads 2012–2026: Oscars (including submissions and shortlists), major awards and festival prizes first; critics groups next; festival lineups for 2025–2026 last (see the build plan).
 - **During the season**, the owner asks Claude to "update the race"; it researches new results, shows the owner what it will add or change, then loads it. Scores refresh on their own.
-- **Before every import, correction or race update**, the watched and want-to-watch marks are exported into the repo first. They are the only data that can't be researched again, and Neon's free plan can only undo the last 6 hours.
+- **Before every import, correction or race update**, export the marks, order, release notes and app-added film records into the repo first. Restore must recreate app-added films as well as their marks; research imports must preserve them. These are owner data that cannot safely be reconstructed from award sources.
 - A **Sources** section on the data coverage page credits TMDB (its required notice and logo), Wikipedia (CC BY-SA) and the other sources.
 - **Corrections:** the owner tells Claude what's wrong; the same review-then-load step applies.
 - A **data coverage page** shows, per award and year, whether results are loaded, partly loaded or missing, and when scores were last refreshed.
@@ -174,7 +174,9 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - Two marks per movie: **watched** and **want to watch** (marking watched clears want to watch). One tap each, on every row and on the movie page.
 - The marks show wherever the movie appears, and every list can be filtered to watched, unwatched or want to watch.
 - A **Watch list** page: want-to-watch films, then unwatched films of the current season, sortable by Oscar stage, % chance, nominations or average score.
-- **Add a film by typing** (2026-10-25): an "Add a film" box at the top of the Watch list finds any film in the app by title (original titles too, accents ignored) and adds it to Want to watch in one step. A film the app doesn't have can't be added there (Claude adds it).
+- **Add a film by typing** (expanded 2026-11-10, Phase 9): the “Add a film” box at the top of Watch list keeps its existing local search. A visible **Search more films** action finds films on TMDB even if local matches exist; choose a title/year and confirm to save it directly to Want to watch. A visible **Add manually** action accepts a title and release/planned year when the film is missing from TMDB or the service is unavailable. No award participation or IMDb/Wikidata ID is required; older and forthcoming films are allowed.
+- **Missing-film behavior:** preserve the query/draft on errors; distinguish no results from a failed search; prevent repeated saves from creating duplicates. Reuse existing films by verified IDs, never silently merge by title. Show title/year matches before manual creation and let the owner reuse one or add a different film. If the source lacks a year, ask for it rather than invent it. Unknown country/scores stay missing.
+- **After adding:** the film survives reload, works in global search and its movie page, and supports the same marks/order/release notes as every other film. Merely adding it must not create award results or change predictions. Future score batches fill available scores; manual entry still works without provider credentials.
 - **Your own order** (2026-10-25): Want to watch keeps the owner's order, changed by dragging (touch, mouse or keyboard). "My order" is the Watch list's default sort; a newly added film goes to the top.
 - **Release date and platform** (2026-10-25): each want-to-watch film can carry a date and a platform the owner types in: the first date it can be watched from Indonesia (in cinemas or streaming, whichever comes first), "TBD" when there's no date, and where (Netflix, Cinema XXI…). Shown on its Watch list row.
 
@@ -226,6 +228,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 2. **Mark a film watched** (daily): tap the watched mark on its row, on any page. **1 step**.
 3. **Look up a movie** (several times a week): from any page, type in search → pick the movie. **2 steps** (plus typing).
 4. **Pick what to watch next**: tap Watch list (in the main navigation) → sorted list. **1 step**.
+5. **Add a missing film**: Watch list → Add a film → Search more films → choose the right film → Add to Want to watch; or Add manually → title and year → Add to Want to watch.
 
 ## 5. Shared data model (draft)
 
@@ -246,12 +249,12 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - Watched date or the owner's own rating (declined: just watched or not).
 - Oscar categories beyond Picture, Documentary, International and Animated.
 - Full festival lineups before 2025.
-- Editing award or movie data in the app (corrections go through Claude). The owner's watch-list notes are the one exception (3.13).
-- Adding a film the app doesn't have from the Watch list (not in Phase 7; a possible follow-up: look it up on TMDB and add it). Looking up release dates and platforms automatically (declined 2026-10-25: the owner types them).
+- Editing existing award/movie facts or merging films in the app (corrections go through Claude). Creating a missing film and editing personal watch-list notes are the exceptions (§3.13).
+- Looking up Indonesia release dates and platforms automatically (declined 2026-10-25: the owner types them).
 
 ## 7. Technical approach
 
-A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATION_PLAN.md`). No sign-in: anyone with the live address could see the app and change the watched marks (the owner accepted this, 2026-10-22), so it's kept out of search engines (`noindex`, `robots.txt`). Paid services: **none** (free tiers only).
+A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATION_PLAN.md`). No sign-in: anyone with the live address could see the app and change the watched marks (the owner accepted this, 2026-10-22); Phase 9 adds validated film creation under the same access model, so it's kept out of search engines (`noindex`, `robots.txt`). Paid services: **none** (free tiers only).
 
 **Feasibility notes** (Step 3, 2026-10-22). **Verdict:** buildable on the default stack at no cost, and Phases 0–3 are realistic by January 2027, with **one score that can't be had legally (Letterboxd)** and a few smaller changes listed below.
 
@@ -262,10 +265,10 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 - **Movie facts (countries, original title, language, IDs):** **[TMDB](https://www.themoviedb.org/api-terms-of-use)** (free for non-commercial use; needs a "uses TMDB but is not endorsed" notice and logo; cache ≤ 6 months) plus **Wikidata** (CC0), which links Wikipedia articles to IMDb (P345) and TMDB (P4947) IDs. **Every film is matched by IMDb ID**, never by title; Wikipedia film links → Wikidata → IMDb ID does this automatically, and unmatched films go into the import summary for review.
 - **Award data:** **Wikipedia** per-award and per-year pages (text CC BY-SA 4.0: credit and link on a sources page) for the Oscars (incl. "List of submissions to the Nth Academy Awards" and shortlists), the 12 majors and festival prizes: complete and reliable for 2012–2026. **Critics groups are uneven:** larger ones have per-year pages, but several small ones (e.g. Greater Western New York, North Dakota, Music City, Puerto Rico) have no Wikipedia page and only their own sites or social posts; many announce **winners only**, so they have no "nominees → Oscar nominees" figure. Expect 10–20% "no data" or "partly loaded" editions there, which the coverage page already handles. **Lineups:** festival sites and Wikipedia film lists by section, 2025–26 only: fine.
 - **Research effort:** ~270 editions for Phases 1–2 (18 awards × 15 years) are feasible with one import script per award reading Wikipedia tables, then review. The 63 critics groups (~950 editions) are the bulk of the work and rightly come after the deadline (Phase 4). The in-season "update the race" is a Claude session per new batch of results (~15–30 min, 2–3 a week in Dec–Jan); it must be a written routine with a check script.
-- **Platform limits:** **Vercel Hobby** (personal, non-commercial: fits) allows [cron jobs only once a day](https://vercel.com/docs/cron-jobs/usage-and-pricing) with ±59 min timing, [functions up to 300 s](https://vercel.com/docs/functions/limitations): a daily cron refreshing ~1/7 of the week's films (~200 OMDb calls, done in batches) fits. **[Neon Free](https://neon.com/pricing)**: 1 GB storage, 100 CU-hours/month, 10 branches, sleeps after 5 min idle (first load ~0.5–1 s), **restore window only 6 hours**. Award data lives in the repo as import files, so it can be reloaded; **the watched marks are the only data that exists nowhere else** and need their own backup (an export into the repo with each update).
+- **Platform limits:** **Vercel Hobby** (personal, non-commercial: fits) allows [cron jobs only once a day](https://vercel.com/docs/cron-jobs/usage-and-pricing) with ±59 min timing, [functions up to 300 s](https://vercel.com/docs/functions/limitations): a daily cron refreshing ~1/7 of the week's films (~200 OMDb calls, done in batches) fits. **[Neon Free](https://neon.com/pricing)**: 1 GB storage, 100 CU-hours/month, 10 branches, sleeps after 5 min idle (first load ~0.5–1 s), **restore window only 6 hours**. Award data lives in the repo as import files, so it can be reloaded; **the watched marks and, from Phase 9, app-added films are owner data** and need their own backup (an export into the repo with each update).
 - **Prediction method:** 14 seasons give only 14 winners per category, too few for a fitted model with 80 awards. Recommended: for each award result (won / nominated) give a **weight from its past hit rate, smoothed towards the average** so an award with few years can't dominate; a contender's score is the sum of its weights; turn scores into **% to win with a softmax** (adds to 100%), its single "temperature" tuned by leaving one season out at a time. **% to be nominated:** the same weights through a logistic curve, scaled so the total matches the slots (Picture had 8–9 nominees before 2021, 10 since; shortlist sizes changed too). The "why" lists the top-weighted results. Risks: precursors move together (a sweep is counted many times, so the favourite looks too certain: cap the top % around 90 early in the season), and a tiny history makes ±15 points noise normal; the backtest shows this honestly.
 - **Speed:** the biggest page is the year grid; Picture can have ~100 films × ~80 columns (8,000 cells, ~0.5–1 MB of HTML). Fine with critics groups folded by default on phone, one category per page, and award data cached until the next import (only marks are live). Search over ~5,000 titles + 80 awards: Postgres `unaccent` + trigram index, well under 100 ms.
-- **No sign-in on a public URL:** anyone who finds the address can read it and flip the marks; the cron route needs a secret (`CRON_SECRET`); imports run only from Claude's scripts, never through a web route. See the requirement change below.
+- **No sign-in on a public URL:** anyone who finds the address can read it and flip the marks; the cron route needs a secret (`CRON_SECRET`); award imports run only from Claude's scripts; Phase 9 adds validated film creation from Watch list. See the requirement change below.
 
 **Extra services** (all free):
 - **OMDb API**: free key (owner requests it at omdbapi.com with an email, clicks the activation link, sends the key).
@@ -296,10 +299,13 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 | 5. Festival lineups | 2025 and 2026 lineups by section for the five festivals; festival screenings on the movie page | Cannes 2025's page lists every section's films with flags and scores |
 | 8. Nomination patterns | The shortlist rule for Documentary and International accuracy figures; the nomination patterns page; the race's % to be nominated from whichever method backtests better | European Film Awards Documentary's winner figure counts only shortlisted winners; the 2024 Documentary patterns page shows the five it picked next to the real nominees, the well-awarded misses with their reasons, and the underdogs |
 | 7. Owner's requests of 25 Oct | One flag per film; the grid's Oscar order; strong signals page; an award's all-years page; Watch list add box, drag order, release date and platform | Every row shows one flag; Critics Choice's all-years page lists every year's nominees and winners; the 2025 Picture grid opens with the nominees on top; the 2025 Documentary signals page lists each strong award with its figure and films; a film typed into the Watch list, dragged and given a date and platform keeps all three after a reload |
+| 9. Add any film from Watch list | Wider movie search and manual fallback; safe film creation, backup and later import matching | A film absent from the database is added in the app, survives reload and backup/restore, and never creates fake award results; existing order and release notes remain intact |
 
 **Suggested checkpoints with real data:** after Phase 1, the owner marks the films they've seen for 2024–2026 and checks a handful of Oscar years against memory; after Phase 2, the owner spot-checks three awards; after Phase 3, the owner compares the predictions with their own instinct for the 2026 race.
 
 ## 9. Decisions so far
+
+- 2026-11-10: The owner requested adding any missing film directly from Watch list. Phase 9 removes the existing-catalogue-only restriction. Planning default: TMDB search plus manual title/year fallback; preserve the existing no-sign-in policy and award research workflow. Detailed defaults and checks: `docs/watch-list-any-film.md`.
 
 - 2026-10-22: One user (the owner), no sign-in; kept out of search engines.
 - 2026-10-22: A year means the film year (2025 = 98th Oscars, March 2026).
