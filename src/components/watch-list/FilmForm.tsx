@@ -124,7 +124,12 @@ export function FilmForm({ film, initialTitle, onTitleChange, onBack, onSaved, o
         {matches.length ? "Add a different film" : film ? "Back to results" : "Cancel"}
       </Button>
       {!conflict ? <Button type="submit" variant="primary" disabled={busy} aria-busy={busy} className={cn(formButton, busy && "disabled:bg-gold-ink! disabled:text-on-gold!")}>
-        {busy ? <><span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />Adding…</> : matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}
+        <span className="grid">
+          <span aria-hidden="true" className="invisible col-start-1 row-start-1">{matches.length ? "Use this film" : "Add to Want to watch"}</span>
+          <span className="col-start-1 row-start-1 inline-flex items-center justify-center gap-2">
+            {busy ? <><span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />Adding…</> : matches.length ? "Use this film" : failure ? "Try again" : "Add to Want to watch"}
+          </span>
+        </span>
       </Button> : null}
     </div>
   </form>;

@@ -848,6 +848,12 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
         expect(violations).toEqual([]);
       }
       await manual.getByLabel('Release or planned year').fill('2031');
+      const actionBounds = async () => {
+        const cancel = await manual.getByRole('button', { name: 'Cancel', exact: true }).boundingBox();
+        const submit = await manual.locator('button[type="submit"]').boundingBox();
+        return { cancelX: cancel!.x, cancelWidth: cancel!.width, submitX: submit!.x, submitWidth: submit!.width };
+      };
+      const idleActions = await actionBounds();
       let release!: () => void;
       const gate = new Promise<void>((resolve) => { release = resolve; });
       await page.route('**/watch-list', async (route) => {
@@ -858,8 +864,10 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       await expect(manual.locator('form')).toHaveAttribute('aria-busy', 'true');
       await expect(manual.getByRole('button', { name: 'Cancel', exact: true })).toBeDisabled();
       await expect(manual.getByRole('button', { name: 'Adding…', exact: true })).toBeDisabled();
+      expect(await actionBounds(), 'saving must not move or resize the action buttons').toEqual(idleActions);
       await shot('saving'); release();
       await expect(manual.getByRole('alert')).toContainText("Couldn't add");
+      expect(await actionBounds(), 'retry must not move or resize the action buttons').toEqual(idleActions);
       const retryBounds = await manual.getByRole('button', { name: 'Try again', exact: true }).boundingBox();
       expect(retryBounds!.y + retryBounds!.height).toBeLessThanOrEqual(height - 8);
       await shot('save-failed');

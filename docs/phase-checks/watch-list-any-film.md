@@ -1,6 +1,6 @@
 # Phase 9 checks: add any film
 
-Task 9.7, 2026-11-10. Source: `22a8b0d` (staging). This is the one-run evidence and failure handoff to **9.R**, not phase approval. No application code or production data/settings changed.
+Task 9.7, 2026-11-10. Original evidence source: `22a8b0d` (staging). This is the one-run evidence and failure handoff to **9.R**, not phase approval. The original run changed no application code; the requested fresh-eyes correction below stabilizes button widths. Production data/settings are unchanged.
 
 ## Isolation and commands
 
@@ -74,7 +74,7 @@ The flow remains at **Watch list → Add a film**. Required viewports: 390×844,
 
 Physical iPhone keyboard/real-phone behavior is not established by desktop Chromium viewport emulation. That owner-only check and the approved test-first production migration/release remain on `docs/build-plan.md`'s Waiting for the owner list; neither blocks this evidence task.
 
-Guide §15 was checked as evidence, without approving the phase: AppShell/PageHeader and reference templates retained; existing token colours and wording retained; no hex/dark styles found in the Watch list source; no sideways scrolling or covered controls in the gallery; keyboard/focus, empty/loading/failure/offline and long-title states exercised. Reorder's failure announcement remains failed (E3). The unchanged reference captures were opened at original size for comparison; no before/after app change was made by 9.7.
+Guide §15 was checked as evidence, without approving the phase: AppShell/PageHeader and reference templates retained; existing token colours and wording retained; no hex/dark styles found in the Watch list source; no sideways scrolling or covered controls in the gallery; keyboard/focus, empty/loading/failure/offline and long-title states exercised. Reorder's failure announcement remains failed (E3). The unchanged reference captures were opened at original size for comparison; before/after button-width frames are recorded in the requested fresh-eyes correction below.
 
 **P9-V1 — landscape results continuation, assigned to 9.R:** `results-844.png` cuts through the Upcoming fixture row at the bottom; the manual-entry footer requires vertical scrolling. Review whether this satisfies the first-screen action requirement. The selected confirmation and save action are together and unobscured. Lower rows cut by the page's normal vertical continuation are described below, not misreported as whole text. No other new clipping/overlap fault was found in the inspected frames. This reporting row deliberately leaves application fixes to 9.R.
 
@@ -118,3 +118,23 @@ LOOKED: long-title-390.png · Unbroken title wraps within panel above year/overv
 - Use one full attempt plus only uncompleted cases/files after termination, rather than repeat passing cases; preserve every original failure.
 - Keep reports and the existing gallery as this row's deliverable, rather than repair app/tests here; the explicit 9.7 brief assigns fixes to 9.R.
 - Retain light-only reference shapes and identify the landscape footer/physical keyboard limits, rather than introduce a provisional layout or infer a real-phone pass.
+
+## Fresh-eyes correction from the 12 copied frames
+
+Opened each of `/tmp/autorun-fresh-tB9dsl/01-no-match-390.png` through `12-saving-844.png` at original size before deciding. The confirmed fault is the primary action shrinking between idle, saving and retry, which moves Cancel sideways. The new browser regression failed before repair: Cancel x=93 → 156, primary x=182 → 245 and width=177 → 114 on phone. The form now reserves the normal label's intrinsic width with an invisible, accessibility-hidden measurement span; the visible spinner/label stays centered. Duplicate-choice mode reserves its own shorter label, keeping both choices on one phone row. The geometry check compares both buttons' x positions and widths during saving and retry at all three viewports.
+
+Original before frames are preserved as `saving-390-before-width.png`, `save-failed-390-before-width.png` and `saving-844-before-width.png` in the phase gallery; refreshed state frames/crops use their existing paths. Only the edited three gallery cases are rerun; this is a style correction within the existing flow. No save/load logic or fixture semantics change.
+
+| Checker item | Decision |
+|---|---|
+| 05/06/12: action row jumps on saving/retry | Confirmed and fixed; failing-before browser geometry regression added. |
+| 01: unexplained `82 · 4 of 4` | Retained: guide §7 explicitly specifies this shared compact Scores line. It means normalized average and available-source count. A global labeling change belongs to a separate design decision. |
+| 02/09/11: apparent `T MDB` gap | Retained: literal contiguous `TMDB`, the guide's Geist font and normal letter spacing; the same typography was examined in task 9.6. No inserted space or split text node between T and M. |
+| 02: grey Unknown year row without pointer/ring | Retained: the guide specifies `--track` for the active keyboard result; exactly one option carries `aria-selected=true`. A focus ring on the input and an active row are distinct states; the neutral screenshot pointer was intentional. |
+| 02/09: fixture query and overviews | Retained: the fake, server-side provider is deliberately enabled only by the test flag plus test-branch guard. These labels identify deterministic gallery data and do not appear from that adapter in production. |
+| 08: left-aligned landscape column | Retained: guide §8.3 caps Add a film at 640px and aligns it with the page heading/toolbar. Remaining right-side space is prescribed, not a displaced column. |
+| Bare 03/04/07/10 WRONG lines | No fault described; original-size inspection shows whole confirmation/form/saved-film content with uncovered controls. No speculative change. |
+
+Validation on `b365033` plus this visual repair: typecheck, lint on `FilmForm.tsx`/`watch-list.spec.ts`, 16 related component tests, **1,126 full unit tests across 99 files**, one guarded production build, and **all three edited gallery cases** pass. The first full-unit process stalled before reporting any tests and was stopped; `npm test -- --maxWorkers=2` completed in 66.29 seconds. This closes the original report's current-full-unit evidence gap. The gallery took 1.8 minutes including the build and passed saving/retry geometry, focused axe, keyboard, overflow, overlap and duplicate-choice checks. No full browser/database rerun was performed; the original nine failures remain for 9.R.
+
+Reopened the final **28 viewport images, six panel crops and five original-scale edge/action crops** with literal paths and original detail. Saving and retry now keep the primary at 177px and Cancel at its original x position on all sizes. The existing LOOKED descriptions above still apply; saving/retry frames additionally show stable button widths. No new clipping, overlap or unreadable text was found. Port 3100 is free and the owned server PID 1515355 is stopped. Logs: `screenshots/phase-9/checks/button-width-before*` and `fresh-eyes-*`.
