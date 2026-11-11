@@ -81,7 +81,9 @@ async function Lists({ query }: { query: Promise<Query> }) {
   // The release lines read "Out" from today's date in Indonesia; the editor offers the platforms used before.
   const release = { today: todayInJakarta(), platforms };
   const choices = watchPlatforms(wantedPlatforms);
-  const state = parseWatchQuery(params, choices);
+  // With nothing wanted the filters have nothing to narrow (and no menus): ignore them.
+  const parsed = parseWatchQuery(params, choices);
+  const state = list.want.length > 0 ? parsed : clearWatchFilters(parsed);
   const filtered = hasWatchFilters(state);
   const clearHref = watchHref(clearWatchFilters(state));
   const want = sortWanted(filterWanted(list.want, state, release.today), state.sort);

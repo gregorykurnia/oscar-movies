@@ -393,6 +393,22 @@ test("release sort and combined filters survive reload, clear safely, and ignore
   });
 });
 
+test("with nothing wanted, filters in the address are ignored (10.R)", async ({ page }) => {
+  const saved = await db.select().from(marks);
+  try {
+    await db.delete(marks);
+    await page.goto("/watch-list?release=out&platform=none");
+    const want = section(page, "Want to watch");
+    await expect(want.getByRole("heading", { name: "Nothing marked yet" })).toBeVisible();
+    await expect(want.getByText("0 films", { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Clear filters" })).toHaveCount(0);
+    await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toBeVisible();
+  } finally {
+    await db.delete(marks);
+    if (saved.length > 0) await db.insert(marks).values(saved);
+  }
+});
+
 /** Neither the window nor the page is wider than the screen. */
 const noSidewaysScroll = (page: import("@playwright/test").Page) =>
   page.evaluate(() => window.scrollX === 0 && document.documentElement.scrollWidth <= document.documentElement.clientWidth);

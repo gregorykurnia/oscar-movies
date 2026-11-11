@@ -91,3 +91,17 @@ it.each(["Save", "Clear"])("drops the flag when %s removes the date", async (act
   expect(mocks.save).toHaveBeenCalledWith(7, null, action === "Save" ? "Netflix" : null, false);
   expect(screen.queryByRole("button", { name: /tentative/ })).toBeNull();
 });
+
+it("keeps the chosen status visibly selected while saving (10.R)", async () => {
+  let answer: (value: { ok: boolean }) => void = () => {};
+  mocks.save.mockReturnValue(new Promise((resolve) => { answer = resolve; }));
+  render(<ReleaseEditor {...props} releaseOn="2030-12-12" releaseTentative />);
+  open();
+  save();
+  const face = (name: string) => screen.getByRole("radio", { name }).nextElementSibling as HTMLElement;
+  await waitFor(() => expect(screen.getByRole("radio", { name: "Tentative" })).toHaveProperty("disabled", true));
+  expect(face("Tentative").className).toContain("bg-surface");
+  expect(face("Confirmed").className).not.toContain("bg-surface");
+  answer({ ok: true });
+  await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+});

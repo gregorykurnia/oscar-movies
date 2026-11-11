@@ -182,3 +182,37 @@ LOOKED: fresh-check/after/reference-1280-row.png · Full row spans columns betwe
 
 DECISION: not fixed the 01/02/03 platform wrap and trailing inline separator, because release notes stay in the bounded film column beside the marks; expanding beneath them would change the shared row layout. Added to approved looks.
 DECISION: not fixed the 02 three-row sort and selected-background inset, because whole labels wrap as specified and every label has equal inner padding; the background's edge is intentionally nearer the track edge. Added to approved looks.
+
+## Phase 10 review (10.R, 2026-11-11)
+
+Read the Phase 10 code diff (`c224236..df3f4ca`) and tests before this report. Evidence: `screenshots/phase-10/10.R/` (gitignored).
+
+**Data (no loss or wrong-date finding left).** Migration 0006 is additive (`release_tentative boolean not null default false` plus a check that it needs a date); the test branch has it. `setRelease` and `writeRelease` store the flag, and a TBD save clears it. The backup writes the flag only when true; an older file restores dates as confirmed, an omitted date keeps the row's flag, and the restore dry run shows "(tentative)". No other code path writes release notes. Filters and sort: "Out now" is on or before today in Jakarta and "Coming" after it, the same boundary as the row's "Out" line; no date (including no note) counts as TBD; the release sort runs dated, then TBD, then no note, ties by title.
+
+**The 10.5 failures.**
+- `tests/db/data.test.ts` (4): environment. The test branch's marks table was empty, and TIFF 2026 still held the phase-3 sample, both left behind by earlier killed runs whose cleanup never ran. `npm run db:seed:test` restored the baseline, and all 4 pass (63/63 in the four marks/data files).
+- `tests/e2e/phase-7.spec.ts:141`: old selector. A new date now starts Tentative, so the case expects "12 Dec 2030, tentative · Netflix" and checks the stored flag. Passes.
+- `tests/e2e/phase-6.spec.ts:155`: passes on the restored baseline (it was test data).
+- `tests/e2e/phase-3.spec.ts:117`: timed out at 240 s again. Its restore ran (a reseed afterwards changed nothing). This is the loader's speed, not Phase 10 code → **10.F1**.
+
+**Findings and what happened to them**
+| Finding | Built by | Kind | Disposition |
+|---|---|---|---|
+| While saving, Confirmed and Tentative looked the same (the 10.5 visual finding) | 10.4 | minor | Fixed: the chosen one keeps its surface, with muted text; unit test added |
+| `/watch-list?release=out` with nothing wanted hid the season section and showed "No films match… None of the 0 films" with no menus to change it | 10.3 | bug | Fixed: filters are ignored while Want to watch is empty; e2e case added |
+| phase-7 e2e still expected the pre-tentative release words | 10.4 | minor | Fixed |
+| Shared `FilmRow` winner wash no longer bleeds 16 px past the rules (10.3), but the reference's `.frow.winner` still does, on every list page | 10.3 | minor | **10.F2** |
+| phase-3 loader e2e exceeds its 240 s limit | - | minor | **10.F1** |
+| The editor button lost its screen-reader "Release:" prefix | 10.4 | minor | Dropped: the visible and spoken words now match (10.4's goal), and the row's heading names the film |
+| A platform typed as lowercase "none" can't be filtered on its own (`?platform=none` means No platform) | 10.3 | minor | Dropped: very unlikely, and renaming the platform gets around it |
+| While a browser date is half typed, the status control hides until the date is whole again (the choice is kept) | 10.4 | minor | Dropped: the choice is never lost |
+
+**Guide §15 (Watch list, the only changed page):** AppShell and PageHeader kept; sort, filters, rows and editor match §8.3 and the v1.5.2 reference (apart from the winner wash, 10.F2); no hex values or `dark:` styles in `src/components/watch-list` or `FilmRow`; gold only for the active filter, the selected menu item, the primary action and marks; wording follows §11; no sideways scroll at 360/390/844/1280 (gallery checks); keyboard: menus open with arrow keys, close with Esc and return focus, editor radios use the arrow keys; empty, no-match, saving and failure states are designed; long platform names wrap; light only; screenshots at 360, 390, 844 and 1280 checked against the reference.
+
+**Checks (10.R):** typecheck; ESLint on changed files; related unit tests 7/7; full unit suite 1,159 passed; `npm run build` passed; database files 63/63; e2e (port 3105): 25 passed (the three 10.5 failures plus `watch-list.spec.ts` and `smoke.spec.ts`), 1 failed (phase-3, see 10.F1); then the new empty-list case and the editor gallery passed (2/2). Logs: `screenshots/phase-10/10.R/checks/`. Test servers stopped by their global setups; no production data, schema or settings touched.
+
+LOOKED: editor/saving-360.png · Sheet rests on the screen's base over the dimmed list; the row behind is cut by the sheet; Tentative keeps its white surface while both are muted; all labels, the "net" draft and the spinner button whole.
+LOOKED: editor/editor-360.png · Sheet rests on the base; date, status, platform and actions whole; Tentative selected; the row behind is covered by design.
+LOOKED: editor/editor-1280.png · Popover hangs from the tentative release line over the season rows; its edges and Save are whole; "tentative" is muted after the bold date.
+LOOKED: editor/editor-844.png · Popover fills the turned phone from y 8 to 381 of 390; the release line it opened from is scrolled above the frame; every field and Save whole.
+LOOKED: editor/row-360.png · The tentative note wraps onto three lines inside the film column above the Oscar stage line; the calendar sits on the first line; nothing cut.

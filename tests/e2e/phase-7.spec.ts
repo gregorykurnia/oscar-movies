@@ -183,17 +183,17 @@ test("a film typed into the Watch list, moved to second place and given a date a
     await editor.getByRole("combobox", { name: "Platform" }).fill("Netflix");
     await editor.getByRole("button", { name: "Save" }).click();
     await expect(editor).toHaveCount(0);
-    await expect(row.getByRole("button", { name: /12 Dec 2030 · Netflix/ })).toBeVisible();
+    await expect(row.getByRole("button", { name: "12 Dec 2030, tentative · Netflix", exact: true })).toBeVisible();
 
     // All three survive a reload: the film's place, its date and its platform.
     await expect
-      .poll(async () => (await db.select({ r: marks.wantRank, d: marks.releaseOn, p: marks.platform }).from(marks).where(eq(marks.movieId, secret)))[0])
-      .toEqual({ r: 2, d: "2030-12-12", p: "Netflix" });
+      .poll(async () => (await db.select({ r: marks.wantRank, d: marks.releaseOn, t: marks.releaseTentative, p: marks.platform }).from(marks).where(eq(marks.movieId, secret)))[0])
+      .toEqual({ r: 2, d: "2030-12-12", t: true, p: "Netflix" });
     await page.reload();
     const reloaded = section(page, "Want to watch");
     await expect.poll(() => titlesIn(reloaded)).toEqual(["Anora", "The Secret Agent", "Hamnet"]);
     const row2 = reloaded.getByRole("heading", { level: 3, name: "The Secret Agent" }).locator("xpath=ancestor::div[contains(@class,'border-b')][1]");
-    await expect(row2.getByRole("button", { name: /12 Dec 2030 · Netflix/ })).toBeVisible();
+    await expect(row2.getByRole("button", { name: "12 Dec 2030, tentative · Netflix", exact: true })).toBeVisible();
   } finally {
     // Every mark back as it was, new fields included.
     await db.delete(marks);

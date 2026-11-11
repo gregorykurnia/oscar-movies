@@ -194,7 +194,9 @@ Owner request (2026-11-11): sort the Watch list by release date, mark each date 
 | 10.3 | [look] Release date sort and Platform/Release filters on Watch list; brief 10.3 (address-driven, built to the 10.1 reference) | Sol xHigh | 2026-11-11 · sort/filters; fresh-eye fixes checked |
 | 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | 2026-11-11 · editor/row; reload and four shapes checked |
 | 10.5 | [look] End-to-end phase checks and screenshots, failure report; brief 10.5 (one full run, fixes in the next row) | Sol xHigh | 2026-11-11 · one full run; fresh-eye reference fixed; report `docs/phase-checks/watch-list-release.md` |
-| 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High | |
+| 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High || 2026-11-11 · 3 fixes; F1–F2 split off |
+| 10.F1 | [no look] Make `tests/e2e/phase-3.spec.ts:117` (an update adds an award result) fit its time: it timed out at 240 s in 10.5 and 10.R over three full test loads. Measure them, then load less (for example `--only tiff`) or raise the limit; keep its restore. Done when it passes in one run and a reseed afterwards changes nothing | Opus 5.5 High | |
+| 10.F2 | [look] Winner wash: shared `FilmRow` keeps it inside the list rules since 10.3, but `design-preview.html` `.frow.winner` still bleeds 16 px past them. Make the reference (and guide, if it says so) match the app. Done when a winner row on an award page and its reference frame agree at 390 and 1280 | Opus 5.5 High | |
 
 *Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
 

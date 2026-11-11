@@ -383,7 +383,7 @@ export function ReleaseEditor({
                     />
                     <span className={cn(
                       "flex h-10 items-center justify-center rounded-[7px] px-3 text-small outline-none transition-colors duration-[var(--dur-fast)] ease-app peer-focus-visible:shadow-focus md:h-8",
-                      busy ? "text-ink-muted" : tentative === value ? "bg-surface font-medium text-ink shadow-hairline" : "text-ink-muted hover:text-ink",
+                      tentative === value ? cn("bg-surface font-medium shadow-hairline", busy ? "text-ink-muted" : "text-ink") : cn("text-ink-muted", !busy && "hover:text-ink"),
                     )}>
                       {value ? "Tentative" : "Confirmed"}
                     </span>
