@@ -64,13 +64,24 @@ describe("setRelease", () => {
   it("saves a date and a trimmed platform", async () => {
     writeRelease.mockResolvedValue(true);
     expect(await setRelease(7, "2026-12-12", "  Netflix ")).toEqual({ ok: true });
-    expect(writeRelease).toHaveBeenCalledWith({}, 7, { releaseOn: "2026-12-12", platform: "Netflix" });
+    expect(writeRelease).toHaveBeenCalledWith({}, 7, { releaseOn: "2026-12-12", platform: "Netflix", releaseTentative: false });
   });
 
   it("saves TBD and a blank platform as empty", async () => {
     writeRelease.mockResolvedValue(true);
-    expect(await setRelease(7, null, "   ")).toEqual({ ok: true });
-    expect(writeRelease).toHaveBeenCalledWith({}, 7, { releaseOn: null, platform: null });
+    expect(await setRelease(7, null, "   ", true)).toEqual({ ok: true });
+    expect(writeRelease).toHaveBeenCalledWith({}, 7, { releaseOn: null, platform: null, releaseTentative: false });
+  });
+
+  it.each([true, false])("saves a date with tentative = %s", async (releaseTentative) => {
+    writeRelease.mockResolvedValue(true);
+    expect(await setRelease(7, "2026-12-12", "Netflix", releaseTentative)).toEqual({ ok: true });
+    expect(writeRelease).toHaveBeenCalledWith({}, 7, { releaseOn: "2026-12-12", platform: "Netflix", releaseTentative });
+  });
+
+  it.each(["true", 1, null])("refuses a non-boolean tentative flag %j without writing", async (flag) => {
+    expect(await setRelease(7, "2026-12-12", null, flag as unknown as boolean)).toEqual({ ok: false });
+    expect(writeRelease).not.toHaveBeenCalled();
   });
 
   it.each([

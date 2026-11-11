@@ -192,6 +192,7 @@ export const markEntrySchema = z
     want: z.boolean(),
     wantRank: z.number().int().positive().max(2_147_483_647).nullable().optional(),
     releaseOn: z.iso.date().nullable().optional(),
+    releaseTentative: z.boolean().optional(),
     platform: z.string().min(1).max(40).nullable().optional(),
     updatedAt: z.iso.datetime({ offset: true }).optional(),
   })
@@ -201,6 +202,7 @@ export const markEntrySchema = z
   })
   .refine((m) => !(m.watched && m.want), { message: "can't be both watched and want" })
   .refine((m) => m.want || m.wantRank == null, { message: "has a wantRank but isn't wanted" })
+  .refine((m) => !m.releaseTentative || m.releaseOn != null, { message: "has a tentative release without a date" })
   .superRefine((m, ctx) => {
     if (!m.movie) return;
     for (const key of ["imdb", "wd", "tmdb", "localId", "title", "year"] as const) {

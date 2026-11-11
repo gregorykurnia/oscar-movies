@@ -9,6 +9,7 @@ import { asc, eq, sql, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { writeMark, writeRelease, writeWantAtTop, writeWantOrder } from "../../src/data/marks";
+import { queryWantedFilms } from "../../src/data/watch-list";
 import { marks, movies } from "../../src/db/schema";
 
 const { db, close } = createScriptDb();
@@ -99,6 +100,7 @@ const row = async (tx: Tx, id: number) =>
         want: marks.want,
         wantRank: marks.wantRank,
         releaseOn: marks.releaseOn,
+        releaseTentative: marks.releaseTentative,
         platform: marks.platform,
       })
       .from(marks)
@@ -149,17 +151,18 @@ describe("writeMark and the order", () => {
     await rolledBack(async (tx) => {
       const [one] = await addFilms(tx);
       await writeMark(tx, one, { watched: false, want: true });
-      await writeRelease(tx, one, { releaseOn: "2026-12-12", platform: "Netflix" });
+      await writeRelease(tx, one, { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" });
       await writeMark(tx, one, { watched: false, want: false });
       expect(await row(tx, one)).toEqual({
         watched: false,
         want: false,
         wantRank: null,
         releaseOn: "2026-12-12",
+        releaseTentative: true,
         platform: "Netflix",
       });
       await writeMark(tx, one, { watched: true, want: false });
-      expect(await row(tx, one)).toMatchObject({ releaseOn: "2026-12-12", platform: "Netflix" });
+      expect(await row(tx, one)).toMatchObject({ releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" });
     });
   });
 });
@@ -248,11 +251,14 @@ describe("writeRelease", () => {
     await rolledBack(async (tx) => {
       const [one] = await addFilms(tx);
       await writeMark(tx, one, { watched: false, want: true });
-      expect(await writeRelease(tx, one, { releaseOn: "2026-12-12", platform: "Netflix" })).toBe(true);
-      expect(await row(tx, one)).toEqual({ watched: false, want: true, wantRank: 1, releaseOn: "2026-12-12", platform: "Netflix" });
-      await writeRelease(tx, one, { releaseOn: null, platform: "Cinema XXI" });
-      expect(await row(tx, one)).toMatchObject({ releaseOn: null, platform: "Cinema XXI", want: true, wantRank: 1 });
-      await writeRelease(tx, one, { releaseOn: null, platform: null });
+      for (const releaseTentative of [true, false, true]) {
+        expect(await writeRelease(tx, one, { releaseOn: "2026-12-12", releaseTentative, platform: "Netflix" })).toBe(true);
+        expect(await row(tx, one)).toEqual({ watched: false, want: true, wantRank: 1, releaseOn: "2026-12-12", releaseTentative, platform: "Netflix" });
+        expect((await queryWantedFilms(tx)).find((f) => f.film.id === one)).toMatchObject({ releaseOn: "2026-12-12", releaseTentative });
+      }
+      await writeRelease(tx, one, { releaseOn: null, releaseTentative: false, platform: "Cinema XXI" });
+      expect(await row(tx, one)).toMatchObject({ releaseOn: null, releaseTentative: false, platform: "Cinema XXI", want: true, wantRank: 1 });
+      await writeRelease(tx, one, { releaseOn: null, releaseTentative: false, platform: null });
       expect(await row(tx, one)).toMatchObject({ releaseOn: null, platform: null, want: true, wantRank: 1 });
     });
   });
@@ -260,14 +266,14 @@ describe("writeRelease", () => {
   it("gives a film with no marks a row with both marks off", async () => {
     await rolledBack(async (tx) => {
       const [one] = await addFilms(tx);
-      expect(await writeRelease(tx, one, { releaseOn: "2026-11-03", platform: null })).toBe(true);
-      expect(await row(tx, one)).toEqual({ watched: false, want: false, wantRank: null, releaseOn: "2026-11-03", platform: null });
+      expect(await writeRelease(tx, one, { releaseOn: "2026-11-03", releaseTentative: true, platform: null })).toBe(true);
+      expect(await row(tx, one)).toEqual({ watched: false, want: false, wantRank: null, releaseOn: "2026-11-03", releaseTentative: true, platform: null });
     });
   });
 
   it("refuses a film that doesn't exist", async () => {
     await rolledBack(async (tx) => {
-      expect(await writeRelease(tx, 2_000_000_000, { releaseOn: "2026-11-03", platform: null })).toBe(false);
+      expect(await writeRelease(tx, 2_000_000_000, { releaseOn: "2026-11-03", releaseTentative: false, platform: null })).toBe(false);
     });
   });
 });

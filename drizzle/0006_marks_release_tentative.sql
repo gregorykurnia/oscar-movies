@@ -1,0 +1,2 @@
+ALTER TABLE "marks" ADD COLUMN "release_tentative" boolean DEFAULT false NOT NULL;--> statement-breakpoint
+ALTER TABLE "marks" ADD CONSTRAINT "marks_release_tentative" CHECK (not "marks"."release_tentative" or "marks"."release_on" is not null);

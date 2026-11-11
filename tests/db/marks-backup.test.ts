@@ -39,7 +39,7 @@ async function fixtures(tx: Tx) {
   const wanted = await tx.select().from(marks).where(eq(marks.want, true)).orderBy(asc(marks.wantRank), asc(marks.movieId));
   for (const [i, m] of wanted.entries()) await tx.update(marks).set({ wantRank: i + 1 }).where(eq(marks.movieId, m.movieId));
   await tx.insert(marks).values([
-    { movieId: films[0].id, want: true, wantRank: wanted.length + 1, releaseOn: "2026-12-12", platform: "Netflix" },
+    { movieId: films[0].id, want: true, wantRank: wanted.length + 1, releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" },
     { movieId: films[1].id, want: true, wantRank: wanted.length + 2 },
     { movieId: films[2].id, watched: true, releaseOn: "2026-11-01", platform: "MUBI" },
     { movieId: films[3].id, platform: "Cinema XXI" },
@@ -54,12 +54,45 @@ const absentMovie = {
 const absent: MarkEntry = { localId: absentMovie.localId, movie: absentMovie, watched: false, want: true, platform: "MUBI" };
 
 describe("app-created film backup", () => {
+  it("restores a pre-flag dated backup as confirmed, even over a tentative date", async () => {
+    await rolledBack(async (tx) => {
+      const [film] = await fixtures(tx);
+      const old = marksFileSchema.parse([{
+        localId: film.localId, watched: false, want: true,
+        releaseOn: "2026-12-12", platform: "Netflix",
+      }]);
+      const plan = await loadRestorePlan(tx, old);
+      expect(plan.writes).toHaveLength(1);
+      expect(plan.writes[0].from?.releaseTentative).toBe(true);
+      expect(plan.writes[0].to.releaseTentative).toBe(false);
+      await applyRestore(tx, plan);
+      expect((await markRows(tx)).find((m) => m.movieId === film.id)?.releaseTentative).toBe(false);
+      expect((await loadRestorePlan(tx, old)).writes).toEqual([]);
+    });
+  });
+
+  it("refuses a restore after only the tentative flag changes, without writing anything", async () => {
+    await rolledBack(async (tx) => {
+      const [film] = await fixtures(tx);
+      const file = await exportMarks(tx);
+      await tx.update(marks).set({ releaseTentative: false }).where(eq(marks.movieId, film.id));
+      const plan = await loadRestorePlan(tx, file);
+      expect(plan.writes).toHaveLength(1);
+      await tx.update(marks).set({ releaseTentative: true }).where(eq(marks.movieId, film.id));
+      const before = await markRows(tx);
+      await expect(applyRestore(tx, plan)).rejects.toThrow(/Marks changed since the plan was made/);
+      expect(await markRows(tx)).toEqual(before);
+    });
+  });
+
   it("recreates deleted films and all notes/order/watched state; a second restore writes nothing", async () => {
     await rolledBack(async (tx) => {
       const films = await fixtures(tx);
       const file = marksFileSchema.parse(JSON.parse(serializeMarks(await exportMarks(tx))));
       const ours = file.filter((m) => m.localId?.startsWith("b6871340-"));
       expect(ours).toHaveLength(5);
+      expect(ours.find((m) => m.localId === films[0].localId)?.releaseTentative).toBe(true);
+      expect(ours.filter((m) => m.localId !== films[0].localId).every((m) => !("releaseTentative" in m))).toBe(true);
       expect(ours.find((m) => m.localId === films[4].localId)).toMatchObject({ watched: false, want: false, movie: { slug: films[4].slug } });
       expect(ours.find((m) => m.localId === films[2].localId)?.movie).toMatchObject({
         originalTitle: "映画", originalLang: "ja", countries: ["JP"], language: "ja",

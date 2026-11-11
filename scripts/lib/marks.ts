@@ -17,6 +17,7 @@ export type MarkState = {
   want: boolean;
   wantRank: number | null;
   releaseOn: string | null;
+  releaseTentative: boolean;
   platform: string | null;
 };
 export type Film = {
@@ -50,12 +51,13 @@ export type RestorePlan = {
   notInFile: Array<{ film: Film; mark: MarkState }>;
 };
 
-const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, platform: null };
+const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, releaseTentative: false, platform: null };
 const sameMark = (a: MarkState, b: MarkState) =>
   a.watched === b.watched &&
   a.want === b.want &&
   a.wantRank === b.wantRank &&
   a.releaseOn === b.releaseOn &&
+  a.releaseTentative === b.releaseTentative &&
   a.platform === b.platform;
 /** A row worth keeping in the backup: a mark, or release notes (kept when a film is unwanted). */
 const isKept = (m: MarkState) => m.watched || m.want || m.releaseOn !== null || m.platform !== null;
@@ -68,17 +70,19 @@ const identityOf = (f: Pick<Film, "imdbId" | "wikidataId" | "tmdbId" | "localId"
   ...(f.localId ? { localId: f.localId } : {}),
 });
 const identityColumns = { imdb: "imdbId", wd: "wikidataId", tmdb: "tmdbId", localId: "localId" } as const;
-const stateOf = ({ watched, want, wantRank, releaseOn, platform }: MarkState): MarkState => ({
+const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platform }: MarkState): MarkState => ({
   watched,
   want,
   wantRank,
   releaseOn,
+  releaseTentative,
   platform,
 });
 
 /**
  * The row an entry asks for, given the film's row now. A Watch list field the entry leaves out
  * (an older file) keeps its value, except that a film that isn't wanted has no rank.
+ * A supplied date without the tentative flag is confirmed; an omitted date keeps its flag.
  */
 export function targetState(entry: MarkEntry, now: MarkState): MarkState {
   const keptRank = now.want ? now.wantRank : null;
@@ -87,13 +91,14 @@ export function targetState(entry: MarkEntry, now: MarkState): MarkState {
     want: entry.want,
     wantRank: entry.want ? (entry.wantRank === undefined ? keptRank : entry.wantRank) : null,
     releaseOn: entry.releaseOn === undefined ? now.releaseOn : entry.releaseOn,
+    releaseTentative: entry.releaseOn === undefined ? now.releaseTentative : entry.releaseOn !== null && (entry.releaseTentative ?? false),
     platform: entry.platform === undefined ? now.platform : entry.platform,
   };
 }
 
 export function markLabel(m: MarkState): string {
   const parts = [m.watched ? "watched" : m.want ? `want${m.wantRank === null ? "" : ` #${m.wantRank}`}` : "none"];
-  if (m.releaseOn !== null || m.platform !== null) parts.push(`${m.releaseOn ?? "TBD"} · ${m.platform ?? "no platform"}`);
+  if (m.releaseOn !== null || m.platform !== null) parts.push(`${m.releaseOn ?? "TBD"}${m.releaseTentative ? " (tentative)" : ""} · ${m.platform ?? "no platform"}`);
   return parts.join(", ");
 }
 
@@ -223,6 +228,7 @@ const markColumns = {
   want: marks.want,
   wantRank: marks.wantRank,
   releaseOn: marks.releaseOn,
+  releaseTentative: marks.releaseTentative,
   platform: marks.platform,
 };
 
@@ -255,6 +261,7 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
       want: r.want ?? false,
       wantRank: r.wantRank,
       releaseOn: r.releaseOn,
+      ...(r.releaseTentative ? { releaseTentative: true } : {}),
       platform: r.platform,
       ...(r.updatedAt ? { updatedAt: r.updatedAt.toISOString() } : {}),
     }))

@@ -215,6 +215,23 @@ describe("movies", () => {
 });
 
 describe("marks", () => {
+  it("defaults existing-style dates to confirmed and refuses tentative without a date", async () => {
+    await rolledBack(async (tx) => {
+      const film = await addMovie(tx);
+      await tx.insert(marks).values({ movieId: film.id, releaseOn: "2026-12-12" });
+      const [row] = await tx.select().from(marks).where(eq(marks.movieId, film.id));
+      expect(row.releaseTentative).toBe(false);
+      await tx.update(marks).set({ releaseTentative: true }).where(eq(marks.movieId, film.id));
+      await expectViolation(tx, "marks_release_tentative", (sp) =>
+        sp.update(marks).set({ releaseOn: null }).where(eq(marks.movieId, film.id)),
+      );
+      const withoutDate = await addMovie(tx);
+      await expectViolation(tx, "marks_release_tentative", (sp) =>
+        sp.insert(marks).values({ movieId: withoutDate.id, releaseTentative: true }),
+      );
+    });
+  });
+
   it("stores a mark, refuses watched and want together, and keeps its film from being deleted", async () => {
     await rolledBack(async (tx) => {
       const film = await addMovie(tx);

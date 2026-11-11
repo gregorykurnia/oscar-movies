@@ -109,7 +109,7 @@ describe("atomic film saves", () => {
     await rolledBack(async (tx) => {
       const draft = manual();
       const first = await saved(tx, draft);
-      await writeRelease(tx, first.film.id, { releaseOn: "2030-12-12", platform: "MUBI" });
+      await writeRelease(tx, first.film.id, { releaseOn: "2030-12-12", releaseTentative: false, platform: "MUBI" });
       await writeMark(tx, first.film.id, { watched: true, want: false });
       expect(await saved(tx, draft)).toMatchObject({ film: first.film, created: false });
       expect((await allMarks(tx)).find((m) => m.movieId === first.film.id)).toMatchObject({ watched: false, want: true, wantRank: 1, releaseOn: "2030-12-12", platform: "MUBI" });
@@ -138,7 +138,7 @@ describe("atomic film saves", () => {
     await rolledBack(async (tx) => {
       const [film] = await tx.insert(movies).values({ slug: "test-atomic-researched", title: "Curated title", year: 2029,
         countries: ["FR"], imdbId: "tt99005001", wikidataId: "Q99005001", imdbRating: 8.1 }).returning();
-      await writeRelease(tx, film.id, { releaseOn: "2030-01-01", platform: "Netflix" });
+      await writeRelease(tx, film.id, { releaseOn: "2030-01-01", releaseTentative: false, platform: "Netflix" });
       const draft = catalogue();
       expect(await saved(tx, draft)).toMatchObject({ film: { id: film.id, slug: film.slug }, created: false });
       expect(await saved(tx, { ...draft, input: { ...draft.input, localId: randomUUID() } })).toMatchObject({ film: { id: film.id }, created: false });

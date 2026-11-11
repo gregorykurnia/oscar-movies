@@ -51,6 +51,7 @@ const releaseInput = z
   .object({
     movieId,
     releaseOn: z.iso.date().nullable(),
+    releaseTentative: z.boolean(),
     // Free text; blank means none.
     platform: z
       .string()
@@ -61,17 +62,18 @@ const releaseInput = z
   })
   .strict();
 
-/** Sets a film's release date (null = TBD) and platform (null = none); its marks stay as they are. */
+/** Sets release notes; legacy callers save confirmed dates, and TBD always clears tentative. */
 export async function setRelease(
   rawMovieId: number,
   releaseOn: string | null,
   platform: string | null,
+  releaseTentative = false,
 ): Promise<WatchListResult> {
-  const parsed = releaseInput.safeParse({ movieId: rawMovieId, releaseOn, platform });
+  const parsed = releaseInput.safeParse({ movieId: rawMovieId, releaseOn, platform, releaseTentative });
   if (!parsed.success) return { ok: false };
   const { movieId: id, ...value } = parsed.data;
   try {
-    return { ok: await writeRelease(getDb(), id, value) };
+    return { ok: await writeRelease(getDb(), id, { ...value, releaseTentative: value.releaseOn !== null && value.releaseTentative }) };
   } catch (error) {
     console.error("setRelease failed", { movieId: id }, error);
     return { ok: false };

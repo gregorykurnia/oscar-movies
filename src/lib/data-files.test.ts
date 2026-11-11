@@ -107,10 +107,20 @@ describe("marksFileSchema", () => {
     expect(marksFileSchema.safeParse(entries).success).toBe(true);
   });
 
+  it("keeps tentative and confirmed dates, including an old entry with no flag", () => {
+    const dated = { imdb: "tt1", watched: false, want: true, releaseOn: "2026-12-12" };
+    for (const entry of [dated, { ...dated, releaseTentative: true }, { ...dated, releaseTentative: false }]) {
+      expect(marksFileSchema.parse([entry])).toEqual([entry]);
+    }
+  });
+
   it.each([
     ["a rank but not wanted", { imdb: "tt1", watched: true, want: false, wantRank: 2 }],
     ["a rank of 0", { imdb: "tt1", watched: false, want: true, wantRank: 0 }],
     ["a date that isn't one", { imdb: "tt1", watched: false, want: true, releaseOn: "12 Dec 2026" }],
+    ["tentative with TBD", { imdb: "tt1", watched: false, want: true, releaseOn: null, releaseTentative: true }],
+    ["tentative without a date", { imdb: "tt1", watched: false, want: true, releaseTentative: true }],
+    ["a non-boolean tentative flag", { imdb: "tt1", watched: false, want: true, releaseOn: "2026-12-12", releaseTentative: "true" }],
     ["an empty platform", { imdb: "tt1", watched: false, want: true, platform: "" }],
     ["a platform over 40 characters", { imdb: "tt1", watched: false, want: true, platform: "x".repeat(41) }],
 

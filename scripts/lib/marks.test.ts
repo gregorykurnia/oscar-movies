@@ -8,7 +8,7 @@ const conclave: Film = { ...ids, id: 2, slug: "conclave", imdbId: "tt2", wikidat
 const noImdb: Film = { ...ids, id: 3, slug: "flow", imdbId: null, wikidataId: "Q3", title: "Flow", year: 2024 };
 const films = [anora, conclave, noImdb];
 
-const EMPTY = { wantRank: null, releaseOn: null, platform: null };
+const EMPTY = { wantRank: null, releaseOn: null, releaseTentative: false, platform: null };
 /** A row in `marks`; the Watch list fields default to empty. */
 const row = (movieId: number, watched: boolean, want: boolean, extra: Partial<MarkState> = {}): CurrentMark => ({
   movieId,
@@ -161,7 +161,7 @@ describe("planRestore", () => {
   });
 
   it("keeps release notes the file doesn't mention, and lists them", () => {
-    const notes = { releaseOn: "2026-12-12", platform: "Netflix" };
+    const notes = { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" };
     const plan = planRestore([], films, [row(2, false, false, notes)]);
     expect(plan.notInFile).toEqual([{ film: conclave, mark: { watched: false, want: false, wantRank: null, ...notes } }]);
   });
@@ -176,13 +176,13 @@ describe("planRestore", () => {
       [row(1, false, true, { wantRank: 1 }), row(2, false, true, { wantRank: 2, releaseOn: "2026-11-01", platform: "MUBI" })],
     );
     expect(plan.writes.map((w) => [w.film.id, w.to])).toEqual([
-      [1, { watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", platform: "Netflix", updatedAt: undefined }],
-      [2, { watched: false, want: true, wantRank: 1, releaseOn: null, platform: null, updatedAt: undefined }],
+      [1, { watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", releaseTentative: false, platform: "Netflix", updatedAt: undefined }],
+      [2, { watched: false, want: true, wantRank: 1, releaseOn: null, releaseTentative: false, platform: null, updatedAt: undefined }],
     ]);
   });
 
   it("leaves the Watch list fields alone for an older file without them", () => {
-    const notes = { releaseOn: "2026-12-12", platform: "Netflix" };
+    const notes = { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" };
     const plan = planRestore(
       [
         { imdb: "tt1", watched: false, want: true },
@@ -199,6 +199,26 @@ describe("planRestore", () => {
       [2, { watched: true, want: false, wantRank: null, ...notes, updatedAt: undefined }],
       [3, { watched: false, want: true, wantRank: null, ...notes, updatedAt: undefined }],
     ]);
+  });
+});
+
+describe("tentative restore", () => {
+  it("plans a flag-only change and shows it in the dry run", () => {
+    const plan = planRestore(
+      [{ imdb: "tt1", watched: false, want: false, releaseOn: "2026-12-12", releaseTentative: true }],
+      films, [row(1, false, false, { releaseOn: "2026-12-12" })],
+    );
+    expect(plan.writes).toHaveLength(1);
+    expect(plan.writes[0].to.releaseTentative).toBe(true);
+    expect(formatPlan(plan, "Dry run")).toContain("2026-12-12 (tentative)");
+  });
+
+  it.each(["2026-12-12", null])("an old dated note restores as confirmed or TBD (%s)", (releaseOn) => {
+    const plan = planRestore(
+      [{ imdb: "tt1", watched: false, want: false, releaseOn }],
+      films, [row(1, false, false, { releaseOn: "2026-12-12", releaseTentative: true })],
+    );
+    expect(plan.writes[0].to).toMatchObject({ releaseOn, releaseTentative: false });
   });
 });
 

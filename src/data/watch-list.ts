@@ -34,6 +34,8 @@ export type WantedFilm = StagedFilm & {
   wantRank: number | null;
   /** `YYYY-MM-DD`, the first date the owner can watch it; null = TBD. */
   releaseOn: string | null;
+  /** False for dates saved before Phase 10 and for TBD. */
+  releaseTentative: boolean;
   platform: string | null;
 };
 
@@ -143,6 +145,7 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
       ...stagedColumns(summary),
       wantRank: marks.wantRank,
       releaseOn: marks.releaseOn,
+      releaseTentative: marks.releaseTentative,
       platform: marks.platform,
     })
     .from(marks)
@@ -150,10 +153,11 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
     .leftJoin(summary, eq(summary.movieId, movies.id))
     .where(eq(marks.want, true))
     .orderBy(sql`${marks.wantRank} asc nulls last`, asc(movies.title), asc(movies.id));
-  return rows.map(({ wantRank, releaseOn, platform, ...row }) => ({
+  return rows.map(({ wantRank, releaseOn, releaseTentative, platform, ...row }) => ({
     ...toStagedFilm(row),
     wantRank,
     releaseOn,
+    releaseTentative,
     platform,
   }));
 }

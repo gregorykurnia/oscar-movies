@@ -5,7 +5,7 @@
 // Each low-level write is one SQL statement. Rank-changing actions run it inside the shared
 // locked transaction; release notes alone still use HTTP. A film that becomes wanted goes
 // to the top and the films above its old place shift down one; a film that stops being wanted
-// loses its rank; nothing here touches `release_on` or `platform` except `writeRelease`.
+// loses its rank; only `writeRelease` touches the release notes, including tentative status.
 import { sql } from "drizzle-orm";
 import type { getDb, ScriptDb } from "@/db";
 
@@ -19,6 +19,7 @@ export type MarkValue = { watched: boolean; want: boolean };
 export type ReleaseValue = {
   /** `YYYY-MM-DD`, the first date the owner can watch it; null = TBD. */
   releaseOn: string | null;
+  releaseTentative: boolean;
   /** 1–40 characters, or null. */
   platform: string | null;
 };
@@ -124,17 +125,18 @@ export async function writeWantOrder(db: WriteDb, orderedIds: number[]): Promise
 }
 
 /**
- * Sets a film's release date and platform (both, exactly as given; nulls clear). Keeps its
+ * Sets a film's release date, tentative flag and platform (exactly as given; nulls clear). Keeps its
  * marks; a film with no row gets one with both marks off. Returns false when the film doesn't exist.
  */
 export async function writeRelease(db: WriteDb, movieId: number, value: ReleaseValue): Promise<boolean> {
   const found = await rows(
     db,
     sql`
-      insert into marks (movie_id, release_on, platform, updated_at)
-      select id, ${value.releaseOn}::date, ${value.platform}::text, now() from movies where id = ${movieId}
+      insert into marks (movie_id, release_on, release_tentative, platform, updated_at)
+      select id, ${value.releaseOn}::date, ${value.releaseTentative}::boolean, ${value.platform}::text, now() from movies where id = ${movieId}
       on conflict (movie_id) do update set
-        release_on = excluded.release_on, platform = excluded.platform, updated_at = now()
+        release_on = excluded.release_on, release_tentative = excluded.release_tentative,
+        platform = excluded.platform, updated_at = now()
       returning movie_id`,
   );
   return found.length === 1;
