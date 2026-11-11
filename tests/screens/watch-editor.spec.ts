@@ -83,3 +83,53 @@ test("date status editor and release row gallery", async ({ page }) => {
     await close();
   }
 });
+
+// The fresh-eyes pass also reviews the binding reference; keep its row wrapping honest.
+for (const width of [360, 390, 844, 1280]) {
+  test(`release editor reference at ${width}px`, async ({ page }) => {
+    const out = `${OUT}/fresh-check`;
+    mkdirSync(out, { recursive: true });
+    await page.setViewportSize({ width: 1440, height: 1200 });
+    await page.goto(`file://${process.cwd()}/design-preview.html`);
+    await page.locator(`[data-w="${width === 360 ? "p360" : width === 390 ? "phone" : "desktop"}"]`).click();
+    await page.addStyleTag({ content: ".pv-bar { visibility: hidden !important; }" });
+    const frame = page.locator("#wl-editor");
+    await frame.evaluate((element, size) => { element.style.width = `${size}px`; element.style.maxWidth = `${size}px`; }, width);
+    await page.evaluate(() => document.fonts.ready);
+    // The reference is a full-page drawing, not the actual landscape viewport. Its
+    // 1100px canvas needs more height when narrower columns make the film rows taller.
+    if (width > 760) await frame.locator(".app").evaluate((element) => {
+      const editor = element.querySelector(".rel-pop")!.getBoundingClientRect();
+      const app = element.getBoundingClientRect();
+      if (editor.bottom > app.bottom) element.style.minHeight = `${Math.ceil(editor.bottom - app.top + 24)}px`;
+    });
+    const prefix = process.env.WATCH_EDITOR_REFERENCE_BEFORE === "1" ? "before" : "reference";
+    await frame.screenshot({ path: `${out}/${prefix}-${width}.png` });
+    const editorBox = await frame.locator(".rel-pop").boundingBox();
+    const frameBox = await frame.boundingBox();
+    expect(editorBox!.y + editorBox!.height).toBeLessThanOrEqual(frameBox!.y + frameBox!.height);
+    const first = frame.locator(".frow.wl.drag:not(.head)").first();
+    await first.screenshot({ path: `${out}/${prefix}-${width}-crop-row.png` });
+    const lineRects = await first.locator(".rel .txt").evaluate((element) => {
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const index = (walker.currentNode.textContent ?? "").indexOf("Cinema XXI");
+        if (index < 0) continue;
+        const range = document.createRange();
+        range.setStart(walker.currentNode, index);
+        range.setEnd(walker.currentNode, index + "Cinema XXI".length);
+        return range.getClientRects().length;
+      }
+      return 0;
+    });
+    expect.soft(lineRects, "Cinema XXI stays together when it fits on one line").toBe(1);
+    expect.soft(await first.locator(".res .n").first().evaluate((element) => {
+      const ink = document.createElement("span");
+      ink.style.color = "var(--ink)";
+      document.body.append(ink);
+      const matches = getComputedStyle(element).color === getComputedStyle(ink).color;
+      ink.remove();
+      return matches;
+    }), "My order does not highlight one chance figure in gold").toBe(true);
+  });
+}
