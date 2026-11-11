@@ -167,6 +167,9 @@ export default async function globalSetup() {
   await checkBranches(testEnv);
   // Tests that reset marks read the same env.
   Object.assign(process.env, testEnv, PROVIDER_TEST_ENV);
+  // Specs that load data expire the cache at APP_URL: point it at this run's server, so a run on
+  // OSCAR_TEST_PORT doesn't post to 3100 (another server, or none) and wait on stale pages.
+  process.env.APP_URL = RUN_URL;
   await checkPortFree();
 
   const env = serverEnv(testEnv);

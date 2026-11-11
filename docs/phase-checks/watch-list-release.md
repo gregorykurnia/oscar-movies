@@ -193,7 +193,7 @@ Read the Phase 10 code diff (`c224236..df3f4ca`) and tests before this report. E
 - `tests/db/data.test.ts` (4): environment. The test branch's marks table was empty, and TIFF 2026 still held the phase-3 sample, both left behind by earlier killed runs whose cleanup never ran. `npm run db:seed:test` restored the baseline, and all 4 pass (63/63 in the four marks/data files).
 - `tests/e2e/phase-7.spec.ts:141`: old selector. A new date now starts Tentative, so the case expects "12 Dec 2030, tentative · Netflix" and checks the stored flag. Passes.
 - `tests/e2e/phase-6.spec.ts:155`: passes on the restored baseline (it was test data).
-- `tests/e2e/phase-3.spec.ts:117`: timed out at 240 s again. Its restore ran (a reseed afterwards changed nothing). This is the loader's speed, not Phase 10 code → **10.F1**.
+- `tests/e2e/phase-3.spec.ts:117`: timed out at 240 s again. Its restore ran (a reseed afterwards changed nothing). The cause (found in 10.F1) was the run port, not the loader: on `OSCAR_TEST_PORT=3105` the spec expired the cache at `.env.test`'s 3100, so the page kept the old chance; the global setup now points `APP_URL` at the run's server → **10.F1**.
 
 **Findings and what happened to them**
 | Finding | Built by | Kind | Disposition |
