@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { StagedFilm } from "@/data/watch-list";
+import type { StagedFilm, WantedFilm } from "@/data/watch-list";
 import type { Outcome } from "@/lib/stage";
 import {
   moveItem,
@@ -14,6 +14,12 @@ import {
   sortWatchList,
   todayInJakarta,
   watchHref,
+  watchPlatforms,
+  filterWanted,
+  hasWatchFilters,
+  clearWatchFilters,
+  wantedCount,
+  noWatchMatches,
 } from "./watch-list";
 
 let nextId = 1;
@@ -55,6 +61,62 @@ describe("the address", () => {
     expect(watchHref({ sort: "stage", all: false })).toBe("/watch-list?sort=stage");
     expect(watchHref({ sort: "average", all: false })).toBe("/watch-list?sort=average");
     expect(watchHref({ sort: "nominations", all: true })).toBe("/watch-list?sort=nominations&all=1");
+  });
+});
+
+describe("release sort and filters", () => {
+  const today = "2026-11-11";
+  const wanted = (title: string, releaseOn: string | null, platform: string | null, releaseTentative = false): WantedFilm => ({
+    ...film(title, null, 0, null), wantRank: null, releaseOn, platform, releaseTentative,
+  });
+  const films = [
+    wanted("No note", null, null), wanted("Z coming", "2026-12-12", "Netflix", true),
+    wanted("Today", today, "Cinépolis"), wanted("TBD", null, "Netflix"),
+    wanted("Past", "2020-01-01", null), wanted("A coming", "2026-12-12", "netflix"),
+  ];
+  const base = { sort: "mine", all: false } as const;
+
+  it("reads combined addresses, canonicalizes known platforms, ignores unknowns and uses the first repeated value", () => {
+    const state = parseWatchQuery({ sort: "release", all: "1", platform: ["CINEPOLIS", "Netflix"], release: ["coming", "out"] }, ["Cinépolis", "Netflix"]);
+    expect(state).toEqual({ sort: "release", all: true, platform: "Cinépolis", release: "coming" });
+    expect(parseWatchQuery({ sort: "bad", platform: "unknown", release: "bad" }, ["Netflix"])).toEqual(base);
+    expect(parseWatchQuery({ platform: "none", release: "tbd" })).toEqual({ ...base, platform: "none", release: "tbd" });
+    expect(watchHref(state)).toBe("/watch-list?sort=release&all=1&platform=Cin%C3%A9polis&release=coming");
+    expect(watchHref(clearWatchFilters(state))).toBe("/watch-list?sort=release&all=1");
+    expect(hasWatchFilters(state)).toBe(true);
+    expect(hasWatchFilters(base)).toBe(false);
+  });
+
+  it("orders dated films earliest first, then TBD, then no note, with title ties and tentative dates included", () => {
+    const before = titles(films);
+    expect(titles(sortWanted(films, "release"))).toEqual(["Past", "Today", "A coming", "Z coming", "TBD", "No note"]);
+    expect(titles(films)).toEqual(before);
+    const season = [film("Submitted", "submitted", 0, null), film("Winner", "won", 1, null)];
+    expect(titles(sortWatchList(season, "release"))).toEqual(["Winner", "Submitted"]);
+  });
+
+  it("filters by date including today in Jakarta, by platform ignoring accents/case, and combines both", () => {
+    expect(titles(filterWanted(films, { ...base, release: "out" }, today))).toEqual(["Today", "Past"]);
+    expect(titles(filterWanted(films, { ...base, release: "coming" }, today))).toEqual(["Z coming", "A coming"]);
+    expect(titles(filterWanted(films, { ...base, release: "tbd" }, today))).toEqual(["No note", "TBD"]);
+    expect(titles(filterWanted(films, { ...base, platform: "CINEPOLIS" }, today))).toEqual(["Today"]);
+    expect(titles(filterWanted(films, { ...base, platform: "none" }, today))).toEqual(["No note", "Past"]);
+    expect(titles(filterWanted(films, { ...base, platform: "NETFLIX", release: "coming" }, today))).toEqual(["Z coming", "A coming"]);
+    expect(filterWanted(films, { ...base, platform: "Netflix", release: "out" }, today)).toEqual([]);
+    expect(filterWanted(films, base, today)).toEqual(films);
+  });
+
+  it("keeps the latest spelling once and sorts platform choices A–Z", () => {
+    expect(watchPlatforms(["CINÉPOLIS", "Netflix", "cinépolis", "netflix", "Apple TV+", " "])).toEqual(["Apple TV+", "CINÉPOLIS", "Netflix"]);
+  });
+
+  it("words filtered counts and the no-match explanation including missing notes", () => {
+    expect(wantedCount(3, 12, true)).toBe("3 of 12 films");
+    expect(wantedCount(0, 1, true)).toBe("0 of 1 film");
+    expect(wantedCount(1204, 1204, false)).toBe("1,204 films");
+    expect(noWatchMatches(12, { ...base, platform: "MUBI", release: "out" })).toBe("None of the 12 films you want to watch is on MUBI and out now.");
+    expect(noWatchMatches(3, { ...base, platform: "none", release: "tbd" })).toContain("with no platform and still TBD");
+    expect(noWatchMatches(3, { ...base, release: "coming" })).toContain("is coming.");
   });
 });
 

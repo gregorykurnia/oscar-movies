@@ -1,10 +1,10 @@
 // The Watch list's address and sorts (guide §8.3, plan §4): `?sort=` and `?all=1` are read from the
 // address; the lists are sorted here. Pure, so the address and the sorts are unit tested.
-import type { StagedFilm } from "@/data/watch-list";
+import type { StagedFilm, WantedFilm } from "@/data/watch-list";
 import { matchRange, normalizeQuery } from "@/lib/search";
 import { compareOutcome } from "@/lib/stage";
 
-export const WATCH_SORTS = ["mine", "stage", "chance", "nominations", "average"] as const;
+export const WATCH_SORTS = ["mine", "stage", "chance", "nominations", "average", "release"] as const;
 export type WatchSort = (typeof WATCH_SORTS)[number];
 
 export const WATCH_SORT_LABELS: Record<WatchSort, string> = {
@@ -13,6 +13,7 @@ export const WATCH_SORT_LABELS: Record<WatchSort, string> = {
   chance: "% chance",
   nominations: "Nominations",
   average: "Average score",
+  release: "Release date",
 };
 
 const DEFAULT_SORT: WatchSort = "mine";
@@ -20,21 +21,29 @@ const DEFAULT_SORT: WatchSort = "mine";
 /** The season section shows this many films until "Show all". */
 export const SEASON_LIMIT = 20;
 
-export type WatchQuery = { sort: WatchSort; all: boolean };
+export const RELEASE_FILTERS = ["out", "coming", "tbd"] as const;
+export type ReleaseFilter = (typeof RELEASE_FILTERS)[number];
+export const RELEASE_FILTER_LABELS: Record<ReleaseFilter, string> = { out: "Out now", coming: "Coming", tbd: "TBD" };
+export type WatchQuery = { sort: WatchSort; all: boolean; platform?: string; release?: ReleaseFilter };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
 /** The address's sort and "show all". Anything unknown is ignored: the default sort, the short list. */
-export function parseWatchQuery(params: SearchParams): WatchQuery {
+export function parseWatchQuery(params: SearchParams, platforms: readonly string[] = []): WatchQuery {
   const sort = WATCH_SORTS.find((s) => s === [params.sort].flat()[0]) ?? DEFAULT_SORT;
-  return { sort, all: [params.all].flat()[0] === "1" };
+  const rawPlatform = [params.platform].flat()[0];
+  const platform = rawPlatform === "none" ? "none" : platforms.find((name) => normalizeQuery(name) === normalizeQuery(rawPlatform ?? ""));
+  const release = RELEASE_FILTERS.find((value) => value === [params.release].flat()[0]);
+  return { sort, all: [params.all].flat()[0] === "1", ...(platform ? { platform } : {}), ...(release ? { release } : {}) };
 }
 
 /** "?sort=nominations&all=1", or "" for the defaults. */
-export function watchHref({ sort, all }: WatchQuery): string {
+export function watchHref({ sort, all, platform, release }: WatchQuery): string {
   const params = new URLSearchParams();
   if (sort !== DEFAULT_SORT) params.set("sort", sort);
   if (all) params.set("all", "1");
+  if (platform) params.set("platform", platform);
+  if (release) params.set("release", release);
   const query = params.toString();
   return `/watch-list${query ? `?${query}` : ""}`;
 }
@@ -44,6 +53,8 @@ const stageRank = (f: StagedFilm) => (f.stage === null ? -1 : compareOutcome(f.s
 const byTitle = (a: StagedFilm, b: StagedFilm) => a.film.title.localeCompare(b.film.title, "en") || a.film.id - b.film.id;
 
 const COMPARE: Record<WatchSort, (a: StagedFilm, b: StagedFilm) => number> = {
+  // Season films have no release notes: retain Oscar-stage order.
+  release: (a, b) => stageRank(b) - stageRank(a) || b.nominations - a.nominations || byTitle(a, b),
   // The owner's order is the order the data comes in (Want to watch); the season section, which has
   // no order of its own, follows the Oscar stage under it.
   mine: (a, b) => stageRank(b) - stageRank(a) || b.nominations - a.nominations || byTitle(a, b),
@@ -77,8 +88,46 @@ export function sortWatchList<F extends StagedFilm>(films: F[], sort: WatchSort)
 }
 
 /** Want to watch keeps the owner's order (as it comes) under "My order", and follows the sort otherwise. */
-export function sortWanted<F extends StagedFilm>(films: F[], sort: WatchSort): F[] {
+export function sortWanted<F extends StagedFilm & Partial<ReleaseNote>>(films: F[], sort: WatchSort): F[] {
+  if (sort === "release") {
+    const group = (film: F) => film.releaseOn ? 0 : film.platform?.trim() ? 1 : 2;
+    return [...films].sort((a, b) => group(a) - group(b) || (a.releaseOn ?? "").localeCompare(b.releaseOn ?? "") || byTitle(a, b));
+  }
   return sort === "mine" ? [...films] : sortWatchList(films, sort);
+}
+
+type ReleaseNote = Pick<WantedFilm, "releaseOn" | "platform">;
+
+/** Names arrive newest first; keep that spelling, deduplicate, then display A–Z. */
+export function watchPlatforms(names: readonly string[]): string[] {
+  const seen = new Set<string>();
+  return names.map((name) => name.trim()).filter((name) => {
+    const key = normalizeQuery(name);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).sort((a, b) => normalizeQuery(a).localeCompare(normalizeQuery(b), "en"));
+}
+
+export const hasWatchFilters = (state: WatchQuery) => Boolean(state.platform || state.release);
+export const clearWatchFilters = ({ sort, all }: WatchQuery): WatchQuery => ({ sort, all });
+
+/** Filter notes without changing their order. No date (including no note) counts as TBD. */
+export function filterWanted<F extends ReleaseNote>(films: F[], { platform, release }: WatchQuery, today: string): F[] {
+  return films.filter((film) => {
+    const onPlatform = !platform || (platform === "none" ? !film.platform?.trim() : normalizeQuery(film.platform ?? "") === normalizeQuery(platform));
+    const inRelease = !release || (release === "tbd" ? !film.releaseOn : Boolean(film.releaseOn && (release === "out" ? film.releaseOn <= today : film.releaseOn > today)));
+    return onPlatform && inRelease;
+  });
+}
+
+export const wantedCount = (shown: number, total: number, filtered: boolean) =>
+  `${shown.toLocaleString("en-US")}${filtered ? ` of ${total.toLocaleString("en-US")}` : ""} ${total === 1 ? "film" : "films"}`;
+
+export function noWatchMatches(total: number, { platform, release }: WatchQuery): string {
+  const on = platform === "none" ? "with no platform" : platform ? `on ${platform}` : "";
+  const when = release === "out" ? "out now" : release === "coming" ? "coming" : release === "tbd" ? "still TBD" : "";
+  return `None of the ${wantedCount(total, total, false)} you want to watch is ${[on, when].filter(Boolean).join(" and ")}.`;
 }
 
 // "My order" (guide §8.3, task 7.9): the drag order's helpers, kept pure so they're unit tested.

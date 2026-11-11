@@ -1,5 +1,8 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
+import Link from "next/link";
+import { Search } from "lucide-react";
+import { buttonClasses } from "@/components/button/Button";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
 import { FilmMarks } from "@/components/marks/MarksProvider";
@@ -8,10 +11,17 @@ import { Segmented } from "@/components/segmented/Segmented";
 import { ShowAllRow } from "@/components/show-all/ShowAllRow";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { StagePill } from "@/components/stage-pill/StagePill";
+import { TextLink } from "@/components/text-link/TextLink";
 import { formatChance } from "@/lib/race-chances";
-import { getUsedPlatforms, getWatchList, type StagedFilm, type WantedFilm } from "@/data/watch-list";
+import { getUsedPlatforms, getWantedPlatforms, getWatchList, type StagedFilm, type WantedFilm } from "@/data/watch-list";
 import {
   parseWatchQuery,
+  clearWatchFilters,
+  filterWanted,
+  hasWatchFilters,
+  noWatchMatches,
+  RELEASE_FILTERS,
+  RELEASE_FILTER_LABELS,
   SEASON_LIMIT,
   sortWanted,
   sortWatchList,
@@ -19,12 +29,15 @@ import {
   WATCH_SORT_LABELS,
   WATCH_SORTS,
   watchHref,
+  watchPlatforms,
+  wantedCount,
   type WatchQuery,
 } from "@/lib/watch-list";
 import { LIVE_YEAR } from "@/lib/years";
 import { AddFilm } from "./AddFilm";
 import { ReleaseEditor } from "./ReleaseEditor";
 import { DragHandle, SortableWantList } from "./SortableWantList";
+import { FilterMenu } from "./FilterMenu";
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -35,7 +48,7 @@ const CHANCE_COLUMNS = ["minmax(0,1fr)", "132px", "88px", "104px", "84px"];
 const HANDLE_COLUMNS = ["28px", ...COLUMNS];
 
 // The "Show all" row's tail ("sorted by Oscar stage"); Oscar keeps its capital.
-const SORTED_BY: Record<WatchQuery["sort"], string> = { mine: "Oscar stage", stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score" };
+const SORTED_BY: Record<WatchQuery["sort"], string> = { mine: "Oscar stage", stage: "Oscar stage", chance: "% chance", nominations: "nominations", average: "average score", release: "Oscar stage" };
 
 const filmCount = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "film" : "films"}`;
 
@@ -64,20 +77,23 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
 async function Lists({ query }: { query: Promise<Query> }) {
   // Wait for the request: the address and the marks are read per visit.
   await connection();
-  const [list, platforms, params] = await Promise.all([getWatchList(LIVE_YEAR), getUsedPlatforms(), query]);
+  const [list, platforms, wantedPlatforms, params] = await Promise.all([getWatchList(LIVE_YEAR), getUsedPlatforms(), getWantedPlatforms(), query]);
   // The release lines read "Out" from today's date in Indonesia; the editor offers the platforms used before.
   const release = { today: todayInJakarta(), platforms };
-  const state = parseWatchQuery(params);
-  const want = sortWanted(list.want, state.sort);
+  const choices = watchPlatforms(wantedPlatforms);
+  const state = parseWatchQuery(params, choices);
+  const filtered = hasWatchFilters(state);
+  const clearHref = watchHref(clearWatchFilters(state));
+  const want = sortWanted(filterWanted(list.want, state, release.today), state.sort);
   const unwatched = sortWatchList(list.unwatched, state.sort);
   const shown = state.all ? unwatched : unwatched.slice(0, SEASON_LIMIT);
-  const mine = state.sort === "mine";
+  const mine = state.sort === "mine" && !filtered;
 
   return (
     <>
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7">
-        <div className="flex min-w-0 max-w-full items-center gap-3 max-md:items-start">
-          <span className="flex-none text-caption text-ink-muted max-md:pt-2.5">Sort by</span>
+        <div className="flex min-w-0 max-w-full flex-wrap items-center gap-x-3 gap-y-2">
+          <span className="flex-none text-caption text-ink-muted max-md:basis-full">Sort by</span>
           <Segmented
             label="Sort by"
             className="min-w-0 max-md:flex-wrap max-md:overflow-visible"
@@ -88,9 +104,27 @@ async function Lists({ query }: { query: Promise<Query> }) {
             }))}
           />
         </div>
+        {list.want.length > 0 ? (
+          <div className="relative flex basis-full flex-wrap items-center gap-x-3 gap-y-2">
+            <span className="text-caption text-ink-muted max-md:basis-full">Filter</span>
+            <FilterMenu label="Platform" caption="Show films on" choice={state.platform === "none" ? "No platform" : state.platform ?? "All"} active={Boolean(state.platform)} items={[
+              { label: "All platforms", href: watchHref({ ...state, platform: undefined }), current: !state.platform },
+              ...choices.map((platform) => ({ label: platform, href: watchHref({ ...state, platform }), current: platform === state.platform })),
+              { label: "No platform", caption: "Films with no platform noted", href: watchHref({ ...state, platform: "none" }), current: state.platform === "none", separated: true },
+            ]} />
+            <FilterMenu label="Release" caption="Show films that are" choice={state.release ? RELEASE_FILTER_LABELS[state.release] : "All"} active={Boolean(state.release)} items={[
+              { label: "All", href: watchHref({ ...state, release: undefined }), current: !state.release },
+              ...RELEASE_FILTERS.map((value) => ({
+                label: RELEASE_FILTER_LABELS[value], href: watchHref({ ...state, release: value }), current: value === state.release,
+                caption: value === "out" ? "Released on or before today" : value === "coming" ? "A date after today" : "No date yet",
+              })),
+            ]} />
+            {filtered ? <TextLink href={clearHref} scroll={false} className="relative py-1.5 text-caption before:absolute before:-inset-x-1 before:-inset-y-1.5">Clear filters</TextLink> : null}
+          </div>
+        ) : null}
       </div>
 
-      <Section id="want" title="Want to watch" count={want.length} hint={mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
+      <Section id="want" title="Want to watch" count={wantedCount(want.length, list.want.length, filtered)} hint={state.sort === "release" ? "by release date" : mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
         {want.length > 0 && mine ? (
           // Keyed by the films, so a list read again (a film added) starts from the stored order.
           <SortableWantList
@@ -101,6 +135,11 @@ async function Lists({ query }: { query: Promise<Query> }) {
           />
         ) : want.length > 0 ? (
           <Films films={want} sort={state.sort} release={release} />
+        ) : filtered ? (
+          <EmptyState title="No films match these filters" headingLevel={3} icon={Search}
+            actions={<Link href={clearHref} scroll={false} className={buttonClasses()}>Clear filters</Link>}>
+            {noWatchMatches(list.want.length, state)}
+          </EmptyState>
         ) : (
           <EmptyState title="Nothing marked yet" headingLevel={3}>
             Tap the bookmark on any film to put it here.
@@ -108,11 +147,11 @@ async function Lists({ query }: { query: Promise<Query> }) {
         )}
       </Section>
 
-      <Section
+      {!filtered ? <Section
         id="season"
         title={`Not watched yet, ${LIVE_YEAR} season`}
         count={unwatched.length}
-        hint={mine && unwatched.length > 1 ? "by Oscar stage" : undefined}
+        hint={(mine || state.sort === "release") && unwatched.length > 1 ? "by Oscar stage" : undefined}
       >
         {unwatched.length > 0 ? (
           <>
@@ -124,7 +163,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
             Every film of the {LIVE_YEAR} season is watched or on your list, or its results aren&apos;t loaded yet.
           </EmptyState>
         )}
-      </Section>
+      </Section> : null}
     </>
   );
 }
@@ -138,7 +177,7 @@ function Section({
 }: {
   id: string;
   title: string;
-  count: number;
+  count: number | string;
   /** After the count: how the section is ordered under My order. */
   hint?: string;
   children: React.ReactNode;
@@ -150,7 +189,7 @@ function Section({
           {title}
         </h2>
         <span className="pr-0.5 text-small text-ink-muted [contain:paint]">
-          <span>{filmCount(count)}</span>
+          <span>{typeof count === "number" ? filmCount(count) : count}</span>
           {hint ? ` · ${hint}` : null}
         </span>
       </div>

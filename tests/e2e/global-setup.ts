@@ -134,8 +134,12 @@ async function startServer(env: NodeJS.ProcessEnv): Promise<ChildProcess> {
       throw new Error(`The test server stopped (exit ${exited}) before answering:\n${readFileSync(SERVER_LOG, "utf8")}`);
     }
     try {
-      const response = await fetch(TEST_APP_URL);
-      if (response.ok) return server;
+      // Only probe after our child reports that it bound the port. Another project's server
+      // can answer while this child is still starting (and then exits with EADDRINUSE).
+      if (readFileSync(SERVER_LOG, "utf8").includes("Ready in")) {
+        const response = await fetch(TEST_APP_URL);
+        if (response.ok && exited === undefined) return server;
+      }
     } catch {
       // Not listening yet.
     }
@@ -163,6 +167,8 @@ export default async function globalSetup() {
 
   const env = serverEnv(testEnv);
   buildIfChanged(env);
+  // A build can take minutes; another project may have claimed the port since the first check.
+  await checkPortFree();
   const server = await startServer(env);
   console.log(`[e2e] Test server on ${TEST_APP_URL} (pid ${server.pid}).`);
 

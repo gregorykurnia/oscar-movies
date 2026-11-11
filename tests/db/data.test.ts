@@ -266,6 +266,9 @@ describe("marks and the watch list", () => {
       ]);
       const used = (await queryUsedPlatforms(tx)).filter((p) => p.startsWith("Zz "));
       expect(used).toEqual(["Zz New Platform", "Zz Old Platform"]);
+      await tx.update(marks).set({ platform: "Zz Unwanted Platform" }).where(eq(marks.movieId, films[0].id));
+      const wanted = (await queryUsedPlatforms(tx, true)).filter((p) => p.startsWith("Zz "));
+      expect(wanted).toEqual(["Zz New Platform", "Zz Old Platform"]);
     });
   });
 

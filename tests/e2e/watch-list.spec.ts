@@ -346,6 +346,53 @@ const storedOrder = async (ids: number[]) => {
   return [...rows].filter((r) => ids.includes(r.movieId)).sort((a, b) => (a.wantRank ?? 0) - (b.wantRank ?? 0)).map((r) => r.movieId);
 };
 
+test("release sort and combined filters survive reload, clear safely, and ignore unknown addresses", async ({ page }) => {
+  await withOrder(async ([a, b, c], [first, second]) => {
+    await db.update(marks).set({ releaseOn: "2099-12-12", platform: "Cinépolis", releaseTentative: true, updatedAt: new Date("2030-01-01") }).where(eq(marks.movieId, first));
+    await db.update(marks).set({ releaseOn: "2020-01-01", platform: "CINEPOLIS", updatedAt: new Date("2020-01-01") }).where(eq(marks.movieId, second));
+    await page.goto("/watch-list?sort=release&platform=CINEPOLIS");
+    const want = section(page, "Want to watch");
+    await expect.poll(() => titlesIn(want)).toEqual([b, a]);
+    await expect(want.getByText("2 of 3 films", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+    await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toHaveCount(0);
+    // Latest spelling among currently wanted films, with each normalized name only once.
+    const platform = page.getByRole("button", { name: "Platform: Cinépolis", exact: true });
+    await platform.click();
+    await expect(page.getByRole("menuitemradio", { name: "Cinépolis", exact: true })).toHaveCount(1);
+    await page.keyboard.press("Escape");
+    await expect(platform).toBeFocused();
+    await page.getByRole("button", { name: "Release: All", exact: true }).click();
+    await page.getByRole("menuitemradio", { name: "Coming A date after today", exact: true }).click();
+    await expect(page).toHaveURL(/sort=release&platform=Cin%C3%A9polis&release=coming$/);
+    await expect.poll(() => titlesIn(want)).toEqual([a]);
+    await page.reload();
+    await expect(want.getByText("1 of 3 films", { exact: true })).toBeVisible();
+    await expect.poll(() => titlesIn(want)).toEqual([a]);
+    await page.getByRole("link", { name: "Clear filters", exact: true }).click();
+    await expect(page).toHaveURL(/\/watch-list\?sort=release$/);
+    await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
+    await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toBeVisible();
+
+    await page.goto("/watch-list?platform=CINEPOLIS&release=tbd");
+    await expect(want.getByRole("heading", { name: "No films match these filters" })).toBeVisible();
+    await expect(want.getByText("0 of 3 films", { exact: true })).toBeVisible();
+    await expect(want).toContainText("on Cinépolis and still TBD");
+    await want.getByRole("link", { name: "Clear filters" }).click();
+    await expect(page).toHaveURL(/\/watch-list$/);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(3);
+
+    await page.goto("/watch-list?platform=none&release=tbd");
+    await expect.poll(() => titlesIn(want)).toEqual([c]);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+    await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toHaveCount(0);
+    await page.goto("/watch-list?sort=unknown&platform=unknown&release=unknown");
+    await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(3);
+    await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toBeVisible();
+  });
+});
+
 /** Neither the window nor the page is wider than the screen. */
 const noSidewaysScroll = (page: import("@playwright/test").Page) =>
   page.evaluate(() => window.scrollX === 0 && document.documentElement.scrollWidth <= document.documentElement.clientWidth);

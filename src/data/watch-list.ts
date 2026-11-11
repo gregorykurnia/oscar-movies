@@ -166,20 +166,25 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
  * The platforms the owner has written on any film (wanted or not), the one used most recently
  * first, for the release editor's "Used before" list.
  */
-export async function queryUsedPlatforms(db: ReadDb): Promise<string[]> {
-  const rows = await db
+export async function queryUsedPlatforms(db: ReadDb, wantedOnly = false): Promise<string[]> {
+  const query = db
     .select({ platform: marks.platform })
     .from(marks)
-    .where(sql`${marks.platform} is not null`)
+    .where(and(sql`${marks.platform} is not null`, wantedOnly ? eq(marks.want, true) : undefined))
     .groupBy(marks.platform)
-    .orderBy(sql`max(${marks.updatedAt}) desc`, asc(marks.platform))
-    .limit(20);
+    .orderBy(sql`max(${marks.updatedAt}) desc`, asc(marks.platform));
+  const rows = await (wantedOnly ? query : query.limit(20));
   return rows.flatMap((r) => (r.platform ? [r.platform] : []));
 }
 
 /** The platforms used before, read per request (the marks change any time). */
 export async function getUsedPlatforms(): Promise<string[]> {
   return queryUsedPlatforms(getDb());
+}
+
+/** All platforms on currently wanted films, newest spelling first, without the editor's limit. */
+export async function getWantedPlatforms(): Promise<string[]> {
+  return queryUsedPlatforms(getDb(), true);
 }
 
 /** Each film's best chance to win in a season's live prediction (its best category), by movie ID. */
