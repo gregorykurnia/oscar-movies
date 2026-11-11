@@ -1,6 +1,6 @@
 # Phase 10: one-run checks and screenshot report (10.5)
 
-2026-11-11. Application/reference source: `5f8a0303e1e4460dabc5209784259053c356e8ed`.
+Original one-run snapshot, 2026-11-11. Application/reference source: `5f8a0303e1e4460dabc5209784259053c356e8ed`.
 The only runner change during these measurements lets `WATCH_EDITOR_OUT` select a
 separate gallery directory; its default remains the 10.4 directory. No application,
 schema, fixture, or design fixes were made. Only 10.5 is complete; findings belong to 10.R.
@@ -126,3 +126,59 @@ DECISION: Select a dedicated editor output directory rather than overwrite 10.4 
 Owner-only migration approval, real-phone verification and normal release remain
 the later handoff described in the feature brief. They are outside this completed
 reporting task; 10.R is not started.
+
+## Fresh-eye follow-up (10.5, 2026-11-11)
+
+The checker inputs in `/tmp/autorun-fresh-hhZRHU/` were all opened at original
+resolution, including both identical crop copies. This follow-up changes only
+the reference and screenshot evidence; application behavior stays as measured
+above. The seven original test failures and the saving-status visual finding
+remain assigned to 10.R. The calendar reference finding is now fixed.
+
+| Checker finding | Disposition |
+|---|---|
+| 01: score line sliced at the crop's top | Real capture fault. Replace the hard-coded crop with element screenshots of the entire Hamnet row and, separately, its complete release control. The new row contains all score lines and both row edges; the release detail contains no neighbouring score text. |
+| 01 and 02: Netflix wraps with a trailing separator on the preceding line | Retained. The phone reserves a separate column for the mark buttons; its release control is 205px wide inside the 328px row. The apparent empty width lies beneath the marks, outside the film column. At 390px the same full note fits on one line. This is shared app/reference wrapping, rather than an early break in a full-width line; recorded in `docs/approved-looks.md`. |
+| 01 and 02: calendar centred between two date lines | Real reference fault. Extend the existing `#wl-editor` first-line alignment rules to `#wl-filter`; guide/reference version is v1.5.2. The new regression failed before the fix at 360px (10px offset, limit 4px), then passed at 360/390/844/1280. |
+| 02: three uneven sort rows, selected background inset differs from label inset | Retained. Six whole labels wrap as the guide specifies; at 360px they need three rows. All labels have 12px inner padding. The selected white background extends to the track's 3px inset, so comparing its edge with an unselected label compares background and text, not unequal label padding. Added to approved looks. |
+| 03: exact duplicate of 01 | Real evidence duplication, not a second UI state. New primary evidence consists of three distinct views: full frame, full row and release-only detail. Their dimensions and hashes differ. The checker copies are preserved as original inputs. |
+| 03: repeated clipping/wrapping/alignment findings | Same image and dispositions as 01: clipped-neighbour capture replaced, first-line calendar corrected, film-column wrapping retained with a reason. |
+
+Targeted commands (no full-suite retry):
+
+```sh
+OSCAR_TEST_PORT=3105 WATCH_RELEASE_OUT=screenshots/phase-10/10.5/fresh-check/before npx playwright test tests/screens/watch-release.spec.ts --project screens --grep 'open the binding 10.1 reference'
+npm run typecheck
+npx eslint tests/screens/watch-release.spec.ts
+npx vitest related src/lib/watch-list.ts src/components/segmented/Segmented.tsx --run --project unit --maxWorkers=2
+OSCAR_TEST_PORT=3105 WATCH_RELEASE_OUT=screenshots/phase-10/10.5/fresh-check/after npx playwright test tests/screens/watch-release.spec.ts --project screens --grep 'open the binding 10.1 reference' --last-failed
+```
+
+Results: baseline failed on the new calendar regression; final targeted reference
+case passed at all four widths (26.0s including setup). Typecheck, changed-file
+ESLint and **41 related unit tests passed**. Logs: `checks/fresh-reference-before.log`,
+`checks/fresh-reference-after.log`, `checks/fresh-typecheck.log`,
+`checks/fresh-lint.log`, `checks/fresh-unit.log`. The earlier full unit suite/build
+still cover unchanged application sources. Test servers **2073046** and **2074254**
+stopped; port 3105 is free. Full phase failures were not rerun or reclassified.
+
+New gallery: `fresh-check/after/` with `reference-{360,390,844,1280}.png`,
+`reference-<width>-row.png` and `reference-<width>-release.png`.
+`fresh-check/before/` preserves comparable pre-fix frames. The three 360px
+views are respectively **360×1603**, **328×198** and **205×42**, with different
+MD5 hashes. These new images supersede the old clipped reference detail for
+review; the original one-run images remain historical evidence.
+
+LOOKED: fresh-check/after/reference-360.png · Four ruled rows sit above footer; complete frame, no overlay; text whole and calendar on first date line.
+LOOKED: fresh-check/after/reference-390.png · Rows sit between rules above footer; nothing cut or covered; full date/platform note fits on one line.
+LOOKED: fresh-check/after/reference-844.png · Table rests above footer on the full reference canvas; frame complete; rows, labels and notes whole.
+LOOKED: fresh-check/after/reference-1280.png · Table sits beneath toolbar above footer; no edge cuts or overlays; all row and release text whole.
+LOOKED: fresh-check/before/reference-360-row.png · Whole row rests between rules; scores uncut; calendar sits between date lines, establishing the before fault.
+LOOKED: fresh-check/after/reference-360-row.png · Whole row rests between rules; all scores and marks fit; calendar now on first date line, platform below.
+LOOKED: fresh-check/after/reference-360-release.png · Calendar sits beside first date line; platform below; control edges clear; no neighbouring text sliced.
+LOOKED: fresh-check/after/reference-390-row.png · Whole row sits inside both rules; marks at right; single-line release and all scores whole.
+LOOKED: fresh-check/after/reference-844-row.png · Full row spans table columns between rules; no overlays or edge cuts; scores and release readable.
+LOOKED: fresh-check/after/reference-1280-row.png · Full row spans columns between rules; all edges, marks, scores and release text whole.
+
+DECISION: not fixed the 01/02/03 platform wrap and trailing inline separator, because release notes stay in the bounded film column beside the marks; expanding beneath them would change the shared row layout. Added to approved looks.
+DECISION: not fixed the 02 three-row sort and selected-background inset, because whole labels wrap as specified and every label has equal inner padding; the background's edge is intentionally nearer the track edge. Added to approved looks.

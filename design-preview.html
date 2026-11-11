@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Design preview v1.5 · Oscar Movies</title>
+<title>Design preview v1.5.2 · Oscar Movies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -830,9 +830,9 @@ kbd, .kbd { font-family: inherit; font-size: var(--text-micro); color: var(--ink
 .rel::before { content: ""; position: absolute; inset: -8px -4px; } /* 44px hit area */
 .rel svg.i { width: 14px; height: 14px; color: var(--ink-subtle); }
 .rel .txt { overflow-wrap: anywhere; }
-#wl-editor .rel .platform { display: inline-block; max-width: 100%; vertical-align: top; overflow-wrap: anywhere; }
-#wl-editor .rel { align-items: flex-start; }
-#wl-editor .rel > svg.i { margin-top: 3px; }
+:is(#wl-editor, #wl-filter) .rel .platform { display: inline-block; max-width: 100%; vertical-align: top; overflow-wrap: anywhere; }
+:is(#wl-editor, #wl-filter) .rel { align-items: flex-start; }
+:is(#wl-editor, #wl-filter) .rel > svg.i { margin-top: 3px; }
 .rel b { font-weight: var(--weight-medium); color: var(--ink); }
 .rel:hover, .rel.hover { border-color: var(--line-strong); }
 .rel.focus { box-shadow: var(--focus-ring); }
@@ -1120,7 +1120,7 @@ body.phone .frame:not(.fixed) { max-width: 390px; }
 
 <header class="pv-bar">
   <div class="pv-bar-in">
-    <div class="t"><svg><use href="#logo"/></svg>Oscar Movies <span class="v">Design preview v1.5.1 (2026-11-11)</span></div>
+    <div class="t"><svg><use href="#logo"/></svg>Oscar Movies <span class="v">Design preview v1.5.2 (2026-11-11)</span></div>
     <nav aria-label="Preview sections"><a href="#identity">Identity</a><a href="#foundations">Foundations</a><a href="#components">Components</a><a href="#pages">Pages</a><a href="#states">States</a></nav>
     <div class="pv-ctl">
       <div class="pv-seg" role="group" aria-label="Frame width"><button type="button" data-w="desktop" aria-pressed="true">Desktop</button><button type="button" data-w="phone" aria-pressed="false">Phone 390</button><button type="button" data-w="p360" aria-pressed="false">Phone 360</button></div>

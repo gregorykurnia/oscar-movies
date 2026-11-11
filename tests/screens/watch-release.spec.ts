@@ -153,11 +153,24 @@ test("open the binding 10.1 reference in the browser", async ({ page }) => {
   mkdirSync(OUT, { recursive: true });
   await page.route("**/task-10.3-reference", (route) => route.fulfill({ contentType: "text/html", body: readFileSync("design-preview.html", "utf8") }));
   await page.goto("/task-10.3-reference");
-  for (const [width, mode] of [[1280, "desktop"], [360, "p360"]] as const) {
+  for (const [width, mode] of [[360, "p360"], [390, "phone"], [844, "desktop"], [1280, "desktop"]] as const) {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.locator(`[data-w="${mode}"]`).click();
     const hiddenBar = await page.addStyleTag({ content: ".pv-bar { visibility: hidden !important; }" });
-    await page.locator("#wl-filter").screenshot({ path: `${OUT}/reference-${width}.png` });
+    const frame = page.locator("#wl-filter");
+    await frame.evaluate((element, size) => { element.style.width = `${size}px`; element.style.maxWidth = `${size}px`; }, width);
+    await page.evaluate(() => document.fonts.ready);
+    await frame.screenshot({ path: `${OUT}/reference-${width}.png` });
+    const row = frame.locator(".frow").filter({ has: page.getByRole("heading", { name: "Hamnet", exact: true }) });
+    // Semantic crops include the whole row or release control, never half a neighbouring score line.
+    await row.screenshot({ path: `${OUT}/reference-${width}-row.png` });
+    await row.locator(".rel").screenshot({ path: `${OUT}/reference-${width}-release.png` });
+    const geometry = await row.locator(".rel").evaluate((button) => {
+      const icon = button.querySelector("svg")!.getBoundingClientRect();
+      const date = button.querySelector("b")!.getBoundingClientRect();
+      return { iconOffset: Math.abs(icon.y + icon.height / 2 - date.y - date.height / 2) };
+    });
+    expect.soft(geometry.iconOffset, `calendar aligns with first date line at ${width}px`).toBeLessThanOrEqual(4);
     await hiddenBar.evaluate((element) => { element.parentNode?.removeChild(element); });
   }
 });
