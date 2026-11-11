@@ -24,9 +24,10 @@ test("winner row on an award page", async ({ page }) => {
     await expectInsideRules(winner, winner.locator("xpath=following-sibling::div[1]"), `app ${viewport.width}`);
     const box = (await winner.boundingBox())!;
     const nextHeight = (await winner.locator("xpath=following-sibling::div[1]").boundingBox())!.height;
-    // The row with its list's rules and the page gutter on both sides.
-    const top = box.y + (await page.evaluate(() => window.scrollY));
-    await page.screenshot({ path: `${OUT}/app-${viewport.width}.png`, fullPage: true, clip: { x: 0, y: Math.max(0, top - 60), width: viewport.width, height: box.height + nextHeight + 61 } });
+    // From just above the list's ink rule (never through the text above it) to under the next row's rule.
+    const listTop = (await winner.locator("xpath=..").boundingBox())!.y - 12;
+    const scrollY = await page.evaluate(() => window.scrollY);
+    await page.screenshot({ path: `${OUT}/app-${viewport.width}.png`, fullPage: true, clip: { x: 0, y: listTop + scrollY, width: viewport.width, height: box.y + box.height + nextHeight + 1 - listTop } });
   }
 });
 
@@ -47,7 +48,8 @@ test("winner row in the reference award frame", async ({ page }) => {
     const f = (await frame.boundingBox())!;
     const box = (await winner.boundingBox())!;
     const nextHeight = (await winner.locator("xpath=following-sibling::div[1]").boundingBox())!.height;
-    await page.screenshot({ path: `${OUT}/reference-${width}.png`, clip: { x: f.x, y: box.y - 60, width: f.width, height: box.height + nextHeight + 61 } });
+    const listTop = (await winner.locator("xpath=..").boundingBox())!.y - 12;
+    await page.screenshot({ path: `${OUT}/reference-${width}.png`, clip: { x: f.x, y: listTop, width: f.width, height: box.y + box.height + nextHeight + 1 - listTop } });
     await hiddenBar.evaluate((element) => { element.parentNode?.removeChild(element); });
   }
 });
