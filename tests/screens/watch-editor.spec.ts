@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-const OUT = "screenshots/phase-10/10.4";
+const OUT = process.env.WATCH_EDITOR_OUT ?? "screenshots/phase-10/10.4";
 const SHAPES = [{ width: 360, height: 800 }, { width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }];
 
 test("date status editor and release row gallery", async ({ page }) => {
