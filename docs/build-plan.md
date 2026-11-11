@@ -445,6 +445,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 9 owner check: add a missing film on a real phone (released 2026-11-10, migration run; Claude checked it at phone size on the test branch, with real TMDB search: only "1 films on TMDB" wording found), sign off | 2026-11-10 | Phase 9 done |
 | Phase 9 visual choices (9.6): confirm the inline no-match panel, wrapped phone sort controls and clearer confirmation/saving wording against the refreshed screenshots; guide §8.3 records these provisional refinements from existing pieces | 2026-11-10 | nothing; Phase 9 review covers the reference update |
 | Phase 9 review (9.R): the save-failure notice says "Your list is unchanged" (guide §8.3), which can be untrue when the answer was lost; retries can't duplicate. Keep it, or change it to "It may not have saved…"? Also confirm the new provisional "An earlier try may have added it already" message | 2026-11-10 | Nothing; wording only |
+| Phase 10 visual choice (10.4): the release editor uses existing 8px vertical spacing at desktop heights of 500px or less so the date, status and Save fit on a turned phone; the reference has no short-landscape editor frame. Provisional; shots in `screenshots/phase-10/10.4/` | 2026-11-11 | nothing; easy to change, reference follow-up at Phase 10 review |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 
 ## Upkeep log

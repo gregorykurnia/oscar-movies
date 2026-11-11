@@ -247,6 +247,7 @@ function Row({
             movieId={film.id}
             title={film.title}
             releaseOn={staged.releaseOn}
+            releaseTentative={staged.releaseTentative}
             platform={staged.platform}
             today={release.today}
             usedPlatforms={release.platforms}

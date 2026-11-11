@@ -1,6 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 import { TEST_APP_URL } from "./scripts/lib/target";
 
+const testUrl = new URL(TEST_APP_URL);
+if (process.env.OSCAR_TEST_PORT) testUrl.port = process.env.OSCAR_TEST_PORT;
+
 // End-to-end tests (IMPLEMENTATION_PLAN.md §8): a production build in `.next-test` on port
 // 3100, on the Neon `test` branch. The global setup checks `.env.test` and the database
 // before it builds or starts anything, and stops the server when the run ends.
@@ -15,7 +18,7 @@ export default defineConfig({
   retries: 0,
   reporter: [["list"]],
   use: {
-    baseURL: TEST_APP_URL,
+    baseURL: testUrl.origin,
     trace: "retain-on-failure",
   },
   projects: [

@@ -539,8 +539,12 @@ test("sets a film's date and platform by keyboard, reloads, fails and retries, t
     await expect(date).toBeFocused();
     await expect(editor.getByRole("button", { name: "Clear" })).toBeDisabled();
 
-    // Tab runs Date, Platform, (Clear once something is set), Cancel, Save; Esc cancels and focus returns.
+    // Tab runs Date, the chosen status, Platform, Clear, Cancel, Save; arrows change the status.
     await date.fill("2030-12-12");
+    const tentative = editor.getByRole("radio", { name: "Tentative" });
+    await tabTo(page, tentative);
+    await tentative.press("ArrowLeft");
+    await expect(editor.getByRole("radio", { name: "Confirmed" })).toBeChecked();
     const platform = editor.getByRole("combobox", { name: "Platform" });
     await tabTo(page, platform);
     await page.keyboard.press("Tab");
@@ -562,6 +566,8 @@ test("sets a film's date and platform by keyboard, reloads, fails and retries, t
     await expect(date).toBeFocused();
     await expect(date).toHaveValue("");
     await date.fill("2030-12-12");
+    await tabTo(page, tentative);
+    await tentative.press("ArrowLeft");
     await tabTo(page, platform);
     await platform.pressSequentially("net");
     await expect(editor.getByRole("listbox", { name: "Platforms" })).toBeVisible();
@@ -658,7 +664,7 @@ test("on a phone the editor is a sheet that keeps focus inside, and the page doe
     await expect(editor).toHaveCount(0);
     await expect(
       row.getByRole("button", {
-        name: /5 Jan 2030 · Cinépolis Lippo Mall Kemang IMAX Laser/,
+        name: /5 Jan 2030, tentative · Cinépolis Lippo Mall Kemang IMAX Laser/,
       }),
     ).toBeVisible();
     expect(await noSidewaysScroll(page)).toBe(true);
@@ -668,6 +674,47 @@ test("on a phone the editor is a sheet that keeps focus inside, and the page doe
         releaseOn: "2030-01-05",
         platform: "Cinépolis Lippo Mall Kemang IMAX Laser",
       });
+  });
+});
+
+test("tentative release dates survive reload, confirmed edits keep their choice, and TBD drops the flag", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await withOrder(async ([title], [id]) => {
+    const stored = async () => (await db.select({ date: marks.releaseOn, tentative: marks.releaseTentative }).from(marks).where(eq(marks.movieId, id)))[0];
+    await page.goto("/watch-list");
+    const row = rowOf(section(page, "Want to watch").getByRole("heading", { level: 3, name: title }));
+    const editor = editorOf(page);
+    await row.getByRole("button", { name: "Add release date" }).click();
+    await expect(editor.getByRole("radiogroup")).toHaveCount(0);
+    await editor.getByLabel("Date", { exact: true }).fill("2030-12-12");
+    await expect(editor.getByRole("radio", { name: "Tentative" })).toBeChecked();
+    await editor.getByRole("combobox", { name: "Platform" }).fill("Netflix");
+    await editor.getByRole("button", { name: "Save", exact: true }).click();
+    await expect.poll(stored).toEqual({ date: "2030-12-12", tentative: true });
+    await page.reload();
+    const line = row.getByRole("button", { name: "12 Dec 2030, tentative · Netflix", exact: true });
+    await expect(line).toBeVisible();
+    await line.click();
+    await editor.getByLabel("Date", { exact: true }).fill("2030-12-13");
+    await expect(editor.getByRole("radio", { name: "Tentative" })).toBeChecked();
+    await editor.getByRole("radio", { name: "Tentative" }).press("ArrowLeft");
+    await expect(editor.getByRole("radio", { name: "Confirmed" })).toBeChecked();
+    await editor.getByRole("button", { name: "Save", exact: true }).click();
+    await expect.poll(stored).toEqual({ date: "2030-12-13", tentative: false });
+    await page.reload();
+    await row.getByRole("button", { name: "13 Dec 2030 · Netflix", exact: true }).click();
+    await editor.getByLabel("Date", { exact: true }).fill("2030-12-14");
+    await expect(editor.getByRole("radio", { name: "Confirmed" })).toBeChecked();
+    await editor.getByLabel("Date", { exact: true }).fill("");
+    await expect(editor.getByRole("radiogroup")).toHaveCount(0);
+    await editor.getByRole("button", { name: "Save", exact: true }).click();
+    await expect.poll(stored).toEqual({ date: null, tentative: false });
+    await expect(row.getByRole("button", { name: "TBD · Netflix", exact: true })).toBeVisible();
+    await page.reload();
+    await row.getByRole("button", { name: "TBD · Netflix", exact: true }).click();
+    await editor.getByLabel("Date", { exact: true }).fill("2030-12-15");
+    await expect(editor.getByRole("radio", { name: "Tentative" })).toBeChecked();
+    await editor.getByRole("button", { name: "Cancel", exact: true }).click();
   });
 });
 

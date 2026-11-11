@@ -18,7 +18,10 @@ import { ENV_FILES, readEnvFile, readTargetEnv, TEST_APP_URL } from "../../scrip
 
 const DIST_DIR = ".next-test";
 const NEXT_BIN = "node_modules/.bin/next";
-const PORT = Number(new URL(TEST_APP_URL).port);
+const testUrl = new URL(TEST_APP_URL);
+if (process.env.OSCAR_TEST_PORT) testUrl.port = process.env.OSCAR_TEST_PORT;
+const RUN_URL = testUrl.origin;
+const PORT = Number(testUrl.port);
 const HASH_FILE = `${DIST_DIR}/source.hash`;
 const SERVER_LOG = `${DIST_DIR}/server.log`;
 // Applied after .env.test: never expose a real provider credential to automated tests.
@@ -92,6 +95,7 @@ function serverEnv(testEnv: Record<string, string>): NodeJS.ProcessEnv {
     ...blanks,
     ...testEnv,
     ...PROVIDER_TEST_ENV,
+    APP_URL: RUN_URL,
     NODE_ENV: "production",
     NEXT_DIST_DIR: DIST_DIR,
     NEXT_TELEMETRY_DISABLED: "1",
@@ -137,7 +141,7 @@ async function startServer(env: NodeJS.ProcessEnv): Promise<ChildProcess> {
       // Only probe after our child reports that it bound the port. Another project's server
       // can answer while this child is still starting (and then exits with EADDRINUSE).
       if (readFileSync(SERVER_LOG, "utf8").includes("Ready in")) {
-        const response = await fetch(TEST_APP_URL);
+        const response = await fetch(RUN_URL);
         if (response.ok && exited === undefined) return server;
       }
     } catch {
@@ -146,7 +150,7 @@ async function startServer(env: NodeJS.ProcessEnv): Promise<ChildProcess> {
     await new Promise((r) => setTimeout(r, 500));
   }
   stopServer(server);
-  throw new Error(`The test server didn't answer on ${TEST_APP_URL} within 60 s. Log: ${SERVER_LOG}`);
+  throw new Error(`The test server didn't answer on ${RUN_URL} within 60 s. Log: ${SERVER_LOG}`);
 }
 
 function stopServer(server: ChildProcess) {
@@ -170,7 +174,7 @@ export default async function globalSetup() {
   // A build can take minutes; another project may have claimed the port since the first check.
   await checkPortFree();
   const server = await startServer(env);
-  console.log(`[e2e] Test server on ${TEST_APP_URL} (pid ${server.pid}).`);
+  console.log(`[e2e] Test server on ${RUN_URL} (pid ${server.pid}).`);
 
   return async () => {
     stopServer(server);

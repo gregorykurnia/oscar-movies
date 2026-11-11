@@ -192,7 +192,7 @@ Owner request (2026-11-11): sort the Watch list by release date, mark each date 
 | 10.1 | [look] Draw the release sort, filters and tentative mark in the guide and reference; brief 10.1 (sets the look the next rows build) | Opus 5.5 High | 2026-11-11 · guide v1.5 |
 | 10.2 | [no look] Store the tentative flag: schema, test migration, save action, backup and restore; brief 10.2 (owner data must round-trip) | Sol Max | 2026-11-11 · test migrated; save/backup round-trip |
 | 10.3 | [look] Release date sort and Platform/Release filters on Watch list; brief 10.3 (address-driven, built to the 10.1 reference) | Sol xHigh | 2026-11-11 · sort/filters; fresh-eye fixes checked |
-| 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | |
+| 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | 2026-11-11 · editor/row; reload and four shapes checked |
 | 10.5 | [look] End-to-end phase checks and screenshots, failure report; brief 10.5 (one full run, fixes in the next row) | Sol xHigh | |
 | 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High | |
 

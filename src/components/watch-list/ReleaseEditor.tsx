@@ -34,10 +34,10 @@ const subscribePhone = (onChange: () => void) => {
 };
 const getPhone = () => window.matchMedia?.(PHONE).matches ?? false;
 
-const FOCUSABLE = "input:not([readonly]), button:not([disabled])";
+const FOCUSABLE = 'input:not([readonly]):not([disabled]):not([tabindex="-1"]), button:not([disabled])';
 const PLATFORM_MAX = 40;
 
-type Value = { releaseOn: string | null; platform: string | null };
+type Value = { releaseOn: string | null; platform: string | null; releaseTentative: boolean };
 type Saving = "save" | "clear";
 
 const field =
@@ -51,8 +51,8 @@ function LineText({ line }: { line: ReleaseLine }) {
   const real = line.kind === "coming" || line.kind === "out";
   return (
     <span className="[overflow-wrap:anywhere]">
-      {line.kind === "empty" ? null : <span className="sr-only">Release: </span>}
       <span className={cn(real && "font-medium text-ink")}>{line.date}</span>
+      {line.tentative ? ", tentative" : null}
       {line.platform ? <> · <span className="inline-block max-w-full align-top [overflow-wrap:anywhere]">{line.platform}</span></> : null}
     </span>
   );
@@ -62,6 +62,7 @@ export function ReleaseEditor({
   movieId,
   title,
   releaseOn,
+  releaseTentative,
   platform,
   today,
   usedPlatforms,
@@ -70,6 +71,7 @@ export function ReleaseEditor({
   title: string;
   /** `YYYY-MM-DD`, or null for TBD. */
   releaseOn: string | null;
+  releaseTentative: boolean;
   platform: string | null;
   /** Today in Indonesia, `YYYY-MM-DD`: the day a release turns "Out". */
   today: string;
@@ -84,18 +86,21 @@ export function ReleaseEditor({
   const dialogRef = useRef<HTMLFormElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
+  // An incomplete browser date reads as empty too; it must keep the status of the date being edited.
+  const dateWasEmpty = useRef(true);
   const platformRef = useRef<HTMLInputElement>(null);
 
   // What is saved: the props, until the page reads them again (a save shows at once, before that).
-  const [saved, setSaved] = useState<Value>({ releaseOn, platform });
-  const [seen, setSeen] = useState(`${releaseOn}|${platform}`);
-  if (seen !== `${releaseOn}|${platform}`) {
-    setSeen(`${releaseOn}|${platform}`);
-    setSaved({ releaseOn, platform });
+  const [saved, setSaved] = useState<Value>({ releaseOn, platform, releaseTentative });
+  const [seen, setSeen] = useState(`${releaseOn}|${platform}|${releaseTentative}`);
+  if (seen !== `${releaseOn}|${platform}|${releaseTentative}`) {
+    setSeen(`${releaseOn}|${platform}|${releaseTentative}`);
+    setSaved({ releaseOn, platform, releaseTentative });
   }
 
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState("");
+  const [tentative, setTentative] = useState(false);
   const [text, setText] = useState("");
   const [saving, setSaving] = useState<Saving | null>(null);
   const [failed, setFailed] = useState(false);
@@ -113,6 +118,8 @@ export function ReleaseEditor({
 
   function openEditor() {
     setDate(saved.releaseOn ?? "");
+    dateWasEmpty.current = !saved.releaseOn;
+    setTentative(saved.releaseTentative);
     setText(saved.platform ?? "");
     setFailed(false);
     setBadDate(false);
@@ -162,7 +169,7 @@ export function ReleaseEditor({
     setFailed(false);
     let ok = false;
     try {
-      ok = (await setRelease(movieId, next.releaseOn, next.platform)).ok;
+      ok = (await setRelease(movieId, next.releaseOn, next.platform, next.releaseTentative)).ok;
     } catch {
       ok = false;
     }
@@ -187,7 +194,7 @@ export function ReleaseEditor({
       return;
     }
     setBadDate(false);
-    void write({ releaseOn: date || null, platform: text.trim() || null }, "save");
+    void write({ releaseOn: date || null, platform: text.trim() || null, releaseTentative: Boolean(date) && tentative }, "save");
   }
 
   function pick(name: string) {
@@ -303,7 +310,7 @@ export function ReleaseEditor({
             "z-50 bg-surface text-small shadow-pop",
             phone
               ? "fixed inset-x-0 bottom-0 max-h-dvh animate-sheet-up overflow-y-auto rounded-t-lg px-4 pt-[18px] pb-[22px]"
-              : "absolute top-[calc(100%+6px)] left-[-8px] w-[360px] max-w-[calc(100vw-2rem)] animate-pop rounded-lg px-4 pt-4 pb-3.5",
+              : "absolute top-[calc(100%+6px)] left-[-8px] w-[360px] max-w-[calc(100vw-2rem)] animate-pop rounded-lg px-4 pt-4 pb-3.5 [@media(max-height:500px)]:py-2",
           )}
         >
           <header className="flex items-start justify-between gap-3">
@@ -326,7 +333,7 @@ export function ReleaseEditor({
             ) : null}
           </header>
 
-          <div className="mt-3.5">
+          <div className="mt-3.5 md:[@media(max-height:500px)]:mt-2">
             <label htmlFor={`${id}-date`} className="mb-1.5 block text-small font-medium">
               Date
             </label>
@@ -340,7 +347,13 @@ export function ReleaseEditor({
                 aria-invalid={badDate || undefined}
                 aria-describedby={`${id}-date-hint`}
                 onChange={(event) => {
-                  setDate(event.target.value);
+                  const next = event.target.value;
+                  if (dateWasEmpty.current && next) setTentative(true);
+                  if (!event.target.validity.badInput) {
+                    dateWasEmpty.current = !next;
+                    if (!next) setTentative(false);
+                  }
+                  setDate(next);
                   setBadDate(false);
                 }}
                 className={cn(input, "[color-scheme:light]")}
@@ -352,7 +365,35 @@ export function ReleaseEditor({
             </p>
           </div>
 
-          <div className="mt-3.5">
+          {date ? (
+            <fieldset role="radiogroup" aria-labelledby={`${id}-status`} disabled={busy} className="mt-3.5 md:[@media(max-height:500px)]:mt-2">
+              <legend id={`${id}-status`} className="mb-1.5 text-small font-medium">This date is</legend>
+              <div className="flex gap-0.5 rounded-md bg-track p-[3px]">
+                {[false, true].map((value) => (
+                  <label key={String(value)} className={cn("min-w-0 flex-1", !busy && "cursor-pointer")}>
+                    <input
+                      type="radio"
+                      name={`${id}-status`}
+                      value={String(value)}
+                      checked={tentative === value}
+                      tabIndex={tentative === value ? 0 : -1}
+                      disabled={busy}
+                      onChange={() => setTentative(value)}
+                      className="peer sr-only"
+                    />
+                    <span className={cn(
+                      "flex h-10 items-center justify-center rounded-[7px] px-3 text-small outline-none transition-colors duration-[var(--dur-fast)] ease-app peer-focus-visible:shadow-focus md:h-8",
+                      busy ? "text-ink-muted" : tentative === value ? "bg-surface font-medium text-ink shadow-hairline" : "text-ink-muted hover:text-ink",
+                    )}>
+                      {value ? "Tentative" : "Confirmed"}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ) : null}
+
+          <div className="mt-3.5 md:[@media(max-height:500px)]:mt-2">
             <label htmlFor={`${id}-platform`} className="mb-1.5 block text-small font-medium">
               Platform
             </label>
@@ -423,7 +464,7 @@ export function ReleaseEditor({
           ) : null}
 
           <div
-            className="mt-4 flex items-center gap-2"
+            className="mt-4 flex items-center gap-2 md:[@media(max-height:500px)]:mt-2"
             // A tap on a button must not take focus from the field: that would close the list and move the button away mid-tap.
             onMouseDown={(event) => showList && event.preventDefault()}
           >
@@ -432,7 +473,7 @@ export function ReleaseEditor({
               className="mr-auto -ml-2.5 max-md:h-11"
               disabled={empty || (busy && saving !== "clear")}
               loading={saving === "clear"}
-              onClick={() => void write({ releaseOn: null, platform: null }, "clear")}
+              onClick={() => void write({ releaseOn: null, platform: null, releaseTentative: false }, "clear")}
             >
               Clear
             </Button>

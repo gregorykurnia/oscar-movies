@@ -172,6 +172,7 @@ export type ReleaseLine = {
   kind: "empty" | "tbd" | "coming" | "out";
   /** "12 Dec 2026", "Out 3 Oct", "TBD", or "Add release date" when both fields are empty. */
   date: string;
+  tentative: boolean;
   platform: string | null;
 };
 
@@ -196,20 +197,21 @@ function dayMonth(iso: string, withYear: boolean): string {
  * it has come (today counts) "Out 3 Oct", with the year only when it isn't this year; no date is
  * "TBD"; nothing at all is "Add release date". `today` is `YYYY-MM-DD` (`todayInJakarta`).
  */
-export function releaseLine({ releaseOn, platform }: { releaseOn: string | null; platform: string | null }, today: string): ReleaseLine {
+export function releaseLine({ releaseOn, platform, releaseTentative = false }: { releaseOn: string | null; platform: string | null; releaseTentative?: boolean }, today: string): ReleaseLine {
   const place = platform?.trim() || null;
   if (!releaseOn)
-    return place ? { kind: "tbd", date: "TBD", platform: place } : { kind: "empty", date: "Add release date", platform: null };
-  if (releaseOn > today) return { kind: "coming", date: dayMonth(releaseOn, true), platform: place };
+    return place ? { kind: "tbd", date: "TBD", tentative: false, platform: place } : { kind: "empty", date: "Add release date", tentative: false, platform: null };
+  if (releaseOn > today) return { kind: "coming", date: dayMonth(releaseOn, true), tentative: releaseTentative, platform: place };
   return {
     kind: "out",
     date: `Out ${dayMonth(releaseOn, releaseOn.slice(0, 4) !== today.slice(0, 4))}`,
+    tentative: releaseTentative,
     platform: place,
   };
 }
 
 /** The line as one string ("Out 3 Nov · Cinema XXI"). */
-export const releaseLineText = ({ date, platform }: ReleaseLine) => (platform ? `${date} · ${platform}` : date);
+export const releaseLineText = ({ date, tentative, platform }: ReleaseLine) => `${date}${tentative ? ", tentative" : ""}${platform ? ` · ${platform}` : ""}`;
 
 /** The platforms offered after the owner's own, in the guide's order. */
 export const PLATFORM_SUGGESTIONS = [

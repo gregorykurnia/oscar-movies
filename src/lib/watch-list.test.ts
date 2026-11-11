@@ -225,6 +225,20 @@ describe("releaseLine", () => {
     expect(releaseLine({ releaseOn: null, platform: "" }, today).kind).toBe("empty");
   });
 
+  it("marks tentative dates in the same words used by the visible and accessible release line", () => {
+    for (const [releaseOn, platform, expected] of [
+      ["2026-12-12", "Netflix", "12 Dec 2026, tentative · Netflix"],
+      ["2026-10-03", "Cinema XXI", "Out 3 Oct, tentative · Cinema XXI"],
+      ["2026-10-25", null, "Out 25 Oct, tentative"],
+      ["2025-10-03", null, "Out 3 Oct 2025, tentative"],
+      [null, "Netflix", "TBD · Netflix"],
+      [null, null, "Add release date"],
+    ]) {
+      expect(releaseLineText(releaseLine({ releaseOn, platform, releaseTentative: true }, today))).toBe(expected);
+    }
+    expect(releaseLineText(releaseLine({ releaseOn: "2026-12-12", platform: "Netflix", releaseTentative: false }, today))).toBe("12 Dec 2026 · Netflix");
+  });
+
   it("takes today from Jakarta's calendar", () => {
     // 20:00 UTC on 24 Oct is already 25 Oct in Jakarta (UTC+7).
     expect(todayInJakarta(new Date("2026-10-24T20:00:00Z"))).toBe("2026-10-25");
