@@ -1,6 +1,6 @@
 # Oscar Movies: Implementation Plan
 
-**Status:** Phase 9 planned 2026-11-10: add any film from Watch list (`PRODUCT_PLAN.md` v1.7; brief `docs/watch-list-any-film.md`). Phases 0–8 build tasks and reviews are complete; historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
+**Status:** Phase 10 planned 2026-11-11: Watch list release-date sort, tentative/confirmed dates and filters (`PRODUCT_PLAN.md` v1.8; brief `docs/watch-list-release-sort.md`). Phases 0–9 build tasks and reviews are complete (Phase 9 released 2026-11-10); historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
 
 **AI Build Log project:** Oscar Movies
 
@@ -177,28 +177,26 @@ A real `<table>` in a frame that scrolls sideways; the film column is `position:
 
 Every phase ends with its end-to-end/screenshot check task and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
 
-**Before the Phase 9 run:** see the feature brief’s **Before the run** section. No new account or credential is needed to build. Start with 9.1; owner migration/release steps wait until the build is finished.
+**Before the Phase 10 run:** nothing to set up (see the feature brief’s **Before the run**). Start with 10.1; the production migration and release wait until the build is finished.
 
-Phases 0–8: build tasks and reviews done; see [completed tasks](IMPLEMENTATION_PLAN-done.md). Historical owner checks remain in `docs/build-plan.md`.
+Phases 0–9: build tasks and reviews done; see [completed tasks](IMPLEMENTATION_PLAN-done.md). Historical owner checks remain in `docs/build-plan.md`.
 
-### Phase 9: Add any film from Watch list
+Phase 9: done, see [completed tasks](IMPLEMENTATION_PLAN-done.md).
 
-Owner request: “add it directly into this website app even if it doesn’t exist from before from any movie”. Smallest design: keep local Add a film, offer TMDB search and manual title/year entry, and save the film plus its wanted mark together. No award editing or sign-in change. Read [the feature brief](docs/watch-list-any-film.md), **Request and smallest design** and the matching **Task briefs** entry before each task. All defaults, safeguards with reasons and owner-only release steps are settled there; no build task waits for production access.
+### Phase 10: Watch list release sort, tentative dates and filters
+
+Owner request (2026-11-11): sort the Watch list by release date, mark each date tentative or confirmed, and filter by platform "or any other filters needed". Smallest design: a Release date sort, one stored tentative flag per date, and Platform and Release (Out now / Coming / TBD) filters on Want to watch, all in the address. Read [the feature brief](docs/watch-list-release-sort.md), **Request and smallest design** and the matching **Task briefs** entry before each task. Defaults and left-out extras are settled there.
 
 | ID | Task | Pick | Done |
 |---|---|---|---|
-| 9.1 | [look] Define missing-film screens in the guide and reference; brief 9.1 (sets the new confirmation/form layout) | Opus 5.5 High || 2026-11-10 · guide v1.4 |
-| 9.2 | [no look] Schema and test migration for local/TMDB-only films; brief 9.2 (durable identity without invented IDs) | Sol Max | 2026-11-10 · test migrated |
-| 9.3a | [no look] Backup/export/restore of app-created films; brief 9.3a (recover films and personal notes together) | Sol Max | 2026-11-10 · films and notes recover together |
-| 9.3b | [no look] Later research-loader matching; brief 9.3b (reuse app-added films without changing identity) | Sol Max | 2026-11-10 · research reuses app films and notes |
-| 9.4 | [no look] TMDB search client, route and deterministic fixtures; brief 9.4 (bounded provider requests and failures) | Sol xHigh | 2026-11-10 · bounded search and guarded fixtures |
-| 9.5 | [no look] Atomic film creation and wanted mark; brief 9.5 (identity conflicts, rollback and retries) | Sol Max | 2026-11-10 · atomic saves, safe retries and shared rank lock |
-| 9.6 | [look] Connect catalogue/manual Add a film paths; brief 9.6 (forms follow the established reference) | Sol xHigh | 2026-11-10 · both paths, look review fixes checked |
-| 9.7 | [look] End-to-end phase checks, screenshots and failure report; brief 9.7 (one full run, fixes in the next row) | Sol xHigh | 2026-11-10 · report + button-width fix checked; 3 browser / 6 DB failures for 9.R |
-| 9.R | [look] Phase 9 review and targeted fixes; brief 9.R (other family from the implementation, data and UX checks) | Opus 5.5 High | 2026-11-10 · 4 save/backup fixes, 7 test fixes; 2 race failures to 9.Rb |
-| 9.Rb | [no look] Fix the two live-race browser failures left by 9.R (`docs/review-triage.md` 9-6): `race.spec.ts:122` Show all gone (International leader 0% to be nominated, a rank-100 film 99%) and `phase-3.spec.ts:151` Fjord's old % after the sample load; fix the engine/split or the spec, then rerun only those two | Opus 5.5 High | 2026-11-10 · Newton fit damped; spec exact match; both pass |
+| 10.1 | [look] Draw the release sort, filters and tentative mark in the guide and reference; brief 10.1 (sets the look the next rows build) | Opus 5.5 High | |
+| 10.2 | [no look] Store the tentative flag: schema, test migration, save action, backup and restore; brief 10.2 (owner data must round-trip) | Sol Max | |
+| 10.3 | [look] Release date sort and Platform/Release filters on Watch list; brief 10.3 (address-driven, built to the 10.1 reference) | Sol xHigh | |
+| 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | |
+| 10.5 | [look] End-to-end phase checks and screenshots, failure report; brief 10.5 (one full run, fixes in the next row) | Sol xHigh | |
+| 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High | |
 
-*Owner, after build:* check the test-backed flow on a real phone, approve the tested production migration and then request a normal release. No production migration, load, or release belongs to an unattended task.
+*Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
 
 ## 7. Who builds it, and how
 
@@ -211,7 +209,7 @@ Owner request: “add it directly into this website app even if it doesn’t exi
 
 ### 7.2 Tier list for this app
 
-Phase 9 uses the current `~/.claude/playbooks/plans-and-models.md` **Claude or Codex: one pick per task** choices: Sol Max for saved-data work, Sol xHigh for routine implementation/checks, Opus 5.5 High for the visual reference and the review after Codex builds. The table below records the original phases’ picks; it does not override Phase 9 rows.
+Phases 9 and 10 use the current `~/.claude/playbooks/plans-and-models.md` **Claude or Codex: one pick per task** choices: Sol Max for saved-data work, Sol xHigh for routine implementation/checks, Opus 5.5 High for the visual reference and the review after Codex builds. The table below records the original phases’ picks; it does not override Phase 9 or 10 rows.
 
 | Kind of work here | Pick | Reason |
 |---|---|---|

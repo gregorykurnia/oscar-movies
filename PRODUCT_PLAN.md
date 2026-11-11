@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** v1.7 planned (2026-11-10): Phase 9 lets the owner add films from Watch list even when they are absent from the awards catalogue (§3.13). Requested by the owner; catalogue search plus manual entry is the planning default. Prior approved scope: v1.6 (2026-10-26).
+**Status:** v1.8 planned (2026-11-11): Phase 10 adds a release-date sort, tentative or confirmed release dates and Platform/Release filters to Watch list (§3.13). Requested by the owner; defaults in `docs/watch-list-release-sort.md`. v1.7 (2026-11-10): Phase 9 lets the owner add films from Watch list even when they are absent from the awards catalogue. Prior approved scope: v1.6 (2026-10-26).
 
 ## 1. Overview
 
@@ -173,12 +173,14 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Requirements**
 - Two marks per movie: **watched** and **want to watch** (marking watched clears want to watch). One tap each, on every row and on the movie page.
 - The marks show wherever the movie appears, and every list can be filtered to watched, unwatched or want to watch.
-- A **Watch list** page: want-to-watch films, then unwatched films of the current season, sortable by Oscar stage, % chance, nominations or average score.
+- A **Watch list** page: want-to-watch films, then unwatched films of the current season, sortable by Oscar stage, % chance, nominations, average score or (from Phase 10) release date: earliest first, then TBD, then films with no release note.
 - **Add a film by typing** (expanded 2026-11-10, Phase 9): the “Add a film” box at the top of Watch list keeps its existing local search. A visible **Search more films** action finds films on TMDB even if local matches exist; choose a title/year and confirm to save it directly to Want to watch. A visible **Add manually** action accepts a title and release/planned year when the film is missing from TMDB or the service is unavailable. No award participation or IMDb/Wikidata ID is required; older and forthcoming films are allowed.
 - **Missing-film behavior:** preserve the query/draft on errors; distinguish no results from a failed search; prevent repeated saves from creating duplicates. Reuse existing films by verified IDs, never silently merge by title. Show title/year matches before manual creation and let the owner reuse one or add a different film. If the source lacks a year, ask for it rather than invent it. Unknown country/scores stay missing.
 - **After adding:** the film survives reload, works in global search and its movie page, and supports the same marks/order/release notes as every other film. Merely adding it must not create award results or change predictions. Future score batches fill available scores; manual entry still works without provider credentials.
 - **Your own order** (2026-10-25): Want to watch keeps the owner's order, changed by dragging (touch, mouse or keyboard). "My order" is the Watch list's default sort; a newly added film goes to the top.
 - **Release date and platform** (2026-10-25): each want-to-watch film can carry a date and a platform the owner types in: the first date it can be watched from Indonesia (in cinemas or streaming, whichever comes first), "TBD" when there's no date, and where (Netflix, Cinema XXI…). Shown on its Watch list row.
+- **Tentative or confirmed** (2026-11-11, Phase 10): each release date is marked Confirmed or Tentative in the release editor; a newly typed date starts Tentative, dates saved before count as Confirmed. A tentative date shows a quiet "tentative" word on its row.
+- **Filters** (2026-11-11, Phase 10): Want to watch can be narrowed by **Platform** (one platform, or No platform) and **Release** (Out now, Coming, TBD), combined and kept in the address. While filtered, the season section and the drag handles are hidden, the count reads "3 of 12 films", and Clear filters returns to the full list.
 
 **UX notes:** marking is instant and can be undone by tapping again; if saving fails, the mark flips back and a message says so.
 

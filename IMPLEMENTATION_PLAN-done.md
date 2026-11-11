@@ -179,3 +179,22 @@ Product plan v1.3–v1.5 (§3.6 shortlist rule, §3.16). Tested on `test` before
 - *Owner:* approve recomputing production (`npm run compute` with the release; no migration), then say "release"
 - *Owner:* Cinema for Peace's production removal (approved 2026-10-25) runs at the next release, right after `npm run db:migrate` (see the build plan's Waiting for the owner list).
 - **Done when:** European Film Awards Documentary's winner figure counts only shortlisted winners; `/patterns/2024` shows the five the patterns picked next to the real nominees, the well-awarded misses with their reasons, and the underdogs; the race's % to be nominated for Documentary and International comes from the method named in `NOMINATION_METHOD`.
+
+### Phase 9: Add any film from Watch list
+
+Owner request: “add it directly into this website app even if it doesn’t exist from before from any movie”. Smallest design: keep local Add a film, offer TMDB search and manual title/year entry, and save the film plus its wanted mark together. No award editing or sign-in change. Read [the feature brief](docs/watch-list-any-film.md), **Request and smallest design** and the matching **Task briefs** entry before each task. All defaults, safeguards with reasons and owner-only release steps are settled there; no build task waits for production access.
+
+| ID | Task | Pick | Done |
+|---|---|---|---|
+| 9.1 | [look] Define missing-film screens in the guide and reference; brief 9.1 (sets the new confirmation/form layout) | Opus 5.5 High || 2026-11-10 · guide v1.4 |
+| 9.2 | [no look] Schema and test migration for local/TMDB-only films; brief 9.2 (durable identity without invented IDs) | Sol Max | 2026-11-10 · test migrated |
+| 9.3a | [no look] Backup/export/restore of app-created films; brief 9.3a (recover films and personal notes together) | Sol Max | 2026-11-10 · films and notes recover together |
+| 9.3b | [no look] Later research-loader matching; brief 9.3b (reuse app-added films without changing identity) | Sol Max | 2026-11-10 · research reuses app films and notes |
+| 9.4 | [no look] TMDB search client, route and deterministic fixtures; brief 9.4 (bounded provider requests and failures) | Sol xHigh | 2026-11-10 · bounded search and guarded fixtures |
+| 9.5 | [no look] Atomic film creation and wanted mark; brief 9.5 (identity conflicts, rollback and retries) | Sol Max | 2026-11-10 · atomic saves, safe retries and shared rank lock |
+| 9.6 | [look] Connect catalogue/manual Add a film paths; brief 9.6 (forms follow the established reference) | Sol xHigh | 2026-11-10 · both paths, look review fixes checked |
+| 9.7 | [look] End-to-end phase checks, screenshots and failure report; brief 9.7 (one full run, fixes in the next row) | Sol xHigh | 2026-11-10 · report + button-width fix checked; 3 browser / 6 DB failures for 9.R |
+| 9.R | [look] Phase 9 review and targeted fixes; brief 9.R (other family from the implementation, data and UX checks) | Opus 5.5 High | 2026-11-10 · 4 save/backup fixes, 7 test fixes; 2 race failures to 9.Rb |
+| 9.Rb | [no look] Fix the two live-race browser failures left by 9.R (`docs/review-triage.md` 9-6): `race.spec.ts:122` Show all gone (International leader 0% to be nominated, a rank-100 film 99%) and `phase-3.spec.ts:151` Fjord's old % after the sample load; fix the engine/split or the spec, then rerun only those two | Opus 5.5 High | 2026-11-10 · Newton fit damped; spec exact match; both pass |
+
+*Owner, after build:* check the test-backed flow on a real phone, approve the tested production migration and then request a normal release. No production migration, load, or release belongs to an unattended task.
