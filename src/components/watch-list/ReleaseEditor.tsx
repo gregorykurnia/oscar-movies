@@ -53,7 +53,7 @@ function LineText({ line }: { line: ReleaseLine }) {
     <span className="[overflow-wrap:anywhere]">
       {line.kind === "empty" ? null : <span className="sr-only">Release: </span>}
       <span className={cn(real && "font-medium text-ink")}>{line.date}</span>
-      {line.platform ? ` · ${line.platform}` : null}
+      {line.platform ? <> · <span className="inline-block max-w-full align-top [overflow-wrap:anywhere]">{line.platform}</span></> : null}
     </span>
   );
 }
@@ -277,13 +277,13 @@ export function ReleaseEditor({
         aria-expanded={open}
         onClick={() => (open ? close() : openEditor())}
         className={cn(
-          "relative mt-1 -ml-2 inline-flex min-h-7 items-center gap-1.5 rounded-pill border border-transparent pr-2.5 pl-2 text-left text-caption text-ink-muted outline-none",
+          "relative mt-1 -ml-2 inline-flex min-h-7 items-start gap-1.5 rounded-pill border border-transparent py-1 pr-2.5 pl-2 text-left text-caption text-ink-muted outline-none",
           "transition-[border-color] duration-[var(--dur-fast)] ease-app hover:border-line-strong focus-visible:shadow-focus aria-expanded:border-ink",
           // A 44px hit area around the 28px line.
           "before:absolute before:-inset-x-1 before:-inset-y-2 before:content-['']",
         )}
       >
-        <Calendar aria-hidden="true" className="size-3.5 flex-none text-ink-subtle" strokeWidth={1.75} />
+        <Calendar aria-hidden="true" className="mt-[3px] size-3.5 flex-none text-ink-subtle" strokeWidth={1.75} />
         <LineText line={line} />
       </button>
 

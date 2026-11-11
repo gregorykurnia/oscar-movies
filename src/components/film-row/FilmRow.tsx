@@ -142,7 +142,7 @@ export function FilmRow({
         rowGrid,
         handle ? phoneGridWithHandle : lead ? phoneGridWithLead : phoneGrid,
         "grid border-b border-line py-4 md:py-[18px]",
-        winner && "-mx-4 bg-[linear-gradient(90deg,var(--gold-wash),transparent_70%)] px-4",
+        winner && "bg-[linear-gradient(90deg,var(--gold-wash),transparent_70%)]",
       )}
       data-winner={winner || undefined}
     >

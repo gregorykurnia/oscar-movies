@@ -188,7 +188,7 @@ function Section({
         <h2 id={`${id}-h`} className="text-section-phone leading-tight font-medium tracking-heading [overflow-wrap:anywhere] md:text-section">
           {title}
         </h2>
-        <span className="pr-0.5 text-small text-ink-muted [contain:paint]">
+        <span className="pr-0.5 text-small text-ink-muted [contain:paint] max-md:basis-full">
           <span>{typeof count === "number" ? filmCount(count) : count}</span>
           {hint ? ` · ${hint}` : null}
         </span>

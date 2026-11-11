@@ -2,7 +2,7 @@
 
 import { Check, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { cn } from "@/lib/cn";
 
 type FilterItem = { label: string; href: string; current: boolean; caption?: string; separated?: boolean };
@@ -16,11 +16,21 @@ export function FilterMenu({ label, caption, choice, active, items }: {
   items: FilterItem[];
 }) {
   const [open, setOpen] = useState(false);
+  const [menuLeft, setMenuLeft] = useState(0);
   const root = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const links = useRef<(HTMLAnchorElement | null)[]>([]);
   const id = useId();
   const current = Math.max(0, items.findIndex((item) => item.current));
+
+  const positionMenu = useCallback(() => {
+    const trigger = button.current?.getBoundingClientRect();
+    if (!trigger) return;
+    const width = Math.min(248, window.innerWidth - 32);
+    const desired = trigger.left + width > window.innerWidth - 16 ? trigger.right - width : trigger.left;
+    const left = Math.max(16, Math.min(desired, window.innerWidth - 16 - width));
+    setMenuLeft(left - trigger.left);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -29,8 +39,12 @@ export function FilterMenu({ label, caption, choice, active, items }: {
       if (!root.current?.contains(event.target as Node)) setOpen(false);
     };
     document.addEventListener("pointerdown", outside);
-    return () => document.removeEventListener("pointerdown", outside);
-  }, [open, current]);
+    window.addEventListener("resize", positionMenu);
+    return () => {
+      document.removeEventListener("pointerdown", outside);
+      window.removeEventListener("resize", positionMenu);
+    };
+  }, [open, current, positionMenu]);
 
   function close() {
     setOpen(false);
@@ -41,6 +55,7 @@ export function FilterMenu({ label, caption, choice, active, items }: {
     if (!open) {
       if (["ArrowDown", "ArrowUp"].includes(event.key)) {
         event.preventDefault();
+        positionMenu();
         setOpen(true);
       }
       return;
@@ -59,11 +74,11 @@ export function FilterMenu({ label, caption, choice, active, items }: {
   }
 
   return (
-    <div ref={root} className="max-w-full md:relative" onKeyDown={onKeyDown} onBlur={(event) => {
+    <div ref={root} className="relative max-w-full" onKeyDown={onKeyDown} onBlur={(event) => {
       if (!root.current?.contains(event.relatedTarget as Node | null)) setOpen(false);
     }}>
       <button ref={button} type="button" aria-label={`${label}: ${choice}`} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined}
-        onClick={() => setOpen(!open)}
+        onClick={() => { if (!open) positionMenu(); setOpen(!open); }}
         className={cn(
           "relative inline-flex min-h-8 max-w-full items-center gap-1.5 rounded-[9px] border py-1 pr-2.5 pl-3 text-caption outline-none before:absolute before:inset-x-0 before:-inset-y-1.5 hover:border-line-strong focus-visible:shadow-focus",
           active ? "border-transparent bg-gold-wash text-gold-ink" : "border-line bg-surface text-ink-muted",
@@ -74,7 +89,8 @@ export function FilterMenu({ label, caption, choice, active, items }: {
       </button>
       {open ? (
         <div id={id} role="menu" aria-labelledby={`${id}-label`}
-          className="absolute left-0 z-20 mt-2 max-h-[336px] w-[248px] max-w-full overflow-y-auto rounded-lg bg-surface p-2 shadow-pop animate-pop md:max-w-none">
+          style={{ left: menuLeft }}
+          className="absolute z-20 mt-2 max-h-[336px] w-[248px] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg bg-surface p-2 shadow-pop animate-pop">
           <div id={`${id}-label`} className="px-2.5 pt-1 pb-1.5 text-micro text-ink-muted">{caption}</div>
           {items.map((item, index) => (
             <div key={item.href} className={item.separated ? "mt-1 border-t border-line pt-1" : undefined}>

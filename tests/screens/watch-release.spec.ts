@@ -4,8 +4,9 @@ import { mkdirSync, readFileSync } from "node:fs";
 import { eq } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
+import { todayInJakarta } from "../../src/lib/watch-list";
 
-const OUT = "screenshots/phase-10/10.3";
+const OUT = process.env.WATCH_RELEASE_OUT ?? "screenshots/phase-10/10.3";
 const SHAPES = [{ width: 360, height: 800 }, { width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }];
 
 test("release sort and filters gallery", async ({ page }) => {
@@ -14,9 +15,9 @@ test("release sort and filters gallery", async ({ page }) => {
   const { db, close } = createScriptDb();
   const saved = await db.select().from(marks);
   const fixtures = [
-    { slug: "the-secret-agent", releaseOn: "2099-12-12", platform: "Netflix" },
+    { slug: "the-secret-agent", releaseOn: todayInJakarta(new Date(Date.now() + 30 * 86_400_000)), platform: "Netflix" },
     { slug: "hamnet", releaseOn: null, platform: "Netflix" },
-    { slug: "sentimental-value", releaseOn: "2020-10-03", platform: "Cinema XXI" },
+    { slug: "sentimental-value", releaseOn: "2025-10-03", platform: "Cinema XXI" },
     { slug: "anora", releaseOn: null, platform: null },
   ];
   const errors: string[] = [];
@@ -38,6 +39,45 @@ test("release sort and filters gallery", async ({ page }) => {
         await page.goto(`/watch-list${query}`);
         await expect(page.getByRole("heading", { name: "Want to watch", exact: true })).toBeVisible();
         await expect(page.locator("#want-h + span")).toContainText(state === "filtered" ? "2 of 4 films" : state === "empty" ? "0 of 4 films" : "4 films");
+        if (!before && viewport.width < 768) {
+          const heading = await page.locator("#want-h").boundingBox();
+          const count = await page.locator("#want-h + span").boundingBox();
+          expect.soft(count!.y).toBeGreaterThanOrEqual(heading!.y + heading!.height);
+        }
+        if (!before && state === "release") {
+          const winner = page.locator("[data-winner]").first();
+          const box = await winner.boundingBox();
+          const list = await winner.locator("..").boundingBox();
+          expect.soft(box!.x).toBeCloseTo(list!.x, 0);
+          expect.soft(box!.x + box!.width).toBeCloseTo(list!.x + list!.width, 0);
+          const platformLines = await page.locator('button[aria-haspopup="dialog"]').filter({ hasText: "Cinema XXI" }).evaluate((button) => {
+            const text = document.createTreeWalker(button, NodeFilter.SHOW_TEXT);
+            while (text.nextNode()) {
+              const value = text.currentNode.textContent ?? "";
+              const index = value.indexOf("Cinema XXI");
+              if (index < 0) continue;
+              const range = document.createRange();
+              range.setStart(text.currentNode, index);
+              range.setEnd(text.currentNode, index + "Cinema XXI".length);
+              return range.getClientRects().length;
+            }
+            return 0;
+          });
+          expect.soft(platformLines).toBe(1);
+          const iconOffset = await page.locator('button[aria-haspopup="dialog"]').filter({ hasText: "Cinema XXI" }).evaluate((button) => {
+            const text = document.createTreeWalker(button, NodeFilter.SHOW_TEXT);
+            while (text.nextNode()) {
+              if (!text.currentNode.textContent?.startsWith("Out ")) continue;
+              const range = document.createRange();
+              range.selectNodeContents(text.currentNode);
+              const date = range.getBoundingClientRect();
+              const icon = button.querySelector("svg")!.getBoundingClientRect();
+              return Math.abs((icon.top + icon.height / 2) - (date.top + date.height / 2));
+            }
+            return 999;
+          });
+          expect.soft(iconOffset).toBeLessThanOrEqual(4);
+        }
         if (state === "filtered" || state === "empty") {
           expect(await page.getByRole("button", { name: "Platform: Netflix", exact: true }).evaluate((button) => {
             const sample = document.createElement("span");
@@ -58,20 +98,31 @@ test("release sort and filters gallery", async ({ page }) => {
         }));
         expect(covered).toEqual([]);
         await page.screenshot({ path: `${OUT}/${state}-${viewport.width}.png` });
-        if (!before && (state === "empty" || viewport.width === 844)) {
-          if (state === "empty") await page.getByRole("heading", { name: "No films match these filters" }).locator("..").scrollIntoViewIfNeeded();
+        if (!before && (state === "empty" || viewport.width === 844 || (state === "release" && viewport.width < 768))) {
+          if (state === "empty") {
+            const panel = page.getByRole("heading", { name: "No films match these filters" }).locator("..");
+            await panel.evaluate((element) => element.scrollIntoView({ block: "center" }));
+            const panelBox = await panel.boundingBox();
+            expect(panelBox!.y).toBeGreaterThanOrEqual(8);
+            expect(panelBox!.y + panelBox!.height).toBeLessThanOrEqual(viewport.height - 8);
+          }
           else await page.locator('nav[aria-label="Sort by"]').locator("../..").evaluate((toolbar) => toolbar.scrollIntoView({ block: "start" }));
           await page.screenshot({ path: `${OUT}/${state}-${viewport.width}-detail.png` });
         }
         if (!before && state === "filtered" && [360, 1280].includes(viewport.width)) {
           for (const label of ["Platform: Netflix", "Release: All"]) {
-            await page.getByRole("button", { name: label, exact: true }).click();
+            const trigger = page.getByRole("button", { name: label, exact: true });
+            await trigger.click();
             const menu = page.getByRole("menu");
             await expect(menu).toBeVisible();
             await menu.evaluate((element) => Promise.all(element.getAnimations().map((animation) => animation.finished)));
             const box = await menu.boundingBox();
             expect(box && box.x >= 0 && box.x + box.width <= viewport.width).toBeTruthy();
             expect(box?.width).toBe(248);
+            if (viewport.width === 360 && label.startsWith("Release")) {
+              const triggerBox = await trigger.boundingBox();
+              expect.soft(box!.x + box!.width).toBeCloseTo(triggerBox!.x + triggerBox!.width, 0);
+            }
             await page.screenshot({ path: `${OUT}/${label.startsWith("Platform") ? "platform" : "release-menu"}-${viewport.width}.png` });
             await page.keyboard.press("Escape");
           }
