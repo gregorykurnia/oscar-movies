@@ -407,7 +407,7 @@ kbd, .kbd { font-family: inherit; font-size: var(--text-micro); color: var(--ink
 .frow .n.gold { color: var(--gold-ink); }
 .frow .marks { justify-content: flex-end; }
 .frow .lab { display: none; }
-.frow.winner { background: linear-gradient(90deg, var(--gold-wash), transparent 70%); margin: 0 calc(-1 * var(--space-4)); padding-left: var(--space-4); padding-right: var(--space-4); }
+.frow.winner { background: linear-gradient(90deg, var(--gold-wash), transparent 70%); }
 @container app (max-width: 760px) {
   .frow, .frow.wl { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "film marks" "res res"; gap: 10px 12px; padding: 16px 0; }
   .frow.head { display: none; }
@@ -418,7 +418,6 @@ kbd, .kbd { font-family: inherit; font-size: var(--text-micro); color: var(--ink
   .frow .c, .frow .n { font-size: var(--text-caption); text-align: left; font-weight: var(--weight-regular); letter-spacing: 0; }
   .frow .c .m { display: inline; margin-left: 6px; }
   .frow .lab { display: inline; color: var(--ink-muted); }
-  .frow.winner { margin: 0 calc(-1 * var(--gutter-phone)); padding-left: var(--gutter-phone); padding-right: var(--gutter-phone); }
 }
 .res { display: contents; }
 
