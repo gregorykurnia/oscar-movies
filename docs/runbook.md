@@ -9,7 +9,7 @@ What can be lost, and where its copy lives:
 | Data | Copy | How it comes back |
 |---|---|---|
 | Award results, movies, editions | `data/` in git | Reload: `npm run load -- --target production --yes-production` (dry run first) |
-| Scores | OMDb and TMDB | The next cron run, or `npm run scores:refresh` |
+| Scores | IMDb's ratings file, OMDb and TMDB | The next cron run, or `npm run scores:refresh` |
 | Accuracy, predictions | Computed | The loader recomputes them |
 | **Personal data** (watched, want, Watch list order, release date/platform, and app-created films) | `data/marks.json` in git, as fresh as the last export | `npm run marks:restore` recreates missing app-created films and their marks together (below) |
 

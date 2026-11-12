@@ -1,5 +1,6 @@
 // One entry for the cron route and `npm run scores:refresh` (plan §5.4).
 import { fetchOmdb, fetchTmdb } from "./clients";
+import { fetchImdbRatings } from "./imdb-ratings";
 import type { ScoreClients } from "./batch";
 
 export { describeRun, runScores, type RunSummary } from "./batch";
@@ -10,6 +11,7 @@ export function scoreClientsFromEnv(env: Record<string, string | undefined> = pr
   const { OMDB_API_KEY: omdbKey, TMDB_READ_TOKEN: tmdbToken } = env;
   if (!omdbKey || !tmdbToken) throw new Error("OMDB_API_KEY and TMDB_READ_TOKEN must both be set.");
   return {
+    imdbRatings: (imdbIds) => fetchImdbRatings(imdbIds),
     omdb: (imdbId) => fetchOmdb(imdbId, omdbKey),
     tmdb: (tmdbId) => fetchTmdb(tmdbId, tmdbToken),
   };

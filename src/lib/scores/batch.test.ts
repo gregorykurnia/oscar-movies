@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { OMDB_CALLS_PER_RUN, refreshFromYear, runScores, type QueueFilm, type RunSummary, type ScoreClients, type ScoreStore } from "./batch";
+import { OMDB_CALLS_PER_RUN, refreshFromYear, runScores, type ImdbRatingsResult, type QueueFilm, type RunSummary, type ScoreClients, type ScoreStore } from "./batch";
 import type { ClientResult, OmdbScores, TmdbScores } from "./clients";
 import { mergeScores, type ScoreUpdate } from "./merge";
 
@@ -22,10 +22,12 @@ function fakeStore(queue: QueueFilm[]) {
 }
 
 const ok = <T>(value: T): ClientResult<T> => ({ kind: "ok", value });
+const rated = (value: Map<string, number>): ImdbRatingsResult => ({ kind: "ok", value });
 const clients = (
   omdb: (id: string) => ClientResult<OmdbScores>,
   tmdb: (id: number) => ClientResult<TmdbScores> = () => ok({ tmdbScore: 7.4 }),
-): ScoreClients => ({ omdb: async (id) => omdb(id), tmdb: async (id) => tmdb(id) });
+  imdbRatings: (ids: string[]) => ImdbRatingsResult = () => ({ kind: "ok", value: new Map() }),
+): ScoreClients => ({ imdbRatings: async (ids) => imdbRatings(ids), omdb: async (id) => omdb(id), tmdb: async (id) => tmdb(id) });
 
 const run = (store: ScoreStore, c: ScoreClients, extra = {}) =>
   runScores(store, c, { source: "script", now: () => NOW, sleep: async () => {}, ...extra });
@@ -171,5 +173,61 @@ describe("runScores: one film just added", () => {
     expect(summary.checked).toBe(1);
     expect(saved[0].update).toMatchObject({ imdbRating: 8, rtScore: 95, mcScore: 88, tmdbScore: 7.4 });
     expect(recorded).toEqual([]);
+  });
+});
+
+describe("runScores: IMDb ratings from IMDb's own file", () => {
+  const omdb = () => ok({ imdbRating: 7.9, rtScore: 95, mcScore: 98 });
+
+  it("downloads the file once for the run and prefers its rating over OMDb's", async () => {
+    const { store, saved } = fakeStore([film(1), film(2)]);
+    const asked: string[][] = [];
+    const ratings = (ids: string[]) => (asked.push(ids), rated(new Map([["tt1", 9.0]])));
+    const summary = await run(store, clients(omdb, undefined, ratings));
+    expect(asked).toEqual([["tt1", "tt2"]]);
+    expect(saved[0].update).toMatchObject({ imdbRating: 9.0, rtScore: 95, mcScore: 98 });
+    // Not in the file (too few votes): OMDb's rating stands.
+    expect(saved[1].update).toMatchObject({ imdbRating: 7.9 });
+    expect(summary.imdbFileFailed).toBeUndefined();
+  });
+
+  it("keeps the file's rating when OMDb fails for that film", async () => {
+    const { store, saved } = fakeStore([film(1)]);
+    await run(store, clients(() => ({ kind: "failed", reason: "OMDb: down" }), undefined, () => rated(new Map([["tt1", 8.4]]))));
+    expect(saved[0].update).toMatchObject({ imdbRating: 8.4 });
+    // OMDb's scores aren't touched: the stored RT and Metacritic stay.
+    expect(saved[0].update).not.toHaveProperty("rtScore");
+  });
+
+  it("falls back to OMDb's rating, and says so, when the file can't be read", async () => {
+    const { store, saved } = fakeStore([film(1)]);
+    const summary = await run(store, clients(omdb, undefined, () => ({ kind: "failed", reason: "IMDb ratings file: HTTP 503" })));
+    expect(saved[0].update).toMatchObject({ imdbRating: 7.9 });
+    expect(summary.imdbFileFailed).toBe("IMDb ratings file: HTTP 503");
+    expect(summary.stoppedBy).toBe("done");
+  });
+
+  it("doesn't download the file when no film due has an IMDb ID", async () => {
+    let downloads = 0;
+    const { store } = fakeStore([film(1, { imdbId: null })]);
+    await run(store, clients(omdb, undefined, () => (downloads++, rated(new Map()))));
+    expect(downloads).toBe(0);
+  });
+
+  it("asks the file only for the films the run can reach", async () => {
+    const asked: string[][] = [];
+    const { store } = fakeStore(Array.from({ length: 5 }, (_, i) => film(i + 1)));
+    await run(store, clients(omdb, undefined, (ids) => (asked.push(ids), rated(new Map()))), { maxOmdbCalls: 2 });
+    expect(asked).toEqual([["tt1", "tt2"]]);
+  });
+
+  it("doesn't count a film the file rated as failing when OMDb and TMDB are down", async () => {
+    const films = Array.from({ length: 12 }, (_, i) => film(i + 1));
+    const down = () => ({ kind: "failed" as const, reason: "down" });
+    const all = new Map(films.map((f) => [f.imdbId!, 8.0]));
+    const { store, saved } = fakeStore(films);
+    const summary = await run(store, clients(down, down, () => rated(all)));
+    expect(summary.stoppedBy).toBe("done");
+    expect(saved).toHaveLength(12);
   });
 });

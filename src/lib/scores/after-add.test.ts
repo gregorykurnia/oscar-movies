@@ -29,7 +29,11 @@ function fakeStore(queue: QueueFilm[]) {
   return { store, saved, recorded, asked };
 }
 const omdb = vi.fn<ScoreClients["omdb"]>();
-const clients: ScoreClients = { omdb, tmdb: async () => ({ kind: "ok", value: { tmdbScore: 6.4 } }) };
+const clients: ScoreClients = {
+  imdbRatings: async () => ({ kind: "ok", value: new Map([["tt7", 9.0]]) }),
+  omdb,
+  tmdb: async () => ({ kind: "ok", value: { tmdbScore: 6.4 } }),
+};
 
 beforeEach(() => {
   vi.resetAllMocks();
@@ -43,7 +47,7 @@ describe("fetchFilmScores", () => {
     const { store, saved, recorded, asked } = fakeStore([film(null)]);
     expect(await fetchFilmScores(store, clients, 7, () => NOW)).toBe(true);
     expect(asked[0]).toMatchObject({ ids: [7] });
-    expect(saved).toEqual([{ id: 7, update: expect.objectContaining({ imdbRating: 7.9, rtScore: 93, mcScore: 85, tmdbScore: 6.4 }) }]);
+    expect(saved).toEqual([{ id: 7, update: expect.objectContaining({ imdbRating: 9.0, rtScore: 93, mcScore: 85, tmdbScore: 6.4 }) }]);
     expect(recorded).toEqual([]);
   });
 

@@ -33,7 +33,11 @@ export type ScoreStore = {
   record(summary: RunSummary): Promise<void>;
 };
 
+export type ImdbRatingsResult = { kind: "ok"; value: Map<string, number> } | { kind: "failed"; reason: string };
+
 export type ScoreClients = {
+  /** IMDb's own ratings for these IDs (one download a run); preferred over OMDb's IMDb rating. */
+  imdbRatings(imdbIds: string[]): Promise<ImdbRatingsResult>;
   omdb(imdbId: string): Promise<ClientResult<OmdbScores>>;
   tmdb(tmdbId: number): Promise<ClientResult<TmdbScores>>;
 };
@@ -55,6 +59,8 @@ export type RunSummary = {
   errors: { movieId: number; reason: string }[];
   stoppedBy: StopReason;
   stopReason?: string;
+  /** Why IMDb's ratings file couldn't be used this run (OMDb's IMDb ratings were kept instead). */
+  imdbFileFailed?: string;
 };
 
 /**
@@ -127,6 +133,19 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     }
   }
 
+  // IMDb's file is newer than OMDb's copy of the rating; without it, OMDb's rating stands.
+  let imdbRatings = new Map<string, number>();
+  // Only the films this run can reach (the OMDb cap), so the file scan can stop early.
+  const imdbIds = queue.flatMap((f) => (f.imdbId ? [f.imdbId] : [])).slice(0, maxOmdb);
+  if (imdbIds.length > 0) {
+    const result = await clients.imdbRatings(imdbIds);
+    if (result.kind === "ok") imdbRatings = result.value;
+    else {
+      summary.imdbFileFailed = result.reason;
+      log(`IMDb ratings file not used: ${result.reason}`);
+    }
+  }
+
   let failingInARow = 0;
   for (const film of queue) {
     if (now().getTime() >= deadline) {
@@ -168,6 +187,8 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
       stop(halt.by, halt.reason);
       break;
     }
+    const imdbRating = film.imdbId ? imdbRatings.get(film.imdbId) : undefined;
+    if (imdbRating !== undefined) fetched.imdbRating = imdbRating;
 
     const merged = mergeScores(film, fetched, now());
     await store.save(film.id, merged.update);
@@ -175,7 +196,8 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     for (const key of merged.confirmed) summary.confirmed[key]++;
     if (merged.changed.length > 0) summary.changedFilms++;
 
-    failingInARow = calls > 0 && failed === calls ? failingInARow + 1 : 0;
+    // A film the file gave a rating to isn't failing, whatever OMDb and TMDB did.
+    failingInARow = calls > 0 && failed === calls && imdbRating === undefined ? failingInARow + 1 : 0;
     if (failingInARow >= MAX_FAILING_IN_A_ROW) {
       stop("failing", `${MAX_FAILING_IN_A_ROW} films in a row had every call fail`);
       break;
@@ -194,6 +216,7 @@ export function describeRun(s: RunSummary): string {
   return (
     `Checked ${s.checked} of ${s.due} films due (${s.omdbCalls} OMDb, ${s.tmdbCalls} TMDB calls). ` +
     `Confirmed IMDb ${c.imdbRating}, RT ${c.rtScore}, MC ${c.mcScore}, TMDB ${c.tmdbScore}; ` +
-    `${s.changedFilms} films changed; ${s.failures} failed calls.${stopped}`
+    `${s.changedFilms} films changed; ${s.failures} failed calls.${stopped}` +
+    (s.imdbFileFailed ? ` IMDb ratings from OMDb (file: ${s.imdbFileFailed}).` : "")
   );
 }
