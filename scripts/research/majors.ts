@@ -142,7 +142,14 @@ export const AWARDS: Spec[] = [
     slug: "cinema-eye",
     page: (y) => `${ordinal(y - 2006)} Cinema Eye Honors`,
     ordinal: (y) => ordinal(y - 2006),
-    categories: { feature: /^outstandingnonfictionfeature$/ },
+    // From the 20th honors (2026 films) the page names the feature prize in full and also lists
+    // Direction and Production; before that, those two come from IMDb (`imdb.ts`).
+    categories: {
+      feature: /^outstanding(achievementin)?nonfictionfeature(filmmaking)?$/,
+      direction: /^outstandingachievementindirection$/,
+      production: /^outstandingachievementinproduction$/,
+    },
+    span: { direction: [2026, 9999], production: [2026, 9999] },
     // The pages for the 6th–14th honors don't exist; the main article names each winner.
     winnerOnlyUntil: { year: 2020, article: "Cinema Eye Honors" },
   },
