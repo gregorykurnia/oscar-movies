@@ -3,13 +3,15 @@
 // `tests/db/mark-write.test.ts`.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { writeWantAtTop, writeWantOrder, writeRelease } = vi.hoisted(() => ({
+const { writeWantAtTop, writeWantOrder, writeRelease, fetchScoresAfterResponse } = vi.hoisted(() => ({
+  fetchScoresAfterResponse: vi.fn(),
   writeWantAtTop: vi.fn(),
   writeWantOrder: vi.fn(),
   writeRelease: vi.fn(),
 }));
 vi.mock("@/db", () => ({ getDb: () => ({}), withFilmTransaction: (write: (tx: object) => unknown) => write({}) }));
 vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeRelease }));
+vi.mock("@/lib/scores/after-add", () => ({ fetchScoresAfterResponse }));
 
 import { addToWatchList, reorderWatchList, setRelease } from "./watch-list";
 
@@ -23,6 +25,7 @@ describe("addToWatchList", () => {
     writeWantAtTop.mockResolvedValue(true);
     expect(await addToWatchList(12)).toEqual({ ok: true });
     expect(writeWantAtTop).toHaveBeenCalledWith({}, 12);
+    expect(fetchScoresAfterResponse).toHaveBeenCalledWith(12);
   });
 
   it.each([[0], [-3], [1.5], ["12"], [null]])("refuses %j without writing", async (id) => {
@@ -34,6 +37,7 @@ describe("addToWatchList", () => {
     writeWantAtTop.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error("down"));
     expect(await addToWatchList(12)).toEqual({ ok: false });
     expect(await addToWatchList(12)).toEqual({ ok: false });
+    expect(fetchScoresAfterResponse).not.toHaveBeenCalled();
   });
 });
 

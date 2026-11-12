@@ -5,6 +5,7 @@ import { withFilmTransaction } from "@/db";
 import { saveFilm, type FilmDraft } from "@/data/add-film";
 import { addFilmInputSchema, type AddFilmInput, type AddFilmResult } from "@/lib/add-film";
 import { getMovieCatalogue } from "@/lib/movie-catalogue";
+import { fetchScoresAfterResponse } from "@/lib/scores/after-add";
 
 /** Fetch trusted provider details before opening the locked transaction; manual saves need no provider. */
 export async function addFilm(raw: AddFilmInput): Promise<AddFilmResult> {
@@ -20,6 +21,7 @@ export async function addFilm(raw: AddFilmInput): Promise<AddFilmResult> {
     }
     const result = await withFilmTransaction((tx) => saveFilm(tx, draft));
     if (!result.ok) return result;
+    fetchScoresAfterResponse(result.film.id);
     try {
       // Includes cached movie-page misses. updateTag expires immediately for read-your-own-writes.
       updateTag("awards");

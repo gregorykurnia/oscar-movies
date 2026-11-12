@@ -1,6 +1,7 @@
 // The score batch (plan §5.4), shared by `/api/cron/scores` and `npm run scores:refresh`. The
 // database sits behind `ScoreStore` and the APIs behind `ScoreClients`, so the rules here are
 // unit tested without either.
+import { LIVE_YEAR } from "../years";
 import type { ClientResult, OmdbScores, TmdbScores } from "./clients";
 import { mergeScores, SCORE_KEYS, type FetchedScores, type ScoreKey, type ScoreUpdate, type StoredScores } from "./merge";
 
@@ -12,7 +13,18 @@ export type QueueFilm = StoredScores & {
   scoresCheckedAt: Date | null;
 };
 
-export type QueueOptions = { now: Date; years?: { from: number; to: number } };
+/** `years`: every film of those years, due or not. `ids`: just those films, due or not. */
+export type QueueOptions = { now: Date; years?: { from: number; to: number }; ids?: number[] };
+
+/**
+ * The first film year the daily run refreshes: this year's films, plus last year's until their
+ * Oscars night (by the end of March), and never past the app's live season (a late ceremony).
+ * Older films keep the scores they have.
+ */
+export function refreshFromYear(now: Date, liveYear: number = LIVE_YEAR): number {
+  const year = now.getUTCFullYear();
+  return Math.min(now.getUTCMonth() < 3 ? year - 1 : year, liveYear);
+}
 
 export type ScoreStore = {
   /** The films due, in the order to check them (`store.ts` has the rule). */
@@ -29,7 +41,8 @@ export type ScoreClients = {
 export type StopReason = "done" | "call-limit" | "deadline" | "rate-limited" | "refused" | "failing";
 
 export type RunSummary = {
-  source: "cron" | "script";
+  /** `film`: one film just added to the watch list (not recorded in `data_loads`). */
+  source: "cron" | "script" | "film";
   due: number;
   checked: number;
   omdbCalls: number;
@@ -44,8 +57,11 @@ export type RunSummary = {
   stopReason?: string;
 };
 
-/** At most this many OMDb calls a run; more while films were never checked (free key: 1,000 a day). */
-export const OMDB_CALLS = { normal: 300, catchUp: 900 } as const;
+/**
+ * At most this many OMDb calls a run. The free key allows 1,000 a day and `vercel.json` runs the
+ * batch five times a day: 900, leaving room for watch-list adds and `test` refreshes.
+ */
+export const OMDB_CALLS_PER_RUN = 180;
 export const DEADLINE_MS = 250_000;
 const MAX_ERRORS_KEPT = 20;
 /** This many films in a row with every call failing means the source is down: stop. */
@@ -56,6 +72,7 @@ const RATE_LIMIT_WAIT_MAX_MS = 30_000;
 
 export type RunOptions = {
   source: RunSummary["source"];
+  ids?: number[];
   years?: QueueOptions["years"];
   /** Overrides the OMDb call cap (`--limit`). */
   maxOmdbCalls?: number;
@@ -74,9 +91,8 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
   const started = now().getTime();
   const deadline = started + (opts.deadlineMs ?? DEADLINE_MS);
 
-  const queue = await store.queue({ now: now(), years: opts.years });
-  const maxOmdb =
-    opts.maxOmdbCalls ?? (queue.some((f) => f.scoresCheckedAt === null) ? OMDB_CALLS.catchUp : OMDB_CALLS.normal);
+  const queue = await store.queue({ now: now(), years: opts.years, ids: opts.ids });
+  const maxOmdb = opts.maxOmdbCalls ?? OMDB_CALLS_PER_RUN;
 
   const summary: RunSummary = {
     source: opts.source,
@@ -166,7 +182,8 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     }
   }
 
-  await store.record(summary);
+  // A one-film fetch isn't the daily run: `/data` dates the scores by the daily run's row.
+  if (opts.source !== "film") await store.record(summary);
   return summary;
 }
 

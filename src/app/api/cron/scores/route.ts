@@ -1,4 +1,4 @@
-// The daily score batch (plan §5.4), run by Vercel Cron (`vercel.json`). Vercel sends
+// The score batch (plan §5.4), run by Vercel Cron five times a day (`vercel.json`). Vercel sends
 // `CRON_SECRET` as a Bearer token; without a configured secret every call is refused.
 import { timingSafeEqual } from "node:crypto";
 import { revalidateTag } from "next/cache";

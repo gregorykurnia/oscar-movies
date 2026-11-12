@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-const { transaction, saveFilm, details, catalogue, updateTag } = vi.hoisted(() => ({
-  transaction: vi.fn(), saveFilm: vi.fn(), details: vi.fn(), catalogue: vi.fn(), updateTag: vi.fn(),
+const { transaction, saveFilm, details, catalogue, updateTag, fetchScores } = vi.hoisted(() => ({
+  transaction: vi.fn(), saveFilm: vi.fn(), details: vi.fn(), catalogue: vi.fn(), updateTag: vi.fn(), fetchScores: vi.fn(),
 }));
+vi.mock("@/lib/scores/after-add", () => ({ fetchScoresAfterResponse: fetchScores }));
 vi.mock("@/db", () => ({ withFilmTransaction: transaction }));
 vi.mock("@/data/add-film", () => ({ saveFilm }));
 vi.mock("@/lib/movie-catalogue", () => ({ getMovieCatalogue: catalogue }));
@@ -52,6 +53,7 @@ describe("add film action", () => {
     expect(saveFilm).toHaveBeenCalledWith({ tx: true }, { input: { ...manual, title: "New film" } });
     expect(updateTag).toHaveBeenCalledWith("awards");
     expect(transaction.mock.invocationCallOrder[0]).toBeLessThan(updateTag.mock.invocationCallOrder[0]);
+    expect(fetchScores).toHaveBeenCalledWith(99);
   });
 
   it("fetches trusted details before opening the transaction", async () => {
@@ -79,6 +81,7 @@ describe("add film action", () => {
     saveFilm.mockResolvedValue(result);
     expect(await addFilm(manual)).toEqual(result);
     expect(updateTag).not.toHaveBeenCalled();
+    expect(fetchScores).not.toHaveBeenCalled();
   });
 
   it("reports a transaction failure without returning success", async () => {

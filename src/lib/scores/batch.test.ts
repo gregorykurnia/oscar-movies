@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { runScores, type QueueFilm, type RunSummary, type ScoreClients, type ScoreStore } from "./batch";
+import { OMDB_CALLS_PER_RUN, refreshFromYear, runScores, type QueueFilm, type RunSummary, type ScoreClients, type ScoreStore } from "./batch";
 import type { ClientResult, OmdbScores, TmdbScores } from "./clients";
 import { mergeScores, type ScoreUpdate } from "./merge";
 
@@ -101,16 +101,17 @@ describe("runScores: limits", () => {
     expect(saved[0].update.imdbRating).toBe(8);
   });
 
-  it("stops at the OMDb call cap, more while films were never checked", async () => {
+  it("stops at the OMDb call cap (five runs a day stay under OMDb's 1,000)", async () => {
     const checked = new Date("2026-09-01T00:00:00Z");
     const many = (n: number, extra: Partial<QueueFilm>) => Array.from({ length: n }, (_, i) => film(i + 1, extra));
     const c = clients(() => ok({ imdbRating: 7, rtScore: null, mcScore: null }));
 
     const due = await run(fakeStore(many(310, { scoresCheckedAt: checked })).store, c);
-    expect([due.omdbCalls, due.stoppedBy]).toEqual([300, "call-limit"]);
+    expect([due.omdbCalls, due.stoppedBy]).toEqual([180, "call-limit"]);
 
-    const fresh = await run(fakeStore(many(910, {})).store, c);
-    expect([fresh.omdbCalls, fresh.stoppedBy]).toEqual([900, "call-limit"]);
+    const fresh = await run(fakeStore(many(310, {})).store, c);
+    expect([fresh.omdbCalls, fresh.stoppedBy]).toEqual([180, "call-limit"]);
+    expect(OMDB_CALLS_PER_RUN * 5).toBeLessThan(1000);
 
     const limited = await run(fakeStore(many(10, {})).store, c, { maxOmdbCalls: 4 });
     expect(limited.omdbCalls).toBe(4);
@@ -140,5 +141,35 @@ describe("runScores: limits", () => {
     const summary = await run(store, clients(() => ok({ imdbRating: 1, rtScore: 1, mcScore: 1 })));
     expect([summary.omdbCalls, summary.tmdbCalls]).toEqual([0, 1]);
     expect(saved[0].update).toEqual({ scoresCheckedAt: NOW, tmdbScore: 7.4, tmdbAt: NOW });
+  });
+});
+
+describe("refreshFromYear: films still in the Oscar race", () => {
+  it.each([
+    ["2026-11-12T00:00:00Z", 2026],
+    ["2027-01-05T00:00:00Z", 2026],
+    ["2027-03-31T23:59:00Z", 2026],
+    ["2027-04-01T00:00:00Z", 2027],
+    ["2028-02-10T00:00:00Z", 2027],
+  ])("on %s refreshes films from %i on", (at, from) => {
+    expect(refreshFromYear(new Date(at), 2099)).toBe(from);
+  });
+
+  it("keeps the live season's films while the app still shows that season (a late ceremony)", () => {
+    expect(refreshFromYear(new Date("2027-04-20T00:00:00Z"), 2026)).toBe(2026);
+  });
+});
+
+describe("runScores: one film just added", () => {
+  it("asks the store for that film only and writes no data_loads row", async () => {
+    const { store, saved, recorded } = fakeStore([film(7)]);
+    let asked: unknown;
+    const queue = store.queue;
+    store.queue = (opts) => ((asked = opts), queue(opts));
+    const summary = await run(store, clients(() => ok({ imdbRating: 8, rtScore: 95, mcScore: 88 })), { source: "film", ids: [7] });
+    expect(asked).toMatchObject({ ids: [7] });
+    expect(summary.checked).toBe(1);
+    expect(saved[0].update).toMatchObject({ imdbRating: 8, rtScore: 95, mcScore: 88, tmdbScore: 7.4 });
+    expect(recorded).toEqual([]);
   });
 });

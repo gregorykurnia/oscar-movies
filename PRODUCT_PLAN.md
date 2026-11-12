@@ -11,7 +11,7 @@ A personal web app for following the film awards season and the Oscars. For each
 **Basic principles**
 - **Users:** the owner only. **No sign-in** (owner's choice). The live app is kept out of search engines.
 - **Years:** 2012–2025 as finished seasons, plus the **2026 season tracked live** as awards are announced.
-- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services and refreshed about once a week. Award corrections and season updates go through Claude (see 3.12). The owner can add missing films from Watch list and type their own watch-list notes (order, release date, platform; 3.13).
+- **How data gets in:** Claude researches and loads all awards, nominees, winners and lineups from public sources; scores are fetched automatically from free services: daily for films still in the Oscar race, at once for a film added to the watch list. Award corrections and season updates go through Claude (see 3.12). The owner can add missing films from Watch list and type their own watch-list notes (order, release date, platform; 3.13).
 
 ## 2. Users and jobs
 
@@ -55,7 +55,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 - **Flags:** every movie shows **one flag**, its **primary country**: for a film ever submitted for International Feature, the country that submitted it, on every page (not only the International lists); otherwise the first country Wikipedia lists for it. The movie page names all its countries in text. (Until 2026-10-25: up to three flags plus "+N".)
 - A missing score shows as "–", never as 0. Rotten Tomatoes comes through OMDb and can be missing or late for new and foreign films; there is no paid or scraped fallback.
 - Letterboxd isn't shown: it has no legal free source (its API isn't granted to personal projects and its terms forbid scraping).
-- Scores are refreshed in a **small daily batch**, so each current-season film is updated about once a week and older films about monthly (they barely change). Each score shows when it was last updated on the movie page.
+- Scores are refreshed **daily for films still in the Oscar race**: this year's films, plus last year's until the end of March. Older films keep their scores (they barely change). A film added to the watch list gets its scores right away (owner, 2026-11-12). Each score shows when it was last updated on the movie page.
 
 ### 3.3 The Oscar race (home)
 

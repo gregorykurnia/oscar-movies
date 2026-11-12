@@ -2,6 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "regions": ["sin1"],
-  "crons": [{ "path": "/api/cron/scores", "schedule": "0 20 * * *" }],
+  "crons": [
+    { "path": "/api/cron/scores", "schedule": "0 16 * * *" },
+    { "path": "/api/cron/scores", "schedule": "0 18 * * *" },
+    { "path": "/api/cron/scores", "schedule": "0 20 * * *" },
+    { "path": "/api/cron/scores", "schedule": "0 22 * * *" },
+    { "path": "/api/cron/scores", "schedule": "0 0 * * *" }
+  ],
   "git": { "deploymentEnabled": { "staging": false } }
 }

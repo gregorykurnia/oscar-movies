@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { getDb, withFilmTransaction } from "@/db";
 import { writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
+import { fetchScoresAfterResponse } from "@/lib/scores/after-add";
 
 // The Watch list's Server Actions (plan §4, Phase 7 notes): Add a film, the owner's order and
 // release notes. Like the marks action, anyone with the address can call them, so each checks
@@ -19,7 +20,9 @@ export async function addToWatchList(raw: number): Promise<WatchListResult> {
   const parsed = movieId.safeParse(raw);
   if (!parsed.success) return { ok: false };
   try {
-    return { ok: await withFilmTransaction((tx) => writeWantAtTop(tx, parsed.data)) };
+    const ok = await withFilmTransaction((tx) => writeWantAtTop(tx, parsed.data));
+    if (ok) fetchScoresAfterResponse(parsed.data);
+    return { ok };
   } catch (error) {
     console.error("addToWatchList failed", { movieId: parsed.data }, error);
     return { ok: false };

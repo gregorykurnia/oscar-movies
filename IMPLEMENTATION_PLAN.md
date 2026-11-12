@@ -29,7 +29,7 @@ The default stack (`docs/build-plan.md`): Next.js App Router + TypeScript, Neon 
 | Script runner | `tsx` | Runs the TypeScript scripts in `scripts/` |
 | Scores | OMDb API (IMDb, Tomatometer, Metascore in one call; free key, 1,000 calls a day) + TMDB API (user score; free key) | Product plan §7 feasibility: the only legal free sources |
 | Movie facts and IDs | Wikipedia + Wikidata APIs (no key), TMDB as fallback | Wikidata gives IMDb ID (P345), TMDB ID (P4947), countries (P495 → ISO code P297), original title (P1476), language (P364), all CC0, so the facts can live in the repo |
-| Scheduled job | Vercel Cron (Hobby: once a day) | The daily score batch (§5.4) |
+| Scheduled job | Vercel Cron (Hobby: each job once a day) | The score batch (§5.4), five jobs two hours apart |
 | Search | Postgres `unaccent` + `pg_trgm` | Accent-free title matching under 100 ms (feasibility) |
 
 ## 2. Environments and secrets
@@ -159,7 +159,7 @@ For each award category mapped to Oscar category C, over **finished** seasons (O
 - Computed by `scripts/compute.ts` (also run by the loader) into `predictions`; pages never compute.
 
 ### 5.4 Scores (`src/lib/scores/`, shared by the cron route and `npm run scores:refresh`)
-- **Batch:** films whose scores were never checked first, then current- and previous-season films checked more than 7 days ago, then older films checked more than 30 days ago; at most 300 OMDb calls a run (900 while never-checked films remain), stopping at 250 seconds. Calls one at a time, paused on HTTP 429 or OMDb's "limit reached".
+- **Batch:** films whose scores were never checked first (any year), then films still in the Oscar race checked more than 20 hours ago (daily): this calendar year's films and later, plus last year's until the end of March and never past `LIVE_YEAR` (`refreshFromYear`, owner 2026-11-12). Older films keep their scores and aren't rechecked; `--year` still refreshes any year. Adding a film to the watch list fetches its scores straight after the save unless checked in the last 20 hours (`src/lib/scores/after-add.ts`, no `data_loads` row). `vercel.json` runs the batch five times a day, two hours apart (Hobby runs each job once a day, anywhere in its hour), because one run checks about 150 films. At most 180 OMDb calls a run (5 runs: 900 of the 1,000 a day; `--limit` overrides it for the script), stopping at 250 seconds. Calls one at a time, paused on HTTP 429 or OMDb's "limit reached".
 - **Merge rule:** a failed call or "N/A" never overwrites a stored score with null; each score's `*_at` changes only when the value was confirmed. `scores_checked_at` always moves, so a failing film doesn't block the queue.
 - The run writes a `data_loads` row (`kind: scores`, counts, errors) and revalidates `scores`. The test branch shares the OMDb key's daily quota: refresh `test` only for the years a test needs (`--target test --year 2025 --limit 300`).
 - Phase 1 checks OMDb's hit rate on 50 films (mixed years and countries) and records it in §11.

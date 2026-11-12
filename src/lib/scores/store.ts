@@ -1,32 +1,38 @@
 // The batch's database side (plan §5.4). Works on the app's HTTP client (the cron route) and
 // the scripts' WebSocket client: every write is one statement, so no transaction is needed.
-import { and, asc, between, desc, eq, gte, isNull, lt, or, sql } from "drizzle-orm";
+import { and, asc, between, desc, eq, gte, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import type * as schema from "../../db/schema";
 import { dataLoads, movies } from "../../db/schema";
-import { LIVE_YEAR } from "../years";
-import type { QueueFilm, QueueOptions, RunSummary, ScoreStore } from "./batch";
+import { refreshFromYear, type QueueFilm, type QueueOptions, type RunSummary, type ScoreStore } from "./batch";
 import type { ScoreUpdate } from "./merge";
 
 type Db = PgDatabase<PgQueryResultHKT, typeof schema>;
 
-const DAY_MS = 86_400_000;
-/** Current- and previous-season films are rechecked after 7 days, older ones after 30. */
-export const RECHECK_DAYS = { recent: 7, older: 30 } as const;
+const HOUR_MS = 3_600_000;
+/**
+ * Films in the refresh window (`refreshFromYear`) are rechecked daily: due again 20 hours after a
+ * check. `vercel.json` runs the batch five times a day (each anywhere in its hour), oldest check
+ * first, so a run never retakes a film checked earlier that day and each film comes round once.
+ */
+export const RECHECK_HOURS = 20;
 
 export function createScoreStore(db: Db, gitCommit: string | null = null): ScoreStore {
   return {
-    async queue({ now, years }: QueueOptions): Promise<QueueFilm[]> {
-      const recentFrom = LIVE_YEAR - 1;
-      const isRecent = gte(movies.year, recentFrom);
-      // `--year` asks for those films whatever their age; the daily run takes only the due ones.
-      const where = years
-        ? between(movies.year, years.from, years.to)
-        : or(
-            isNull(movies.scoresCheckedAt),
-            and(isRecent, lt(movies.scoresCheckedAt, new Date(now.getTime() - RECHECK_DAYS.recent * DAY_MS))),
-            and(lt(movies.year, recentFrom), lt(movies.scoresCheckedAt, new Date(now.getTime() - RECHECK_DAYS.older * DAY_MS))),
-          );
+    async queue({ now, years, ids }: QueueOptions): Promise<QueueFilm[]> {
+      // `ids` and `--year` ask for those films whatever their age; the daily run takes only the
+      // never-checked films (any year) and the window's films checked before the last run.
+      const where = ids
+        ? inArray(movies.id, ids)
+        : years
+          ? between(movies.year, years.from, years.to)
+          : or(
+              isNull(movies.scoresCheckedAt),
+              and(
+                gte(movies.year, refreshFromYear(now)),
+                lt(movies.scoresCheckedAt, new Date(now.getTime() - RECHECK_HOURS * HOUR_MS)),
+              ),
+            );
       return db
         .select({
           id: movies.id,
@@ -42,9 +48,8 @@ export function createScoreStore(db: Db, gitCommit: string | null = null): Score
         .from(movies)
         .where(where)
         .orderBy(
-          // Never checked first, then the current and previous seasons, then the longest waiting.
+          // Never checked first, then the longest waiting.
           sql`${movies.scoresCheckedAt} is null desc`,
-          sql`${isRecent} desc`,
           asc(movies.scoresCheckedAt),
           desc(movies.year),
           asc(movies.id),

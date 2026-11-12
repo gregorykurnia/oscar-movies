@@ -1,5 +1,5 @@
 // The score store on the `test` branch (IMPLEMENTATION_PLAN.md §5.4, task 1.5): the queue's
-// order and recheck ages, and a save after failed calls keeps every stored score. Each test
+// order and recheck window, and a save after failed calls keeps every stored score. Each test
 // runs inside a transaction that is rolled back. Films use `test-scores-` slugs and year 1990
 // (outside the app's years) so the seeded films don't get in the way of `--year` queues.
 import { asc, eq, inArray, TransactionRollbackError } from "drizzle-orm";
@@ -9,7 +9,6 @@ import { dataLoads, movies } from "../../src/db/schema";
 import type { RunSummary } from "../../src/lib/scores/batch";
 import { mergeScores } from "../../src/lib/scores/merge";
 import { createScoreStore } from "../../src/lib/scores/store";
-import { LIVE_YEAR } from "../../src/lib/years";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -31,17 +30,19 @@ const NOW = new Date("2026-10-22T20:00:00Z");
 const daysAgo = (n: number) => new Date(NOW.getTime() - n * 86_400_000);
 
 describe("score store", () => {
-  it("queues never-checked films first, then recent ones after 7 days, older ones after 30", async () => {
+  it("queues never-checked films first, then this race's films checked over 20 hours ago; older films never", async () => {
     await rolledBack(async (tx) => {
       // Every seeded film looks freshly checked, so only these films are due.
       await tx.update(movies).set({ scoresCheckedAt: NOW });
+      const hoursAgo = (n: number) => new Date(NOW.getTime() - n * 3_600_000);
       const rows = await tx
         .insert(movies)
         .values([
-          { slug: "test-scores-old-due", title: "a", year: 2015, countries: ["US"], imdbId: "tt81000001", scoresCheckedAt: daysAgo(31) },
-          { slug: "test-scores-old-fresh", title: "b", year: 2015, countries: ["US"], imdbId: "tt81000002", scoresCheckedAt: daysAgo(10) },
-          { slug: "test-scores-recent-due", title: "c", year: LIVE_YEAR - 1, countries: ["US"], imdbId: "tt81000003", scoresCheckedAt: daysAgo(8) },
-          { slug: "test-scores-recent-fresh", title: "d", year: LIVE_YEAR, countries: ["US"], imdbId: "tt81000004", scoresCheckedAt: daysAgo(3) },
+          { slug: "test-scores-old-stale", title: "a", year: 2015, countries: ["US"], imdbId: "tt81000001", scoresCheckedAt: daysAgo(400) },
+          { slug: "test-scores-last-year", title: "b", year: 2025, countries: ["US"], imdbId: "tt81000002", scoresCheckedAt: daysAgo(30) },
+          { slug: "test-scores-live-due", title: "c", year: 2026, countries: ["US"], imdbId: "tt81000003", scoresCheckedAt: hoursAgo(24) },
+          { slug: "test-scores-live-fresh", title: "d", year: 2026, countries: ["US"], imdbId: "tt81000004", scoresCheckedAt: hoursAgo(10) },
+          { slug: "test-scores-planned-due", title: "f", year: 2027, countries: ["US"], imdbId: "tt81000006", scoresCheckedAt: hoursAgo(21) },
           { slug: "test-scores-never", title: "e", year: 2013, countries: ["US"], imdbId: "tt81000005" },
         ])
         .returning({ id: movies.id, slug: movies.slug });
@@ -50,9 +51,20 @@ describe("score store", () => {
       const queue = await createScoreStore(tx).queue({ now: NOW });
       expect(queue.map((f) => slugOf.get(f.id))).toEqual([
         "test-scores-never",
-        "test-scores-recent-due",
-        "test-scores-old-due",
+        "test-scores-live-due",
+        "test-scores-planned-due",
       ]);
+    });
+  });
+
+  it("with ids, queues just those films whatever their age", async () => {
+    await rolledBack(async (tx) => {
+      const [row] = await tx
+        .insert(movies)
+        .values({ slug: "test-scores-one", title: "a", year: 1990, countries: ["US"], imdbId: "tt81000031", scoresCheckedAt: NOW })
+        .returning({ id: movies.id });
+      const queue = await createScoreStore(tx).queue({ now: NOW, ids: [row.id] });
+      expect(queue.map((f) => f.id)).toEqual([row.id]);
     });
   });
 
