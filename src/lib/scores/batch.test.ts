@@ -231,3 +231,21 @@ describe("runScores: IMDb ratings from IMDb's own file", () => {
     expect(saved).toHaveLength(12);
   });
 });
+
+describe("runScores: the script's long runs", () => {
+  it("never stops at the deadline with deadlineMs Infinity, and logs progress every 50 films", async () => {
+    let t = NOW.getTime();
+    const lines: string[] = [];
+    const films = Array.from({ length: 120 }, (_, i) => film(i + 1));
+    const { store, saved } = fakeStore(films);
+    const summary = await runScores(store, clients(() => ok({ imdbRating: 7, rtScore: null, mcScore: null })), {
+      source: "script",
+      now: () => new Date((t += 10_000)),
+      deadlineMs: Number.POSITIVE_INFINITY,
+      maxOmdbCalls: 500,
+      log: (l) => lines.push(l),
+    });
+    expect([summary.checked, summary.stoppedBy, saved.length]).toEqual([120, "done", 120]);
+    expect(lines).toEqual(["50 of 120 films checked…", "100 of 120 films checked…"]);
+  });
+});

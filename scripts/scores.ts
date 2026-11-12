@@ -3,8 +3,10 @@
 //
 // Runs the score batch (IMPLEMENTATION_PLAN.md §5.4) from the command line, the same code the
 // daily cron runs. With `--year`, every film of those years is refreshed whatever its age;
-// without it, only the films that are due. `test` shares the OMDb key's 1,000 calls a day with
-// production, so refresh `test` only for the years a test needs, with a `--limit`.
+// without it, only the films that are due. It runs until every film is checked (no time limit)
+// but stops at the OMDb call cap: 180, or `--limit` (all of 2026: `--year 2026 --limit 700`). `test`
+// shares the OMDb key's 1,000 calls a day with production, so refresh `test` only for the years a
+// test needs, with a small `--limit`.
 import { createScriptDb } from "../src/db";
 import { readDbBranch } from "../src/db/meta";
 import { createScoreStore, describeRun, runScores, scoreClientsFromEnv } from "../src/lib/scores";
@@ -59,6 +61,8 @@ async function main() {
       source: "script",
       years,
       maxOmdbCalls,
+      // No 250-second cut-off here: that's for the cron's Vercel function, not this server.
+      deadlineMs: Number.POSITIVE_INFINITY,
       log: console.log,
     });
     console.log(describeRun(summary));

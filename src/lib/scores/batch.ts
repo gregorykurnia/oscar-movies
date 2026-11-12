@@ -70,6 +70,7 @@ export type RunSummary = {
 export const OMDB_CALLS_PER_RUN = 180;
 export const DEADLINE_MS = 250_000;
 const MAX_ERRORS_KEPT = 20;
+const PROGRESS_EVERY = 50;
 /** This many films in a row with every call failing means the source is down: stop. */
 const MAX_FAILING_IN_A_ROW = 10;
 const RATE_LIMIT_TRIES = 3;
@@ -82,6 +83,7 @@ export type RunOptions = {
   years?: QueueOptions["years"];
   /** Overrides the OMDb call cap (`--limit`). */
   maxOmdbCalls?: number;
+  /** The cron's function stops at 300 s; the script passes Infinity and runs until it's done. */
   deadlineMs?: number;
   now?: () => Date;
   sleep?: (ms: number) => Promise<void>;
@@ -193,6 +195,7 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     const merged = mergeScores(film, fetched, now());
     await store.save(film.id, merged.update);
     summary.checked++;
+    if (summary.checked % PROGRESS_EVERY === 0) log(`${summary.checked} of ${queue.length} films checked…`);
     for (const key of merged.confirmed) summary.confirmed[key]++;
     if (merged.changed.length > 0) summary.changedFilms++;
 
