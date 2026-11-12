@@ -72,6 +72,8 @@ function sourceHash(): string {
   if (listed.status !== 0) throw new Error(`git ls-files failed: ${listed.stderr}`);
   const hash = createHash("sha256");
   hash.update(JSON.stringify(PROVIDER_TEST_ENV));
+  // APP_URL is baked into prerendered pages (metadataBase), so a run on another port needs its own build.
+  hash.update(RUN_URL);
   // `.env.test` is gitignored, so git never lists it; hash it by name.
   const files = [...new Set([...listed.stdout.split("\n").filter(Boolean), ENV_FILES.test])].sort();
   for (const file of files) {
