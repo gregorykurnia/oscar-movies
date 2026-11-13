@@ -32,7 +32,7 @@ const cellLook = cn(
   "[&_[data-c=nom]]:bg-gold-wash [&_[data-c=nom]]:inset-ring [&_[data-c=nom]]:inset-ring-gold-soft",
   // A result at a strong predictor of an Oscar nomination (Documentary) is a shade deeper.
   "[&_[data-c=won][data-s]]:bg-gold-ink",
-  "[&_[data-c=nom][data-s]]:bg-gold-soft [&_[data-c=nom][data-s]]:inset-ring-gold",
+  "[&_[data-c=nom][data-s]]:bg-gold-soft [&_[data-c=nom][data-s]]:inset-ring-2 [&_[data-c=nom][data-s]]:inset-ring-gold-ink",
   "[&_[data-c=short]]:inset-ring [&_[data-c=short]]:inset-ring-line-strong",
   "[&_[data-c=sub]]:before:size-1.5 [&_[data-c=sub]]:before:rounded-full [&_[data-c=sub]]:before:bg-line-strong [&_[data-c=sub]]:before:content-['']",
   "[&_[data-c=cnt]]:bg-track [&_[data-c=cnt]]:px-2 [&_[data-c=cnt]]:text-ink [&_[data-c=cnt]]:whitespace-nowrap",
