@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { FilmRowData } from "@/data/films";
+import type { AccuracyRow } from "@/lib/accuracy-page";
 import type { AwardSummary } from "@/lib/awards";
 import {
   awardRuns,
   averageLine,
   cellKind,
   cellLabel,
+  cellStrength,
   columnKey,
   criticsLabel,
   criticsWins,
@@ -21,6 +23,7 @@ import {
   splitAwards,
   toggleGridFilter,
   viewGrid,
+  withStrength,
   type GridAwardCategory,
   type GridColumn,
   type GridFilm,
@@ -390,5 +393,71 @@ describe("split awards (Documentary)", () => {
     expect(Object.keys(g.cells)).toEqual(["cinema-eye/feature", "cinema-eye/direction", "bafta", "ida/director"]);
     expect(gridTotals(g)).toEqual({ wins: 2, noms: 4 });
     expect(criticsWins(g, gridColumns(DOC_AWARDS, "documentary", [], undefined, CATEGORIES))).toBe(1);
+  });
+});
+
+describe("predictor strength (Documentary's deeper cells)", () => {
+  const accuracy = (key: string, nominees: [number, number] | null, nomination: [number, number]): AccuracyRow => ({
+    key,
+    award: key,
+    kind: "major",
+    note: "",
+    win: null,
+    nomination: { hits: nomination[0], count: nomination[1] },
+    nominees: nominees && { hits: nominees[0], count: nominees[1] },
+    caught: null,
+    years: 14,
+  });
+  const base = { name: "", shortName: "", kind: "major" as const, isSelection: false, status: "loaded" as const };
+  const columns: GridColumn[] = [
+    { ...base, slug: "spirit-awards" },
+    { ...base, slug: "cinema-eye", sub: { slug: "feature", name: "Feature", shortName: "Feature" } },
+    { ...base, slug: "cinema-eye", sub: { slug: "audience", name: "Audience", shortName: "Audience" } },
+    { ...base, slug: "satellite" },
+  ];
+  const rows = [
+    accuracy("spirit-awards/documentary", [35, 49], [13, 14]),
+    accuracy("cinema-eye/feature", [39, 69], [12, 14]),
+    accuracy("cinema-eye/audience", [40, 70], [4, 12]),
+    accuracy("satellite/documentary", [37, 70], [7, 10]),
+  ];
+  const [spirit, feature, audience, satellite] = withStrength(columns, rows);
+
+  it("finds a whole award's row by its slug and a split column's by its category", () => {
+    expect(spirit.strength).toEqual({ nominees: { hits: 35, count: 49 }, winner: { hits: 13, count: 14 } });
+    expect(feature.strength).toEqual({ nominees: null, winner: { hits: 12, count: 14 } });
+  });
+
+  it("leaves a column strong neither way as it was", () => {
+    expect(audience).toBe(columns[2]);
+    expect(satellite).toBe(columns[3]);
+  });
+
+  it("deepens a win by the winner figure and a nomination by the nominees figure", () => {
+    expect(cellStrength({ outcome: "won", category: "Best" }, spirit)).toEqual({ kind: "winner", figure: { hits: 13, count: 14 } });
+    expect(cellStrength({ outcome: "nominated", category: "Best" }, spirit)).toEqual({ kind: "nominees", figure: { hits: 35, count: 49 } });
+    expect(cellStrength({ outcome: "runner_up", category: "Best" }, spirit)?.kind).toBe("nominees");
+  });
+
+  it("doesn't deepen a nomination where only the winner is strong, or anything short of a nomination", () => {
+    expect(cellStrength({ outcome: "nominated", category: "Feature" }, feature)).toBeNull();
+    expect(cellStrength({ outcome: "won", category: "Feature" }, feature)?.kind).toBe("winner");
+    expect(cellStrength({ outcome: "shortlisted", category: "Best" }, spirit)).toBeNull();
+    expect(cellStrength({ outcome: "won", category: "Best" }, satellite)).toBeNull();
+  });
+
+  it("deepens a win by the nominees figure where only that is strong", () => {
+    const [lafca] = withStrength([{ ...base, slug: "lafca" }], [accuracy("lafca/documentary", [19, 27], [10, 13])]);
+    expect(cellStrength({ outcome: "won", category: "Best" }, lafca)?.kind).toBe("nominees");
+  });
+
+  it("says why in the cell's label", () => {
+    expect(cellLabel({ outcome: "won", category: "Best Documentary Feature" }, spirit, "documentary")).toBe(
+      "Won: Best Documentary Feature · strong predictor: its winner got an Oscar nomination 93% of years",
+    );
+    expect(cellLabel({ outcome: "nominated", category: "Best Documentary Feature" }, spirit, "documentary")).toBe(
+      "Nominated: Best Documentary Feature · strong predictor: 71% of its nominees got an Oscar nomination",
+    );
+    expect(cellLabel({ outcome: "nominated", category: "Feature" }, feature, "documentary")).toBe("Nominated: Feature");
   });
 });

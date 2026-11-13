@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { AccuracyRow } from "./accuracy-page";
-import { buildSignals, figureSentence, parseView, signalsHref, strongKinds, type SignalEdition, type Signals } from "./signals";
+import { buildSignals, figureSentence, parseView, predictorStrength, signalsHref, strongKinds, type SignalEdition, type Signals } from "./signals";
 import type { Outcome } from "./stage";
 
 type Film = { id: number; title: string };
@@ -110,5 +110,34 @@ describe("figureSentence", () => {
   it("words both kinds with their counts", () => {
     expect(figureSentence("caught", { hits: 43, count: 70 }, 14)).toEqual({ lead: "Caught 61% of Oscar nominees", rest: "43 of 70 over 14 years" });
     expect(figureSentence("winner", { hits: 13, count: 14 }, 14)).toEqual({ lead: "Its winner was Oscar-nominated 93% of years", rest: "13 of 14" });
+  });
+});
+
+describe("predictorStrength (the year grid's deeper cells)", () => {
+  const row = (nominees: [number, number] | null, nomination: [number, number], years: number) => ({
+    caught: null,
+    nominees: nominees && { hits: nominees[0], count: nominees[1] },
+    nomination: { hits: nomination[0], count: nomination[1] },
+    years,
+  });
+
+  it("takes exactly 60% of nominees and exactly 80% of winners as strong", () => {
+    expect(predictorStrength(row([9, 15], [8, 10], 5))).toEqual({
+      nominees: { hits: 9, count: 15 },
+      winner: { hits: 8, count: 10 },
+    });
+  });
+
+  it("stops just under either line, and under five counted years", () => {
+    expect(predictorStrength(row([59, 100], [79, 100], 14))).toEqual({ nominees: null, winner: null });
+    expect(predictorStrength(row([18, 20], [4, 4], 4))).toEqual({ nominees: null, winner: null });
+  });
+
+  it("needs at least 15 nominees for the nominees side", () => {
+    expect(predictorStrength(row([14, 14], [1, 10], 10)).nominees).toBeNull();
+  });
+
+  it("has no nominees side for an award that names only winners", () => {
+    expect(predictorStrength(row(null, [9, 10], 10))).toEqual({ nominees: null, winner: { hits: 9, count: 10 } });
   });
 });

@@ -7,6 +7,8 @@ import { Segmented } from "@/components/segmented/Segmented";
 import { RaceRowsSkeleton } from "@/components/skeleton/Skeleton";
 import { TextLink } from "@/components/text-link/TextLink";
 import { YearSwitcher } from "@/components/year-switcher/YearSwitcher";
+import { getAccuracy } from "@/data/accuracy";
+import type { OscarCategory } from "@/data/oscars";
 import { getMarks } from "@/data/watch-list";
 import { MARK_FILTER_LABELS, markSets } from "@/lib/mark-filter";
 import { getYearGrid } from "@/data/year-grid";
@@ -21,8 +23,10 @@ import {
   gridQuery,
   hasNoData,
   parseGridQuery,
+  STRENGTH_CATEGORIES,
   toggleGridFilter,
   viewGrid,
+  withStrength,
   type GridFilter,
   type GridQuery,
 } from "@/lib/year-grid";
@@ -105,7 +109,14 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
   // Wait for the request: the address and the marks are read per visit.
   await connection();
   const view = parseGridQuery(await query);
-  const [grid, marks] = await Promise.all([getYearGrid(year, view.category), getMarks()]);
+  const today = new Date().toISOString().slice(0, 10);
+  const strengthOn = STRENGTH_CATEGORIES.includes(view.category);
+  const [base, marks, accuracy] = await Promise.all([
+    getYearGrid(year, view.category),
+    getMarks(),
+    strengthOn ? getAccuracy(view.category as OscarCategory, today) : null,
+  ]);
+  const grid = accuracy ? { ...base, columns: withStrength(base.columns, accuracy.rows) } : base;
   const shown = viewGrid(grid.films, view, markSets(marks));
   const critics = grid.columns.filter((c) => c.kind === "critics");
   const scope = scopeOf(view);
@@ -180,6 +191,7 @@ async function Grid({ year, query }: { year: number; query: Promise<Query> }) {
             category={view.category}
             hasCritics={critics.length > 0 && !view.criticsOpen}
             hasNoDataColumn={grid.columns.some((c) => hasNoData(c) && (c.kind !== "critics" || view.criticsOpen))}
+            hasStrong={grid.columns.some((c) => c.strength && (c.kind !== "critics" || view.criticsOpen))}
           />
         </>
       )}

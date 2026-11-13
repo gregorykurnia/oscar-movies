@@ -114,6 +114,7 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 **Requirements**
 - For a year and an Oscar category: **rows are the movies** with at least one nomination, **columns are the awards** (Oscars first, then major awards, festivals, then critics groups). A cell is coloured for **nominated** or **won** (and shortlisted/submitted for the Oscars), blank otherwise.
 - **Documentary (v1.6):** an award with several Documentary categories (Cinema Eye, Sundance, DOC NYC, Critics Choice Documentary, IDA) gets one column per category, under the award's name, and each category counts in the totals. Other categories keep one column per award (Globes' Drama and Comedy share one).
+- **Documentary strong predictors (owner, 2026-11-13):** a cell is a shade deeper where that result has usually led to an Oscar nomination: a win at an award whose winner got one 80%+ of years, or a nomination (or win) at an award where 60%+ of its nominees got one (at least 15 nominees and 5 years counted). The figures are the Accuracy page's, so the list updates with the data; the cell's label says which figure applies.
 - Each row shows the movie's flag, average score, watched mark, and its totals (nominations, wins).
 - **Default order:** Oscar nominees first (the winner at the top), then Oscar-shortlisted films, then the rest; within each group, most nominations first. Sort by this Oscar order, wins, nominations, average score or title; filter to unwatched. The year, category, sort and filter are kept in the address.
 

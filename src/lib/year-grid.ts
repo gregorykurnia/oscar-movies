@@ -6,10 +6,13 @@
 // address are unit tested; the data layer (`src/data/year-grid.ts`) reads the rows and the page
 // draws them.
 import type { FilmRowData } from "@/data/films";
+import { formatFigure, type Figure } from "@/lib/accuracy";
+import type { AccuracyRow } from "@/lib/accuracy-page";
 import type { AwardKind, AwardSummary } from "@/lib/awards";
 import { DASH, formatScore } from "@/lib/format";
 import { MARK_FILTERS, parseMarkFilter, passesMark, toggleFilterIn, type MarkSets } from "@/lib/mark-filter";
 import { parseCategory, RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
+import { predictorStrength, type PredictorStrength } from "@/lib/signals";
 import { compareOutcome, isNomination, isShortlisted, type Outcome } from "@/lib/stage";
 
 export type EditionStatus = "loaded" | "partial" | "no_data";
@@ -29,6 +32,8 @@ export type GridColumn = {
   status: EditionStatus | null;
   /** Set when the award is split: the column is this one category. */
   sub?: GridSubColumn;
+  /** Set (Documentary only) when a result here strongly points to an Oscar nomination (`withStrength`). */
+  strength?: PredictorStrength;
 };
 
 /** The key of a column's cells in `GridFilm.cells`: the award's slug, or "cinema-eye/direction" for a split column. */
@@ -209,12 +214,50 @@ export function cellKind(outcome: Outcome): CellKind {
   return outcome === "shortlisted" ? "short" : "sub";
 }
 
+/** The grids whose cells show how strongly a result points to an Oscar nomination (owner's request, 2026-11-13). */
+export const STRENGTH_CATEGORIES: GridCategory[] = ["documentary"];
+
+/**
+ * The columns with each one's predictor strength from the category's accuracy rows (keyed
+ * "award/category"): a split column by its own category, any other by its award's one category.
+ * A column strong neither way is left as it was.
+ */
+export function withStrength(columns: GridColumn[], rows: ReadonlyArray<AccuracyRow>): GridColumn[] {
+  return columns.map((column) => {
+    const row = rows.find((r) =>
+      column.sub ? r.key === `${column.slug}/${column.sub.slug}` : r.key.startsWith(`${column.slug}/`),
+    );
+    const strength = row ? predictorStrength(row) : null;
+    return strength && (strength.nominees || strength.winner) ? { ...column, strength } : column;
+  });
+}
+
+/** Why a cell is strong: its award's winner figure (a win) or its nominees figure (any nomination). */
+export type CellStrength = { kind: "winner" | "nominees"; figure: Figure };
+
+/** A cell at a strong predictor: a win where the winner or the nominees figure is strong, any other nomination where the nominees figure is. */
+export function cellStrength(cell: GridCell, column: Pick<GridColumn, "strength">): CellStrength | null {
+  const s = column.strength;
+  if (!s || !isNomination(cell.outcome)) return null;
+  if (cell.outcome === "won" && s.winner) return { kind: "winner", figure: s.winner };
+  return s.nominees ? { kind: "nominees", figure: s.nominees } : null;
+}
+
+/** The strength in words, after the cell's label: "its winner got an Oscar nomination 93% of years". */
+export function strengthLabel({ kind, figure }: CellStrength): string {
+  return kind === "winner"
+    ? `its winner got an Oscar nomination ${formatFigure(figure)} of years`
+    : `${formatFigure(figure)} of its nominees got an Oscar nomination`;
+}
+
 /**
  * A cell's text label (its title and accessible name; the column head names the award):
  * "Won: Best Film", "Runner-up: People's Choice Award", "Selected: Top 10 Films of the Year".
  * International's `eligible` is a submission that wasn't nominated, so it reads "Submitted".
+ * A cell at a strong predictor adds why: "Won: Best Documentary Feature · strong predictor: its
+ * winner got an Oscar nomination 93% of years".
  */
-export function cellLabel(cell: GridCell, column: Pick<GridColumn, "isSelection">, category: GridCategory): string {
+export function cellLabel(cell: GridCell, column: Pick<GridColumn, "isSelection" | "strength">, category: GridCategory): string {
   const word: Record<Outcome, string> = {
     won: "Won",
     nominated: column.isSelection ? "Selected" : "Nominated",
@@ -223,7 +266,8 @@ export function cellLabel(cell: GridCell, column: Pick<GridColumn, "isSelection"
     eligible: category === "international" ? "Submitted" : "Eligible",
     submitted: "Submitted",
   };
-  return `${word[cell.outcome]}: ${cell.category}`;
+  const strength = cellStrength(cell, column);
+  return `${word[cell.outcome]}: ${cell.category}${strength ? ` · strong predictor: ${strengthLabel(strength)}` : ""}`;
 }
 
 /** The folded critics column's label: "3 critics group wins", "1 critics group win". */

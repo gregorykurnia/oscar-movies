@@ -127,6 +127,32 @@ describe("YearGrid in the Oscar order", () => {
   });
 });
 
+describe("strong predictor cells", () => {
+  it("marks a cell at a strong predictor and leaves the rest plain", () => {
+    const strong: GridColumn = { ...column("bafta", "major"), strength: { nominees: null, winner: { hits: 12, count: 12 } } };
+    const films: GridFilm[] = [
+      { film: film(7, "No Other Land"), cells: { bafta: { outcome: "won", category: "Documentary" } } },
+      { film: film(8, "Sugarcane"), cells: { bafta: { outcome: "nominated", category: "Documentary" } } },
+    ];
+    render(<YearGrid columns={[strong]} films={films} category="documentary" criticsOpen={false} caption="Grid" />);
+    const won = screen.getByRole("img", { name: /^Won: Documentary · strong predictor/ });
+    expect(won.getAttribute("data-s")).toBe("");
+    expect(screen.getByRole("img", { name: "Nominated: Documentary" }).getAttribute("data-s")).toBeNull();
+  });
+
+  it("adds the two deeper cells to the legend when the grid has them", () => {
+    render(<YearGridLegend category="documentary" hasCritics={false} hasNoDataColumn={false} hasStrong />);
+    expect(within(screen.getByRole("list", { name: "Legend" })).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
+      "Won",
+      "Won where the winner usually gets an Oscar nomination (80%+)",
+      "Nominated or on the list",
+      "Nominated where most nominees get an Oscar nomination (60%+)",
+      "Oscar shortlist",
+      "Submitted or eligible",
+    ]);
+  });
+});
+
 describe("YearGridLegend", () => {
   it("names every cell kind, with critics and no data only when the grid has them", () => {
     const { rerender } = render(<YearGridLegend category="international" hasCritics={false} hasNoDataColumn={false} />);

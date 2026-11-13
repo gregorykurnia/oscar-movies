@@ -9,6 +9,7 @@ import {
   averageLine,
   cellKind,
   cellLabel,
+  cellStrength,
   columnKey,
   criticsLabel,
   criticsWins,
@@ -29,6 +30,9 @@ const cellLook = cn(
   "[&_[data-c]]:inline-grid [&_[data-c]]:place-items-center [&_[data-c]]:rounded-sm [&_[data-c]]:align-middle [&_[data-c]]:font-medium",
   "[&_[data-c=won]]:bg-gold [&_[data-c=won]]:text-on-gold",
   "[&_[data-c=nom]]:bg-gold-wash [&_[data-c=nom]]:inset-ring [&_[data-c=nom]]:inset-ring-gold-soft",
+  // A result at a strong predictor of an Oscar nomination (Documentary) is a shade deeper.
+  "[&_[data-c=won][data-s]]:bg-gold-ink",
+  "[&_[data-c=nom][data-s]]:bg-gold-soft [&_[data-c=nom][data-s]]:inset-ring-gold",
   "[&_[data-c=short]]:inset-ring [&_[data-c=short]]:inset-ring-line-strong",
   "[&_[data-c=sub]]:before:size-1.5 [&_[data-c=sub]]:before:rounded-full [&_[data-c=sub]]:before:bg-line-strong [&_[data-c=sub]]:before:content-['']",
   "[&_[data-c=cnt]]:bg-track [&_[data-c=cnt]]:px-2 [&_[data-c=cnt]]:text-ink [&_[data-c=cnt]]:whitespace-nowrap",
@@ -246,7 +250,11 @@ export function YearGrid({
                       return (
                         <td key={columnKey(c)} data-gs={ruled(g.columns, i) ? "" : undefined}>
                           {cell ? (
-                            <Cell kind={cellKind(cell.outcome)} label={cellLabel(cell, c, category)} />
+                            <Cell
+                              kind={cellKind(cell.outcome)}
+                              label={cellLabel(cell, c, category)}
+                              strong={cellStrength(cell, c) !== null}
+                            />
                           ) : hasNoData(c) ? (
                             <Cell kind="none" label="No data">
                               –
@@ -279,10 +287,20 @@ function GroupHead({ label, span }: { label: string; span: number }) {
   );
 }
 
-/** One cell: a 28px square with its label as title and accessible name; a won cell carries a check. */
-function Cell({ kind, label, children }: { kind: CellKind | "cnt" | "none"; label: string; children?: React.ReactNode }) {
+/** One cell: a 28px square with its label as title and accessible name; a won cell carries a check; `strong` deepens it. */
+function Cell({
+  kind,
+  label,
+  strong,
+  children,
+}: {
+  kind: CellKind | "cnt" | "none";
+  label: string;
+  strong?: boolean;
+  children?: React.ReactNode;
+}) {
   return (
-    <span data-c={kind} role="img" aria-label={label} title={label}>
+    <span data-c={kind} data-s={strong ? "" : undefined} role="img" aria-label={label} title={label}>
       {kind === "won" ? <Check aria-hidden="true" strokeWidth={2.25} /> : children}
     </span>
   );
@@ -293,14 +311,19 @@ export function YearGridLegend({
   category,
   hasCritics,
   hasNoDataColumn,
+  hasStrong = false,
 }: {
   category: GridCategory;
   hasCritics: boolean;
   hasNoDataColumn: boolean;
+  /** Some column is a strong predictor: the two deeper cells join the legend. */
+  hasStrong?: boolean;
 }) {
-  const items: { kind: CellKind | "cnt" | "none"; label: string; content?: string }[] = [
+  const items: { kind: CellKind | "cnt" | "none"; label: string; content?: string; strong?: boolean }[] = [
     { kind: "won", label: "Won" },
+    ...(hasStrong ? [{ kind: "won" as const, label: "Won where the winner usually gets an Oscar nomination (80%+)", strong: true }] : []),
     { kind: "nom", label: "Nominated or on the list" },
+    ...(hasStrong ? [{ kind: "nom" as const, label: "Nominated where most nominees get an Oscar nomination (60%+)", strong: true }] : []),
     { kind: "short", label: "Oscar shortlist" },
     { kind: "sub", label: category === "international" ? "Submitted" : "Submitted or eligible" },
   ];
@@ -316,8 +339,8 @@ export function YearGridLegend({
       )}
     >
       {items.map((item) => (
-        <li key={item.kind} className="inline-flex items-center gap-2">
-          <span data-c={item.kind} aria-hidden="true">
+        <li key={`${item.kind}${item.strong ? "-strong" : ""}`} className="inline-flex items-center gap-2">
+          <span data-c={item.kind} data-s={item.strong ? "" : undefined} aria-hidden="true">
             {item.kind === "won" ? <Check strokeWidth={2.25} /> : item.content}
           </span>
           {item.label}

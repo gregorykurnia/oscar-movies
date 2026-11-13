@@ -39,6 +39,26 @@ export function strongKinds(row: Pick<AccuracyRow, "caught" | "nomination" | "ye
   return kinds;
 }
 
+/**
+ * How strongly a result at an award category points to an Oscar nomination, for the year grid's
+ * deeper cells (owner's request, 2026-11-13): `nominees` when 60% or more of its nominees went on
+ * to an Oscar nomination (the accuracy page's Nominees figure, over at least `MIN_NOMINEES`), `winner`
+ * when its winner did 80% or more of years (`strongKinds`). Each is null when the award isn't strong that way.
+ */
+/** The fewest nominees a strong nominees figure may rest on (Atlanta's 2 of 2 isn't a signal). */
+export const MIN_NOMINEES = 15;
+
+export type PredictorStrength = { nominees: Figure | null; winner: Figure | null };
+
+export function predictorStrength(row: Pick<AccuracyRow, "caught" | "nomination" | "nominees" | "years">): PredictorStrength {
+  const { nominees } = row;
+  const strongNominees = row.years >= MIN_YEARS && nominees && nominees.count >= MIN_NOMINEES && 5 * nominees.hits >= 3 * nominees.count;
+  return {
+    nominees: strongNominees ? nominees : null,
+    winner: strongKinds(row).includes("winner") ? row.nomination : null,
+  };
+}
+
 /** The figure behind a kind: the caught figure, or Winner → Oscar nomination. */
 export function kindFigure(row: Pick<AccuracyRow, "caught" | "nomination">, kind: StrongKind): Figure {
   return (kind === "caught" ? row.caught : row.nomination)!;
