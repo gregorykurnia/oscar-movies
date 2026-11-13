@@ -64,7 +64,7 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
     <>
       <PageHeader
         title="Watch list"
-        sub={<p>Films you want to watch, in your order, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
+        sub={<p>Films you want to watch, by release date, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
       />
       <AddFilm />
       <Suspense fallback={<RaceRowsSkeleton label="Loading the watch list" />}>

@@ -48,16 +48,17 @@ const titles = (films: StagedFilm[]) => films.map((f) => f.film.title);
 
 describe("the address", () => {
   it("reads the sort and show all, and ignores anything else", () => {
-    expect(parseWatchQuery({})).toEqual({ sort: "mine", all: false });
+    expect(parseWatchQuery({})).toEqual({ sort: "release", all: false });
     expect(parseWatchQuery({ sort: "stage" })).toEqual({ sort: "stage", all: false });
     expect(parseWatchQuery({ sort: "nominations", all: "1" })).toEqual({ sort: "nominations", all: true });
     expect(parseWatchQuery({ sort: ["average", "stage"] })).toEqual({ sort: "average", all: false });
     expect(parseWatchQuery({ sort: "chance" })).toEqual({ sort: "chance", all: false });
-    expect(parseWatchQuery({ sort: "popular", all: "yes" })).toEqual({ sort: "mine", all: false });
+    expect(parseWatchQuery({ sort: "popular", all: "yes" })).toEqual({ sort: "release", all: false });
   });
 
   it("writes only what differs from the defaults", () => {
-    expect(watchHref({ sort: "mine", all: false })).toBe("/watch-list");
+    expect(watchHref({ sort: "release", all: false })).toBe("/watch-list");
+    expect(watchHref({ sort: "mine", all: false })).toBe("/watch-list?sort=mine");
     expect(watchHref({ sort: "stage", all: false })).toBe("/watch-list?sort=stage");
     expect(watchHref({ sort: "average", all: false })).toBe("/watch-list?sort=average");
     expect(watchHref({ sort: "nominations", all: true })).toBe("/watch-list?sort=nominations&all=1");
@@ -74,15 +75,15 @@ describe("release sort and filters", () => {
     wanted("Today", today, "Cinépolis"), wanted("TBD", null, "Netflix"),
     wanted("Past", "2020-01-01", null), wanted("A coming", "2026-12-12", "netflix"),
   ];
-  const base = { sort: "mine", all: false } as const;
+  const base = { sort: "release", all: false } as const;
 
   it("reads combined addresses, canonicalizes known platforms, ignores unknowns and uses the first repeated value", () => {
     const state = parseWatchQuery({ sort: "release", all: "1", platform: ["CINEPOLIS", "Netflix"], release: ["coming", "out"] }, ["Cinépolis", "Netflix"]);
     expect(state).toEqual({ sort: "release", all: true, platform: "Cinépolis", release: "coming" });
     expect(parseWatchQuery({ sort: "bad", platform: "unknown", release: "bad" }, ["Netflix"])).toEqual(base);
     expect(parseWatchQuery({ platform: "none", release: "tbd" })).toEqual({ ...base, platform: "none", release: "tbd" });
-    expect(watchHref(state)).toBe("/watch-list?sort=release&all=1&platform=Cin%C3%A9polis&release=coming");
-    expect(watchHref(clearWatchFilters(state))).toBe("/watch-list?sort=release&all=1");
+    expect(watchHref(state)).toBe("/watch-list?all=1&platform=Cin%C3%A9polis&release=coming");
+    expect(watchHref(clearWatchFilters(state))).toBe("/watch-list?all=1");
     expect(hasWatchFilters(state)).toBe(true);
     expect(hasWatchFilters(base)).toBe(false);
   });

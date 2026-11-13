@@ -150,7 +150,7 @@ test("a film typed into the Watch list, moved to second place and given a date a
       { movieId: anora, watched: false, want: true, wantRank: 1 },
       { movieId: hamnet, watched: false, want: true, wantRank: 2 },
     ]);
-    await page.goto("/watch-list");
+    await page.goto("/watch-list?sort=mine");
     const want = section(page, "Want to watch");
     await expect.poll(() => titlesIn(want)).toEqual(["Anora", "Hamnet"]);
 

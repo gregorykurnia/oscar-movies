@@ -288,7 +288,7 @@ test("adds a film by typing part of its original title, and it is at the top aft
   try {
     // Start from a list without the film (an earlier run may have left it wanted).
     await setMark(id, null);
-    await page.goto("/watch-list");
+    await page.goto("/watch-list?sort=mine");
     const box = page.getByRole("combobox", { name: "Add a film" });
     await expect(box).toBeVisible();
     // Found by its original title (shown with the match), not yet on the list.
@@ -364,13 +364,13 @@ test("release sort and combined filters survive reload, clear safely, and ignore
     await expect(platform).toBeFocused();
     await page.getByRole("button", { name: "Release: All", exact: true }).click();
     await page.getByRole("menuitemradio", { name: "Coming A date after today", exact: true }).click();
-    await expect(page).toHaveURL(/sort=release&platform=Cin%C3%A9polis&release=coming$/);
+    await expect(page).toHaveURL(/\/watch-list\?platform=Cin%C3%A9polis&release=coming$/);
     await expect.poll(() => titlesIn(want)).toEqual([a]);
     await page.reload();
     await expect(want.getByText("1 of 3 films", { exact: true })).toBeVisible();
     await expect.poll(() => titlesIn(want)).toEqual([a]);
     await page.getByRole("link", { name: "Clear filters", exact: true }).click();
-    await expect(page).toHaveURL(/\/watch-list\?sort=release$/);
+    await expect(page).toHaveURL(/\/watch-list$/);
     await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
     await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toBeVisible();
 
@@ -380,15 +380,16 @@ test("release sort and combined filters survive reload, clear safely, and ignore
     await expect(want).toContainText("on Cinépolis and still TBD");
     await want.getByRole("link", { name: "Clear filters" }).click();
     await expect(page).toHaveURL(/\/watch-list$/);
-    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(3);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0); // the default sort is Release date
 
     await page.goto("/watch-list?platform=none&release=tbd");
     await expect.poll(() => titlesIn(want)).toEqual([c]);
     await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
     await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toHaveCount(0);
+    // An unknown sort falls back to the default, Release date: no handles.
     await page.goto("/watch-list?sort=unknown&platform=unknown&release=unknown");
-    await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
-    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(3);
+    await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
     await expect(section(page, `Not watched yet, ${LIVE_YEAR} season`)).toBeVisible();
   });
 });
@@ -421,7 +422,7 @@ for (const width of [390, 1280]) {
 
     test("moves a film by keyboard, Esc puts one back, and the order survives a reload", async ({ page }) => {
       await withOrder(async ([a, b, c], ids) => {
-        await page.goto("/watch-list");
+        await page.goto("/watch-list?sort=mine");
         const want = section(page, "Want to watch");
         await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
         await expect(want.getByText("3 films · drag the handle to reorder")).toBeVisible();
@@ -458,7 +459,7 @@ for (const width of [390, 1280]) {
       // Tall enough that all three rows (each with its release line) are on screen, so the pointer never starts below the fold.
       await page.setViewportSize({ width, height: 1100 });
       await withOrder(async ([a, b, c], ids) => {
-        await page.goto("/watch-list");
+        await page.goto("/watch-list?sort=mine");
         const want = section(page, "Want to watch");
         await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
 
@@ -486,12 +487,12 @@ for (const width of [390, 1280]) {
 
 test("a move that can't be saved puts the rows back and says so; other sorts have no handles", async ({ page }) => {
   await withOrder(async ([a, b, c], ids) => {
-    await page.goto("/watch-list");
+    await page.goto("/watch-list?sort=mine");
     const want = section(page, "Want to watch");
     await expect.poll(() => titlesIn(want)).toEqual([a, b, c]);
 
     // The save (a Server Action, posted to the page) fails.
-    await page.route("**/watch-list", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
+    await page.route("**/watch-list?sort=mine", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
     await want.getByRole("button", { name: `Reorder ${b}` }).focus();
     // Each key waits for the lift or move it makes: a key pressed before the drag has started is lost.
     await page.keyboard.press("Space");
@@ -506,7 +507,7 @@ test("a move that can't be saved puts the rows back and says so; other sorts hav
     expect(await storedOrder(ids)).toEqual(ids);
 
     // Try again, with the connection back, makes the move.
-    await page.unroute("**/watch-list");
+    await page.unroute("**/watch-list?sort=mine");
     await page.getByRole("status").filter({ hasText: "Couldn't save the order" }).getByRole("button", { name: "Try again" }).click();
     await expect.poll(() => titlesIn(want)).toEqual([b, a, c]);
     await expect.poll(() => storedOrder(ids)).toEqual([ids[1], ids[0], ids[2]]);
@@ -783,7 +784,7 @@ test('manual and catalogue films survive reload, global search and movie navigat
     await expect(global).toBeFocused(); await global.fill(title);
     await expect(page.getByRole('option', { name: new RegExp(title) })).toBeVisible();
     await global.press('Enter'); await expect(page).toHaveURL(manualUrl);
-    await page.goto('/watch-list');
+    await page.goto('/watch-list?sort=mine');
     const row = rowOf(section(page, 'Want to watch').getByRole('heading', { level: 3, name: title }));
     await row.getByRole('button', { name: 'Add release date' }).click();
     await editorOf(page).getByLabel('Date').fill('2032-12-12');
@@ -876,7 +877,7 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
     };
     try {
       await page.setViewportSize({ width, height });
-      await page.goto('/watch-list');
+      await page.goto('/watch-list?sort=mine');
       const box = page.getByRole('combobox', { name: 'Add a film' });
       await typeToFind(box, 'zzzxq', page.getByText('No film called “zzzxq” in the app yet.'));
       await expect(page.getByRole('button', { name: 'Search more films', exact: true })).toBeInViewport();
@@ -969,7 +970,7 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       const idleActions = await actionBounds();
       let release!: () => void;
       const gate = new Promise<void>((resolve) => { release = resolve; });
-      await page.route('**/watch-list', async (route) => {
+      await page.route('**/watch-list?sort=mine', async (route) => {
         if (route.request().method() === 'POST') { await gate; await route.abort('failed'); }
         else await route.continue();
       });
@@ -985,7 +986,7 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
       expect(retryBounds!.y + retryBounds!.height).toBeLessThanOrEqual(height - 8);
       await shot('save-failed');
       await expect(manual.getByLabel('Title', { exact: true })).toHaveValue(title);
-      await page.unroute('**/watch-list');
+      await page.unroute('**/watch-list?sort=mine');
       await manual.getByRole('button', { name: 'Try again', exact: true }).click();
       await expect(box).toHaveValue(''); await expect(box).toBeFocused();
       await expect.poll(async () => (await titlesIn(section(page, 'Want to watch')))[0]).toBe(title);
@@ -1005,13 +1006,13 @@ for (const { width, height } of [{ width: 390, height: 844 }, { width: 844, heig
         await expect(manual.getByRole('radio')).toBeFocused();
         await shot('duplicate');
         // An unanswered "Add a different film": the retry keeps that choice (9.R). The aborted post never reaches the server.
-        await page.route('**/watch-list', (route) => (route.request().method() === 'POST' ? route.abort() : route.continue()));
+        await page.route('**/watch-list?sort=mine', (route) => (route.request().method() === 'POST' ? route.abort() : route.continue()));
         await manual.getByRole('button', { name: 'Add a different film' }).click();
         await expect(manual.getByRole('alert')).toContainText(`Couldn't add ${title}`);
         await expect(manual.getByRole('button', { name: 'Try again' })).toBeVisible();
         await expect(manual.getByRole('radiogroup')).toBeVisible();
         await shot('duplicate-retry');
-        await page.unroute('**/watch-list');
+        await page.unroute('**/watch-list?sort=mine');
         await page.keyboard.press('Escape');
         const longTitle = 'TheUnusuallyLongUnbrokenFilmTitle'.repeat(5);
         await page.route('**/api/movie-catalogue?**', (route) => route.fulfill({ json: { ok: true, value: {

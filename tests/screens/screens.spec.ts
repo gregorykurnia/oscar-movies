@@ -470,7 +470,7 @@ const ROUTES: Route[] = [
   },
   {
     name: "watch-list-add",
-    path: "/watch-list",
+    path: "/watch-list?sort=mine",
     status: 200,
     heading: "Watch list",
     prepare: () => setWatchList(WATCH_ORDER),
@@ -479,7 +479,7 @@ const ROUTES: Route[] = [
   },
   {
     name: "watch-list-order",
-    path: "/watch-list",
+    path: "/watch-list?sort=mine",
     status: 200,
     heading: "Watch list",
     prepare: () => setWatchList(WATCH_ORDER),
@@ -487,7 +487,7 @@ const ROUTES: Route[] = [
   },
   {
     name: "watch-list-editor",
-    path: "/watch-list",
+    path: "/watch-list?sort=mine",
     status: 200,
     heading: "Watch list",
     prepare: () => setWatchList(WATCH_ORDER),

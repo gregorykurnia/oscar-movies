@@ -16,7 +16,8 @@ export const WATCH_SORT_LABELS: Record<WatchSort, string> = {
   release: "Release date",
 };
 
-const DEFAULT_SORT: WatchSort = "mine";
+// Release date unless the address picks another sort (owner, 2026-11-13); My order is `?sort=mine`.
+const DEFAULT_SORT: WatchSort = "release";
 
 /** The season section shows this many films until "Show all". */
 export const SEASON_LIMIT = 20;
@@ -37,7 +38,7 @@ export function parseWatchQuery(params: SearchParams, platforms: readonly string
   return { sort, all: [params.all].flat()[0] === "1", ...(platform ? { platform } : {}), ...(release ? { release } : {}) };
 }
 
-/** "?sort=nominations&all=1", or "" for the defaults. */
+/** "?sort=nominations&all=1", or "" for the defaults (Release date, the short list). */
 export function watchHref({ sort, all, platform, release }: WatchQuery): string {
   const params = new URLSearchParams();
   if (sort !== DEFAULT_SORT) params.set("sort", sort);
