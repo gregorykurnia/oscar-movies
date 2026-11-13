@@ -105,3 +105,14 @@ it("keeps the chosen status visibly selected while saving (10.R)", async () => {
   answer({ ok: true });
   await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
 });
+
+it("puts a release that is out on the gold wash, and not one still to come", () => {
+  const { rerender } = render(<ReleaseEditor {...props} releaseOn="2026-11-11" platform="Netflix" />);
+  const out = screen.getByRole("button", { name: "Out 11 Nov · Netflix" });
+  expect(out.className).toContain("bg-gold-wash");
+  expect(out.hasAttribute("data-out")).toBe(true);
+  rerender(<ReleaseEditor {...props} releaseOn="2026-11-12" platform="Netflix" />);
+  const coming = screen.getByRole("button", { name: "12 Nov 2026 · Netflix" });
+  expect(coming.className).not.toContain("bg-gold-wash");
+  expect(coming.hasAttribute("data-out")).toBe(false);
+});

@@ -51,7 +51,7 @@ function LineText({ line }: { line: ReleaseLine }) {
   const real = line.kind === "coming" || line.kind === "out";
   return (
     <span className="[overflow-wrap:anywhere]">
-      <span className={cn(real && "font-medium text-ink")}>{line.date}</span>
+      <span className={cn(real && "font-medium", line.kind === "out" ? "text-gold-ink" : real && "text-ink")}>{line.date}</span>
       {line.tentative ? ", tentative" : null}
       {line.platform ? <> · <span className="inline-block max-w-full align-top [overflow-wrap:anywhere]">{line.platform}</span></> : null}
     </span>
@@ -288,9 +288,12 @@ export function ReleaseEditor({
           "transition-[border-color] duration-[var(--dur-fast)] ease-app hover:border-line-strong focus-visible:shadow-focus aria-expanded:border-ink",
           // A 44px hit area around the 28px line.
           "before:absolute before:-inset-x-1 before:-inset-y-2 before:content-['']",
+          // Out now (v1.5.4): the film can be watched, so its line sits on the gold wash.
+          line.kind === "out" && "bg-gold-wash",
         )}
+        data-out={line.kind === "out" || undefined}
       >
-        <Calendar aria-hidden="true" className="mt-[3px] size-3.5 flex-none text-ink-subtle" strokeWidth={1.75} />
+        <Calendar aria-hidden="true" className={cn("mt-[3px] size-3.5 flex-none", line.kind === "out" ? "text-gold-ink" : "text-ink-subtle")} strokeWidth={1.75} />
         <LineText line={line} />
       </button>
 
