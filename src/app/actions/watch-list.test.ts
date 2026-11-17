@@ -3,8 +3,8 @@
 // `tests/db/mark-write.test.ts`.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease, fetchScoresAfterResponse } = vi.hoisted(() => ({
-  fetchScoresAfterResponse: vi.fn(),
+const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease, fetchScoresForAdd } = vi.hoisted(() => ({
+  fetchScoresForAdd: vi.fn(),
   writeWantAtTop: vi.fn(),
   writeWantOrder: vi.fn(),
   writeQueueOrder: vi.fn(),
@@ -13,7 +13,7 @@ const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelea
 }));
 vi.mock("@/db", () => ({ getDb: () => ({}), withFilmTransaction: (write: (tx: object) => unknown) => write({}) }));
 vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease }));
-vi.mock("@/lib/scores/after-add", () => ({ fetchScoresAfterResponse }));
+vi.mock("@/lib/scores/after-add", () => ({ fetchScoresForAdd }));
 
 import { addToWatchList, reorderWatchList, setQueued, setRelease } from "./watch-list";
 
@@ -27,7 +27,8 @@ describe("addToWatchList", () => {
     writeWantAtTop.mockResolvedValue(true);
     expect(await addToWatchList(12)).toEqual({ ok: true });
     expect(writeWantAtTop).toHaveBeenCalledWith({}, 12);
-    expect(fetchScoresAfterResponse).toHaveBeenCalledWith(12);
+    // The scores are the page's next call (POST /api/watch-list/scores), so the add answers at once.
+    expect(fetchScoresForAdd).not.toHaveBeenCalled();
   });
 
   it.each([[0], [-3], [1.5], ["12"], [null]])("refuses %j without writing", async (id) => {
@@ -39,7 +40,7 @@ describe("addToWatchList", () => {
     writeWantAtTop.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error("down"));
     expect(await addToWatchList(12)).toEqual({ ok: false });
     expect(await addToWatchList(12)).toEqual({ ok: false });
-    expect(fetchScoresAfterResponse).not.toHaveBeenCalled();
+    expect(fetchScoresForAdd).not.toHaveBeenCalled();
   });
 });
 

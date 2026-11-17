@@ -12,11 +12,15 @@ const local = { id: 1, slug: 'local', title: 'Local film', year: 2020, flag: nul
 const source = (title: string, tmdbId = 5) => ({ tmdbId, title, year: 2030, originalTitle: null, overview: 'Film overview.' });
 const json = (body: unknown) => Promise.resolve(new Response(JSON.stringify(body)));
 const fetchMock = vi.fn();
+const SCORES = '/api/watch-list/scores';
+const scoreCalls = () => fetchMock.mock.calls.filter(([url]) => url === SCORES);
 const box = () => screen.getByRole('combobox', { name: 'Add a film' });
 const type = (value: string) => fireEvent.change(box(), { target: { value } });
 beforeEach(() => {
  vi.clearAllMocks(); vi.stubGlobal('fetch', fetchMock);
- fetchMock.mockImplementation((url: string) => url.startsWith('/api/search') ? json({ films: [], awards: [] }) : json({ ok: true, value: { films: [source('New film')], page: 1, nextPage: null } }));
+ fetchMock.mockImplementation((url: string) => url.startsWith('/api/search') ? json({ films: [], awards: [] })
+   : url === SCORES ? json({ scored: false })
+   : json({ ok: true, value: { films: [source('New film')], page: 1, nextPage: null } }));
 });
 afterEach(() => vi.unstubAllGlobals());
 
@@ -47,6 +51,50 @@ it('Enter from no match opens TMDB; Enter picks, then Enter can save, keeping th
  expect(mocks.toast).toHaveBeenCalledWith(expect.objectContaining({ action: { label: 'Open film', href: '/movies/new' }, description: 'Added to Want to watch.' }));
  expect(document.activeElement).toBe(box());
  expect((box() as HTMLInputElement).value).toBe('');
+});
+
+it("asks for a new film's scores after the add, and refreshes again once they are saved", async () => {
+ mocks.add.mockResolvedValue({ ok: true, film: { id: 7, slug: 'new', title: 'New film', year: 2030 }, created: true, refreshRequired: false });
+ let scored!: (response: Response) => void;
+ const answer = new Promise<Response>((resolve) => (scored = resolve));
+ const search = fetchMock.getMockImplementation()!;
+ fetchMock.mockImplementation((url: string, init?: RequestInit) => url === SCORES ? answer : search(url, init));
+ render(<AddFilm />); fireEvent.focus(box()); type('New');
+ await screen.findByText('No film called “New” in the app yet.');
+ fireEvent.click(screen.getByRole('button', { name: 'Add manually' }));
+ fireEvent.change(screen.getByLabelText('Release or planned year'), { target: { value: '2030' } });
+ fireEvent.click(screen.getByRole('button', { name: 'Add to Want to watch' }));
+ // The film shows at once; the scores don't hold up the add.
+ await waitFor(() => expect(mocks.refresh).toHaveBeenCalledTimes(1));
+ expect(mocks.toast).toHaveBeenCalled();
+ expect(scoreCalls()).toEqual([[SCORES, expect.objectContaining({ method: 'POST', body: JSON.stringify({ movieId: 7 }) })]]);
+ scored(new Response(JSON.stringify({ scored: true })));
+ await waitFor(() => expect(mocks.refresh).toHaveBeenCalledTimes(2));
+});
+
+it('does not refresh again when no scores came back or the request failed', async () => {
+ mocks.existing.mockResolvedValue({ ok: true });
+ const replies = [() => json({ scored: false }), () => Promise.resolve(new Response('', { status: 500 })), () => Promise.reject(new TypeError('offline'))];
+ for (const makeReply of replies) {
+   let reply: Promise<Response> | undefined;
+   vi.clearAllMocks();
+   let answered!: () => void;
+   const done = new Promise<void>((resolve) => (answered = resolve));
+   fetchMock.mockImplementation((url: string) => {
+     if (url !== SCORES) return json({ films: [local], awards: [] });
+     answered();
+     reply = makeReply();
+     return reply;
+   });
+   const { unmount } = render(<AddFilm />); fireEvent.focus(box()); type('Local');
+   fireEvent.click(await screen.findByRole('option'));
+   await done;
+   // Let the reply's handlers run to the end before checking that nothing refreshed again.
+   await reply!.catch(() => {}); for (let i = 0; i < 5; i++) await Promise.resolve();
+   expect(mocks.refresh).toHaveBeenCalledTimes(1);
+   expect(scoreCalls()[0][1]).toMatchObject({ body: JSON.stringify({ movieId: 1 }) });
+   unmount();
+ }
 });
 
 it('a delayed old source response cannot replace or select the current query', async () => {

@@ -178,7 +178,7 @@ export function AddFilm() {
     setDismissed(true);
   }
 
-  function added(film: { title: string; slug: string }, refreshRequired = false) {
+  function added(film: { id: number; title: string; slug: string }, refreshRequired = false) {
     const sort = new URLSearchParams(window.location.search).get("sort");
     const mine = !sort || sort === "mine";
     setText(""); setFound(null); setSearchFailed(false); setActive(0); setPanel(null); setPicked(null);
@@ -188,6 +188,14 @@ export function AddFilm() {
     });
     startTransition(() => router.refresh());
     inputRef.current?.focus();
+    // Its scores take a few seconds (TMDB, OMDb, IMDb): refresh again once they're saved. A route,
+    // not a Server Action, so the owner's next tick or drag doesn't wait behind it.
+    fetch("/api/watch-list/scores", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ movieId: film.id }),
+    })
+      .then((response) => (response.ok ? (response.json() as Promise<{ scored?: boolean }>) : null))
+      .then((body) => { if (body?.scored) startTransition(() => router.refresh()); })
+      .catch(() => {});
   }
 
   function saved(result: Extract<AddFilmResult, { ok: true }>) { added(result.film, result.refreshRequired); }

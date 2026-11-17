@@ -13,7 +13,7 @@ const { linkFilmToTmdb } = vi.hoisted(() => ({ linkFilmToTmdb: vi.fn() }));
 vi.mock("@/lib/movie-catalogue", () => ({ getMovieCatalogue: async () => ({}) }));
 vi.mock("./link-film", () => ({ linkFilmToTmdb }));
 
-import { fetchFilmScores, fetchScoresAfterResponse } from "./after-add";
+import { fetchFilmScores, fetchScoresForAdd } from "./after-add";
 
 const NOW = new Date("2026-11-12T08:00:00Z");
 const film = (scoresCheckedAt: Date | null): QueueFilm => ({
@@ -69,35 +69,51 @@ describe("fetchFilmScores", () => {
   });
 });
 
-describe("fetchScoresAfterResponse", () => {
-  it("doesn't throw when it can't schedule the fetch", () => {
-    after.mockImplementation(() => {
-      throw new Error("outside a request");
-    });
-    expect(() => fetchScoresAfterResponse(5)).not.toThrow();
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  it("links a hand-added film first, and a failed link still lets the scores run", async () => {
+describe("fetchScoresForAdd", () => {
+  it("logs a failed link and a failed fetch (here: no keys), answers false and doesn't throw", async () => {
     vi.stubEnv("OMDB_API_KEY", "");
     linkFilmToTmdb.mockRejectedValue(new Error("TMDB down"));
-    let task: (() => Promise<void>) | undefined;
-    after.mockImplementation((fn: () => Promise<void>) => void (task = fn));
-    fetchScoresAfterResponse(5);
-    await task!();
+    expect(await fetchScoresForAdd(5)).toBe(false);
     expect(linkFilmToTmdb).toHaveBeenCalledWith({}, {}, 5);
     expect(console.error).toHaveBeenCalledWith("Linking a watch-list film to TMDB failed", { movieId: 5 }, expect.any(Error));
-    // Then on to the score fetch, which fails here for want of keys.
     expect(console.error).toHaveBeenCalledWith("Fetching scores for a watch-list film failed", { movieId: 5 }, expect.any(Error));
+    expect(after).not.toHaveBeenCalled();
   });
 
-  it("logs a failed fetch (here: no keys) without revalidating", async () => {
-    vi.stubEnv("OMDB_API_KEY", "");
-    let task: (() => Promise<void>) | undefined;
-    after.mockImplementation((fn: () => Promise<void>) => void (task = fn));
-    fetchScoresAfterResponse(5);
-    await task!();
-    expect(revalidateTag).not.toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalled();
+  it("past the wait, answers false and lets the fetch finish after the response", async () => {
+    vi.useFakeTimers();
+    try {
+      let unblock!: (v: boolean) => void;
+      linkFilmToTmdb.mockReturnValue(new Promise<boolean>((resolve) => (unblock = resolve)));
+      vi.stubEnv("OMDB_API_KEY", "");
+      let task: (() => Promise<void>) | undefined;
+      after.mockImplementation((fn: () => Promise<void>) => void (task = fn));
+      const answer = fetchScoresForAdd(5, 1_000);
+      await vi.advanceTimersByTimeAsync(1_000);
+      expect(await answer).toBe(false);
+      expect(task).toBeDefined();
+      unblock(true);
+      await task!();
+      // No keys here, so nothing was checked: no revalidation.
+      expect(revalidateTag).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("doesn't throw when it can't schedule the late fetch", async () => {
+    vi.useFakeTimers();
+    try {
+      linkFilmToTmdb.mockReturnValue(new Promise<boolean>(() => {}));
+      after.mockImplementation(() => {
+        throw new Error("outside a request");
+      });
+      const answer = fetchScoresForAdd(5, 10);
+      await vi.advanceTimersByTimeAsync(10);
+      expect(await answer).toBe(false);
+      expect(console.error).toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
