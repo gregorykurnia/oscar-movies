@@ -35,6 +35,7 @@ const detailsSchema = filmSchema.extend({
   }),
   vote_average: z.number().min(0).max(10),
   vote_count: z.number().int().nonnegative(),
+  runtime: z.number().int().nonnegative().nullish(),
 });
 
 function filmValue(film: z.infer<typeof filmSchema>): CatalogueFilm {
@@ -113,10 +114,13 @@ export function createTmdbCatalogue(token: string | undefined, fetchImpl: typeof
   }
 
   return {
-    async search(query, page = 1): Promise<CatalogueResult<CataloguePage>> {
+    async search(query, page = 1, year): Promise<CatalogueResult<CataloguePage>> {
       const input = catalogueQuerySchema.safeParse({ query, page });
-      if (!input.success) return { ok: false, error: "invalid-input" };
+      if (!input.success || (year !== undefined && !(Number.isInteger(year) && year >= 1800 && year <= 3000))) {
+        return { ok: false, error: "invalid-input" };
+      }
       const params = new URLSearchParams({ query: input.data.query, page: String(page), include_adult: "false" });
+      if (year !== undefined) params.set("primary_release_year", String(year));
       return request(`search/movie?${params}`, (body) => {
         const parsed = searchSchema.safeParse(body);
         if (!parsed.success || parsed.data.page !== page) return null;
@@ -144,6 +148,8 @@ export function createTmdbCatalogue(token: string | undefined, fetchImpl: typeof
           language: !data.original_language || data.original_language === "xx" ? null : data.original_language === "cn" ? "yue" : data.original_language,
           countries: [...new Set([...(data.origin_country ?? []), ...(data.production_countries ?? []).map((c) => c.iso_3166_1)])],
           tmdbScore: score.kind === "ok" ? score.value.tmdbScore : null,
+          // TMDB says 0 for a film it has no runtime for.
+          runtime: data.runtime || null,
         };
       });
     },

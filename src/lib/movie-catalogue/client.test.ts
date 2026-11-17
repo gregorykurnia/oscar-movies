@@ -21,8 +21,15 @@ describe("bounded TMDB catalogue", () => {
     expect(new URL(String(url)).origin).toBe("https://api.themoviedb.org");
     expect(new URL(String(url)).searchParams.get("query")).toBe("Mother & child");
     expect(new URL(String(url)).searchParams.get("include_adult")).toBe("false");
+    expect(new URL(String(url)).searchParams.has("primary_release_year")).toBe(false);
     expect(init).toMatchObject({ cache: "no-store", redirect: "error", headers: { authorization: "Bearer secret-test-token" } });
     expect(String(url) + JSON.stringify(result)).not.toContain("secret-test-token");
+  });
+
+  it("narrows a search to one year when asked", async () => {
+    const fetchImpl = withBody(page([details]));
+    await createTmdbCatalogue("test", fetchImpl).search("Mother", 1, 2009);
+    expect(new URL(String(fetchImpl.mock.calls[0][0])).searchParams.get("primary_release_year")).toBe("2009");
   });
 
   it("validates search text, page and IDs before fetching", async () => {
@@ -30,6 +37,7 @@ describe("bounded TMDB catalogue", () => {
     const client = createTmdbCatalogue("test", fetchImpl);
     for (const query of ["", "   ", "a".repeat(201)]) expect(await client.search(query)).toEqual({ ok: false, error: "invalid-input" });
     for (const n of [0, -1, 1.5, NaN, Infinity, 501]) expect(await client.search("Mother", n)).toEqual({ ok: false, error: "invalid-input" });
+    for (const y of [1799, 2026.5, NaN, 3001]) expect(await client.search("Mother", 1, y)).toEqual({ ok: false, error: "invalid-input" });
     for (const id of [0, -1, 1.5, NaN, Infinity, 2_147_483_648]) expect(await client.details(id)).toEqual({ ok: false, error: "invalid-input" });
     expect(fetchImpl).not.toHaveBeenCalled();
     expect(await createTmdbCatalogue(undefined, fetchImpl).search("Mother")).toEqual({ ok: false, error: "unavailable" });

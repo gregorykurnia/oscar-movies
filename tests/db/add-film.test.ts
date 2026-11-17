@@ -21,7 +21,7 @@ const manual = (extra = {}): FilmDraft => ({ input: { kind: "manual", localId: r
 const catalogue = (extra = {}): FilmDraft => ({
   input: { kind: "catalogue", localId: randomUUID(), tmdbId: 99005001 },
   details: { tmdbId: 99005001, title: "Test provider film", originalTitle: "映画", year: 2030, overview: "",
-    imdbId: "tt99005001", wikidataId: "Q99005001", countries: ["JP"], language: "ja", tmdbScore: 7.6, ...extra },
+    imdbId: "tt99005001", wikidataId: "Q99005001", countries: ["JP"], language: "ja", tmdbScore: 7.6, runtime: 120, ...extra },
 });
 async function rolledBack(check: (tx: FilmTransaction) => Promise<void>) {
   try {

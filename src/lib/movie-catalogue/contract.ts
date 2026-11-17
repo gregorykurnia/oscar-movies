@@ -20,6 +20,8 @@ export type CatalogueDetails = CatalogueFilm & {
   language: string | null;
   countries: string[];
   tmdbScore: number | null;
+  /** Minutes; null when TMDB doesn't know yet. */
+  runtime: number | null;
 };
 export const catalogueErrors = {
   "invalid-input": "Enter a film title of up to 200 characters and a page from 1 to 500.",
@@ -36,6 +38,7 @@ export const catalogueErrors = {
 export type CatalogueError = keyof typeof catalogueErrors;
 export type CatalogueResult<T> = { ok: true; value: T } | { ok: false; error: CatalogueError };
 export interface MovieCatalogue {
-  search(query: string, page?: number): Promise<CatalogueResult<CataloguePage>>;
+  /** `year`: only films first released that year. */
+  search(query: string, page?: number, year?: number): Promise<CatalogueResult<CataloguePage>>;
   details(id: number): Promise<CatalogueResult<CatalogueDetails>>;
 }

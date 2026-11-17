@@ -11,6 +11,10 @@ vi.mock("@/lib/scores", () => ({
   describeRun: () => "",
 }));
 
+const linkHandAddedFilms = vi.fn();
+vi.mock("@/lib/movie-catalogue", () => ({ getMovieCatalogue: async () => ({}) }));
+vi.mock("@/lib/scores/link-film", () => ({ linkHandAddedFilms }));
+
 const { GET } = await import("./route");
 
 const get = (headers: Record<string, string> = {}) =>
@@ -19,6 +23,7 @@ const get = (headers: Record<string, string> = {}) =>
 beforeEach(() => {
   vi.stubEnv("CRON_SECRET", "s3cret");
   runScores.mockReset().mockResolvedValue({ checked: 3 });
+  linkHandAddedFilms.mockReset().mockResolvedValue(0);
   revalidateTag.mockClear();
   vi.spyOn(console, "log").mockImplementation(() => {});
 });
@@ -46,5 +51,16 @@ describe("GET /api/cron/scores", () => {
     expect(await response.json()).toEqual({ checked: 3 });
     expect(runScores).toHaveBeenCalledWith({}, {}, expect.objectContaining({ source: "cron" }));
     expect(revalidateTag).toHaveBeenCalledWith("scores", { expire: 0 });
+  });
+
+  it("retries linking hand-added films to TMDB before it scores", async () => {
+    linkHandAddedFilms.mockResolvedValue(2);
+    await get({ authorization: "Bearer s3cret" });
+    expect(linkHandAddedFilms).toHaveBeenCalledWith({}, {}, expect.any(Number));
+    expect(linkHandAddedFilms.mock.invocationCallOrder[0]).toBeLessThan(runScores.mock.invocationCallOrder[0]);
+    // The batch gets what's left of its 250 seconds.
+    const { deadlineMs } = runScores.mock.calls[0][2];
+    expect(deadlineMs).toBeGreaterThan(0);
+    expect(deadlineMs).toBeLessThanOrEqual(250_000);
   });
 });

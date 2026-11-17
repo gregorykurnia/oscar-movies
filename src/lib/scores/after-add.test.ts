@@ -9,6 +9,9 @@ vi.mock("server-only", () => ({}));
 vi.mock("next/server", () => ({ after }));
 vi.mock("next/cache", () => ({ revalidateTag }));
 vi.mock("@/db", () => ({ getDb: () => ({}) }));
+const { linkFilmToTmdb } = vi.hoisted(() => ({ linkFilmToTmdb: vi.fn() }));
+vi.mock("@/lib/movie-catalogue", () => ({ getMovieCatalogue: async () => ({}) }));
+vi.mock("./link-film", () => ({ linkFilmToTmdb }));
 
 import { fetchFilmScores, fetchScoresAfterResponse } from "./after-add";
 
@@ -73,6 +76,19 @@ describe("fetchScoresAfterResponse", () => {
     });
     expect(() => fetchScoresAfterResponse(5)).not.toThrow();
     expect(console.error).toHaveBeenCalled();
+  });
+
+  it("links a hand-added film first, and a failed link still lets the scores run", async () => {
+    vi.stubEnv("OMDB_API_KEY", "");
+    linkFilmToTmdb.mockRejectedValue(new Error("TMDB down"));
+    let task: (() => Promise<void>) | undefined;
+    after.mockImplementation((fn: () => Promise<void>) => void (task = fn));
+    fetchScoresAfterResponse(5);
+    await task!();
+    expect(linkFilmToTmdb).toHaveBeenCalledWith({}, {}, 5);
+    expect(console.error).toHaveBeenCalledWith("Linking a watch-list film to TMDB failed", { movieId: 5 }, expect.any(Error));
+    // Then on to the score fetch, which fails here for want of keys.
+    expect(console.error).toHaveBeenCalledWith("Fetching scores for a watch-list film failed", { movieId: 5 }, expect.any(Error));
   });
 
   it("logs a failed fetch (here: no keys) without revalidating", async () => {
