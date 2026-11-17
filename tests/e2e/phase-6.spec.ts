@@ -170,10 +170,12 @@ test("the 2024 Documentary grid has a column for each Cinema Eye and DOC NYC cat
   await page.getByRole("navigation", { name: "Category" }).getByRole("link", { name: "Documentary" }).click();
   await expect(page).toHaveURL(/category=documentary/);
   // A press before hydration does nothing: press until the address says the critics groups are open.
+  // Each press gets 5 s: a press that lands but navigates slowly must not be followed by a second
+  // one, which folds the table again behind an address that already says open.
   const fold = page.getByRole("group", { name: "Filter" }).getByRole("button", { name: "Critics groups folded" });
   await expect(async () => {
     if (await fold.count()) await fold.click();
-    await expect(page).toHaveURL(/critics=open/, { timeout: 1000 });
+    await expect(page).toHaveURL(/critics=open/, { timeout: 5000 });
   }).toPass();
 
   const table = page.getByRole("table");

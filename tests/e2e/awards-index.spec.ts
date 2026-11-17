@@ -28,19 +28,23 @@ test("/awards/2025 lists the Oscars first, then the majors, festivals and critic
   expect(await criticsRegion.getByRole("link").count()).toBeGreaterThan(10);
 });
 
-test("/awards/2026 marks the majors No data and the Oscars Partly loaded", async ({ page }) => {
+test("/awards/2026 marks the majors without nominations No data and the Oscars Partly loaded", async ({ page }) => {
   await page.goto("/awards/2026");
   const oscars = page.getByRole("link", { name: /99th Academy Awards/ });
   await expect(oscars.getByText("14 Mar 2027")).toBeVisible();
   await expect(oscars.getByText("Partly loaded", { exact: true })).toBeVisible();
 
-  // Cinema Eye's Unforgettables are out, so it is the one major that links.
+  // Cinema Eye's Unforgettables and the European Film Awards' nominations are out, so those two
+  // majors link; the other nine have no data yet.
   const majors = page.getByRole("region", { name: "Major awards" });
-  await expect(majors.getByText("No data", { exact: true })).toHaveCount(10);
-  const cinemaEye = majors.getByRole("link");
-  await expect(cinemaEye).toHaveCount(1);
-  await expect(cinemaEye).toHaveAttribute("href", "/awards/cinema-eye/2026");
-  await expect(cinemaEye.getByText("Partly loaded", { exact: true })).toBeVisible();
+  await expect(majors.getByText("No data", { exact: true })).toHaveCount(9);
+  const linked = majors.getByRole("link");
+  await expect(linked).toHaveCount(2);
+  for (const award of ["cinema-eye", "european-film-awards"]) {
+    const link = majors.locator(`a[href="/awards/${award}/2026"]`);
+    await expect(link).toHaveCount(1);
+    await expect(link.getByText("Partly loaded", { exact: true })).toBeVisible();
+  }
 
   // A festival with its prizes loaded links to them, dated by the month.
   const cannes = page.getByRole("region", { name: "Festivals" }).getByRole("link", { name: /Cannes Film Festival/ });

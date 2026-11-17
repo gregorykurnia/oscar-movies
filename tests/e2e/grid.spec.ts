@@ -156,12 +156,14 @@ test("at 390 the page never scrolls sideways: the grid scrolls in its frame and 
   expect(after!.x).toBe(before!.x);
 });
 
-test("/grid opens the live season, and a year with nothing yet says so", async ({ page }) => {
+test("/grid opens the live season, whose animated grid fills in as the awards announce", async ({ page }) => {
   await page.goto("/grid");
   await expect(page).toHaveURL(/\/grid\/2026$/);
+  // The "No nominations yet" state can't be reached in the test data since the European Film
+  // Awards' animated nominations (14 Nov 2026) filled the last empty 2026 category.
   await page.goto("/grid/2026?category=animated");
-  await expect(page.getByRole("heading", { level: 2, name: "No nominations yet" })).toBeVisible();
-  await expect(page.getByText("Best Animated Feature · 0 films with a nomination")).toBeVisible();
+  await expect(page.getByText(/^Best Animated Feature · [1-9]\d* films? with a nomination/)).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "No nominations yet" })).toHaveCount(0);
 });
 
 test("critics=open gives each critics group with data its own column, after the festivals", async ({ page }) => {
