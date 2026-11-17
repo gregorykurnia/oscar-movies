@@ -2,14 +2,15 @@
 // a mark sets the whole state, keeps one row per film, refuses a film that doesn't exist, and
 // never stores watched and wanted together; a newly wanted film goes to the top of the order,
 // an unwanted one loses its rank, a reorder is refused unless it names exactly the wanted
-// films, and release notes stay through mark changes. These are the writes the marks and Watch
+// films, and release notes stay through mark changes; a wanted film moves into and out of the
+// Watch queue, which has its own order (owner, 2026-11-17). These are the writes the marks and Watch
 // list actions make (their input checks: `src/app/actions/*.test.ts`). Each test runs inside a
 // transaction that is rolled back.
 import { asc, eq, sql, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
-import { writeMark, writeRelease, writeWantAtTop, writeWantOrder } from "../../src/data/marks";
-import { queryWantedFilms } from "../../src/data/watch-list";
+import { writeMark, writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "../../src/data/marks";
+import { buildWatchList, queryWantedFilms } from "../../src/data/watch-list";
 import { marks, movies } from "../../src/db/schema";
 
 const { db, close } = createScriptDb();
@@ -242,6 +243,128 @@ describe("writeWantOrder (drag to reorder)", () => {
     await rolledBack(async (tx) => {
       const [one] = await addFilms(tx);
       await expect(writeWantOrder(tx, [one, one])).rejects.toThrow(/twice/);
+    });
+  });
+});
+
+describe("the Watch queue", () => {
+  /** The queued films, top first. */
+  const queue = async (tx: Tx) =>
+    (
+      await tx
+        .select({ movieId: marks.movieId, queueRank: marks.queueRank })
+        .from(marks)
+        .where(sql`${marks.queueRank} is not null`)
+        .orderBy(asc(marks.queueRank))
+    ).map((r) => r.movieId);
+  /** The wanted films outside the queue, top first. */
+  const unqueued = async (tx: Tx) => {
+    const queued = new Set(await queue(tx));
+    return (await order(tx)).filter((id) => !queued.has(id));
+  };
+  const ranksAreOneToN = async (tx: Tx) => {
+    const want = await tx.select({ r: marks.wantRank }).from(marks).where(sql`${marks.want} and ${marks.queueRank} is null`);
+    expect(want.map((r) => r.r).sort((a, b) => (a ?? 0) - (b ?? 0))).toEqual(want.map((_, i) => i + 1));
+    const queued = await tx.select({ r: marks.queueRank }).from(marks).where(sql`${marks.queueRank} is not null`);
+    expect(queued.map((r) => r.r).sort((a, b) => (a ?? 0) - (b ?? 0))).toEqual(queued.map((_, i) => i + 1));
+  };
+
+  it("queues a wanted film at the end, out of Want to watch, and back to the top of it when unqueued", async () => {
+    await rolledBack(async (tx) => {
+      const seeded = await order(tx);
+      const [one, two, three] = await addFilms(tx);
+      for (const id of [one, two, three]) await writeMark(tx, id, { watched: false, want: true });
+      expect(await writeQueued(tx, two, true)).toBe(true);
+      expect(await writeQueued(tx, one, true)).toBe(true);
+      expect(await queue(tx)).toEqual([two, one]);
+      expect(await unqueued(tx)).toEqual([three, ...seeded]);
+      await ranksAreOneToN(tx);
+      // Doing it twice changes nothing.
+      expect(await writeQueued(tx, two, true)).toBe(true);
+      expect(await queue(tx)).toEqual([two, one]);
+      expect(await writeQueued(tx, two, false)).toBe(true);
+      expect(await queue(tx)).toEqual([one]);
+      expect(await unqueued(tx)).toEqual([two, three, ...seeded]);
+      await ranksAreOneToN(tx);
+    });
+  });
+
+  it("refuses a film that isn't wanted, or doesn't exist", async () => {
+    await rolledBack(async (tx) => {
+      const [one] = await addFilms(tx);
+      await writeMark(tx, one, { watched: true, want: false });
+      expect(await writeQueued(tx, one, true)).toBe(false);
+      expect(await writeQueued(tx, 2_000_000_000, true)).toBe(false);
+      expect(await queue(tx)).toEqual([]);
+    });
+  });
+
+  it("leaves the queue when the film is watched or unwanted, closing the gap", async () => {
+    await rolledBack(async (tx) => {
+      const [one, two, three] = await addFilms(tx);
+      for (const id of [one, two, three]) await writeMark(tx, id, { watched: false, want: true });
+      for (const id of [one, two, three]) await writeQueued(tx, id, true);
+      await writeMark(tx, one, { watched: true, want: false });
+      expect(await queue(tx)).toEqual([two, three]);
+      await writeMark(tx, two, { watched: false, want: false });
+      expect(await queue(tx)).toEqual([three]);
+      await ranksAreOneToN(tx);
+      // A queued film saved wanted again keeps its place.
+      await writeMark(tx, three, { watched: false, want: true });
+      expect(await queue(tx)).toEqual([three]);
+      // Wanted again later, it starts outside the queue.
+      await writeMark(tx, one, { watched: false, want: true });
+      expect(await queue(tx)).toEqual([three]);
+    });
+  });
+
+  it("Add a film on a queued film moves it out of the queue to the top of Want to watch", async () => {
+    await rolledBack(async (tx) => {
+      const seeded = await order(tx);
+      const [one, two] = await addFilms(tx);
+      for (const id of [one, two]) await writeMark(tx, id, { watched: false, want: true });
+      await writeQueued(tx, one, true);
+      await writeQueued(tx, two, true);
+      expect(await writeWantAtTop(tx, one)).toBe(true);
+      expect(await queue(tx)).toEqual([two]);
+      expect(await unqueued(tx)).toEqual([one, ...seeded]);
+      await ranksAreOneToN(tx);
+    });
+  });
+
+  it("saves each list's order on its own, refusing a stale one", async () => {
+    await rolledBack(async (tx) => {
+      const seeded = await order(tx);
+      const [one, two, three] = await addFilms(tx);
+      for (const id of [one, two, three]) await writeMark(tx, id, { watched: false, want: true });
+      await writeQueued(tx, one, true);
+      await writeQueued(tx, two, true);
+      expect(await writeQueueOrder(tx, [two, one])).toBe("ok");
+      expect(await queue(tx)).toEqual([two, one]);
+      // Want to watch's order names only the films outside the queue.
+      expect(await writeWantOrder(tx, [...seeded, three])).toBe("ok");
+      expect(await unqueued(tx)).toEqual([...seeded, three]);
+      expect(await writeWantOrder(tx, [...seeded, three, one])).toBe("stale");
+      expect(await writeQueueOrder(tx, [two])).toBe("stale");
+      expect(await writeQueueOrder(tx, [two, one, three])).toBe("stale");
+      expect(await queue(tx)).toEqual([two, one]);
+      await ranksAreOneToN(tx);
+    });
+  });
+
+  it("reads the queue apart from Want to watch, in its order", async () => {
+    await rolledBack(async (tx) => {
+      const [one, two] = await addFilms(tx);
+      for (const id of [one, two]) await writeMark(tx, id, { watched: false, want: true });
+      await writeQueued(tx, one, true);
+      await writeQueued(tx, two, true);
+      await writeQueueOrder(tx, [two, one]);
+      const wanted = await queryWantedFilms(tx);
+      expect(wanted.find((f) => f.film.id === one)?.queueRank).toBe(2);
+      const list = buildWatchList(wanted, [], []);
+      expect(list.queue.map((f) => f.film.id)).toEqual([two, one]);
+      expect(list.want.map((f) => f.film.id)).not.toContain(one);
+      expect(list.want.map((f) => f.film.id)).not.toContain(two);
     });
   });
 });

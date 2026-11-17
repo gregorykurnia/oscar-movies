@@ -103,6 +103,7 @@ describe("marksFileSchema", () => {
       { imdb: "tt2", watched: true, want: false, wantRank: null, releaseOn: null, platform: null },
       { imdb: "tt3", watched: false, want: false, wantRank: null, releaseOn: "2026-11-03", platform: "Cinema XXI" },
       { imdb: "tt4", watched: false, want: true },
+      { imdb: "tt5", watched: false, want: true, wantRank: null, queueRank: 1 },
     ];
     expect(marksFileSchema.safeParse(entries).success).toBe(true);
   });
@@ -117,6 +118,9 @@ describe("marksFileSchema", () => {
   it.each([
     ["a rank but not wanted", { imdb: "tt1", watched: true, want: false, wantRank: 2 }],
     ["a rank of 0", { imdb: "tt1", watched: false, want: true, wantRank: 0 }],
+    ["a queue place but not wanted", { imdb: "tt1", watched: true, want: false, queueRank: 1 }],
+    ["a queue place of 0", { imdb: "tt1", watched: false, want: true, queueRank: 0 }],
+    ["a queue place and a Want to watch place", { imdb: "tt1", watched: false, want: true, wantRank: 3, queueRank: 1 }],
     ["a date that isn't one", { imdb: "tt1", watched: false, want: true, releaseOn: "12 Dec 2026" }],
     ["tentative with TBD", { imdb: "tt1", watched: false, want: true, releaseOn: null, releaseTentative: true }],
     ["tentative without a date", { imdb: "tt1", watched: false, want: true, releaseTentative: true }],

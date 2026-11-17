@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { getDb, withFilmTransaction } from "@/db";
-import { writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
+import { writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
 import { fetchScoresAfterResponse } from "@/lib/scores/after-add";
 
 // The Watch list's Server Actions (plan §4, Phase 7 notes): Add a film, the owner's order and
@@ -35,18 +35,35 @@ const orderInput = z
   .refine((ids) => new Set(ids).size === ids.length, "A film appears twice in the order");
 
 /**
- * Saves the Want to watch order, top first. `stale`: the ids aren't exactly the films wanted
- * now (another tab changed the list), so nothing was written and the page should reload.
+ * Saves the order of Want to watch (`list` "want", the default) or of the Watch queue, top first.
+ * `stale`: the ids aren't exactly that list's films now (another tab changed it), so nothing
+ * was written and the page should reload.
  */
-export async function reorderWatchList(raw: number[]): Promise<ReorderResult> {
+export async function reorderWatchList(raw: number[], list: "want" | "queue" = "want"): Promise<ReorderResult> {
   const parsed = orderInput.safeParse(raw);
-  if (!parsed.success) return { ok: false, reason: "failed" };
+  if (!parsed.success || (list !== "want" && list !== "queue")) return { ok: false, reason: "failed" };
+  const write = list === "queue" ? writeQueueOrder : writeWantOrder;
   try {
-    const result = await withFilmTransaction((tx) => writeWantOrder(tx, parsed.data));
+    const result = await withFilmTransaction((tx) => write(tx, parsed.data));
     return result === "ok" ? { ok: true } : { ok: false, reason: "stale" };
   } catch (error) {
-    console.error("reorderWatchList failed", { count: parsed.data.length }, error);
+    console.error("reorderWatchList failed", { list, count: parsed.data.length }, error);
     return { ok: false, reason: "failed" };
+  }
+}
+
+/**
+ * Puts a wanted film in the Watch queue (at its end) or takes it out (back to the top of Want to
+ * watch). Not ok when the film isn't wanted any more (the page should reload) or the save failed.
+ */
+export async function setQueued(rawMovieId: number, queued: boolean): Promise<WatchListResult> {
+  const parsed = movieId.safeParse(rawMovieId);
+  if (!parsed.success || typeof queued !== "boolean") return { ok: false };
+  try {
+    return { ok: await withFilmTransaction((tx) => writeQueued(tx, parsed.data, queued)) };
+  } catch (error) {
+    console.error("setQueued failed", { movieId: parsed.data, queued }, error);
+    return { ok: false };
   }
 }
 

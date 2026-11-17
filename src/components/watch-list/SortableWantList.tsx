@@ -125,8 +125,11 @@ export function SortableWantList({
   films,
   head,
   columns,
+  list = "want",
 }: {
   films: SortableFilm[];
+  /** Which order the moves save: Want to watch's or the Watch queue's. */
+  list?: "want" | "queue";
 } & Pick<ComponentProps<typeof FilmList>, "head" | "columns">) {
   const router = useRouter();
   const readWant = useReadWant();
@@ -202,7 +205,7 @@ export function SortableWantList({
         }
       };
 
-      reorderWatchList(orderToSave(next, readWant)).then(
+      reorderWatchList(orderToSave(next, readWant), list).then(
         (result) => {
           if (!result.ok) return fail(result.reason);
           saveInFlight.current = false;
@@ -213,7 +216,7 @@ export function SortableWantList({
       );
     },
     // `later` and `setOrder` only touch refs and state setters.
-    [readWant, router],
+    [readWant, router, list],
   );
 
   const onDragStart = ({ active: a, activatorEvent }: DragStartEvent) => {

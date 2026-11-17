@@ -37,10 +37,14 @@ export type WantedFilm = StagedFilm & {
   /** False for dates saved before Phase 10 and for TBD. */
   releaseTentative: boolean;
   platform: string | null;
+  /** Its place in the Watch queue (1 = top); null when it isn't queued. */
+  queueRank: number | null;
 };
 
 export type WatchList = {
-  /** Films marked want to watch, from any year, in the owner's order. */
+  /** The Watch queue: wanted films the owner knows are really out, in their order. */
+  queue: WantedFilm[];
+  /** The other films marked want to watch, from any year, in the owner's order. */
   want: WantedFilm[];
   /** The season's films not watched and not already in `want`. */
   unwatched: StagedFilm[];
@@ -147,18 +151,20 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
       releaseOn: marks.releaseOn,
       releaseTentative: marks.releaseTentative,
       platform: marks.platform,
+      queueRank: marks.queueRank,
     })
     .from(marks)
     .innerJoin(movies, eq(movies.id, marks.movieId))
     .leftJoin(summary, eq(summary.movieId, movies.id))
     .where(eq(marks.want, true))
     .orderBy(sql`${marks.wantRank} asc nulls last`, asc(movies.title), asc(movies.id));
-  return rows.map(({ wantRank, releaseOn, releaseTentative, platform, ...row }) => ({
+  return rows.map(({ wantRank, releaseOn, releaseTentative, platform, queueRank, ...row }) => ({
     ...toStagedFilm(row),
     wantRank,
     releaseOn,
     releaseTentative,
     platform,
+    queueRank,
   }));
 }
 
@@ -170,7 +176,7 @@ export async function queryUsedPlatforms(db: ReadDb, wantedOnly = false): Promis
   const query = db
     .select({ platform: marks.platform })
     .from(marks)
-    .where(and(sql`${marks.platform} is not null`, wantedOnly ? eq(marks.want, true) : undefined))
+    .where(and(sql`${marks.platform} is not null`, wantedOnly ? sql`${marks.want} and ${marks.queueRank} is null` : undefined))
     .groupBy(marks.platform)
     .orderBy(sql`max(${marks.updatedAt}) desc`, asc(marks.platform));
   const rows = await (wantedOnly ? query : query.limit(20));
@@ -182,7 +188,7 @@ export async function getUsedPlatforms(): Promise<string[]> {
   return queryUsedPlatforms(getDb());
 }
 
-/** All platforms on currently wanted films, newest spelling first, without the editor's limit. */
+/** All platforms on wanted films outside the Watch queue (the ones the filters narrow), newest spelling first, without the editor's limit. */
 export async function getWantedPlatforms(): Promise<string[]> {
   return queryUsedPlatforms(getDb(), true);
 }
@@ -205,7 +211,7 @@ export async function getLiveChances(year: number): Promise<Record<number, numbe
   return queryLiveChances(getDb(), year);
 }
 
-/** The watch list's two sections; the page sorts each. */
+/** The watch list's sections: the queue in its own order, the others for the page to sort. */
 export function buildWatchList(
   wanted: WantedFilm[],
   season: StagedFilm[],
@@ -214,7 +220,12 @@ export function buildWatchList(
 ): WatchList {
   const marked = new Set(allMarks.filter((m) => m.watched || m.want).map((m) => m.movieId));
   const withChance = <F extends StagedFilm>(f: F): F => ({ ...f, chance: chances[f.film.id] ?? null });
-  return { want: wanted.map(withChance), unwatched: season.filter((f) => !marked.has(f.film.id)).map(withChance) };
+  const queue = wanted.filter((f) => f.queueRank !== null).sort((a, b) => a.queueRank! - b.queueRank!);
+  return {
+    queue: queue.map(withChance),
+    want: wanted.filter((f) => f.queueRank === null).map(withChance),
+    unwatched: season.filter((f) => !marked.has(f.film.id)).map(withChance),
+  };
 }
 
 /** The watch list for a season, read per request (it depends on the marks). */

@@ -3,17 +3,19 @@
 // `tests/db/mark-write.test.ts`.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { writeWantAtTop, writeWantOrder, writeRelease, fetchScoresAfterResponse } = vi.hoisted(() => ({
+const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease, fetchScoresAfterResponse } = vi.hoisted(() => ({
   fetchScoresAfterResponse: vi.fn(),
   writeWantAtTop: vi.fn(),
   writeWantOrder: vi.fn(),
+  writeQueueOrder: vi.fn(),
+  writeQueued: vi.fn(),
   writeRelease: vi.fn(),
 }));
 vi.mock("@/db", () => ({ getDb: () => ({}), withFilmTransaction: (write: (tx: object) => unknown) => write({}) }));
-vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeRelease }));
+vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease }));
 vi.mock("@/lib/scores/after-add", () => ({ fetchScoresAfterResponse }));
 
-import { addToWatchList, reorderWatchList, setRelease } from "./watch-list";
+import { addToWatchList, reorderWatchList, setQueued, setRelease } from "./watch-list";
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -96,5 +98,38 @@ describe("setRelease", () => {
   ])("refuses %s without writing", async (_, id, date, platform) => {
     expect(await setRelease(id as number, date as string | null, platform as string | null)).toEqual({ ok: false });
     expect(writeRelease).not.toHaveBeenCalled();
+  });
+});
+
+describe("the Watch queue", () => {
+  it("saves the queue's order apart from Want to watch's", async () => {
+    writeQueueOrder.mockResolvedValue("ok");
+    expect(await reorderWatchList([2, 1], "queue")).toEqual({ ok: true });
+    expect(writeQueueOrder).toHaveBeenCalledWith({}, [2, 1]);
+    expect(writeWantOrder).not.toHaveBeenCalled();
+  });
+
+  it("refuses an unknown list without writing", async () => {
+    expect(await reorderWatchList([2, 1], "season" as "queue")).toEqual({ ok: false, reason: "failed" });
+    expect(writeQueueOrder).not.toHaveBeenCalled();
+    expect(writeWantOrder).not.toHaveBeenCalled();
+  });
+
+  it("queues and unqueues a film by id", async () => {
+    writeQueued.mockResolvedValue(true);
+    expect(await setQueued(12, true)).toEqual({ ok: true });
+    expect(await setQueued(12, false)).toEqual({ ok: true });
+    expect(writeQueued.mock.calls).toEqual([[{}, 12, true], [{}, 12, false]]);
+  });
+
+  it.each([[0, true], [1.5, true], ["12", true], [12, "yes"], [12, null]])("refuses %j, %j without writing", async (id, queued) => {
+    expect(await setQueued(id as number, queued as boolean)).toEqual({ ok: false });
+    expect(writeQueued).not.toHaveBeenCalled();
+  });
+
+  it("says so when the film isn't wanted or the write fails", async () => {
+    writeQueued.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error("down"));
+    expect(await setQueued(12, true)).toEqual({ ok: false });
+    expect(await setQueued(12, true)).toEqual({ ok: false });
   });
 });

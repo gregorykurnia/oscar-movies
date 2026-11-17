@@ -68,7 +68,7 @@ describe("the address", () => {
 describe("release sort and filters", () => {
   const today = "2026-11-11";
   const wanted = (title: string, releaseOn: string | null, platform: string | null, releaseTentative = false): WantedFilm => ({
-    ...film(title, null, 0, null), wantRank: null, releaseOn, platform, releaseTentative,
+    ...film(title, null, 0, null), wantRank: null, releaseOn, platform, releaseTentative, queueRank: null,
   });
   const films = [
     wanted("No note", null, null), wanted("Z coming", "2026-12-12", "Netflix", true),

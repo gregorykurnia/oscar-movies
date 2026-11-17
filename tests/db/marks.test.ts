@@ -7,7 +7,7 @@
 import { asc, eq, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { applyRestore, exportMarks, formatPlan, loadRestorePlan } from "../../scripts/lib/marks";
-import { writeWantAtTop } from "../../src/data/marks";
+import { writeMark, writeQueued, writeWantAtTop } from "../../src/data/marks";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema } from "../../src/lib/data-files";
@@ -84,6 +84,7 @@ describe("marks export and restore", () => {
           wantRank: twoRank,
           releaseOn: "2026-12-12",
           platform: "Netflix",
+          queueRank: null,
           updatedAt: "2026-02-01T10:00:00.000Z",
         },
       ]);
@@ -218,6 +219,31 @@ describe("marks export and restore", () => {
       const wanted = await tx.select({ id: marks.movieId, rank: marks.wantRank }).from(marks).where(eq(marks.want, true)).orderBy(asc(marks.wantRank));
       expect(wanted.map((w) => w.rank)).toEqual(wanted.map((_, i) => i + 1));
       expect(wanted[0].id).toBe(four);
+    });
+  });
+
+  it("backs up the Watch queue and puts it back exactly", async () => {
+    await rolledBack(async (tx) => {
+      const { two, four } = await addFilms(tx);
+      await writeMark(tx, four, { watched: false, want: true });
+      await writeQueued(tx, two, true);
+      await writeQueued(tx, four, true);
+      const exported = await snapshot(tx);
+      const file = await exportMarks(tx);
+      expect(file.find((m) => m.title === "Marks Two")).toMatchObject({ queueRank: 1, wantRank: null });
+      expect(file.find((m) => m.title === "Marks One")).not.toHaveProperty("queueRank");
+      // After the backup: Two leaves the queue and Four is watched.
+      await writeQueued(tx, two, false);
+      await writeMark(tx, four, { watched: true, want: false });
+      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBeGreaterThan(0);
+      const after = await snapshot(tx);
+      const byId = (rows: typeof after, id: number) => rows.find((m) => m.movieId === id);
+      for (const id of [two, four]) expect(byId(after, id)?.queueRank).toBe(byId(exported, id)?.queueRank);
+      expect(byId(after, two)?.queueRank).toBe(1);
+      expect(byId(after, four)?.queueRank).toBe(2);
+      // Queued films hold no Want to watch place after the renumbering.
+      expect(byId(after, two)?.wantRank).toBeNull();
+      expect(byId(after, four)?.wantRank).toBeNull();
     });
   });
 

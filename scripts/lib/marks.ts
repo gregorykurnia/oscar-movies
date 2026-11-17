@@ -19,6 +19,7 @@ export type MarkState = {
   releaseOn: string | null;
   releaseTentative: boolean;
   platform: string | null;
+  queueRank: number | null;
 };
 export type Film = {
   id: number;
@@ -51,14 +52,15 @@ export type RestorePlan = {
   notInFile: Array<{ film: Film; mark: MarkState }>;
 };
 
-const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, releaseTentative: false, platform: null };
+const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null };
 const sameMark = (a: MarkState, b: MarkState) =>
   a.watched === b.watched &&
   a.want === b.want &&
   a.wantRank === b.wantRank &&
   a.releaseOn === b.releaseOn &&
   a.releaseTentative === b.releaseTentative &&
-  a.platform === b.platform;
+  a.platform === b.platform &&
+  a.queueRank === b.queueRank;
 /** A row worth keeping in the backup: a mark, or release notes (kept when a film is unwanted). */
 const isKept = (m: MarkState) => m.watched || m.want || m.releaseOn !== null || m.platform !== null;
 const entryId = (m: Pick<MarkEntry, "imdb" | "wd" | "tmdb" | "localId">) =>
@@ -70,13 +72,14 @@ const identityOf = (f: Pick<Film, "imdbId" | "wikidataId" | "tmdbId" | "localId"
   ...(f.localId ? { localId: f.localId } : {}),
 });
 const identityColumns = { imdb: "imdbId", wd: "wikidataId", tmdb: "tmdbId", localId: "localId" } as const;
-const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platform }: MarkState): MarkState => ({
+const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platform, queueRank }: MarkState): MarkState => ({
   watched,
   want,
   wantRank,
   releaseOn,
   releaseTentative,
   platform,
+  queueRank,
 });
 
 /**
@@ -93,11 +96,13 @@ export function targetState(entry: MarkEntry, now: MarkState): MarkState {
     releaseOn: entry.releaseOn === undefined ? now.releaseOn : entry.releaseOn,
     releaseTentative: entry.releaseOn === undefined ? now.releaseTentative : entry.releaseOn !== null && (entry.releaseTentative ?? false),
     platform: entry.platform === undefined ? now.platform : entry.platform,
+    // Exports write `queueRank` (null included) for every wanted film, so a missing one is an older file: kept.
+    queueRank: entry.want ? (entry.queueRank === undefined ? (now.want ? now.queueRank : null) : entry.queueRank) : null,
   };
 }
 
 export function markLabel(m: MarkState): string {
-  const parts = [m.watched ? "watched" : m.want ? `want${m.wantRank === null ? "" : ` #${m.wantRank}`}` : "none"];
+  const parts = [m.watched ? "watched" : m.want ? `want${m.wantRank === null ? "" : ` #${m.wantRank}`}${m.queueRank === null ? "" : `, queue #${m.queueRank}`}` : "none"];
   if (m.releaseOn !== null || m.platform !== null) parts.push(`${m.releaseOn ?? "TBD"}${m.releaseTentative ? " (tentative)" : ""} · ${m.platform ?? "no platform"}`);
   return parts.join(", ");
 }
@@ -230,6 +235,7 @@ const markColumns = {
   releaseOn: marks.releaseOn,
   releaseTentative: marks.releaseTentative,
   platform: marks.platform,
+  queueRank: marks.queueRank,
 };
 
 /**
@@ -263,6 +269,7 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
       releaseOn: r.releaseOn,
       ...(r.releaseTentative ? { releaseTentative: true } : {}),
       platform: r.platform,
+      ...(r.want ? { queueRank: r.queueRank } : {}),
       ...(r.updatedAt ? { updatedAt: r.updatedAt.toISOString() } : {}),
     }))
     .sort((a, b) => entryId(a).localeCompare(entryId(b))));
@@ -442,9 +449,19 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
       update marks set want_rank = r.rank
       from (
         select movie_id, row_number() over (order by want_rank nulls last, updated_at desc, movie_id) as rank
-        from marks where want
+        from marks where want and queue_rank is null
       ) r
       where marks.movie_id = r.movie_id and marks.want_rank is distinct from r.rank`);
+    // A queued film has no Want to watch place.
+    if (plan.writes.length + createdMarks > 0) await tx.execute(sql`update marks set want_rank = null where queue_rank is not null and want_rank is not null`);
+    // The same for the Watch queue: its films numbered 1…n again, in the file's order.
+    if (plan.writes.length + createdMarks > 0) await tx.execute(sql`
+      update marks set queue_rank = r.rank
+      from (
+        select movie_id, row_number() over (order by queue_rank, updated_at desc, movie_id) as rank
+        from marks where queue_rank is not null
+      ) r
+      where marks.movie_id = r.movie_id and marks.queue_rank is distinct from r.rank`);
   });
   return plan.writes.length + createdMarks;
 }

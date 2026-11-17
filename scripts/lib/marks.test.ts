@@ -8,7 +8,7 @@ const conclave: Film = { ...ids, id: 2, slug: "conclave", imdbId: "tt2", wikidat
 const noImdb: Film = { ...ids, id: 3, slug: "flow", imdbId: null, wikidataId: "Q3", title: "Flow", year: 2024 };
 const films = [anora, conclave, noImdb];
 
-const EMPTY = { wantRank: null, releaseOn: null, releaseTentative: false, platform: null };
+const EMPTY = { wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null };
 /** A row in `marks`; the Watch list fields default to empty. */
 const row = (movieId: number, watched: boolean, want: boolean, extra: Partial<MarkState> = {}): CurrentMark => ({
   movieId,
@@ -163,7 +163,7 @@ describe("planRestore", () => {
   it("keeps release notes the file doesn't mention, and lists them", () => {
     const notes = { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" };
     const plan = planRestore([], films, [row(2, false, false, notes)]);
-    expect(plan.notInFile).toEqual([{ film: conclave, mark: { watched: false, want: false, wantRank: null, ...notes } }]);
+    expect(plan.notInFile).toEqual([{ film: conclave, mark: { watched: false, want: false, wantRank: null, queueRank: null, ...notes } }]);
   });
 
   it("restores the Watch list fields a newer file carries, nulls included", () => {
@@ -176,8 +176,8 @@ describe("planRestore", () => {
       [row(1, false, true, { wantRank: 1 }), row(2, false, true, { wantRank: 2, releaseOn: "2026-11-01", platform: "MUBI" })],
     );
     expect(plan.writes.map((w) => [w.film.id, w.to])).toEqual([
-      [1, { watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", releaseTentative: false, platform: "Netflix", updatedAt: undefined }],
-      [2, { watched: false, want: true, wantRank: 1, releaseOn: null, releaseTentative: false, platform: null, updatedAt: undefined }],
+      [1, { watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", releaseTentative: false, platform: "Netflix", queueRank: null, updatedAt: undefined }],
+      [2, { watched: false, want: true, wantRank: 1, releaseOn: null, releaseTentative: false, platform: null, queueRank: null, updatedAt: undefined }],
     ]);
   });
 
@@ -196,9 +196,27 @@ describe("planRestore", () => {
     // Flow: wanted again, unranked (it sorts last), notes kept.
     expect(plan.unchanged).toBe(1);
     expect(plan.writes.map((w) => [w.film.id, w.to])).toEqual([
-      [2, { watched: true, want: false, wantRank: null, ...notes, updatedAt: undefined }],
-      [3, { watched: false, want: true, wantRank: null, ...notes, updatedAt: undefined }],
+      [2, { watched: true, want: false, wantRank: null, queueRank: null, ...notes, updatedAt: undefined }],
+      [3, { watched: false, want: true, wantRank: null, queueRank: null, ...notes, updatedAt: undefined }],
     ]);
+  });
+});
+
+describe("Watch queue restore", () => {
+  it("restores a queued film's place and shows it in the dry run", () => {
+    const plan = planRestore([{ imdb: "tt1", watched: false, want: true, wantRank: null, queueRank: 1 }], films, [row(1, false, true, { wantRank: 1 })]);
+    expect(plan.writes.map((w) => w.to.queueRank)).toEqual([1]);
+    expect(formatPlan(plan, "Dry run")).toContain("want, queue #1");
+  });
+
+  it("takes a film out of the queue when the file says it isn't queued", () => {
+    const plan = planRestore([{ imdb: "tt1", watched: false, want: true, wantRank: 1, queueRank: null }], films, [row(1, false, true, { queueRank: 2 })]);
+    expect(plan.writes.map((w) => w.to.queueRank)).toEqual([null]);
+  });
+
+  it("keeps the queue for an older file without queue places", () => {
+    const plan = planRestore([{ imdb: "tt1", watched: false, want: true, wantRank: null }], films, [row(1, false, true, { queueRank: 2 })]);
+    expect(plan.writes).toEqual([]);
   });
 });
 

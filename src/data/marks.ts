@@ -5,7 +5,8 @@
 // Each low-level write is one SQL statement. Rank-changing actions run it inside the shared
 // locked transaction; release notes alone still use HTTP. A film that becomes wanted goes
 // to the top and the films above its old place shift down one; a film that stops being wanted
-// loses its rank; only `writeRelease` touches the release notes, including tentative status.
+// loses its rank and its Watch queue place; only `writeRelease` touches the release notes,
+// including tentative status. `writeQueued` moves a wanted film into or out of the Watch queue.
 import { sql } from "drizzle-orm";
 import type { getDb, ScriptDb } from "@/db";
 
@@ -40,13 +41,16 @@ async function upsertMark(db: WriteDb, movieId: number, value: MarkValue, top: b
   if (value.watched && value.want) throw new Error("A film can't be both watched and wanted");
   // `old_rank`: the film's place if it's wanted now. Moving to the top shifts down the wanted
   // films above that place (all of them when it wasn't wanted); unwanting moves the films
-  // below it up one, so the order stays 1…n.
+  // below it up one, so the order stays 1…n. Unwanting, or Add a film's move to the top, also
+  // takes it out of the Watch queue (`old_queue`), closing the gap there; a film that stays
+  // wanted otherwise keeps its queue place.
   const found = await rows(
     db,
     sql`
       with film as (select id from movies where id = ${movieId}),
       prev as (
         select (select want_rank from marks where movie_id = ${movieId} and want) as old_rank,
+               (select queue_rank from marks where movie_id = ${movieId} and want) as old_queue,
                coalesce((select want from marks where movie_id = ${movieId}), false) as was_wanted
       ),
       to_top as (
@@ -64,6 +68,12 @@ async function upsertMark(db: WriteDb, movieId: number, value: MarkValue, top: b
         where not ${value.want}::boolean and (select old_rank from prev) is not null
           and want and want_rank > (select old_rank from prev) and movie_id <> ${movieId}
         returning movie_id
+      ),
+      left_queue as (
+        update marks set queue_rank = queue_rank - 1
+        where (not ${value.want}::boolean or ${top}::boolean) and (select old_queue from prev) is not null
+          and want and queue_rank > (select old_queue from prev) and movie_id <> ${movieId}
+        returning movie_id
       )
       insert into marks (movie_id, watched, want, want_rank, updated_at)
       select id, ${value.watched}::boolean, ${value.want}::boolean,
@@ -77,6 +87,7 @@ async function upsertMark(db: WriteDb, movieId: number, value: MarkValue, top: b
           when (select v from to_top) then 1
           else marks.want_rank
         end,
+        queue_rank = case when excluded.want and not ${top}::boolean then marks.queue_rank end,
         updated_at = now()
       returning movie_id`,
   );
@@ -94,27 +105,31 @@ export function writeWantAtTop(db: WriteDb, movieId: number): Promise<boolean> {
 }
 
 /**
- * Renumbers the wanted films 1…n in the order given. Refused ("stale"), writing nothing,
- * unless `orderedIds` are exactly the films wanted now: a page that's out of date (a film
- * wanted or unwanted in another tab) must reload, not drop or invent a place.
+ * Renumbers the films of one list 1…n in the order given: Want to watch (`want_rank`, the wanted
+ * films not in the queue) or the Watch queue (`queue_rank`). Refused ("stale"), writing nothing,
+ * unless `orderedIds` are exactly that list's films now: a page that's out of date (a film
+ * wanted, unwanted, queued or unqueued in another tab) must reload, not drop or invent a place.
  */
-export async function writeWantOrder(db: WriteDb, orderedIds: number[]): Promise<"ok" | "stale"> {
+async function writeOrder(db: WriteDb, list: "want" | "queue", orderedIds: number[]): Promise<"ok" | "stale"> {
   if (new Set(orderedIds).size !== orderedIds.length) throw new Error("A film appears twice in the order");
   // A Postgres array literal: drizzle would expand a JS array into a list of parameters.
   const ids = `{${orderedIds.map((id) => Math.trunc(id)).join(",")}}`;
+  const queue = list === "queue";
   const result = await rows(
     db,
     sql`
       with given as (
         select movie_id, rank::int as rank from unnest(${ids}::int[]) with ordinality as t(movie_id, rank)
       ),
-      wanted as (select movie_id from marks where want),
+      listed as (select movie_id from marks where want and (queue_rank is not null) = ${queue}::boolean),
       ok as (
-        select (select count(*) from wanted) = (select count(*) from given)
-           and not exists (select 1 from wanted w where w.movie_id not in (select movie_id from given)) as v
+        select (select count(*) from listed) = (select count(*) from given)
+           and not exists (select 1 from listed l where l.movie_id not in (select movie_id from given)) as v
       ),
       updated as (
-        update marks set want_rank = given.rank
+        update marks set
+          want_rank = case when ${queue}::boolean then marks.want_rank else given.rank end,
+          queue_rank = case when ${queue}::boolean then given.rank else marks.queue_rank end
         from given
         where marks.movie_id = given.movie_id and (select v from ok)
         returning marks.movie_id
@@ -122,6 +137,66 @@ export async function writeWantOrder(db: WriteDb, orderedIds: number[]): Promise
       select (select v from ok) as ok, (select count(*) from updated)::int as written`,
   );
   return result[0]?.ok === true ? "ok" : "stale";
+}
+
+/** Saves the Want to watch order (the wanted films not in the Watch queue), top first. */
+export function writeWantOrder(db: WriteDb, orderedIds: number[]): Promise<"ok" | "stale"> {
+  return writeOrder(db, "want", orderedIds);
+}
+
+/** Saves the Watch queue's order, top first. */
+export function writeQueueOrder(db: WriteDb, orderedIds: number[]): Promise<"ok" | "stale"> {
+  return writeOrder(db, "queue", orderedIds);
+}
+
+/**
+ * Puts a wanted film in the Watch queue (at its end) or takes it out (back to the top of Want to
+ * watch). Joining the queue gives up its Want to watch place, closing the gap; leaving closes
+ * the gap in the queue. Doing what's already done changes nothing. Returns false when the
+ * film isn't wanted (unmarked in another tab, or no such film): only wanted films queue.
+ * Two statements: run it in the locked transaction.
+ */
+export async function writeQueued(db: WriteDb, movieId: number, queued: boolean): Promise<boolean> {
+  const [film] = await rows(db, sql`select want_rank, queue_rank from marks where movie_id = ${movieId} and want`);
+  if (!film) return false;
+  if ((film.queue_rank !== null) === queued) return true;
+  if (queued) {
+    await rows(
+      db,
+      sql`
+        with closed as (
+          update marks set want_rank = want_rank - 1
+          where ${film.want_rank as number | null}::int is not null and want and want_rank > ${film.want_rank as number | null}::int
+            and movie_id <> ${movieId}
+          returning movie_id
+        )
+        update marks set
+          queue_rank = coalesce((select max(queue_rank) from marks), 0) + 1,
+          want_rank = null,
+          updated_at = now()
+        where movie_id = ${movieId}
+        returning movie_id`,
+    );
+  } else {
+    await rows(
+      db,
+      sql`
+        with closed as (
+          update marks set queue_rank = queue_rank - 1
+          where queue_rank > ${film.queue_rank as number}::int and movie_id <> ${movieId}
+          returning movie_id
+        ),
+        shifted as (
+          update marks set want_rank = want_rank + 1
+          where want and want_rank is not null and movie_id <> ${movieId}
+          returning movie_id
+        )
+        update marks set queue_rank = null, want_rank = 1, updated_at = now()
+        where movie_id = ${movieId}
+        returning movie_id`,
+    );
+  }
+  return true;
 }
 
 /**

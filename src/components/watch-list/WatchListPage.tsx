@@ -38,6 +38,7 @@ import { AddFilm } from "./AddFilm";
 import { ReleaseEditor } from "./ReleaseEditor";
 import { DragHandle, SortableWantList } from "./SortableWantList";
 import { FilterMenu } from "./FilterMenu";
+import { QueueButton } from "./QueueButton";
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -54,7 +55,8 @@ const filmCount = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "film
 
 /**
  * Guide §8.3 film list for the Watch list (`/watch-list`): PageHeader, a toolbar with the sort as a
- * segmented control, then "Want to watch" (every film marked, any year) and "Not watched yet, <year>
+ * segmented control, then the "Watch queue" (wanted films the owner has lined up, in their own
+ * order, whatever the sort), "Want to watch" (every other film marked, any year) and "Not watched yet, <year>
  * season" (the live season's films with no mark). The sort is in the address. The lists are read
  * when the page is visited and never change under a tap: unmarking a film leaves its row where
  * it is (the mark just shows off), and the film is gone on the next visit.
@@ -64,7 +66,7 @@ export function WatchListPage({ query }: { query: Promise<Query> }) {
     <>
       <PageHeader
         title="Watch list"
-        sub={<p>Films you want to watch, by release date, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
+        sub={<p>Your watch queue, the films you want to watch by release date, then the {LIVE_YEAR} season&apos;s contenders you haven&apos;t seen.</p>}
       />
       <AddFilm />
       <Suspense fallback={<RaceRowsSkeleton label="Loading the watch list" />}>
@@ -126,6 +128,19 @@ async function Lists({ query }: { query: Promise<Query> }) {
         ) : null}
       </div>
 
+      {list.queue.length > 0 && !filtered ? (
+        <Section id="queue" title="Watch queue" count={list.queue.length} hint={list.queue.length > 1 ? "drag the handle to reorder" : undefined}>
+          {/* Always in the owner's own order, whatever the sort. */}
+          <SortableWantList
+            key={list.queue.map((f) => f.film.id).join(",")}
+            list="queue"
+            films={list.queue.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort="mine" handle release={release} /> }))}
+            head={head("mine")}
+            columns={HANDLE_COLUMNS}
+          />
+        </Section>
+      ) : null}
+
       <Section id="want" title="Want to watch" count={wantedCount(want.length, list.want.length, filtered)} hint={state.sort === "release" ? "by release date" : mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
         {want.length > 0 && mine ? (
           // Keyed by the films, so a list read again (a film added) starts from the stored order.
@@ -141,6 +156,10 @@ async function Lists({ query }: { query: Promise<Query> }) {
           <EmptyState title="No films match these filters" headingLevel={3} icon={Search}
             actions={<Link href={clearHref} scroll={false} className={buttonClasses()}>Clear filters</Link>}>
             {noWatchMatches(list.want.length, state)}
+          </EmptyState>
+        ) : list.queue.length > 0 ? (
+          <EmptyState title="Everything is in your queue" headingLevel={3}>
+            Tap the bookmark on any other film to put it here.
           </EmptyState>
         ) : (
           <EmptyState title="Nothing marked yet" headingLevel={3}>
@@ -228,7 +247,7 @@ function Row({
   sort: WatchQuery["sort"];
   /** My order's Want to watch: the row starts with its drag handle. */
   handle?: boolean;
-  /** Want to watch rows only: the release line and its editor. */
+  /** Watch queue and Want to watch rows only: the release line and its editor, and the queue button. */
   release?: ReleaseContext;
 }) {
   const { film, stage, pill, categories, nominations, chance } = staged;
@@ -245,15 +264,18 @@ function Row({
       scores={film.scores}
       note={
         release && "releaseOn" in staged ? (
-          <ReleaseEditor
-            movieId={film.id}
-            title={film.title}
-            releaseOn={staged.releaseOn}
-            releaseTentative={staged.releaseTentative}
-            platform={staged.platform}
-            today={release.today}
-            usedPlatforms={release.platforms}
-          />
+          <div className="flex flex-wrap items-start gap-x-3">
+            <ReleaseEditor
+              movieId={film.id}
+              title={film.title}
+              releaseOn={staged.releaseOn}
+              releaseTentative={staged.releaseTentative}
+              platform={staged.platform}
+              today={release.today}
+              usedPlatforms={release.platforms}
+            />
+            <QueueButton movieId={film.id} title={film.title} queued={staged.queueRank !== null} />
+          </div>
         ) : undefined
       }
       winner={stage === "won"}

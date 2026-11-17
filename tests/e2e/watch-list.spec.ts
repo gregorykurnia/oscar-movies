@@ -456,8 +456,8 @@ for (const width of [390, 1280]) {
     });
 
     test("moves a film by mouse without the page scrolling sideways, and the order survives a reload", async ({ page }) => {
-      // Tall enough that all three rows (each with its release line) are on screen, so the pointer never starts below the fold.
-      await page.setViewportSize({ width, height: 1100 });
+      // Tall enough that all three rows (each with its release line and, on phone, the Queue button's line) are on screen, so the pointer never starts below the fold.
+      await page.setViewportSize({ width, height: 1300 });
       await withOrder(async ([a, b, c], ids) => {
         await page.goto("/watch-list?sort=mine");
         const want = section(page, "Want to watch");
@@ -484,6 +484,66 @@ for (const width of [390, 1280]) {
     });
   });
 }
+
+const storedQueue = async (ids: number[]) => {
+  const rows = await db.select({ movieId: marks.movieId, queueRank: marks.queueRank }).from(marks);
+  return rows.filter((r) => ids.includes(r.movieId) && r.queueRank !== null).sort((a, b) => a.queueRank! - b.queueRank!).map((r) => r.movieId);
+};
+
+test("films join the Watch queue, move in it by keyboard under any sort, and leave it for the top of Want to watch", async ({ page }) => {
+  await withOrder(async ([a, b, c], ids) => {
+    await page.goto("/watch-list?sort=mine");
+    const queue = section(page, "Watch queue");
+    const want = section(page, "Want to watch");
+    // No queue until a film joins it.
+    await expect(queue).toHaveCount(0);
+    // The marks load once the page has hydrated: the queue buttons work from then on.
+    await expect(want.getByRole("button", { name: "Want to watch", exact: true }).first()).toBeEnabled();
+
+    // Queue: each joins the end of the queue and leaves Want to watch.
+    await want.getByRole("button", { name: `Add ${b} to the watch queue` }).click();
+    await expect.poll(() => titlesIn(queue)).toEqual([b]);
+    await want.getByRole("button", { name: `Add ${c} to the watch queue` }).click();
+    await expect.poll(() => titlesIn(queue)).toEqual([b, c]);
+    await expect.poll(() => titlesIn(want)).toEqual([a]);
+    await expect(queue.getByText("2 films · drag the handle to reorder")).toBeVisible();
+    expect(await storedQueue(ids)).toEqual([ids[1], ids[2]]);
+
+    // Under another sort the queue keeps its own order and its handles.
+    await page.goto("/watch-list?sort=stage");
+    await expect.poll(() => titlesIn(queue)).toEqual([b, c]);
+    const handle = queue.getByRole("button", { name: `Reorder ${c}` });
+    await expect(want.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+    await expect(want.getByRole("button", { name: "Want to watch", exact: true }).first()).toBeEnabled();
+    await handle.focus();
+    await page.keyboard.press("Space");
+    await expect(page.getByText(`Moving ${c}.`)).toBeVisible();
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByText(`Moving ${c}. Position 1 of 2.`)).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(page.getByText(`Moving ${c}.`)).toHaveCount(0);
+    await expect.poll(() => titlesIn(queue)).toEqual([c, b]);
+    await expect.poll(() => storedQueue(ids)).toEqual([ids[2], ids[1]]);
+    await page.reload();
+    await expect.poll(() => titlesIn(queue)).toEqual([c, b]);
+
+    // Remove from queue: back to the top of Want to watch (My order shows it).
+    await page.goto("/watch-list?sort=mine");
+    await expect(want.getByRole("button", { name: "Want to watch", exact: true }).first()).toBeEnabled();
+    await queue.getByRole("button", { name: `Remove ${c} from the watch queue` }).click();
+    await expect.poll(() => titlesIn(queue)).toEqual([b]);
+    await expect.poll(() => titlesIn(want)).toEqual([c, a]);
+    expect(await storedQueue(ids)).toEqual([ids[1]]);
+    expect(await storedOrder([ids[0], ids[2]])).toEqual([ids[2], ids[0]]);
+
+    // Watched: it leaves the queue.
+    await rowOf(queue.getByRole("heading", { level: 3, name: b })).getByRole("button", { name: "Mark as watched" }).click();
+    await expect.poll(() => storedQueue(ids)).toEqual([]);
+    await page.reload();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Watch list");
+    await expect(queue).toHaveCount(0);
+  });
+});
 
 test("a move that can't be saved puts the rows back and says so; other sorts have no handles", async ({ page }) => {
   await withOrder(async ([a, b, c], ids) => {
