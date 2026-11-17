@@ -1,7 +1,7 @@
 import { beforeEach, expect, it, vi } from "vitest";
 const { execute, close, transaction, drizzle } = vi.hoisted(() => ({ execute: vi.fn(), close: vi.fn(), transaction: vi.fn(), drizzle: vi.fn() }));
 vi.mock("server-only", () => ({}));
-vi.mock("@neondatabase/serverless", () => ({ Pool: class { end = close; constructor(public options: unknown) {} } }));
+vi.mock("@neondatabase/serverless", () => ({ Pool: class { end = close; on = vi.fn(); constructor(public options: unknown) {} } }));
 vi.mock("drizzle-orm/neon-serverless", () => ({ drizzle }));
 import { withFilmTransaction } from "./index";
 

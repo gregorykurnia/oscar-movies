@@ -35,6 +35,10 @@ export function getDb() {
  */
 export function createScriptDb(connectionString = requireEnv("DATABASE_URL")) {
   const pool = new Pool({ connectionString });
+  // Neon closes idle connections (seen during the e2e setup's 4-minute build). Without a listener
+  // the pool's "error" event crashes the process; a query that needs the connection still fails
+  // on its own.
+  pool.on("error", (error: Error) => console.warn("An idle database connection closed", error.message));
   const db = drizzleWs({ client: pool, schema });
   return { db, close: () => pool.end() };
 }
