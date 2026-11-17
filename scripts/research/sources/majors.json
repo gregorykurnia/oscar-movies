@@ -142,7 +142,8 @@
    "2022": "2022-11-08",
    "2023": "2023-11-07",
    "2024": "2024-11-05",
-   "2025": "2025-11-18"
+   "2025": "2025-11-18",
+   "2026": "2026-11-14"
   },
   "cinema-eye": {
    "2021": "2021-11-10",
@@ -184,7 +185,8 @@
   "afi/2014": "AFI press release dated 8 December 2014 (afi.com/press/afi_awards_2014_announced); not on Wikipedia",
   "afi/2015": "AFI press release dated 16 December 2015 (afi.com/press/afi_awards_2015_announced); not on Wikipedia",
   "afi/2016": "AFI press release dated 8 December 2016 (afi.com/press/afi_awards_2016_announced); not on Wikipedia",
-  "afi/2018": "AFI announcement of 4 December 2018 (AP); not on Wikipedia"
+  "afi/2018": "AFI announcement of 4 December 2018 (AP); not on Wikipedia",
+  "european-film-awards/2026": "EFA nominations announced at the Thessaloniki International Film Festival, 14 November 2026 (the Wikipedia page for the 39th awards)"
  },
  "manualWinners": {
   "cinema-eye/2020/feature": {
@@ -594,6 +596,27 @@
    ],
    "country": "CZ",
    "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt10312938)"
+  },
+  "european-film-awards 2026 Letters from the Silenced Country": {
+   "directors": [
+    "Andrei Kutsila"
+   ],
+   "country": "BY",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt43704405)"
+  },
+  "european-film-awards 2026 Whispers in the Woods": {
+   "directors": [
+    "Vincent Munier"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt32368068)"
+  },
+  "european-film-awards 2026 In Waves": {
+   "directors": [
+    "Phuong Mai Nguyen"
+   ],
+   "country": "FR",
+   "why": "no Wikipedia article or Wikidata item; found on TMDB by director, country and title (tt27672817)"
   }
  },
  "leaveOut": {},
