@@ -227,7 +227,8 @@ test("the 2024 Documentary grid has a column for each Cinema Eye and DOC NYC cat
     expect(col, `${r.award} has a column for ${r.category}`).toBeDefined();
     const label = cells[r.title]?.[col! - 1];
     const w = word[r.outcome] ?? (r.award === "doc-nyc" ? "Selected" : "Nominated");
-    expect(label, `${r.title} at ${r.award}, ${r.category}`).toBe(`${w}: ${r.category}`);
+    // A cell at a strong predictor adds why after " · strong predictor" (YearGrid); the result comes first.
+    expect(label?.split(" · strong predictor")[0], `${r.title} at ${r.award}, ${r.category}`).toBe(`${w}: ${r.category}`);
   }
 });
 
