@@ -49,9 +49,11 @@ describe("major award winners in data/", () => {
     }
   }
 
-  it("has a no_data edition for 2026 and a loaded one for every year before", () => {
+  it("has a no_data edition for 2026 (partial once its nominations are out) and a loaded one for every year before", () => {
+    // Nominations out, ceremony still to come (EFA: announced 14 Nov 2026, ceremony 16 Jan 2027).
+    const nominated2026 = new Set(["european-film-awards"]);
     for (const award of [...AWARDS, ...AWARDS_2_3]) {
-      expect(editions.get(`${award}/2026`)?.status, `${award} 2026`).toBe("no_data");
+      expect(editions.get(`${award}/2026`)?.status, `${award} 2026`).toBe(nominated2026.has(award) ? "partial" : "no_data");
       for (let year = 2012; year <= 2025; year++) expect(editions.get(`${award}/${year}`)?.status, `${award} ${year}`).toBe("loaded");
     }
   });
