@@ -44,6 +44,7 @@ export function createScoreStore(db: Db, gitCommit: string | null = null): Score
           rtScore: movies.rtScore,
           mcScore: movies.mcScore,
           tmdbScore: movies.tmdbScore,
+          lbRating: movies.lbRating,
         })
         .from(movies)
         .where(where)

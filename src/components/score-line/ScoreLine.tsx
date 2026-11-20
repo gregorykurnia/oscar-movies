@@ -1,17 +1,22 @@
 import { cn } from "@/lib/cn";
-import { DASH, formatScore } from "@/lib/format";
+import { DASH, formatLetterboxd, formatScore } from "@/lib/format";
 
 export type Scores = {
   imdb: number | null;
   rt: number | null;
   mc: number | null;
   tmdb: number | null;
+  /** Letterboxd's rating (0.5–5): shown after the average, not part of it. */
+  lb: number | null;
   /** The stored average (0–100) and how many of the four scores it uses. */
   average: number | null;
   count: number;
 };
 
-/** Guide §7 Scores line: "IMDb 7.9  RT 95  MC 95  TMDB 7.5  86 · 4 of 4". Missing is "–", never 0. */
+/**
+ * Guide §7 Scores line: "IMDb 7.9  RT 95  MC 95  TMDB 7.5  86 · 4 of 4  Letterboxd 3.8". Missing is
+ * "–", never 0. Letterboxd comes after the average because the average doesn't use it.
+ */
 export function ScoreLine({ scores, className }: { scores: Scores; className?: string }) {
   const parts: Array<[string, string]> = [
     ["IMDb", formatScore(scores.imdb, 1)],
@@ -30,6 +35,7 @@ export function ScoreLine({ scores, className }: { scores: Scores; className?: s
       <span className="font-medium text-ink">
         {hasAverage ? `${formatScore(scores.average, 0)} · ${scores.count} of 4` : "No scores yet"}
       </span>
+      <span data-missing={scores.lb === null || undefined}>Letterboxd {formatLetterboxd(scores.lb)}</span>
     </p>
   );
 }

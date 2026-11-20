@@ -41,7 +41,7 @@ function film(id: number, title: string, average: number | null = null, countrie
     year: 2025,
     countries,
     flag: countries[0] ?? null,
-    scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 1 },
+    scores: { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average, count: average === null ? 0 : 1 },
   };
 }
 
@@ -184,6 +184,8 @@ describe("cells", () => {
   it("words the average and the count", () => {
     expect(averageLine(film(1, "A", 81.6))).toBe("82 average");
     expect(averageLine(film(1, "A", null))).toBe("No scores yet");
+    const rated = film(1, "A", 81.6);
+    expect(averageLine({ ...rated, scores: { ...rated.scores, lb: 3.76 } })).toBe("82 average · Letterboxd 3.8");
     expect(filmCountLabel(1)).toBe("1 film with a nomination");
     expect(filmCountLabel(1204)).toBe("1,204 films with a nomination");
   });

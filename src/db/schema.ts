@@ -75,10 +75,14 @@ export const movies = pgTable(
     rtScore: smallint("rt_score"),
     mcScore: smallint("mc_score"),
     tmdbScore: numeric("tmdb_score", { precision: 3, scale: 1, mode: "number" }),
+    // Letterboxd's weighted average (0.5–5), shown beside the four scores but not in the average
+    // (owner, 2026-11-20).
+    lbRating: numeric("lb_rating", { precision: 3, scale: 2, mode: "number" }),
     imdbAt: timestamptz("imdb_at"),
     rtAt: timestamptz("rt_at"),
     mcAt: timestamptz("mc_at"),
     tmdbAt: timestamptz("tmdb_at"),
+    lbAt: timestamptz("lb_at"),
     scoresCheckedAt: timestamptz("scores_checked_at"),
     avgScore: numeric("avg_score", { precision: 4, scale: 1, mode: "number" }).generatedAlwaysAs(
       sql`round(
@@ -110,6 +114,7 @@ export const movies = pgTable(
     check("movies_rt_score_range", sql`${t.rtScore} between 0 and 100`),
     check("movies_mc_score_range", sql`${t.mcScore} between 0 and 100`),
     check("movies_tmdb_score_range", sql`${t.tmdbScore} between 0 and 10`),
+    check("movies_lb_rating_range", sql`${t.lbRating} between 0 and 5`),
   ],
 );
 

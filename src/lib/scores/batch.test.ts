@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { OMDB_CALLS_PER_RUN, refreshFromYear, runScores, type ImdbRatingsResult, type QueueFilm, type RunSummary, type ScoreClients, type ScoreStore } from "./batch";
-import type { ClientResult, OmdbScores, TmdbScores } from "./clients";
+import type { ClientResult, LetterboxdScores, OmdbScores, TmdbScores } from "./clients";
 import { mergeScores, type ScoreUpdate } from "./merge";
 
 const NOW = new Date("2026-10-22T20:00:00Z");
-const stored = { imdbRating: 7.5, rtScore: 90, mcScore: 80, tmdbScore: 7.2 };
+const stored = { imdbRating: 7.5, rtScore: 90, mcScore: 80, tmdbScore: 7.2, lbRating: 3.8 };
 
 function film(id: number, extra: Partial<QueueFilm> = {}): QueueFilm {
   return { id, imdbId: `tt${id}`, tmdbId: id, year: 2025, scoresCheckedAt: null, ...stored, ...extra };
@@ -32,7 +32,7 @@ const clients = (
 const run = (store: ScoreStore, c: ScoreClients, extra = {}) =>
   runScores(store, c, { source: "script", now: () => NOW, sleep: async () => {}, ...extra });
 
-const SCORE_FIELDS = ["imdbRating", "rtScore", "mcScore", "tmdbScore", "imdbAt", "rtAt", "mcAt", "tmdbAt"];
+const SCORE_FIELDS = ["imdbRating", "rtScore", "mcScore", "tmdbScore", "imdbAt", "rtAt", "mcAt", "tmdbAt", "lbRating", "lbAt"];
 
 describe("mergeScores", () => {
   it("never writes null over a stored score, and moves only the confirmed dates", () => {
@@ -143,6 +143,72 @@ describe("runScores: limits", () => {
     const summary = await run(store, clients(() => ok({ imdbRating: 1, rtScore: 1, mcScore: 1 })));
     expect([summary.omdbCalls, summary.tmdbCalls]).toEqual([0, 1]);
     expect(saved[0].update).toEqual({ scoresCheckedAt: NOW, tmdbScore: 7.4, tmdbAt: NOW });
+  });
+});
+
+describe("runScores: Letterboxd, best effort", () => {
+  const omdbOk = () => ok({ imdbRating: 7, rtScore: null, mcScore: null });
+  const withLb = (letterboxd: (id: number) => ClientResult<LetterboxdScores>): ScoreClients => ({
+    ...clients(omdbOk),
+    letterboxd: async (id) => letterboxd(id),
+  });
+
+  it("saves the rating with the other scores", async () => {
+    const { store, saved } = fakeStore([film(1)]);
+    const summary = await run(store, withLb(() => ok({ lbRating: 3.76 })));
+    expect(saved[0].update).toMatchObject({ lbRating: 3.76, lbAt: NOW, imdbRating: 7, tmdbScore: 7.4 });
+    expect(summary.lbCalls).toBe(1);
+    expect(summary.confirmed.lbRating).toBe(1);
+  });
+
+  it("never clears a stored rating, and skips films without a TMDB ID", async () => {
+    const { store, saved } = fakeStore([film(1), film(2, { tmdbId: null })]);
+    const summary = await run(store, withLb(() => ({ kind: "failed", reason: "Letterboxd: HTTP 403" })));
+    expect(saved[0].update).not.toHaveProperty("lbRating");
+    expect(summary.lbCalls).toBe(1);
+    expect(summary.stoppedBy).toBe("done");
+  });
+
+  it("turns Letterboxd off for the run when it keeps failing, and the other scores go on", async () => {
+    const { store, saved } = fakeStore(Array.from({ length: 12 }, (_, i) => film(i + 1)));
+    const summary = await run(store, withLb(() => ({ kind: "failed", reason: "Letterboxd: HTTP 403" })));
+    expect(summary.lbCalls).toBe(5);
+    expect(summary.lbOff).toMatch(/5 failures in a row/);
+    // Counted apart: the run's own failures and errors stay OMDb's and TMDB's.
+    expect(summary.lbFailures).toBe(5);
+    expect(summary.failures).toBe(0);
+    expect(summary.errors).toEqual([]);
+    expect(summary.stoppedBy).toBe("done");
+    expect(saved).toHaveLength(12);
+    expect(saved.every((s) => s.update.imdbRating === 7)).toBe(true);
+  });
+
+  it("turns Letterboxd off on a rate limit without waiting or stopping the run", async () => {
+    const { store, saved } = fakeStore([film(1), film(2)]);
+    let waits = 0;
+    const summary = await run(store, withLb(() => ({ kind: "rate-limited", retryAfterMs: 30_000 })), {
+      sleep: async () => void waits++,
+    });
+    expect(waits).toBe(0);
+    expect(summary.lbCalls).toBe(1);
+    expect(summary.lbOff).toBe("rate-limited");
+    expect(summary.stoppedBy).toBe("done");
+    expect(saved).toHaveLength(2);
+  });
+});
+
+describe("runScores: Letterboxd when the run halts", () => {
+  it("a Letterboxd call that throws after OMDb refuses the run is caught, not left unhandled", async () => {
+    const { store, saved } = fakeStore([film(1)]);
+    const c: ScoreClients = {
+      ...clients(() => ({ kind: "stop", reason: "OMDb: Request limit reached!" })),
+      letterboxd: async () => {
+        throw new Error("socket hang up");
+      },
+    };
+    const summary = await run(store, c);
+    expect(summary.stoppedBy).toBe("refused");
+    expect(saved).toEqual([]);
   });
 });
 

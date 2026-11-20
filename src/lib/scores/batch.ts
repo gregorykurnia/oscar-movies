@@ -2,7 +2,7 @@
 // database sits behind `ScoreStore` and the APIs behind `ScoreClients`, so the rules here are
 // unit tested without either.
 import { LIVE_YEAR } from "../years";
-import type { ClientResult, OmdbScores, TmdbScores } from "./clients";
+import type { ClientResult, LetterboxdScores, OmdbScores, TmdbScores } from "./clients";
 import { mergeScores, SCORE_KEYS, type FetchedScores, type ScoreKey, type ScoreUpdate, type StoredScores } from "./merge";
 
 export type QueueFilm = StoredScores & {
@@ -40,6 +40,11 @@ export type ScoreClients = {
   imdbRatings(imdbIds: string[]): Promise<ImdbRatingsResult>;
   omdb(imdbId: string): Promise<ClientResult<OmdbScores>>;
   tmdb(tmdbId: number): Promise<ClientResult<TmdbScores>>;
+  /**
+   * Letterboxd's rating, by TMDB ID. Optional and best effort: its failures never stop the run or
+   * count towards "failing"; a block (`MAX_LB_FAILING_IN_A_ROW`) only turns it off for the run.
+   */
+  letterboxd?(tmdbId: number): Promise<ClientResult<LetterboxdScores>>;
 };
 
 export type StopReason = "done" | "call-limit" | "deadline" | "rate-limited" | "refused" | "failing";
@@ -51,6 +56,9 @@ export type RunSummary = {
   checked: number;
   omdbCalls: number;
   tmdbCalls: number;
+  lbCalls: number;
+  /** Letterboxd calls that failed: counted apart, so they never read as OMDb or TMDB trouble. */
+  lbFailures: number;
   confirmed: Record<ScoreKey, number>;
   /** Films with at least one score that differs from the stored one. */
   changedFilms: number;
@@ -61,6 +69,8 @@ export type RunSummary = {
   stopReason?: string;
   /** Why IMDb's ratings file couldn't be used this run (OMDb's IMDb ratings were kept instead). */
   imdbFileFailed?: string;
+  /** Why Letterboxd was left out for the rest of the run (blocked or rate-limited). */
+  lbOff?: string;
 };
 
 /**
@@ -73,6 +83,8 @@ const MAX_ERRORS_KEPT = 20;
 const PROGRESS_EVERY = 50;
 /** This many films in a row with every call failing means the source is down: stop. */
 const MAX_FAILING_IN_A_ROW = 10;
+/** This many Letterboxd failures in a row means it's blocking the server: skip it for the run. */
+const MAX_LB_FAILING_IN_A_ROW = 5;
 const RATE_LIMIT_TRIES = 3;
 const RATE_LIMIT_WAIT_MS = 5_000;
 const RATE_LIMIT_WAIT_MAX_MS = 30_000;
@@ -108,6 +120,8 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     checked: 0,
     omdbCalls: 0,
     tmdbCalls: 0,
+    lbCalls: 0,
+    lbFailures: 0,
     confirmed: Object.fromEntries(SCORE_KEYS.map((k) => [k, 0])) as Record<ScoreKey, number>,
     changedFilms: 0,
     failures: 0,
@@ -149,6 +163,7 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
   }
 
   let failingInARow = 0;
+  let lbFailingInARow = 0;
   for (const film of queue) {
     if (now().getTime() >= deadline) {
       stop("deadline");
@@ -163,6 +178,15 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     let calls = 0;
     let failed = 0;
     let halt: { by: StopReason; reason: string } | null = null;
+
+    // Letterboxd is a different site: its page loads while OMDb and TMDB answer. No retries on a
+    // rate limit (that would hold up every film); it's turned off for the run instead. The catch
+    // keeps a page abandoned by a halt below from ever becoming an unhandled rejection.
+    const lbClient = clients.letterboxd;
+    const lb =
+      lbClient && !summary.lbOff && film.tmdbId !== null
+        ? lbClient(film.tmdbId).catch((error: unknown): ClientResult<LetterboxdScores> => ({ kind: "failed", reason: `Letterboxd: ${String(error)}` }))
+        : null;
 
     if (film.imdbId) {
       calls++;
@@ -188,6 +212,28 @@ export async function runScores(store: ScoreStore, clients: ScoreClients, opts: 
     if (halt) {
       stop(halt.by, halt.reason);
       break;
+    }
+    if (lb) {
+      const result = await lb;
+      summary.lbCalls++;
+      if (result.kind === "ok") {
+        Object.assign(fetched, result.value);
+        lbFailingInARow = 0;
+      } else {
+        if (result.kind === "failed") summary.lbFailures++;
+        const off =
+          result.kind === "failed"
+            ? ++lbFailingInARow >= MAX_LB_FAILING_IN_A_ROW
+              ? `${MAX_LB_FAILING_IN_A_ROW} failures in a row (${result.reason})`
+              : undefined
+            : result.kind === "stop"
+              ? result.reason
+              : "rate-limited";
+        if (off) {
+          summary.lbOff = off;
+          log(`Letterboxd left out for the rest of this run: ${off}`);
+        }
+      }
     }
     const imdbRating = film.imdbId ? imdbRatings.get(film.imdbId) : undefined;
     if (imdbRating !== undefined) fetched.imdbRating = imdbRating;
@@ -217,9 +263,11 @@ export function describeRun(s: RunSummary): string {
   const c = s.confirmed;
   const stopped = s.stoppedBy === "done" ? "" : ` Stopped early: ${s.stoppedBy}${s.stopReason ? ` (${s.stopReason})` : ""}.`;
   return (
-    `Checked ${s.checked} of ${s.due} films due (${s.omdbCalls} OMDb, ${s.tmdbCalls} TMDB calls). ` +
-    `Confirmed IMDb ${c.imdbRating}, RT ${c.rtScore}, MC ${c.mcScore}, TMDB ${c.tmdbScore}; ` +
+    `Checked ${s.checked} of ${s.due} films due (${s.omdbCalls} OMDb, ${s.tmdbCalls} TMDB, ${s.lbCalls} Letterboxd calls). ` +
+    `Confirmed IMDb ${c.imdbRating}, RT ${c.rtScore}, MC ${c.mcScore}, TMDB ${c.tmdbScore}, Letterboxd ${c.lbRating}; ` +
     `${s.changedFilms} films changed; ${s.failures} failed calls.${stopped}` +
-    (s.imdbFileFailed ? ` IMDb ratings from OMDb (file: ${s.imdbFileFailed}).` : "")
+    (s.imdbFileFailed ? ` IMDb ratings from OMDb (file: ${s.imdbFileFailed}).` : "") +
+    (s.lbFailures > 0 ? ` ${s.lbFailures} Letterboxd calls failed.` : "") +
+    (s.lbOff ? ` Letterboxd left out: ${s.lbOff}.` : "")
   );
 }

@@ -8,6 +8,8 @@ export type ScoreTilesData = {
   rt: Tile;
   mc: Tile;
   tmdb: Tile;
+  /** Letterboxd (0.5–5): a tile of its own, not part of the average. */
+  lb: Tile;
   average: number | null;
   count: number;
 };
@@ -17,6 +19,7 @@ const SOURCES = [
   { key: "rt", label: "Rotten Tomatoes", unit: "%", decimals: 0 },
   { key: "mc", label: "Metacritic", unit: "/100", decimals: 0 },
   { key: "tmdb", label: "TMDB", unit: "/10", decimals: 1 },
+  { key: "lb", label: "Letterboxd", unit: "/5", decimals: 1 },
 ] as const;
 
 const tile = "px-4 pt-3.5 pb-4 md:px-5 md:pt-[18px] md:pb-5";
@@ -25,8 +28,8 @@ const value =
 const unit = "ml-0.5 text-[15px] tracking-[0] text-ink-muted";
 
 /**
- * Guide §7 Score tiles (movie page): four sources and the average in one bordered strip.
- * Phone: 2×2 with the average full width. A missing score is "–" with "No score yet".
+ * Guide §7 Score tiles (movie page): five sources and the average in one bordered strip.
+ * Phone: 2×3, the average last. A missing score is "–" with "No score yet".
  */
 export function ScoreTiles({
   scores,
@@ -43,8 +46,8 @@ export function ScoreTiles({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[repeat(4,1fr)_1.25fr]",
-        // Rules between tiles: a 2×2 grid on phone, one row on desktop.
+        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[repeat(5,1fr)_1.25fr]",
+        // Rules between tiles: a 2×3 grid on phone, one row on desktop.
         "[&>*:nth-child(even)]:border-l [&>*:nth-child(n+3)]:border-t [&>*]:border-line",
         "md:[&>*:nth-child(n+2)]:border-l md:[&>*:nth-child(n+3)]:border-t-0",
         className,
@@ -70,7 +73,7 @@ export function ScoreTiles({
           </div>
         );
       })}
-      <div className={cn(tile, "col-span-2 !border-l-0 bg-gold-wash md:col-span-1 md:!border-l")}>
+      <div className={cn(tile, "bg-gold-wash")}>
         <div className="text-caption text-ink-muted">Average</div>
         <div className={cn(value, hasAverage ? "text-gold-ink" : "text-ink-muted")}>
           {hasAverage ? formatScore(scores.average, 0) : DASH}

@@ -34,7 +34,7 @@ function film(title: string, stage: Outcome | null, nominations: number, average
       year: 2025,
       countries: [],
       flag: null,
-      scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 },
+      scores: { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average, count: average === null ? 0 : 4 },
     },
     stage,
     pill: null,

@@ -5,7 +5,7 @@ import { StagePill } from "@/components/stage-pill/StagePill";
 import { ContenderList, ContenderRow } from "./ContenderRow";
 import { StageLine } from "./StageLine";
 
-const scores = { imdb: 7.4, rt: 93, mc: 91, tmdb: null, average: 86, count: 3 };
+const scores = { imdb: 7.4, rt: 93, mc: 91, tmdb: null, lb: null, average: 86, count: 3 };
 
 describe("StageLine", () => {
   it("bolds the step and turns the dot ink once the season is over", () => {

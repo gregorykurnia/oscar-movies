@@ -21,6 +21,7 @@ const film: SearchFilm = {
   year: 2024,
   flag: "BR",
   categories: ["Best Picture"],
+  lbRating: null,
   stage: "nominated",
   href: "/movies/im-still-here",
 };

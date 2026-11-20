@@ -23,6 +23,8 @@ export type SearchFilm = {
   flag: string | null;
   /** The Oscar categories the film appears in ("Best Picture", "International"). */
   categories: string[];
+  /** Letterboxd's rating (0.5–5), or null. */
+  lbRating: number | null;
   /** The furthest Oscar stage the film reached, or null when it has no Oscar result. */
   stage: Stage | null;
   href: string;

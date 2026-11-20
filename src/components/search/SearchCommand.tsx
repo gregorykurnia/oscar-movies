@@ -20,6 +20,7 @@ import { IconButton } from "@/components/app-shell/IconButton";
 import { Button } from "@/components/button/Button";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { cn } from "@/lib/cn";
+import { formatLetterboxd } from "@/lib/format";
 import {
   highlightParts,
   matchRange,
@@ -97,7 +98,8 @@ function FilmOption({
 }) {
   // A film found by its original title shows that title, so the match isn't a mystery.
   const viaOriginal = matchRange(film.title, query) === null && film.originalTitle !== null;
-  const meta = [String(film.year), film.categories.join(", ")].filter(Boolean).join(" · ");
+  const lb = film.lbRating === null ? "" : `Letterboxd ${formatLetterboxd(film.lbRating)}`;
+  const meta = [String(film.year), film.categories.join(", "), lb].filter(Boolean).join(" · ");
   return (
     <Link
       href={film.href}

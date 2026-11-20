@@ -38,6 +38,13 @@ export function Sources() {
           .
         </Card>
         <Card name="OMDb API">Rotten Tomatoes (Tomatometer) and Metacritic scores.</Card>
+        <Card name="Letterboxd">
+          Letterboxd ratings, read from each film&apos;s public page on{" "}
+          <TextLink href="https://letterboxd.com" rel="noreferrer" className="text-ink">
+            letterboxd.com
+          </TextLink>
+          .
+        </Card>
         <Card name="Wikidata">Links between Wikipedia, IMDb and TMDB, under CC0.</Card>
       </div>
     </section>

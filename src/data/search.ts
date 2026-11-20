@@ -75,6 +75,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
       year: movies.year,
       countries: movies.countries,
       submissions: submissionsColumn,
+      lbRating: movies.lbRating,
       stage: summary.stage,
       categories: summary.categories,
       eligibleOnlyInternational: summary.eligibleOnlyInternational,
@@ -98,6 +99,7 @@ export async function querySearchFilms(db: ReadDb, rawQuery: string): Promise<Se
     originalLang: row.originalLang,
     year: row.year,
     flag: primaryCountry(row.countries, row.submissions ?? []),
+    lbRating: row.lbRating,
     categories: (row.categories ?? "")
       .split(",")
       .filter((slug) => slug in CATEGORY_LABELS)

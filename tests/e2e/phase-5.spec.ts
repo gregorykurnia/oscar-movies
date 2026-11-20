@@ -99,7 +99,7 @@ test("the festivals index opens Cannes 2025, whose page lists every section's fi
     onPage[i].films.forEach((f, j) => {
       const r = s.rows[j];
       if (r.countries.length > 0) expect(f.flags, `${r.title} has a flag`).toBeGreaterThan(0);
-      expect(f.scores, `${r.title} has a scores line`).toMatch(/IMDb .*RT .*MC .*TMDB .*(\d+ of 4|No scores yet)$/);
+      expect(f.scores, `${r.title} has a scores line`).toMatch(/IMDb .*RT .*MC .*TMDB .*(\d+ of 4|No scores yet)Letterboxd (\d\.\d|–)$/);
     });
   });
   expect(onPage.flatMap((s) => s.films)).toHaveLength(rows.length);

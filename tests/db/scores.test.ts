@@ -81,7 +81,7 @@ describe("score store", () => {
 
   it("a save after failed calls keeps the stored scores and their dates", async () => {
     await rolledBack(async (tx) => {
-      const scored = { imdbRating: 7.5, rtScore: 91, mcScore: 80, tmdbScore: 7.2 };
+      const scored = { imdbRating: 7.5, rtScore: 91, mcScore: 80, tmdbScore: 7.2, lbRating: null };
       const at = daysAgo(40);
       const [row] = await tx
         .insert(movies)

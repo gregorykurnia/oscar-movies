@@ -17,9 +17,9 @@ export type SampleFilm = {
   scores: Scores;
 };
 
-const ALL_FOUR: Scores = { imdb: 7.9, rt: 95, mc: 95, tmdb: 7.5, average: 86, count: 4 };
-const THREE: Scores = { imdb: 8.1, rt: null, mc: 89, tmdb: 7.8, average: 83, count: 3 };
-const NONE: Scores = { imdb: null, rt: null, mc: null, tmdb: null, average: null, count: 0 };
+const ALL_FOUR: Scores = { imdb: 7.9, rt: 95, mc: 95, tmdb: 7.5, lb: 3.9, average: 86, count: 4 };
+const THREE: Scores = { imdb: 8.1, rt: null, mc: 89, tmdb: 7.8, lb: 4.1, average: 83, count: 3 };
+const NONE: Scores = { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average: null, count: 0 };
 
 export function sample(stress: boolean) {
   const films: SampleFilm[] = [
@@ -35,7 +35,7 @@ export function sample(stress: boolean) {
       href: "#",
       flag: "GB",
       meta: "2025 · Picture",
-      scores: stress ? { ...THREE, imdb: null, mc: null, average: 83, count: 1 } : { imdb: 8, rt: 87, mc: 84, tmdb: 7.9, average: 83, count: 4 },
+      scores: stress ? { ...THREE, imdb: null, mc: null, average: 83, count: 1 } : { imdb: 8, rt: 87, mc: 84, tmdb: 7.9, lb: null, average: 83, count: 4 },
     },
     {
       title: stress ? "Birdman or (The Unexpected Virtue of Ignorance)" : "Sentimental Value",
@@ -70,30 +70,30 @@ const annie: SearchAward = { slug: "annie", name: "Annie Awards", shortName: "An
 function searchSample(stress: boolean) {
   if (stress) {
     const film = (over: Partial<SearchFilm>): SearchFilm => ({
-      id: 0, slug: "x", title: "", originalTitle: null, originalLang: null, year: 2025, flag: null, categories: [], stage: null, href: "#", ...over,
+      id: 0, slug: "x", title: "", originalTitle: null, originalLang: null, year: 2025, flag: null, categories: [], lbRating: null, stage: null, href: "#", ...over,
     });
     return {
       query: "Rindfleisch",
       films: [
-        film({ slug: "a", title: LONG_WORD, flag: "DE", categories: ["Best Picture", "Documentary", "International", "Animated"], stage: "nominated" }),
+        film({ slug: "a", title: LONG_WORD, flag: "DE", categories: ["Best Picture", "Documentary", "International", "Animated"], lbRating: null, stage: "nominated" }),
         film({ slug: "b", title: LONG_TITLE, originalTitle: LONG_WORD, originalLang: "de", categories: ["Documentary"] }),
       ],
       awards: [{ ...annie, name: "Society of LGBTQ Entertainment Critics (Dorian Awards), Film of the Year", shortName: "Rindfleisch", kindLabel: "Critics group" }],
       originalQuery: "ainda",
-      originalFilms: [{ ...film({ slug: "c", title: LONG_TITLE, originalTitle: "Ainda " + LONG_WORD, originalLang: "pt-BR", flag: "BR", categories: ["International"], stage: "submitted" }) }],
+      originalFilms: [{ ...film({ slug: "c", title: LONG_TITLE, originalTitle: "Ainda " + LONG_WORD, originalLang: "pt-BR", flag: "BR", categories: ["International"], lbRating: null, stage: "submitted" }) }],
       noMatch: LONG_WORD,
     };
   }
   return {
     query: "an",
     films: [
-      { id: 1, slug: "anora", title: "Anora", originalTitle: null, originalLang: null, year: 2024, flag: "US", categories: ["Best Picture"], stage: "won", href: "#" },
-      { id: 2, slug: "anatomy", title: "Anatomy of a Fall", originalTitle: "Anatomie d'une chute", originalLang: "fr", year: 2023, flag: "FR", categories: ["Best Picture"], stage: "nominated", href: "#" },
+      { id: 1, slug: "anora", title: "Anora", originalTitle: null, originalLang: null, year: 2024, flag: "US", categories: ["Best Picture"], lbRating: null, stage: "won", href: "#" },
+      { id: 2, slug: "anatomy", title: "Anatomy of a Fall", originalTitle: "Anatomie d'une chute", originalLang: "fr", year: 2023, flag: "FR", categories: ["Best Picture"], lbRating: null, stage: "nominated", href: "#" },
     ] satisfies SearchFilm[],
     awards: [annie],
     originalQuery: "ainda",
     originalFilms: [
-      { id: 3, slug: "im-still-here", title: "I'm Still Here", originalTitle: "Ainda Estou Aqui", originalLang: "pt-BR", year: 2024, flag: "BR", categories: ["Best Picture", "International"], stage: "nominated", href: "#" },
+      { id: 3, slug: "im-still-here", title: "I'm Still Here", originalTitle: "Ainda Estou Aqui", originalLang: "pt-BR", year: 2024, flag: "BR", categories: ["Best Picture", "International"], lbRating: null, stage: "nominated", href: "#" },
     ] satisfies SearchFilm[],
     noMatch: "zzzz",
   };

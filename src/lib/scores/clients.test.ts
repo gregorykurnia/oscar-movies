@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fetchOmdb, fetchTmdb, parseOmdb, parseTmdb } from "./clients";
+import { fetchLetterboxd, fetchOmdb, fetchTmdb, parseLetterboxd, parseOmdb, parseTmdb } from "./clients";
 
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
   (async () => new Response(JSON.stringify(body), { status, headers })) as typeof fetch;
@@ -71,5 +71,68 @@ describe("TMDB", () => {
   it("stops on a refused token and fails the film on a 404", async () => {
     expect((await fetchTmdb(1, "t", json({}, 401))).kind).toBe("stop");
     expect((await fetchTmdb(1, "t", json({}, 404))).kind).toBe("failed");
+  });
+});
+
+const filmPage = (ld: string) =>
+  `<html><head><script type="application/ld+json">\n/* <![CDATA[ */\n${ld}\n/* ]]> */\n</script></head></html>`;
+
+/** A page answer as fetch gives it after following redirects to `url`. */
+const page = (html: string, url: string, status = 200) =>
+  (async () => {
+    const response = new Response(html, { status });
+    Object.defineProperty(response, "url", { value: url });
+    return response;
+  }) as typeof fetch;
+
+describe("Letterboxd", () => {
+  it("reads the rating from the page's film data", () => {
+    const html = filmPage('{"@type":"Movie","aggregateRating":{"@type":"AggregateRating","ratingValue":3.76,"ratingCount":2688991}}');
+    expect(parseLetterboxd(html)).toEqual({ kind: "ok", value: { lbRating: 3.76 } });
+  });
+
+  it("has no rating when the film has none yet", () => {
+    expect(parseLetterboxd(filmPage('{"@type":"Movie","name":"Soon"}'))).toEqual({ kind: "ok", value: { lbRating: null } });
+  });
+
+  it("fails the film on a page without film data (a block page)", () => {
+    expect(parseLetterboxd("<html>Just a moment...</html>").kind).toBe("failed");
+  });
+
+  it("follows the TMDB link to the film page", async () => {
+    const html = filmPage('{"aggregateRating":{"ratingValue":4.1}}');
+    expect(await fetchLetterboxd(1, page(html, "https://letterboxd.com/film/anora/"))).toEqual({ kind: "ok", value: { lbRating: 4.1 } });
+  });
+
+  it("has no rating when Letterboxd doesn't have the film (no redirect)", async () => {
+    expect(await fetchLetterboxd(1, page("<html>TMDB Import Result</html>", "https://letterboxd.com/tmdb/1/"))).toEqual({
+      kind: "ok",
+      value: { lbRating: null },
+    });
+  });
+
+  it("finds the film data when its script tag carries other attributes", () => {
+    const html = '<script nonce="x" type="application/ld+json">{"aggregateRating":{"ratingValue":3.5}}</script>';
+    expect(parseLetterboxd(html)).toEqual({ kind: "ok", value: { lbRating: 3.5 } });
+  });
+
+  it("fails the film when the page drops mid-download", async () => {
+    const stalled = (async () => {
+      const body = new ReadableStream({
+        start(controller) {
+          controller.error(new DOMException("The operation timed out.", "TimeoutError"));
+        },
+      });
+      const response = new Response(body, { status: 200 });
+      Object.defineProperty(response, "url", { value: "https://letterboxd.com/film/anora/" });
+      return response;
+    }) as typeof fetch;
+    expect(await fetchLetterboxd(1, stalled)).toMatchObject({ kind: "failed" });
+  });
+
+  it("fails the film on a block or server error, and reports a 429", async () => {
+    expect((await fetchLetterboxd(1, page("", "https://letterboxd.com/tmdb/1/", 403))).kind).toBe("failed");
+    expect((await fetchLetterboxd(1, page("", "https://letterboxd.com/tmdb/1/", 503))).kind).toBe("failed");
+    expect((await fetchLetterboxd(1, page("", "https://letterboxd.com/tmdb/1/", 429))).kind).toBe("rate-limited");
   });
 });

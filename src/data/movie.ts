@@ -134,6 +134,7 @@ export async function queryMovie(db: ReadDb, slug: string): Promise<MovieData | 
       rt: { value: m.rtScore, updatedAt: m.rtAt },
       mc: { value: m.mcScore, updatedAt: m.mcAt },
       tmdb: { value: m.tmdbScore, updatedAt: m.tmdbAt },
+      lb: { value: m.lbRating, updatedAt: m.lbAt },
       average: m.avgScore,
       count: m.scoreCount,
     },

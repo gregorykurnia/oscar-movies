@@ -1,5 +1,5 @@
 // One entry for the cron route and `npm run scores:refresh` (plan §5.4).
-import { fetchOmdb, fetchTmdb } from "./clients";
+import { fetchLetterboxd, fetchOmdb, fetchTmdb } from "./clients";
 import { fetchImdbRatings } from "./imdb-ratings";
 import type { ScoreClients } from "./batch";
 
@@ -14,5 +14,6 @@ export function scoreClientsFromEnv(env: Record<string, string | undefined> = pr
     imdbRatings: (imdbIds) => fetchImdbRatings(imdbIds),
     omdb: (imdbId) => fetchOmdb(imdbId, omdbKey),
     tmdb: (tmdbId) => fetchTmdb(tmdbId, tmdbToken),
+    letterboxd: (tmdbId) => fetchLetterboxd(tmdbId),
   };
 }

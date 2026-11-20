@@ -46,7 +46,7 @@ test("a 2024 Best Picture nominee lists its won, nominated and not nominated awa
 test("a 2024 film with no scores shows – and No score yet in every tile", async ({ page }) => {
   await page.goto("/movies/baghdad-messi");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Baghdad Messi");
-  for (const source of ["IMDb", "Rotten Tomatoes", "Metacritic", "TMDB"]) {
+  for (const source of ["IMDb", "Rotten Tomatoes", "Metacritic", "TMDB", "Letterboxd"]) {
     const tile = page.locator("[data-missing]", { hasText: source });
     await expect(tile).toContainText("–");
     await expect(tile).toContainText("No score yet");

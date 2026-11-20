@@ -448,6 +448,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 10 visual choice (10.4): the release editor uses existing 8px vertical spacing at desktop heights of 500px or less so the date, status and Save fit on a turned phone; the reference has no short-landscape editor frame. Provisional; shots in `screenshots/phase-10/10.4/` | 2026-11-11 | nothing; easy to change, reference follow-up at Phase 10 review |
 | Phase 10 owner check (released 2026-11-12, migration run): on a real phone sort the Watch list by Release date, filter it and mark a date tentative, sign off | 2026-11-11 | Phase 10 done |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
+| Letterboxd rating (owner, 2026-11-20): the next release needs production migration `0008_movies_letterboxd` (two new columns) run first, with the owner's OK; after it, check the next cron run's log on `/data` for Letterboxd calls (Vercel's servers may be blocked). Films before the refresh window show "Letterboxd –" until a backfill (the owner's call) | 2026-11-20 | Release of the Letterboxd rating |
 
 ## Upkeep log
 

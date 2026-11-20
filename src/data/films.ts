@@ -58,6 +58,7 @@ export const filmColumns = {
   rtScore: movies.rtScore,
   mcScore: movies.mcScore,
   tmdbScore: movies.tmdbScore,
+  lbRating: movies.lbRating,
   avgScore: movies.avgScore,
   scoreCount: movies.scoreCount,
 };
@@ -75,6 +76,7 @@ type FilmColumnsRow = {
   rtScore: number | null;
   mcScore: number | null;
   tmdbScore: number | null;
+  lbRating: number | null;
   avgScore: number | null;
   scoreCount: number;
 };
@@ -94,6 +96,7 @@ export function toFilmRow(row: FilmColumnsRow): FilmRowData {
       rt: row.rtScore,
       mc: row.mcScore,
       tmdb: row.tmdbScore,
+      lb: row.lbRating,
       average: row.avgScore,
       count: row.scoreCount,
     },

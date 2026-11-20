@@ -6,7 +6,7 @@ import { ContenderRow, type RowChance } from "./ContenderRow";
 import { RaceList } from "./RaceList";
 import { WhyPanel } from "./WhyPanel";
 
-const scores = { imdb: 7.4, rt: 93, mc: 91, tmdb: null, average: 86, count: 3 };
+const scores = { imdb: 7.4, rt: 93, mc: 91, tmdb: null, lb: null, average: 86, count: 3 };
 const WHY: Why = {
   top: [{ category: "pga/theatrical", result: "won", weight: 1.1, hits: 10, count: 14 }],
   similar: { count: 3, won: 2, films: [{ movie: 1, year: 2014, won: true }] },

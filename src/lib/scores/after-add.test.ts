@@ -17,7 +17,7 @@ import { fetchFilmScores, fetchScoresForAdd } from "./after-add";
 
 const NOW = new Date("2026-11-12T08:00:00Z");
 const film = (scoresCheckedAt: Date | null): QueueFilm => ({
-  id: 7, imdbId: "tt7", tmdbId: 7, year: 2026, scoresCheckedAt, imdbRating: null, rtScore: null, mcScore: null, tmdbScore: 6.1,
+  id: 7, imdbId: "tt7", tmdbId: 7, year: 2026, scoresCheckedAt, imdbRating: null, rtScore: null, mcScore: null, tmdbScore: 6.1, lbRating: null,
 });
 
 function fakeStore(queue: QueueFilm[]) {

@@ -8,6 +8,11 @@ export function formatScore(value: number | null | undefined, decimals: 0 | 1): 
   return value.toFixed(decimals);
 }
 
+/** Letterboxd's rating as Letterboxd shows it, one decimal of 5 ("3.8"); missing is "–". */
+export function formatLetterboxd(value: number | null | undefined): string {
+  return formatScore(value, 1);
+}
+
 /** Whole number with thousands commas ("1,204"); missing is "–". */
 export function formatCount(value: number | null | undefined): string {
   if (value === null || value === undefined || Number.isNaN(value)) return DASH;

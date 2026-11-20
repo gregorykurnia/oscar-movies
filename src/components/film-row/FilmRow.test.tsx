@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { StagePill } from "@/components/stage-pill/StagePill";
 import { FilmList, FilmRow } from "./FilmRow";
 
-const scores = { imdb: 7.4, rt: 93, mc: 79, tmdb: 7.2, average: 80, count: 4 };
+const scores = { imdb: 7.4, rt: 93, mc: 79, tmdb: 7.2, lb: null, average: 80, count: 4 };
 
 function list(winner = false) {
   return render(

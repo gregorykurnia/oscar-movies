@@ -11,6 +11,7 @@ const full: ScoreTilesData = {
   rt: { value: 97, updatedAt: oct14 },
   mc: { value: 85, updatedAt: oct14 },
   tmdb: { value: 7.9, updatedAt: new Date("2026-10-16T09:00:00Z") },
+  lb: { value: 3.76, updatedAt: oct14 },
   average: 86,
   count: 4,
 };
@@ -19,7 +20,7 @@ const tiles = (container: HTMLElement) =>
   Array.from((container.firstChild as HTMLElement).children) as HTMLElement[];
 
 describe("ScoreTiles", () => {
-  it("shows the four sources with units and dates, then the average on the gold wash", () => {
+  it("shows the five sources with units and dates, then the average on the gold wash", () => {
     const { container } = render(<ScoreTiles scores={full} now={now} />);
     const t = tiles(container);
     expect(t.map((x) => x.textContent)).toEqual([
@@ -27,10 +28,11 @@ describe("ScoreTiles", () => {
       "Rotten Tomatoes97%Updated 14 Oct",
       "Metacritic85/100Updated 14 Oct",
       "TMDB7.9/10Updated 16 Oct",
+      "Letterboxd3.8/5Updated 14 Oct",
       "Average864 of 4 scores",
     ]);
-    expect(t[4].className).toContain("bg-gold-wash");
-    expect(t[4].children[1].className).toContain("text-gold-ink");
+    expect(t[5].className).toContain("bg-gold-wash");
+    expect(t[5].children[1].className).toContain("text-gold-ink");
     expect((container.firstChild as HTMLElement).className).toContain("rounded-lg");
   });
 
@@ -42,15 +44,16 @@ describe("ScoreTiles", () => {
     expect(rt.textContent).toBe("Rotten Tomatoes–No score yet");
     expect(rt.dataset.missing).toBe("true");
     expect(rt.children[1].className).toContain("text-ink-muted");
-    expect(tiles(container)[4].textContent).toBe("Average843 of 4 scores");
+    expect(tiles(container)[5].textContent).toBe("Average843 of 4 scores");
   });
 
   it("with no scores, the average is a dash too", () => {
     const none = { value: null, updatedAt: null };
     const { container } = render(
-      <ScoreTiles scores={{ imdb: none, rt: none, mc: none, tmdb: none, average: null, count: 0 }} now={now} />,
+      <ScoreTiles scores={{ imdb: none, rt: none, mc: none, tmdb: none, lb: none, average: null, count: 0 }} now={now} />,
     );
-    const avg = tiles(container)[4];
+    expect(tiles(container)[4].textContent).toBe("Letterboxd–No score yet");
+    const avg = tiles(container)[5];
     expect(avg.textContent).toBe("Average–No scores yet");
     expect(avg.children[1].className).toContain("text-ink-muted");
   });

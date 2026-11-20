@@ -38,7 +38,7 @@ function film(id: number, title: string): FilmRowData {
     year: 2024,
     countries: ["US"],
     flag: "US",
-    scores: { imdb: 7.5, rt: null, mc: null, tmdb: null, average: 75, count: 1 },
+    scores: { imdb: 7.5, rt: null, mc: null, tmdb: null, lb: null, average: 75, count: 1 },
   };
 }
 

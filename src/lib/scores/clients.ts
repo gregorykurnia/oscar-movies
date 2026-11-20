@@ -112,3 +112,51 @@ export async function fetchTmdb(tmdbId: number, token: string, fetchImpl: Fetch 
     return { kind: "failed", reason: "TMDB: the answer isn't JSON" };
   }
 }
+
+export type LetterboxdScores = { lbRating: number | null };
+
+/**
+ * Reads a Letterboxd film page: the rating in its JSON-LD (`aggregateRating.ratingValue`, 0.5–5,
+ * two decimals). A film without one (too few ratings yet) is null. A page with no JSON-LD at all
+ * isn't a film page (a block or challenge page): failed. Exported for the unit tests.
+ */
+export function parseLetterboxd(html: string): ClientResult<LetterboxdScores> {
+  const block = /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/.exec(html)?.[1];
+  if (!block) return { kind: "failed", reason: "Letterboxd: no film data on the page" };
+  let data: { aggregateRating?: { ratingValue?: unknown } };
+  try {
+    data = JSON.parse(block.replace(/\/\*\s*<!\[CDATA\[\s*\*\/|\/\*\s*\]\]>\s*\*\//g, ""));
+  } catch {
+    return { kind: "failed", reason: "Letterboxd: the film data isn't JSON" };
+  }
+  const value = data.aggregateRating?.ratingValue;
+  const lbRating = typeof value === "number" && value > 0 ? inRange(Math.round(value * 100) / 100, 5) : null;
+  return { kind: "ok", value: { lbRating } };
+}
+
+/**
+ * Letterboxd's rating, by TMDB ID: `letterboxd.com/tmdb/<id>/` redirects to the film's page. No
+ * redirect means Letterboxd doesn't have the film (null). Read off the public page: Letterboxd has
+ * no API for personal projects (owner's call, 2026-11-20, PRODUCT_PLAN.md §3.2).
+ */
+export async function fetchLetterboxd(tmdbId: number, fetchImpl: Fetch = fetch): Promise<ClientResult<LetterboxdScores>> {
+  let response: Response;
+  try {
+    response = await fetchImpl(`https://letterboxd.com/tmdb/${tmdbId}/`, {
+      headers: { "user-agent": "oscar-movies/1.0 (personal app)", accept: "text/html" },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+  } catch (error) {
+    return { kind: "failed", reason: `Letterboxd: ${networkReason(error)}` };
+  }
+  if (response.status === 429) return { kind: "rate-limited", retryAfterMs: retryAfter(response) };
+  if (response.status === 404) return { kind: "ok", value: { lbRating: null } };
+  if (!response.ok) return { kind: "failed", reason: `Letterboxd: HTTP ${response.status}` };
+  if (!/^https:\/\/letterboxd\.com\/film\//.test(response.url)) return { kind: "ok", value: { lbRating: null } };
+  try {
+    return parseLetterboxd(await response.text());
+  } catch (error) {
+    // The page stalled or dropped mid-download (the timeout covers the body too).
+    return { kind: "failed", reason: `Letterboxd: ${networkReason(error)}` };
+  }
+}

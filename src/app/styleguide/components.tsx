@@ -242,7 +242,7 @@ export function Components({ s }: { s: Sample }) {
             </Cell>
           ))}
         </Spec>
-        <Cell name="Score tiles" note="movie page: four sources and the average" className="w-full">
+        <Cell name="Score tiles" note="movie page: five sources and the average" className="w-full">
           <ScoreTiles
             className="w-full"
             now={NOW}
@@ -253,6 +253,7 @@ export function Components({ s }: { s: Sample }) {
                     rt: { value: null, updatedAt: null },
                     mc: { value: null, updatedAt: null },
                     tmdb: { value: null, updatedAt: null },
+                    lb: { value: null, updatedAt: null },
                     average: null,
                     count: 0,
                   }
@@ -261,6 +262,7 @@ export function Components({ s }: { s: Sample }) {
                     rt: { value: 97, updatedAt: SCORE_TILE_DATES.rt },
                     mc: { value: null, updatedAt: null },
                     tmdb: { value: 7.8, updatedAt: SCORE_TILE_DATES.imdb },
+                    lb: { value: 4.05, updatedAt: SCORE_TILE_DATES.imdb },
                     average: 86,
                     count: 3,
                   }

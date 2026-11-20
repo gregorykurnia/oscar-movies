@@ -22,7 +22,7 @@ function row(id: number, title: string, country: string, outcome: Outcome, avera
       year: 2024,
       countries: [country],
       flag: country,
-      scores: { imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 },
+      scores: { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average, count: average === null ? 0 : 4 },
     },
     outcome,
     country,

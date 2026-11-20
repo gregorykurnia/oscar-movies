@@ -2,14 +2,15 @@
 // and a score's `*_at` moves only when the source confirmed a value. `scoresCheckedAt` always
 // moves, so a film that keeps failing doesn't hold up the queue.
 
-export const SCORE_KEYS = ["imdbRating", "rtScore", "mcScore", "tmdbScore"] as const;
+export const SCORE_KEYS = ["imdbRating", "rtScore", "mcScore", "tmdbScore", "lbRating"] as const;
 export type ScoreKey = (typeof SCORE_KEYS)[number];
 
-export const SCORE_AT: Record<ScoreKey, "imdbAt" | "rtAt" | "mcAt" | "tmdbAt"> = {
+export const SCORE_AT: Record<ScoreKey, "imdbAt" | "rtAt" | "mcAt" | "tmdbAt" | "lbAt"> = {
   imdbRating: "imdbAt",
   rtScore: "rtAt",
   mcScore: "mcAt",
   tmdbScore: "tmdbAt",
+  lbRating: "lbAt",
 };
 
 export type StoredScores = Record<ScoreKey, number | null>;

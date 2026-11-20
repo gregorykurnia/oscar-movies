@@ -18,6 +18,7 @@ const stillHere = {
   year: 2024,
   flag: "BR",
   categories: ["Best Picture", "International"],
+  lbRating: null,
   stage: "nominated" as const,
   href: "/movies/im-still-here",
 };
@@ -30,6 +31,7 @@ const anora = {
   year: 2024,
   flag: "US",
   categories: ["Best Picture"],
+  lbRating: null,
   stage: "won" as const,
   href: "/movies/anora",
 };

@@ -9,7 +9,7 @@ import type { FilmRowData } from "@/data/films";
 import { formatFigure, type Figure } from "@/lib/accuracy";
 import type { AccuracyRow } from "@/lib/accuracy-page";
 import type { AwardKind, AwardSummary } from "@/lib/awards";
-import { DASH, formatScore } from "@/lib/format";
+import { DASH, formatLetterboxd, formatScore } from "@/lib/format";
 import { MARK_FILTERS, parseMarkFilter, passesMark, toggleFilterIn, type MarkSets } from "@/lib/mark-filter";
 import { parseCategory, RACE_CATEGORIES, type RaceCategory } from "@/lib/race";
 import { predictorStrength, type PredictorStrength } from "@/lib/signals";
@@ -278,7 +278,8 @@ export function criticsLabel(wins: number): string {
 /** The film column's second line: "82 average", or "No scores yet". */
 export function averageLine(film: FilmRowData): string {
   const value = formatScore(film.scores.average, 0);
-  return value === DASH ? "No scores yet" : `${value} average`;
+  const average = value === DASH ? "No scores yet" : `${value} average`;
+  return film.scores.lb === null ? average : `${average} · Letterboxd ${formatLetterboxd(film.scores.lb)}`;
 }
 
 /** The sub line's count: "31 films with a nomination". */

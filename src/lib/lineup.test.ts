@@ -31,12 +31,12 @@ const film = (id: number, title: string, more: Partial<LineupFilm> = {}): Lineup
   year: 2025,
   countries: ["FR"],
   flag: "FR",
-  scores: { imdb: null, rt: null, mc: null, tmdb: null, average: null, count: 0 },
+  scores: { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average: null, count: 0 },
   prize: null,
   ...more,
 });
 
-const scored = (average: number | null) => ({ imdb: null, rt: null, mc: null, tmdb: null, average, count: average === null ? 0 : 4 });
+const scored = (average: number | null) => ({ imdb: null, rt: null, mc: null, tmdb: null, lb: null, average, count: average === null ? 0 : 4 });
 
 const screening = (more: Partial<MovieScreening>): MovieScreening => ({
   awardSlug: "cannes",

@@ -62,6 +62,7 @@ test("/data's Sources read as the guide gives them, with TMDB's logo unaltered",
     "Information courtesy of IMDb (imdb.com). Used with permission. IMDb ratings from IMDb's non-commercial datasets.",
   );
   await expect(card("OMDb API")).toContainText("Rotten Tomatoes (Tomatometer) and Metacritic scores.");
+  await expect(card("Letterboxd")).toContainText("Letterboxd ratings, read from each film's public page on letterboxd.com.");
   await expect(card("Wikidata")).toContainText("Links between Wikipedia, IMDb and TMDB, under CC0.");
 });
 

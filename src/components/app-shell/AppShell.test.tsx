@@ -41,7 +41,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("banner")).toBeTruthy();
     const footer = screen.getByRole("contentinfo");
     expect(within(footer).getByText("Oscar Movies, a personal project")).toBeTruthy();
-    expect(within(footer).getByText("Scores from IMDb, Rotten Tomatoes, Metacritic and TMDB")).toBeTruthy();
+    expect(within(footer).getByText("Scores from IMDb, Rotten Tomatoes, Metacritic, TMDB and Letterboxd")).toBeTruthy();
     expect(within(footer).getByRole("link", { name: "Data coverage and sources" }).getAttribute("href")).toBe("/data");
   });
 
