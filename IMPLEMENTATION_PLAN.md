@@ -1,6 +1,6 @@
 # Oscar Movies: Implementation Plan
 
-**Status:** Phase 10 planned 2026-11-11: Watch list release-date sort, tentative/confirmed dates and filters (`PRODUCT_PLAN.md` v1.8; brief `docs/watch-list-release-sort.md`). Phases 0–9 build tasks and reviews are complete (Phase 9 released 2026-11-10); historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
+**Status:** Phase 11 planned 2026-11-20: star favorites on the Watch list and a Starred filter (brief `docs/watch-list-favorites.md`). Phases 0–10 build tasks and reviews are complete (Phase 10 released); historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
 
 **AI Build Log project:** Oscar Movies
 
@@ -177,26 +177,24 @@ A real `<table>` in a frame that scrolls sideways; the film column is `position:
 
 Every phase ends with its end-to-end/screenshot check task and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
 
-**Before the Phase 10 run:** nothing to set up (see the feature brief’s **Before the run**). Start with 10.1; the production migration and release wait until the build is finished.
+**Before the Phase 11 run:** nothing to set up (see the feature brief’s **Before the run**). Start with 11.1. The production migration and the release wait until the build is finished.
 
 Phases 0–9: build tasks and reviews done; see [completed tasks](IMPLEMENTATION_PLAN-done.md). Historical owner checks remain in `docs/build-plan.md`.
 
 Phase 9: done, see [completed tasks](IMPLEMENTATION_PLAN-done.md).
 
-### Phase 10: Watch list release sort, tentative dates and filters
+Phase 10: done, see [completed tasks](IMPLEMENTATION_PLAN-done.md).
 
-Owner request (2026-11-11): sort the Watch list by release date, mark each date tentative or confirmed, and filter by platform "or any other filters needed". Smallest design: a Release date sort, one stored tentative flag per date, and Platform and Release (Out now / Coming / TBD) filters on Want to watch, all in the address. Read [the feature brief](docs/watch-list-release-sort.md), **Request and smallest design** and the matching **Task briefs** entry before each task. Defaults and left-out extras are settled there.
+### Phase 11: Star favorites on the Watch list
+
+Owner request (2026-11-20): star favorites on the Watch list and filter by them. Drag already works under My order, and the owner keeps using that. Smallest design: one stored star per film, a Star button on Watch queue and Want to watch rows, and a Starred chip filter (`?starred=1`) next to Platform and Release. Before each task, read [the feature brief](docs/watch-list-favorites.md), **Request and smallest design** and the matching **Task briefs** entry. Defaults and left-out extras are settled there.
 
 | ID | Task | Pick | Done |
 |---|---|---|---|
-| 10.1 | [look] Draw the release sort, filters and tentative mark in the guide and reference; brief 10.1 (sets the look the next rows build) | Opus 5.5 High | 2026-11-11 · guide v1.5 |
-| 10.2 | [no look] Store the tentative flag: schema, test migration, save action, backup and restore; brief 10.2 (owner data must round-trip) | Sol Max | 2026-11-11 · test migrated; save/backup round-trip |
-| 10.3 | [look] Release date sort and Platform/Release filters on Watch list; brief 10.3 (address-driven, built to the 10.1 reference) | Sol xHigh | 2026-11-11 · sort/filters; fresh-eye fixes checked |
-| 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | 2026-11-11 · editor/row; reload and four shapes checked |
-| 10.5 | [look] End-to-end phase checks and screenshots, failure report; brief 10.5 (one full run, fixes in the next row) | Sol xHigh | 2026-11-11 · one full run; fresh-eye reference fixed; report `docs/phase-checks/watch-list-release.md` |
-| 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High || 2026-11-11 · 3 fixes; F1–F2 split off |
-| 10.F1 | [no look] Make `tests/e2e/phase-3.spec.ts:117` (an update adds an award result) fit its time: it timed out at 240 s in 10.5 and 10.R over three full test loads. Measure them, then load less (for example `--only tiff`) or raise the limit; keep its restore. Done when it passes in one run and a reseed afterwards changes nothing | Opus 5.5 High | 2026-11-11 · cause: cache expired at 3100 on a 3105 run; setup sets `APP_URL`; passes 37 s, reseed dry run empty |
-| 10.F2 | [look] Winner wash: shared `FilmRow` keeps it inside the list rules since 10.3, but `design-preview.html` `.frow.winner` still bleeds 16 px past them. Make the reference (and guide, if it says so) match the app. Done when a winner row on an award page and its reference frame agree at 390 and 1280 | Opus 5.5 High | 2026-11-11 · bleed removed from reference; guide already right; `tests/screens/winner-wash.spec.ts` |
+| 11.1 | [no look] Store the star: schema, test migration, save action, data read, backup and restore; brief 11.1 (owner data must round-trip) | Sol Max | |
+| 11.2 | [look] Star button on queue and Want to watch rows, Starred filter, guide and product plan lines; brief 11.2 (built from the brief's spec, existing pieces only) | Sol xHigh | |
+| 11.3 | [look] End-to-end phase checks and screenshots, failure report; brief 11.3 (one full run, fixes in the next row) | Sol High | |
+| 11.R | [look] Phase 11 review and targeted fixes; brief 11.R (other family from the builders, data and UX checks) | Opus 5.5 High | |
 
 *Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
 
@@ -211,7 +209,7 @@ Owner request (2026-11-11): sort the Watch list by release date, mark each date 
 
 ### 7.2 Tier list for this app
 
-Phases 9 and 10 use the current `~/.claude/playbooks/plans-and-models.md` **Claude or Codex: one pick per task** choices: Sol Max for saved-data work, Sol xHigh for routine implementation/checks, Opus 5.5 High for the visual reference and the review after Codex builds. The table below records the original phases’ picks; it does not override Phase 9 or 10 rows.
+Phases 9 to 11 use the current `~/.claude/playbooks/plans-and-models.md` **Claude or Codex: one pick per task** choices: Sol Max for saved-data work, Sol xHigh for routine implementation/checks, Opus 5.5 High for the visual reference and the review after Codex builds. The table below records the original phases’ picks; it does not override Phase 9 or 10 rows.
 
 | Kind of work here | Pick | Reason |
 |---|---|---|

@@ -198,3 +198,20 @@ Owner request: “add it directly into this website app even if it doesn’t exi
 | 9.Rb | [no look] Fix the two live-race browser failures left by 9.R (`docs/review-triage.md` 9-6): `race.spec.ts:122` Show all gone (International leader 0% to be nominated, a rank-100 film 99%) and `phase-3.spec.ts:151` Fjord's old % after the sample load; fix the engine/split or the spec, then rerun only those two | Opus 5.5 High | 2026-11-10 · Newton fit damped; spec exact match; both pass |
 
 *Owner, after build:* check the test-backed flow on a real phone, approve the tested production migration and then request a normal release. No production migration, load, or release belongs to an unattended task.
+
+### Phase 10: Watch list release sort, tentative dates and filters
+
+Owner request (2026-11-11): sort the Watch list by release date, mark each date tentative or confirmed, and filter by platform "or any other filters needed". Smallest design: a Release date sort, one stored tentative flag per date, and Platform and Release (Out now / Coming / TBD) filters on Want to watch, all in the address. Read [the feature brief](docs/watch-list-release-sort.md), **Request and smallest design** and the matching **Task briefs** entry before each task. Defaults and left-out extras are settled there.
+
+| ID | Task | Pick | Done |
+|---|---|---|---|
+| 10.1 | [look] Draw the release sort, filters and tentative mark in the guide and reference; brief 10.1 (sets the look the next rows build) | Opus 5.5 High | 2026-11-11 · guide v1.5 |
+| 10.2 | [no look] Store the tentative flag: schema, test migration, save action, backup and restore; brief 10.2 (owner data must round-trip) | Sol Max | 2026-11-11 · test migrated; save/backup round-trip |
+| 10.3 | [look] Release date sort and Platform/Release filters on Watch list; brief 10.3 (address-driven, built to the 10.1 reference) | Sol xHigh | 2026-11-11 · sort/filters; fresh-eye fixes checked |
+| 10.4 | [look] Confirmed/Tentative choice in the release editor and on the row; brief 10.4 (built to the 10.1 reference) | Sol xHigh | 2026-11-11 · editor/row; reload and four shapes checked |
+| 10.5 | [look] End-to-end phase checks and screenshots, failure report; brief 10.5 (one full run, fixes in the next row) | Sol xHigh | 2026-11-11 · one full run; fresh-eye reference fixed; report `docs/phase-checks/watch-list-release.md` |
+| 10.R | [look] Phase 10 review and targeted fixes; brief 10.R (other family from the builders, data and UX checks) | Opus 5.5 High || 2026-11-11 · 3 fixes; F1–F2 split off |
+| 10.F1 | [no look] Make `tests/e2e/phase-3.spec.ts:117` (an update adds an award result) fit its time: it timed out at 240 s in 10.5 and 10.R over three full test loads. Measure them, then load less (for example `--only tiff`) or raise the limit; keep its restore. Done when it passes in one run and a reseed afterwards changes nothing | Opus 5.5 High | 2026-11-11 · cause: cache expired at 3100 on a 3105 run; setup sets `APP_URL`; passes 37 s, reseed dry run empty |
+| 10.F2 | [look] Winner wash: shared `FilmRow` keeps it inside the list rules since 10.3, but `design-preview.html` `.frow.winner` still bleeds 16 px past them. Make the reference (and guide, if it says so) match the app. Done when a winner row on an award page and its reference frame agree at 390 and 1280 | Opus 5.5 High | 2026-11-11 · bleed removed from reference; guide already right; `tests/screens/winner-wash.spec.ts` |
+
+*Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
