@@ -1,6 +1,6 @@
 # Oscar Movies: Product Plan
 
-**Status:** v1.10 (2026-11-21): stars and a Starred filter on the Watch list (§3.13). v1.9 (2026-11-17): a manual **Watch queue** on the Watch list for films the owner knows are really out, in their own order (§3.13; owner's request). v1.8 planned (2026-11-11): Phase 10 adds a release-date sort, tentative or confirmed release dates and Platform/Release filters to Watch list (§3.13). Requested by the owner; defaults in `docs/watch-list-release-sort.md`. v1.7 (2026-11-10): Phase 9 lets the owner add films from Watch list even when they are absent from the awards catalogue. Prior approved scope: v1.6 (2026-10-26).
+**Status:** v1.11 (2026-11-21): the Letterboxd rating counts in the average, out of five sources (§3.2; owner's request). v1.10 (2026-11-21): stars and a Starred filter on the Watch list (§3.13). v1.9 (2026-11-17): a manual **Watch queue** on the Watch list for films the owner knows are really out, in their own order (§3.13; owner's request). v1.8 planned (2026-11-11): Phase 10 adds a release-date sort, tentative or confirmed release dates and Platform/Release filters to Watch list (§3.13). Requested by the owner; defaults in `docs/watch-list-release-sort.md`. v1.7 (2026-11-10): Phase 9 lets the owner add films from Watch list even when they are absent from the awards catalogue. Prior approved scope: v1.6 (2026-10-26).
 
 ## 1. Overview
 
@@ -51,10 +51,10 @@ One user (the owner), on **phone and laptop**, most days during awards season (N
 
 **Requirements**
 - Every movie row, anywhere in the app, shows: title (original title on the detail page), **country flag(s)**, **IMDb, Rotten Tomatoes (Tomatometer), Metacritic, TMDB user score**, the **average**, and the watched / want-to-watch marks.
-- **Average:** each score converted to 0–100 (IMDb × 10, TMDB × 10, Tomatometer and Metacritic as they are), averaged over the scores that exist. It shows how many sources it's based on (e.g. "84 · 3 of 4") so a missing score is visible.
+- **Average:** each score converted to 0–100 (IMDb × 10, TMDB × 10, Letterboxd × 20, Tomatometer and Metacritic as they are), averaged over the scores that exist. It shows how many sources it's based on (e.g. "84 · 4 of 5") so a missing score is visible. Letterboxd counts since 2026-11-21 (owner); older films have no Letterboxd rating until a backfill, so they read "of 5" with that one missing.
 - **Flags:** every movie shows **one flag**, its **primary country**: for a film ever submitted for International Feature, the country that submitted it, on every page (not only the International lists); otherwise the first country Wikipedia lists for it. The movie page names all its countries in text. (Until 2026-10-25: up to three flags plus "+N".)
 - A missing score shows as "–", never as 0. Rotten Tomatoes comes through OMDb and can be missing or late for new and foreign films; there is no paid or scraped fallback.
-- **Letterboxd rating** (owner, 2026-11-20): shown out of 5 ("Letterboxd 3.8") after the average on every scores line, in the year grid and search results, and as its own tile on the movie page. It is **not part of the average**. It has no API for personal projects, so it is read off the film's public Letterboxd page (found by TMDB ID) by the same score runs, the owner's choice against its terms of use. Best effort: if Letterboxd blocks the server, the rating stays "–" or keeps its last value and the other scores carry on.
+- **Letterboxd rating** (owner, 2026-11-20): shown out of 5 ("Letterboxd 3.8") after the average on every scores line, in the year grid and search results, and as its own tile on the movie page. It is **part of the average** since 2026-11-21 (owner; from 2026-11-20 it was shown but left out), so it sits with the other scores, before the average. It has no API for personal projects, so it is read off the film's public Letterboxd page (found by TMDB ID) by the same score runs, the owner's choice against its terms of use. Best effort: if Letterboxd blocks the server, the rating stays "–" or keeps its last value and the other scores carry on.
 - Scores are refreshed **daily for films still in the Oscar race**: this year's films, plus last year's until the end of March. Older films keep their scores (they barely change). A film added to the watch list gets its scores right away (owner, 2026-11-12). Each score shows when it was last updated on the movie page.
 
 ### 3.3 The Oscar race (home)
@@ -310,6 +310,7 @@ A web app on the default stack (Next.js, Neon, Vercel; details in `IMPLEMENTATIO
 
 ## 9. Decisions so far
 
+- 2026-11-21: Letterboxd counts in the average (owner), × 20 to 0–100, "N of 5"; no backfill of older films for now (§3.2).
 - 2026-11-20: Letterboxd rating shown (owner), read off its public film pages despite its terms; out of 5, after the average and not part of it (§3.2).
 - 2026-11-10: The owner requested adding any missing film directly from Watch list. Phase 9 removes the existing-catalogue-only restriction. Planning default: TMDB search plus manual title/year fallback; preserve the existing no-sign-in policy and award research workflow. Detailed defaults and checks: `docs/watch-list-any-film.md`.
 

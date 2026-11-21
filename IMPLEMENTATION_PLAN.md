@@ -1,6 +1,6 @@
 # Oscar Movies: Implementation Plan
 
-**Status:** Phase 11 planned 2026-11-20: star favorites on the Watch list and a Starred filter (brief `docs/watch-list-favorites.md`). Phases 0–10 build tasks and reviews are complete (Phase 10 released); historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
+**Status:** Phase 12 planned 2026-11-21: Letterboxd counts in the average score (brief `docs/letterboxd-in-average.md`). Phase 11 (stars) built and reviewed. Phases 0–10 build tasks and reviews are complete (Phase 10 released); historical rows are in `IMPLEMENTATION_PLAN-done.md`, with owner sign-offs still tracked in `docs/build-plan.md`. The current `DESIGN_GUIDE.md` and `design-preview.html` are binding.
 
 **AI Build Log project:** Oscar Movies
 
@@ -71,7 +71,7 @@ Enums: `award_kind` (oscars, major, festival, critics) · `oscar_category` (pict
 **Rules.** Outcome order: submitted < eligible = shortlisted < runner_up = nominated < won (runner_up counts as a nomination; product plan §10). A result's category must belong to its edition's award (the loader checks). Nothing in the app deletes; the loader only replaces the contents of editions present in the data files. Movies are never deleted by a load; merging duplicates is an explicit correction that moves the marks first.
 
 ### 3.2 Derived values
-1. **Average:** IMDb × 10, TMDB × 10, Tomatometer and Metacritic as they are; mean of the ones present, one decimal, shown rounded; `score_count` 0–4. No scores: null.
+1. **Average:** IMDb × 10, TMDB × 10, Letterboxd × 20, Tomatometer and Metacritic as they are; mean of the ones present, one decimal, shown rounded; `score_count` 0–5 (Letterboxd from Phase 12; 0–4 before). No scores: null.
 2. **Oscar stage of a film in a year:** its furthest Oscar outcome in that category.
 3. **Current season:** the latest year with an Oscars edition (2026 now).
 4. **Season stage per Oscar category** (stage line, race states): from the Oscars edition's `shortlist_on`, `nominations_on`, `winners_on` and which outcomes exist.
@@ -177,7 +177,7 @@ A real `<table>` in a frame that scrolls sideways; the film column is `position:
 
 Every phase ends with its end-to-end/screenshot check task and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
 
-**Before the Phase 11 run:** nothing to set up (see the feature brief’s **Before the run**). Start with 11.1. The production migration and the release wait until the build is finished.
+**Before the Phase 12 run:** nothing to set up (see the brief’s **Before the run**). Start with 12.1. The production migration and the release wait until the build is finished.
 
 Phases 0–9: build tasks and reviews done; see [completed tasks](IMPLEMENTATION_PLAN-done.md). Historical owner checks remain in `docs/build-plan.md`.
 
@@ -208,6 +208,17 @@ Owner request (2026-11-20): star favorites on the Watch list and filter by them.
 | 11.R | [look] Phase 11 review and targeted fixes; brief 11.R (other family from the builders, data and UX checks) | Opus 5.5 High | 2026-11-21 · no data-loss finding; 3 fixes, 3 dropped, [review](docs/phase-checks/watch-list-favorites.md) |
 
 *Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
+
+### Phase 12: Letterboxd in the average
+
+Owner request (2026-11-21): count the Letterboxd rating in the average score; no fetching for older films yet; GPT builds it. Smallest design: `avg_score` and `score_count` add Letterboxd × 20, counts read "of 5", and the scores line puts Letterboxd before the average. Before each task, read [the brief](docs/letterboxd-in-average.md), **Request and smallest design** and the matching **Task briefs** entry.
+
+| ID | Task | Pick | Done |
+|---|---|---|---|
+| 12.1 | [look] Letterboxd in the average: generated columns, test migration, "of 5" wording and order, tests; brief 12.1 (scores and a migration) | Sol Max | |
+| 12.R | [look] Phase 12 check: migration SQL, hand-worked averages, sorts, full e2e once; brief 12.R (other family from the builder) | Opus 5.5 High | |
+
+*Owner, after 12.R:* approve the production migration (`npm run db:migrate`, the average's expression), then ask for a normal release.
 
 ## 7. Who builds it, and how
 
