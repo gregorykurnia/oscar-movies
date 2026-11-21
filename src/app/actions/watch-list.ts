@@ -2,10 +2,10 @@
 
 import { z } from "zod";
 import { getDb, withFilmTransaction } from "@/db";
-import { writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
+import { writeFavorite, writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "@/data/marks";
 
 // The Watch list's Server Actions (plan §4, Phase 7 notes): Add a film, the owner's order and
-// release notes. Like the marks action, anyone with the address can call them, so each checks
+// release notes and stars. Like the marks action, anyone with the address can call them, so each checks
 // its input; the writes check that the films exist. None revalidates: the Watch list reads
 // the marks per request.
 
@@ -61,6 +61,21 @@ export async function setQueued(rawMovieId: number, queued: boolean): Promise<Wa
     return { ok: await withFilmTransaction((tx) => writeQueued(tx, parsed.data, queued)) };
   } catch (error) {
     console.error("setQueued failed", { movieId: parsed.data, queued }, error);
+    return { ok: false };
+  }
+}
+
+const versionInput = z.string().regex(/^\d{1,10}$/).optional();
+
+/** Set a wanted film's star. The Watch list sends the observed mark version with the save and its retries. */
+export async function setFavorite(rawMovieId: number, favorite: boolean, expectedVersion?: string): Promise<WatchListResult> {
+  const id = movieId.safeParse(rawMovieId);
+  const version = versionInput.safeParse(expectedVersion);
+  if (!id.success || !version.success || typeof favorite !== "boolean") return { ok: false };
+  try {
+    return { ok: await withFilmTransaction((tx) => writeFavorite(tx, id.data, favorite, version.data)) };
+  } catch (error) {
+    console.error("setFavorite failed", { movieId: id.data, favorite }, error);
     return { ok: false };
   }
 }

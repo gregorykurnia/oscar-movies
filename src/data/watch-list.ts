@@ -10,6 +10,7 @@ import type { Stage } from "@/components/stage-pill/StagePill";
 import { RACE_CATEGORIES } from "@/lib/race";
 import { oscarStage, type Outcome } from "@/lib/stage";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
+import { markVersion } from "./marks";
 
 export type Mark = { movieId: number; watched: boolean; want: boolean };
 
@@ -28,7 +29,7 @@ export type StagedFilm = {
   chance: number | null;
 };
 
-/** A wanted film with the owner's order and release notes (7.4). */
+/** A wanted film with the owner's order, release notes and star. */
 export type WantedFilm = StagedFilm & {
   /** Its place in the owner's order (1 = top); null only for a film restored from an old backup. */
   wantRank: number | null;
@@ -39,6 +40,9 @@ export type WantedFilm = StagedFilm & {
   platform: string | null;
   /** Its place in the Watch queue (1 = top); null when it isn't queued. */
   queueRank: number | null;
+  favorite: boolean;
+  /** The version of the mark read with the star, for guarding saves and retries. */
+  markVersion: string;
 };
 
 export type WatchList = {
@@ -152,19 +156,23 @@ export async function queryWantedFilms(db: ReadDb): Promise<WantedFilm[]> {
       releaseTentative: marks.releaseTentative,
       platform: marks.platform,
       queueRank: marks.queueRank,
+      favorite: marks.favorite,
+      markVersion,
     })
     .from(marks)
     .innerJoin(movies, eq(movies.id, marks.movieId))
     .leftJoin(summary, eq(summary.movieId, movies.id))
     .where(eq(marks.want, true))
     .orderBy(sql`${marks.wantRank} asc nulls last`, asc(movies.title), asc(movies.id));
-  return rows.map(({ wantRank, releaseOn, releaseTentative, platform, queueRank, ...row }) => ({
+  return rows.map(({ wantRank, releaseOn, releaseTentative, platform, queueRank, favorite, markVersion, ...row }) => ({
     ...toStagedFilm(row),
     wantRank,
     releaseOn,
     releaseTentative,
     platform,
     queueRank,
+    favorite,
+    markVersion,
   }));
 }
 

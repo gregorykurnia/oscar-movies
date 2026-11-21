@@ -64,6 +64,7 @@ describe("film rows", () => {
         rt: stored.rtScore,
         mc: stored.mcScore,
         tmdb: stored.tmdbScore,
+        lb: stored.lbRating,
         average: stored.avgScore,
         count: stored.scoreCount,
       },

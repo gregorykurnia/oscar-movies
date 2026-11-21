@@ -115,6 +115,16 @@ describe("marksFileSchema", () => {
     }
   });
 
+  it("keeps both star values on an unwanted film and preserves omission in older backups", () => {
+    const old = { imdb: "tt1", watched: false, want: false };
+    for (const entry of [old, { ...old, favorite: true }, { ...old, favorite: false }]) {
+      expect(marksFileSchema.parse([entry])).toEqual([entry]);
+    }
+    for (const favorite of [null, "", "True", "x".repeat(80)]) {
+      expect(marksFileSchema.safeParse([{ ...old, favorite }]).success).toBe(false);
+    }
+  });
+
   it.each([
     ["a rank but not wanted", { imdb: "tt1", watched: true, want: false, wantRank: 2 }],
     ["a rank of 0", { imdb: "tt1", watched: false, want: true, wantRank: 0 }],
@@ -138,8 +148,8 @@ describe("marksFileSchema", () => {
 
   it("refuses a film listed twice", () => {
     const twice = [
-      { imdb: "tt1", watched: true, want: false },
-      { imdb: "tt1", watched: false, want: true },
+      { imdb: "tt1", watched: true, want: false, favorite: false },
+      { imdb: "tt1", watched: false, want: true, favorite: true },
     ];
     expect(marksFileSchema.safeParse(twice).success).toBe(false);
   });

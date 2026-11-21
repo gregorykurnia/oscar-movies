@@ -195,6 +195,7 @@ export const markEntrySchema = z
     releaseTentative: z.boolean().optional(),
     platform: z.string().min(1).max(40).nullable().optional(),
     queueRank: z.number().int().positive().max(2_147_483_647).nullable().optional(),
+    favorite: z.boolean().optional(),
     updatedAt: z.iso.datetime({ offset: true }).optional(),
   })
   .strict()

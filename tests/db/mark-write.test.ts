@@ -6,10 +6,13 @@
 // Watch queue, which has its own order (owner, 2026-11-17). These are the writes the marks and Watch
 // list actions make (their input checks: `src/app/actions/*.test.ts`). Each test runs inside a
 // transaction that is rolled back.
+import { randomUUID } from "node:crypto";
 import { asc, eq, sql, TransactionRollbackError } from "drizzle-orm";
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it, vi } from "vitest";
+vi.mock("server-only", () => ({}));
+import { setFavorite, setQueued } from "../../src/app/actions/watch-list";
 import { createScriptDb } from "../../src/db";
-import { writeMark, writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "../../src/data/marks";
+import { writeFavorite, writeMark, writeQueued, writeQueueOrder, writeRelease, writeWantAtTop, writeWantOrder } from "../../src/data/marks";
 import { buildWatchList, queryWantedFilms } from "../../src/data/watch-list";
 import { marks, movies } from "../../src/db/schema";
 
@@ -367,7 +370,104 @@ describe("the Watch queue", () => {
       expect(list.want.map((f) => f.film.id)).not.toContain(two);
     });
   });
+
+  it("reads both star values in both lists and keeps the star through other writes", async () => {
+    await rolledBack(async (tx) => {
+      const [one, two] = await addFilms(tx);
+      const readLists = async () => buildWatchList(await queryWantedFilms(tx), [], []);
+      const readMark = async () => (await tx.select().from(marks).where(eq(marks.movieId, one)))[0];
+      const keepFavorite = async () => expect((await readMark()).favorite).toBe(true);
+      await writeWantAtTop(tx, one);
+      await writeWantAtTop(tx, two);
+      const release = { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" };
+      await writeRelease(tx, one, release);
+
+      const beforeQueue = await readMark();
+      expect(beforeQueue.favorite).toBe(false);
+      for (const favorite of [true, false, true]) {
+        expect(await writeFavorite(tx, one, favorite)).toBe(true);
+        expect((await readLists()).want.find((f) => f.film.id === one)?.favorite).toBe(favorite);
+        expect(await readMark()).toEqual({ ...beforeQueue, favorite });
+      }
+
+      expect(await writeWantOrder(tx, (await unqueued(tx)).reverse())).toBe("ok");
+      await keepFavorite();
+      expect(await writeQueued(tx, one, true)).toBe(true);
+      expect(await writeQueued(tx, two, true)).toBe(true);
+      await keepFavorite();
+      expect(await writeQueueOrder(tx, (await queue(tx)).reverse())).toBe("ok");
+      const queued = await readMark();
+      expect(queued.favorite).toBe(true);
+      for (const favorite of [false, true]) {
+        expect(await writeFavorite(tx, one, favorite)).toBe(true);
+        expect((await readLists()).queue.find((f) => f.film.id === one)?.favorite).toBe(favorite);
+        expect(await readMark()).toEqual({ ...queued, favorite });
+      }
+
+      expect(await writeQueued(tx, one, false)).toBe(true);
+      await keepFavorite();
+      const newRelease = { ...release, platform: "MUBI" };
+      expect(await writeRelease(tx, one, newRelease)).toBe(true);
+      expect(await readMark()).toMatchObject({ ...newRelease, favorite: true });
+      await writeMark(tx, one, { watched: true, want: false });
+      await keepFavorite();
+      expect(await writeFavorite(tx, one, false)).toBe(false);
+      await writeMark(tx, one, { watched: false, want: false });
+      await keepFavorite();
+      expect(await writeFavorite(tx, one, false)).toBe(false);
+      expect(await writeFavorite(tx, 2_000_000_000, true)).toBe(false);
+      await writeMark(tx, one, { watched: false, want: true });
+      expect((await readLists()).want.find((f) => f.film.id === one)).toMatchObject({ favorite: true, ...newRelease });
+    });
+  });
 });
+
+it("keeps confirmed stars across reloads and refuses a replay after a newer edit", async () => {
+  // The actions use independent connections. This test commits only its own film and mark.
+  const localId = randomUUID();
+  const [{ movieId }] = await db.insert(movies).values({
+    localId, slug: `test-favorite-${localId}`, title: "Favorite Retry", year: 2030, countries: [],
+  }).returning({ movieId: movies.id });
+  const readWanted = async () => (await queryWantedFilms(db)).find((f) => f.film.id === movieId)!;
+  try {
+    await db.insert(marks).values({ movieId, want: true });
+    const { markVersion: firstVersion } = await readWanted();
+    await expect(db.transaction(async (tx) => {
+      expect(await writeFavorite(tx, movieId, true, firstVersion)).toBe(true);
+      throw new Error("save rolled back before commit");
+    })).rejects.toThrow("save rolled back before commit");
+    expect(await readWanted()).toMatchObject({ favorite: false, markVersion: firstVersion });
+
+    const saves = await Promise.allSettled([
+      setFavorite(movieId, true, firstVersion),
+      setFavorite(movieId, true, firstVersion),
+    ]);
+    expect(saves).toEqual(Array(2).fill({ status: "fulfilled", value: { ok: true } }));
+    const starred = await readWanted();
+    expect(starred.favorite).toBe(true);
+    expect(starred.markVersion).not.toBe(firstVersion);
+    // Lose the response and retry the exact request: the row's version stays put.
+    expect(await setFavorite(movieId, true, firstVersion)).toEqual({ ok: true });
+    expect(await readWanted()).toEqual(starred);
+
+    expect(await setFavorite(movieId, false, starred.markVersion)).toEqual({ ok: true });
+    const unstarred = await readWanted();
+    expect(unstarred.favorite).toBe(false);
+    expect(await setFavorite(movieId, true, firstVersion)).toEqual({ ok: false });
+    expect(await readWanted()).toEqual(unstarred);
+
+    const queueAndStar = await Promise.allSettled([setQueued(movieId, true), setFavorite(movieId, true)]);
+    expect(queueAndStar).toEqual(Array(2).fill({ status: "fulfilled", value: { ok: true } }));
+    const queued = await readWanted();
+    expect(queued.favorite).toBe(true);
+    expect(queued.queueRank).toBeGreaterThan(0);
+  } finally {
+    await db.transaction(async (tx) => {
+      await tx.delete(marks).where(eq(marks.movieId, movieId));
+      await tx.delete(movies).where(eq(movies.id, movieId));
+    });
+  }
+}, 60_000);
 
 describe("writeRelease", () => {
   it("sets, changes and clears a film's date and platform, keeping its marks", async () => {

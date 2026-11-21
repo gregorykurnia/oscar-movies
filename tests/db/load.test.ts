@@ -6,7 +6,7 @@
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { asc, count, desc, eq, inArray, sql, TransactionRollbackError } from "drizzle-orm";
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, afterEach, describe, expect, it } from "vitest";
 import type { DataSet } from "../../scripts/lib/data-check";
 import { runLoad, type LoadOptions } from "../../scripts/lib/load";
 import { exportMarksToFile } from "../../scripts/lib/marks";
@@ -331,10 +331,13 @@ describe("the loader", () => {
 
   describe("on a production target", () => {
     const file = ".cache/test-load-marks.json";
+    afterEach(() => rmSync(file, { force: true }));
 
     it("exports the marks before it reads or writes anything", async () => {
       rmSync(file, { force: true });
       await rolledBack(async (tx) => {
+        const [wanted] = await tx.select({ movieId: marks.movieId }).from(marks).where(eq(marks.want, true)).limit(1);
+        await tx.update(marks).set({ favorite: true }).where(eq(marks.movieId, wanted.movieId));
         const events: string[] = [];
         await runLoad(tx, testData(), {
           target: "production",
@@ -351,11 +354,12 @@ describe("the loader", () => {
         expect(events[1]).toMatch(/^Exported \d+ films with marks, notes or local snapshots from test to \.cache\/test-load-marks\.json\.$/);
         expect(events[2]).toMatch(/^Load plan for production: \d+ writes\.$/);
         const exported = marksFileSchema.parse(JSON.parse(readFileSync(file, "utf8")));
-        const marked = (await snapshot(tx)).marks.filter((m) => m.watched || m.want);
+        const marked = (await snapshot(tx)).marks;
         expect(exported).toHaveLength(marked.length);
+        expect(exported.filter((m) => m.favorite === true)).toHaveLength(marked.filter((m) => m.favorite).length);
+        expect(exported.every((m) => typeof m.favorite === "boolean")).toBe(true);
         expect(await ourFilms(tx)).toHaveLength(3);
       });
-      rmSync(file, { force: true });
     });
 
     it("writes nothing when the export fails, or when there is no export", async () => {

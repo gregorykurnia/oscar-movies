@@ -8,7 +8,7 @@ const conclave: Film = { ...ids, id: 2, slug: "conclave", imdbId: "tt2", wikidat
 const noImdb: Film = { ...ids, id: 3, slug: "flow", imdbId: null, wikidataId: "Q3", title: "Flow", year: 2024 };
 const films = [anora, conclave, noImdb];
 
-const EMPTY = { wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null };
+const EMPTY = { wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null, favorite: false };
 /** A row in `marks`; the Watch list fields default to empty. */
 const row = (movieId: number, watched: boolean, want: boolean, extra: Partial<MarkState> = {}): CurrentMark => ({
   movieId,
@@ -163,7 +163,7 @@ describe("planRestore", () => {
   it("keeps release notes the file doesn't mention, and lists them", () => {
     const notes = { releaseOn: "2026-12-12", releaseTentative: true, platform: "Netflix" };
     const plan = planRestore([], films, [row(2, false, false, notes)]);
-    expect(plan.notInFile).toEqual([{ film: conclave, mark: { watched: false, want: false, wantRank: null, queueRank: null, ...notes } }]);
+    expect(plan.notInFile).toEqual([{ film: conclave, mark: { watched: false, want: false, ...EMPTY, ...notes } }]);
   });
 
   it("restores the Watch list fields a newer file carries, nulls included", () => {
@@ -176,8 +176,8 @@ describe("planRestore", () => {
       [row(1, false, true, { wantRank: 1 }), row(2, false, true, { wantRank: 2, releaseOn: "2026-11-01", platform: "MUBI" })],
     );
     expect(plan.writes.map((w) => [w.film.id, w.to])).toEqual([
-      [1, { watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", releaseTentative: false, platform: "Netflix", queueRank: null, updatedAt: undefined }],
-      [2, { watched: false, want: true, wantRank: 1, releaseOn: null, releaseTentative: false, platform: null, queueRank: null, updatedAt: undefined }],
+      [1, { ...EMPTY, watched: false, want: true, wantRank: 2, releaseOn: "2026-12-12", platform: "Netflix", updatedAt: undefined }],
+      [2, { ...EMPTY, watched: false, want: true, wantRank: 1, updatedAt: undefined }],
     ]);
   });
 
@@ -196,8 +196,8 @@ describe("planRestore", () => {
     // Flow: wanted again, unranked (it sorts last), notes kept.
     expect(plan.unchanged).toBe(1);
     expect(plan.writes.map((w) => [w.film.id, w.to])).toEqual([
-      [2, { watched: true, want: false, wantRank: null, queueRank: null, ...notes, updatedAt: undefined }],
-      [3, { watched: false, want: true, wantRank: null, queueRank: null, ...notes, updatedAt: undefined }],
+      [2, { ...EMPTY, watched: true, want: false, ...notes, updatedAt: undefined }],
+      [3, { ...EMPTY, watched: false, want: true, ...notes, updatedAt: undefined }],
     ]);
   });
 });
@@ -237,6 +237,21 @@ describe("tentative restore", () => {
       films, [row(1, false, false, { releaseOn: "2026-12-12", releaseTentative: true })],
     );
     expect(plan.writes[0].to).toMatchObject({ releaseOn, releaseTentative: false });
+  });
+});
+
+describe("favorite restore", () => {
+  it("displays star-only writes and keeps a starred film the file omits", () => {
+    const plan = planRestore(
+      [{ imdb: "tt1", watched: false, want: false, favorite: false }],
+      films,
+      [row(1, false, false, { favorite: true }), row(2, false, false, { favorite: true })],
+    );
+    expect(plan.writes).toHaveLength(1);
+    expect(plan.writes[0].to.favorite).toBe(false);
+    expect(plan.notInFile.map((entry) => entry.film)).toEqual([conclave]);
+    expect(formatPlan(plan, "Dry run")).toContain("Anora (2024, tt1): none, starred → none");
+    expect(formatPlan(plan, "Dry run")).toContain("Conclave (2024, tt2): none, starred");
   });
 });
 

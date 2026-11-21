@@ -7,6 +7,7 @@ import { asc, eq, inArray, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { applyRestore, exportMarks, exportMarksToFile, formatPlan, loadRestorePlan, readMarksFile, serializeMarks } from "../../scripts/lib/marks";
 import { createScriptDb } from "../../src/db";
+import { writeFavorite } from "../../src/data/marks";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema, type MarkEntry } from "../../src/lib/data-files";
 
@@ -85,15 +86,30 @@ describe("app-created film backup", () => {
     });
   });
 
-  it("recreates deleted films and all notes/order/watched state; a second restore writes nothing", async () => {
+  it("refuses a stale restore when a newer star change is the only difference", async () => {
+    await rolledBack(async (tx) => {
+      const [film] = await fixtures(tx);
+      const file = await exportMarks(tx);
+      await writeFavorite(tx, film.id, true);
+      const plan = await loadRestorePlan(tx, file);
+      expect(plan.writes).toHaveLength(1);
+      await writeFavorite(tx, film.id, false);
+      const before = await markRows(tx);
+      await expect(applyRestore(tx, plan)).rejects.toThrow(/Marks changed since the plan was made/);
+      expect(await markRows(tx)).toEqual(before);
+    });
+  });
+
+  it("recreates deleted films and notes, order, watched state and stars; a second restore writes nothing", async () => {
     await rolledBack(async (tx) => {
       const films = await fixtures(tx);
+      await tx.insert(marks).values({ movieId: films[4].id, favorite: true });
       const file = marksFileSchema.parse(JSON.parse(serializeMarks(await exportMarks(tx))));
       const ours = file.filter((m) => m.localId?.startsWith("b6871340-"));
       expect(ours).toHaveLength(5);
       expect(ours.find((m) => m.localId === films[0].localId)?.releaseTentative).toBe(true);
       expect(ours.filter((m) => m.localId !== films[0].localId).every((m) => !("releaseTentative" in m))).toBe(true);
-      expect(ours.find((m) => m.localId === films[4].localId)).toMatchObject({ watched: false, want: false, movie: { slug: films[4].slug } });
+      expect(ours.find((m) => m.localId === films[4].localId)).toMatchObject({ watched: false, want: false, favorite: true, movie: { slug: films[4].slug } });
       expect(ours.find((m) => m.localId === films[2].localId)?.movie).toMatchObject({
         originalTitle: "映画", originalLang: "ja", countries: ["JP"], language: "ja",
         imdb: "tt88000001", wd: "Q88000001", tmdb: 88000001,
@@ -108,7 +124,7 @@ describe("app-created film backup", () => {
       expect(await markRows(tx)).toEqual(beforeMarks);
       expect(await tx.select().from(movies).where(inArray(movies.slug, films.map((f) => f.slug)))).toEqual([]);
 
-      expect(await applyRestore(tx, plan)).toBe(4);
+      expect(await applyRestore(tx, plan)).toBe(5);
       const restored = await tx.select().from(movies).where(inArray(movies.slug, films.map((f) => f.slug)));
       for (const film of films) {
         const recreated = restored.find((f) => f.localId === film.localId)!;
@@ -143,7 +159,7 @@ describe("app-created film backup", () => {
 
   it("recreates a film with no marks or notes without inventing a mark row", async () => {
     await rolledBack(async (tx) => {
-      const entry = { ...absent, want: false, platform: null };
+      const entry = { ...absent, want: false, platform: null, favorite: false };
       const plan = await loadRestorePlan(tx, [entry]);
       expect(plan.creates).toHaveLength(1);
       expect(plan.writes).toEqual([]);

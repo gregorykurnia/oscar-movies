@@ -6,8 +6,8 @@
 // `test-marks-` slugs.
 import { asc, eq, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
-import { applyRestore, exportMarks, formatPlan, loadRestorePlan } from "../../scripts/lib/marks";
-import { writeMark, writeQueued, writeWantAtTop } from "../../src/data/marks";
+import { applyRestore, exportMarks, formatPlan, loadRestorePlan, serializeMarks } from "../../scripts/lib/marks";
+import { writeFavorite, writeMark, writeQueued, writeWantAtTop } from "../../src/data/marks";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 import { marksFileSchema } from "../../src/lib/data-files";
@@ -58,7 +58,7 @@ async function addFilms(tx: Tx) {
       updatedAt: new Date("2026-02-01T10:00:00Z"),
     },
     { movieId: three, watched: true, want: false, platform: "MUBI", updatedAt: new Date("2026-03-01T10:00:00Z") },
-    { movieId: four, watched: false, want: false },
+    { movieId: four, watched: false, want: false, updatedAt: new Date("2026-04-01T10:00:00Z") },
   ]);
   return { one, two, three, four, twoRank };
 }
@@ -70,7 +70,7 @@ describe("marks export and restore", () => {
       const file = await exportMarks(tx);
       expect(marksFileSchema.safeParse(file).success).toBe(true);
       const ours = file.filter((m) => m.title?.startsWith("Marks "));
-      const none = { wantRank: null, releaseOn: null, platform: null };
+      const none = { wantRank: null, releaseOn: null, platform: null, favorite: false };
       expect(ours).toEqual([
         { wd: "Q80000003", title: "Marks Three", year: 2025, watched: true, want: false, ...none, platform: "MUBI", updatedAt: "2026-03-01T10:00:00.000Z" },
         { imdb: "tt80000001", title: "Marks One", year: 2024, watched: true, want: false, ...none, updatedAt: "2026-01-01T10:00:00.000Z" },
@@ -85,8 +85,10 @@ describe("marks export and restore", () => {
           releaseOn: "2026-12-12",
           platform: "Netflix",
           queueRank: null,
+          favorite: false,
           updatedAt: "2026-02-01T10:00:00.000Z",
         },
+        { imdb: "tt80000004", title: "Marks Four", year: 2025, watched: false, want: false, ...none, updatedAt: "2026-04-01T10:00:00.000Z" },
       ]);
     });
   });
@@ -95,11 +97,12 @@ describe("marks export and restore", () => {
     await rolledBack(async (tx) => {
       await addFilms(tx);
       const before = await snapshot(tx);
-      const plan = await loadRestorePlan(tx, await exportMarks(tx));
+      const file = await exportMarks(tx);
+      const plan = await loadRestorePlan(tx, file);
       expect(plan.writes).toEqual([]);
       expect(plan.problems).toEqual([]);
       expect(plan.notInFile).toEqual([]);
-      expect(plan.unchanged).toBe(before.filter((m) => m.watched || m.want).length);
+      expect(plan.unchanged).toBe(file.length);
       expect(await applyRestore(tx, plan)).toBe(0);
       expect(await snapshot(tx)).toEqual(before);
     });
@@ -108,6 +111,7 @@ describe("marks export and restore", () => {
   it("plans every write without writing, then restores the marks exactly", async () => {
     await rolledBack(async (tx) => {
       const { one, two, three, four } = await addFilms(tx);
+      await tx.delete(marks).where(eq(marks.movieId, four));
       const exported = await snapshot(tx);
       const file = await exportMarks(tx);
 
@@ -115,7 +119,7 @@ describe("marks export and restore", () => {
       await tx.update(marks).set({ watched: false, want: true }).where(eq(marks.movieId, one));
       await tx.delete(marks).where(eq(marks.movieId, two));
       await tx.update(marks).set({ watched: false }).where(eq(marks.movieId, three));
-      await tx.update(marks).set({ watched: true }).where(eq(marks.movieId, four));
+      await tx.insert(marks).values({ movieId: four, watched: true });
       const changed = await snapshot(tx);
 
       const plan = await loadRestorePlan(tx, file);
@@ -184,8 +188,10 @@ describe("marks export and restore", () => {
     await rolledBack(async (tx) => {
       const { one, two, three, twoRank } = await addFilms(tx);
       // Two stops being wanted and three is wanted, after the old backup.
+      await writeFavorite(tx, two, true);
       await tx.update(marks).set({ want: false, wantRank: null }).where(eq(marks.movieId, two));
       await tx.update(marks).set({ watched: false, want: true, wantRank: 1 }).where(eq(marks.movieId, three));
+      await writeFavorite(tx, three, true);
       const old = marksFileSchema.parse([
         { imdb: "tt80000001", title: "Marks One", watched: true, want: false },
         { imdb: "tt80000002", title: "Marks Two", watched: false, want: true, updatedAt: "2026-02-01T10:00:00.000Z" },
@@ -200,16 +206,49 @@ describe("marks export and restore", () => {
       const byId = (id: number) => after.find((m) => m.movieId === id);
       expect(byId(one)).toMatchObject({ watched: true, want: false, wantRank: null, releaseOn: null, platform: null });
       // Wanted again, last in the order, its notes kept through the unwanted spell.
-      expect(byId(two)).toMatchObject({ watched: false, want: true, wantRank: twoRank, releaseOn: "2026-12-12", platform: "Netflix" });
+      expect(byId(two)).toMatchObject({ watched: false, want: true, wantRank: twoRank, releaseOn: "2026-12-12", platform: "Netflix", favorite: true });
       // Watched again: no rank, platform kept.
-      expect(byId(three)).toMatchObject({ watched: true, want: false, wantRank: null, platform: "MUBI" });
+      expect(byId(three)).toMatchObject({ watched: true, want: false, wantRank: null, platform: "MUBI", favorite: true });
       expect((await loadRestorePlan(tx, old)).writes).toEqual([]);
+    });
+  });
+
+  it("round-trips a star as the only mark and clears stars made after an explicit false", async () => {
+    await rolledBack(async (tx) => {
+      const { one, two, four } = await addFilms(tx);
+      // One now has an empty mark row. Two is wanted and unstarred. Four is unwanted with only a star.
+      await writeMark(tx, one, { watched: false, want: false });
+      await writeWantAtTop(tx, four);
+      await writeFavorite(tx, four, true);
+      await writeMark(tx, four, { watched: false, want: false });
+      const file = marksFileSchema.parse(JSON.parse(serializeMarks(await exportMarks(tx))));
+      expect(file.find((m) => m.imdb === "tt80000001")).toMatchObject({ watched: false, want: false, favorite: false });
+      expect(file.find((m) => m.imdb === "tt80000002")).toMatchObject({ want: true, favorite: false });
+      expect(file.find((m) => m.imdb === "tt80000004")).toMatchObject({ want: false, favorite: true, releaseOn: null, platform: null });
+
+      await tx.delete(marks).where(eq(marks.movieId, four));
+      await writeWantAtTop(tx, one);
+      await writeFavorite(tx, one, true);
+      await writeFavorite(tx, two, true);
+      const plan = await loadRestorePlan(tx, file);
+      expect(await applyRestore(tx, plan)).toBeGreaterThanOrEqual(3);
+      const restored = await snapshot(tx);
+      expect(restored.find((m) => m.movieId === one)).toMatchObject({ want: false, favorite: false });
+      expect(restored.find((m) => m.movieId === two)).toMatchObject({ want: true, favorite: false });
+      expect(restored.find((m) => m.movieId === four)).toMatchObject({ want: false, favorite: true });
+      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBe(0);
+
+      // Restoring onto a clean database also keeps the explicit false row for the next export.
+      await tx.delete(marks).where(eq(marks.movieId, one));
+      expect(await applyRestore(tx, await loadRestorePlan(tx, file))).toBe(1);
+      expect(await exportMarks(tx)).toEqual(file);
     });
   });
 
   it("numbers the order 1…n again when an older backup's places collide with today's (7.R)", async () => {
     await rolledBack(async (tx) => {
       const { two, four } = await addFilms(tx);
+      await tx.delete(marks).where(eq(marks.movieId, four));
       const file = await exportMarks(tx);
       // After the backup: Four is added at the top (everyone moves down one), then Two's mark is lost.
       await writeWantAtTop(tx, four);

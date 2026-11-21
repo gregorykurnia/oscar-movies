@@ -43,6 +43,7 @@ Nothing to set up: there's no new service, account or secret. Build and test on 
 
 - A new column, `marks.favorite boolean not null default false`. It's tied to no other column, because a star outlives the want mark. It's an additive migration, and old rows read as unstarred.
 - `setFavorite(movieId, favorite)` refuses a film that isn't wanted (including an unknown one) and touches no other column. Every other marks write (watched, want, queue, reorder, release notes) leaves `favorite` alone.
+- The Star button passes the row's `markVersion` as the third argument and reuses it for Try again. A repeat confirms a value that's already saved. A changed row with a different star requires a fresh read before another edit.
 - The marks backup writes `favorite` (`true` or `false`) for every mark row, so a new file can say "unstarred". A missing key means an older file, and restore keeps the film's current star, the same way an older file's missing `queueRank` is kept. Old backup files stay valid.
 
 ## Checks

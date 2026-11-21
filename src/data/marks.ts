@@ -7,8 +7,9 @@
 // to the top and the films above its old place shift down one; a film that stops being wanted
 // loses its rank and its Watch queue place; only `writeRelease` touches the release notes,
 // including tentative status. `writeQueued` moves a wanted film into or out of the Watch queue.
-import { sql } from "drizzle-orm";
-import type { getDb, ScriptDb } from "@/db";
+import { and, eq, sql } from "drizzle-orm";
+import type { FilmTransaction, getDb, ScriptDb } from "@/db";
+import { marks } from "@/db/schema";
 
 type Executor = Pick<ScriptDb, "execute">;
 
@@ -197,6 +198,30 @@ export async function writeQueued(db: WriteDb, movieId: number, queued: boolean)
     );
   }
   return true;
+}
+
+// PostgreSQL's row version lets the Watch list retry a save from the same snapshot.
+export const markVersion = sql<string>`${marks}.xmin::text`;
+
+/** Save only the star on a wanted film. Lock the row until the transaction commits. */
+export async function writeFavorite(
+  tx: FilmTransaction,
+  movieId: number,
+  favorite: boolean,
+  expectedVersion?: string,
+): Promise<boolean> {
+  const [current] = await tx
+    .select({ favorite: marks.favorite, version: markVersion })
+    .from(marks)
+    .where(and(eq(marks.movieId, movieId), eq(marks.want, true)))
+    .for("update");
+  if (!current) return false;
+  // A retry whose save landed can confirm it without writing. An old request whose
+  // desired value differs from the current one needs a fresh read before another edit.
+  if (current.favorite === favorite) return true;
+  if (expectedVersion !== undefined && current.version !== expectedVersion) return false;
+  const saved = await tx.update(marks).set({ favorite }).where(eq(marks.movieId, movieId)).returning({ movieId: marks.movieId });
+  return saved.length === 1;
 }
 
 /**

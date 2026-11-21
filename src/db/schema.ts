@@ -126,6 +126,7 @@ export const movies = pgTable(
 // `queue_rank` (owner, 2026-11-17) puts a wanted film in the Watch queue, the films the owner
 // knows are really out, in their own order (1 = top); null when it isn't queued. A queued film
 // has no place in the Want to watch order (`want_rank` null) until it leaves the queue.
+// `favorite` starts false and stays with the film even when it is watched or unwanted.
 export const marks = pgTable(
   "marks",
   {
@@ -140,6 +141,7 @@ export const marks = pgTable(
     releaseTentative: boolean("release_tentative").notNull().default(false),
     platform: text("platform"),
     queueRank: integer("queue_rank"),
+    favorite: boolean("favorite").notNull().default(false),
   },
   (t) => [
     check("marks_not_watched_and_want", sql`not (${t.watched} and ${t.want})`),

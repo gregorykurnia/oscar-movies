@@ -3,19 +3,20 @@
 // `tests/db/mark-write.test.ts`.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease, fetchScoresForAdd } = vi.hoisted(() => ({
+const { writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeFavorite, writeRelease, fetchScoresForAdd } = vi.hoisted(() => ({
   fetchScoresForAdd: vi.fn(),
   writeWantAtTop: vi.fn(),
   writeWantOrder: vi.fn(),
   writeQueueOrder: vi.fn(),
   writeQueued: vi.fn(),
+  writeFavorite: vi.fn(),
   writeRelease: vi.fn(),
 }));
 vi.mock("@/db", () => ({ getDb: () => ({}), withFilmTransaction: (write: (tx: object) => unknown) => write({}) }));
-vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeRelease }));
+vi.mock("@/data/marks", () => ({ writeWantAtTop, writeWantOrder, writeQueueOrder, writeQueued, writeFavorite, writeRelease }));
 vi.mock("@/lib/scores/after-add", () => ({ fetchScoresForAdd }));
 
-import { addToWatchList, reorderWatchList, setQueued, setRelease } from "./watch-list";
+import { addToWatchList, reorderWatchList, setFavorite, setQueued, setRelease } from "./watch-list";
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -132,5 +133,31 @@ describe("the Watch queue", () => {
     writeQueued.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error("down"));
     expect(await setQueued(12, true)).toEqual({ ok: false });
     expect(await setQueued(12, true)).toEqual({ ok: false });
+  });
+});
+
+describe("setFavorite", () => {
+  it("sets each boolean and forwards the version a caller provides", async () => {
+    writeFavorite.mockResolvedValue(true);
+    expect(await setFavorite(12, true)).toEqual({ ok: true });
+    expect(await setFavorite(12, false, "423")).toEqual({ ok: true });
+    expect(writeFavorite.mock.calls).toEqual([[{}, 12, true, undefined], [{}, 12, false, "423"]]);
+  });
+
+  it.each([
+    [0, true, undefined], [2_147_483_648, true, undefined], ["12", true, undefined],
+    [12, undefined, undefined], [12, "TRUE", undefined], [12, "", undefined], [12, null, undefined],
+    [12, true, ""], [12, true, "x".repeat(80)],
+  ])("refuses %j, %j, %j before writing", async (id, favorite, version) => {
+    expect(await setFavorite(id as number, favorite as boolean, version)).toEqual({ ok: false });
+    expect(writeFavorite).not.toHaveBeenCalled();
+  });
+
+  it("reports a refusal or connection failure and lets the same request retry", async () => {
+    writeFavorite.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error("down")).mockResolvedValueOnce(true);
+    expect(await setFavorite(12, true, "423")).toEqual({ ok: false });
+    expect(await setFavorite(12, true, "423")).toEqual({ ok: false });
+    expect(await setFavorite(12, true, "423")).toEqual({ ok: true });
+    expect(writeFavorite.mock.calls).toEqual(Array(3).fill([{}, 12, true, "423"]));
   });
 });

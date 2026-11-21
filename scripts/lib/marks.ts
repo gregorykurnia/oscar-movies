@@ -20,6 +20,7 @@ export type MarkState = {
   releaseTentative: boolean;
   platform: string | null;
   queueRank: number | null;
+  favorite: boolean;
 };
 export type Film = {
   id: number;
@@ -52,7 +53,7 @@ export type RestorePlan = {
   notInFile: Array<{ film: Film; mark: MarkState }>;
 };
 
-const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null };
+const NONE: MarkState = { watched: false, want: false, wantRank: null, releaseOn: null, releaseTentative: false, platform: null, queueRank: null, favorite: false };
 const sameMark = (a: MarkState, b: MarkState) =>
   a.watched === b.watched &&
   a.want === b.want &&
@@ -60,9 +61,12 @@ const sameMark = (a: MarkState, b: MarkState) =>
   a.releaseOn === b.releaseOn &&
   a.releaseTentative === b.releaseTentative &&
   a.platform === b.platform &&
-  a.queueRank === b.queueRank;
-/** A row worth keeping in the backup: a mark, or release notes (kept when a film is unwanted). */
-const isKept = (m: MarkState) => m.watched || m.want || m.releaseOn !== null || m.platform !== null;
+  a.queueRank === b.queueRank &&
+  a.favorite === b.favorite;
+/** Owner data can live on an unwanted film as a star or release notes. */
+const isKept = (m: MarkState) => m.watched || m.want || m.favorite || m.releaseOn !== null || m.platform !== null;
+/** The timestamp distinguishes an empty mark row from a film exported without one. */
+const hasMarkRow = (m: PlannedWrite["to"]) => isKept(m) || m.updatedAt !== undefined;
 const entryId = (m: Pick<MarkEntry, "imdb" | "wd" | "tmdb" | "localId">) =>
   m.imdb ?? m.wd ?? (m.tmdb === undefined ? `local:${m.localId}` : `tmdb:${m.tmdb}`);
 const identityOf = (f: Pick<Film, "imdbId" | "wikidataId" | "tmdbId" | "localId">) => ({
@@ -72,7 +76,7 @@ const identityOf = (f: Pick<Film, "imdbId" | "wikidataId" | "tmdbId" | "localId"
   ...(f.localId ? { localId: f.localId } : {}),
 });
 const identityColumns = { imdb: "imdbId", wd: "wikidataId", tmdb: "tmdbId", localId: "localId" } as const;
-const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platform, queueRank }: MarkState): MarkState => ({
+const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platform, queueRank, favorite }: MarkState): MarkState => ({
   watched,
   want,
   wantRank,
@@ -80,6 +84,7 @@ const stateOf = ({ watched, want, wantRank, releaseOn, releaseTentative, platfor
   releaseTentative,
   platform,
   queueRank,
+  favorite,
 });
 
 /**
@@ -98,11 +103,13 @@ export function targetState(entry: MarkEntry, now: MarkState): MarkState {
     platform: entry.platform === undefined ? now.platform : entry.platform,
     // Exports write `queueRank` (null included) for every wanted film, so a missing one is an older file: kept.
     queueRank: entry.want ? (entry.queueRank === undefined ? (now.want ? now.queueRank : null) : entry.queueRank) : null,
+    favorite: entry.favorite ?? now.favorite,
   };
 }
 
 export function markLabel(m: MarkState): string {
   const parts = [m.watched ? "watched" : m.want ? `want${m.wantRank === null ? "" : ` #${m.wantRank}`}${m.queueRank === null ? "" : `, queue #${m.queueRank}`}` : "none"];
+  if (m.favorite) parts.push("starred");
   if (m.releaseOn !== null || m.platform !== null) parts.push(`${m.releaseOn ?? "TBD"}${m.releaseTentative ? " (tentative)" : ""} · ${m.platform ?? "no platform"}`);
   return parts.join(", ");
 }
@@ -177,7 +184,7 @@ export function planRestore(entries: MarksFile, films: Film[], current: CurrentM
 
     const now = markOf.get(film.id);
     const to = { ...targetState(entry, now ?? NONE), updatedAt: entry.updatedAt };
-    if (sameMark(now ?? NONE, to)) {
+    if (sameMark(now ?? NONE, to) && (now !== undefined || !hasMarkRow(to))) {
       plan.unchanged += 1;
     } else if (now) {
       plan.writes.push({ kind: "update", film, from: stateOf(now), to });
@@ -197,7 +204,7 @@ export function planRestore(entries: MarksFile, films: Film[], current: CurrentM
 }
 
 export function formatPlan(plan: RestorePlan, heading: string): string {
-  const markCount = plan.writes.length + plan.creates.filter((c) => isKept(c.to)).length;
+  const markCount = plan.writes.length + plan.creates.filter((c) => hasMarkRow(c.to)).length;
   const lines = [`${heading}: ${markCount} marks to write, ${plan.creates.length} films to recreate, ${plan.unchanged} unchanged.`];
   for (const c of plan.creates) {
     lines.push(`  create  ${c.movie.title} (${c.movie.year}, ${c.movie.localId}), /movies/${c.movie.slug}: ${markLabel(c.to)}`);
@@ -236,11 +243,12 @@ const markColumns = {
   releaseTentative: marks.releaseTentative,
   platform: marks.platform,
   queueRank: marks.queueRank,
+  favorite: marks.favorite,
 };
 
 /**
- * Every app-created film, plus ordinary films with marks or notes. A left join includes
- * local films that have never had a mark row. Stable identities keep diffs small.
+ * Every mark row (including explicit unstars), plus every app-created film. A left join
+ * includes local films without a mark row. Stable identities keep diffs small.
  */
 export async function exportMarks(db: Db): Promise<MarksFile> {
   const rows = await db
@@ -251,7 +259,7 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
     })
     .from(movies)
     .leftJoin(marks, eq(movies.id, marks.movieId))
-    .where(or(isNotNull(movies.localId), eq(marks.watched, true), eq(marks.want, true), isNotNull(marks.releaseOn), isNotNull(marks.platform)));
+    .where(or(isNotNull(movies.localId), isNotNull(marks.movieId)));
   return marksFileSchema.parse(rows
     .map((r) => ({
       ...identityOf(r),
@@ -270,6 +278,7 @@ export async function exportMarks(db: Db): Promise<MarksFile> {
       ...(r.releaseTentative ? { releaseTentative: true } : {}),
       platform: r.platform,
       ...(r.want ? { queueRank: r.queueRank } : {}),
+      favorite: r.favorite ?? false,
       ...(r.updatedAt ? { updatedAt: r.updatedAt.toISOString() } : {}),
     }))
     .sort((a, b) => entryId(a).localeCompare(entryId(b))));
@@ -327,7 +336,7 @@ export function readMarksFile(path: string): MarksFile {
 }
 
 /**
- * Exports marks, notes and app-created films to `file` (also used before a production
+ * Exports mark rows and app-created films to `file` (also used before a production
  * load). Stops, keeping the file, when `exportProblem` finds one. Writes a temporary file and
  * renames it, so a crash never leaves the backup half-written. Returns the line to print.
  */
@@ -382,7 +391,7 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
     throw new Error("The plan has entries that can't be restored. Fix the file first; nothing was written.");
   }
   if (plan.writes.length === 0 && plan.creates.length === 0) return 0;
-  const createdMarks = plan.creates.filter((c) => isKept(c.to)).length;
+  const createdMarks = plan.creates.filter((c) => hasMarkRow(c.to)).length;
   await db.transaction(async (tx) => {
     await lockFilmWrites(tx);
     // A film may have appeared since dry run. Recheck before writing; uniqueness constraints
@@ -424,7 +433,7 @@ export async function applyRestore(db: Db, plan: RestorePlan): Promise<number> {
         originalTitle: movie.originalTitle ?? null, originalLang: movie.originalLang ?? null, language: movie.language ?? null,
         imdbId: movie.imdb ?? null, wikidataId: movie.wd ?? null, tmdbId: movie.tmdb ?? null, localId: movie.localId,
       }).returning({ id: movies.id });
-      if (isKept(to)) await tx.insert(marks).values({ movieId: film.id, ...valuesOf(to) });
+      if (hasMarkRow(to)) await tx.insert(marks).values({ movieId: film.id, ...valuesOf(to) });
     }
     for (const w of plan.writes) {
       const values = valuesOf(w.to);
