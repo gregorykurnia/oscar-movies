@@ -185,6 +185,17 @@ Phase 9: done, see [completed tasks](IMPLEMENTATION_PLAN-done.md).
 
 Phase 10: done, see [completed tasks](IMPLEMENTATION_PLAN-done.md).
 
+### Phase 10b: IDA 2026 nominations
+
+Owner request (2026-11-21): get the 42nd IDA Documentary Awards nominees (announced 17 Nov 2026) into the app. Data only: fill `data/editions/ida/2026.json` (Best Feature and Best Director) by the **Update the race** routine and load `test`. Before each task, read [the brief](docs/ida-2026-nominations.md), **Request and smallest design** and the matching **Task briefs** entry. Winners (4 Dec) go in through **Update the race** later.
+
+| ID | Task | Pick | Done |
+|---|---|---|---|
+| 10b.1 | [no look] Fill the IDA 2026 nominations from the scripts or IDA's own announcement, matched by ID, loaded to `test`; brief 10b.1 (facts checked against a source) | Sol Max | |
+| 10b.R | [no look] Phase 10b check: every nominee against IDA's page, rerun gives no diff, full e2e once; brief 10b.R (other family from the builder) | Opus 5.5 High | |
+
+*Owner, after 10b.R:* read the **Report** in the brief and say go; then a session runs `docs/update-the-race.md` step 5 (production load; no release needed).
+
 ### Phase 11: Star favorites on the Watch list
 
 Owner request (2026-11-20): star favorites on the Watch list and filter by them. Drag already works under My order, and the owner keeps using that. Smallest design: one stored star per film, a Star button on Watch queue and Want to watch rows, and a Starred chip filter (`?starred=1`) next to Platform and Release. Before each task, read [the feature brief](docs/watch-list-favorites.md), **Request and smallest design** and the matching **Task briefs** entry. Defaults and left-out extras are settled there.
