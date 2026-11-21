@@ -29,6 +29,9 @@ A research match reuses an app-added film's database row, keeping its local UUID
    | DOC NYC (Short List: Features in October or November, Winner's Circle) | `npx tsx scripts/research/docnyc.ts --years <season> --refresh` |
 
    Small critics groups have no Wikipedia page, so `imdb.ts` is their only source, and IMDb can lag an announcement by weeks: each update reruns it for every season edition still `no_data` or `partial`. A nominations date the script can't read off the page is typed into `scripts/research/sources/majors.json` (or `oscars.json`) from the award's own announcement; the scripts' headers say which. If Wikipedia doesn't have the results yet, wait for the next update: don't type them from news reports unless the owner asks, and then put the source URL in `sourceUrls`.
+
+   The IDA 2026 nominations were entered by hand from [IDA's 17 November announcement](https://www.documentary.org/news-blog/nominees-announced-42nd-annual-ida-documentary-awards). Skip both the critics and IMDb importers for IDA 2026 until IMDb lists these nominations.
+
 3. Settle what the script printed: an unresolved film is found by a Wikidata search (title, year, director) or left out and named in the commit; a half-announced edition (nominees in, winners not) stays `partial` with a `note`.
 4. `npm run data:check` must pass. For majors and festivals, the second-source checks (`npx tsx scripts/research/majors-check.ts`, `festivals-check.ts`) should agree too, once Wikipedia's category articles have caught up; a lag there is a note, not a blocker.
 

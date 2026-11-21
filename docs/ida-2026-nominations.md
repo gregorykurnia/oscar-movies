@@ -51,4 +51,28 @@ Done when:
 
 ## Report
 
-(10b.1 and 10b.R write here.)
+### 10b.1 Import
+
+The critics and IMDb refreshes found zero nominees, so the edition uses IDA's 17 November announcement. TMDB confirmed the 2026 release year, IMDb ID and directing credits for all seven films. All ten nominations were included. [IDA announcement](https://www.documentary.org/news-blog/nominees-announced-42nd-annual-ida-documentary-awards)
+
+The read-only `npm run race:check -- --target production` found 12 pending writes, comprising one edition update, one new film and the ten nominations below. The new film is *Concrete Land* (TMDB 1628899), an Arabic-language documentary from Jordan and Palestine. [IDFA film listing](https://festival.idfa.nl/en/film/100791f5-898a-4a61-bfaf-df10516a4266/concrete-land/)
+
+| Category | Film | Director credits verified | IMDb ID |
+|---|---|---|---|
+| Best Feature Documentary | Concrete Land | Asmahan Bkerat | [tt14829578](https://www.imdb.com/title/tt14829578/) |
+| Best Feature Documentary | A Fox Under a Pink Moon | Mehrdad Oskouei, Soraya Akhlaghi | [tt18163224](https://www.imdb.com/title/tt18163224/) |
+| Best Feature Documentary | Rehearsals for a Revolution | Pegah Ahangarani | [tt41593500](https://www.imdb.com/title/tt41593500/) |
+| Best Feature Documentary | To Hold A Mountain | Biljana Tutorov, Petar Glomazić | [tt39150043](https://www.imdb.com/title/tt39150043/) |
+| Best Feature Documentary | You Can See Everything | Nathan Fielder, Lance Oppenheim | [tt45368240](https://www.imdb.com/title/tt45368240/) |
+| Best Director | A Fox Under a Pink Moon | Mehrdad Oskouei, Soraya Akhlaghi | [tt18163224](https://www.imdb.com/title/tt18163224/) |
+| Best Director | My Undesirable Friends: Part II – Exile | Julia Loktev | [tt39317981](https://www.imdb.com/title/tt39317981/) |
+| Best Director | One in a Million | Itab Azzam, Jack MacInnes | [tt38983842](https://www.imdb.com/title/tt38983842/) |
+| Best Director | To Hold A Mountain | Biljana Tutorov, Petar Glomazić | [tt39150043](https://www.imdb.com/title/tt39150043/) |
+| Best Director | You Can See Everything | Nathan Fielder, Lance Oppenheim | [tt45368240](https://www.imdb.com/title/tt45368240/) |
+
+Both changes in the production comparison are in the 2026 Documentary Feature race.
+
+- *Concrete Land* enters the race with a 1% chance to win and a 3% chance to be nominated.
+- *American Doctor* moves from 53% to 52% to be nominated.
+
+The dry run and load agreed on 12 writes. The follow-up `race:check -- --target test` was clean. The loader reported `ECONNREFUSED 127.0.0.1:3100` for cache revalidation with the test app offline, after the transaction committed.

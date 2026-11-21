@@ -1,9 +1,22 @@
 {
   "award": "ida",
   "year": 2026,
-  "status": "no_data",
-  "sourceUrls": [],
-  "note": "The IDA awards for 2026 films have not been announced yet (due late 2026 or early 2027).",
-  "results": [],
+  "status": "partial",
+  "nominationsOn": "2026-11-17",
+  "winnersOn": "2026-12-04",
+  "sourceUrls": ["https://www.documentary.org/news-blog/nominees-announced-42nd-annual-ida-documentary-awards"],
+  "note": "Nominees are in. Winners are due 4 Dec 2026.",
+  "results": [
+    { "category": "feature", "imdb": "tt14829578", "title": "Concrete Land", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt18163224", "title": "A Fox Under a Pink Moon", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt41593500", "title": "Rehearsals for a Revolution", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt39150043", "title": "To Hold A Mountain", "outcome": "nominated" },
+    { "category": "feature", "imdb": "tt45368240", "title": "You Can See Everything", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt18163224", "title": "A Fox Under a Pink Moon", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt39317981", "title": "My Undesirable Friends: Part II – Exile", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt38983842", "title": "One in a Million", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt39150043", "title": "To Hold A Mountain", "outcome": "nominated" },
+    { "category": "director", "imdb": "tt45368240", "title": "You Can See Everything", "outcome": "nominated" }
+  ],
   "screenings": []
 }
