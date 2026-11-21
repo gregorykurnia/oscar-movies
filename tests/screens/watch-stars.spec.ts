@@ -72,7 +72,10 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
       await page.screenshot({ path: `${OUT}/${name}.png`, animations: "disabled" });
     };
-    const crop = (element: Locator, name: string) => element.screenshot({ path: `${OUT}/${name}.png`, animations: "disabled" });
+    const crop = async (element: Locator, name: string) => {
+      await page.mouse.move(0, 0);
+      return element.screenshot({ path: `${OUT}/${name}.png`, animations: "disabled" });
+    };
 
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto("/watch-list?sort=mine");
@@ -117,6 +120,7 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
     await center(tight);
     await page.evaluate(() => window.scrollBy(0, 100));
     await shot("failure-360");
+    await crop(toast.locator("xpath=ancestor::*[@data-tone='error'][1]"), "failure-base-360");
     await page.unroute(address);
     await page.getByRole("button", { name: "Try again" }).click();
     await expect(tightStar).toHaveAttribute("aria-pressed", "true");
@@ -157,6 +161,10 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
           window.scrollTo(0, toolbar.parentElement!.getBoundingClientRect().top + window.scrollY - 12);
         });
       } else if (viewport.width === 844) {
+        await page.getByRole("group", { name: "Filter", exact: true }).evaluate((toolbar) => {
+          window.scrollTo(0, toolbar.getBoundingClientRect().top + window.scrollY - 10);
+        });
+        await shot("filtered-toolbar-844");
         await page.locator("#queue-h").evaluate((heading) => {
           window.scrollTo(0, heading.getBoundingClientRect().top + window.scrollY - 16);
         });
@@ -177,6 +185,19 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
     await expect(empty).toBeVisible();
     await center(empty.locator(".."));
     await shot("empty-390");
+
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto("/watch-list?sort=mine");
+    await expect(star(winner.title)).toHaveAttribute("aria-pressed", "false");
+    await crop(row(winner.title), "winner-unstarred-360");
+    for (const [film, name] of [[otherQueue, "last-queue-starred-360"], [otherWant, "last-want-starred-360"]] as const) {
+      const button = star(film.title);
+      await expect(button).toHaveAttribute("aria-pressed", "false");
+      await button.click();
+      await expect(button).toHaveAttribute("aria-pressed", "true");
+      await expect(button).toBeEnabled();
+      await crop(row(film.title), name);
+    }
   } finally {
     try {
       await db.transaction(async (tx) => {
