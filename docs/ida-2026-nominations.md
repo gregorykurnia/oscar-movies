@@ -76,3 +76,16 @@ Both changes in the production comparison are in the 2026 Documentary Feature ra
 - *American Doctor* moves from 53% to 52% to be nominated.
 
 The dry run and load agreed on 12 writes. The follow-up `race:check -- --target test` was clean. The loader reported `ECONNREFUSED 127.0.0.1:3100` for cache revalidation with the test app offline, after the transaction committed.
+
+### 10b.R Check
+
+Checked 2026-11-21 against [IDA's announcement](https://www.documentary.org/news-blog/nominees-announced-42nd-annual-ida-documentary-awards) (dated 17 Nov 2026, ceremony 4 Dec 2026), not against the import's own table.
+
+- **Nominees:** all ten match IDA's page in film, directors and category (five Best Feature Documentary, five Best Director). Nothing missing, nothing extra.
+- **IDs:** each IMDb ID resolves on TMDB to the right film, a 2026 release and IDA's named directors. Each TMDB ID matches the catalog. Each Best Director row is that director's film.
+- **Rerun:** the rows were hand-typed, and the `docs/update-the-race.md` section 2 line telling the next run to skip both IDA importers for 2026 is there. `race:check -- --target test` is clean.
+- **Report moves:** *Concrete Land* moves up and is an IDA nominee. *American Doctor* moves down, losing ground to it; it's a Documentary contender (DOC NYC, Cinema Eye, Critics Choice Documentary).
+- **Left as is:** the catalog spells the film "To Hold A Mountain"; IDA and TMDB write "To Hold a Mountain". That title comes from the International Feature import (commit `a437da3`) and four other editions use it, so it's a catalog wording point, not an import error.
+- **e2e:** `npm run test:e2e` gave 149 passed and 1 failed. The failure was `phase-5.spec.ts:118` (Cannes 2025 sort link, URL not updated after the click), which has nothing to do with IDA data. It passed on a `--last-failed` rerun, so it was a timing flake. No spec counts changed and no `10b.F` rows were needed.
+
+Production is ready for the owner's go (the *Owner, after 10b.R* line in `IMPLEMENTATION_PLAN.md`).

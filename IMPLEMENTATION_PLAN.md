@@ -192,7 +192,7 @@ Owner request (2026-11-21): get the 42nd IDA Documentary Awards nominees (announ
 | ID | Task | Pick | Done |
 |---|---|---|---|
 | 10b.1 | [no look] Fill the IDA 2026 nominations from the scripts or IDA's own announcement, matched by ID, loaded to `test`; brief 10b.1 (facts checked against a source) | Sol Max | 2026-11-21 · 10 nominations loaded to test |
-| 10b.R | [no look] Phase 10b check: every nominee against IDA's page, rerun gives no diff, full e2e once; brief 10b.R (other family from the builder) | Opus 5.5 High | |
+| 10b.R | [no look] Phase 10b check: every nominee against IDA's page, rerun gives no diff, full e2e once; brief 10b.R (other family from the builder) | Opus 5.5 High | 2026-11-21 · 10 of 10 match IDA; e2e 149 + 1 flake passed on rerun |
 
 *Owner, after 10b.R:* read the **Report** in the brief and say go; then a session runs `docs/update-the-race.md` step 5 (production load; no release needed).
 
