@@ -204,7 +204,7 @@ Owner request (2026-11-20): star favorites on the Watch list and filter by them.
 |---|---|---|---|
 | 11.1 | [no look] Store the star: schema, test migration, save action, data read, backup and restore; brief 11.1 (owner data must round-trip) | Sol Max | 2026-11-21 · migration 0009 on test, stars round-trip |
 | 11.2 | [look] Star button on queue and Want to watch rows, Starred filter, guide and product plan lines; brief 11.2 (built from the brief's spec, existing pieces only) | Sol xHigh | 2026-11-21 · stars and filters checked at 360, 390, 844 and 1280px |
-| 11.3 | [look] End-to-end phase checks and screenshots, failure report; brief 11.3 (one full run, fixes in the next row) | Sol High | |
+| 11.3 | [look] End-to-end phase checks and screenshots, failure report; brief 11.3 (one full run, fixes in the next row) | Sol High | 2026-11-21 · 150 e2e passes, 1 test failure and visual findings in [report](docs/phase-checks/watch-list-favorites.md) |
 | 11.R | [look] Phase 11 review and targeted fixes; brief 11.R (other family from the builders, data and UX checks) | Opus 5.5 High | |
 
 *Owner, after build:* approve the production migration (`npm run db:migrate`, one additive column), check the Watch list on a real phone, then ask for a normal release.
