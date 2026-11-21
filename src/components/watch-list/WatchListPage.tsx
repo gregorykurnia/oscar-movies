@@ -159,7 +159,7 @@ async function Lists({ query }: { query: Promise<Query> }) {
         </Section>
       ) : null}
 
-      <Section id="want" title="Want to watch" count={wantedCount(want.length, list.want.length, filtered)} hint={state.sort === "release" ? "by release date" : mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
+      <Section id="want" title="Want to watch" count={wantedCount(want.length, list.want.length, filtered && list.want.length > 0)} hint={state.sort === "release" ? "by release date" : mine && want.length > 1 ? "drag the handle to reorder" : undefined}>
         {want.length > 0 && mine ? (
           // Keyed by the films, so a list read again (a film added) starts from the stored order.
           <SortableWantList

@@ -1,11 +1,12 @@
 // Task 11.2's Watch list gallery. Global setup checks both Neon connections are on test.
 import { expect, test, type Locator } from "@playwright/test";
 import { mkdirSync } from "node:fs";
-import { desc, inArray, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import { createScriptDb } from "../../src/db";
 import { marks, movies } from "../../src/db/schema";
 
-const OUT = "screenshots/phase-11/11.2";
+// GALLERY_OUT sends a later run (11.R) to its own folder and keeps the earlier shots.
+const OUT = process.env.GALLERY_OUT ?? "screenshots/phase-11/11.2";
 const SHAPES = [{ width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }];
 
 async function rowGeometry(row: Locator) {
@@ -217,6 +218,17 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
     ]);
     expect(releaseAction).not.toBeNull();
     expect(queueAction?.y).toBe(releaseAction?.y);
+
+    // 11.R: Starred opened by a direct link while every wanted film is queued. The count reads "0 films".
+    await db.update(marks).set({ want: false, wantRank: null }).where(and(eq(marks.want, true), isNull(marks.queueRank)));
+    await db.update(marks).set({ favorite: true }).where(isNotNull(marks.queueRank));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/watch-list?starred=1");
+    const allQueued = page.getByRole("heading", { name: "Everything is in your queue" });
+    await expect(allQueued).toBeVisible();
+    await expect(page.getByText("0 films", { exact: true })).toBeVisible();
+    await center(allQueued.locator(".."));
+    await shot("queue-only-390");
   } finally {
     try {
       await db.transaction(async (tx) => {

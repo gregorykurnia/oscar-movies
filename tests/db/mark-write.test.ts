@@ -461,6 +461,12 @@ it("keeps confirmed stars across reloads and refuses a replay after a newer edit
     const queued = await readWanted();
     expect(queued.favorite).toBe(true);
     expect(queued.queueRank).toBeGreaterThan(0);
+
+    // The Queue save changed the version, not the star (11.R): a Try again from before it needs a
+    // fresh read, while a tap (no version) saves and keeps the queue place.
+    expect(await setFavorite(movieId, false, unstarred.markVersion)).toEqual({ ok: false });
+    expect(await setFavorite(movieId, false)).toEqual({ ok: true });
+    expect(await readWanted()).toMatchObject({ favorite: false, queueRank: queued.queueRank });
   } finally {
     await db.transaction(async (tx) => {
       await tx.delete(marks).where(eq(marks.movieId, movieId));

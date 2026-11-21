@@ -59,3 +59,23 @@ Direct-link evidence is in the `filtered-*` captures. Unscaled edge and overlap 
 - **Filtered header copy describes a different view.** The direct link selects My order and hides the season, while the subtitle still says the films are sorted by release date and followed by season contenders. The mismatch is visible at 390px and 1280px.
 
 Guide §15 sign-off and all fixes remain with 11.R.
+
+## 11.R review (2026-11-21)
+
+Read the brief, the Phase 11 diff (`8420a80~1..eb92e4c`), this report and guide §15. No star or other mark is lost or shown on the wrong film.
+
+**Checked, no finding:** migration `0009` is one additive `boolean not null default false`. `writeFavorite` locks the wanted row and sets only `favorite`; every other marks write leaves it alone (DB tests in `tests/db/mark-write.test.ts`). Backups write `favorite` for every mark row, an older file keeps the current star, and a `false` unstars (`scripts/lib/marks.test.ts`, `tests/db/marks-backup.test.ts`). Star and Queue saves on one row write different columns under the same row lock, and the test runs both at once. The filter: only `starred=1` counts, Clear filters drops it, Platform or Release hides the queue, and both empty states read right.
+
+**Fixed:**
+- *Star tap refused after another save on the row.* Every tap sent the row's version (`xmin`), which a Queue, drag or bookmark save on the same row changes. So a Star tap before the page re-read failed with "Check the connection". A tap now saves what the row shows with no version; only Try again carries the first read's version, so it still can't undo a star changed elsewhere. Tests: `StarButton.test.tsx`, `tests/db/mark-write.test.ts` (a Queue save, then a tap and a stale Try again).
+- *"0 of 0 films".* With every wanted film queued and Starred on, Want to watch read "0 of 0 films"; it now reads "0 films" (the 10.3 kind). e2e in `watch-list.spec.ts`, frame `queue-only-390.png`.
+- *phase-1 e2e failure.* `rowIn` now skips the Star when finding the row; `phase-1.spec.ts:71` passes.
+
+**Dropped, with reason:**
+- *Star enabled offline.* The Queue pill and release editor beside it stay enabled offline too, and all three fail with a toast and Try again. Disabling only the Star would split one pill line.
+- *Long-title toast at 360px.* It's the shared toast used by Queue and release saves since Phase 7. It can be closed and Try again stays reachable.
+- *Subtitle says "by release date" under other sorts.* The subtitle has been the same under every sort and filter since Phase 10. It describes the page's default.
+
+**Run:** `npx playwright test tests/e2e/phase-1.spec.ts:71 tests/e2e/watch-list.spec.ts` (23 passed); `GALLERY_OUT=screenshots/phase-11/11.R npx playwright test tests/screens/watch-stars.spec.ts --project screens` (1 passed, 21 PNGs in `screenshots/phase-11/11.R/`); `npm test`, `npm run build`, typecheck and lint.
+
+**Guide §15 (Watch list):** AppShell and PageHeader ✓. Matches §8.3 and its Star line ✓. No hex in the diff ✓. Gold only for an active mark (Starred, the active chip) ✓. Wording per §11 ✓. 390 and 1280 with no sideways scroll, 360 and 320 too ✓. Light only ✓. Keyboard: Tab reaches Star with a visible ring (11.3 `focus-row-390.png`) ✓. Empty, saving and failure states designed ✓; offline as above. Stress: the longest title and missing scores ✓. Shots at 390 and 1280 checked ✓.

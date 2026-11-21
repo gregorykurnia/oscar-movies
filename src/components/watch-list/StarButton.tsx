@@ -20,15 +20,17 @@ export function StarButton({ movieId, title, favorite, markVersion }: {
   const saving = pendingStar !== null || refreshing;
   const starred = pendingStar ?? favorite;
 
-  const save = async () => {
+  // A tap saves what the row shows, so it needs no version: a Queue, drag or bookmark save on the
+  // same row changes the version without touching the star. Try again repeats the same intent with
+  // the version read before the first try, so it can't undo a star changed elsewhere since (11.R).
+  const save = async (retry = false) => {
     if (inFlight.current) return;
     inFlight.current = true;
-    // Try again repeats the same intent and version, even if the page has since read newer marks.
     const next = !favorite;
     setPendingStar(next);
     let saved = false;
     try {
-      saved = (await setFavorite(movieId, next, markVersion)).ok;
+      saved = (await setFavorite(movieId, next, retry ? markVersion : undefined)).ok;
     } catch {
       // A lost response may still have saved. Read the lists again below.
     } finally {
@@ -45,7 +47,7 @@ export function StarButton({ movieId, title, favorite, markVersion }: {
       showToast({
         title: next ? `Couldn't star ${title}` : `Couldn't unstar ${title}`,
         description: "Check the connection and try again.",
-        onRetry: save,
+        onRetry: () => save(true),
       });
     }
   };
@@ -53,7 +55,7 @@ export function StarButton({ movieId, title, favorite, markVersion }: {
   return (
     <button
       type="button"
-      onClick={save}
+      onClick={() => save()}
       disabled={saving}
       aria-busy={saving || undefined}
       aria-label={`Star ${title}`}

@@ -500,6 +500,8 @@ test.describe("Watch list stars", () => {
     await expect(chip).toHaveAttribute("aria-pressed", "true");
     await expect.poll(() => titlesIn(queue)).toEqual([queued.title]);
     await expect(want.getByText("Everything is in your queue")).toBeVisible();
+    // Nothing is left to narrow in Want to watch, so its count isn't "0 of 0" (11.R).
+    await expect(want.getByText("0 films", { exact: true })).toBeVisible();
   });
 });
 

@@ -39,8 +39,11 @@ async function restore(id: number, saved: Awaited<ReturnType<typeof readMark>>) 
 
 /** The row a title heading sits in. */
 const rowIn = (scope: ReturnType<Page["locator"]>, title: string) =>
-  // The row is the nearest block holding the marks (pressed buttons): a Watch list row's release line is a button too (7.R).
-  scope.getByRole("heading", { level: 3, name: title }).locator("xpath=ancestor::div[.//button[@aria-pressed]][1]");
+  // The row is the nearest block holding the marks (pressed buttons): a Watch list row's release line is a button
+  // too (7.R), and its Star is a pressed button that sits in the title's own block (11.R), so it doesn't count.
+  scope
+    .getByRole("heading", { level: 3, name: title })
+    .locator("xpath=ancestor::div[.//button[@aria-pressed and not(starts-with(@aria-label, 'Star '))]][1]");
 
 test("the 2025 Oscars page shows all four categories with flags, scores and the average", async ({ page }) => {
   await page.goto("/awards/oscars/2025");

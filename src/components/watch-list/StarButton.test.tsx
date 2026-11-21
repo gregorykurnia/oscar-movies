@@ -13,7 +13,7 @@ const star = () => screen.getByRole("button", { name: "Star Hamnet" });
 
 beforeEach(() => { vi.resetAllMocks(); });
 
-it.each(["refused", "lost response"] as const)("reverts a %s and retries the same value and version after a refresh", async (failure) => {
+it.each(["refused", "lost response"] as const)("reverts a %s and retries the same value with the first read's version after a refresh", async (failure) => {
   if (failure === "refused") mocks.save.mockResolvedValueOnce({ ok: false });
   else mocks.save.mockRejectedValueOnce(new Error("connection lost"));
   mocks.save.mockResolvedValueOnce({ ok: true });
@@ -28,7 +28,7 @@ it.each(["refused", "lost response"] as const)("reverts a %s and retries the sam
 
   act(() => { mocks.toast.mock.calls[0][0].onRetry(); });
   await waitFor(() => expect(mocks.refresh).toHaveBeenCalledTimes(2));
-  expect(mocks.save.mock.calls).toEqual([[7, true, "51"], [7, true, "51"]]);
+  expect(mocks.save.mock.calls).toEqual([[7, true, undefined], [7, true, "51"]]);
   rerender(<StarButton {...film} favorite markVersion="53" />);
   expect(star().getAttribute("aria-pressed")).toBe("true");
 });
@@ -45,7 +45,7 @@ it("blocks a second save while pending and keeps another row's busy and failure 
   expect(other).toHaveProperty("disabled", false);
   fireEvent.click(other);
   await waitFor(() => expect(other).toHaveProperty("disabled", false));
-  expect(mocks.save.mock.calls).toEqual([[7, true, "51"], [8, false, "51"]]);
+  expect(mocks.save.mock.calls).toEqual([[7, true, undefined], [8, false, undefined]]);
   expect(other.getAttribute("aria-pressed")).toBe("true");
   expect(star()).toHaveProperty("disabled", true);
   expect(mocks.toast.mock.calls[0][0].title).toBe("Couldn't unstar Anora");
@@ -62,7 +62,7 @@ it("lets a confirmed save finish after the row was left without sending it twice
   fireEvent.click(star());
   unmount();
   await act(async () => { finish({ ok: true }); });
-  expect(mocks.save.mock.calls).toEqual([[7, false, "51"]]);
+  expect(mocks.save.mock.calls).toEqual([[7, false, undefined]]);
   expect(mocks.refresh).toHaveBeenCalledOnce();
   expect(mocks.toast).not.toHaveBeenCalled();
 });
