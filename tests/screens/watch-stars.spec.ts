@@ -227,8 +227,15 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
     const allQueued = page.getByRole("heading", { name: "Everything is in your queue" });
     await expect(allQueued).toBeVisible();
     await expect(page.getByText("0 films", { exact: true })).toBeVisible();
+    // The page ends here, so clip from the last queue row's top: no row shows without its title.
     await center(allQueued.locator(".."));
-    await shot("queue-only-390");
+    const lastQueued = (await row(otherQueue.title).boundingBox())!;
+    const wantEnd = (await page.locator("section[aria-labelledby=\"want-h\"]").boundingBox())!;
+    await page.mouse.move(0, 0);
+    await page.screenshot({
+      path: `${OUT}/queue-only-390.png`, animations: "disabled",
+      clip: { x: 0, y: lastQueued.y, width: 390, height: wantEnd.y + wantEnd.height - lastQueued.y + 16 },
+    });
   } finally {
     try {
       await db.transaction(async (tx) => {

@@ -11,3 +11,5 @@
 - Watch list gallery filenames beginning with `baseline-` show the row before the new Star control for a layout comparison.
 - Geist’s capital T has open space under its crossbar in pairs such as TH, TI and TM. Titles and TMDB use the approved font and keep the original text.
 - Phone row crops end at the list edge. The full viewport has 16px gutters, and result groups can wrap on a narrower screen.
+- Viewport frames of a scrolled list end wherever the screen ends, so the bottom edge can cut through a film row; the row is whole in its own crop.
+- The save-failure toast floats over the rows and section headings beneath it at the bottom of the screen; it can be closed, as guide §7 specifies.
