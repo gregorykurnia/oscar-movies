@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { buttonClasses } from "@/components/button/Button";
+import { FilterChips } from "@/components/chip/FilterChips";
 import { EmptyState } from "@/components/empty-state/EmptyState";
 import { FilmList, FilmRow } from "@/components/film-row/FilmRow";
 import { FilmMarks } from "@/components/marks/MarksProvider";
@@ -17,6 +18,7 @@ import { getUsedPlatforms, getWantedPlatforms, getWatchList, type StagedFilm, ty
 import {
   parseWatchQuery,
   clearWatchFilters,
+  filterQueue,
   filterWanted,
   hasWatchFilters,
   noWatchMatches,
@@ -39,6 +41,7 @@ import { ReleaseEditor } from "./ReleaseEditor";
 import { DragHandle, SortableWantList } from "./SortableWantList";
 import { FilterMenu } from "./FilterMenu";
 import { QueueButton } from "./QueueButton";
+import { StarButton } from "./StarButton";
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -83,12 +86,17 @@ async function Lists({ query }: { query: Promise<Query> }) {
   // The release lines read "Out" from today's date in Indonesia; the editor offers the platforms used before.
   const release = { today: todayInJakarta(), platforms };
   const choices = watchPlatforms(wantedPlatforms);
-  // With nothing wanted the filters have nothing to narrow (and no menus): ignore them.
+  // Platform and Release narrow Want to watch only. Starred also works for a queue on its own.
   const parsed = parseWatchQuery(params, choices);
-  const state = list.want.length > 0 ? parsed : clearWatchFilters(parsed);
+  const state = list.want.length > 0 ? parsed : {
+    ...clearWatchFilters(parsed),
+    starred: list.queue.length > 0 && parsed.starred,
+  };
   const filtered = hasWatchFilters(state);
   const clearHref = watchHref(clearWatchFilters(state));
+  const queue = filterQueue(list.queue, state);
   const want = sortWanted(filterWanted(list.want, state, release.today), state.sort);
+  const nothingStarred = state.starred && !list.want.some((film) => film.favorite) && !list.queue.some((film) => film.favorite);
   const unwatched = sortWatchList(list.unwatched, state.sort);
   const shown = state.all ? unwatched : unwatched.slice(0, SEASON_LIMIT);
   const mine = state.sort === "mine" && !filtered;
@@ -108,36 +116,46 @@ async function Lists({ query }: { query: Promise<Query> }) {
             }))}
           />
         </div>
-        {list.want.length > 0 ? (
-          <div className="relative flex basis-full flex-wrap items-center gap-x-3 gap-y-2">
+        {list.want.length > 0 || list.queue.length > 0 ? (
+          <div role="group" aria-label="Filter" className="relative flex basis-full flex-wrap items-center gap-x-3 gap-y-2">
             <span className="text-caption text-ink-muted max-md:basis-full">Filter</span>
-            <FilterMenu label="Platform" caption="Show films on" choice={state.platform === "none" ? "No platform" : state.platform ?? "All"} active={Boolean(state.platform)} items={[
-              { label: "All platforms", href: watchHref({ ...state, platform: undefined }), current: !state.platform },
-              ...choices.map((platform) => ({ label: platform, href: watchHref({ ...state, platform }), current: platform === state.platform })),
-              { label: "No platform", caption: "Films with no platform noted", href: watchHref({ ...state, platform: "none" }), current: state.platform === "none", separated: true },
-            ]} />
-            <FilterMenu label="Release" caption="Show films that are" choice={state.release ? RELEASE_FILTER_LABELS[state.release] : "All"} active={Boolean(state.release)} items={[
-              { label: "All", href: watchHref({ ...state, release: undefined }), current: !state.release },
-              ...RELEASE_FILTERS.map((value) => ({
-                label: RELEASE_FILTER_LABELS[value], href: watchHref({ ...state, release: value }), current: value === state.release,
-                caption: value === "out" ? "Released on or before today" : value === "coming" ? "A date after today" : "No date yet",
-              })),
-            ]} />
+            {list.want.length > 0 ? (
+              <>
+                <FilterMenu label="Platform" caption="Show films on" choice={state.platform === "none" ? "No platform" : state.platform ?? "All"} active={Boolean(state.platform)} items={[
+                  { label: "All platforms", href: watchHref({ ...state, platform: undefined }), current: !state.platform },
+                  ...choices.map((platform) => ({ label: platform, href: watchHref({ ...state, platform }), current: platform === state.platform })),
+                  { label: "No platform", caption: "Films with no platform noted", href: watchHref({ ...state, platform: "none" }), current: state.platform === "none", separated: true },
+                ]} />
+                <FilterMenu label="Release" caption="Show films that are" choice={state.release ? RELEASE_FILTER_LABELS[state.release] : "All"} active={Boolean(state.release)} items={[
+                  { label: "All", href: watchHref({ ...state, release: undefined }), current: !state.release },
+                  ...RELEASE_FILTERS.map((value) => ({
+                    label: RELEASE_FILTER_LABELS[value], href: watchHref({ ...state, release: value }), current: value === state.release,
+                    caption: value === "out" ? "Released on or before today" : value === "coming" ? "A date after today" : "No date yet",
+                  })),
+                ]} />
+              </>
+            ) : null}
+            <FilterChips label="Favorites" items={[{
+              label: "Starred",
+              pressed: Boolean(state.starred),
+              href: watchHref({ ...state, starred: !state.starred }),
+            }]} />
             {filtered ? <TextLink href={clearHref} scroll={false} className="relative py-1.5 text-caption before:absolute before:-inset-x-1 before:-inset-y-1.5">Clear filters</TextLink> : null}
           </div>
         ) : null}
       </div>
 
-      {list.queue.length > 0 && !filtered ? (
-        <Section id="queue" title="Watch queue" count={list.queue.length} hint={list.queue.length > 1 ? "drag the handle to reorder" : undefined}>
-          {/* Always in the owner's own order, whatever the sort. */}
-          <SortableWantList
-            key={list.queue.map((f) => f.film.id).join(",")}
-            list="queue"
-            films={list.queue.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort="mine" handle release={release} /> }))}
-            head={head("mine")}
-            columns={HANDLE_COLUMNS}
-          />
+      {queue.length > 0 ? (
+        <Section id="queue" title="Watch queue" count={queue.length} hint={!filtered && queue.length > 1 ? "drag the handle to reorder" : undefined}>
+          {filtered ? <Films films={queue} sort="mine" release={release} /> : (
+            <SortableWantList
+              key={queue.map((f) => f.film.id).join(",")}
+              list="queue"
+              films={queue.map((f) => ({ id: f.film.id, title: f.film.title, row: <Row film={f} sort="mine" handle release={release} /> }))}
+              head={head("mine")}
+              columns={HANDLE_COLUMNS}
+            />
+          )}
         </Section>
       ) : null}
 
@@ -152,7 +170,12 @@ async function Lists({ query }: { query: Promise<Query> }) {
           />
         ) : want.length > 0 ? (
           <Films films={want} sort={state.sort} release={release} />
-        ) : filtered ? (
+        ) : nothingStarred ? (
+          <EmptyState title="Nothing starred yet" headingLevel={3} icon={Search}
+            actions={<Link href={clearHref} scroll={false} className={buttonClasses()}>Clear filters</Link>}>
+            Tap Star on a film to keep it here.
+          </EmptyState>
+        ) : filtered && list.want.length > 0 ? (
           <EmptyState title="No films match these filters" headingLevel={3} icon={Search}
             actions={<Link href={clearHref} scroll={false} className={buttonClasses()}>Clear filters</Link>}>
             {noWatchMatches(list.want.length, state)}
@@ -247,7 +270,7 @@ function Row({
   sort: WatchQuery["sort"];
   /** My order's Want to watch: the row starts with its drag handle. */
   handle?: boolean;
-  /** Watch queue and Want to watch rows only: the release line and its editor, and the queue button. */
+  /** Watch queue and Want to watch rows only: the release editor, queue and star. */
   release?: ReleaseContext;
 }) {
   const { film, stage, pill, categories, nominations, chance } = staged;
@@ -264,7 +287,7 @@ function Row({
       scores={film.scores}
       note={
         release && "releaseOn" in staged ? (
-          <div className="flex flex-wrap items-start gap-x-3">
+          <div className="flex flex-wrap items-start gap-x-3 gap-y-3">
             <ReleaseEditor
               movieId={film.id}
               title={film.title}
@@ -274,7 +297,10 @@ function Row({
               today={release.today}
               usedPlatforms={release.platforms}
             />
-            <QueueButton movieId={film.id} title={film.title} queued={staged.queueRank !== null} />
+            <div className="flex min-w-0 flex-wrap items-start gap-x-2 gap-y-3">
+              <QueueButton movieId={film.id} title={film.title} queued={staged.queueRank !== null} />
+              <StarButton movieId={film.id} title={film.title} favorite={staged.favorite} markVersion={staged.markVersion} />
+            </div>
           </div>
         ) : undefined
       }

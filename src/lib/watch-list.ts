@@ -25,26 +25,33 @@ export const SEASON_LIMIT = 20;
 export const RELEASE_FILTERS = ["out", "coming", "tbd"] as const;
 export type ReleaseFilter = (typeof RELEASE_FILTERS)[number];
 export const RELEASE_FILTER_LABELS: Record<ReleaseFilter, string> = { out: "Out now", coming: "Coming", tbd: "TBD" };
-export type WatchQuery = { sort: WatchSort; all: boolean; platform?: string; release?: ReleaseFilter };
+export type WatchQuery = { sort: WatchSort; all: boolean; platform?: string; release?: ReleaseFilter; starred?: boolean };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
-/** The address's sort and "show all". Anything unknown is ignored: the default sort, the short list. */
+/** The address's sort, filters and "show all". Unknown values are ignored. */
 export function parseWatchQuery(params: SearchParams, platforms: readonly string[] = []): WatchQuery {
   const sort = WATCH_SORTS.find((s) => s === [params.sort].flat()[0]) ?? DEFAULT_SORT;
   const rawPlatform = [params.platform].flat()[0];
   const platform = rawPlatform === "none" ? "none" : platforms.find((name) => normalizeQuery(name) === normalizeQuery(rawPlatform ?? ""));
   const release = RELEASE_FILTERS.find((value) => value === [params.release].flat()[0]);
-  return { sort, all: [params.all].flat()[0] === "1", ...(platform ? { platform } : {}), ...(release ? { release } : {}) };
+  return {
+    sort,
+    all: [params.all].flat()[0] === "1",
+    ...(platform ? { platform } : {}),
+    ...(release ? { release } : {}),
+    ...(params.starred === "1" ? { starred: true } : {}),
+  };
 }
 
-/** "?sort=nominations&all=1", or "" for the defaults (Release date, the short list). */
-export function watchHref({ sort, all, platform, release }: WatchQuery): string {
+/** The Watch list URL, leaving default values out of the query. */
+export function watchHref({ sort, all, platform, release, starred }: WatchQuery): string {
   const params = new URLSearchParams();
   if (sort !== DEFAULT_SORT) params.set("sort", sort);
   if (all) params.set("all", "1");
   if (platform) params.set("platform", platform);
   if (release) params.set("release", release);
+  if (starred) params.set("starred", "1");
   const query = params.toString();
   return `/watch-list${query ? `?${query}` : ""}`;
 }
@@ -110,25 +117,31 @@ export function watchPlatforms(names: readonly string[]): string[] {
   }).sort((a, b) => normalizeQuery(a).localeCompare(normalizeQuery(b), "en"));
 }
 
-export const hasWatchFilters = (state: WatchQuery) => Boolean(state.platform || state.release);
+export const hasWatchFilters = (state: WatchQuery) => Boolean(state.platform || state.release || state.starred);
 export const clearWatchFilters = ({ sort, all }: WatchQuery): WatchQuery => ({ sort, all });
 
 /** Filter notes without changing their order. No date (including no note) counts as TBD. */
-export function filterWanted<F extends ReleaseNote>(films: F[], { platform, release }: WatchQuery, today: string): F[] {
+export function filterWanted<F extends ReleaseNote & Pick<WantedFilm, "favorite">>(films: F[], { platform, release, starred }: WatchQuery, today: string): F[] {
   return films.filter((film) => {
     const onPlatform = !platform || (platform === "none" ? !film.platform?.trim() : normalizeQuery(film.platform ?? "") === normalizeQuery(platform));
     const inRelease = !release || (release === "tbd" ? !film.releaseOn : Boolean(film.releaseOn && (release === "out" ? film.releaseOn <= today : film.releaseOn > today)));
-    return onPlatform && inRelease;
+    return onPlatform && inRelease && (!starred || film.favorite);
   });
+}
+
+/** Other filters hide the queue. Starred alone keeps its matches in the owner's order. */
+export function filterQueue<F extends Pick<WantedFilm, "favorite">>(films: F[], { platform, release, starred }: WatchQuery): F[] {
+  if (platform || release) return [];
+  return starred ? films.filter((film) => film.favorite) : films;
 }
 
 export const wantedCount = (shown: number, total: number, filtered: boolean) =>
   `${shown.toLocaleString("en-US")}${filtered ? ` of ${total.toLocaleString("en-US")}` : ""} ${total === 1 ? "film" : "films"}`;
 
-export function noWatchMatches(total: number, { platform, release }: WatchQuery): string {
+export function noWatchMatches(total: number, { platform, release, starred }: WatchQuery): string {
   const on = platform === "none" ? "with no platform" : platform ? `on ${platform}` : "";
   const when = release === "out" ? "out now" : release === "coming" ? "coming" : release === "tbd" ? "still TBD" : "";
-  return `None of the ${wantedCount(total, total, false)} you want to watch is ${[on, when].filter(Boolean).join(" and ")}.`;
+  return `None of the ${wantedCount(total, total, false)} you want to watch is ${[starred && "starred", on, when].filter(Boolean).join(" and ")}.`;
 }
 
 // "My order" (guide §8.3, task 7.9): the drag order's helpers, kept pure so they're unit tested.

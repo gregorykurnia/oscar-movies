@@ -18,6 +18,7 @@ import {
   filterWanted,
   hasWatchFilters,
   clearWatchFilters,
+  filterQueue,
   wantedCount,
   noWatchMatches,
 } from "./watch-list";
@@ -62,6 +63,19 @@ describe("the address", () => {
     expect(watchHref({ sort: "stage", all: false })).toBe("/watch-list?sort=stage");
     expect(watchHref({ sort: "average", all: false })).toBe("/watch-list?sort=average");
     expect(watchHref({ sort: "nominations", all: true })).toBe("/watch-list?sort=nominations&all=1");
+  });
+
+  it("round-trips Starred across sort and filter links and clears it with the other filters", () => {
+    const state = parseWatchQuery({ sort: "mine", all: "1", platform: "Netflix", release: "out", starred: "1" }, ["Netflix"]);
+    expect(state.starred).toBe(true);
+    expect(hasWatchFilters({ sort: "mine", all: false, starred: true })).toBe(true);
+    expect(watchHref({ ...state, sort: "stage" })).toBe("/watch-list?sort=stage&all=1&platform=Netflix&release=out&starred=1");
+    expect(watchHref({ ...state, starred: false })).toBe("/watch-list?sort=mine&all=1&platform=Netflix&release=out");
+    expect(watchHref(clearWatchFilters(state))).toBe("/watch-list?sort=mine&all=1");
+  });
+
+  it.each([undefined, "", "0", "true", "01", ["1", "0"], ["0", "1"]].map((starred) => ({ starred })))("ignores starred=$starred", ({ starred }) => {
+    expect(parseWatchQuery({ starred }).starred).toBeUndefined();
   });
 });
 
@@ -112,6 +126,19 @@ describe("release sort and filters", () => {
     expect(watchPlatforms(["CINÉPOLIS", "Netflix", "cinépolis", "netflix", "Apple TV+", " "])).toEqual(["Apple TV+", "CINÉPOLIS", "Netflix"]);
   });
 
+  it("matches stars with notes and keeps the queue's order only without Platform or Release", () => {
+    const favorites = films.map((film, index) => ({ ...film, favorite: index === 0 || index === 5 }));
+    const starred = { ...base, starred: true };
+    expect(titles(filterWanted(favorites, starred, today))).toEqual(["No note", "A coming"]);
+    expect(titles(filterWanted(favorites, { ...starred, platform: "NETFLIX", release: "coming" }, today))).toEqual(["A coming"]);
+    expect(filterWanted(favorites, { ...starred, platform: "Netflix", release: "out" }, today)).toEqual([]);
+    expect(titles(filterQueue(favorites, base))).toEqual(titles(favorites));
+    expect(titles(filterQueue(favorites, starred))).toEqual(["No note", "A coming"]);
+    expect(filterQueue(films, starred)).toEqual([]);
+    expect(filterQueue(favorites, { ...starred, platform: "Netflix" })).toEqual([]);
+    expect(filterQueue(favorites, { ...starred, release: "coming" })).toEqual([]);
+  });
+
   it("words filtered counts and the no-match explanation including missing notes", () => {
     expect(wantedCount(3, 12, true)).toBe("3 of 12 films");
     expect(wantedCount(0, 1, true)).toBe("0 of 1 film");
@@ -119,6 +146,7 @@ describe("release sort and filters", () => {
     expect(noWatchMatches(12, { ...base, platform: "MUBI", release: "out" })).toBe("None of the 12 films you want to watch is on MUBI and out now.");
     expect(noWatchMatches(3, { ...base, platform: "none", release: "tbd" })).toContain("with no platform and still TBD");
     expect(noWatchMatches(3, { ...base, release: "coming" })).toContain("is coming.");
+    expect(noWatchMatches(12, { ...base, starred: true, platform: "Netflix" })).toBe("None of the 12 films you want to watch is starred and on Netflix.");
   });
 });
 

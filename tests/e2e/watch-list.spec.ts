@@ -398,7 +398,7 @@ test("with nothing wanted, filters in the address are ignored (10.R)", async ({ 
   const saved = await db.select().from(marks);
   try {
     await db.delete(marks);
-    await page.goto("/watch-list?release=out&platform=none");
+    await page.goto("/watch-list?release=out&platform=none&starred=1");
     const want = section(page, "Want to watch");
     await expect(want.getByRole("heading", { name: "Nothing marked yet" })).toBeVisible();
     await expect(want.getByText("0 films", { exact: true })).toBeVisible();
@@ -408,6 +408,99 @@ test("with nothing wanted, filters in the address are ignored (10.R)", async ({ 
     await db.delete(marks);
     if (saved.length > 0) await db.insert(marks).values(saved);
   }
+});
+
+test.describe("Watch list stars", () => {
+  let saved: (typeof marks.$inferSelect)[] | undefined;
+
+  test.afterEach(async () => {
+    if (!saved) return;
+    const rows = saved;
+    await db.transaction(async (tx) => {
+      await tx.delete(marks);
+      if (rows.length) await tx.insert(marks).values(rows);
+    });
+    saved = undefined;
+  });
+
+  test("stars both sections, restores a filtered link, and removes films as they are unstarred", async ({ page }) => {
+    test.setTimeout(90_000);
+    saved = await db.select().from(marks);
+    const slugs = [...ORDER, "sentimental-value"];
+    const fixtures = await db.select({ id: movies.id, title: movies.title, slug: movies.slug })
+      .from(movies).where(inArray(movies.slug, slugs));
+    expect(fixtures).toHaveLength(slugs.length);
+    const [winner, wanted, queued, otherQueue] = slugs.map((slug) => fixtures.find((row) => row.slug === slug)!);
+    await db.transaction(async (tx) => {
+      await tx.delete(marks);
+      await tx.insert(marks).values([
+        { movieId: winner.id, want: true, wantRank: 1 },
+        { movieId: wanted.id, want: true, wantRank: 2, platform: "Netflix", releaseOn: "2020-01-01" },
+        { movieId: queued.id, want: true, wantRank: 3, queueRank: 1 },
+        { movieId: otherQueue.id, want: true, wantRank: 4, queueRank: 2 },
+      ]);
+    });
+
+    const want = section(page, "Want to watch");
+    const queue = section(page, "Watch queue");
+    const season = section(page, `Not watched yet, ${LIVE_YEAR} season`);
+    const star = (title: string) => page.getByRole("button", { name: `Star ${title}`, exact: true });
+    const chip = page.getByRole("button", { name: "Starred", exact: true });
+    await page.goto("/watch-list?sort=mine");
+    await expect(season.getByRole("button", { name: /^Star / })).toHaveCount(0);
+    await expect(want.getByRole("button", { name: /^Star / })).toHaveCount(2);
+    await expect(queue.getByRole("button", { name: /^Star / })).toHaveCount(2);
+
+    for (const film of [wanted, queued]) {
+      await expect(star(film.title)).toHaveAttribute("aria-pressed", "false");
+      await star(film.title).click();
+      await expect(star(film.title)).toHaveAttribute("aria-pressed", "true");
+      await expect(star(film.title)).toBeEnabled();
+    }
+    await page.reload();
+    await expect(star(wanted.title)).toHaveAttribute("aria-pressed", "true");
+    await expect(star(queued.title)).toHaveAttribute("aria-pressed", "true");
+
+    await chip.click();
+    await expect(page).toHaveURL(/\/watch-list\?sort=mine&starred=1$/);
+    await expect(chip).toHaveAttribute("aria-pressed", "true");
+    await expect.poll(() => titlesIn(want)).toEqual([wanted.title]);
+    await expect.poll(() => titlesIn(queue)).toEqual([queued.title]);
+    await expect(want.getByText("1 of 2 films", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^Reorder / })).toHaveCount(0);
+    await expect(season).toHaveCount(0);
+
+    await page.goto("/watch-list?sort=mine&platform=Netflix&release=out&starred=1");
+    await expect.poll(() => titlesIn(want)).toEqual([wanted.title]);
+    await expect(queue).toHaveCount(0);
+    await page.getByRole("button", { name: "Release: Out now" }).click();
+    await page.getByRole("menuitemradio", { name: /^Coming / }).click();
+    await expect(page).toHaveURL(/platform=Netflix&release=coming&starred=1$/);
+    await expect(want.getByText("None of the 2 films you want to watch is starred and on Netflix and coming.")).toBeVisible();
+    await want.getByRole("link", { name: "Clear filters" }).click();
+    await expect(page).toHaveURL(/\/watch-list\?sort=mine$/);
+
+    await page.goto("/watch-list?sort=mine&starred=1");
+    await star(wanted.title).click();
+    await expect(star(wanted.title)).toHaveCount(0);
+    await expect(want.getByText("0 of 2 films", { exact: true })).toBeVisible();
+    await star(queued.title).click();
+    await expect(queue).toHaveCount(0);
+    await expect(want.getByText("Nothing starred yet", { exact: true })).toBeVisible();
+    await expect(want.getByText("Tap Star on a film to keep it here.")).toBeVisible();
+
+    await page.goto("/watch-list?starred=0");
+    await expect(chip).toHaveAttribute("aria-pressed", "false");
+    await expect(star(wanted.title)).toHaveAttribute("aria-pressed", "false");
+    await expect(star(queued.title)).toHaveAttribute("aria-pressed", "false");
+
+    await db.update(marks).set({ want: false, wantRank: null }).where(inArray(marks.movieId, [winner.id, wanted.id]));
+    await db.update(marks).set({ favorite: true }).where(eq(marks.movieId, queued.id));
+    await page.goto("/watch-list?starred=1");
+    await expect(chip).toHaveAttribute("aria-pressed", "true");
+    await expect.poll(() => titlesIn(queue)).toEqual([queued.title]);
+    await expect(want.getByText("Everything is in your queue")).toBeVisible();
+  });
 });
 
 /** Neither the window nor the page is wider than the screen. */
