@@ -287,7 +287,7 @@ function Row({
       scores={film.scores}
       note={
         release && "releaseOn" in staged ? (
-          <div className="flex flex-wrap items-start gap-x-3 gap-y-3">
+          <div className="flex flex-wrap items-start gap-x-5 gap-y-3 max-md:[&>div:first-child]:max-w-full">
             <ReleaseEditor
               movieId={film.id}
               title={film.title}
@@ -297,7 +297,8 @@ function Row({
               today={release.today}
               usedPlatforms={release.platforms}
             />
-            <div className="flex min-w-0 flex-wrap items-start gap-x-2 gap-y-3">
+            {/* The marks sit at the top on phones. Use their width below the release line. */}
+            <div className="-ml-2 flex min-w-0 flex-wrap items-start gap-x-2 gap-y-3 max-md:w-max max-md:max-w-[calc(100%+5rem)] max-md:shrink-0">
               <QueueButton movieId={film.id} title={film.title} queued={staged.queueRank !== null} />
               <StarButton movieId={film.id} title={film.title} favorite={staged.favorite} markVersion={staged.markVersion} />
             </div>

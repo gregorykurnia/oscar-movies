@@ -90,7 +90,7 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
     const baseline = await page.addStyleTag({ content: `
       button[aria-label^="Star "] { display: none }
       div:has(> button[aria-label^="Star "]) { display: contents }
-      div:has(> div > button[aria-label^="Star "]) { row-gap: 0 }
+      div:has(> div > button[aria-label^="Star "]) { flex-direction: row; column-gap: 12px; row-gap: 0 }
     ` });
     const original = await rowGeometry(tight);
     await crop(tight, "baseline-row-360");
@@ -130,7 +130,12 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
 
     const queue = tight.getByRole("button", { name: /^Remove .* from the watch queue$/ });
     const [q, s] = await Promise.all([queue.boundingBox(), tightStar.boundingBox()]);
-    expect(q && s && (q.y + q.height <= s.y || q.x + q.width <= s.x)).toBeTruthy();
+    expect(q && s && q.y === s.y && q.x + q.width <= s.x).toBeTruthy();
+    const [queueIcon, calendar] = await Promise.all([
+      queue.locator("svg").boundingBox(),
+      tight.locator("[data-out] svg").boundingBox(),
+    ]);
+    expect(queueIcon?.x).toBe(calendar?.x);
     const hitHeight = await tightStar.evaluate((button) => {
       const hit = getComputedStyle(button, "::before");
       return button.clientHeight - parseFloat(hit.top) - parseFloat(hit.bottom);
@@ -198,6 +203,20 @@ test("Watch list star gallery: tight row, supported shapes, filter and failures"
       await expect(button).toBeEnabled();
       await crop(row(film.title), name);
     }
+    await page.setViewportSize({ width: 320, height: 720 });
+    const nominations = row(otherQueue.title).getByText("Nominations", { exact: true }).locator("..");
+    const result = await nominations.boundingBox();
+    expect(result).not.toBeNull();
+    expect(result!.x + result!.width).toBeLessThanOrEqual(304);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+
+    await page.setViewportSize({ width: 640, height: 800 });
+    const [releaseAction, queueAction] = await Promise.all([
+      row(winner.title).getByRole("button", { name: "Add release date", exact: true }).boundingBox(),
+      shortQueue.boundingBox(),
+    ]);
+    expect(releaseAction).not.toBeNull();
+    expect(queueAction?.y).toBe(releaseAction?.y);
   } finally {
     try {
       await db.transaction(async (tx) => {
