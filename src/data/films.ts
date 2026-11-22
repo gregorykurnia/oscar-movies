@@ -14,7 +14,7 @@ import { primaryCountry, type Submission } from "@/lib/flags";
 /** What a query needs from a client: the app's (HTTP) and the scripts' (pool) both fit. */
 export type ReadDb = Pick<ScriptDb, "select">;
 
-/** One film as every row shows it (product plan §3.2): titles, flags, the four scores and the average. */
+/** One film as every row shows it (product plan §3.2): titles, flags, five scores and the average. */
 export type FilmRowData = {
   id: number;
   slug: string;

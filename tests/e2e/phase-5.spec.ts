@@ -78,7 +78,7 @@ test("the festivals index opens Cannes 2025, whose page lists every section's fi
   await expect(lineup.getByRole("heading", { level: 2 })).toHaveText(sections.map((s) => s.name));
 
   // Every film of every section is on the page: its link, its flags (a film with a production
-  // country shows one) and its scores line (the four scores and the average, or "No scores yet").
+  // country shows one) and its scores line (five sources, followed by the average or "No scores yet").
   const onPage = await page.evaluate(() =>
     [...document.querySelectorAll('section[id^="section-"]')].map((section) => ({
       count: section.querySelector("h2 + span")?.textContent ?? "",
@@ -87,7 +87,7 @@ test("the festivals index opens Cannes 2025, whose page lists every section's fi
         return {
           slug: a.getAttribute("href")!.replace("/movies/", ""),
           flags: row.querySelectorAll('[role="img"]').length,
-          scores: row.querySelector("p:last-of-type")?.textContent ?? "",
+          scores: [...row.querySelectorAll("p:last-of-type > span")].map((span) => span.textContent),
         };
       }),
     })),
@@ -99,10 +99,15 @@ test("the festivals index opens Cannes 2025, whose page lists every section's fi
     onPage[i].films.forEach((f, j) => {
       const r = s.rows[j];
       if (r.countries.length > 0) expect(f.flags, `${r.title} has a flag`).toBeGreaterThan(0);
-      expect(f.scores, `${r.title} has a scores line`).toMatch(/IMDb .*RT .*MC .*TMDB .*(\d+ of 4|No scores yet)Letterboxd (\d\.\d|–)$/);
+      expect(f.scores.join(" "), `${r.title} has a scores line`).toMatch(/^IMDb .* RT .* MC .* TMDB .* Letterboxd (\d\.\d|–) (\d+ · [1-5] of 5|No scores yet)$/);
     });
   });
   expect(onPage.flatMap((s) => s.films)).toHaveLength(rows.length);
+  // 2000 Meters to Andriivka: (84 + 94 + 88 + 81 + 86.2) / 5 = 86.64.
+  const andriivka = onPage.flatMap((s) => s.films).find((film) => film.slug === "2000-meters-to-andriivka");
+  expect(andriivka?.scores, "2000 Meters to Andriivka").toEqual([
+    "IMDb 8.4", "RT 94", "MC 88", "TMDB 8.1", "Letterboxd 4.3", "87 · 5 of 5",
+  ]);
 
   // A prize is a pill on the film that won it (in its section's list, so its row).
   const prized = rows.find((r) => r.prize);

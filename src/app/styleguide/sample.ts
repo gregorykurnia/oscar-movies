@@ -17,8 +17,8 @@ export type SampleFilm = {
   scores: Scores;
 };
 
-const ALL_FOUR: Scores = { imdb: 7.9, rt: 95, mc: 95, tmdb: 7.5, lb: 3.9, average: 86, count: 4 };
-const THREE: Scores = { imdb: 8.1, rt: null, mc: 89, tmdb: 7.8, lb: 4.1, average: 83, count: 3 };
+export const allScores: Scores = { imdb: 7.9, rt: 95, mc: 95, tmdb: 7.5, lb: 3.8, average: 84, count: 5 };
+const ONE_MISSING: Scores = { imdb: 8.1, rt: null, mc: 89, tmdb: 7.8, lb: 4.1, average: 82.5, count: 4 };
 const NONE: Scores = { imdb: null, rt: null, mc: null, tmdb: null, lb: null, average: null, count: 0 };
 
 export function sample(stress: boolean) {
@@ -28,14 +28,14 @@ export function sample(stress: boolean) {
       href: "#",
       flag: "US",
       meta: "2025 · Picture",
-      scores: stress ? NONE : ALL_FOUR,
+      scores: stress ? NONE : allScores,
     },
     {
       title: stress ? LONG_TITLE : "Hamnet",
       href: "#",
       flag: "GB",
       meta: "2025 · Picture",
-      scores: stress ? { ...THREE, imdb: null, mc: null, average: 83, count: 1 } : { imdb: 8, rt: 87, mc: 84, tmdb: 7.9, lb: null, average: 83, count: 4 },
+      scores: stress ? { ...NONE, lb: 4.1, average: 82, count: 1 } : { imdb: 8, rt: 87, mc: 84, tmdb: 7.9, lb: null, average: 82.5, count: 4 },
     },
     {
       title: stress ? "Birdman or (The Unexpected Virtue of Ignorance)" : "Sentimental Value",
@@ -43,14 +43,14 @@ export function sample(stress: boolean) {
       lang: "no",
       flag: "NO",
       meta: "2025 · International",
-      scores: stress ? NONE : THREE,
+      scores: stress ? NONE : ONE_MISSING,
     },
   ];
   return {
     stress,
     films,
     longWord: LONG_WORD,
-    scoreRows: stress ? [NONE, NONE, NONE] : [ALL_FOUR, THREE, NONE],
+    scoreRows: stress ? [NONE, NONE, NONE] : [allScores, ONE_MISSING, NONE],
     nominations: stress ? "1,204" : "7",
     watchCount: stress ? "1,204 films" : "4 films",
     showAll: stress ? "Show all 1,284 contenders" : "Show all 38 contenders",

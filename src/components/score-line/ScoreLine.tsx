@@ -6,16 +6,15 @@ export type Scores = {
   rt: number | null;
   mc: number | null;
   tmdb: number | null;
-  /** Letterboxd's rating (0.5–5): shown after the average, not part of it. */
+  /** Letterboxd's rating (0.5–5). */
   lb: number | null;
-  /** The stored average (0–100) and how many of the four scores it uses. */
+  /** The stored average (0–100) and how many of the five scores it uses. */
   average: number | null;
   count: number;
 };
 
 /**
- * Guide §7 Scores line: "IMDb 7.9  RT 95  MC 95  TMDB 7.5  86 · 4 of 4  Letterboxd 3.8". Missing is
- * "–", never 0. Letterboxd comes after the average because the average doesn't use it.
+ * Guide §7 Scores line: "IMDb 7.9  RT 95  MC 95  TMDB 7.5  Letterboxd 3.8  84 · 5 of 5".
  */
 export function ScoreLine({ scores, className }: { scores: Scores; className?: string }) {
   const parts: Array<[string, string]> = [
@@ -23,6 +22,7 @@ export function ScoreLine({ scores, className }: { scores: Scores; className?: s
     ["RT", formatScore(scores.rt, 0)],
     ["MC", formatScore(scores.mc, 0)],
     ["TMDB", formatScore(scores.tmdb, 1)],
+    ["Letterboxd", formatLetterboxd(scores.lb)],
   ];
   const hasAverage = scores.count > 0 && scores.average !== null;
   return (
@@ -32,10 +32,9 @@ export function ScoreLine({ scores, className }: { scores: Scores; className?: s
           {label} {value}
         </span>
       ))}
-      <span className="font-medium text-ink">
-        {hasAverage ? `${formatScore(scores.average, 0)} · ${scores.count} of 4` : "No scores yet"}
+      <span className="font-medium whitespace-nowrap text-ink">
+        {hasAverage ? `${formatScore(scores.average, 0)} · ${scores.count} of ${parts.length}` : "No scores yet"}
       </span>
-      <span data-missing={scores.lb === null || undefined}>Letterboxd {formatLetterboxd(scores.lb)}</span>
     </p>
   );
 }

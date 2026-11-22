@@ -46,7 +46,7 @@ describe("FilmList and FilmRow", () => {
     expect(within(title).getByRole("link").getAttribute("href")).toBe("/movies/conclave");
     expect(screen.getByRole("img", { name: "United Kingdom" })).toBeTruthy();
     expect(screen.getByText("2024 · Picture").className).toContain("text-caption");
-    expect(screen.getByText("80 · 4 of 4")).toBeTruthy();
+    expect(screen.getByText("80 · 4 of 5")).toBeTruthy();
     // Each result carries its column's name: visible on phone, read out on desktop.
     const result = screen.getByText("Won").closest("span:not([class*=rounded])") as HTMLElement;
     expect(result.textContent).toBe("BAFTA Won");

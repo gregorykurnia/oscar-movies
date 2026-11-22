@@ -46,11 +46,11 @@ export const snapshot = pgEnum("snapshot", ["live", "eve_nominations", "eve_cere
 
 const timestamptz = (name: string) => timestamp(name, { withTimezone: true });
 
-// §3.2 rule 1: IMDb and TMDB on a 0–100 scale (× 10), Tomatometer and Metacritic as they are.
+// §3.2 rule 1: IMDb and TMDB × 10, Letterboxd × 20, Tomatometer and Metacritic as they are.
 // Generated columns can't read each other, so the count is spelled out twice.
 const scoreCountSql = sql`(
   (imdb_rating is not null)::int + (tmdb_score is not null)::int
-  + (rt_score is not null)::int + (mc_score is not null)::int
+  + (rt_score is not null)::int + (mc_score is not null)::int + (lb_rating is not null)::int
 )`;
 
 export const movies = pgTable(
@@ -75,8 +75,7 @@ export const movies = pgTable(
     rtScore: smallint("rt_score"),
     mcScore: smallint("mc_score"),
     tmdbScore: numeric("tmdb_score", { precision: 3, scale: 1, mode: "number" }),
-    // Letterboxd's weighted average (0.5–5), shown beside the four scores but not in the average
-    // (owner, 2026-11-20).
+    // Letterboxd's weighted rating (0.5–5), scaled by 20 in the generated average.
     lbRating: numeric("lb_rating", { precision: 3, scale: 2, mode: "number" }),
     imdbAt: timestamptz("imdb_at"),
     rtAt: timestamptz("rt_at"),
@@ -87,7 +86,7 @@ export const movies = pgTable(
     avgScore: numeric("avg_score", { precision: 4, scale: 1, mode: "number" }).generatedAlwaysAs(
       sql`round(
         (coalesce(imdb_rating * 10, 0) + coalesce(tmdb_score * 10, 0)
-          + coalesce(rt_score, 0) + coalesce(mc_score, 0))
+          + coalesce(rt_score, 0) + coalesce(mc_score, 0) + coalesce(lb_rating * 20, 0))
         / nullif(${scoreCountSql}, 0),
         1
       )`,

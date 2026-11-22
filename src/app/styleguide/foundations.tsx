@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
+import { ScoreLine } from "@/components/score-line/ScoreLine";
 import { Board, Cell, Spec } from "./parts";
+import { allScores } from "./sample";
 
 type Swatch = { token: string; label: string; contrast?: string; job: string };
 
@@ -113,9 +115,7 @@ export function Foundations({ tokens, longWord }: { tokens: Record<string, strin
             </p>
           </TypeRow>
           <TypeRow name="Caption" spec="13 · 400">
-            <p className="text-caption text-ink-muted">
-              IMDb 7.9 &nbsp; RT 95 &nbsp; MC 95 &nbsp; TMDB 7.5 &nbsp; <span className="font-medium text-ink">86 · 4 of 4</span>
-            </p>
+            <ScoreLine scores={allScores} className="text-caption!" />
           </TypeRow>
           <TypeRow name="Micro" spec="12 · 400 / 500">
             <p className="text-micro text-ink-muted">to be nominated · Updated 20 Dec</p>

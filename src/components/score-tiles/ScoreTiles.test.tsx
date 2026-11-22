@@ -12,8 +12,8 @@ const full: ScoreTilesData = {
   mc: { value: 85, updatedAt: oct14 },
   tmdb: { value: 7.9, updatedAt: new Date("2026-10-16T09:00:00Z") },
   lb: { value: 3.76, updatedAt: oct14 },
-  average: 86,
-  count: 4,
+  average: 83.6,
+  count: 5,
 };
 
 const tiles = (container: HTMLElement) =>
@@ -29,7 +29,7 @@ describe("ScoreTiles", () => {
       "Metacritic85/100Updated 14 Oct",
       "TMDB7.9/10Updated 16 Oct",
       "Letterboxd3.8/5Updated 14 Oct",
-      "Average864 of 4 scores",
+      "Average845 of 5 scores",
     ]);
     expect(t[5].className).toContain("bg-gold-wash");
     expect(t[5].children[1].className).toContain("text-gold-ink");
@@ -38,13 +38,13 @@ describe("ScoreTiles", () => {
 
   it("shows a missing score as a muted dash with No score yet", () => {
     const { container } = render(
-      <ScoreTiles scores={{ ...full, rt: { value: null, updatedAt: null }, average: 84, count: 3 }} now={now} />,
+      <ScoreTiles scores={{ ...full, rt: { value: null, updatedAt: null }, average: 80.3, count: 4 }} now={now} />,
     );
     const rt = tiles(container)[1];
     expect(rt.textContent).toBe("Rotten Tomatoes–No score yet");
     expect(rt.dataset.missing).toBe("true");
     expect(rt.children[1].className).toContain("text-ink-muted");
-    expect(tiles(container)[5].textContent).toBe("Average843 of 4 scores");
+    expect(tiles(container)[5].textContent).toBe("Average804 of 5 scores");
   });
 
   it("with no scores, the average is a dash too", () => {

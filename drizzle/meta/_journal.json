@@ -71,6 +71,13 @@
       "when": 1795261606412,
       "tag": "0009_marks_favorite",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1795304666962,
+      "tag": "0010_movies_letterboxd_average",
+      "breakpoints": true
     }
   ]
 }

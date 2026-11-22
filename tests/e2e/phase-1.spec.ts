@@ -62,13 +62,14 @@ test("the 2025 Oscars page shows all four categories with flags, scores and the 
     const rows = section.getByRole("heading", { level: 3 }).locator("xpath=ancestor::div[.//button][1]");
     for (let i = 0; i < nominees; i++) {
       await expect(rows.nth(i).getByRole("img").first()).toBeVisible();
-      await expect(rows.nth(i)).toContainText(/IMDb .*RT .*MC .*TMDB .*(\d+ · \d of 4|No scores yet)/);
+      await expect(rows.nth(i)).toContainText(/IMDb .*RT .*MC .*TMDB .*Letterboxd .*(\d+ · [1-5] of 5|No scores yet)/);
     }
   }
 
-  // At least one nominee carries a real average.
+  // One Battle After Another: (76 + 94 + 95 + 73 + 82.2) / 5 = 84.04.
   const picture = page.getByRole("region", { name: "Best Picture" });
-  await expect(picture.getByText(/^\d+ · [1-4] of 4$/).first()).toBeVisible();
+  const winner = picture.locator("[data-winner]", { hasText: "One Battle After Another" });
+  await expect(winner.getByText("84 · 5 of 5", { exact: true })).toBeVisible();
 });
 
 test("marking a film watched shows on every page it appears on", async ({ page }) => {

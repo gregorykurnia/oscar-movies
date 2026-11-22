@@ -8,7 +8,7 @@ export type ScoreTilesData = {
   rt: Tile;
   mc: Tile;
   tmdb: Tile;
-  /** Letterboxd (0.5–5): a tile of its own, not part of the average. */
+  /** Letterboxd's rating (0.5–5). */
   lb: Tile;
   average: number | null;
   count: number;
@@ -22,7 +22,7 @@ const SOURCES = [
   { key: "lb", label: "Letterboxd", unit: "/5", decimals: 1 },
 ] as const;
 
-const tile = "px-4 pt-3.5 pb-4 md:px-5 md:pt-[18px] md:pb-5";
+const tile = "px-4 pt-3.5 pb-4 md:px-2 md:pt-[18px] md:pb-5 xl:px-5";
 const value =
   "mt-1.5 text-num-l-phone leading-[1.1] font-light tracking-num md:text-num-l";
 const unit = "ml-0.5 text-[15px] tracking-[0] text-ink-muted";
@@ -46,7 +46,7 @@ export function ScoreTiles({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[repeat(5,1fr)_1.25fr]",
+        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[1fr_1.25fr_repeat(3,1fr)_1.25fr] xl:grid-cols-[repeat(5,1fr)_1.25fr]",
         // Rules between tiles: a 2×3 grid on phone, one row on desktop.
         "[&>*:nth-child(even)]:border-l [&>*:nth-child(n+3)]:border-t [&>*]:border-line",
         "md:[&>*:nth-child(n+2)]:border-l md:[&>*:nth-child(n+3)]:border-t-0",
@@ -79,7 +79,7 @@ export function ScoreTiles({
           {hasAverage ? formatScore(scores.average, 0) : DASH}
         </div>
         <div className="mt-1.5 text-micro text-ink-muted">
-          {hasAverage ? `${scores.count} of 4 scores` : "No scores yet"}
+          {hasAverage ? `${scores.count} of ${SOURCES.length} scores` : "No scores yet"}
         </div>
       </div>
     </div>

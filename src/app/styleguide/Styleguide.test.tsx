@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { BOARDS } from "./components";
@@ -39,7 +39,11 @@ describe("/styleguide", () => {
       expect(screen.getAllByText(label).length, label).toBeGreaterThan(0);
     }
     expect(screen.getAllByText("No scores yet").length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/86 · 4 of 4/).length).toBeGreaterThan(0);
+    for (const name of ["Type: Geist, one family", "Scores"]) {
+      const board = screen.getByRole("region", { name });
+      const average = within(board).getByText("84 · 5 of 5", { exact: true });
+      expect(average.previousElementSibling?.textContent).toBe("Letterboxd 3.8");
+    }
     expect(screen.getByText(/#FCFBF9/)).toBeTruthy();
     expect(screen.getByText(/#8A6418 · 5.2:1/)).toBeTruthy();
   });

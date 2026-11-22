@@ -56,7 +56,7 @@ const STAGES: Array<[Stage, string]> = [
   ["live", "live season"],
 ];
 
-const SCORE_NOTES = ["all four", "one missing", "none yet"];
+const SCORE_NOTES = ["all five", "one missing", "none yet"];
 const SCORE_TILE_DATES = { imdb: new Date(Date.UTC(2026, 9, 14)), rt: new Date(Date.UTC(2026, 9, 14)) };
 const NOW = new Date(Date.UTC(2026, 9, 22));
 
@@ -263,8 +263,8 @@ export function Components({ s }: { s: Sample }) {
                     mc: { value: null, updatedAt: null },
                     tmdb: { value: 7.8, updatedAt: SCORE_TILE_DATES.imdb },
                     lb: { value: 4.05, updatedAt: SCORE_TILE_DATES.imdb },
-                    average: 86,
-                    count: 3,
+                    average: 84.3,
+                    count: 4,
                   }
             }
           />

@@ -139,10 +139,14 @@ test("/awards/oscars/2025 lists Documentary's shortlist with its flags, and a fl
   for (const name of flagged) await expect(row(name).locator("[data-snub-risk]")).toHaveText("Snub risk");
   await expect(row("The Perfect Neighbor").locator("[data-snub-risk]")).toHaveCount(0);
 
-  // From the flagged film's row to its movie page and the panel.
-  const slug = data.films[Number(season.films.find((f) => titleOf(data, f.movie).startsWith("My Undesirable Friends"))!.movie)].slug;
-  await row("My Undesirable Friends: Part I — Last Air in Moscow").getByRole("link", { name: "My Undesirable Friends: Part I — Last Air in Moscow", exact: true }).click();
+  // My Undesirable Friends: (100 + 72 + 82.4) / 3 = 84.8 in the shortlist and on the movie page.
+  const title = "My Undesirable Friends: Part I — Last Air in Moscow";
+  const slug = data.films[Number(season.films.find((f) => titleOf(data, f.movie) === title)!.movie)].slug;
+  await expect(row(title).getByText("85 · 3 of 5", { exact: true })).toBeVisible();
+  await row(title).getByRole("link", { name: title, exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`/movies/${slug}$`));
+  const scoreCount = page.getByText("3 of 5 scores", { exact: true });
+  await expect(scoreCount.locator("..").getByText("85", { exact: true })).toBeVisible();
   const panel = page.getByRole("region", { name: "Nomination patterns" });
   await expect(panel.getByText("2025 · Best Documentary Feature")).toBeVisible();
   const film = season.films.find((f) => titleOf(data, f.movie).startsWith("My Undesirable Friends"))!;

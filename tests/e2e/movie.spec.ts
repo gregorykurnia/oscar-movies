@@ -54,10 +54,13 @@ test("a 2024 film with no scores shows – and No score yet in every tile", asyn
   await expect(page.getByText("No scores yet")).toBeVisible();
 });
 
-test("a film with some scores shows the dates and the count of scores", async ({ page }) => {
+test("I'm Still Here shows its score dates and a four-source average", async ({ page }) => {
   await page.goto("/movies/im-still-here");
   await expect(page.getByText(/^Updated \d+ \w{3}/).first()).toBeVisible();
-  await expect(page.getByText(/^\d of 4 scores$/)).toBeVisible();
+  // Rotten Tomatoes is missing on Neon test. (81 + 85 + 79 + 86.8) / 4 = 82.95.
+  const count = page.getByText("4 of 5 scores", { exact: true });
+  await expect(count).toBeVisible();
+  await expect(count.locator("..").getByText("83", { exact: true })).toBeVisible();
 });
 
 test("an unknown slug shows the 404 page", async ({ page }) => {
