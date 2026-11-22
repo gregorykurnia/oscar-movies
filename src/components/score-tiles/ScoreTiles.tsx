@@ -22,7 +22,7 @@ const SOURCES = [
   { key: "lb", label: "Letterboxd", unit: "/5", decimals: 1 },
 ] as const;
 
-const tile = "px-4 pt-3.5 pb-4 md:px-2 md:pt-[18px] md:pb-5 xl:px-5";
+const tile = "px-4 pt-3.5 pb-4 md:px-3 md:pt-[18px] md:pb-5 xl:px-5";
 const value =
   "mt-1.5 text-num-l-phone leading-[1.1] font-light tracking-num md:text-num-l";
 const unit = "ml-0.5 text-[15px] tracking-[0] text-ink-muted";
@@ -46,7 +46,7 @@ export function ScoreTiles({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[1fr_1.25fr_repeat(3,1fr)_1.25fr] xl:grid-cols-[repeat(5,1fr)_1.25fr]",
+        "grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface md:grid-cols-[repeat(5,minmax(min-content,1fr))_minmax(min-content,1.25fr)] xl:grid-cols-[repeat(5,1fr)_1.25fr]",
         // Rules between tiles: a 2×3 grid on phone, one row on desktop.
         "[&>*:nth-child(even)]:border-l [&>*:nth-child(n+3)]:border-t [&>*]:border-line",
         "md:[&>*:nth-child(n+2)]:border-l md:[&>*:nth-child(n+3)]:border-t-0",
@@ -58,12 +58,12 @@ export function ScoreTiles({
         const missing = t.value === null;
         return (
           <div key={s.key} className={tile} data-missing={missing || undefined}>
-            <div className="text-caption text-ink-muted">{s.label}</div>
+            <div className="text-caption text-ink-muted md:whitespace-nowrap">{s.label}</div>
             <div className={cn(value, missing && "text-ink-muted")}>
               {missing ? DASH : formatScore(t.value, s.decimals)}
               {missing ? null : <small className={unit}>{s.unit}</small>}
             </div>
-            <div className="mt-1.5 text-micro text-ink-muted">
+            <div className={cn("mt-1.5 text-micro text-ink-muted", !missing && t.updatedAt && "[word-spacing:0.12em]")}>
               {missing
                 ? "No score yet"
                 : t.updatedAt

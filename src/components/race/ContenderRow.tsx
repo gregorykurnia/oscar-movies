@@ -10,7 +10,7 @@ import { ChanceLine } from "./ChanceLine";
 import { Pct } from "./Pct";
 import { WhyButton, WhyRegion } from "./RaceList";
 
-// Guide §6.5 Contender row: film (1fr) · to be nominated (112px) · to win (200px) · marks (84px),
+// Guide §6.5 Contender row: film (1fr) · to be nominated (112px) · to win (112px, 200px wide desktop) · marks (84px),
 // the chance line on its bottom rule and the "why" under it. Without chances (a race with none
 // stored) it is film · marks.
 
@@ -59,11 +59,11 @@ const GRID: Record<ChanceColumns, string> = {
   ),
   win: cn(
     "grid-cols-[minmax(0,1fr)_auto] [grid-template-areas:'film_win'_'film_nom'_'marks_marks'_'why_why']",
-    "md:grid-cols-[minmax(0,1fr)_200px_84px] md:[grid-template-areas:'film_win_marks'_'why_why_why']",
+    "md:grid-cols-[minmax(0,1fr)_112px_84px] xl:grid-cols-[minmax(0,1fr)_200px_84px] md:[grid-template-areas:'film_win_marks'_'why_why_why']",
   ),
   both: cn(
     "grid-cols-[minmax(0,1fr)_auto] [grid-template-areas:'film_win'_'film_nom'_'marks_marks'_'why_why']",
-    "md:grid-cols-[minmax(0,1fr)_112px_200px_84px] md:[grid-template-areas:'film_nom_win_marks'_'why_why_why_why']",
+    "md:grid-cols-[minmax(0,1fr)_112px_112px_84px] xl:grid-cols-[minmax(0,1fr)_112px_200px_84px] md:[grid-template-areas:'film_nom_win_marks'_'why_why_why_why']",
   ),
 };
 

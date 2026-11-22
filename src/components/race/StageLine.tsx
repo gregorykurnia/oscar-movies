@@ -39,7 +39,9 @@ export function StageLine({
           data-columns
           className={cn(
             "hidden flex-none text-right text-caption text-ink-muted md:grid",
-            columns.nominate ? "grid-cols-[112px_200px_84px]" : "grid-cols-[200px_84px]",
+            columns.nominate
+              ? "grid-cols-[112px_112px_84px] xl:grid-cols-[112px_200px_84px]"
+              : "grid-cols-[112px_84px] xl:grid-cols-[200px_84px]",
           )}
         >
           {columns.nominate ? <span>To be nominated</span> : null}
