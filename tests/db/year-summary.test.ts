@@ -50,10 +50,11 @@ describe("the year summary for 2025", () => {
 });
 
 describe("the year summary for 2026, the live season", () => {
-  it("counts the films so far, and an empty category as 0 films", async () => {
-    const { all, summary } = await summaryOf(2026);
+  it("counts the films so far, each category from its own grid", async () => {
+    const { all, categories, summary } = await summaryOf(2026);
     expect(summary.films).toBe(all.films.length);
     expect(summary.films).toBeGreaterThan(0);
-    expect(summary.rows.find((r) => r.slug === "animated")).toMatchObject({ films: 0, watched: 0 });
+    // A category with no results yet reads 0 films; which ones are empty changes as the season fills in.
+    expect(summary.rows.map((r) => [r.slug, r.films])).toEqual(categories.map((c) => [c.slug, c.grid.films.length]));
   });
 });

@@ -96,10 +96,16 @@ describe("queryYearGrid", () => {
     expect(columns.map((c) => c.slug)).toEqual(expect.arrayContaining(["oscars", "annie", "sundance"]));
   });
 
-  it("2026 Animated: the columns with no data, and no films yet", async () => {
+  it("2026 Animated: the live season's columns with no data stay empty, and every film has a cell", async () => {
     const { columns, films } = majorsOnly(await queryYearGrid(db, 2026, "animated"));
     expect(columns[0]).toMatchObject({ slug: "oscars", status: "partial" });
-    expect(columns.slice(1).every((c) => c.status === "no_data")).toBe(true);
-    expect(films).toEqual([]);
+    // The season fills in award by award (the European Film Awards nominated five films in November 2026).
+    const empty = new Set(columns.filter((c) => c.status === "no_data" || c.status === null).map(columnKey));
+    expect(empty.size).toBeGreaterThan(0);
+    for (const f of films) {
+      const keys = Object.keys(f.cells);
+      expect(keys.length, f.film.title).toBeGreaterThan(0);
+      expect(keys.filter((k) => empty.has(k)), f.film.title).toEqual([]);
+    }
   });
 });

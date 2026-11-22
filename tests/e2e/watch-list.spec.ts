@@ -586,6 +586,8 @@ const storedQueue = async (ids: number[]) => {
 };
 
 test("films join the Watch queue, move in it by keyboard under any sort, and leave it for the top of Want to watch", async ({ page }) => {
+  // About 12s when the server is warm; it timed out at 30s once in the 12.R full run.
+  test.setTimeout(60_000);
   await withOrder(async ([a, b, c], ids) => {
     await page.goto("/watch-list?sort=mine");
     const queue = section(page, "Watch queue");

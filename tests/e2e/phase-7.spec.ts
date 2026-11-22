@@ -109,7 +109,8 @@ test("Critics Choice's all-years page lists every year from the live year back t
   await expect(page).toHaveURL(/\/awards\/critics-choice\/all$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Critics Choice, all years");
 
-  await expect(section(page, `Critics Choice ${live}`)).toBeVisible();
+  // Every year streams in behind one skeleton; it took over 5s once in the 12.R full run.
+  await expect(section(page, `Critics Choice ${live}`)).toBeVisible({ timeout: 15_000 });
   const years = await page.getByRole("heading", { level: 2 }).allTextContents();
   const expected = Array.from({ length: live - 2012 + 1 }, (_, i) => String(live - i));
   expect(years.map((t) => t.trim())).toEqual(expected);

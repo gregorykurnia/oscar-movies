@@ -216,7 +216,7 @@ Owner request (2026-11-21): count the Letterboxd rating in the average score; no
 | ID | Task | Pick | Done |
 |---|---|---|---|
 | 12.1 | [look] Letterboxd in the average: generated columns, test migration, "of 5" wording and order, tests; brief 12.1 (scores and a migration) | Sol Max | 2026-11-22 · migration 0010 on test, score checks and four-width gallery |
-| 12.R | [look] Phase 12 check: migration SQL, hand-worked averages, sorts, full e2e once; brief 12.R (other family from the builder) | Opus 5.5 High | |
+| 12.R | [look] Phase 12 check: migration SQL, hand-worked averages, sorts, full e2e once; brief 12.R (other family from the builder) | Opus 5.5 High | 2026-11-22 · e2e 149 + 2 slow passed on rerun; averages and sorts check out, [report](docs/phase-checks/letterboxd-in-average.md) |
 
 *Owner, after 12.R:* approve the production migration (`npm run db:migrate`, the average's expression), then ask for a normal release.
 
