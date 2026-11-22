@@ -15,3 +15,6 @@
 - The save-failure toast floats over the rows and section headings beneath it at the bottom of the screen; it can be closed, as guide §7 specifies.
 - Race tabs at desktop widths keep the leader on one line and use an ellipsis when its name runs out of room, including on the selected tab (Design Guide §6.3).
 - A neighboring phone race tab can fade at the edge beside the chevron that reveals the rest of the scrollable row (Design Guide §6.3).
+- In 1× screenshots Geist sets the decimal point close to the digit before it ("3.8" at 12–13px); it reads clearly at 2× and the font is approved (guide §4).
+- Desktop race row crops leave out the column headings above the list ("To be nominated", "To win"); the full page shows them, and phone rows say "87% to be nominated" (guide §6.5).
+- A film with an International Feature result shows its submitting country's flag, even when the sub line names other production countries (Baghdad Messi: Iraq's flag, "Belgium"); guide §7 Flags.

@@ -20,8 +20,13 @@ async function shot(page: Page, name: string, crop?: Locator) {
   mkdirSync(out, { recursive: true });
   await page.evaluate(() => document.fonts.ready);
   const options = { path: `${out}/${name}-${page.viewportSize()!.width}.png`, animations: "disabled" } as const;
-  if (crop) await crop.screenshot(options);
-  else await page.screenshot(options);
+  if (crop) {
+    // A clip of the whole page, not an element shot: at 360px the styleguide board's last line
+    // came out blank when the element shot scrolled it to the bottom of the screen (12.R).
+    const box = (await crop.boundingBox())!;
+    const scroll = await page.evaluate(() => ({ x: window.scrollX, y: window.scrollY }));
+    await page.screenshot({ ...options, fullPage: true, clip: { ...box, x: box.x + scroll.x, y: box.y + scroll.y } });
+  } else await page.screenshot(options);
 }
 
 async function showInLandscape(page: Page, content: Locator, start?: Locator) {
