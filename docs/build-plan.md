@@ -449,7 +449,7 @@ Record the date and result under **Upkeep log** in `docs/build-plan.md`.
 | Phase 10 owner check (released 2026-11-12, migration run): on a real phone sort the Watch list by Release date, filter it and mark a date tentative, sign off | 2026-11-11 | Phase 10 done |
 | Optional production settings from the launch checks: a Vercel Firewall rate limit on `/api/search` (S2), a read-only database role for pages (S4) | 2026-10-23 | nothing |
 | Letterboxd rating (owner, 2026-11-20): released 2026-11-20 with migration `0008` run. Vercel fetch confirmed: the 16:28 UTC run made 179 Letterboxd calls, 153 ratings, 0 failures. Films before the refresh window show "Letterboxd –" until a backfill (the owner's call) | 2026-11-20 | Nothing |
-| Phase 12, Letterboxd in the average (planned 2026-11-21, brief `docs/letterboxd-in-average.md`): start it with `autorun` (12.1 on Sol Max, 12.R on Opus 5.5 High); then approve its production migration and say "release" | 2026-11-21 | Phase 12 going live |
+| Phase 12, Letterboxd in the average (released 2026-11-22, migration `0010` run): on a real phone check a film with a Letterboxd rating shows it counted in the average and score count; sign off | 2026-11-21 | Phase 12 done |
 | Phase 11 owner check (released 2026-11-21, migration `0009` run): on a real phone star a Want to watch and a queue film, open the Starred filter, unstar one there; sign off | 2026-11-21 | Phase 11 done |
 | Phase 11 choices to confirm or change (11.R): a Star tap saves without the row version (only Try again carries it); kept from 11.3: Star stays tappable offline like Queue, the long-title toast at 360px, the static page subtitle. Details in `docs/phase-checks/watch-list-favorites.md` | 2026-11-21 | nothing (easy to change) |
 
