@@ -231,7 +231,7 @@ Owner request (2026-11-24): add Un Certain Regard (Prize and Jury Prize), FIPRES
 | 13.3 | [no look] English-language films out of the International race and its accuracy, unit tested, recomputed on `test`; brief 13.3 (predictions) | Sol Max | 2026-11-24 · five contenders removed on test, [report](docs/phase-checks/cannes-sidebar-prizes.md#133--international-race-eligibility) |
 | 13.4 | [look] Prizes read right: caption de-dup, labels, three-prize assumptions, e2e line, screenshots; brief 13.4 (existing pages, no new parts) | Sol xHigh | 2026-11-24 · Ten prizes verified at four widths, [report](docs/phase-checks/cannes-sidebar-prizes.md#134--prize-labels-and-screening-captions) |
 | 13.R | [look] Phase 13 check: 20 results against sources, rerun no diff, International predictions moves, full e2e once; brief 13.R (other family from the builders) | Opus 5.5 High | 2026-11-24 · 20 of 20 match festival sites; e2e 151 passed; [report](docs/phase-checks/cannes-sidebar-prizes.md#13r--phase-13-check) |
-| 13.F1 | [look] Movie page festival rows: same award and year sort by the category's sort order (Grand Prix above FIPRESCI), unit test, 1280 and 390px shots of The Zone of Interest; see 13.R's look finding | Sol xHigh | |
+| 13.F1 | [look] Movie page festival rows: same award and year sort by the category's sort order (Grand Prix above FIPRESCI), unit test, 1280 and 390px shots of The Zone of Interest; see 13.R's look finding | Sol xHigh | 2026-11-24 · Grand Prix first, unit and 1280/390px look checks passed |
 
 *Owner, after 13.F1:* read the report, ask for a normal release, then say go for the production load (`docs/update-the-race.md` step 5). No migration.
 

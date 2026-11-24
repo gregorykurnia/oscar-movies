@@ -95,6 +95,51 @@ describe("awardsSections", () => {
     expect(sections[0].rows.map((r) => r.awardName)).toEqual(["W", "M", "N"]);
   });
 
+  it("orders festival results from the same award and year by configured category order", () => {
+    const cannes = { kind: "festival", year: 2023, calendarOrder: 200 } as const;
+    const rows = movieAwardRows(
+      [
+        result("cannes", "FIPRESCI Prize: Competition", "won", { ...cannes, categorySortOrder: 6 }),
+        result("cannes", "Grand Prix", "won", { ...cannes, categorySortOrder: 2 }),
+        result("cannes", "Palme d'Or", "nominated", { ...cannes, categorySortOrder: 1 }),
+        result("cannes", "Jury Prize", "won", { ...cannes, year: 2022, categorySortOrder: 3 }),
+        result("sundance", "Audience Award", "won", { ...cannes, calendarOrder: 100, categorySortOrder: 9 }),
+      ],
+      [],
+    );
+    expect(awardsSections(rows, "2025-03-01")[0].rows.map((r) => r.category)).toEqual([
+      "Audience Award",
+      "Grand Prix",
+      "FIPRESCI Prize: Competition",
+      "Jury Prize",
+      "Palme d'Or",
+    ]);
+  });
+
+  it("sorts equal and missing festival ranks by name, with unranked prizes last", () => {
+    const festival = { kind: "festival" } as const;
+    const rows = [
+      row("won", { ...festival, category: "Caméra d'Or" }),
+      row("won", { ...festival, category: "Jury Prize", categorySortOrder: 0 }),
+      row("won", { ...festival, category: "Audience Award" }),
+      row("won", { ...festival, category: "Grand Prix", categorySortOrder: 0 }),
+    ];
+    expect(awardsSections(rows, "2025-03-01")[0].rows.map((r) => r.category)).toEqual([
+      "Grand Prix",
+      "Jury Prize",
+      "Audience Award",
+      "Caméra d'Or",
+    ]);
+  });
+
+  it("keeps alphabetical category order for other awards", () => {
+    const rows = [
+      row("won", { category: "Drama", categorySortOrder: 2 }),
+      row("won", { category: "Musical or Comedy", categorySortOrder: 1 }),
+    ];
+    expect(awardsSections(rows, "2025-03-01")[0].rows.map((r) => r.category)).toEqual(["Drama", "Musical or Comedy"]);
+  });
+
   it("says not nominated only once the nominations are out", () => {
     const rows = [row("not_nominated", { since: "2025-01-07" })];
     expect(awardsSections(rows, "2025-01-06")).toEqual([]);

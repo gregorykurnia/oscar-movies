@@ -17,6 +17,7 @@ export type AwardResult = {
   categoryName: string;
   /** The award category's slug, for the Strong tag; absent in fixtures. */
   categorySlug?: string;
+  categorySortOrder?: number;
   oscarCategory: OscarCategoryName;
   outcome: Outcome;
 };
@@ -38,6 +39,7 @@ export type MovieAwardRow = {
   category: string;
   /** The category's slug (not for "not nominated" rows, which can join several). */
   categorySlug?: string;
+  categorySortOrder?: number;
   oscarCategory: OscarCategoryName;
   result: "won" | "nominated" | "runner_up" | "not_nominated";
   /** Only for not nominated: shown from this day (the nominations' day); null when unknown. */
@@ -72,6 +74,7 @@ export function movieAwardRows(results: AwardResult[], candidates: AwardCandidat
       year: r.year,
       category: r.categoryName,
       categorySlug: r.categorySlug,
+      categorySortOrder: r.categorySortOrder,
       oscarCategory: r.oscarCategory,
       result: r.outcome,
       since: null,
@@ -116,9 +119,12 @@ const SECTIONS: Array<[AwardsSection["kind"], string]> = [
   ["critics", "Critics groups"],
 ];
 
+const UNRANKED_CATEGORY = Number.MAX_SAFE_INTEGER;
+
 /**
  * The page's sections in order (major awards, festivals, critics groups), each row set sorted won,
- * nominated, then not nominated, by the season's order. A "not nominated" shows only once the
+ * nominated, then not nominated, by the season's order. Festival prizes from the same edition
+ * follow the award's category order. A "not nominated" shows only once the
  * nominations are out (`since` on or before `today`); sections with no rows are left out.
  */
 export function awardsSections(rows: MovieAwardRow[], today: string): AwardsSection[] {
@@ -134,6 +140,10 @@ export function awardsSections(rows: MovieAwardRow[], today: string): AwardsSect
           b.year - a.year ||
           a.calendarOrder - b.calendarOrder ||
           a.awardName.localeCompare(b.awardName) ||
+          (kind === "festival"
+            ? a.awardSlug.localeCompare(b.awardSlug) ||
+              (a.categorySortOrder ?? UNRANKED_CATEGORY) - (b.categorySortOrder ?? UNRANKED_CATEGORY)
+            : 0) ||
           a.category.localeCompare(b.category),
       ),
   })).filter((s) => s.rows.length > 0);
