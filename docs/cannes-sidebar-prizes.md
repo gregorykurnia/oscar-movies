@@ -4,11 +4,11 @@ Phase 13 brief (planned 2026-11-24). Before each task, read **Request and smalle
 
 ## Request and smallest design
 
-Owner, 2026-11-24: "put more cannes category in this site: Un Certain Regard, Un Certain Regard Jury, FIPRESCI In Competition, FIPRESCI Un Certain Regard, Critics Week Grand Prize, Directors Fortnight Audience".
+Owner, 2026-11-24: "put more cannes category in this site: Un Certain Regard, Un Certain Regard Jury, FIPRESCI In Competition, FIPRESCI Un Certain Regard, Critics Week Grand Prize, Directors Fortnight Audience", then "one more Prize of the Ecumenical Jury".
 
-Cannes gets six more prizes, shown everywhere its three main prizes show now. The simplest design that does this:
+Cannes gets seven more prizes, shown everywhere its three main prizes show now. The simplest design that does this:
 
-1. **Six new categories under the existing Cannes award** in `data/awards.json`, after the three main ones (sort order 4–9), winners only like the rest of Cannes:
+1. **Seven new categories under the existing Cannes award** in `data/awards.json`, after the three main ones (sort order 4–10), winners only like the rest of Cannes:
 
    | Slug | Name shown | Sort |
    |---|---|---|
@@ -18,16 +18,17 @@ Cannes gets six more prizes, shown everywhere its three main prizes show now. Th
    | `fipresci-ucr` | FIPRESCI Prize: Un Certain Regard | 7 |
    | `critics-week-grand-prize` | Critics' Week Grand Prize | 8 |
    | `fortnight-audience-award` | Directors' Fortnight Audience Award | 9 |
+| `ecumenical-jury` | Prize of the Ecumenical Jury | 10 |
 
-2. **They count towards International Feature, not Picture** (`oscarCategory: "international"`). Every mapped category is a precursor, and each film with a precursor result becomes a race contender. Mapped to Picture, about six small films a year would join the Picture race; these sections' winners are mostly non-English films that end up as International submissions. *Default the owner can change:* one field per category, then reload.
+2. **They count towards International Feature, not Picture** (`oscarCategory: "international"`). Every mapped category is a precursor, and each film with a precursor result becomes a race contender. Mapped to Picture, about seven small films a year would join the Picture race; these winners are mostly non-English films that end up as International submissions. *Default the owner can change:* one field per category, then reload.
 3. **Same years as the rest of Cannes: 2012–2026.** A prize not given a year has no row that year (Directors' Fortnight's Audience Award began in 2024, its first official prize; 2020 had no festival). A tie is two `won` rows, listed under `ties` in `scripts/research/sources/festivals.json` like the main prizes'.
-4. **Source:** each year's Wikipedia page (`<year> Cannes Film Festival`) already has these prize lines under "Un Certain Regard", "Independent awards › FIPRESCI Prizes", "Critics' Week" and "Directors' Fortnight". The existing `readPrizeLines` reader takes them, classified by heading and label like Sundance's. Films matched by IMDb ID, never by title.
+4. **Source:** each year's Wikipedia page (`<year> Cannes Film Festival`) already has these prize lines under "Un Certain Regard", "Independent awards › FIPRESCI Prizes" and "› Prize of the Ecumenical Jury", "Critics' Week" and "Directors' Fortnight". The existing `readPrizeLines` reader takes them, classified by heading and label like Sundance's. Films matched by IMDb ID, never by title.
 5. **English-language films stay out of the International race.** Mapping to International makes every winner a contender there, and some are in English (UCR 2023, How to Have Sex; FIPRESCI 2019, A Hidden Life), which can't win that Oscar. Safeguard: the International race and its accuracy leave out films whose original language (`lang` in `data/movies`) is English. Their prizes still show on every page. This also covers Toronto's International People's Choice. *The owner can drop it at approval.*
 6. **No schema change, no migration.** The loader inserts new categories from `awards.json`; the pages read categories from the database.
 
 Release order: a normal release for the code (caption and label fixes), then the production data load by `docs/update-the-race.md` step 5 once the owner says go.
 
-Left out (follow-ups for the owner to pick, not built): other sidebar prizes (Caméra d'Or, Queer Palm, Ecumenical Jury, Critics' Week's other awards, Fortnight's Europa Cinemas Label), the acting and directing prizes of the competition, Cannes lineups before 2025.
+Left out (follow-ups for the owner to pick, not built): other sidebar prizes (Caméra d'Or, Queer Palm, the Ecumenical Jury's special mentions, Critics' Week's other awards, Fortnight's Europa Cinemas Label), the acting and directing prizes of the competition, Cannes lineups before 2025.
 
 ## Before the run
 
@@ -50,31 +51,31 @@ Light checks per task (`CLAUDE.md`). The full e2e suite runs once, in 13.R.
 
 ## Task briefs
 
-### 13.1 Read the six prizes (script)
+### 13.1 Read the seven prizes (script)
 
-Adds the six categories to `awards.json` and teaches `festivals.ts` to read them from the year pages.
+Adds the seven categories to `awards.json` and teaches `festivals.ts` to read them from the year pages.
 - Category rows as in the table above.
-- A Cannes-only classifier (heading + label → category slug) beside `sundanceCategory`. Unit-test fixtures, copied from the cached pages: every year 2012–2026 has at least one line, and these are covered by name: "Prix Un Certain Regard", "Nespresso Grand Prize", "Grand Prix" under Critics' Week (not the main Grand Prix), "Jury Prize" under Un Certain Regard (not the main Jury Prize), "Un Certain Regard" as a label under FIPRESCI, the FIPRESCI parallel-sections line (skipped), a tie line, and an unrelated prize (Caméra d'Or, skipped).
-- The script prints each skipped Cannes line from the six sections' headings, then a count per category per year.
+- A Cannes-only classifier (heading + label → category slug) beside `sundanceCategory`. Unit-test fixtures, copied from the cached pages: every year 2012–2026 has at least one line, and these are covered by name: "Prix Un Certain Regard", "Nespresso Grand Prize", "Grand Prix" under Critics' Week (not the main Grand Prix), "Jury Prize" under Un Certain Regard (not the main Jury Prize), "Un Certain Regard" as a label under FIPRESCI, the FIPRESCI parallel-sections line (skipped), a tie line, and an Ecumenical Jury prize line and its special mention (skipped), an unrelated prize (Caméra d'Or, skipped).
+- The script prints each skipped Cannes line from the seven prizes' headings, then a count per category per year.
 
 Done when:
 - `npx vitest run scripts/research` passes, with the fixtures above.
-- A dry run for 2012–2026 (`--offline` plus a `--dry` flag that prints and writes nothing, added in this task) prints a table of 15 years × 6 categories; every skipped line from those headings is listed under its year.
+- A dry run for 2012–2026 (`--offline` plus a `--dry` flag that prints and writes nothing, added in this task) prints a table of 15 years × 7 categories; every skipped line from those headings is listed under its year.
 - On a real 2024 run, `git diff data/editions/cannes/2024.json` shows only added results, among them Black Dog (UCR Prize) and The Seed of the Sacred Fig (FIPRESCI Competition), matched by IMDb ID.
 
 ### 13.2 Fill 2012–2026 and load `test`
 
 Puts every year's winners in the data files, checked, and loads them to `test`.
 - Run the script for 2012–2026 with `--offline`; `--refresh` only for a page whose offline run shows a gap. Settle what it printed by `docs/update-the-race.md` step 3: an unresolved film is found by a Wikidata search (title, year, director); one still unresolved is left out and listed in the report with its year and prize.
-- Read every skipped line 13.1's run printed and say in the report why each is not one of the six.
+- Read every skipped line 13.1's run printed and say in the report why each is not one of the seven.
 - Second source for every result: the section's own Wikipedia article where one lists winners by year, otherwise IMDb's Cannes award records (`docs/imdb-import.md`). The report has one table, prize × year, each cell "agrees", "differs: <what>" or "no second source".
 - Ties and years with no prize are written as in **Request and smallest design** 3.
 
 Done when:
 - `npm run data:check` passes.
-- The report's table covers all six prizes for 2012–2019 and 2021–2026 (Fortnight from 2024), every cell filled; every "differs" says which source the data follows and why.
+- The report's table covers all seven prizes for 2012–2019 and 2021–2026 (Fortnight from 2024), every cell filled; every "differs" says which source the data follows and why.
 - Every empty prize-year (no row) is named in the report with its reason.
-- `npm run load -- --target test --dry-run` adds the six categories, their results, and only the new films and contenders those bring; it changes no existing result or screening. After the real load, a second dry run plans nothing.
+- `npm run load -- --target test --dry-run` adds the seven categories, their results, and only the new films and contenders those bring; it changes no existing result or screening. After the real load, a second dry run plans nothing.
 
 ### 13.3 English-language films out of the International race
 
@@ -91,13 +92,13 @@ Makes the new prizes show once and read well on the pages that already list Cann
 - `names()` in `src/lib/lineup.ts`: a won new category hides the same prize in the screening caption; other prizes still show.
 - `precursorLabel` and `givesLabel`: fix any output that reads wrong. Expected: Cannes reads "Picture, International" (or the form Toronto's mixed categories use) on the awards index.
 - Search `src` and `tests` for code or copy that assumes three Cannes prizes or that Cannes only gives Picture (about text, metadata, `oscarCategory` filters); fix or list each in the commit.
-- `tests/e2e/awards-year.spec.ts`: `/awards/cannes/2024` lists the nine prizes in sort order.
+- `tests/e2e/awards-year.spec.ts`: `/awards/cannes/2024` lists the ten prizes in sort order.
 
 Done when:
-- Unit tests for the caption, each one a fixed input and its exact caption: every new category against its screening wording (UCR Jury Prize "Jury Prize (Un Certain Regard)", FIPRESCI "FIPRESCI Prize" in competition and in UCR, Critics' Week, Fortnight), each hidden once; a film with a new win plus Best Director keeps "Best Director"; a Caméra d'Or screening with no won category keeps it; a page with only the three main categories gives the same captions as today.
-- Unit tests: `precursorLabel` for all six slugs gives "Cannes <name>" with no word doubled.
+- Unit tests for the caption, each one a fixed input and its exact caption: every new category against its screening wording (UCR Jury Prize "Jury Prize (Un Certain Regard)", FIPRESCI "FIPRESCI Prize" in competition and in UCR, Ecumenical Jury, Critics' Week, Fortnight), each hidden once; a film with a new win plus Best Director keeps "Best Director"; a Caméra d'Or screening with no won category keeps it; a page with only the three main categories gives the same captions as today.
+- Unit tests: `precursorLabel` for all seven slugs gives "Cannes <name>" with no word doubled.
 - Screenshots at 360, 390, 844 and 1280px (this project's standard widths) show:
-  - `/awards/cannes/2024`: nine prizes in sort order, "Directors' Fortnight Audience Award" wrapped cleanly, no overlap;
+  - `/awards/cannes/2024`: ten prizes in sort order, "Directors' Fortnight Audience Award" wrapped cleanly, no overlap;
   - `/awards/cannes/2023`: no Fortnight prize and no empty row for it; `/awards/cannes/2020`: reads as today;
   - a year with a tie among the new prizes: both films shown;
   - the movie page of a film with two Cannes prizes, one main and one new if any exists (else two new): both under Cannes, each once;
@@ -122,4 +123,4 @@ Done when:
 
 (Filled in by 13.2 and 13.R in `docs/phase-checks/cannes-sidebar-prizes.md`.)
 
-Red-team (Fable 5.2 Medium, 2026-11-24): taken: wider caption, label and classifier tests; the second-source table in 13.2's Done when; 13.R checks against the festivals' own sites; English-language films out of the International race; screenshots of a missing-prize year, a tie, two prizes on one film and the awards index; the hard-coded-assumption search; a looser dry-run check; release safety before the load; no `--refresh` unless needed; the e2e line asserts all nine. Declined: dropping the 390px screenshot (390 and 844 are this project's standard widths since Phase 11).
+Red-team (Fable 5.2 Medium, 2026-11-24): taken: wider caption, label and classifier tests; the second-source table in 13.2's Done when; 13.R checks against the festivals' own sites; English-language films out of the International race; screenshots of a missing-prize year, a tie, two prizes on one film and the awards index; the hard-coded-assumption search; a looser dry-run check; release safety before the load; no `--refresh` unless needed; the e2e line asserts every prize. Declined: dropping the 390px screenshot (390 and 844 are this project's standard widths since Phase 11).
