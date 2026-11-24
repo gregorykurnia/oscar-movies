@@ -98,3 +98,44 @@ The Phase 8 International engine backtest expects 38 of 55. The loaded data scor
 Typecheck, ESLint, all 1,319 unit tests and the eligibility database test passed. Turbopack hit `Operation not permitted (os error 1)` binding its worker port. The Webpack build completed with the test environment.
 
 The test app returned HTTP 404 for cache revalidation after the transaction committed. Verification read the saved test database rows directly.
+
+## 13.4 · Prize labels and screening captions
+
+The movie page lists a followed Cannes win under Festivals, then uses the screening caption for its section and any other prizes. A Poet has one Un Certain Regard Jury Prize win and a screening caption of “Un Certain Regard”. The Zone of Interest has two distinct Cannes wins, Grand Prix and FIPRESCI Prize: Competition.
+
+The awards index already derives “Picture, International” from the prize registry. The race already prefixes the full registered prize name with “Cannes”. The Year Grid fixture now models both categories. The other Picture-only examples exercise the Palme d'Or result or the Picture view specifically, including the predictions and accuracy fixtures. The award and lineup pages read the categories and screenings from the test database.
+
+The seven sidebar categories have 87 results and zero recorded ties. The prize-page capture uses the actual 2025 Competition Jury Prize tie, showing Sirāt and Sound of Falling. The 2025 final International forecast shows four other results in The Secret Agent’s explanation. The full-label capture uses the live 2026 International race, where Elephants in the Fog’s panel reads “Won Cannes Un Certain Regard Jury Prize”.
+
+The desktop jump control wraps all ten links. At 1280px, the four accuracy figures sit in one row using the defined wide-screen breakpoint. Before the layout fixes, the jump control clipped its later links and the figures stacked. The 2020 no-data screen matched its baseline pixel for pixel at 390px.
+
+The 2024 e2e assertion and the screenshot spec passed on the Turbopack test build. The captures are in `screenshots/phase-13` at 360, 390, 844 and 1280px. The screenshots verify nine prize sections in 2023, ten in 2024, the direct Fortnight link, the two 2025 Jury Prize winners and the full labels on the index and movie pages.
+
+### Cannes 2025 lineup
+
+All 22 prize-bearing lines were read from the rendered lineup and checked against the screenings. Each prize appears once on its film’s line.
+
+| Section | Film | Prize caption |
+| --- | --- | --- |
+| In Competition | It Was Just an Accident | Palme d'Or |
+| In Competition | Resurrection | Prix Spécial |
+| In Competition | Sentimental Value | Grand Prix |
+| In Competition | Sirāt | Jury Prize |
+| In Competition | Sound of Falling | Jury Prize |
+| In Competition | The Little Sister | Best Actress |
+| In Competition | The Secret Agent | Best Director; Best Actor |
+| In Competition | Young Mothers | Best Screenplay |
+| Un Certain Regard | A Poet | Jury Prize |
+| Un Certain Regard | I Only Rest in the Storm | Best Actress |
+| Un Certain Regard | My Father's Shadow | Special Mention (Caméra d'Or) |
+| Un Certain Regard | Once Upon a Time in Gaza | Best Director |
+| Un Certain Regard | Pillion | Best Screenplay |
+| Un Certain Regard | The Mysterious Gaze of the Flamingo | Un Certain Regard Prize |
+| Un Certain Regard | Urchin | Best Actor |
+| Critics' Week | A Useful Ghost | Grand Prize |
+| Critics' Week | Imago | French Touch Prize of the Jury |
+| Critics' Week | Left-Handed Girl | Gan Foundation Award for Distribution |
+| Critics' Week | Nino | Louis Roederer Foundation Rising Star Award |
+| Critics' Week | Sleepless City | SACD Award |
+| Directors' Fortnight | The President's Cake | Caméra d'Or; Audience Award |
+| Directors' Fortnight | Wild Foxes | Europa Cinemas Label Award for Best European Film; SACD Prize for Best French Film |

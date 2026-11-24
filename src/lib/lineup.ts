@@ -131,12 +131,36 @@ export function prizesOf(prize: string | null, section?: string): string[] {
 }
 
 const plain = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+// Some Cannes lineup labels only identify a prize when read under their section heading.
+const CANNES_SECTION_PRIZES = new Map([
+  ["un certain regard jury prize", { section: "un certain regard", prize: "jury prize" }],
+  ["fipresci prize competition", { section: "in competition", prize: "fipresci prize" }],
+  ["fipresci prize un certain regard", { section: "un certain regard", prize: "fipresci prize" }],
+  ["critics week grand prize", { section: "critics week", prize: "grand prize" }],
+  ["directors fortnight audience award", { section: "directors fortnight", prize: "audience award" }],
+]);
+
 /**
  * A listed category names the prize: "Palme d'Or" is "Palme d'Or"; Sundance's "U.S. Grand Jury Prize:
  * Dramatic" and "Audience Award: World Cinema Dramatic" are its sections' "Grand Jury Prize" and "Audience Award".
  */
-const names = (listed: string, prize: string) =>
-  [plain(listed), plain(listed.split(":")[0]).replace(/^(?:u s|world cinema) /, "")].includes(plain(prize));
+function names(listed: string, prize: string, screening: Pick<MovieScreening, "awardSlug" | "section">): boolean {
+  const category = plain(listed);
+  const label = plain(prize);
+  if (screening.awardSlug === "cannes") {
+    const section = plain(screening.section);
+    if (category === "jury prize" && section === "un certain regard") return false;
+    const alias = CANNES_SECTION_PRIZES.get(category);
+    if (alias) {
+      return category === label || (section === alias.section && (label === alias.prize || label === `${alias.prize} ${section}`));
+    }
+    if (category === "prize of the ecumenical jury") {
+      return category === label || label === "ecumenical jury prize" || label === "ecumenical jury";
+    }
+  }
+  return category === label || plain(listed.split(":")[0]).replace(/^(?:u s|world cinema) /, "") === label;
+}
 
 /**
  * A screening row's caption: the section and its prizes, the year first when the list spans years.
@@ -144,11 +168,11 @@ const names = (listed: string, prize: string) =>
  * year, "Palme d'Or", "U.S. Grand Jury Prize: Dramatic") isn't said twice.
  */
 export function screeningCaption(
-  s: Pick<MovieScreening, "year" | "section" | "prize">,
+  s: Pick<MovieScreening, "awardSlug" | "year" | "section" | "prize">,
   showYear: boolean,
   listed: string[] = [],
 ): string {
-  const prizes = prizesOf(s.prize, s.section).filter((p) => !listed.some((l) => names(l, p)));
+  const prizes = prizesOf(s.prize, s.section).filter((p) => !listed.some((l) => names(l, p, s)));
   return [showYear ? String(s.year) : null, s.section, prizes.length > 0 ? prizes.join("; ") : null]
     .filter(Boolean)
     .join(" · ");

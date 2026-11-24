@@ -56,8 +56,20 @@ test("a film off the Oscar list reads Not nominated; a list with no winner says 
   await expect(page.getByText("–", { exact: true })).toHaveCount(2);
 });
 
-test("a winners-only award has no nominee figure", async ({ page }) => {
+test("Cannes 2024 shows its ten prizes in order and has no nominee figure", async ({ page }) => {
   await page.goto("/awards/cannes/2024");
+  await expect(page.getByRole("main").getByRole("heading", { level: 2 })).toHaveText([
+    "Palme d'Or",
+    "Grand Prix",
+    "Jury Prize",
+    "Un Certain Regard Prize",
+    "Un Certain Regard Jury Prize",
+    "FIPRESCI Prize: Competition",
+    "FIPRESCI Prize: Un Certain Regard",
+    "Critics' Week Grand Prize",
+    "Directors' Fortnight Audience Award",
+    "Prize of the Ecumenical Jury",
+  ]);
   await expect(page.getByText("announces its winners only")).toBeVisible();
   await expect(page.getByText("–", { exact: true }).first()).toBeVisible();
 });

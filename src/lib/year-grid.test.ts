@@ -50,7 +50,7 @@ function award(slug: string, kind: AwardSummary["kind"], calendarOrder: number, 
 }
 
 const AWARDS: AwardSummary[] = [
-  award("cannes", "festival", 30, ["picture"]),
+  award("cannes", "festival", 30, ["picture", "international"]),
   award("bafta", "major", 680, ["picture", "international"]),
   award("oscars", "oscars", 1000, ["picture", "international"]),
   award("afi", "major", 600, ["picture"]),
@@ -79,6 +79,7 @@ describe("gridColumns", () => {
 
   it("leaves out awards that don't give the category", () => {
     expect(gridColumns(AWARDS, "animated", []).map((c) => c.slug)).toEqual(["annie"]);
+    expect(gridColumns(AWARDS, "international", []).map((c) => c.slug)).toEqual(["oscars", "bafta", "cannes"]);
   });
 
   it("lists every award for all categories, in the same order", () => {

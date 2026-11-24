@@ -33,10 +33,10 @@ describe("StatsStrip", () => {
       <StatsStrip stats={["Won", "Nominated", "Nominees", "Caught"].map((label) => ({ value: "50%", of: "7 of 14", label }))} />,
     );
     const strip = container.firstElementChild as HTMLElement;
-    expect(strip.className).toContain("lg:grid-cols-4");
+    expect(strip.className).toContain("xl:grid-cols-4");
     expect(strip.className).not.toContain("md:grid-cols-3");
     const last = strip.lastElementChild as HTMLElement;
-    for (const cls of ["border-t", "lg:border-t-0", "lg:border-l"]) expect(last.className).toContain(cls);
+    for (const cls of ["border-t", "xl:border-t-0", "xl:border-l"]) expect(last.className).toContain(cls);
     expect(last.className).not.toContain("md:border-l");
   });
 

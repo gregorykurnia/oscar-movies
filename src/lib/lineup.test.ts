@@ -160,9 +160,45 @@ describe("a film's screenings", () => {
     expect(screeningCaption(s, false, ["Palme d'Or"])).toBe("In Competition · Best Actor");
     expect(screeningCaption(screening({ prize: "Palme d'Or" }), false, ["palme d'or"])).toBe("In Competition");
     expect(screeningCaption(s, false, ["Grand Prix"])).toBe("In Competition · Palme d'Or; Best Actor");
-    const sundance = screening({ section: "U.S. Dramatic Competition", prize: "Grand Jury Prize; Audience Award" });
+    const sundance = screening({ awardSlug: "sundance", section: "U.S. Dramatic Competition", prize: "Grand Jury Prize; Audience Award" });
     expect(screeningCaption(sundance, false, ["U.S. Grand Jury Prize: Dramatic"])).toBe("U.S. Dramatic Competition · Audience Award");
     expect(screeningCaption(screening({ prize: "Jury Prize" }), false, ["Grand Jury Prize"])).toBe("In Competition · Jury Prize");
+  });
+
+  it.each([
+    ["Un Certain Regard", "Un Certain Regard Prize", "Un Certain Regard Prize", "Un Certain Regard"],
+    ["Un Certain Regard", "Jury Prize (Un Certain Regard)", "Un Certain Regard Jury Prize", "Un Certain Regard"],
+    ["In Competition", "FIPRESCI Prize", "FIPRESCI Prize: Competition", "In Competition"],
+    ["Un Certain Regard", "FIPRESCI Prize", "FIPRESCI Prize: Un Certain Regard", "Un Certain Regard"],
+    ["Critics' Week", "Grand Prize (Critics' Week)", "Critics' Week Grand Prize", "Critics' Week"],
+    ["Directors' Fortnight", "Audience Award (Directors' Fortnight)", "Directors' Fortnight Audience Award", "Directors' Fortnight"],
+    ["In Competition", "Ecumenical Jury Prize", "Prize of the Ecumenical Jury", "In Competition"],
+  ])("omits %s's %s when its own win row is shown", (section, prize, category, caption) => {
+    expect(screeningCaption(screening({ section, prize }), false, [category])).toBe(caption);
+  });
+
+  it("keeps Cannes prizes from a different section or without a win row", () => {
+    const ucr = screening({ section: "Un Certain Regard", prize: "Jury Prize (Un Certain Regard); FIPRESCI Prize" });
+    expect(screeningCaption(ucr, false, ["Jury Prize", "FIPRESCI Prize: Competition"])).toBe("Un Certain Regard · Jury Prize; FIPRESCI Prize");
+    expect(screeningCaption(screening({ prize: "Jury Prize; FIPRESCI Prize" }), false, ["Un Certain Regard Jury Prize", "FIPRESCI Prize: Un Certain Regard"])).toBe(
+      "In Competition · Jury Prize; FIPRESCI Prize",
+    );
+    expect(screeningCaption(screening({ section: "Directors' Fortnight", prize: "Caméra d'Or" }), false)).toBe("Directors' Fortnight · Caméra d'Or");
+  });
+
+  it("drops repeats of the matched prize and preserves unrelated wording", () => {
+    const s = screening({ prize: "FIPRESCI Prize; fipresci PRIZE; Best Director" });
+    expect(screeningCaption(s, true, ["fipresci prize: COMPETITION", "FIPRESCI Prize: Competition", ""])).toBe("2025 · In Competition · Best Director");
+    const fortnight = screening({ section: "Directors' Fortnight", prize: "Caméra d'Or; Audience Award (Directors’ Fortnight)" });
+    expect(screeningCaption(fortnight, false, ["Directors’ Fortnight Audience Award"])).toBe("Directors' Fortnight · Caméra d'Or");
+    expect(screeningCaption(screening({ prize: "" }), false, ["Un Certain Regard Prize"])).toBe("In Competition");
+  });
+
+  it("keeps the three main Cannes prizes' original captions", () => {
+    const main = ["Palme d'Or", "Grand Prix", "Jury Prize"];
+    for (const prize of main) {
+      expect(screeningCaption(screening({ prize: `${prize}; Best Director` }), false, main)).toBe("In Competition · Best Director");
+    }
   });
 });
 

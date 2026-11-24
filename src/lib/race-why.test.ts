@@ -28,6 +28,18 @@ describe("precursorLabel", () => {
     expect(precursorLabel("annie/indie-feature")).toBe("Annie (Independent)");
     expect(precursorLabel("nowhere/at-all")).toBe("nowhere/at-all");
   });
+
+  it.each([
+    ["ucr-prize", "Cannes Un Certain Regard Prize"],
+    ["ucr-jury-prize", "Cannes Un Certain Regard Jury Prize"],
+    ["fipresci-competition", "Cannes FIPRESCI Prize: Competition"],
+    ["fipresci-ucr", "Cannes FIPRESCI Prize: Un Certain Regard"],
+    ["critics-week-grand-prize", "Cannes Critics' Week Grand Prize"],
+    ["fortnight-audience-award", "Cannes Directors' Fortnight Audience Award"],
+    ["ecumenical-jury", "Cannes Prize of the Ecumenical Jury"],
+  ])("names Cannes's %s prize in full", (slug, label) => {
+    expect(precursorLabel(`cannes/${slug}`)).toBe(label);
+  });
 });
 
 describe("whyItem", () => {

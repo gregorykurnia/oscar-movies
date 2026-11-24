@@ -23,7 +23,7 @@ export function StatsStrip({ stats, className }: { stats: Stat[]; className?: st
   const four = stats.length === 4;
   const two = stats.length === 2;
   return (
-    <div className={cn("grid grid-cols-1 border-y border-line", four ? "lg:grid-cols-4" : two ? "md:grid-cols-2" : "md:grid-cols-3", className)}>
+    <div className={cn("grid grid-cols-1 border-y border-line", four ? "xl:grid-cols-4" : two ? "md:grid-cols-2" : "md:grid-cols-3", className)}>
       {stats.map((stat, i) => {
         const body = (
           <>
@@ -43,7 +43,7 @@ export function StatsStrip({ stats, className }: { stats: Stat[]; className?: st
           </>
         );
         const cell = four
-          ? cn("py-3.5 lg:pt-[18px] lg:pr-6 lg:pb-5", i > 0 && "border-t border-line lg:border-t-0 lg:border-l lg:pl-6")
+          ? cn("py-3.5 xl:pt-[18px] xl:pr-6 xl:pb-5", i > 0 && "border-t border-line xl:border-t-0 xl:border-l xl:pl-6")
           : cn("py-3.5 md:pt-[18px] md:pr-6 md:pb-5", i > 0 && "border-t border-line md:border-t-0 md:border-l md:pl-6");
         return stat.href ? (
           <Link

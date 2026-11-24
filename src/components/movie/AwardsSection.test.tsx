@@ -123,6 +123,23 @@ describe("AwardsSection", () => {
     expect(within(items[1]).getByText("In Competition · Best Director")).toBeTruthy();
   });
 
+  it("only takes a Cannes sidebar prize out of a screening caption for a win in that edition", () => {
+    const category = row({
+      kind: "festival", awardSlug: "cannes", awardName: "Cannes Film Festival",
+      category: "Un Certain Regard Jury Prize", oscarCategory: "international",
+    });
+    const screenings = [screening({ section: "Un Certain Regard", prize: "Jury Prize (Un Certain Regard)" })];
+    const { rerender } = render(<AwardsSection today="2025-06-01" rows={[category]} screenings={screenings} />);
+    const festivals = within(screen.getByRole("group", { name: "Festivals" }));
+    expect(festivals.getByText("2025 · Un Certain Regard · Jury Prize")).toBeTruthy();
+    rerender(<AwardsSection today="2025-06-01" rows={[{ ...category, year: 2025, result: "runner_up" }]} screenings={screenings} />);
+    expect(festivals.getByText("Un Certain Regard · Jury Prize")).toBeTruthy();
+    rerender(<AwardsSection today="2025-06-01" rows={[{ ...category, year: 2025 }]} screenings={screenings} />);
+    expect(festivals.getByText("Un Certain Regard Jury Prize")).toBeTruthy();
+    expect(festivals.getByText("Un Certain Regard")).toBeTruthy();
+    expect(festivals.queryByText("Un Certain Regard · Jury Prize")).toBeNull();
+  });
+
   it("says a film from before the lineups with no award result at all that lineups are tracked from 2025 on", () => {
     render(<AwardsSection today="2025-03-01" year={2024} rows={[]} />);
     expect(screen.getByText("No award results for this film yet. Festival lineups are tracked from 2025 on.")).toBeTruthy();

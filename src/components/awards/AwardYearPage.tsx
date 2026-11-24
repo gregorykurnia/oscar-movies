@@ -130,6 +130,7 @@ async function Categories({ award, year, query }: { award: AwardSummary; year: n
         {categories.length > 1 ? (
           <Segmented
             label="Jump to category"
+            className="md:flex-wrap md:overflow-visible"
             items={categories.map((c) => ({ label: c.category.name, href: `#${c.category.slug}` }))}
           />
         ) : null}
