@@ -199,5 +199,7 @@
   "tt2070776": { "slug": "populaire", "title": "Populaire", "countries": ["FR", "BE"], "language": "fr", "wd": "Q3398002", "tmdb": 136403 },
   "tt2318625": { "slug": "out-in-the-dark", "title": "Out in the Dark", "originalTitle": "עלטה", "originalLang": "he", "countries": ["IL", "US"], "language": "he", "wd": "Q7067489", "tmdb": 128154 },
   "tt2243389": { "slug": "im-so-excited", "title": "I'm So Excited", "originalTitle": "Los Amantes Pasajeros", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q2656108", "tmdb": 144789 },
-  "tt1356790": { "slug": "i-am-divine", "title": "I Am Divine", "countries": ["US"], "language": "en", "wd": "Q15052313", "tmdb": 171910 }
+  "tt1356790": { "slug": "i-am-divine", "title": "I Am Divine", "countries": ["US"], "language": "en", "wd": "Q15052313", "tmdb": 171910 },
+  "tt2912144": { "slug": "manuscripts-dont-burn", "title": "Manuscripts Don't Burn", "originalTitle": "دستنوشته‌ها نمی‌سوزند", "originalLang": "fa", "countries": ["IR"], "language": "fa", "wd": "Q17071553", "tmdb": 191731 },
+  "tt1971514": { "slug": "salvo", "title": "Salvo", "countries": ["IT", "FR"], "language": "it", "wd": "Q13553892", "tmdb": 190901 }
 }

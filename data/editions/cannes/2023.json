@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt17009710", "title": "Anatomy of a Fall", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt21027780", "title": "Fallen Leaves", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt22890246", "title": "How to Have Sex", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt25750836", "title": "Hounds", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt7160372", "title": "The Zone of Interest", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt10370812", "title": "The Settlers", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt27503384", "title": "Perfect Days", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt10803634", "title": "Tiger Stripes", "outcome": "won" }
   ],
   "screenings": []
 }

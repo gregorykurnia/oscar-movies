@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt2042568", "title": "Inside Llewyn Davis", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt2331143", "title": "Like Father, Like Son", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt2331143", "title": "Like Father, Like Son", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt2852470", "title": "The Missing Picture", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt2852406", "title": "Omar", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt2278871", "title": "Blue Is the Warmest Colour", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt2912144", "title": "Manuscripts Don't Burn", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt2404461", "title": "The Past", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt1971514", "title": "Salvo", "outcome": "won" }
   ],
   "screenings": []
 }

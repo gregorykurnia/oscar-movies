@@ -7,7 +7,14 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt28607951", "title": "Anora", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt32086077", "title": "All We Imagine as Light", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt20221436", "title": "Emilia Pérez", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt28131427", "title": "Black Dog", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt32086046", "title": "Souleymane's Story", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt32086046", "title": "Souleymane's Story", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt32178949", "title": "The Seed of the Sacred Fig", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt32119337", "title": "Simon of the Mountain", "outcome": "won" },
+    { "category": "fortnight-audience-award", "imdb": "tt31691389", "title": "Universal Language", "outcome": "won" }
   ],
   "screenings": []
 }

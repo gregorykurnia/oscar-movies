@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt5168192", "title": "I, Daniel Blake", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt4645368", "title": "It's Only the End of the World", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt3721936", "title": "American Honey", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt3721936", "title": "American Honey", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt4771932", "title": "The Happiest Day in the Life of Olli Mäki", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt5182856", "title": "Harmonium", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt4048272", "title": "Toni Erdmann", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt5088794", "title": "Dogs", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt4645368", "title": "It's Only the End of the World", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt5606268", "title": "Mimosas", "outcome": "won" }
   ],
   "screenings": []
 }

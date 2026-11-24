@@ -229,5 +229,7 @@
   "tt7697870": { "slug": "sky-and-ground", "title": "Sky and Ground", "countries": ["US"], "language": "en", "wd": "Q130582266", "tmdb": 565072 },
   "tt6915100": { "slug": "pope-francis-a-man-of-his-word", "title": "Pope Francis: A Man of His Word", "countries": ["FR", "DE", "IT", "CH", "VA"], "language": "de", "wd": "Q54554847", "tmdb": 505205 },
   "tt8948614": { "slug": "reversing-roe", "title": "Reversing Roe", "countries": ["US"], "language": "en", "wd": "Q56706475", "tmdb": 545634 },
-  "tt7689958": { "slug": "jane-fonda-in-five-acts", "title": "Jane Fonda in Five Acts", "countries": ["US"], "language": "en", "wd": "Q66828119", "tmdb": 490082 }
+  "tt7689958": { "slug": "jane-fonda-in-five-acts", "title": "Jane Fonda in Five Acts", "countries": ["US"], "language": "en", "wd": "Q66828119", "tmdb": 490082 },
+  "tt8423962": { "slug": "the-dead-and-the-others", "title": "The Dead and the Others", "countries": ["BR"], "language": "pt", "wd": "Q53997860", "tmdb": 519241 },
+  "tt6522668": { "slug": "diamantino", "title": "Diamantino", "countries": ["PT", "BR", "FR"], "language": "pt", "wd": "Q55272444", "tmdb": 518495 }
 }

@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt1602620", "title": "Amour", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt1846487", "title": "Reality", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt1924394", "title": "The Angels’ Share", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt1924394", "title": "The Angels’ Share", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt2368749", "title": "After Lucia", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt2008562", "title": "Le grand soir", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt2325741", "title": "In the Fog", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt2125435", "title": "Beasts of the Southern Wild", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt2106476", "title": "The Hunt", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt1874416", "title": "Aquí y Allá", "outcome": "won" }
   ],
   "screenings": []
 }

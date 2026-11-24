@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt4995790", "title": "The Square", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt6304162", "title": "Loveless", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt6304162", "title": "Loveless", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt6776462", "title": "A Man of Integrity", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt6397762", "title": "April's Daughter", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt6135348", "title": "BPM (Beats per Minute)", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt6777056", "title": "Closeness", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt6165792", "title": "Radiance", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt6805366", "title": "Makala", "outcome": "won" }
   ],
   "screenings": []
 }

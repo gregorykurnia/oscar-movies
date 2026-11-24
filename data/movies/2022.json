@@ -245,5 +245,8 @@
   "tt14145426": { "slug": "beavis-and-butt-head-do-the-universe", "title": "Beavis and Butt-Head Do the Universe", "countries": ["US"], "language": "en", "wd": "Q111947995", "tmdb": 828947 },
   "tt17161664": { "slug": "kash-kash-without-feathers-we-cant-live", "title": "KASH KASH – WITHOUT FEATHERS WE CAN’T LIVE", "originalTitle": "Kash Kash", "originalLang": "de", "countries": ["DE", "QA"], "language": "de", "wd": "Q123561795", "tmdb": 928641 },
   "tt16226986": { "slug": "after-sherman", "title": "After Sherman", "countries": ["US"], "language": "en", "tmdb": 946102 },
-  "tt16282914": { "slug": "2nd-chance", "title": "2nd Chance", "countries": ["US"], "language": "en", "wd": "Q112123858", "tmdb": 901511 }
+  "tt16282914": { "slug": "2nd-chance", "title": "2nd Chance", "countries": ["US"], "language": "en", "wd": "Q112123858", "tmdb": 901511 },
+  "tt19719862": { "slug": "the-worst-ones", "title": "The Worst Ones", "originalTitle": "Les Pires", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q112169775", "tmdb": 962543 },
+  "tt19653180": { "slug": "leilas-brothers", "title": "Leila's Brothers", "originalTitle": "برادران لیلا", "originalLang": "fa", "countries": ["IR"], "language": "fa", "wd": "Q108901009", "tmdb": 962558 },
+  "tt19768056": { "slug": "the-pack", "title": "The Pack", "originalTitle": "La jauría", "originalLang": "es", "countries": ["CO", "FR"], "language": "es", "wd": "Q112129182", "tmdb": 961735 }
 }

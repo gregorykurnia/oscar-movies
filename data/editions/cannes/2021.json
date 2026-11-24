@@ -9,7 +9,13 @@
     { "category": "grand-prix", "imdb": "tt10262648", "title": "Compartment No. 6", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt11777738", "title": "A Hero", "outcome": "won" },
     { "category": "jury-prize", "imdb": "tt12494638", "title": "Ahed's Knee", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt8399288", "title": "Memoria", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt8399288", "title": "Memoria", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt14775666", "title": "Unclenching the Fists", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt14775784", "title": "Great Freedom", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt11087960", "title": "Playground", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt14039582", "title": "Drive My Car", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt14805128", "title": "Feathers", "outcome": "won" }
   ],
   "screenings": []
 }

@@ -233,5 +233,6 @@
   "tt5884004": { "slug": "david-crosby-remember-my-name", "title": "David Crosby: Remember My Name", "countries": ["US"], "language": "en", "wd": "Q61740823", "tmdb": 565718 },
   "tt6722976": { "slug": "the-elephant-queen", "title": "The Elephant Queen", "countries": ["GB", "KE"], "language": "en", "wd": "Q73536630", "tmdb": 541572 },
   "tt9106444": { "slug": "the-fourth-kingdom-the-kingdom-of-plastics-el-cuarto-reino-el-reino-de-los-plasticos", "title": "THE FOURTH KINGDOM: THE KINGDOM OF PLASTICS (EL CUARTO REINO: EL REINO DE LOS PLÁSTICOS)", "originalTitle": "El cuarto reino. El reino de los plásticos", "originalLang": "es", "countries": ["ES"], "language": "es", "wd": "Q97483216", "tmdb": 601652 },
-  "tt8060472": { "slug": "hope-frozen", "title": "Hope Frozen", "countries": ["TH"], "language": "th", "wd": "Q99508975", "tmdb": 594676 }
+  "tt8060472": { "slug": "hope-frozen", "title": "Hope Frozen", "countries": ["TH"], "language": "th", "wd": "Q99508975", "tmdb": 594676 },
+  "tt8212958": { "slug": "fire-will-come", "title": "Fire Will Come", "originalTitle": "O que arde", "originalLang": "gl", "countries": ["ES", "FR", "LU"], "language": "gl", "wd": "Q63254980", "tmdb": 575561 }
 }

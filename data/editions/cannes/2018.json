@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt8075192", "title": "Shoplifters", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt7349662", "title": "BlacKkKlansman", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt5501104", "title": "Border", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt8423962", "title": "The Dead and the Others", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt7282468", "title": "Burning", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt8254556", "title": "Girl", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt8267604", "title": "Capernaum", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt6522668", "title": "Diamantino", "outcome": "won" }
   ],
   "screenings": []
 }

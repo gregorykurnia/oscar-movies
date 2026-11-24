@@ -217,5 +217,8 @@
   "tt3416532": { "slug": "a-monster-calls", "title": "A Monster Calls", "countries": ["ES", "US", "GB"], "language": "en", "wd": "Q18200409", "tmdb": 258230 },
   "tt5213534": { "slug": "supersonic", "title": "Supersonic", "countries": ["GB"], "language": "en", "wd": "Q27644140", "tmdb": 412924 },
   "tt4846318": { "slug": "into-the-inferno", "title": "Into the Inferno", "countries": ["GB", "US"], "language": "en", "wd": "Q26821183", "tmdb": 360029 },
-  "tt5275838": { "slug": "mapplethorpe-look-at-the-pictures", "title": "Mapplethorpe: Look at the Pictures", "countries": ["US", "DE"], "language": "en", "wd": "Q23925069", "tmdb": 373349 }
+  "tt5275838": { "slug": "mapplethorpe-look-at-the-pictures", "title": "Mapplethorpe: Look at the Pictures", "countries": ["US", "DE"], "language": "en", "wd": "Q23925069", "tmdb": 373349 },
+  "tt5182856": { "slug": "harmonium", "title": "Harmonium", "countries": ["JP", "FR"], "language": "ja", "wd": "Q23925052", "tmdb": 392795 },
+  "tt5088794": { "slug": "dogs", "title": "Dogs", "originalTitle": "Câini", "originalLang": "ro", "countries": ["RO", "FR"], "language": "ro", "wd": "Q23925051", "tmdb": 392812 },
+  "tt5606268": { "slug": "mimosas", "title": "Mimosas", "countries": ["ES", "MA", "FR"], "language": "ar", "wd": "Q25212131", "tmdb": 393520 }
 }

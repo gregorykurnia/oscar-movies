@@ -1,13 +1,15 @@
 // Task 2.4's Done when: each festival's winners in `data/editions/` match Wikipedia's for every year.
 // `sources/festival-winners.json` holds what the second place on Wikipedia says (saved by
 // `festivals-check.ts --write`, which compares it with the pages the import read), so a research run that
-// picks the wrong film (or a wrong IMDb ID) fails `npm test`.
+// picks the wrong film (or a wrong IMDb ID) fails `npm test`. The Cannes sidebar prize
+// comparisons are recorded separately in docs/phase-checks/cannes-sidebar-prizes.md.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { readDataSet } from "../lib/data-check";
 import type { FestivalWinnersFile } from "./festivals-check";
 
 const WINNERS = JSON.parse(readFileSync("scripts/research/sources/festival-winners.json", "utf8")) as FestivalWinnersFile;
+const CANNES_SIDEBAR = JSON.parse(readFileSync("scripts/research/sources/cannes-sidebar-winners.json", "utf8")) as FestivalWinnersFile["cannes"];
 const FESTIVALS = ["cannes", "venice", "berlin", "sundance", "tiff"];
 
 describe("festival prizes in data/", () => {
@@ -16,7 +18,7 @@ describe("festival prizes in data/", () => {
 
   it("reads every file", () => expect(errors).toEqual([]));
 
-  for (const [award, categories] of Object.entries(WINNERS)) {
+  for (const [award, categories] of Object.entries({ ...WINNERS, cannes: { ...WINNERS.cannes, ...CANNES_SIDEBAR } })) {
     for (const [category, years] of Object.entries(categories)) {
       const [slug, kind] = category.split(":");
       it(`${award} ${slug}${kind ? " runners-up" : ""}: ${Object.keys(years).length} years match Wikipedia's second source`, () => {

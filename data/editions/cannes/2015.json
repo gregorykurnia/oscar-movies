@@ -7,7 +7,13 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt4082068", "title": "Dheepan", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt3464902", "title": "The Lobster", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt3464902", "title": "The Lobster", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt3296658", "title": "Rams", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt4593108", "title": "The High Sun", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt3808342", "title": "Son of Saul", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt4635372", "title": "Masaan", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt3013610", "title": "My Mother", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt3784222", "title": "Paulina", "outcome": "won" }
   ],
   "screenings": []
 }

@@ -7,7 +7,14 @@
   "results": [
     { "category": "palme-dor", "imdb": "tt35410859", "title": "Fjord", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt37118301", "title": "Minotaur", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt21188986", "title": "The Dreamed Adventure", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt21188986", "title": "The Dreamed Adventure", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt41592057", "title": "Everytime", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt29279937", "title": "Elephants in the Fog", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt35410859", "title": "Fjord", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt38820979", "title": "Ben'Imana", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt35410859", "title": "Fjord", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt36107185", "title": "La Gradiva", "outcome": "won" },
+    { "category": "fortnight-audience-award", "imdb": "tt38991615", "title": "I See Buildings Fall Like Lightning", "outcome": "won" }
   ],
   "screenings": [
     { "imdb": "tt36834996", "title": "All of a Sudden", "section": "In Competition", "sectionOrder": 1, "prize": "Best Actress" },

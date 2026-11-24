@@ -9,7 +9,13 @@
     { "category": "grand-prix", "imdb": "tt9660502", "title": "Close", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt10354106", "title": "Stars at Noon", "outcome": "won" },
     { "category": "jury-prize", "imdb": "tt14641542", "title": "The Eight Mountains", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt19652910", "title": "EO", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt19652910", "title": "EO", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt19719862", "title": "The Worst Ones", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt19719976", "title": "Joyland", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt19653180", "title": "Leila's Brothers", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt17679584", "title": "The Blue Caftan", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt13056052", "title": "Broker", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt19768056", "title": "The Pack", "outcome": "won" }
   ],
   "screenings": []
 }

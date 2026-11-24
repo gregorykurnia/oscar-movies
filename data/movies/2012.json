@@ -203,5 +203,8 @@
   "tt0848228": { "slug": "the-avengers", "title": "The Avengers", "countries": ["US"], "language": "en", "wd": "Q182218", "tmdb": 24428 },
   "tt2112868": { "slug": "paul-simon-under-african-skies", "title": "Paul Simon: Under African Skies", "countries": ["US", "ZA"], "language": "en", "tmdb": 84347 },
   "tt2053352": { "slug": "diana-vreeland-the-eye-has-to-travel", "title": "Diana Vreeland: The Eye Has to Travel", "countries": ["US"], "language": "en", "wd": "Q5271334", "tmdb": 82639 },
-  "tt2008513": { "slug": "first-position", "title": "First Position", "countries": ["US"], "language": "en", "wd": "Q5453528", "tmdb": 89874 }
+  "tt2008513": { "slug": "first-position", "title": "First Position", "countries": ["US"], "language": "en", "wd": "Q5453528", "tmdb": 89874 },
+  "tt2008562": { "slug": "le-grand-soir", "title": "Le grand soir", "originalTitle": "Le Grand Soir", "originalLang": "fr", "countries": ["FR", "BE"], "language": "fr", "wd": "Q2483156", "tmdb": 70793 },
+  "tt2325741": { "slug": "in-the-fog", "title": "In the Fog", "originalTitle": "В тумане", "originalLang": "ru", "countries": ["BY", "DE", "LV", "RU"], "language": "ru", "wd": "Q1252050", "tmdb": 103742 },
+  "tt1874416": { "slug": "aqui-y-alla", "title": "Aquí y Allá", "countries": ["US", "ES", "MX"], "language": "es", "wd": "Q2859289", "tmdb": 121211 }
 }

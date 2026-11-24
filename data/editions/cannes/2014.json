@@ -8,7 +8,13 @@
     { "category": "palme-dor", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt3044244", "title": "The Wonders", "outcome": "won" },
     { "category": "jury-prize", "imdb": "tt2400275", "title": "Goodbye to Language", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt3612616", "title": "Mommy", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt3612616", "title": "Mommy", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt2844798", "title": "White God", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt2121382", "title": "Force Majeure", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt2758880", "title": "Winter Sleep", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt2514338", "title": "Jauja", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt3409392", "title": "Timbuktu", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt1745787", "title": "The Tribe", "outcome": "won" }
   ],
   "screenings": []
 }

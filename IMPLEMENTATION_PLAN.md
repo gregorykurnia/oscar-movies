@@ -227,7 +227,7 @@ Owner request (2026-11-24): add Un Certain Regard (Prize and Jury Prize), FIPRES
 | ID | Task | Pick | Done |
 |---|---|---|---|
 | 13.1 | [no look] Seven Cannes categories in `awards.json` and a year-page classifier in `festivals.ts`, unit tested; brief 13.1 (parser built from fixed page lines) | Sol xHigh | 2026-11-24 · 87 winners in dry report, seven 2024 IMDb matches verified |
-| 13.2 | [no look] Fill 2012–2026, resolve films by ID, second source, `data:check`, load `test`; brief 13.2 (facts checked against a source) | Sol Max | |
+| 13.2 | [no look] Fill 2012–2026, resolve films by ID, second source, `data:check`, load `test`; brief 13.2 (facts checked against a source) | Sol Max | 2026-11-24 · 87 IMDb-verified winners loaded to test |
 | 13.3 | [no look] English-language films out of the International race and its accuracy, unit tested, recomputed on `test`; brief 13.3 (predictions) | Sol Max | |
 | 13.4 | [look] Prizes read right: caption de-dup, labels, three-prize assumptions, e2e line, screenshots; brief 13.4 (existing pages, no new parts) | Sol xHigh | |
 | 13.R | [look] Phase 13 check: 20 results against sources, rerun no diff, International predictions moves, full e2e once; brief 13.R (other family from the builders) | Opus 5.5 High | |

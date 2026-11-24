@@ -245,5 +245,6 @@
   "tt9603212": { "slug": "mission-impossible-dead-reckoning", "title": "Mission: Impossible - Dead Reckoning", "countries": ["US"], "language": "en", "wd": "Q61876370", "tmdb": 575264 },
   "tt26080756": { "slug": "angel-applicant", "title": "Angel Applicant", "countries": ["US"], "language": "en", "tmdb": 1093377 },
   "tt21990924": { "slug": "name-me-lawand", "title": "Name Me Lawand", "countries": ["GB"], "language": "en", "tmdb": 1019185 },
-  "tt26084296": { "slug": "the-lady-bird-diaries", "title": "The Lady Bird Diaries", "countries": ["US"], "language": "en", "wd": "Q131549928", "tmdb": 1097590 }
+  "tt26084296": { "slug": "the-lady-bird-diaries", "title": "The Lady Bird Diaries", "countries": ["US"], "language": "en", "wd": "Q131549928", "tmdb": 1097590 },
+  "tt25750836": { "slug": "hounds", "title": "Hounds", "originalTitle": "Les Meutes", "originalLang": "fr", "countries": ["FR", "MA", "BE", "SA", "QA"], "language": "ary", "wd": "Q119893109", "tmdb": 1000130 }
 }

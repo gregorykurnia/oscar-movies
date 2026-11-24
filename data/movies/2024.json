@@ -244,5 +244,7 @@
   "tt14682800": { "slug": "tuesday", "title": "Tuesday", "countries": ["US", "GB"], "language": "en", "wd": "Q107299023", "tmdb": 831395 },
   "tt18559464": { "slug": "my-old-ass", "title": "My Old Ass", "countries": ["US"], "language": "en", "wd": "Q119206819", "tmdb": 947891 },
   "tt31123288": { "slug": "the-casagrandes-movie", "title": "The Casagrandes Movie", "countries": ["US"], "language": "en", "wd": "Q124423359", "tmdb": 1216512 },
-  "tt30320605": { "slug": "nocturnes", "title": "Nocturnes", "countries": ["IN", "BG", "US"], "language": "hi", "wd": "Q127624073", "tmdb": 1211740 }
+  "tt30320605": { "slug": "nocturnes", "title": "Nocturnes", "countries": ["IN", "BG", "US"], "language": "hi", "wd": "Q127624073", "tmdb": 1211740 },
+  "tt32086046": { "slug": "souleymanes-story", "title": "Souleymane's Story", "originalTitle": "L’Histoire de Souleymane", "originalLang": "fr", "countries": ["FR"], "language": "fr", "wd": "Q126014180", "tmdb": 1158996 },
+  "tt32119337": { "slug": "simon-of-the-mountain", "title": "Simon of the Mountain", "originalTitle": "Simón de la montaña", "originalLang": "es", "countries": ["AR", "CL", "UY"], "language": "es", "wd": "Q125938891", "tmdb": 1274686 }
 }

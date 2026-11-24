@@ -8,7 +8,14 @@
     { "category": "palme-dor", "imdb": "tt36491653", "title": "It Was Just an Accident", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt27714581", "title": "Sentimental Value", "outcome": "won" },
     { "category": "jury-prize", "imdb": "tt32298285", "title": "Sirāt", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt28690468", "title": "Sound of Falling", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt22237964", "title": "The Mysterious Gaze of the Flamingo", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt36544524", "title": "A Poet", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt27847051", "title": "The Secret Agent", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt35715953", "title": "Urchin", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt32909489", "title": "Young Mothers", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt22530226", "title": "A Useful Ghost", "outcome": "won" },
+    { "category": "fortnight-audience-award", "imdb": "tt36580119", "title": "The President's Cake", "outcome": "won" }
   ],
   "screenings": [
     { "imdb": "tt32275943", "title": "Alpha", "section": "In Competition", "sectionOrder": 1 },

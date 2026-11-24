@@ -8,7 +8,13 @@
     { "category": "palme-dor", "imdb": "tt6751668", "title": "Parasite", "outcome": "won" },
     { "category": "grand-prix", "imdb": "tt10199586", "title": "Atlantique", "outcome": "won" },
     { "category": "jury-prize", "imdb": "tt2762506", "title": "Bacurau", "outcome": "won" },
-    { "category": "jury-prize", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "won" }
+    { "category": "jury-prize", "imdb": "tt10199590", "title": "Les Misérables", "outcome": "won" },
+    { "category": "ucr-prize", "imdb": "tt6390668", "title": "The Invisible Life", "outcome": "won" },
+    { "category": "ucr-jury-prize", "imdb": "tt8212958", "title": "Fire Will Come", "outcome": "won" },
+    { "category": "fipresci-competition", "imdb": "tt8359842", "title": "It Must Be Heaven", "outcome": "won" },
+    { "category": "fipresci-ucr", "imdb": "tt10199640", "title": "Beanpole", "outcome": "won" },
+    { "category": "ecumenical-jury", "imdb": "tt5827916", "title": "A Hidden Life", "outcome": "won" },
+    { "category": "critics-week-grand-prize", "imdb": "tt9806192", "title": "I Lost My Body", "outcome": "won" }
   ],
   "screenings": []
 }
