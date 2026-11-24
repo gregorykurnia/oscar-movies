@@ -22,3 +22,4 @@
 - In 1× screenshots Geist sets the decimal point close to the digit before it ("3.8" at 12–13px); it reads clearly at 2× and the font is approved (guide §4).
 - Desktop race row crops leave out the column headings above the list ("To be nominated", "To win"); the full page shows them, and phone rows say "87% to be nominated" (guide §6.5).
 - A film with an International Feature result shows its submitting country's flag, even when the sub line names other production countries (Baghdad Messi: Iraq's flag, "Belgium"); guide §7 Flags.
+- Past-season race rows on phones read "13% final prediction" under the % to win (no "to win" word) beside the film's Oscar result pill and its eve-of-nominations "78% to be nominated"; the stage line above the list says when the final prediction was made (guide §6.5, §8.2).
