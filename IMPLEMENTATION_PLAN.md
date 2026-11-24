@@ -177,7 +177,7 @@ A real `<table>` in a frame that scrolls sideways; the film column is `position:
 
 Every phase ends with its end-to-end/screenshot check task and its review row. "The reference file" is `design-preview.html` (task text avoids the word, since `autorun` treats any task containing "review" as a phase review). Light checks per task, full checks at the review (`CLAUDE.md`, `docs/build-plan.md` Step 10).
 
-**Before the Phase 12 run:** nothing to set up (see the brief’s **Before the run**). Start with 12.1. The production migration and the release wait until the build is finished.
+**Before the Phase 13 run:** nothing to set up (see the brief’s **Before the run**). Start with 13.1. The production load and the release wait until 13.R is done.
 
 Phases 0–9: build tasks and reviews done; see [completed tasks](IMPLEMENTATION_PLAN-done.md). Historical owner checks remain in `docs/build-plan.md`.
 
@@ -219,6 +219,20 @@ Owner request (2026-11-21): count the Letterboxd rating in the average score; no
 | 12.R | [look] Phase 12 check: migration SQL, hand-worked averages, sorts, full e2e once; brief 12.R (other family from the builder) | Opus 5.5 High | 2026-11-22 · e2e 149 + 2 slow passed on rerun; averages and sorts check out, [report](docs/phase-checks/letterboxd-in-average.md) |
 
 *Owner, after 12.R:* approve the production migration (`npm run db:migrate`, the average's expression), then ask for a normal release.
+
+### Phase 13: More Cannes prizes
+
+Owner request (2026-11-24): add Un Certain Regard (Prize and Jury Prize), FIPRESCI (Competition and Un Certain Regard), Critics' Week Grand Prize and Directors' Fortnight Audience Award. Smallest design: six winners-only categories under the Cannes award, mapped to International Feature (English-language films left out of that race), 2012–2026 from the year pages; no schema change. Before each task, read [the brief](docs/cannes-sidebar-prizes.md), **Request and smallest design** and the matching **Task briefs** entry.
+
+| ID | Task | Pick | Done |
+|---|---|---|---|
+| 13.1 | [no look] Six Cannes categories in `awards.json` and a year-page classifier in `festivals.ts`, unit tested; brief 13.1 (parser built from fixed page lines) | Sol xHigh | |
+| 13.2 | [no look] Fill 2012–2026, resolve films by ID, second source, `data:check`, load `test`; brief 13.2 (facts checked against a source) | Sol Max | |
+| 13.3 | [no look] English-language films out of the International race and its accuracy, unit tested, recomputed on `test`; brief 13.3 (predictions) | Sol Max | |
+| 13.4 | [look] Prizes read right: caption de-dup, labels, three-prize assumptions, e2e line, screenshots; brief 13.4 (existing pages, no new parts) | Sol xHigh | |
+| 13.R | [look] Phase 13 check: 20 results against sources, rerun no diff, International predictions moves, full e2e once; brief 13.R (other family from the builders) | Opus 5.5 High | |
+
+*Owner, after 13.R:* read the report, ask for a normal release, then say go for the production load (`docs/update-the-race.md` step 5). No migration.
 
 ## 7. Who builds it, and how
 
