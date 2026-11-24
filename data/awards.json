@@ -496,6 +496,48 @@
         "name": "Jury Prize",
         "oscarCategory": "picture",
         "sortOrder": 3
+      },
+      {
+        "slug": "ucr-prize",
+        "name": "Un Certain Regard Prize",
+        "oscarCategory": "international",
+        "sortOrder": 4
+      },
+      {
+        "slug": "ucr-jury-prize",
+        "name": "Un Certain Regard Jury Prize",
+        "oscarCategory": "international",
+        "sortOrder": 5
+      },
+      {
+        "slug": "fipresci-competition",
+        "name": "FIPRESCI Prize: Competition",
+        "oscarCategory": "international",
+        "sortOrder": 6
+      },
+      {
+        "slug": "fipresci-ucr",
+        "name": "FIPRESCI Prize: Un Certain Regard",
+        "oscarCategory": "international",
+        "sortOrder": 7
+      },
+      {
+        "slug": "critics-week-grand-prize",
+        "name": "Critics' Week Grand Prize",
+        "oscarCategory": "international",
+        "sortOrder": 8
+      },
+      {
+        "slug": "fortnight-audience-award",
+        "name": "Directors' Fortnight Audience Award",
+        "oscarCategory": "international",
+        "sortOrder": 9
+      },
+      {
+        "slug": "ecumenical-jury",
+        "name": "Prize of the Ecumenical Jury",
+        "oscarCategory": "international",
+        "sortOrder": 10
       }
     ]
   },

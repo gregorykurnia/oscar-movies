@@ -11,7 +11,7 @@ describe("givesLabel", () => {
     expect(givesLabel(award("bafta"))).toBe("All four categories");
     expect(givesLabel(award("golden-globes"))).toBe("Picture, International, Animated");
     expect(givesLabel(award("sundance"))).toBe("Picture, Documentary, International");
-    expect(givesLabel(award("cannes"))).toBe("Picture");
+    expect(givesLabel(award("cannes"))).toBe("Picture, International");
   });
 });
 

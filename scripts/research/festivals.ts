@@ -4,10 +4,12 @@
 // into `data/movies/<year>.json`.
 // - The year is the festival's own calendar year (Berlin and Sundance in the winter, Cannes in May,
 //   Venice and Toronto in September), which is the film year of the Oscars that follow.
-// - Cannes, Venice and Berlin: each prize's own Wikipedia article ("Palme d'Or"), one row per year,
+// - Main prizes at Cannes, Venice and Berlin: each prize's own Wikipedia article ("Palme d'Or"), one row per year,
 //   a year with two rows is a tie (listed in `sources/festivals.json`). `festivals-check.ts` reads the
 //   year pages' prize lines as the second source.
-// - Sundance: the year page's prize lines, classified by label and heading (`lib/festival-pages.ts`);
+// - Cannes sidebar prizes and Sundance: the year page's prize lines, classified by label and heading.
+//   Use `--award cannes --offline --dry` to count Cannes sidebar prizes and list skipped lines without writing.
+// - Sundance also uses a list article:
 //   what the year page lacks (2019's Audience Awards) comes from "List of Sundance Film Festival award
 //   winners".
 // - Toronto: the year page's "Awards" table, the People's Choice Award for a film, a documentary
@@ -26,7 +28,11 @@ import type { EditionFile, ResultEntry } from "../../src/lib/data-files";
 import { checkArgs, readEnvFile } from "../lib/target";
 import { plainTitle } from "./lib/facts";
 import { createFetcher } from "./lib/fetcher";
-import { addDays, festivalLastDay, readListArticle, readPrizeLines, readSundanceListYear, readTiffYear, sundanceCategory, SUNDANCE_CATEGORIES, type PrizeLine } from "./lib/festival-pages";
+import {
+  addDays, cannesCategory, CANNES_CATEGORIES, festivalLastDay, readCannesPrizeLines, readListArticle,
+  readPrizeLines, readSundanceListYear, readTiffYear, sundanceCategory, SUNDANCE_CATEGORIES,
+  type CannesPrizeLine, type PrizeLine,
+} from "./lib/festival-pages";
 import { filmRef, newFilms, researched, researchFilms, unresolvedReport, type ResearchedFilm } from "./lib/films";
 import type { FilmLink } from "./lib/tables";
 import { findOnTmdb } from "./lib/tmdb-search";
@@ -114,6 +120,20 @@ async function listWinners(fetcher: ReturnType<typeof createFetcher>, titles: Re
   return out;
 }
 
+export function cannesWinners(html: string) {
+  const winners: Entry[] = [];
+  const skipped: CannesPrizeLine[] = [];
+  for (const line of readCannesPrizeLines(html)) {
+    const category = cannesCategory(line.heading, line.label);
+    if (category && line.films.length > 0) {
+      for (const link of line.films) winners.push({ category, link, outcome: "won" });
+    } else {
+      skipped.push(line);
+    }
+  }
+  return { winners, skipped };
+}
+
 /** Sundance's winners of a year: the year page's lines, then the list article for what it lacks. */
 export function sundanceWinners(pageLines: PrizeLine[], listLines: PrizeLine[]) {
   const byCategory = new Map<string, { film: FilmLink; source: "page" | "list" }[]>();
@@ -130,30 +150,35 @@ export function sundanceWinners(pageLines: PrizeLine[], listLines: PrizeLine[]) 
 
 async function main() {
   const argv = process.argv.slice(2);
-  checkArgs(argv, { flags: ["--refresh", "--offline"], values: ["--years", "--award"] });
+  checkArgs(argv, { flags: ["--refresh", "--offline", "--dry"], values: ["--years", "--award"] });
+  const dry = argv.includes("--dry");
+  const offline = argv.includes("--offline");
   const years = parseYears(argv);
   const wantedIndex = argv.indexOf("--award");
-  const wanted = wantedIndex >= 0 ? argv[wantedIndex + 1].split(",") : undefined;
+  const wanted = wantedIndex >= 0 ? argv[wantedIndex + 1].split(",") : dry ? ["cannes"] : undefined;
+  if (dry && wanted?.some((slug) => slug !== "cannes")) throw new Error("--dry is a Cannes sidebar prize report; use --award cannes.");
   const specs = FESTIVALS.filter((f) => !wanted || wanted.includes(f.slug));
   if (wanted) for (const w of wanted) if (!FESTIVALS.some((f) => f.slug === w)) throw new Error(`No festival "${w}" here (${FESTIVALS.map((f) => f.slug).join(", ")}).`);
   const sources = sourcesFestivalSchema.parse(JSON.parse(readFileSync(SOURCES, "utf8")));
-  const fetcher = createFetcher({ cacheDir: ".cache/wiki", refresh: argv.includes("--refresh"), offline: argv.includes("--offline") });
-  const token = readEnvFile(".env.test").TMDB_READ_TOKEN;
-  const tmdb = token ? { fetcher: createFetcher({ cacheDir: ".cache/tmdb", offline: argv.includes("--offline") }), token } : undefined;
+  const fetcher = createFetcher({ cacheDir: dry && !offline ? null : ".cache/wiki", refresh: argv.includes("--refresh"), offline });
+  const token = dry ? undefined : readEnvFile(".env.test").TMDB_READ_TOKEN;
+  const tmdb = token ? { fetcher: createFetcher({ cacheDir: ".cache/tmdb", offline }), token } : undefined;
   const today = new Date().toISOString().slice(0, 10);
   const problems: string[] = [];
   const titles: string[] = [];
+  const cannesYears = new Map<number, Entry[]>();
   const sundanceList = specs.some((s) => s.slug === "sundance") ? await fetchPage(fetcher, SUNDANCE_LIST) : undefined;
 
   for (const spec of specs) {
-    const lists = spec.lists ? await listWinners(fetcher, spec.lists) : undefined;
+    const lists = !dry && spec.lists ? await listWinners(fetcher, spec.lists) : undefined;
     for (const year of years) {
       const label = `${spec.slug} ${year}`;
       const key = `${spec.slug}/${year}`;
       const local: string[] = [];
+      if (spec.slug === "cannes") cannesYears.set(year, []);
       const writeNoData = (note: string) => {
         const edition: EditionFile = { award: spec.slug, year, status: "no_data", sourceUrls: [], note, results: [], screenings: [] };
-        writeEdition(DATA_DIR, edition);
+        if (!dry) writeEdition(DATA_DIR, edition);
         console.log(`${label}: no_data`);
       };
       if (sources.notHeld[key]) {
@@ -165,10 +190,17 @@ async function main() {
         page = await fetchPage(fetcher, spec.page(year));
       } catch (error) {
         if (!/doesn't exist/.test(String(error))) throw error;
-        if (year <= new Date().getFullYear() - 1) problems.push(`${label}: no Wikipedia page, written as no_data`);
+        if (year <= new Date().getFullYear() - 1) problems.push(`${label}: no Wikipedia page`);
         writeNoData(`The ${spec.name} festival of ${year} has not taken place yet.`);
         continue;
       }
+
+      const cannes = spec.slug === "cannes" ? cannesWinners(page.html) : undefined;
+      if (cannes) {
+        cannesYears.set(year, cannes.winners);
+        for (const line of cannes.skipped) console.log(`${label}: skipped [${line.heading}] ${line.text}`);
+      }
+      if (dry) continue;
 
       // The day the prizes were given.
       const lastDay = festivalLastDay(page.html);
@@ -189,6 +221,10 @@ async function main() {
           if (winners.length === 0) local.push(`${label}: ${category} has no row for ${year} in ${spec.lists![category]}`);
           else found.add(category);
           for (const w of winners) entries.push({ category, link: fixLink(w.film, sources), outcome: "won" });
+        }
+        for (const winner of cannes?.winners ?? []) {
+          found.add(winner.category);
+          entries.push({ ...winner, link: fixLink(winner.link, sources) });
         }
       } else if (spec.slug === "sundance") {
         const byCategory = sundanceWinners(readPrizeLines(page.html), sundanceList ? readSundanceListYear(sundanceList.html, year) : []);
@@ -241,6 +277,8 @@ async function main() {
       const rows = new Map<string, ResultEntry>();
       for (const e of kept) {
         const film = filmOf(e.link);
+        // The sidebar prizes require an IMDb match. Unresolved links are reported below.
+        if (cannes && CANNES_CATEGORIES.some((category) => e.category === category) && !(film.ok && film.imdb)) continue;
         const id = `${e.category}\u0000${film.ok ? movieKey(film) : `title:${e.link.text}`}`;
         const before = rows.get(id);
         if (!before || rank[e.outcome] > rank[before.outcome]) rows.set(id, { category: e.category, ...filmRef(film), outcome: e.outcome });
@@ -253,7 +291,9 @@ async function main() {
         if (winners !== expected) problems.push(`${label}: ${category} has ${winners} winners, expected ${expected}`);
       }
       const viaWikipedia = new Map([...films].filter(([, f]) => !viaTmdb.has(f.link.text)));
-      const movies = addMovies(DATA_DIR, year, newFilms(new Map([...viaWikipedia, ...[...viaTmdb].map(([k, v]): [string, ResearchedFilm] => [`tmdb:${k}`, v])])));
+      const newMovieFacts = newFilms(new Map([...viaWikipedia, ...[...viaTmdb].map(([k, v]): [string, ResearchedFilm] => [`tmdb:${k}`, v])]));
+      const resultQids = new Set([...rows.values()].flatMap((r) => r.wd ? [r.wd] : []));
+      const movies = addMovies(DATA_DIR, year, newMovieFacts.filter((f) => !cannes || f.imdb || resultQids.has(f.wd ?? "")));
       for (const f of [...viaWikipedia.values(), ...viaTmdb.values()]) {
         if (f.ok && !f.imdb) problems.push(`${label}: check ${f.link.text} → ${f.wd} has no IMDb ID`);
         // Only for films new to the data: the ones already filed keep their (hand-fixed) title.
@@ -286,6 +326,10 @@ async function main() {
     }
   }
 
+  if (cannesYears.size > 0) console.table([...cannesYears].map(([year, entries]) => ({
+    year,
+    ...Object.fromEntries(CANNES_CATEGORIES.map((category) => [category, entries.filter((e) => e.category === category).length])),
+  })));
   if (problems.length > 0) {
     console.log(`\n${problems.length} to look at:`);
     for (const p of problems) console.log(`- ${p}`);

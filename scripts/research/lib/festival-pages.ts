@@ -1,14 +1,13 @@
 // Reads the festivals' prizes out of Wikipedia's parsed HTML (task 2.4, `scripts/research/festivals.ts`).
 // - The list articles of Cannes, Venice and Berlin ("Palme d'Or": a table per decade, one row per year).
 // - A festival year page's prize lines ("Palme d'Or: Anora by Sean Baker"): the second source those winners
-//   are checked against, and Sundance's only source (its pages differ from year to year, so each line is
-//   classified by its label and the heading above it).
+//   are checked against, and the source for Cannes' sidebar prizes and Sundance's prizes.
 // - TIFF's "Awards" table: one row per prize, the runners-up after the winner.
 // Everything here only reads a page; a line it can't place is left out of the result and found by the
 // script's own checks (a category with no winner is reported, never guessed).
 import * as cheerio from "cheerio";
-import type { Element } from "domhandler";
-import { clean, filmOf, ownContent, readWikitables, type FilmLink } from "./tables";
+import type { AnyNode, Element } from "domhandler";
+import { clean, filmOf, filmsOf, ownContent, readWikitables, type FilmLink } from "./tables";
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const iso = (y: number, m: number, d: number) => `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
@@ -95,7 +94,7 @@ function awardsSection($: cheerio.CheerioAPI, names: RegExp): cheerio.Cheerio<El
   if (!heading) return null;
   const level = /mw-heading(\d)/.exec($(heading).attr("class") ?? "")?.[1] ?? "2";
   const stop = Array.from({ length: Number(level) }, (_, i) => `.mw-heading${i + 1}`).join(", ");
-  return $("<div></div>").append($(heading).nextUntil(stop).clone()).children() as unknown as cheerio.Cheerio<Element>;
+  return $(heading).nextUntil(stop);
 }
 
 /** Splits "Palme d'Or: Anora by Sean Baker", "U.S. Dramatic – In the Summers (A. L.)" and the like into label and rest. */
@@ -105,31 +104,125 @@ export function splitLine(text: string): { label: string; rest: string } | null 
   return one ? { label: one[1], rest: one[2] } : null;
 }
 
-/**
- * Every list item and paragraph of the awards section as a prize line. Prose ("The winner of the U.S. Grand
- * Jury Prize: Dramatic Award was Clemency") is turned into the same shape.
- */
-export function readPrizeLines(html: string, names = /^(Official awards|Awards?)$/i): PrizeLine[] {
+const OFFICIAL_AWARDS = /^(Official awards|Awards?)$/i;
+
+function* prizeItems($: cheerio.CheerioAPI, section: cheerio.Cheerio<AnyNode>) {
+  for (const el of section.find("li, p").add(section.filter("p")).toArray()) {
+    const node = $(el);
+    if (node.parents("table").length > 0 && node.closest("li").length === 0) continue;
+    const own = ownContent($, el);
+    const text = clean(own.text());
+    if (!text || text.startsWith("^")) continue;
+    yield { el, own, text };
+  }
+}
+
+function prizeHeading(node: cheerio.Cheerio<AnyNode>, list: cheerio.Cheerio<AnyNode>) {
+  return clean((list.length > 0 ? list : node).prevAll(".mw-heading").first().find("h2, h3, h4, h5").first().text());
+}
+
+/** Every labelled list item and paragraph of the awards section, including Sundance's prose prize lines. */
+export function readPrizeLines(html: string, names = OFFICIAL_AWARDS): PrizeLine[] {
   const $ = cheerio.load(html);
   $("sup.reference, style").remove();
   const section = awardsSection($, names);
   if (!section) return [];
   const lines: PrizeLine[] = [];
   const wrap = $("<div></div>").append(section.clone());
-  wrap.find("li, p").each((_, el) => {
-    if ($(el).parents("table").length > 0 && $(el).closest("li").length === 0) return;
-    const own = ownContent($, el as Element);
-    const text = clean(own.text());
-    if (!text || text.startsWith("^")) return;
+  for (const { el, own, text } of prizeItems($, wrap)) {
     const prose = text.match(/^The winner of the (.+?)(?: Award)? was (.+)$/);
     const split = prose ? { label: prose[1], rest: prose[2] } : splitLine(text);
-    if (!split) return;
-    const list = $(el).closest("ul, ol");
-    const heading = clean(
-      (list.length > 0 ? list : $(el)).prevAll(".mw-heading").first().find("h2, h3, h4").first().text(),
-    );
+    if (!split) continue;
+    const node = $(el);
+    const heading = prizeHeading(node, node.closest("ul, ol"));
     lines.push({ heading, label: clean(split.label), film: filmOf($, own), text });
-  });
+  }
+  return lines;
+}
+
+export const CANNES_CATEGORIES = [
+  "ucr-prize",
+  "ucr-jury-prize",
+  "fipresci-competition",
+  "fipresci-ucr",
+  "critics-week-grand-prize",
+  "fortnight-audience-award",
+  "ecumenical-jury",
+] as const;
+
+type CannesCategory = (typeof CANNES_CATEGORIES)[number];
+const FIPRESCI = "fipresci prize";
+const CANNES_LABELS = new Map<string, Record<string, CannesCategory>>([
+  ["un certain regard", {
+    "prix un certain regard": "ucr-prize",
+    "un certain regard award": "ucr-prize",
+    "un certain regard prize": "ucr-prize",
+    "jury prize": "ucr-jury-prize",
+    "un certain regard jury prize": "ucr-jury-prize",
+    "un certain regard special jury prize": "ucr-jury-prize",
+  }],
+  [FIPRESCI, {
+    "in competition": "fipresci-competition",
+    "un certain regard": "fipresci-ucr",
+  }],
+  ["critics' week", {
+    "grand prix nespresso": "critics-week-grand-prize",
+    "nespresso grand prize": "critics-week-grand-prize",
+    "grand prize": "critics-week-grand-prize",
+    "grand prix": "critics-week-grand-prize",
+  }],
+  ["directors' fortnight", { "audience award": "fortnight-audience-award" }],
+  ["prize of the ecumenical jury", {
+    "": "ecumenical-jury",
+    "prix du jury œcuménique": "ecumenical-jury",
+  }],
+]);
+
+const cannesKey = (text: string) => clean(text).toLowerCase().replaceAll("’", "'");
+const cannesHeading = (heading: string) => cannesKey(heading).replace(/^fipresci prizes$/, FIPRESCI);
+
+/** Classifies a Cannes sidebar prize using both the heading and the label. */
+export function cannesCategory(heading: string, label: string): CannesCategory | null {
+  const labels = CANNES_LABELS.get(cannesHeading(heading));
+  const key = cannesKey(label);
+  return labels && Object.hasOwn(labels, key) ? labels[key] : null;
+}
+
+export type CannesPrizeLine = Omit<PrizeLine, "film"> & { films: FilmLink[] };
+
+/** Reads the official and independent award sections, including lines without a leading label. */
+export function readCannesPrizeLines(html: string): CannesPrizeLine[] {
+  const $ = cheerio.load(html);
+  $("sup.reference, style").remove();
+  const official = awardsSection($, OFFICIAL_AWARDS);
+  const independent = awardsSection($, /^Independent awards$/i);
+  const section = official && independent ? official.add(independent) : official ?? independent;
+  if (!section) return [];
+
+  const groupLabels = new Map<Element, string>();
+  const lines: CannesPrizeLine[] = [];
+  for (const { el, own, text } of prizeItems($, section)) {
+    const node = $(el);
+    const heading = prizeHeading(node, node.parents("ul, ol").last());
+    const key = cannesHeading(heading);
+    if (!CANNES_LABELS.has(key)) continue;
+
+    const firstItalic = own.find("i").first();
+    const italicText = clean(firstItalic.text());
+    const prefix = text.match(/^(.+?)(?::|\s[–—-]\s)/)?.[1].trim() ?? "";
+    const boldText = clean(firstItalic.closest("b, strong").text());
+    const italicLabel = prefix !== "" && (prefix === italicText || prefix === boldText) && cannesCategory(heading, prefix) !== null;
+    const startsWithFilm = italicText !== "" && text.startsWith(italicText) && !italicLabel;
+    // The older FIPRESCI lists put the section in parentheses after the director.
+    const suffix = key === FIPRESCI ? text.match(/\s\(([^()]*)\)$/)?.[1] ?? "" : "";
+    const parent = node.parents("li").first()[0];
+    const fallback = parent ? groupLabels.get(parent) ?? text : startsWithFilm ? "" : text;
+    const label = (startsWithFilm ? suffix : prefix) || fallback;
+    if (italicLabel) firstItalic.remove();
+    const films = filmsOf($, own);
+    if (label && films.length === 0 && node.children("ul, ol").length > 0) groupLabels.set(el, label);
+    lines.push({ heading, label, films, text });
+  }
   return lines;
 }
 
