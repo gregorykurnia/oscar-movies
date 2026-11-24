@@ -66,3 +66,35 @@ The initial test dry run planned 121 inserts (7 categories, 27 films and 87 resu
 - The test branch committed all 121 inserts in one transaction and recomputed 301 accuracy categories and 2,369 prediction rows. The test cache revalidation endpoint returned HTTP 404 after the commit.
 - The second `npm run load -- --target test --dry-run` planned zero writes. `npm run race:check -- --target test` confirmed the test branch matches the files.
 - Comparing the pre-load race calculation to the stored post-load predictions found zero added or dropped contender rows. The existing International race narrows the field to Oscar lists as they become available. The current season already has submissions.
+
+## 13.3 · International race eligibility
+
+The race and accuracy exclude films tagged English unless the Academy confirmed them as eligible or advanced them further. A submission alone is provisional. The language field can label multilingual films English, as it does for *The Zone of Interest*, the 2023 International winner. Award results and submission records remain the source for their own pages.
+
+`npm run compute -- --target test` recomputed 301 accuracy categories and 2,364 prediction rows. Comparing stored snapshots before and after gives the following removals.
+
+| Film years | Snapshot | International contenders removed |
+| --- | --- | --- |
+| 2012–2025 | All stored snapshots | None |
+| 2026 | Live | Fjord, Hanging by a Wire, Mabanda, Mārama, Nina Roza |
+
+All 17,564 award results matched their pre-recompute checksum. Non-International prediction values and accuracy figures matched exactly. *How to Have Sex* already had no row in the stored 2023 International snapshots. The unit test exercises the race before Oscar lists narrow the field and checks that its UCR win does not add it as a contender.
+
+The existing shortlist rule already excluded these films from the stored accuracy ratios. The displayed count of finished years with eligible results changed for six categories.
+
+| Award category | Before | After |
+| --- | ---: | ---: |
+| `african-american-critics/international` | 10 | 9 |
+| `cannes/ecumenical-jury` | 13 | 12 |
+| `cannes/fipresci-ucr` | 13 | 11 |
+| `cannes/ucr-prize` | 13 | 12 |
+| `new-york-online/international` | 14 | 13 |
+| `sundance/world-dramatic-jury` | 14 | 11 |
+
+The standalone recompute uses one repeatable snapshot. A forced failure after the accuracy write rolled back both tables. An overlapping recompute with an older snapshot failed with SQLSTATE 40001 and preserved the newer rows. Retrying produced identical figures, contender keys and year coverage.
+
+The Phase 8 International engine backtest expects 38 of 55. The loaded data scores 37 of 55 with the filter disabled and with it enabled, with the same hits in each year.
+
+Typecheck, ESLint, all 1,319 unit tests and the eligibility database test passed. Turbopack hit `Operation not permitted (os error 1)` binding its worker port. The Webpack build completed with the test environment.
+
+The test app returned HTTP 404 for cache revalidation after the transaction committed. Verification read the saved test database rows directly.

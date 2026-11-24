@@ -12,6 +12,7 @@ import {
   type AccuracyEdition,
   type OscarEdition,
 } from "../../src/lib/accuracy";
+import { internationalExclusions } from "../../src/lib/international-eligibility";
 import { patternChances, patternSeasons, type PatternCategory, type PatternSeason } from "../../src/lib/patterns";
 import { buildSeasons, eve, predictCategory, type OscarCategory, type Season, type Snapshot } from "../../src/lib/predict";
 import { NOMINATION_METHOD } from "../../src/lib/predict/method";
@@ -22,24 +23,17 @@ type Db = Pick<ScriptDb, "select" | "insert" | "delete"> | Tx;
 
 type ResultRow = { editionId: number; categoryId: number; movieId: number; outcome: Outcome };
 
-/**
- * Recomputes the accuracy of every non-Oscar category from the whole database and replaces
- * the `accuracy` table (a few dozen rows, so every season, not just the loaded ones). `today`
- * (`YYYY-MM-DD`) decides which Oscar seasons are over. Returns a line to print.
- */
-export async function recomputeAccuracy(db: Db, today: string): Promise<string> {
-  const awardRows = await db.select().from(awards);
-  const categoryRows = await db.select().from(awardCategories);
-  const editionRows = await db.select().from(editions);
-  const resultRows: ResultRow[] = await db
-    .select({ editionId: results.editionId, categoryId: results.categoryId, movieId: results.movieId, outcome: results.outcome })
-    .from(results);
-
+/** The stored figures for each precursor category, across every finished season. */
+export function computeAccuracyRows(tables: Tables, today: string): Array<typeof accuracy.$inferInsert> {
+  const { awardRows, categoryRows, editionRows, resultRows } = tables;
   const oscarsAward = awardRows.find((a) => a.kind === "oscars");
   if (!oscarsAward) throw new Error("No Oscars award in the database, so no accuracy can be worked out.");
 
+  const excluded = internationalExclusions(tables);
+  const international = new Set(categoryRows.filter((c) => c.oscarCategory === "international").map((c) => c.id));
   const byEditionCategory = new Map<string, ResultRow[]>();
   for (const r of resultRows) {
+    if (international.has(r.categoryId) && excluded.has(r.movieId)) continue;
     const key = `${r.editionId}/${r.categoryId}`;
     byEditionCategory.set(key, [...(byEditionCategory.get(key) ?? []), r]);
   }
@@ -73,7 +67,7 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
     });
   }
 
-  const rows = categoryRows.flatMap((c) => {
+  return categoryRows.flatMap((c) => {
     const award = awardRows.find((a) => a.id === c.awardId);
     const oscar = oscarSide.get(c.oscarCategory);
     if (!award || award.kind === "oscars" || !oscar) return [];
@@ -104,7 +98,11 @@ export async function recomputeAccuracy(db: Db, today: string): Promise<string> 
       },
     ];
   });
+}
 
+/** Replaces the stored accuracy figures with a fresh calculation from the database. */
+export async function recomputeAccuracy(db: Db, today: string): Promise<string> {
+  const rows = computeAccuracyRows(await readPredictionTables(db), today);
   await db.delete(accuracy);
   if (rows.length > 0) await db.insert(accuracy).values(rows);
   return `Accuracy: ${rows.length} categories recomputed.`;
@@ -118,8 +116,8 @@ export type Tables = {
   categoryRows: Array<typeof awardCategories.$inferSelect>;
   editionRows: Array<typeof editions.$inferSelect>;
   resultRows: Array<ResultRow & { id?: number }>;
-  /** Titles and countries, for the nomination patterns (a film missing here: no countries). */
-  movieRows?: Array<{ id: number; title: string; countries: string[] | null }>;
+  /** Language for International eligibility, plus titles and countries for nomination patterns. */
+  movieRows?: Array<{ id: number; title: string; countries: string[] | null; language: string | null }>;
 };
 
 export { buildSeasons };
@@ -151,7 +149,7 @@ export async function readPredictionTables(db: Db): Promise<Tables> {
         outcome: results.outcome,
       })
       .from(results),
-    movieRows: await db.select({ id: movies.id, title: movies.title, countries: movies.countries }).from(movies),
+    movieRows: await db.select({ id: movies.id, title: movies.title, countries: movies.countries, language: movies.language }).from(movies),
   };
 }
 

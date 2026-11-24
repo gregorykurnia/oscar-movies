@@ -43,6 +43,27 @@ const films = [
 ];
 
 describe("tablesAfterPlan", () => {
+  it("matches the loader's language metadata for new, corrected and cleared film languages", () => {
+    const before = tables();
+    before.movieRows = [
+      { id: 1, title: "One", countries: [], language: null },
+      { id: 2, title: "Two", countries: [], language: "en" },
+      { id: 3, title: "Three", countries: [], language: "fr" },
+    ];
+    const plan = emptyPlan();
+    plan.movies.inserts.push({ key: "tt0000004", slug: "four", title: "Four", year: 2026, countries: ["GB"], language: "en" });
+    plan.movies.updates.push(
+      { id: 1, label: "One", set: { language: "en" }, changes: [] },
+      { id: 2, label: "Two", set: { language: null }, changes: [] },
+      { id: 3, label: "Three", set: { title: "Updated title" }, changes: [] },
+    );
+
+    expect(tablesAfterPlan(before, plan, films).tables.movieRows?.map((r) => [r.id, r.language])).toEqual([
+      [1, "en"], [2, null], [3, "fr"], [-1, "en"],
+    ]);
+    expect(before.movieRows.map((r) => r.language)).toEqual([null, "en", "fr"]);
+  });
+
   it("applies changed, removed and new results, a new film among them, without touching the input", () => {
     const plan = emptyPlan();
     plan.results.updates.push(

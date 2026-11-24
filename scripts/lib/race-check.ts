@@ -60,7 +60,7 @@ export function tablesAfterPlan(
     const id = nextId--;
     movieIdOf.set(m.key, id);
     allFilms.push({ id, title: m.title, imdbId: m.imdbId ?? null, wikidataId: m.wikidataId ?? null });
-    movieRows.push({ id, title: m.title, countries: m.countries ?? null });
+    movieRows.push({ id, title: m.title, countries: m.countries ?? null, language: m.language ?? null });
   }
   for (const u of plan.movies.updates) {
     if (u.set.imdbId) movieIdOf.set(u.set.imdbId, u.id);
@@ -70,6 +70,7 @@ export function tablesAfterPlan(
     const row = movieRows.find((f) => f.id === u.id);
     if (row && u.set.title) row.title = u.set.title;
     if (row && u.set.countries) row.countries = u.set.countries;
+    if (row && u.set.language !== undefined) row.language = u.set.language;
   }
 
   const deleted = new Set(plan.results.deletes.map((d) => d.id));

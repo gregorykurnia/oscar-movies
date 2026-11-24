@@ -1,11 +1,14 @@
 // The accuracy page's rows (task 2.8) against the seeded `test` data: every award that maps to
 // Best Picture with its stored figures, the finished seasons, and the dashes.
-import { and, eq } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
+import { and, eq, TransactionRollbackError } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { createScriptDb } from "../../src/db";
 import { queryAccuracy } from "../../src/data/accuracy";
-import { awardCategories, awards, editions, results } from "../../src/db/schema";
+import { awardCategories, awards, editions, movies, results } from "../../src/db/schema";
 import { queryBacktest } from "../../src/data/backtest";
+import { queryPatternSeasons } from "../../src/data/patterns";
+import { queryPrecursorAwardCount } from "../../src/data/predictions";
 
 const { db, close } = createScriptDb();
 afterAll(() => close());
@@ -87,6 +90,48 @@ describe("the shortlist rule (task 8.1)", () => {
     // The years still count every season with results.
     expect(efa.years).toBe(winners.length);
   });
+});
+
+it("agrees on International eligibility across year coverage, precursor counts and pattern seasons", async () => {
+  const year = 2023;
+  const today = "2024-03-11";
+  await expect(db.transaction(async (tx) => {
+    const before = await queryPrecursorAwardCount(tx, year, "international");
+    const [oscar] = await tx
+      .select({ editionId: editions.id, categoryId: awardCategories.id })
+      .from(editions)
+      .innerJoin(awards, eq(awards.id, editions.awardId))
+      .innerJoin(awardCategories, eq(awardCategories.awardId, awards.id))
+      .where(and(eq(awards.slug, "oscars"), eq(editions.year, year), eq(awardCategories.oscarCategory, "international")));
+
+    const slug = "test-english-international";
+    const [award] = await tx.insert(awards).values({
+      slug, name: "Language rule test festival", shortName: "Language test", kind: "festival", calendarOrder: 99,
+    }).returning();
+    const [category] = await tx.insert(awardCategories).values({
+      awardId: award.id, slug: "prize", name: "Prize", oscarCategory: "international",
+    }).returning();
+    const [edition] = await tx.insert(editions).values({ awardId: award.id, year, status: "loaded" }).returning();
+    const [movie] = await tx.insert(movies).values({
+      slug, title: "Language rule test film", year, language: " EN-GB ", countries: ["GB"], localId: randomUUID(),
+    }).returning();
+    await tx.insert(results).values({ editionId: edition.id, categoryId: category.id, movieId: movie.id, outcome: "won" });
+    const [submission] = await tx.insert(results).values({
+      ...oscar, movieId: movie.id, outcome: "submitted", country: "GB",
+    }).returning();
+
+    const check = async (included: boolean) => {
+      const { rows } = await queryAccuracy(tx, "international", today);
+      expect(rows.find((r) => r.key === `${slug}/prize`)?.years).toBe(Number(included));
+      expect(await queryPrecursorAwardCount(tx, year, "international")).toBe(before + Number(included));
+      const { seasons } = await queryPatternSeasons(tx, "international", today);
+      expect(seasons.find((s) => s.year === year)!.films.some((f) => f.movie === movie.id)).toBe(included);
+    };
+    await check(false);
+    await tx.update(results).set({ outcome: "eligible" }).where(eq(results.id, submission.id));
+    await check(true);
+    tx.rollback();
+  })).rejects.toBeInstanceOf(TransactionRollbackError);
 });
 
 describe("queryBacktest", () => {

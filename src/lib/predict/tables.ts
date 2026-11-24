@@ -1,6 +1,7 @@
 // The engine's seasons from the database's rows (IMPLEMENTATION_PLAN.md §5.3). Pure: the scripts
 // (`scripts/lib/compute.ts`) and the app (`src/data/patterns.ts`) read the rows and call this.
 import { finishedYears } from "../accuracy";
+import { internationalExclusions } from "../international-eligibility";
 import { isNomination, type Outcome } from "../stage";
 import { nominationSlots } from "./season";
 import type { OscarCategory, PrecursorResult, Season, SeasonFilm } from "./types";
@@ -19,6 +20,7 @@ export type SeasonTables = {
     winnersOn: string | null;
   }>;
   resultRows: ReadonlyArray<{ editionId: number; categoryId: number; movieId: number; outcome: Outcome }>;
+  movieRows?: ReadonlyArray<{ id: number; language: string | null }>;
 };
 
 /**
@@ -38,12 +40,14 @@ export function buildSeasons(t: SeasonTables, category: OscarCategory, today: st
   );
   const editionById = new Map(t.editionRows.map((e) => [e.id, e]));
   const oscarEditions = t.editionRows.filter((e) => e.awardId === oscarsAward.id);
+  const excluded = category === "international" ? internationalExclusions(t) : null;
+  const resultRows = excluded?.size ? t.resultRows.filter((r) => !excluded.has(r.movieId)) : t.resultRows;
   const finished = finishedYears(
     oscarEditions.map((e) => ({
       year: e.year,
       status: e.status,
       winnersOn: e.winnersOn,
-      results: t.resultRows
+      results: resultRows
         .filter((r) => r.editionId === e.id && r.categoryId === oscarCategory?.id)
         .map((r) => ({ movie: r.movieId, outcome: r.outcome })),
     })),
@@ -58,7 +62,7 @@ export function buildSeasons(t: SeasonTables, category: OscarCategory, today: st
         if (!f) films.set(movie, (f = { results: [], oscar: null }));
         return f;
       };
-      for (const r of t.resultRows) {
+      for (const r of resultRows) {
         const edition = editionById.get(r.editionId);
         if (!edition || edition.year !== oscars.year) continue;
         if (edition.id === oscars.id) {

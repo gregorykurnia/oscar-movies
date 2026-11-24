@@ -5,11 +5,12 @@
 import { and, asc, eq, ne } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import { getDb } from "@/db";
-import { accuracy, awardCategories, awards, editions, results } from "@/db/schema";
+import { accuracy, awardCategories, awards, editions, movies, results } from "@/db/schema";
 import { finishedYears } from "@/lib/accuracy";
 import { rowNote, type AccuracyRow } from "@/lib/accuracy-page";
 import type { AwardKind } from "@/lib/awards";
 import type { ReadDb } from "./films";
+import { internationalRaceEligibility } from "./international-eligibility";
 import type { OscarCategory } from "./oscars";
 
 export type AccuracyData = {
@@ -78,7 +79,8 @@ export async function queryAccuracy(db: ReadDb, category: OscarCategory, today: 
     .from(results)
     .innerJoin(editions, eq(editions.id, results.editionId))
     .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
-    .where(eq(awardCategories.oscarCategory, category))
+    .innerJoin(movies, eq(movies.id, results.movieId))
+    .where(and(eq(awardCategories.oscarCategory, category), internationalRaceEligibility(category)))
     .groupBy(results.categoryId, editions.year, editions.status);
   const yearsOf = (categoryId: number) =>
     yearRows.filter((r) => r.categoryId === categoryId && r.status !== "no_data" && finished.has(r.year)).length;

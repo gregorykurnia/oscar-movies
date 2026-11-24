@@ -9,6 +9,7 @@ import { awardCategories, awards, editions, movies, predictions, results } from 
 import type { Why } from "@/lib/predict/types";
 import type { Chance, RaceSnapshot } from "@/lib/race-chances";
 import { filmColumns, toFilmRow, type FilmRowData, type ReadDb } from "./films";
+import { internationalRaceEligibility } from "./international-eligibility";
 import type { OscarCategory } from "./oscars";
 
 export type RacePrediction = { film: FilmRowData } & Chance;
@@ -42,7 +43,7 @@ export async function getRacePredictions(
 
 /**
  * How many precursor awards have a win or nomination in the category that film year: the
- * engine's "Early" (fewer than 3) for the live snapshot, which counts every loaded result.
+ * engine's "Early" (fewer than 3) for the live snapshot, which counts eligible loaded results.
  */
 export async function queryPrecursorAwardCount(db: ReadDb, year: number, category: OscarCategory): Promise<number> {
   const [row] = await db
@@ -51,12 +52,14 @@ export async function queryPrecursorAwardCount(db: ReadDb, year: number, categor
     .innerJoin(editions, eq(editions.id, results.editionId))
     .innerJoin(awards, eq(awards.id, editions.awardId))
     .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
+    .innerJoin(movies, eq(movies.id, results.movieId))
     .where(
       and(
         eq(editions.year, year),
         ne(awards.kind, "oscars"),
         eq(awardCategories.oscarCategory, category),
         inArray(results.outcome, ["won", "nominated", "runner_up"]),
+        internationalRaceEligibility(category),
       ),
     );
   return row?.n ?? 0;

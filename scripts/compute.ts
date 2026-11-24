@@ -20,7 +20,10 @@ async function main() {
       throw new Error(`app_meta.db_branch is ${JSON.stringify(branch)}, not "${target}". Nothing was written.`);
     }
     const today = new Date().toISOString().slice(0, 10);
-    const lines = await db.transaction(async (tx) => [await recomputeAccuracy(tx, today), await recomputePredictions(tx, today)]);
+    const lines = await db.transaction(
+      async (tx) => [await recomputeAccuracy(tx, today), await recomputePredictions(tx, today)],
+      { isolationLevel: "repeatable read" },
+    );
     console.log(lines.join("\n"));
     console.log(await revalidateAwards());
   } finally {

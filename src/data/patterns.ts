@@ -90,10 +90,10 @@ export async function queryPatternSeasons(
       .from(results)
       .innerJoin(awardCategories, eq(awardCategories.id, results.categoryId))
       .where(eq(awardCategories.oscarCategory, category)),
-    db.select(filmColumns).from(movies).innerJoin(filmIds, eq(filmIds.movieId, movies.id)),
+    db.select({ ...filmColumns, language: movies.language }).from(movies).innerJoin(filmIds, eq(filmIds.movieId, movies.id)),
   ]);
   const seasons = patternSeasons(
-    buildSeasons({ awardRows, categoryRows, editionRows, resultRows }, category, today),
+    buildSeasons({ awardRows, categoryRows, editionRows, resultRows, movieRows }, category, today),
     new Map(movieRows.map((m) => [m.id, m])),
   );
   const films: Record<number, PatternFilmLink> = {};
