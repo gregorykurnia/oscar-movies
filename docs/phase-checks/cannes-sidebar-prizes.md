@@ -149,3 +149,74 @@ The award-year view keeps “All years” together on narrow screens and balance
 The index follows the reference by showing festival months, critics’ winners dates and coverage pills for partly loaded editions. The prize links jump within a single page, so no link has a selected-tab state. The [approved looks](../approved-looks.md) record these design choices.
 
 The A Poet frames match pixel for pixel above Festivals. The shared-view captures in `screenshots/phase-13/fresh-eyes` cover BAFTA 2025, Globes 2024, DOC NYC 2025, and the empty BAFTA, Globes and PGA 2026 pages at 360, 390, 844 and 1280px. Typecheck, lint, the production build, two award-year e2e cases and all four screenshot cases passed. The full unit run passed 1,337 tests and hit the 5,000 ms timeout in one styleguide test. That test passed by itself.
+
+## 13.R · Phase 13 check
+
+### 20 results against the festivals' own sites
+
+Twenty of the 87 imported results were checked on the festivals' own sites, across every prize and 14 years. All 20 agree. Rows marked * come from festival-cannes.com page text shown in site-limited search results, because the site refuses automated page reads (HTTP 403).
+
+| Year | Prize | Film | Source wording | Source |
+|---|---|---|---|---|
+| 2012 | UCR Prize | After Lucia | Un Certain Regard Prize: “Después de Lucía” | [festival-cannes.com](https://www.festival-cannes.com/en/2012/un-certain-regard-2012-awards/)* |
+| 2013 | FIPRESCI: Competition | Blue Is the Warmest Colour | “La vie d'Adèle” among three awarded films¹ | [fipresci.org](https://fipresci.org/festival/66th-cannes-film-festival/) |
+| 2014 | UCR Jury Prize | Force Majeure | “Turist”, Un Certain Regard Jury Prize | [festival-cannes.com](https://www.festival-cannes.com/en/2014/all-the-67th-festival-de-cannes-awards/)* |
+| 2015 | FIPRESCI: UCR | Masaan | FIPRESCI Prize for a film in Un Certain Regard: “Masaan” | [fipresci.org](https://fipresci.org/news/cannes-masaan/) |
+| 2016 | Critics' Week Grand Prize | Mimosas | Nespresso Grand Prize: Mimosas | [semainedelacritique.com](https://www.semainedelacritique.com/en/edition/2016/prizes-and-awards-winners) |
+| 2017 | Ecumenical Jury | Radiance | Prize to “Hikari (Radiance)” | [cannes.juryoecumenique.org](https://cannes.juryoecumenique.org/IMG/pdf/2017/cp_prix_oecumenique_2017.pdf) |
+| 2018 | UCR Prize | Border | “Gräns (Border)”, Un Certain Regard Award | [festival-cannes.com](https://www.festival-cannes.com/en/press/press-releases/un-certain-regard-2018-prizes/)* |
+| 2021 | UCR Jury Prize | Great Freedom | “Grosse Freiheit (Great Freedom)”, Jury Prize | [festival-cannes.com](https://www.festival-cannes.com/en/press/press-releases/un-certain-regard-prizes-2021/)* |
+| 2021 | Critics' Week Grand Prize | Feathers | Nespresso Grand Prize: Feathers | [semainedelacritique.com](https://www.semainedelacritique.com/en/edition/2021/prizes-and-awards-winners) |
+| 2022 | FIPRESCI: Competition | Leila's Brothers | Competition: Leila’s Brothers | [fipresci.org](https://fipresci.org/festival/75th-cannes/) |
+| 2022 | FIPRESCI: UCR | The Blue Caftan | Un Certain Regard: The Blue Caftan | [fipresci.org](https://fipresci.org/festival/75th-cannes/) |
+| 2022 | Ecumenical Jury | Broker | Prize to “Broker (Les Bonnes Étoiles)” | [cannes.juryoecumenique.org](https://cannes.juryoecumenique.org/IMG/pdf/2022/cp_prix_oecumenique_2022_fr.pdf) |
+| 2023 | FIPRESCI: Competition | The Zone of Interest | International Competition: The Zone of Interest | [fipresci.org](https://fipresci.org/festival/cannes-2023/) |
+| 2024 | FIPRESCI: UCR | Souleymane's Story | “The Story of Souleymane” (Un Certain Regard) | [fipresci.org](https://fipresci.org/festival/cannes-2024/) |
+| 2024 | Fortnight Audience Award | Universal Language | Choix du Public: “Une langue universelle” | [quinzaine-cineastes.fr](https://www.quinzaine-cineastes.fr/fr/edition/2024) |
+| 2025 | UCR Prize | The Mysterious Gaze of the Flamingo | Un Certain Regard Prize: “La misteriosa mirada del flamenco” | [festival-cannes.com](https://www.festival-cannes.com/en/press/press-releases/un-certain-regard-winners-list-2025/)* |
+| 2025 | Critics' Week Grand Prize | A Useful Ghost | AMI Paris Grand Prize: “Pee Chai Dai Ka (A Useful Ghost)” | [semainedelacritique.com](https://www.semainedelacritique.com/en/edition/2025/prizes-and-awards-winners) |
+| 2025 | Fortnight Audience Award | The President's Cake | People's Choice 2025: The President's Cake | [quinzaine-cineastes.fr](https://www.quinzaine-cineastes.fr/en/news/choix-du-public-2025) |
+| 2026 | UCR Jury Prize | Elephants in the Fog | Jury Prize: Elephants in the Fog² | [festival-cannes.com](https://www.festival-cannes.com/en/press/press-releases/un-certain-regard-winners-list-2026/)* |
+| 2026 | Fortnight Audience Award | I See Buildings Fall Like Lightning | 2026 Choix du Public: “I See Buildings Fall Like Lightning” | [quinzaine-cineastes.fr](https://www.quinzaine-cineastes.fr/fr/actualite/choix-du-public-2026) |
+
+1. FIPRESCI's 2013 page names its three winners without sections. The other two are the Un Certain Regard film (*Manuscripts Don't Burn*) and the Fortnight film (*Blue Ruin*), so *La vie d'Adèle* holds the Competition prize.
+2. Same split as 13.2 found: the separate Special Jury Prize went to *Iron Boy*.
+
+The 2019 FIPRESCI Competition result (*It Must Be Heaven*) was the first pick but has no record on fipresci.org or a readable festival-cannes.com page, so 2022's replaced it. The fipresci.org 2024 page also confirms *The Seed of the Sacred Fig* for Competition. The festivals name some prizes differently from the app: Critics' Week's sponsor names (Nespresso, AMI Paris Grand Prize) and the Fortnight's “Choix du Public / People's Choice”. The app keeps the plain names in the brief.
+
+### Rerun
+
+`npx tsx scripts/research/festivals.ts --award cannes --years 2012-2026 --offline` made zero Wikipedia or Wikidata requests and left the tree unchanged. `npm run load -- --target test --dry-run` plans nothing, and `npm run race:check -- --target test` is clean.
+
+### International predictions before and after the load
+
+The engine ran in memory on `test`'s tables with and without the seven categories and their 87 results. Same code both times (13.3's English-language rule on).
+
+2025 final prediction (eve of the ceremony), top five unchanged in order:
+
+| Rank | Film | % to win before → after |
+|---:|---|---|
+| 1 | Sentimental Value | 51.8 → 50.8 |
+| 2 | It Was Just an Accident | 30.2 → 29.9 |
+| 3 | The Secret Agent (FIPRESCI: Competition) | 11.6 → 12.9 |
+| 4 | Sirāt | 4.8 → 4.8 |
+| 5 | The Voice of Hind Rajab | 1.6 → 1.6 |
+
+On the eve of the 2025 nominations, the same five lead in the same order. *The Secret Agent* goes from 77.5 to 78.5% to be nominated, and the other moves stay within 0.3 points. *The President's Cake* is the only 2025 contender whose explanation names a new prize.
+
+Across all seasons, the International race keeps the same 398 contender rows, with 68 rank changes. The largest single moves are 5.1 points to win and 4.4 points to be nominated.
+
+Accuracy figures the International race and accuracy page show:
+- Eve-of-ceremony favourite won: 10 of 14, unchanged (same favourite every season).
+- Oscar nominees in the top slots on the eve of the nominations: 50 of 70 → **49 of 70**. In 2016, *It's Only the End of the World* (Ecumenical Jury) moves to 5th with 45.6% to be nominated, ahead of the nominee *Land of Mine* at 45.1%.
+- The 67 existing International precursor figures are unchanged. The seven new categories add their own: UCR Prize won 0 of 1, nominated 1 of 1. UCR Jury Prize won 0 of 4, nominated 1 of 4. FIPRESCI: Competition won 3 of 7, nominated 6 of 7. FIPRESCI: UCR won 0 of 3, nominated 0 of 3. Critics' Week has no counted year. The Fortnight Audience Award won 0 of 2, nominated 0 of 2. Ecumenical Jury won 1 of 7, nominated 6 of 7.
+
+### Release before the production load
+
+The release ships 13.3–13.4's code while production still lacks the new rows. The caption unit test's three-main-prize case passes. A one-off comparison ran the screening caption code from before Phase 13 and today's code on all 1,333 lineup screenings in `data/editions`, giving each only the wins production holds (the new Cannes rows left out). All 1,333 captions are identical. Once the rows are loaded, 8 movie-page captions drop a prize the Festivals list then shows as its own row (for example, *A Poet*: “Un Certain Regard · Jury Prize” → “Un Certain Regard”). `test` was not stripped of the rows to render the pages, since the loader has no removal path and the code comparison covers the only caption reader (`AwardsSection`).
+
+### Checks and look
+
+`npm run test:e2e` passed 151 of 151 in 7.6 minutes on a fresh test build (port 3110, since another project held 3100). `npm run build` passed. The Phase 13 screenshot spec passed at 360, 390, 844 and 1280px, refreshing `screenshots/phase-13`.
+
+Look finding, fixed in 13.F1: a film's Festivals rows sort by category name after the result and year. *The Zone of Interest* lists “FIPRESCI Prize: Competition” above Cannes's Grand Prix. Before Phase 13, no film could win two Cannes prizes, so the order never showed. The row should follow the category's sort order, which the award page already uses.
