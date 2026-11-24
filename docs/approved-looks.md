@@ -1,5 +1,9 @@
 # Looks the design approves on purpose; the fresh-eyes checker is told not to report them
 
+- The awards index shows month and year for multi-day festivals and a full winners' date for critics groups, as in the §8.7 reference.
+- The awards index shows a coverage pill in place of the date for a partly loaded or missing edition, as in the §8.7 reference.
+- Award-year prize links jump to sections in one continuous list. They have no selected tab, as described in guide §8.2.
+
 - Release dates distinguish already out ("Out 3 Oct", omitting the current year) from upcoming ("12 Dec 2026"); guide §8.3.
 - Film-row scores end with the compact average and source count ("87 · 4 of 5"). The movie page labels Average and "4 of 5 scores" (guide §7).
 - The desktop release editor intentionally floats over later film rows; it does not push those rows down; guide §8.3.

@@ -23,7 +23,7 @@ test("/awards/bafta/2025 lists nominees and winners with their Oscar results", a
   // The accuracy strip: four figures with their counts.
   await expect(picture.getByText("Winner won the Oscar")).toBeVisible();
   await expect(picture.getByText("Winner was nominated")).toBeVisible();
-  await expect(picture.getByText("Nominees were nominated")).toBeVisible();
+  await expect(picture.getByText("Award nominees with Oscar nominations")).toBeVisible();
   await expect(picture.getByText("Oscar nominees it caught")).toBeVisible();
   await expect(picture.getByText(/^\d+ of \d+$/)).toHaveCount(4);
 

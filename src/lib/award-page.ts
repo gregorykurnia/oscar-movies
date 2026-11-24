@@ -18,7 +18,7 @@ function stat(figure: Figure | null, label: string): Stat {
     value: formatFigure(figure),
     of: formatFigureCount(figure),
     label,
-    meter: (figure.hits / figure.count) * 100,
+    meter: figure.hits > 0 ? (figure.hits / figure.count) * 100 : undefined,
   };
 }
 
@@ -27,7 +27,7 @@ export function accuracyStats(figures: AwardFigures | null): Stat[] {
   return [
     stat(figures?.win ?? null, "Winner won the Oscar"),
     stat(figures?.nomination ?? null, "Winner was nominated"),
-    stat(figures?.nominees ?? null, "Nominees were nominated"),
+    stat(figures?.nominees ?? null, "Award nominees with Oscar nominations"),
     stat(figures?.caught ?? null, "Oscar nominees it caught"),
   ];
 }

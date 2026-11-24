@@ -139,3 +139,13 @@ All 22 prize-bearing lines were read from the rendered lineup and checked agains
 | Critics' Week | Sleepless City | SACD Award |
 | Directors' Fortnight | The President's Cake | Caméra d'Or; Audience Award |
 | Directors' Fortnight | Wild Foxes | Europa Cinemas Label Award for Best European Film; SACD Prize for Best French Film |
+
+### Fresh-eyes follow-up
+
+The A Poet comparison now starts both frames at the Awards heading. The duplicate in the left frame is the original behavior. The current frame has one Un Certain Regard Jury Prize win and a separate screening labelled Un Certain Regard.
+
+The award-year view keeps “All years” together on narrow screens and balances the cancellation note. Zero accuracy figures keep their counts and use the section rule without an empty meter track. The third figure now reads “Award nominees with Oscar nominations”.
+
+The index follows the reference by showing festival months, critics’ winners dates and coverage pills for partly loaded editions. The prize links jump within a single page, so no link has a selected-tab state. The [approved looks](../approved-looks.md) record these design choices.
+
+The A Poet frames match pixel for pixel above Festivals. The shared-view captures in `screenshots/phase-13/fresh-eyes` cover BAFTA 2025, Globes 2024, DOC NYC 2025, and the empty BAFTA, Globes and PGA 2026 pages at 360, 390, 844 and 1280px. Typecheck, lint, the production build, two award-year e2e cases and all four screenshot cases passed. The full unit run passed 1,337 tests and hit the 5,000 ms timeout in one styleguide test. That test passed by itself.

@@ -17,9 +17,15 @@ describe("accuracyStats", () => {
     ]);
   });
 
+  it("shows a zero with its count and without an empty meter", () => {
+    const stats = accuracyStats({ win: { hits: 0, count: 2 }, nomination: { hits: 0, count: 2 }, nominees: null, caught: null });
+    expect(stats[0]).toEqual({ value: "0%", of: "0 of 2", label: "Winner won the Oscar" });
+    expect(stats[1]).toEqual({ value: "0%", of: "0 of 2", label: "Winner was nominated" });
+  });
+
   it("reads – for a winners-only award's nominee figure and for nothing counted", () => {
     const stats = accuracyStats({ win: { hits: 2, count: 4 }, nomination: { hits: 3, count: 4 }, nominees: null, caught: null });
-    expect(stats[2]).toEqual({ value: "–", label: "Nominees were nominated" });
+    expect(stats[2]).toEqual({ value: "–", label: "Award nominees with Oscar nominations" });
     expect(stats[3]).toEqual({ value: "–", label: "Oscar nominees it caught" });
     expect(accuracyStats(null).map((s) => s.value)).toEqual(["–", "–", "–", "–"]);
   });

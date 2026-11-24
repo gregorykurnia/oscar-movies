@@ -9,8 +9,19 @@ const VIEWPORTS = [
   { width: 1280, height: 900 },
 ];
 const FORTNIGHT = "Directors' Fortnight Audience Award";
+const NOMINEE_STAT = "Award nominees with Oscar nominations";
+const LOADED_AWARDS = [
+  { slug: "bafta", title: "BAFTA 2025", year: 2025, category: "Best Film" },
+  { slug: "golden-globes", title: "Globes 2024", year: 2024, category: "Best Motion Picture – Drama" },
+  { slug: "doc-nyc", title: "DOC NYC 2025", year: 2025, category: "Winner's Circle" },
+];
+const EMPTY_AWARDS = [
+  { slug: "bafta", title: "BAFTA 2026" },
+  { slug: "golden-globes", title: "Globes 2026" },
+  { slug: "pga", title: "PGA 2026" },
+];
 
-mkdirSync(OUT, { recursive: true });
+mkdirSync(`${OUT}/fresh-eyes`, { recursive: true });
 
 async function open(page: Page, path: string, heading: string) {
   expect((await page.goto(path))?.ok(), path).toBe(true);
@@ -37,6 +48,16 @@ async function showWhy(page: Page, title: string) {
   await row.getByRole("button", { name: /show why/ }).click();
   await expect(row.locator("[data-why]")).toBeVisible();
   return row;
+}
+
+function awardStats(category: Locator) {
+  return category.getByText(NOMINEE_STAT, { exact: true }).locator("xpath=../..");
+}
+
+async function checkEmptyAward(page: Page) {
+  await expect(page.getByRole("link", { name: "All years", exact: true })).toHaveCSS("white-space", "nowrap");
+  const empty = page.getByRole("heading", { name: "No data for this year" }).locator("..");
+  await expect(empty.locator("p")).toHaveCSS("text-wrap-style", "balance");
 }
 
 for (const viewport of VIEWPORTS) {
@@ -94,8 +115,7 @@ for (const viewport of VIEWPORTS) {
     await expect(poet.getByText(/Un Certain Regard Jury Prize/)).toHaveCount(1);
     await expect(poet.getByText(/Un Certain Regard · Jury Prize/)).toHaveCount(0);
     await expect(poet.locator('[data-result="selected"]').getByText(/^(?:2025 · )?Un Certain Regard$/)).toBeVisible();
-    await poet.scrollIntoViewIfNeeded();
-    await capture(page, "movie-a-poet");
+    await capture(page, "movie-a-poet", page.getByRole("region", { name: "Awards", exact: true }));
 
     await open(page, "/awards/2025", "Awards 2025");
     const festivals = page.getByRole("region", { name: "Festivals" });
@@ -132,5 +152,49 @@ for (const viewport of VIEWPORTS) {
     const elephant = await showWhy(page, "Elephants in the Fog");
     await expect(elephant.locator("[data-why]").getByText("Won Cannes Un Certain Regard Jury Prize", { exact: true })).toBeVisible();
     await capture(page, "international-2026-why", elephant);
+  });
+
+  test(`Cannes fresh-eyes fixes at ${viewport.width}px`, async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.setViewportSize(viewport);
+
+    await open(page, "/awards/cannes/2020", "Cannes 2020");
+    await checkEmptyAward(page);
+    await capture(page, "cannes-2020", undefined, viewport.width === 844);
+
+    await open(page, "/awards/cannes/2024#fortnight-audience-award", "Cannes 2024");
+    const fortnight = page.getByRole("region", { name: FORTNIGHT, exact: true });
+    const stats = awardStats(fortnight);
+    await expect(stats.getByText("0 of 2", { exact: true })).toHaveCount(2);
+    await expect(stats.locator(".bg-track")).toHaveCount(0);
+    await capture(page, "cannes-2024-fortnight", fortnight);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await capture(page, "cannes-2024-navigation");
+
+    await open(page, "/movies/a-poet#awards-h", "A Poet");
+    const festivals = page.getByRole("group", { name: "Festivals" });
+    await expect(festivals.getByText("Un Certain Regard Jury Prize", { exact: true })).toHaveCount(1);
+    await expect(festivals.getByText("Un Certain Regard", { exact: true })).toBeVisible();
+    // Match the baseline frame at the Awards heading, including the whole first award row.
+    await capture(page, "movie-a-poet", page.getByRole("region", { name: "Awards", exact: true }));
+
+    await open(page, "/awards/2025", "Awards 2025");
+    const index = page.getByRole("region", { name: "Festivals" });
+    await expect(index.getByRole("link", { name: /Cannes Film Festival/ })).toContainText("May 2025");
+    await capture(page, "awards-index-festivals", index);
+
+    for (const award of LOADED_AWARDS) {
+      await open(page, `/awards/${award.slug}/${award.year}`, award.title);
+      await expect(page.getByRole("link", { name: "All years", exact: true })).toHaveCSS("white-space", "nowrap");
+      const category = page.getByRole("region", { name: award.category, exact: true });
+      await expect(category.getByText(NOMINEE_STAT, { exact: true })).toBeVisible();
+      await capture(page, `fresh-eyes/${award.slug}-${award.year}`, viewport.width === 844 ? awardStats(category) : category);
+    }
+
+    for (const award of EMPTY_AWARDS) {
+      await open(page, `/awards/${award.slug}/2026`, award.title);
+      await checkEmptyAward(page);
+      await capture(page, `fresh-eyes/${award.slug}-2026`, undefined, true);
+    }
   });
 }

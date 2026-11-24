@@ -83,7 +83,7 @@ async function Sub({ award, year }: { award: AwardSummary; year: number }) {
         </>
       ) : null}
       {" · "}
-      <TextLink href={awardHistoryPath(award.slug)}>All years</TextLink>
+      <TextLink href={awardHistoryPath(award.slug)} className="whitespace-nowrap">All years</TextLink>
     </p>
   );
 }
@@ -110,7 +110,7 @@ async function Categories({ award, year, query }: { award: AwardSummary; year: n
   }
   if (edition.status === "no_data" || data.categories.length === 0) {
     return (
-      <EmptyState title="No data for this year" className="mt-10 md:mt-12">
+      <EmptyState title="No data for this year" className="mt-10 text-balance md:mt-12">
         {edition.note ??
           (year === LIVE_YEAR
             ? `${award.name} hasn't announced its ${year} results yet.`
