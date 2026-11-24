@@ -55,7 +55,7 @@ Light checks per task (`CLAUDE.md`). The full e2e suite runs once, in 13.R.
 
 Adds the seven categories to `awards.json` and teaches `festivals.ts` to read them from the year pages.
 - Category rows as in the table above.
-- A Cannes-only classifier (heading + label → category slug) beside `sundanceCategory`. Unit-test fixtures, copied from the cached pages: every year 2012–2026 has at least one line, and these are covered by name: "Prix Un Certain Regard", "Nespresso Grand Prize", "Grand Prix" under Critics' Week (not the main Grand Prix), "Jury Prize" under Un Certain Regard (not the main Jury Prize), "Un Certain Regard" as a label under FIPRESCI, the FIPRESCI parallel-sections line (skipped), a tie line, and an Ecumenical Jury prize line and its special mention (skipped), an unrelated prize (Caméra d'Or, skipped).
+- A Cannes-only classifier (heading + label → category slug) beside `sundanceCategory`. Unit-test fixtures, copied from the cached pages: every year 2012–2026 has at least one line, and these are covered by name: "Prix Un Certain Regard", "Nespresso Grand Prize", "Grand Prix" under Critics' Week (not the main Grand Prix), "Jury Prize" under Un Certain Regard (not the main Jury Prize), "Un Certain Regard" as a label under FIPRESCI, the FIPRESCI parallel-sections line (skipped), a tie line, and an Ecumenical Jury line (it has no label: the film sits right under the "Prize of the Ecumenical Jury" heading, as on the 2012, 2016 and 2024 pages) and its "Special Mention" or "Commendations" lines (skipped), an unrelated prize (Caméra d'Or, skipped).
 - The script prints each skipped Cannes line from the seven prizes' headings, then a count per category per year.
 
 Done when:
